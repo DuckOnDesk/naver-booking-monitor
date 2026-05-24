@@ -110,8 +110,13 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
     return None
 
 
-def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) -> list[str]:
-    """특정 날짜의 예약 가능한 시간대 목록(HH:MM)을 반환. 조회 실패 시 빈 리스트."""
+def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) -> dict:
+    """
+    특정 날짜의 슬롯 정보를 반환.
+      times   : 예약 가능한 시간대 목록 (HH:MM)
+      total   : API가 반환한 전체 슬롯 수 (예약창 오픈 여부 감지에 사용)
+      queried : API 호출 자체가 성공했는지 여부
+    """
     payload = {
         "operationName": "slot",
         "variables": {
@@ -140,15 +145,16 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         resp.raise_for_status()
         data = resp.json()
         if data.get("errors"):
-            return []
+            return {"times": [], "total": 0, "queried": False}
         slots = data["data"]["slot"]["slotList"]
-        return [
+        times = [
             s["startDateTime"][11:16]
             for s in slots
             if s.get("hasBookableSlots") and s.get("startDateTime")
         ]
+        return {"times": times, "total": len(slots), "queried": True}
     except Exception:
-        return []
+        return {"times": [], "total": 0, "queried": False}
 
 
 def _parse_dt(dt_str: str | None) -> datetime | None:
@@ -236,9 +242,15 @@ def check_all(monitors: list, ntfy_topic: str, alerted: set) -> None:
             date_str = f"{datekey[5:]}({dow})"
 
             if d["hasBookableSlots"]:
-                # 가능한 시간대 조회
-                slots = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
-                slot_str = f" [{', '.join(slots)}]" if slots else ""
+                # 시간대 조회 (예약창 오픈 여부 자동 감지에도 사용)
+                slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                slot_str = f" [{', '.join(slot_info['times'])}]" if slot_info["times"] else ""
+
+                # 명시적 오픈 시각 정보가 없을 때 슬롯 수로 예약창 열림 여부 자동 감지:
+                # 슬롯이 0개이면 아직 예약창이 생성되지 않은 것 → 미오픈으로 판단
+                if window_open and slot_info["queried"] and slot_info["total"] == 0:
+                    window_open = False
+                    window_reason = "예약창 미오픈 (자동 감지)"
 
                 if window_open:
                     body = f"{name} {date_str}{slot_str} 예약 가능! (재고:{d['stock']} / 예약:{d['bookingCount']})"
@@ -251,7 +263,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: set) -> None:
                     # 예약창 미오픈 + 자리 있음 — 별도 키로 한 번만 알림
                     # 예약창이 열리면 alert_key(pre 없는 키)가 alerted에 없으므로 즉시 재알림
                     pre_key = f"{alert_key}:pre"
-                    body = f"{name} {date_str}{slot_str} 자리 있음 (예약창 미오픈 · {window_reason}) (재고:{d['stock']} / 예약:{d['bookingCount']})"
+                    body = f"{name} {date_str}{slot_str} 자리 있음 ({window_reason}) (재고:{d['stock']} / 예약:{d['bookingCount']})"
                     print(f"[{now_str}] ⏳ {body}", flush=True)
                     if pre_key not in alerted:
                         if ntfy_topic:
@@ -284,12 +296,20 @@ def print_startup_info(active: list) -> None:
         open_src = m.get("booking_open_datetime") or result.get("sale_start_date")
         dt = _parse_dt(open_src)
 
+        # 명시적 오픈 시각이 없으면 슬롯 쿼리로 자동 감지
+        if is_open and dt is None:
+            sample_days = [d for d in result["days"] if d.get("isSaleDay")][:1]
+            if sample_days:
+                slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], sample_days[0]["dateKey"])
+                if slot_info["queried"] and slot_info["total"] == 0:
+                    is_open = False
+
         if is_open:
             status = "오픈됨 ✅"
         elif dt:
             status = f"오픈 예정 → {dt.strftime('%Y/%m/%d %H:%M')} ⏳"
         else:
-            status = "오픈 시각 정보 없음 (monitors.json에 booking_open_datetime 설정 가능)"
+            status = "미오픈 (자동 감지) ⏳" if not is_open else "오픈 시각 정보 없음"
 
         print(f"  • {name} [{dates_label}] | 예약창: {status}", flush=True)
 
