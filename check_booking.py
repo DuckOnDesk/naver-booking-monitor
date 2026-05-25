@@ -118,49 +118,98 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
       queried : API 호출 자체가 성공했는지 여부
     """
     now_kst = datetime.now(timezone(timedelta(hours=9)))
-    payload = {
-        "operationName": "slot",
-        "variables": {
-            "slotParams": {
-                "businessId": biz_id,
-                "bizItemId": item_id,
-                "businessTypeId": service_id,
-                "startDateTime": f"{target_date}T00:00:00+09:00",
-                "endDateTime": f"{target_date}T23:59:59+09:00",
-            }
-        },
-        "query": (
-            "query slot($slotParams: SlotParams) {"
-            "  slot(input: $slotParams) {"
-            "    slotList { startDateTime stock bookingCount hasBookableSlots __typename }"
-            "  __typename } }"
-        ),
-    }
-    try:
-        resp = requests.post(
-            "https://m.booking.naver.com/graphql?opName=slot",
-            json=payload,
-            headers=HEADERS,
-            timeout=15,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        if data.get("errors"):
-            return {"times": [], "total": 0, "queried": False}
-        slots = data["data"]["slot"]["slotList"]
-        # 이미 지난 시간대 제외 (startDateTime 없는 슬롯은 미래로 간주)
-        future_slots = [
+
+    def _filter(slots: list) -> dict:
+        future = [
             s for s in slots
             if not _parse_dt(s.get("startDateTime")) or _parse_dt(s["startDateTime"]) > now_kst
         ]
         times = [
             s["startDateTime"][11:16]
-            for s in future_slots
+            for s in future
             if s.get("hasBookableSlots") and s.get("startDateTime")
         ]
-        return {"times": times, "total": len(future_slots), "queried": True}
-    except Exception:
-        return {"times": [], "total": 0, "queried": False}
+        return {"times": times, "total": len(future), "queried": True}
+
+    # ① slot 전용 쿼리
+    try:
+        resp = requests.post(
+            "https://m.booking.naver.com/graphql?opName=slot",
+            json={
+                "operationName": "slot",
+                "variables": {
+                    "slotParams": {
+                        "businessId": biz_id,
+                        "bizItemId": item_id,
+                        "businessTypeId": service_id,
+                        "startDateTime": f"{target_date}T00:00:00+09:00",
+                        "endDateTime": f"{target_date}T23:59:59+09:00",
+                    }
+                },
+                "query": (
+                    "query slot($slotParams: SlotParams) {"
+                    "  slot(input: $slotParams) {"
+                    "    slotList { startDateTime stock bookingCount hasBookableSlots __typename }"
+                    "  __typename } }"
+                ),
+            },
+            headers=HEADERS,
+            timeout=15,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if not data.get("errors"):
+            return _filter(data["data"]["slot"]["slotList"])
+        print(f"  [슬롯 쿼리 오류] {data['errors']}", flush=True)
+    except Exception as exc:
+        print(f"  [슬롯 쿼리 실패] {exc}", flush=True)
+
+    # ② fallback: schedule 쿼리에서 시간 단위 summary 시도
+    try:
+        resp = requests.post(
+            GRAPHQL_URL,
+            json={
+                "operationName": "schedule",
+                "variables": {
+                    "scheduleParams": {
+                        "businessId": biz_id,
+                        "bizItemId": item_id,
+                        "businessTypeId": service_id,
+                        "startDateTime": f"{target_date}T00:00:00+09:00",
+                        "endDateTime": f"{target_date}T23:59:59+09:00",
+                        "partitionDays": 1,
+                    }
+                },
+                "query": (
+                    "query schedule($scheduleParams: ScheduleParams) {"
+                    "  schedule(input: $scheduleParams) {"
+                    "    bizItemSchedule { daily { date summary {"
+                    "      dateKey startTime endTime stock bookingCount hasBookableSlots isSaleDay __typename"
+                    "    } __typename } __typename } __typename } }"
+                ),
+            },
+            headers=HEADERS,
+            timeout=15,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if not data.get("errors"):
+            summary = data["data"]["schedule"]["bizItemSchedule"]["daily"]["summary"]
+            # dateKey에 시간 정보가 포함된 경우 (예: "2026-05-25T13:00:00+09:00")
+            slots = [
+                {
+                    "startDateTime": s.get("startTime") or s.get("dateKey"),
+                    "hasBookableSlots": s.get("hasBookableSlots"),
+                }
+                for s in summary
+                if s.get("startTime") or (s.get("dateKey") and "T" in s.get("dateKey", ""))
+            ]
+            if slots:
+                return _filter(slots)
+    except Exception as exc:
+        print(f"  [schedule fallback 실패] {exc}", flush=True)
+
+    return {"times": [], "total": 0, "queried": False}
 
 
 def _parse_dt(dt_str: str | None) -> datetime | None:
@@ -179,10 +228,14 @@ def booking_window_status(item: dict, sale_start_date: str | None, sale_end_date
     """(is_open, reason) 반환. is_open=True 이면 지금 예약 가능한 상태."""
     now = datetime.now(timezone(timedelta(hours=9)))
 
-    # monitors.json의 수동 설정이 우선
+    # monitors.json 수동 설정 (API보다 우선)
     manual_open = _parse_dt(item.get("booking_open_datetime"))
+    manual_close = _parse_dt(item.get("booking_close_datetime"))
+
     if manual_open and now < manual_open:
         return False, f"예약 오픈 전 ({manual_open.strftime('%m/%d %H:%M')} 오픈)"
+    if manual_close and now > manual_close:
+        return False, f"예약 마감 ({manual_close.strftime('%m/%d %H:%M')} 종료)"
 
     # API에서 받은 판매 기간
     api_start = _parse_dt(sale_start_date)
