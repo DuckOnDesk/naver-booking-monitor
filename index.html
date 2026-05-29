@@ -254,7 +254,9 @@ async function loadConfig() {
     cfg = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,'')))));
     render();
     setStatus(`${cfg.monitors.filter(m=>m.enabled).length}개 활성 / 전체 ${cfg.monitors.length}개`);
-    $('ntfy-topic').value = cfg.ntfy_topic || '';
+    const topic = cfg.ntfy_topic || '';
+    $('ntfy-topic').value = topic;
+    if (topic) localStorage.setItem('ntfy_topic_cache', topic);
   } catch(e) {
     setStatus(`❌ 불러오기 실패 — 설정에서 Token을 확인하세요`);
   }
@@ -426,7 +428,7 @@ async function saveSettings() {
     const data = await apiFetch();
     sha = data.sha;
     cfg = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,'')))));
-    if (ntfy) cfg.ntfy_topic = ntfy;
+    if (ntfy) { cfg.ntfy_topic = ntfy; localStorage.setItem('ntfy_topic_cache', ntfy); }
     await saveConfig('update settings');
     alert('저장됐습니다!');
     toggleSettings();
@@ -620,6 +622,8 @@ function markAllRead() {
 window.onload = () => {
   const pat = getPAT();
   if (pat) { $('pat').value = '••••••' + pat.slice(-4); patMasked = true; }
+  const cachedTopic = localStorage.getItem('ntfy_topic_cache');
+  if (cachedTopic) $('ntfy-topic').value = cachedTopic;
   const opts = makeTimeOptions();
   $('f-time-from').innerHTML = opts;
   $('f-time-to').innerHTML = opts;
