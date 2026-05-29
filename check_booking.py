@@ -390,6 +390,20 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             else:
                 alerted.pop(alert_key, None)
                 alerted.pop(f"{alert_key}:pre", None)
+                time_range = target_time_map.get(datekey)
+                if time_range is not None:
+                    slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                    if slot_info["queried"]:
+                        t_from, t_to = time_range
+                        range_slots = [
+                            s for s in slot_info.get("all_slots", [])
+                            if t_from <= s["unitStartTime"][11:16] <= t_to
+                        ]
+                        if range_slots:
+                            r_stock   = sum(s.get("unitStock",   0) for s in range_slots)
+                            r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
+                            print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
+                            continue
                 print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고:{d['stock']} / 예약:{d['bookingCount']})", flush=True)
 
 
