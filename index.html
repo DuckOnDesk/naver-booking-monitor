@@ -27,15 +27,18 @@
     /* Form elements */
     .form-group { margin-bottom: 14px; }
     label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
-    input[type=text], input[type=date], input[type=url], textarea {
+    input[type=text], input[type=date], input[type=url], textarea, select {
       width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
       padding: 11px 13px; font-size: 15px; font-family: inherit;
       outline: none; transition: border-color .2s; background: #fafafa;
     }
-    input:focus, textarea:focus { border-color: var(--green); background: #fff; }
+    select { -webkit-appearance: none; appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238c8c8c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+    input:focus, textarea:focus, select:focus { border-color: var(--green); background-color: #fff; }
     .hint { font-size: 11px; color: var(--sub); margin-top: 4px; }
     .date-row { display: flex; gap: 8px; align-items: center; }
-    .date-row input { flex: 1; }
+    .date-row input, .date-row select { flex: 1; }
     .date-row .sep { color: var(--sub); font-size: 14px; flex-shrink: 0; }
 
     /* Buttons */
@@ -199,9 +202,9 @@
         <input type="date" id="f-to">
       </div>
       <div class="date-row" style="margin-top:8px">
-        <input type="time" id="f-time-from">
+        <select id="f-time-from"></select>
         <span class="sep">~</span>
-        <input type="time" id="f-time-to">
+        <select id="f-time-to"></select>
         <button type="button" class="btn-add-period" onclick="addPeriod()">추가</button>
       </div>
       <div class="hint">시간 미입력 → 전체 시간대 추적 · 기간 미추가 → 전체 날짜 모니터링</div>
@@ -309,10 +312,28 @@ function render() {
     </div>`).join('');
 }
 
+function getDow(dateStr) {
+  const days = ['일','월','화','수','목','금','토'];
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return days[new Date(y, m - 1, d).getDay()];
+}
+
+function makeTimeOptions() {
+  const opts = ['<option value="">시간 선택</option>'];
+  for (let h = 0; h <= 24; h++) {
+    const v = `${String(h).padStart(2,'0')}:00`;
+    opts.push(`<option value="${v}">${String(h).padStart(2,'0')}시</option>`);
+  }
+  return opts.join('');
+}
+
 function fmtDates(dates) {
   if (!dates || !dates.length) return '전체 날짜';
   return parsePeriods(dates).map(p => {
-    const d = p.from === p.to ? p.from.slice(5) : `${p.from.slice(5)}~${p.to.slice(5)}`;
+    const fd = getDow(p.from), td = getDow(p.to);
+    const d = p.from === p.to
+      ? `${p.from.slice(5)}(${fd})`
+      : `${p.from.slice(5)}(${fd})~${p.to.slice(5)}(${td})`;
     const t = p.timeFrom ? (p.timeFrom === p.timeTo ? ` ${p.timeFrom}` : ` ${p.timeFrom}~${p.timeTo}`) : '';
     return d + t;
   }).join(' / ');
@@ -371,7 +392,10 @@ function renderPeriodList() {
   const el = $('period-list');
   if (!periods.length) { el.innerHTML = ''; return; }
   el.innerHTML = periods.map((p, i) => {
-    const dLabel = p.from === p.to ? p.from.slice(5) : `${p.from.slice(5)} ~ ${p.to.slice(5)}`;
+    const fd = getDow(p.from), td = getDow(p.to);
+    const dLabel = p.from === p.to
+      ? `${p.from.slice(5)}(${fd})`
+      : `${p.from.slice(5)}(${fd}) ~ ${p.to.slice(5)}(${td})`;
     const tLabel = p.timeFrom
       ? (p.timeFrom === p.timeTo ? ` · ${p.timeFrom}` : ` · ${p.timeFrom} ~ ${p.timeTo}`)
       : ' · 전체 시간';
@@ -596,6 +620,9 @@ function markAllRead() {
 window.onload = () => {
   const pat = getPAT();
   if (pat) { $('pat').value = '••••••' + pat.slice(-4); patMasked = true; }
+  const opts = makeTimeOptions();
+  $('f-time-from').innerHTML = opts;
+  $('f-time-to').innerHTML = opts;
   loadConfig().then(() => fetchNotifications());
 };
 </script>
