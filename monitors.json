@@ -21,6 +21,17 @@
         "2026-06-11 18:00-22:00",
         "2026-06-12 18:00-22:00"
       ]
+    },
+    {
+      "id": "mpuunfkn",
+      "name": "카사 페라리",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1659128/items/7707000?area=ple&lang=ko&startDateTime=2026-06-20T00%3A00%3A00%2B09%3A00&tab=book&theme=place",
+      "enabled": true,
+      "target_dates": [
+        "2026-06-13",
+        "2026-06-20",
+        "2026-06-21"
+      ]
     }
   ]
 }
