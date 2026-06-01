@@ -316,7 +316,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         item_id   = item.get("id", name)
         closed_key = f"{item_id}:url_closed"
 
-        if not check_booking_accessible(url):
+        is_url_closed = not check_booking_accessible(url)
+
+        if is_url_closed:
             # 닫힘 상태 기록 (기존 날짜별 알림 키 초기화, closed_key는 유지)
             item_prefix = f"{item_id}:"
             for k in list(alerted.keys()):
@@ -324,14 +326,13 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     alerted.pop(k)
             alerted[closed_key] = 1
             print(f"[{now_str}] 🔒 {name} — 예약창 닫힘 (에러 페이지로 리다이렉트)", flush=True)
-            continue
-
-        # 매 회차마다 예약창 열림 상태 로그 출력
-        if closed_key in alerted:
-            alerted.pop(closed_key)
-            print(f"[{now_str}] 🔓 {name} — 예약창 열림 (방금 전환됨)", flush=True)
         else:
-            print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
+            # 매 회차마다 예약창 열림 상태 로그 출력
+            if closed_key in alerted:
+                alerted.pop(closed_key)
+                print(f"[{now_str}] 🔓 {name} — 예약창 열림 (방금 전환됨)", flush=True)
+            else:
+                print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
         if result is None:
@@ -423,7 +424,11 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 available = r_stock - r_booking
                 avail_str = f"잔여 {available}자리"
 
-                if window_open:
+                if is_url_closed:
+                    # 예약창 닫힘 — 재고 현황만 출력, 알림 없음, alerted 미갱신
+                    time_hint = f" [{t_from}~{t_to}]" if time_range is not None else ""
+                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {avail_str} (예약창 닫힘)", flush=True)
+                elif window_open:
                     last_available = alerted.get(alert_key)  # None이면 처음 감지
                     is_more = last_available is not None and available > last_available
 
@@ -510,7 +515,7 @@ def print_startup_info(active: list) -> None:
         elif not is_open:
             status = "오픈 시각 정보 없음 (monitors.json에 booking_open_datetime 설정 가능)"
         elif not all_summary:
-            status = "⚠️ 스케줄 없음 (API에 예약 일정 없음 — 예약창 미오픈 가능성)"
+            status = "오픈됨 ✅ (월별 스케줄 없음 — 날짜별 개별 조회로 모니터링)"
         else:
             status = "오픈됨 ✅"
 
