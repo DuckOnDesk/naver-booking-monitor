@@ -432,13 +432,16 @@ def print_startup_info(active: list) -> None:
             continue
 
         try:
-            with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True, stream=True) as _r:
+            with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True) as _r:
                 final_url = _r.url
                 status_code = _r.status_code
+                body_snippet = _r.text[:800]
         except Exception:
             final_url = "(요청 실패)"
             status_code = 0
+            body_snippet = ""
         print(f"    [진단] URL 최종 도착지: {final_url[:120]} (HTTP {status_code})", flush=True)
+        print(f"    [진단] body 앞 800자: {body_snippet[:800]}", flush=True)
         if "/error/" in final_url or status_code >= 400:
             reason = f"HTTP {status_code}" if status_code >= 400 else "에러 페이지로 리다이렉트"
             print(f"  • {name} | 예약창: 닫힘 🔒 ({reason})", flush=True)
