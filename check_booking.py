@@ -434,6 +434,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
                 all_slots = slot_info.get("all_slots", [])
 
+                # 오늘 날짜이고 미래 슬롯이 없으면 건너뜀 (모든 시간대 지남)
+                if datekey == today_str and slot_info["queried"] and not all_slots:
+                    continue
+
                 if time_range is not None:
                     t_from, t_to = time_range
                     range_slots = [s for s in all_slots if t_from <= s["unitStartTime"][11:16] <= t_to]
