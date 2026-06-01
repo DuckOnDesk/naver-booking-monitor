@@ -17,7 +17,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install requests
+      - run: pip install requests playwright
+
+      - run: playwright install chromium --with-deps
 
       - name: 예약 자리 확인
         env:

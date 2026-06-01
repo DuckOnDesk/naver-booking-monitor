@@ -238,17 +238,26 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
         print(f"  [ntfy 오류] {exc}", flush=True)
 
 
-def check_booking_accessible(url: str) -> bool:
-    """예약 URL이 에러 페이지인지 확인. True = 접근 가능."""
+def _playwright_final_url(url: str) -> str:
+    """Playwright로 JS 리다이렉트까지 따라간 최종 URL 반환. 실패 시 원본 URL."""
     try:
-        with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True) as resp:
-            if "/error/" in resp.url or resp.status_code >= 400:
-                return False
-            if "error_title" in resp.text:
-                return False
-            return True
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            try:
+                page = browser.new_page()
+                page.goto(url, wait_until="load", timeout=15000)
+                page.wait_for_timeout(2000)  # JS 리다이렉트 대기
+                return page.url
+            finally:
+                browser.close()
     except Exception:
-        return True  # 네트워크 오류 시 '접근 가능'으로 처리 (오알림 방지)
+        return url
+
+
+def check_booking_accessible(url: str) -> bool:
+    """예약 URL이 에러 페이지로 JS 리다이렉트되는지 확인. True = 접근 가능."""
+    return "/error/" not in _playwright_final_url(url)
 
 
 def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
@@ -317,11 +326,33 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         if not days:
             all_summary = result.get("_all_summary") or []
             if not all_summary:
-                hint = " (API: 스케줄 없음 — 예약창 미오픈 또는 일정 미등록)"
+                hint = " (API: 스케줄 없음)"
             else:
                 all_keys = [d["dateKey"] for d in all_summary]
                 hint = f" (API반환날짜: {all_keys[:5]}{'...' if len(all_keys)>5 else ''} → 타겟 날짜와 불일치)"
             print(f"[{now_str}] — {name} 체크 완료 (판매 중인 날짜 없음){hint}", flush=True)
+            weekdays = ["월", "화", "수", "목", "금", "토", "일"]
+            for datekey in target_dates_only:
+                dow = weekdays[date.fromisoformat(datekey).weekday()]
+                date_str = f"{datekey[5:]}({dow})"
+                time_range = target_time_map.get(datekey)
+                slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                if not slot_info["queried"] or not slot_info.get("all_slots"):
+                    print(f"[{now_str}]   — {name} {date_str} 슬롯 없음", flush=True)
+                    continue
+                if time_range is not None:
+                    t_from, t_to = time_range
+                    range_slots = [s for s in slot_info["all_slots"] if t_from <= s["unitStartTime"][11:16] <= t_to]
+                    if range_slots:
+                        r_stock   = sum(s.get("unitStock",        0) for s in range_slots)
+                        r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
+                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
+                    else:
+                        print(f"[{now_str}]   — {name} {date_str} [{t_from}~{t_to}] 슬롯 없음", flush=True)
+                else:
+                    r_stock   = sum(s.get("unitStock",        0) for s in slot_info["all_slots"])
+                    r_booking = sum(s.get("unitBookingCount", 0) for s in slot_info["all_slots"])
+                    print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
             continue
 
         window_open, window_reason = booking_window_status(item, result["sale_start_date"], result["sale_end_date"])
@@ -435,26 +466,10 @@ def print_startup_info(active: list) -> None:
             print(f"  • {name}: URL 파싱 실패", flush=True)
             continue
 
-        try:
-            with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True) as _r:
-                final_url = _r.url
-                status_code = _r.status_code
-                body_text = _r.text
-        except Exception:
-            final_url = "(요청 실패)"
-            status_code = 0
-            body_text = ""
-        has_error_title = "error_title" in body_text
-        print(f"    [진단] URL 최종 도착지: {final_url[:120]} (HTTP {status_code})", flush=True)
-        print(f"    [진단] error_title 포함: {has_error_title}", flush=True)
-        if "/error/" in final_url or status_code >= 400 or has_error_title:
-            if "/error/" in final_url:
-                reason = "에러 페이지로 리다이렉트"
-            elif status_code >= 400:
-                reason = f"HTTP {status_code}"
-            else:
-                reason = "body에 error_title 감지"
-            print(f"  • {name} | 예약창: 닫힘 🔒 ({reason})", flush=True)
+        final_url = _playwright_final_url(url)
+        print(f"    [진단] URL 최종 도착지: {final_url[:120]}", flush=True)
+        if "/error/" in final_url:
+            print(f"  • {name} | 예약창: 닫힘 🔒 (에러 페이지로 리다이렉트)", flush=True)
             continue
 
         raw = m.get("target_dates", [])
