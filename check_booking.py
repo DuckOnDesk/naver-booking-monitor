@@ -352,14 +352,14 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 # 스케줄 요약 없음 → 향후 60일 fetch_slots 스캔 (service_id=6 계열)
                 print(f"[{now_str}] — {name} 전체 날짜 스캔 중...", flush=True)
                 scan_start = now_kst.date()
-                for i in range(60):
+                for i in range(30):
                     dk = (scan_start + timedelta(days=i)).isoformat()
                     si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
                     if si["queried"] and si.get("all_slots"):
                         discovered.append(dk)
 
             if not discovered:
-                print(f"[{now_str}] — {name} 판매 중인 날짜 없음 (향후 60일)", flush=True)
+                print(f"[{now_str}] — {name} 판매 중인 날짜 없음 (향후 30일)", flush=True)
                 continue
             effective_dates = discovered
         else:
