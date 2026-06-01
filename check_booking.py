@@ -344,10 +344,28 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         weekdays = ["월", "화", "수", "목", "금", "토", "일"]
 
         if not target_dates_only:
-            print(f"[{now_str}] — {name} target_dates 미설정 (monitors.json에 날짜를 지정해주세요)", flush=True)
-            continue
+            # _all_summary에서 판매 날짜 추출 (service_id=12 계열)
+            all_summary = result.get("_all_summary") or []
+            discovered = [d["dateKey"] for d in all_summary if d.get("isSaleDay")]
 
-        for datekey in target_dates_only:
+            if not discovered:
+                # 스케줄 요약 없음 → 향후 60일 fetch_slots 스캔 (service_id=6 계열)
+                print(f"[{now_str}] — {name} 전체 날짜 스캔 중...", flush=True)
+                scan_start = now_kst.date()
+                for i in range(60):
+                    dk = (scan_start + timedelta(days=i)).isoformat()
+                    si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
+                    if si["queried"] and si.get("all_slots"):
+                        discovered.append(dk)
+
+            if not discovered:
+                print(f"[{now_str}] — {name} 판매 중인 날짜 없음 (향후 60일)", flush=True)
+                continue
+            effective_dates = discovered
+        else:
+            effective_dates = target_dates_only
+
+        for datekey in effective_dates:
             dow       = weekdays[date.fromisoformat(datekey).weekday()]
             date_str  = f"{datekey[5:]}({dow})"
             alert_key = f"{item_id}:{datekey}"
