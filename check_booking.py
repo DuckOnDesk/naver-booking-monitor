@@ -339,53 +339,21 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             print(f"[{now_str}] {name} — API 실패", flush=True)
             continue
 
-        days = result["days"]
-        if not days:
-            all_summary = result.get("_all_summary") or []
-            if not all_summary:
-                hint = " (API: 스케줄 없음)"
-            else:
-                all_keys = [d["dateKey"] for d in all_summary]
-                hint = f" (API반환날짜: {all_keys[:5]}{'...' if len(all_keys)>5 else ''} → 타겟 날짜와 불일치)"
-            print(f"[{now_str}] — {name} 체크 완료 (판매 중인 날짜 없음){hint}", flush=True)
-            weekdays = ["월", "화", "수", "목", "금", "토", "일"]
-            for datekey in target_dates_only:
-                dow = weekdays[date.fromisoformat(datekey).weekday()]
-                date_str = f"{datekey[5:]}({dow})"
-                time_range = target_time_map.get(datekey)
-                slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
-                if not slot_info["queried"] or not slot_info.get("all_slots"):
-                    print(f"[{now_str}]   — {name} {date_str} 슬롯 없음", flush=True)
-                    continue
-                if time_range is not None:
-                    t_from, t_to = time_range
-                    range_slots = [s for s in slot_info["all_slots"] if t_from <= s["unitStartTime"][11:16] <= t_to]
-                    if range_slots:
-                        r_stock   = sum(s.get("unitStock",        0) for s in range_slots)
-                        r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
-                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
-                    else:
-                        print(f"[{now_str}]   — {name} {date_str} [{t_from}~{t_to}] 슬롯 없음", flush=True)
-                else:
-                    r_stock   = sum(s.get("unitStock",        0) for s in slot_info["all_slots"])
-                    r_booking = sum(s.get("unitBookingCount", 0) for s in slot_info["all_slots"])
-                    print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
-            continue
-
+        days_map = {d["dateKey"]: d for d in result["days"]}
         window_open, window_reason = booking_window_status(item, result["sale_start_date"], result["sale_end_date"])
+        weekdays = ["월", "화", "수", "목", "금", "토", "일"]
 
-        for d in days:
-            datekey = d["dateKey"]
-            alert_key = f"{item.get('id', name)}:{datekey}"
-            weekdays = ["월", "화", "수", "목", "금", "토", "일"]
-            dow = weekdays[date.fromisoformat(datekey).weekday()]
-            date_str = f"{datekey[5:]}({dow})"
+        for datekey in target_dates_only:
+            dow       = weekdays[date.fromisoformat(datekey).weekday()]
+            date_str  = f"{datekey[5:]}({dow})"
+            alert_key = f"{item_id}:{datekey}"
+            time_range = target_time_map.get(datekey)
+            d = days_map.get(datekey)  # None이면 API가 이 날짜를 반환하지 않음
 
-            if d["hasBookableSlots"]:
+            if d is not None and d["hasBookableSlots"]:
+                # ── 예약 가능 슬롯 있음 ──────────────────────────────────────
                 slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
 
-                # 시간 범위 지정된 경우 → 범위 내 슬롯만 필터링 + 범위별 재고 집계
-                time_range = target_time_map.get(datekey)  # None=전체, (t_from, t_to)=범위
                 if time_range is not None and slot_info["queried"]:
                     t_from, t_to = time_range
                     range_slots = [
@@ -395,27 +363,23 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     slot_info = {
                         **slot_info,
                         "times": [t for t in slot_info["times"] if t_from <= t <= t_to],
-                        "range_stock": sum(s.get("unitStock", 0) for s in range_slots),
+                        "range_stock":   sum(s.get("unitStock",        0) for s in range_slots),
                         "range_booking": sum(s.get("unitBookingCount", 0) for s in range_slots),
                     }
 
-                # 오늘 날짜이고 slot 쿼리 성공했는데 미래 슬롯이 하나도 없으면 스킵 (모두 지남)
                 if slot_info["queried"] and slot_info["total"] == 0 and datekey == today_str:
                     alerted.pop(alert_key, None)
                     alerted.pop(f"{alert_key}:pre", None)
                     print(f"[{now_str}] ⏭ {name} {date_str} 오늘 남은 시간대 없음 (모두 지남)", flush=True)
                     continue
 
-                # 슬롯 쿼리 성공 + 미래 슬롯 있음 + 예약 가능 슬롯 0개
-                # → API 일별 요약은 자리 있다고 하지만 실제 예약은 불가한 상태 (마감/비활성)
                 if slot_info["queried"] and slot_info["total"] > 0 and not slot_info["times"]:
                     alerted.pop(alert_key, None)
                     alerted.pop(f"{alert_key}:pre", None)
                     r_stock   = slot_info.get("range_stock",   d["stock"])
                     r_booking = slot_info.get("range_booking", d["bookingCount"])
-                    stock_str = f"재고:{r_stock} / 예약:{r_booking}"
                     time_hint = f" [{t_from}~{t_to}]" if time_range is not None else ""
-                    print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 예약 가능 자리 없음 ({stock_str})", flush=True)
+                    print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 예약 가능 자리 없음 (재고:{r_stock} / 예약:{r_booking})", flush=True)
                     continue
 
                 slot_str  = f" [{', '.join(slot_info['times'])}]" if slot_info["times"] else ""
@@ -423,57 +387,63 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 r_booking = slot_info.get("range_booking", d["bookingCount"])
                 available = r_stock - r_booking
                 avail_str = f"잔여 {available}자리"
+                time_hint = f" [{t_from}~{t_to}]" if time_range is not None else ""
 
                 if is_url_closed:
-                    # 예약창 닫힘 — 재고 현황만 출력, 알림 없음, alerted 미갱신
-                    time_hint = f" [{t_from}~{t_to}]" if time_range is not None else ""
                     print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {avail_str} (예약창 닫힘)", flush=True)
                 elif window_open:
-                    last_available = alerted.get(alert_key)  # None이면 처음 감지
+                    last_available = alerted.get(alert_key)
                     is_more = last_available is not None and available > last_available
-
                     if is_more:
                         delta = available - last_available
                         title = f"🎉 {name} 자리 추가됐어요!"
-                        body = f"{date_str}{slot_str} {avail_str} (+{delta}자리)"
+                        body  = f"{date_str}{slot_str} {avail_str} (+{delta}자리)"
                     else:
                         title = f"🎉 {name} 예약 가능!"
-                        body = f"{date_str}{slot_str} {avail_str}"
-
+                        body  = f"{date_str}{slot_str} {avail_str}"
                     print(f"[{now_str}] 🎉 {name} | {body}", flush=True)
                     if last_available is None or is_more:
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                     alerted[alert_key] = available
                 else:
-                    # 예약창 미오픈 + 자리 있음 — 별도 키로 한 번만 알림
-                    # 예약창이 열리면 alert_key(pre 없는 키)가 alerted에 없으므로 즉시 재알림
                     pre_key = f"{alert_key}:pre"
                     title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
-                    body = f"{date_str}{slot_str} {avail_str} · {window_reason}"
+                    body  = f"{date_str}{slot_str} {avail_str} · {window_reason}"
                     print(f"[{now_str}] ⏳ {name} | {body}", flush=True)
                     if pre_key not in alerted:
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                         alerted[pre_key] = 1
+
             else:
+                # ── 매진 or API 미반환 날짜 → fetch_slots로 재고 직접 조회 ──
                 alerted.pop(alert_key, None)
                 alerted.pop(f"{alert_key}:pre", None)
-                time_range = target_time_map.get(datekey)
+
+                slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                all_slots = slot_info.get("all_slots", [])
+
                 if time_range is not None:
-                    slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
-                    if slot_info["queried"]:
-                        t_from, t_to = time_range
-                        range_slots = [
-                            s for s in slot_info.get("all_slots", [])
-                            if t_from <= s["unitStartTime"][11:16] <= t_to
-                        ]
-                        if range_slots:
-                            r_stock   = sum(s.get("unitStock",   0) for s in range_slots)
-                            r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
-                            print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
-                            continue
-                print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고:{d['stock']} / 예약:{d['bookingCount']})", flush=True)
+                    t_from, t_to = time_range
+                    range_slots = [s for s in all_slots if t_from <= s["unitStartTime"][11:16] <= t_to]
+                    if range_slots:
+                        r_stock   = sum(s.get("unitStock",        0) for s in range_slots)
+                        r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
+                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
+                    elif d is not None:
+                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고:{d['stock']} / 예약:{d['bookingCount']})", flush=True)
+                    else:
+                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고 정보 없음)", flush=True)
+                else:
+                    if all_slots:
+                        r_stock   = sum(s.get("unitStock",        0) for s in all_slots)
+                        r_booking = sum(s.get("unitBookingCount", 0) for s in all_slots)
+                        print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고:{r_stock} / 예약:{r_booking})", flush=True)
+                    elif d is not None:
+                        print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고:{d['stock']} / 예약:{d['bookingCount']})", flush=True)
+                    else:
+                        print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고 정보 없음)", flush=True)
 
 
 def print_startup_info(active: list) -> None:
