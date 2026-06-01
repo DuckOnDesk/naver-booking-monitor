@@ -418,7 +418,13 @@ def print_startup_info(active: list) -> None:
             print(f"  • {name}: URL 파싱 실패", flush=True)
             continue
 
-        if not check_booking_accessible(url):
+        try:
+            with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True, stream=True) as _r:
+                final_url = _r.url
+        except Exception:
+            final_url = "(요청 실패)"
+        print(f"    [진단] URL 최종 도착지: {final_url[:120]}", flush=True)
+        if "/error/" in final_url:
             print(f"  • {name} | 예약창: 닫힘 🔒 (에러 페이지로 리다이렉트)", flush=True)
             continue
 
@@ -435,6 +441,9 @@ def print_startup_info(active: list) -> None:
         open_src = m.get("booking_open_datetime") or result.get("sale_start_date")
         dt = _parse_dt(open_src)
         all_summary = result.get("_all_summary") or []
+
+        # 진단 로그: API가 반환한 판매 기간 원본값 출력
+        print(f"    [진단] saleStartDate={result['sale_start_date']} / saleEndDate={result['sale_end_date']}", flush=True)
 
         if not is_open and dt:
             status = f"오픈 예정 → {dt.strftime('%Y/%m/%d %H:%M')} ⏳"
