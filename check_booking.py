@@ -297,13 +297,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             print(f"[{now_str}] 🔒 {name} — 예약창 닫힘 (에러 페이지로 리다이렉트)", flush=True)
             continue
 
-        # 이전에 닫혀있었다가 지금 열린 경우 → 즉시 알림
+        # 이전에 닫혀있었다가 지금 열린 경우 → 자리 여부 확인 후 알림 (아래 슬롯 체크에서 처리)
         if closed_key in alerted:
             alerted.pop(closed_key)
-            msg = "지금 바로 예약 시도하세요!"
-            print(f"[{now_str}] 🔓 {name} — 예약창 열렸어요! {msg}", flush=True)
-            if ntfy_topic:
-                send_ntfy(ntfy_topic, f"🔓 {name} 예약창 열렸어요!", msg, url)
+            print(f"[{now_str}] 🔓 {name} — 예약창 열림 감지, 자리 확인 중...", flush=True)
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
         if result is None:
