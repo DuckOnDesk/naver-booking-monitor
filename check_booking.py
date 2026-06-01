@@ -245,7 +245,23 @@ def _playwright_final_url(url: str) -> str:
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             try:
-                page = browser.new_page()
+                context = browser.new_context()
+                cookie_str = os.environ.get("NAVER_COOKIES", "").strip()
+                if cookie_str:
+                    cookies = []
+                    for part in cookie_str.split(";"):
+                        part = part.strip()
+                        if "=" in part:
+                            name, _, value = part.partition("=")
+                            cookies.append({
+                                "name": name.strip(),
+                                "value": value.strip(),
+                                "domain": ".naver.com",
+                                "path": "/",
+                            })
+                    if cookies:
+                        context.add_cookies(cookies)
+                page = context.new_page()
                 page.goto(url, wait_until="load", timeout=15000)
                 page.wait_for_timeout(2000)  # JS 리다이렉트 대기
                 return page.url

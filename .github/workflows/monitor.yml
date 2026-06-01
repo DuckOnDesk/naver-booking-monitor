@@ -25,4 +25,5 @@ jobs:
         env:
           CHECK_INTERVAL_SEC: "180"
           LOOP_HOURS: "5.5"
+          NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
         run: python -u check_booking.py
