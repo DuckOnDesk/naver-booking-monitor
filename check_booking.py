@@ -348,6 +348,16 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             date_str  = f"{datekey[5:]}({dow})"
             alert_key = f"{item_id}:{datekey}"
             time_range = target_time_map.get(datekey)
+
+            # 지난 날짜 건너뜀
+            if datekey < today_str:
+                continue
+            # 오늘 날짜 + 시간 범위가 이미 종료된 경우 건너뜀
+            if datekey == today_str and time_range is not None:
+                _, t_to = time_range
+                if now_kst.strftime("%H:%M") > t_to:
+                    continue
+
             d = days_map.get(datekey)  # None이면 API가 이 날짜를 반환하지 않음
 
             if d is not None and d["hasBookableSlots"]:
