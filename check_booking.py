@@ -284,12 +284,26 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             print(f"[{now_str}] URL 파싱 실패: {name}", flush=True)
             continue
 
+        item_id   = item.get("id", name)
+        closed_key = f"{item_id}:url_closed"
+
         if not check_booking_accessible(url):
+            # 닫힘 상태 기록 (기존 날짜별 알림 키 초기화, closed_key는 유지)
+            item_prefix = f"{item_id}:"
+            for k in list(alerted.keys()):
+                if k.startswith(item_prefix) and k != closed_key:
+                    alerted.pop(k)
+            alerted[closed_key] = 1
             print(f"[{now_str}] 🔒 {name} — 예약창 닫힘 (에러 페이지로 리다이렉트)", flush=True)
-            item_prefix = f"{item.get('id', name)}:"
-            for k in [k for k in alerted if k.startswith(item_prefix)]:
-                alerted.pop(k, None)
             continue
+
+        # 이전에 닫혀있었다가 지금 열린 경우 → 즉시 알림
+        if closed_key in alerted:
+            alerted.pop(closed_key)
+            msg = "지금 바로 예약 시도하세요!"
+            print(f"[{now_str}] 🔓 {name} — 예약창 열렸어요! {msg}", flush=True)
+            if ntfy_topic:
+                send_ntfy(ntfy_topic, f"🔓 {name} 예약창 열렸어요!", msg, url)
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
         if result is None:
@@ -478,6 +492,11 @@ def main():
     print_startup_info(active)
 
     alerted: dict[str, int] = {}  # alert_key → 마지막으로 알림 보낸 시점의 가용 자리 수
+
+    # 시작 시 닫혀있는 항목 초기화 → 나중에 열릴 때 감지할 수 있도록
+    for m in active:
+        if not check_booking_accessible(m.get("url", "")):
+            alerted[f"{m.get('id', m.get('name', ''))}:url_closed"] = 1
     end_time = time.time() + loop_hours * 3600
     iteration = 0
 
