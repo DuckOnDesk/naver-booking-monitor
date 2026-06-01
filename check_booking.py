@@ -319,17 +319,21 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         is_url_closed = not check_booking_accessible(url)
 
         if is_url_closed:
-            # 닫힘 상태 기록 (기존 날짜별 알림 키 초기화, closed_key는 유지)
+            # 닫힘 상태 기록 — :closed 알림키는 보존, 나머지 날짜 키 초기화
             item_prefix = f"{item_id}:"
             for k in list(alerted.keys()):
-                if k.startswith(item_prefix) and k != closed_key:
+                if k.startswith(item_prefix) and k != closed_key and not k.endswith(":closed"):
                     alerted.pop(k)
             alerted[closed_key] = 1
             print(f"[{now_str}] 🔒 {name} — 예약창 닫힘 (에러 페이지로 리다이렉트)", flush=True)
         else:
-            # 매 회차마다 예약창 열림 상태 로그 출력
             if closed_key in alerted:
                 alerted.pop(closed_key)
+                # 열림 전환 시 :closed 알림키도 제거 (열림 상태에서 alert_key로 재알림)
+                item_prefix = f"{item_id}:"
+                for k in list(alerted.keys()):
+                    if k.startswith(item_prefix) and k.endswith(":closed"):
+                        alerted.pop(k)
                 print(f"[{now_str}] 🔓 {name} — 예약창 열림 (방금 전환됨)", flush=True)
             else:
                 print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
@@ -422,7 +426,24 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 time_hint = f" [{t_from}~{t_to}]" if time_range is not None else ""
 
                 if is_url_closed:
-                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {avail_str} (예약창 닫힘)", flush=True)
+                    closed_alert_key = f"{alert_key}:closed"
+                    last_closed = alerted.get(closed_alert_key)
+                    is_more_closed = last_closed is not None and available > last_closed
+
+                    if available > 0 and (last_closed is None or is_more_closed):
+                        if is_more_closed:
+                            delta = available - last_closed
+                            title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
+                            body  = f"{date_str}{slot_str}{time_hint} {avail_str} (+{delta}자리)"
+                        else:
+                            title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
+                            body  = f"{date_str}{slot_str}{time_hint} {avail_str}"
+                        print(f"[{now_str}] 🔒 {name} | {body}", flush=True)
+                        if ntfy_topic:
+                            send_ntfy(ntfy_topic, title, body, url)
+                        alerted[closed_alert_key] = available
+                    else:
+                        print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {avail_str} (예약창 닫힘)", flush=True)
                 elif window_open:
                     last_available = alerted.get(alert_key)
                     is_more = last_available is not None and available > last_available
