@@ -343,7 +343,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         window_open, window_reason = booking_window_status(item, result["sale_start_date"], result["sale_end_date"])
         weekdays = ["월", "화", "수", "목", "금", "토", "일"]
 
-        for datekey in target_dates_only:
+        # target_dates 미설정 시 API 반환 전체 날짜 사용 (전체 기간/전체 시간 모니터링)
+        effective_dates = target_dates_only if target_dates_only else list(days_map.keys())
+
+        for datekey in effective_dates:
             dow       = weekdays[date.fromisoformat(datekey).weekday()]
             date_str  = f"{datekey[5:]}({dow})"
             alert_key = f"{item_id}:{datekey}"
