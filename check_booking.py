@@ -239,10 +239,14 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
 
 
 def check_booking_accessible(url: str) -> bool:
-    """예약 URL이 에러 페이지로 리다이렉트되거나 4xx/5xx 응답 시 False 반환."""
+    """예약 URL이 에러 페이지인지 확인. True = 접근 가능."""
     try:
-        with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True, stream=True) as resp:
-            return "/error/" not in resp.url and resp.status_code < 400
+        with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True) as resp:
+            if "/error/" in resp.url or resp.status_code >= 400:
+                return False
+            if "error_title" in resp.text:
+                return False
+            return True
     except Exception:
         return True  # 네트워크 오류 시 '접근 가능'으로 처리 (오알림 방지)
 
@@ -435,15 +439,21 @@ def print_startup_info(active: list) -> None:
             with requests.get(url, headers=HEADERS, timeout=10, allow_redirects=True) as _r:
                 final_url = _r.url
                 status_code = _r.status_code
-                body_snippet = _r.text[:800]
+                body_text = _r.text
         except Exception:
             final_url = "(요청 실패)"
             status_code = 0
-            body_snippet = ""
+            body_text = ""
+        has_error_title = "error_title" in body_text
         print(f"    [진단] URL 최종 도착지: {final_url[:120]} (HTTP {status_code})", flush=True)
-        print(f"    [진단] body 앞 800자: {body_snippet[:800]}", flush=True)
-        if "/error/" in final_url or status_code >= 400:
-            reason = f"HTTP {status_code}" if status_code >= 400 else "에러 페이지로 리다이렉트"
+        print(f"    [진단] error_title 포함: {has_error_title}", flush=True)
+        if "/error/" in final_url or status_code >= 400 or has_error_title:
+            if "/error/" in final_url:
+                reason = "에러 페이지로 리다이렉트"
+            elif status_code >= 400:
+                reason = f"HTTP {status_code}"
+            else:
+                reason = "body에 error_title 감지"
             print(f"  • {name} | 예약창: 닫힘 🔒 ({reason})", flush=True)
             continue
 
