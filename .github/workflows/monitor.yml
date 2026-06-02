@@ -19,7 +19,20 @@ jobs:
 
       - run: pip install requests playwright
 
-      - run: playwright install chromium --with-deps
+      - name: Playwright 캐시
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}
+
+      - name: Chromium 설치 (캐시 없을 때만)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: playwright install chromium --with-deps
+
+      - name: Chromium 시스템 의존성 (캐시 있을 때)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: playwright install-deps chromium
 
       - name: 예약 자리 확인
         env:
