@@ -334,7 +334,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 for k in list(alerted.keys()):
                     if k.startswith(item_prefix) and k.endswith(":closed"):
                         alerted.pop(k)
-                print(f"[{now_str}] 🔓 {name} — 예약창 열림 (방금 전환됨)", flush=True)
+                print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
             else:
                 print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
 
