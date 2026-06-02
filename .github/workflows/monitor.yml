@@ -23,7 +23,7 @@ jobs:
 
       - name: 예약 자리 확인
         env:
-          CHECK_INTERVAL_SEC: "180"
+          CHECK_INTERVAL_SEC: "120"
           LOOP_HOURS: "5.5"
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
         run: python -u check_booking.py
