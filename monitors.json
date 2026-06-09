@@ -43,6 +43,13 @@
         "2026-06-26",
         "2026-06-27"
       ]
+    },
+    {
+      "id": "mq6ai7rc",
+      "name": "코엑스 도브",
+      "url": "https://m.booking.naver.com/booking/13/bizes/1665573/items/7722035?area=bmp&lang=ko&service-target=map-pc&startDate=2026-06-01&theme=place",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
