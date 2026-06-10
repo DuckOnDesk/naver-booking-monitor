@@ -268,6 +268,8 @@ _CLOSED_TEXT_PATTERNS = [
 
 def _playwright_check(url: str) -> tuple[bool, str]:
     """(is_closed, reason) 반환. URL/텍스트 기반으로 예약창 닫힘 감지."""
+    item_match = re.search(r"/items/\d+", url)
+    item_path = item_match.group(0) if item_match else None
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
@@ -296,6 +298,8 @@ def _playwright_check(url: str) -> tuple[bool, str]:
                 for pat in _CLOSED_URL_PATTERNS:
                     if pat in final_url:
                         return True, f"URL 리다이렉트: {pat}"
+                if item_path and item_path not in final_url:
+                    return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈"
                 content = page.content()
                 for pat in _CLOSED_TEXT_PATTERNS:
                     if pat in content:
@@ -475,7 +479,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
                         else:
                             title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
-                        body = f"{date_str}{time_hint} " + " ".join(f"{t}[{c}]" for t, c in per_slot)
+                        body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                         alerted[closed_alert_key] = dict(per_slot)
@@ -489,9 +493,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         if prev_slots is None:
                             title = f"🎉 {name} 예약 가능!"
                         else:
-                            inc_str = ", ".join(f"{t}[+{d}]" for t, d in increased)
+                            inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
                             title = f"🎉 {name} 자리 추가됨 - {inc_str}"
-                        body = f"{date_str}{time_hint} " + " ".join(f"{t}[{c}]" for t, c in per_slot)
+                        body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                     alerted[alert_key] = dict(per_slot)
@@ -501,7 +505,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}", flush=True)
                     if pre_key not in alerted:
                         title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
-                        body = f"{date_str}{time_hint} " + " ".join(f"{t}[{c}]" for t, c in per_slot) + f"\n{window_reason}"
+                        body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot) + f"\n{window_reason}"
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                         alerted[pre_key] = 1
