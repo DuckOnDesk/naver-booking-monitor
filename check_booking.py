@@ -234,6 +234,31 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
         print(f"  [ntfy 오류] {exc}", flush=True)
 
 
+def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None) -> tuple[list[str], list[str], list[tuple[str, int]]]:
+    """슬롯별 (시간, 잔여) 목록을 로그/본문용 문자열로 변환.
+    Returns (log_parts, body_parts, increased) — increased는 이전 대비 증가한 (시간, 증가분) 목록.
+    """
+    increased = []
+    if prev_slots is not None:
+        for t, c in per_slot:
+            d = c - prev_slots.get(t, 0)
+            if d > 0:
+                increased.append((t, d))
+    inc_map = dict(increased)
+
+    log_parts = []
+    body_parts = []
+    for t, c in per_slot:
+        d = inc_map.get(t, 0)
+        if d > 0:
+            log_parts.append(f"[{t}] {c}자리(+{d})")
+            body_parts.append(f"{t}[{c}(+{d})]")
+        else:
+            log_parts.append(f"[{t}] {c}자리")
+            body_parts.append(f"{t}[{c}]")
+    return log_parts, body_parts, increased
+
+
 _CLOSED_URL_PATTERNS  = ["/error/"]
 _CLOSED_TEXT_PATTERNS = [
     "운영하지 않는 예매 페이지",
@@ -439,56 +464,47 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     for s in ref_slots
                     if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
                 ]
-                slot_detail = " ".join(f"{t}({n}자리)" for t, n in per_slot)
-                stock_info  = f"재고:{r_stock} / 예약:{r_booking}"
-                avail_str   = f"잔여 {available}자리"
+                stock_info = f"재고:{r_stock} / 예약:{r_booking}"
 
                 if is_url_closed:
                     closed_alert_key = f"{alert_key}:closed"
-                    last_closed = alerted.get(closed_alert_key)
-                    is_more_closed = last_closed is not None and available > last_closed
+                    prev_slots = alerted.get(closed_alert_key)
+                    log_parts, body_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
-                    if available > 0 and (last_closed is None or is_more_closed):
-                        if is_more_closed:
-                            delta = available - last_closed
+                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘", flush=True)
+
+                    if available > 0 and (prev_slots is None or increased):
+                        if increased:
                             title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
-                            body  = f"{date_str}{time_hint} {stock_info} | +{delta}자리\n{slot_detail}"
                         else:
                             title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
-                            body  = f"{date_str}{time_hint} {stock_info} | {avail_str}\n{slot_detail}"
-                        print(f"[{now_str}] 🔒 {name} | {date_str}{time_hint} {stock_info} | {avail_str}", flush=True)
-                        if slot_detail:
-                            print(f"         {slot_detail}", flush=True)
+                        body = f"{date_str}{time_hint} {' '.join(body_parts)}"
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
-                        alerted[closed_alert_key] = available
-                    else:
-                        print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {stock_info} | {avail_str} (예약창 닫힘)", flush=True)
+                        alerted[closed_alert_key] = dict(per_slot)
                 elif window_open:
-                    last_available = alerted.get(alert_key)
-                    is_more = last_available is not None and available > last_available
-                    if is_more:
-                        delta = available - last_available
-                        title = f"🎉 {name} 자리 추가됐어요!"
-                        body  = f"{date_str}{time_hint} {stock_info} | +{delta}자리\n{slot_detail}"
-                    else:
-                        title = f"🎉 {name} 예약 가능!"
-                        body  = f"{date_str}{time_hint} {stock_info} | {avail_str}\n{slot_detail}"
-                    print(f"[{now_str}] 🎉 {name} | {date_str}{time_hint} {stock_info} | {avail_str}", flush=True)
-                    if slot_detail:
-                        print(f"         {slot_detail}", flush=True)
-                    if last_available is None or is_more:
+                    prev_slots = alerted.get(alert_key)
+                    log_parts, _, increased = _format_slot_parts(per_slot, prev_slots)
+
+                    print(f"[{now_str}] 🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info})", flush=True)
+
+                    if prev_slots is None or increased:
+                        if prev_slots is None:
+                            title = f"🎉 {name} 예약 가능!"
+                        else:
+                            inc_str = ", ".join(f"{t}[+{d}]" for t, d in increased)
+                            title = f"🎉 {name} 자리 추가됨 - {inc_str}"
+                        body = f"{date_str}{time_hint} " + " ".join(f"{t}[{c}]" for t, c in per_slot)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
-                    alerted[alert_key] = available
+                    alerted[alert_key] = dict(per_slot)
                 else:
                     pre_key = f"{alert_key}:pre"
-                    title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
-                    body  = f"{date_str}{time_hint} {stock_info} | {avail_str} · {window_reason}\n{slot_detail}"
-                    print(f"[{now_str}] ⏳ {name} | {date_str}{time_hint} {stock_info} | {avail_str} · {window_reason}", flush=True)
-                    if slot_detail:
-                        print(f"         {slot_detail}", flush=True)
+                    log_parts, _, _ = _format_slot_parts(per_slot, None)
+                    print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}", flush=True)
                     if pre_key not in alerted:
+                        title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
+                        body = f"{date_str}{time_hint} " + " ".join(f"{t}[{c}]" for t, c in per_slot) + f"\n{window_reason}"
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                         alerted[pre_key] = 1
