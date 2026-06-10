@@ -234,9 +234,9 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
         print(f"  [ntfy 오류] {exc}", flush=True)
 
 
-def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None) -> tuple[list[str], list[str], list[tuple[str, int]]]:
-    """슬롯별 (시간, 잔여) 목록을 로그/본문용 문자열로 변환.
-    Returns (log_parts, body_parts, increased) — increased는 이전 대비 증가한 (시간, 증가분) 목록.
+def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None) -> tuple[list[str], list[tuple[str, int]]]:
+    """슬롯별 (시간, 잔여) 목록을 로그용 문자열로 변환.
+    Returns (log_parts, increased) — increased는 이전 대비 증가한 (시간, 증가분) 목록.
     """
     increased = []
     if prev_slots is not None:
@@ -247,16 +247,13 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
     inc_map = dict(increased)
 
     log_parts = []
-    body_parts = []
     for t, c in per_slot:
         d = inc_map.get(t, 0)
         if d > 0:
             log_parts.append(f"[{t}] {c}자리(+{d})")
-            body_parts.append(f"{t}[{c}(+{d})]")
         else:
             log_parts.append(f"[{t}] {c}자리")
-            body_parts.append(f"{t}[{c}]")
-    return log_parts, body_parts, increased
+    return log_parts, increased
 
 
 _CLOSED_URL_PATTERNS  = ["/error/"]
@@ -469,7 +466,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if is_url_closed:
                     closed_alert_key = f"{alert_key}:closed"
                     prev_slots = alerted.get(closed_alert_key)
-                    log_parts, body_parts, increased = _format_slot_parts(per_slot, prev_slots)
+                    log_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
                     print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘", flush=True)
 
@@ -478,13 +475,13 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
                         else:
                             title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
-                        body = f"{date_str}{time_hint} {' '.join(body_parts)}"
+                        body = f"{date_str}{time_hint} " + " ".join(f"{t}[{c}]" for t, c in per_slot)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                         alerted[closed_alert_key] = dict(per_slot)
                 elif window_open:
                     prev_slots = alerted.get(alert_key)
-                    log_parts, _, increased = _format_slot_parts(per_slot, prev_slots)
+                    log_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
                     print(f"[{now_str}] 🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info})", flush=True)
 
@@ -500,7 +497,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     alerted[alert_key] = dict(per_slot)
                 else:
                     pre_key = f"{alert_key}:pre"
-                    log_parts, _, _ = _format_slot_parts(per_slot, None)
+                    log_parts, _ = _format_slot_parts(per_slot, None)
                     print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}", flush=True)
                     if pre_key not in alerted:
                         title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
