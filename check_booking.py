@@ -529,24 +529,40 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                 if time_range is not None:
                     t_from, t_to = time_range
+                    time_hint = f" [{t_from}~{t_to}]"
                     range_slots = [s for s in all_slots if t_from <= s["unitStartTime"][11:16] <= t_to]
                     if range_slots:
                         r_stock   = sum(s.get("unitStock",        0) for s in range_slots)
                         r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
-                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] {_sold_out_label(r_stock, r_booking)}", flush=True)
                     elif d is not None:
-                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] {_sold_out_label(d['stock'], d['bookingCount'])}", flush=True)
+                        r_stock, r_booking = d["stock"], d["bookingCount"]
                     else:
-                        print(f"[{now_str}] ❌ {name} {date_str} [{t_from}~{t_to}] 매진 (재고 정보 없음)", flush=True)
+                        r_stock = r_booking = None
                 else:
+                    time_hint = ""
                     if all_slots:
                         r_stock   = sum(s.get("unitStock",        0) for s in all_slots)
                         r_booking = sum(s.get("unitBookingCount", 0) for s in all_slots)
-                        print(f"[{now_str}] ❌ {name} {date_str} {_sold_out_label(r_stock, r_booking)}", flush=True)
                     elif d is not None:
-                        print(f"[{now_str}] ❌ {name} {date_str} {_sold_out_label(d['stock'], d['bookingCount'])}", flush=True)
+                        r_stock, r_booking = d["stock"], d["bookingCount"]
                     else:
-                        print(f"[{now_str}] ❌ {name} {date_str} 매진 (재고 정보 없음)", flush=True)
+                        r_stock = r_booking = None
+
+                soldout_key = f"{alert_key}:soldout"
+                if r_stock is None:
+                    print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 매진 (재고 정보 없음)", flush=True)
+                    alerted.pop(soldout_key, None)
+                    continue
+
+                print(f"[{now_str}] ❌ {name} {date_str}{time_hint} {_sold_out_label(r_stock, r_booking)}", flush=True)
+
+                prev = alerted.get(soldout_key)
+                alerted[soldout_key] = (r_stock, r_booking)
+                if prev is not None and prev != (r_stock, r_booking):
+                    title = f"📊 {name} 예약 현황 변경"
+                    body = f"{date_str}{time_hint} 재고:{prev[0]}/예약:{prev[1]} → 재고:{r_stock}/예약:{r_booking}"
+                    if ntfy_topic:
+                        send_ntfy(ntfy_topic, title, body, url)
 
 
 def print_startup_info(active: list) -> None:
