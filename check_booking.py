@@ -558,7 +558,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                 prev = alerted.get(soldout_key)
                 alerted[soldout_key] = (r_stock, r_booking)
-                if prev is not None and prev != (r_stock, r_booking):
+                if datekey != today_str and prev is not None and prev != (r_stock, r_booking):
                     title = f"📊 {name} 예약 현황 변경"
                     body = f"{date_str}{time_hint} 재고:{prev[0]}/예약:{prev[1]} → 재고:{r_stock}/예약:{r_booking}"
                     if ntfy_topic:
