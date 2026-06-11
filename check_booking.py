@@ -548,21 +548,11 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     else:
                         r_stock = r_booking = None
 
-                soldout_key = f"{alert_key}:soldout"
                 if r_stock is None:
                     print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 매진 (재고 정보 없음)", flush=True)
-                    alerted.pop(soldout_key, None)
                     continue
 
                 print(f"[{now_str}] ❌ {name} {date_str}{time_hint} {_sold_out_label(r_stock, r_booking)}", flush=True)
-
-                prev = alerted.get(soldout_key)
-                alerted[soldout_key] = (r_stock, r_booking)
-                if datekey != today_str and prev is not None and prev != (r_stock, r_booking):
-                    title = f"📊 {name} 예약 현황 변경"
-                    body = f"{date_str}{time_hint} 재고:{prev[0]}/예약:{prev[1]} → 재고:{r_stock}/예약:{r_booking}"
-                    if ntfy_topic:
-                        send_ntfy(ntfy_topic, title, body, url)
 
 
 def print_startup_info(active: list) -> None:
