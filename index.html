@@ -44,6 +44,9 @@
     /* Buttons */
     .btn-primary { width: 100%; background: var(--green); color: #fff; border: none; border-radius: 12px; padding: 15px; font-size: 16px; font-weight: 700; cursor: pointer; }
     .btn-secondary { width: 100%; background: var(--bg); color: #555; border: none; border-radius: 12px; padding: 13px; font-size: 15px; cursor: pointer; margin-top: 8px; }
+    .sheet-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .sheet-actions .btn-secondary { flex: 1; width: auto; margin-top: 0; }
+    .sheet-actions .btn-primary { flex: 2; width: auto; }
     .btn-sm { border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 500; cursor: pointer; }
     .btn-edit { background: #f0f0f0; color: #444; }
     .btn-del  { background: #fff1f0; color: var(--red); }
@@ -218,8 +221,10 @@
       <div id="period-list" class="period-list"></div>
     </div>
 
-    <button class="btn-primary" onclick="submitMonitor()">등록</button>
-    <button class="btn-secondary" onclick="closeSheet()">취소</button>
+    <div class="sheet-actions">
+      <button class="btn-secondary" onclick="closeSheet()">취소</button>
+      <button class="btn-primary" onclick="submitMonitor()">등록</button>
+    </div>
   </div>
 </div>
 
@@ -453,13 +458,16 @@ function renderPeriodList() {
 function onQuickToggle(kind, checked) {
   periods = periods.filter(p => p.kind !== kind);
   if (checked) {
-    const from = $('f-from').value;
-    const to   = $('f-to').value || from;
+    let from = $('f-from').value;
+    let to   = $('f-to').value;
     if (!from) {
-      alert('먼저 확인 기간(날짜)을 선택하세요');
-      $(kind === 'weekend' ? 'f-quick-weekend' : 'f-quick-weekday').checked = false;
-      renderPeriodList();
-      return;
+      // 날짜를 입력하지 않았으면 오늘부터 1년간으로 자동 설정
+      from = todayStr();
+      to   = addDaysStr(from, 365);
+      $('f-from').value = from;
+      $('f-to').value   = to;
+    } else if (!to) {
+      to = from;
     }
     if (from > to) {
       alert('시작일이 종료일보다 늦습니다');
@@ -548,6 +556,15 @@ function openEdit(id) {
 
 function closeSheet() { $('overlay').classList.remove('open'); }
 function overlayClick(e) { if (e.target === $('overlay')) closeSheet(); }
+
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+function addDaysStr(dateStr, days) {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
 
 function genDates(from, to) {
   const out = [], d = new Date(from), end = new Date(to);
