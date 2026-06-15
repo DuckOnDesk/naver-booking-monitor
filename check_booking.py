@@ -12,6 +12,7 @@ monitors.json 항목 선택 필드:
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 from datetime import date, datetime, timedelta, timezone
@@ -27,6 +28,7 @@ HEADERS = {
 }
 
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Gohyedeok/naver-booking-monitor/main/monitors.json"
+SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 
 
 def load_monitors(from_github: bool = False) -> dict:
@@ -605,6 +607,62 @@ def print_startup_info(active: list) -> None:
         print(f"  • {name} [{range_label}] | 예약창: {status}", flush=True)
 
 
+def build_schedule_cache(monitors: list) -> dict:
+    """각 모니터(URL)별 팝업의 실제 판매기간/예약 가능 기간을 조회해 캐시 데이터로 정리.
+    웹앱이 raw.githubusercontent.com에서 이 파일을 읽어 등록 폼/목록에 활용한다."""
+    now_kst = datetime.now(timezone(timedelta(hours=9))).isoformat()
+    cache: dict = {}
+    for m in monitors:
+        parsed = parse_naver_url(m.get("url", ""))
+        if not parsed:
+            continue
+        key = f"{parsed['service_id']}_{parsed['biz_id']}_{parsed['item_id']}"
+        if key in cache:
+            continue
+        result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], [])
+        if result is None:
+            continue
+        all_summary = result.get("_all_summary") or []
+        discovered = sorted(d["dateKey"] for d in all_summary if d.get("isSaleDay"))
+        cache[key] = {
+            "sale_start_date": result.get("sale_start_date"),
+            "sale_end_date": result.get("sale_end_date"),
+            "available_start": discovered[0] if discovered else None,
+            "available_end": discovered[-1] if discovered else None,
+            "checked_at": now_kst,
+        }
+    return cache
+
+
+def save_schedule_cache(cache: dict) -> bool:
+    """schedule_cache.json 갱신. 내용이 바뀐 경우에만 True 반환."""
+    try:
+        old = json.loads(SCHEDULE_CACHE_FILE.read_text(encoding="utf-8")) if SCHEDULE_CACHE_FILE.exists() else {}
+    except Exception:
+        old = {}
+    if old == cache:
+        return False
+    SCHEDULE_CACHE_FILE.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return True
+
+
+def commit_schedule_cache() -> None:
+    """변경된 schedule_cache.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음)"""
+    try:
+        subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+        subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
+        subprocess.run(["git", "add", "schedule_cache.json"], check=True)
+        if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
+            return
+        subprocess.run(["git", "commit", "-m", "chore: 팝업 예약 가능 기간 캐시 갱신"], check=True)
+        subprocess.run(["git", "fetch", "origin"], check=True)
+        subprocess.run(["git", "rebase", "origin/main"], check=True)
+        subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
+        print("  → schedule_cache.json 커밋/푸시 완료", flush=True)
+    except Exception as exc:
+        print(f"[경고] schedule_cache.json 커밋 실패: {exc}", flush=True)
+
+
 def main():
     cfg = load_monitors()
     ntfy_topic = os.environ.get("NTFY_TOPIC") or cfg.get("ntfy_topic", "")
@@ -619,6 +677,10 @@ def main():
 
     print(f"=== 모니터 시작 | 주기: {interval}초 | 최대: {loop_hours}시간 ===", flush=True)
     print_startup_info(active)
+
+    cache = build_schedule_cache(monitors)
+    if save_schedule_cache(cache):
+        commit_schedule_cache()
 
     alerted: dict[str, int] = {}
 
