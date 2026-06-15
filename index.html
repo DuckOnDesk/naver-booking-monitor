@@ -461,9 +461,9 @@ function onQuickToggle(kind, checked) {
     let from = $('f-from').value;
     let to   = $('f-to').value;
     if (!from) {
-      // 날짜를 입력하지 않았으면 오늘부터 1년간으로 자동 설정
+      // 날짜를 입력하지 않았으면 오늘부터 90일간(실제 모니타링 조회 범위와 동일)으로 자동 설정
       from = todayStr();
-      to   = addDaysStr(from, 365);
+      to   = addDaysStr(from, 90);
       $('f-from').value = from;
       $('f-to').value   = to;
     } else if (!to) {
