@@ -509,8 +509,9 @@ function onQuickToggle(kind, checked) {
       // 날짜를 입력하지 않았으면 오늘부터 90일간(실제 모니터링 조회 범위와 동일)으로 자동 설정
       from = todayStr();
       to   = addDaysStr(from, 90);
-      // 캐시에 팝업의 실제 예약 가능 기간이 있으면 그 기간으로 좁힘
+      // 캐시에 팝업의 실제 운영 기간이 있으면 그 기간으로 좁힘 (시작일이 운영 시작일 이전이면 당김)
       const range = getAvailableRange($('f-url').value);
+      if (range && range.start && range.start > from) from = range.start;
       if (range && range.end && range.end >= from && range.end < to) to = range.end;
       $('f-from').value = from;
       $('f-to').value   = to;
