@@ -502,6 +502,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             send_ntfy(ntfy_topic, title, body, url)
                     alerted[alert_key] = dict(per_slot)
                 else:
+                    alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
                     log_parts, _ = _format_slot_parts(per_slot, None)
                     print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}", flush=True)
