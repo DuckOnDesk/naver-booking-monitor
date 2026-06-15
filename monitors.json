@@ -24,6 +24,13 @@
         "2026-07-04",
         "2026-07-05"
       ]
+    },
+    {
+      "id": "mqeh9385",
+      "name": "엑소코바이오",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1673124/items/7755741?theme=place&lang=ko&area=pll",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
