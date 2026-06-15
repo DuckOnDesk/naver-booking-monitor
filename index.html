@@ -373,8 +373,32 @@ function makeTimeOptions() {
   return opts.join('');
 }
 
+// target_dates가 주말/공휴일·평일저녁 간편등록 패턴과 정확히 일치하면 해당 종류 목록 반환 (아니면 null)
+function detectQuickKinds(dates) {
+  if (!dates || !dates.length) return null;
+  let hasWeekend = false, hasWeekday = false;
+  for (const entry of dates) {
+    const sp = entry.indexOf(' ');
+    const d = sp >= 0 ? entry.slice(0, sp) : entry;
+    const t = sp >= 0 ? entry.slice(sp + 1) : '';
+    if (t === '' && isWeekendOrHoliday(d)) {
+      hasWeekend = true;
+    } else if (t === '18:00-24:00' && !isWeekendOrHoliday(d)) {
+      hasWeekday = true;
+    } else {
+      return null;
+    }
+  }
+  const kinds = [];
+  if (hasWeekend) kinds.push('주말/공휴일');
+  if (hasWeekday) kinds.push('평일저녁');
+  return kinds.length ? kinds : null;
+}
+
 function fmtDates(dates) {
   if (!dates || !dates.length) return '전체 날짜';
+  const quickKinds = detectQuickKinds(dates);
+  if (quickKinds) return `[${quickKinds.join(', ')}]`;
   const periods = parsePeriods(dates);
   // 구간이 많으면(자동 등록 등) 목록이 너무 길어지므로 전체 범위로 요약 표시
   if (periods.length > 4) {
@@ -395,13 +419,13 @@ function fmtDates(dates) {
   }).join(' / ');
 }
 
-// 캐시에 저장된 팝업의 실제 예약 가능 기간을 메타 라인으로 표시 (없으면 빈 문자열)
+// 캐시에 저장된 팝업의 실제 운영 기간을 메타 라인으로 표시 (없으면 빈 문자열)
 function fmtAvailableRange(url) {
   const range = getAvailableRange(url);
   if (!range) return '';
   const fLabel = `${range.start.slice(5)}(${getDow(range.start)})`;
   const tLabel = `${range.end.slice(5)}(${getDow(range.end)})`;
-  return `<div class="monitor-meta">🎫 팝업 예약 가능 기간: ${fLabel} ~ ${tLabel}</div>`;
+  return `<div class="monitor-meta">운영 기간: ${fLabel} ~ ${tLabel}</div>`;
 }
 
 // target_dates → [{from, to, timeFrom, timeTo}] 역변환
