@@ -373,7 +373,17 @@ function makeTimeOptions() {
 
 function fmtDates(dates) {
   if (!dates || !dates.length) return '전체 날짜';
-  return parsePeriods(dates).map(p => {
+  const periods = parsePeriods(dates);
+  // 구간이 많으면(자동 등록 등) 목록이 너무 길어지므로 전체 범위로 요약 표시
+  if (periods.length > 4) {
+    const ds = dates.map(e => e.split(' ')[0]).sort();
+    const first = ds[0], last = ds[ds.length - 1];
+    const range = first === last
+      ? `${first.slice(5)}(${getDow(first)})`
+      : `${first.slice(5)}(${getDow(first)}) ~ ${last.slice(5)}(${getDow(last)})`;
+    return `${range} · ${new Set(ds).size}일`;
+  }
+  return periods.map(p => {
     const fd = getDow(p.from), td = getDow(p.to);
     const d = p.from === p.to
       ? `${p.from.slice(5)}(${fd})`
@@ -455,15 +465,18 @@ function renderPeriodList() {
 }
 
 // 주말/공휴일, 평일저녁 간편등록 체크박스 처리
-function onQuickToggle(kind, checked) {
+async function onQuickToggle(kind, checked) {
   periods = periods.filter(p => p.kind !== kind);
   if (checked) {
     let from = $('f-from').value;
     let to   = $('f-to').value;
     if (!from) {
-      // 날짜를 입력하지 않았으면 오늘부터 90일간(실제 모니타링 조회 범위와 동일)으로 자동 설정
+      // 날짜를 입력하지 않았으면 오늘부터 90일간(실제 모니터링 조회 범위와 동일)으로 자동 설정
       from = todayStr();
       to   = addDaysStr(from, 90);
+      // 가능하면 팝업의 실제 판매 종료일로 기간을 좁힘 (조회 실패 시 90일 그대로 사용)
+      const range = await fetchSaleRange();
+      if (range && range.end && range.end >= from && range.end < to) to = range.end;
       $('f-from').value = from;
       $('f-to').value   = to;
     } else if (!to) {
@@ -485,9 +498,9 @@ function onQuickToggle(kind, checked) {
 }
 
 // 확인 기간(날짜) 변경 시, 체크된 간편등록 항목을 새 기간으로 갱신
-function onDateRangeChange() {
-  if ($('f-quick-weekend').checked) onQuickToggle('weekend', true);
-  if ($('f-quick-weekday').checked) onQuickToggle('weekday', true);
+async function onDateRangeChange() {
+  if ($('f-quick-weekend').checked) await onQuickToggle('weekend', true);
+  if ($('f-quick-weekday').checked) await onQuickToggle('weekday', true);
 }
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function setStatus(msg) { $('status').textContent = msg; }
@@ -564,6 +577,37 @@ function addDaysStr(dateStr, days) {
   const d = new Date(dateStr);
   d.setDate(d.getDate() + days);
   return d.toISOString().slice(0, 10);
+}
+
+// 네이버 예약 API에서 팝업의 실제 판매기간(saleStartDate~saleEndDate) 조회 (실패 시 null)
+async function fetchSaleRange() {
+  const m = $('f-url').value.trim().match(/\/booking\/(\d+)\/bizes\/(\d+)\/items\/(\d+)/);
+  if (!m) return null;
+  const [, serviceId, bizId, itemId] = m;
+  const today = todayStr();
+  try {
+    const res = await fetch('https://m.booking.naver.com/graphql?opName=schedule', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        operationName: 'schedule',
+        variables: { scheduleParams: {
+          businessId: bizId, bizItemId: itemId, businessTypeId: Number(serviceId),
+          startDateTime: `${today}T00:00:00+09:00`,
+          endDateTime: `${addDaysStr(today, 90)}T23:59:59+09:00`,
+          partitionDays: 42,
+        } },
+        query: 'query schedule($scheduleParams: ScheduleParams) { schedule(input: $scheduleParams) { bizItemSchedule { saleStartDate saleEndDate __typename } __typename } }',
+      }),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const sched = data?.data?.schedule?.bizItemSchedule;
+    if (!sched) return null;
+    return { start: sched.saleStartDate?.slice(0, 10) || null, end: sched.saleEndDate?.slice(0, 10) || null };
+  } catch (e) {
+    return null; // CORS 등으로 직접 조회 불가 → 90일 기본값으로 폴백
+  }
 }
 
 function genDates(from, to) {
