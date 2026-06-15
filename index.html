@@ -83,6 +83,9 @@
     .period-tag span { flex: 1; }
     .period-tag button { background: none; border: none; color: #aaa; font-size: 18px; cursor: pointer; padding: 0 0 0 10px; line-height: 1; flex-shrink: 0; }
     .period-tag button:hover { color: var(--red); }
+    .quick-row { display: flex; gap: 16px; margin-bottom: 10px; }
+    .quick-check { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 0; cursor: pointer; }
+    .quick-check input { width: 16px; height: 16px; accent-color: var(--green); cursor: pointer; }
     .empty { text-align: center; padding: 60px 20px; color: var(--sub); }
     .empty-icon { font-size: 52px; margin-bottom: 14px; }
 
@@ -196,10 +199,15 @@
     </div>
     <div class="form-group">
       <label>확인 기간</label>
+      <div class="quick-row">
+        <label class="quick-check"><input type="checkbox" id="f-quick-weekend" onchange="onQuickToggle('weekend', this.checked)"> 주말/공휴일</label>
+        <label class="quick-check"><input type="checkbox" id="f-quick-weekday" onchange="onQuickToggle('weekday', this.checked)"> 평일저녁 (18~24시)</label>
+      </div>
+      <div class="hint">아래 날짜를 먼저 선택하면 체크박스로 해당 기간의 주말/공휴일 또는 평일저녁을 한 번에 등록할 수 있어요</div>
       <div class="date-row">
-        <input type="date" id="f-from">
+        <input type="date" id="f-from" onchange="onDateRangeChange()">
         <span class="sep">~</span>
-        <input type="date" id="f-to">
+        <input type="date" id="f-to" onchange="onDateRangeChange()">
       </div>
       <div class="date-row" style="margin-top:8px">
         <select id="f-time-from"></select>
@@ -226,7 +234,30 @@ let cfg = { ntfy_topic: '', monitors: [] };
 let sha = '';
 let editId = null;
 let patMasked = false;
-let periods = []; // [{from, to, timeFrom, timeTo}]
+let periods = []; // [{from, to, timeFrom, timeTo, kind?}]
+
+// 대한민국 공휴일 (대체공휴일 포함, 2026~2027)
+const KR_HOLIDAYS = new Set([
+  '2026-01-01',
+  '2026-02-16','2026-02-17','2026-02-18',
+  '2026-03-01','2026-03-02',
+  '2026-05-05',
+  '2026-05-24','2026-05-25',
+  '2026-06-06',
+  '2026-08-15','2026-08-17',
+  '2026-09-24','2026-09-25','2026-09-26','2026-09-27',
+  '2026-10-03','2026-10-05','2026-10-09',
+  '2026-12-25',
+  '2027-01-01',
+  '2027-02-06','2027-02-07','2027-02-08','2027-02-09',
+  '2027-03-01','2027-03-02',
+  '2027-05-05','2027-05-13',
+  '2027-06-06',
+  '2027-08-15','2027-08-17',
+  '2027-09-14','2027-09-15','2027-09-16',
+  '2027-10-03','2027-10-05','2027-10-09',
+  '2027-12-25',
+]);
 
 const $ = id => document.getElementById(id);
 const getPAT = () => localStorage.getItem('gh_pat') || '';
@@ -320,6 +351,13 @@ function getDow(dateStr) {
   return days[new Date(y, m - 1, d).getDay()];
 }
 
+function isWeekendOrHoliday(dateStr) {
+  if (KR_HOLIDAYS.has(dateStr)) return true;
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dow = new Date(y, m - 1, d).getDay();
+  return dow === 0 || dow === 6;
+}
+
 function makeTimeOptions() {
   const opts = ['<option value="">시간 선택</option>'];
   for (let h = 0; h <= 24; h++) {
@@ -388,7 +426,13 @@ function addPeriod() {
   $('f-time-from').value = ''; $('f-time-to').value = '';
 }
 
-function removePeriod(i) { periods.splice(i, 1); renderPeriodList(); }
+function removePeriod(i) {
+  const p = periods[i];
+  periods.splice(i, 1);
+  if (p && p.kind === 'weekend') $('f-quick-weekend').checked = false;
+  if (p && p.kind === 'weekday') $('f-quick-weekday').checked = false;
+  renderPeriodList();
+}
 
 function renderPeriodList() {
   const el = $('period-list');
@@ -401,8 +445,42 @@ function renderPeriodList() {
     const tLabel = p.timeFrom
       ? (p.timeFrom === p.timeTo ? ` · ${p.timeFrom}` : ` · ${p.timeFrom} ~ ${p.timeTo}`)
       : ' · 전체 시간';
-    return `<div class="period-tag"><span>${dLabel}${tLabel}</span><button type="button" onclick="removePeriod(${i})" title="삭제">×</button></div>`;
+    const kLabel = p.kind === 'weekend' ? '🗓 주말/공휴일 · ' : p.kind === 'weekday' ? '🌙 평일저녁 · ' : '';
+    return `<div class="period-tag"><span>${kLabel}${dLabel}${tLabel}</span><button type="button" onclick="removePeriod(${i})" title="삭제">×</button></div>`;
   }).join('');
+}
+
+// 주말/공휴일, 평일저녁 간편등록 체크박스 처리
+function onQuickToggle(kind, checked) {
+  periods = periods.filter(p => p.kind !== kind);
+  if (checked) {
+    const from = $('f-from').value;
+    const to   = $('f-to').value || from;
+    if (!from) {
+      alert('먼저 확인 기간(날짜)을 선택하세요');
+      $(kind === 'weekend' ? 'f-quick-weekend' : 'f-quick-weekday').checked = false;
+      renderPeriodList();
+      return;
+    }
+    if (from > to) {
+      alert('시작일이 종료일보다 늦습니다');
+      $(kind === 'weekend' ? 'f-quick-weekend' : 'f-quick-weekday').checked = false;
+      renderPeriodList();
+      return;
+    }
+    if (kind === 'weekend') {
+      periods.push({ from, to, timeFrom: '', timeTo: '', kind: 'weekend' });
+    } else {
+      periods.push({ from, to, timeFrom: '18:00', timeTo: '24:00', kind: 'weekday' });
+    }
+  }
+  renderPeriodList();
+}
+
+// 확인 기간(날짜) 변경 시, 체크된 간편등록 항목을 새 기간으로 갱신
+function onDateRangeChange() {
+  if ($('f-quick-weekend').checked) onQuickToggle('weekend', true);
+  if ($('f-quick-weekday').checked) onQuickToggle('weekday', true);
 }
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function setStatus(msg) { $('status').textContent = msg; }
@@ -446,6 +524,8 @@ function openSheet() {
   $('f-url').value  = '';
   $('f-from').value = ''; $('f-to').value = '';
   $('f-time-from').value = ''; $('f-time-to').value = '';
+  $('f-quick-weekend').checked = false;
+  $('f-quick-weekday').checked = false;
   periods = [];
   renderPeriodList();
   $('overlay').classList.add('open');
@@ -460,6 +540,8 @@ function openEdit(id) {
   $('f-url').value  = m.url;
   $('f-from').value = ''; $('f-to').value = '';
   $('f-time-from').value = ''; $('f-time-to').value = '';
+  $('f-quick-weekend').checked = false;
+  $('f-quick-weekday').checked = false;
   periods = parsePeriods(m.target_dates || []);
   renderPeriodList();
   $('overlay').classList.add('open');
@@ -481,10 +563,11 @@ async function submitMonitor() {
   if (!name) { alert('이름을 입력하세요'); return; }
   if (!url || !url.includes('booking.naver.com')) { alert('네이버 예약 URL을 입력하세요'); return; }
 
-  // 입력 중인 기간이 있으면 자동 추가
+  // 입력 중인 기간이 있으면 자동 추가 (간편등록 체크박스가 켜져 있으면 해당 기간은 이미 추가됨)
+  const quickActive = $('f-quick-weekend').checked || $('f-quick-weekday').checked;
   const pendingFrom = $('f-from').value;
   const pendingTo   = $('f-to').value || pendingFrom;
-  if (pendingFrom) {
+  if (pendingFrom && !quickActive) {
     const ptf = $('f-time-from').value, ptt = $('f-time-to').value;
     if (pendingFrom > pendingTo) { alert('시작일이 종료일보다 늦습니다'); return; }
     if ((ptf && !ptt) || (!ptf && ptt)) { alert('시작 시간과 종료 시간을 모두 입력하거나 모두 비워주세요'); return; }
@@ -498,6 +581,8 @@ async function submitMonitor() {
   const target_dates = [];
   for (const p of periods) {
     for (const d of genDates(p.from, p.to)) {
+      if (p.kind === 'weekend' && !isWeekendOrHoliday(d)) continue;
+      if (p.kind === 'weekday' && isWeekendOrHoliday(d)) continue;
       if (p.timeFrom) {
         target_dates.push(p.timeFrom === p.timeTo ? `${d} ${p.timeFrom}` : `${d} ${p.timeFrom}-${p.timeTo}`);
       } else {
