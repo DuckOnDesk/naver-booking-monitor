@@ -203,7 +203,6 @@
         <label class="quick-check"><input type="checkbox" id="f-quick-weekend" onchange="onQuickToggle('weekend', this.checked)"> 주말/공휴일</label>
         <label class="quick-check"><input type="checkbox" id="f-quick-weekday" onchange="onQuickToggle('weekday', this.checked)"> 평일저녁 (18~24시)</label>
       </div>
-      <div class="hint">아래 날짜를 먼저 선택하면 체크박스로 해당 기간의 주말/공휴일 또는 평일저녁을 한 번에 등록할 수 있어요</div>
       <div class="date-row">
         <input type="date" id="f-from" onchange="onDateRangeChange()">
         <span class="sep">~</span>
@@ -535,7 +534,7 @@ function openEdit(id) {
   const m = cfg.monitors.find(x => x.id === id);
   if (!m) return;
   editId = id;
-  $('sheet-title').textContent = '예약 모니터 수정';
+  $('sheet-title').textContent = `${m.name} 수정`;
   $('f-name').value = m.name;
   $('f-url').value  = m.url;
   $('f-from').value = ''; $('f-to').value = '';
