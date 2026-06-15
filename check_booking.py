@@ -624,6 +624,17 @@ def build_schedule_cache(monitors: list) -> dict:
             continue
         all_summary = result.get("_all_summary") or []
         discovered = sorted(d["dateKey"] for d in all_summary if d.get("isSaleDay"))
+
+        if not discovered:
+            # 월별 스케줄 API가 비어있는 경우 (예: 일부 팝업) — 날짜별 개별 조회로 운영 기간 추정
+            scan_start = datetime.now(timezone(timedelta(hours=9))).date()
+            for i in range(30):
+                dk = (scan_start + timedelta(days=i)).isoformat()
+                si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
+                if si["queried"] and si.get("all_slots"):
+                    discovered.append(dk)
+            discovered.sort()
+
         cache[key] = {
             "sale_start_date": result.get("sale_start_date"),
             "sale_end_date": result.get("sale_end_date"),
