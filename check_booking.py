@@ -537,6 +537,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     if range_slots:
                         r_stock   = sum(s.get("unitStock",        0) for s in range_slots)
                         r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
+                    elif slot_info["queried"]:
+                        # 해당 시간대(time_range)에는 슬롯 자체가 없음 → 다른 시간대(d의 일별 합계)를
+                        # 이 시간대의 재고로 잘못 표시하지 않도록 0/0으로 처리
+                        r_stock = r_booking = 0
                     elif d is not None:
                         r_stock, r_booking = d["stock"], d["bookingCount"]
                     else:
