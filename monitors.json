@@ -25,12 +25,7 @@
       "name": "엑소코바이오",
       "url": "https://m.booking.naver.com/booking/12/bizes/1673124/items/7755741?theme=place&lang=ko&area=pll",
       "enabled": true,
-      "target_dates": [
-        "2026-06-20",
-        "2026-06-21",
-        "2026-06-27",
-        "2026-06-28"
-      ],
+      "target_dates": [],
       "booking_open_datetime": "2026-06-15T11:00:00+09:00"
     }
   ]
