@@ -30,6 +30,8 @@ HEADERS = {
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Gohyedeok/naver-booking-monitor/main/monitors.json"
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 
+_rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
+
 
 def load_monitors(from_github: bool = False) -> dict:
     if from_github:
@@ -106,6 +108,9 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
             }
         except requests.HTTPError as e:
             print(f"  [오류] schedule API HTTP {e.response.status_code}", flush=True)
+            if e.response.status_code in (429, 403):
+                global _rate_limit_hits
+                _rate_limit_hits += 1
             continue
         except Exception:
             continue
@@ -184,6 +189,9 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
 
     except requests.HTTPError as e:
         print(f"  [오류] hourlySchedule API HTTP {e.response.status_code}", flush=True)
+        if e.response.status_code in (429, 403):
+            global _rate_limit_hits
+            _rate_limit_hits += 1
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
     except Exception:
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
@@ -722,10 +730,19 @@ def main():
 
         remaining_min = (end_time - time.time()) / 60
         print(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 ---", flush=True)
+        global _rate_limit_hits
+        _rate_limit_hits = 0
         try:
             check_all(monitors, ntfy_topic, alerted)
         except Exception as exc:
             print(f"[오류] check_all 예외: {exc}", flush=True)
+
+        if _rate_limit_hits > 0 and interval < 120:
+            interval = 120
+            msg = f"[경고] API 속도 제한(429/403) 감지 → 확인 주기를 120초로 자동 조정"
+            print(msg, flush=True)
+            if ntfy_topic:
+                send_ntfy(ntfy_topic, "⚠️ 모니터 속도 제한 감지", msg, "")
 
         remaining = end_time - time.time()
         if remaining > interval:
