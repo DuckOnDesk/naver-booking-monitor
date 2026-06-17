@@ -718,11 +718,14 @@ let notifData = [];
 let lastReadTime = parseInt(localStorage.getItem('notif_last_read') || '0');
 
 function relTime(ts) {
-  const d = Math.floor(Date.now() / 1000) - ts;
-  if (d < 60) return '방금';
-  if (d < 3600) return `${Math.floor(d/60)}분 전`;
-  if (d < 86400) return `${Math.floor(d/3600)}시간 전`;
-  return `${Math.floor(d/86400)}일 전`;
+  const d = new Date(ts * 1000);
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  if (d.getFullYear() !== now.getFullYear()) {
+    return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} ${time}`;
+  }
+  return `${d.getMonth()+1}월 ${d.getDate()}일 ${time}`;
 }
 
 async function fetchNotifications() {
