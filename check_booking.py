@@ -104,10 +104,13 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
                 "sale_end_date": sched.get("saleEndDate") if has_window else None,
                 "_all_summary": summary,
             }
+        except requests.HTTPError as e:
+            print(f"  [오류] schedule API HTTP {e.response.status_code}", flush=True)
+            continue
         except Exception:
             continue
 
-    print("  [오류] API 요청 실패", flush=True)
+    print("  [오류] schedule API 요청 실패", flush=True)
     return None
 
 
@@ -179,6 +182,9 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
 
         return {"times": available_times, "total": len(future_slots), "queried": True, "all_slots": future_slots}
 
+    except requests.HTTPError as e:
+        print(f"  [오류] hourlySchedule API HTTP {e.response.status_code}", flush=True)
+        return {"times": [], "total": 0, "queried": False, "all_slots": []}
     except Exception:
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
 
