@@ -60,7 +60,6 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
         "businessTypeId": service_id,
         "startDateTime": today.strftime("%Y-%m-%dT00:00:00+09:00"),
         "endDateTime": (today + timedelta(days=90)).strftime("%Y-%m-%dT23:59:59+09:00"),
-        "partitionDays": 42,
     }
 
     def _post(query: str) -> requests.Response:
