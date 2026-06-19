@@ -226,7 +226,7 @@ def check_kakao_dates(ticket_id: str, target_dates: list, kakao_cookies: str) ->
         resp.raise_for_status()
         return [
             d for d in resp.json()
-            if d.get("available") and d["date"] >= today_str
+            if d.get("available") and d.get("stock", 1) > 0 and d["date"] >= today_str
             and (not target_set or d["date"] in target_set)
         ]
     except requests.HTTPError as e:
