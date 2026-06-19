@@ -226,7 +226,7 @@ def check_kakao_dates(ticket_id: str, target_dates: list, kakao_cookies: str) ->
         resp.raise_for_status()
         return [
             d for d in resp.json()
-            if d.get("available") and d.get("stock", 1) > 0 and d["date"] >= today_str
+            if d["date"] >= today_str
             and (not target_set or d["date"] in target_set)
         ]
     except requests.HTTPError as e:
@@ -399,29 +399,56 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 print(f"[{now_str}] URL 파싱 실패 (카카오): {name}", flush=True)
                 continue
             kakao_cookies = os.environ.get("KAKAO_COOKIES", "").strip()
-            available = check_kakao_dates(ticket_id, item.get("target_dates", []), kakao_cookies)
-            if available is None:
+            all_kakao = check_kakao_dates(ticket_id, item.get("target_dates", []), kakao_cookies)
+            if all_kakao is None:
                 print(f"[{now_str}] {name} — 카카오 API 실패", flush=True)
                 continue
-            current_set = {d["date"] for d in available}
+
+            closed_key = f"{item_id}:kakao_closed"
             item_prefix = f"{item_id}:"
-            for k in list(alerted.keys()):
-                if k.startswith(item_prefix) and k[len(item_prefix):] not in current_set:
-                    alerted.pop(k)
-            if not available:
-                print(f"[{now_str}] ❌ {name} — 예약 가능 날짜 없음", flush=True)
-                continue
             weekdays_k = ["월", "화", "수", "목", "금", "토", "일"]
+
+            # available=true인 날짜가 하나도 없으면 예약창 닫힘
+            sale_dates = [d for d in all_kakao if d.get("available")]
+            if not sale_dates:
+                print(f"[{now_str}] 🔒 {name} — 예약창 닫힘", flush=True)
+                for k in list(alerted.keys()):
+                    if k.startswith(item_prefix) and k != closed_key:
+                        alerted.pop(k)
+                alerted[closed_key] = 1
+                continue
+
+            # 예약창 열림 (이전에 닫혔다가 열린 경우 알림)
+            if closed_key in alerted:
+                alerted.pop(closed_key)
+                print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
+                if ntfy_topic:
+                    send_ntfy(ntfy_topic, f"✅ {name} 예약창 열림", "예약창이 열렸습니다. 직접 확인해보세요!", url)
+            else:
+                print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
+
             new_dates = []
-            for d in available:
+            current_available_set = set()
+            for d in sale_dates:
                 dk = d["date"]
+                stock = d.get("stock") or 0
                 dow = weekdays_k[date.fromisoformat(dk).weekday()]
                 ds = f"{dk[5:]}({dow})"
                 ak = f"{item_id}:{dk}"
-                print(f"[{now_str}] 🎉 {name} {ds} 예약 가능", flush=True)
-                if ak not in alerted:
-                    new_dates.append(ds)
-                    alerted[ak] = 1
+                if stock > 0:
+                    current_available_set.add(dk)
+                    print(f"[{now_str}] 🎉 {name} {ds} 예약 가능 (재고:{stock})", flush=True)
+                    if ak not in alerted:
+                        new_dates.append(ds)
+                        alerted[ak] = 1
+                else:
+                    alerted.pop(ak, None)
+                    print(f"[{now_str}] ❌ {name} {ds} 매진 (재고:0)", flush=True)
+
+            for k in list(alerted.keys()):
+                if k.startswith(item_prefix) and k != closed_key and k[len(item_prefix):] not in current_available_set:
+                    alerted.pop(k)
+
             if new_dates and ntfy_topic:
                 send_ntfy(ntfy_topic, f"🎉 {name} 예약 가능!", ", ".join(new_dates), url)
             continue
