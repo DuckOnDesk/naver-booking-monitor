@@ -437,13 +437,13 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 ak = f"{item_id}:{dk}"
                 if stock > 0:
                     current_available_set.add(dk)
-                    print(f"[{now_str}] 🎉 {name} {ds} {stock}자리 (재고:{stock})", flush=True)
+                    print(f"[{now_str}] 🎉 {name} {ds} {stock}자리 (예약가능:{stock})", flush=True)
                     if ak not in alerted:
                         new_date_details.append(f"{ds} {stock}자리")
                         alerted[ak] = stock
                 else:
                     alerted.pop(ak, None)
-                    print(f"[{now_str}] ❌ {name} {ds} 매진 (재고:0)", flush=True)
+                    print(f"[{now_str}] ❌ {name} {ds} 매진 (예약가능:0)", flush=True)
 
             for k in list(alerted.keys()):
                 if k.startswith(item_prefix) and k != closed_key and k[len(item_prefix):] not in current_available_set:
