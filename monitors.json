@@ -27,6 +27,14 @@
       "enabled": true,
       "target_dates": [],
       "booking_open_datetime": "2026-06-15T11:00:00+09:00"
+    },
+    {
+      "id": "kakao_641057",
+      "name": "토이스토리5 팝업",
+      "url": "https://booking.kakao.com/detail/ticket/641057?t_src=sharing",
+      "type": "kakao",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
