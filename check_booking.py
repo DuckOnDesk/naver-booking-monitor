@@ -427,7 +427,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             else:
                 print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
 
-            new_dates = []
+            new_date_details = []
             current_available_set = set()
             for d in sale_dates:
                 dk = d["date"]
@@ -437,10 +437,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 ak = f"{item_id}:{dk}"
                 if stock > 0:
                     current_available_set.add(dk)
-                    print(f"[{now_str}] 🎉 {name} {ds} 예약 가능 (재고:{stock})", flush=True)
+                    print(f"[{now_str}] 🎉 {name} {ds} {stock}자리 (재고:{stock})", flush=True)
                     if ak not in alerted:
-                        new_dates.append(ds)
-                        alerted[ak] = 1
+                        new_date_details.append(f"{ds} {stock}자리")
+                        alerted[ak] = stock
                 else:
                     alerted.pop(ak, None)
                     print(f"[{now_str}] ❌ {name} {ds} 매진 (재고:0)", flush=True)
@@ -449,8 +449,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if k.startswith(item_prefix) and k != closed_key and k[len(item_prefix):] not in current_available_set:
                     alerted.pop(k)
 
-            if new_dates and ntfy_topic:
-                send_ntfy(ntfy_topic, f"🎉 {name} 예약 가능!", ", ".join(new_dates), url)
+            if new_date_details and ntfy_topic:
+                send_ntfy(ntfy_topic, f"🎉 {name} 예약 가능!", ", ".join(new_date_details), url)
             continue
 
         target_time_map: dict[str, tuple[str, str] | None] = {}
