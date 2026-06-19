@@ -32,6 +32,13 @@ SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
+KAKAO_API_URL = "https://booking.kakao.com/api/product/public/ticket/tickets/availableDates"
+KAKAO_HEADERS = {
+    "Accept": "application/json, text/plain, */*",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+    "Referer": "https://booking.kakao.com/",
+}
+
 
 def load_monitors(from_github: bool = False) -> dict:
     if from_github:
@@ -50,6 +57,11 @@ def parse_naver_url(url: str) -> dict | None:
     if not m:
         return None
     return {"service_id": int(m.group(1)), "biz_id": m.group(2), "item_id": m.group(3)}
+
+
+def parse_kakao_url(url: str) -> str | None:
+    m = re.search(r"/ticket/(\d+)", url)
+    return m.group(1) if m else None
 
 
 def check_availability(biz_id: str, item_id: str, service_id: int, target_dates: list) -> dict | None:
@@ -194,6 +206,38 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
     except Exception:
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
+
+
+def check_kakao_dates(ticket_id: str, target_dates: list, kakao_cookies: str) -> list | None:
+    today = datetime.now(timezone(timedelta(hours=9)))
+    today_str = today.strftime("%Y-%m-%d")
+    end_str = (today + timedelta(days=120)).strftime("%Y-%m-%d")
+    headers = {**KAKAO_HEADERS}
+    if kakao_cookies:
+        headers["Cookie"] = kakao_cookies
+    target_set = set(target_dates)
+    try:
+        resp = requests.get(
+            KAKAO_API_URL,
+            params={"ticketId": ticket_id, "preview": "false", "startDate": today_str, "endDate": end_str},
+            headers=headers,
+            timeout=15,
+        )
+        resp.raise_for_status()
+        return [
+            d for d in resp.json()
+            if d.get("available") and d["date"] >= today_str
+            and (not target_set or d["date"] in target_set)
+        ]
+    except requests.HTTPError as e:
+        print(f"  [오류] 카카오 API HTTP {e.response.status_code}", flush=True)
+        if e.response.status_code in (429, 403):
+            global _rate_limit_hits
+            _rate_limit_hits += 1
+        return None
+    except Exception as e:
+        print(f"  [오류] 카카오 API 실패: {e}", flush=True)
+        return None
 
 
 def _parse_dt(dt_str: str | None) -> datetime | None:
@@ -347,6 +391,40 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     for item in active:
         name = item.get("name", "?")
         url = item.get("url", "")
+
+        if item.get("type") == "kakao":
+            item_id = item.get("id", name)
+            ticket_id = parse_kakao_url(url)
+            if not ticket_id:
+                print(f"[{now_str}] URL 파싱 실패 (카카오): {name}", flush=True)
+                continue
+            kakao_cookies = os.environ.get("KAKAO_COOKIES", "").strip()
+            available = check_kakao_dates(ticket_id, item.get("target_dates", []), kakao_cookies)
+            if available is None:
+                print(f"[{now_str}] {name} — 카카오 API 실패", flush=True)
+                continue
+            current_set = {d["date"] for d in available}
+            item_prefix = f"{item_id}:"
+            for k in list(alerted.keys()):
+                if k.startswith(item_prefix) and k[len(item_prefix):] not in current_set:
+                    alerted.pop(k)
+            if not available:
+                print(f"[{now_str}] ❌ {name} — 예약 가능 날짜 없음", flush=True)
+                continue
+            weekdays_k = ["월", "화", "수", "목", "금", "토", "일"]
+            new_dates = []
+            for d in available:
+                dk = d["date"]
+                dow = weekdays_k[date.fromisoformat(dk).weekday()]
+                ds = f"{dk[5:]}({dow})"
+                ak = f"{item_id}:{dk}"
+                print(f"[{now_str}] 🎉 {name} {ds} 예약 가능", flush=True)
+                if ak not in alerted:
+                    new_dates.append(ds)
+                    alerted[ak] = 1
+            if new_dates and ntfy_topic:
+                send_ntfy(ntfy_topic, f"🎉 {name} 예약 가능!", ", ".join(new_dates), url)
+            continue
 
         target_time_map: dict[str, tuple[str, str] | None] = {}
         for entry in item.get("target_dates", []):
@@ -562,7 +640,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     time_hint = ""
                     if all_slots:
                         r_stock   = sum(s.get("unitStock",        0) for s in all_slots)
-                        r_booking = sum(s.get("unitBookingCount", 0) for s in all_slots)
+                        r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
                     elif d is not None:
                         r_stock, r_booking = d["stock"], d["bookingCount"]
                     else:
@@ -581,6 +659,10 @@ def print_startup_info(active: list) -> None:
     for m in active:
         name = m.get("name", "?")
         url  = m.get("url", "")
+        if m.get("type") == "kakao":
+            ticket_id = parse_kakao_url(url)
+            print(f"  • {name} | 카카오 예약 (ticketId={ticket_id})", flush=True)
+            continue
         parsed = parse_naver_url(url)
         if not parsed:
             print(f"  • {name}: URL 파싱 실패", flush=True)
