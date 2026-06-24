@@ -2,8 +2,12 @@ name: 네이버 예약 모니터
 
 on:
   schedule:
-    - cron: "0 */5 * * *"   # 5시간마다 자동 재시작 (5.5시간 루프와 30분 겹침으로 공백 없음)
+    - cron: "0 */5 * * *"   # 체인 끊겼을 때 복구용 백업
   workflow_dispatch:
+
+permissions:
+  contents: write   # schedule_cache.json 자동 커밋/푸시용
+  actions: write    # 다음 실행 self-trigger용
 
 jobs:
   check:
@@ -36,7 +40,14 @@ jobs:
 
       - name: 예약 자리 확인
         env:
-          CHECK_INTERVAL_SEC: "120"
+          CHECK_INTERVAL_SEC: "60"
           LOOP_HOURS: "5.5"
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
+          KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}
         run: python -u check_booking.py
+
+      - name: 다음 실행 즉시 트리거
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run monitor.yml --repo ${{ github.repository }}
