@@ -9,6 +9,10 @@ permissions:
   contents: write   # schedule_cache.json 자동 커밋/푸시용
   actions: write    # 다음 실행 self-trigger용
 
+concurrency:
+  group: monitor-run
+  cancel-in-progress: false   # 실행 중인 것은 유지, 대기 중인 것만 교체
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -47,7 +51,7 @@ jobs:
         run: python -u check_booking.py
 
       - name: 다음 실행 즉시 트리거
-        if: always()
+        if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run monitor.yml --repo ${{ github.repository }}
