@@ -35,6 +35,13 @@
       "type": "kakao",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mqrd8cqt",
+      "name": "마른파이브",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1678306/items/7776463",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
