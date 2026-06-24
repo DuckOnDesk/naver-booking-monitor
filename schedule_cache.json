@@ -4,27 +4,34 @@
     "sale_end_date": null,
     "available_start": "2026-06-24",
     "available_end": "2026-06-27",
-    "checked_at": "2026-06-24T11:29:09.310805+09:00"
+    "checked_at": "2026-06-24T17:08:29.762051+09:00"
   },
   "12_1656104_7686922": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-06-27",
     "available_end": "2026-07-05",
-    "checked_at": "2026-06-24T11:29:09.310805+09:00"
+    "checked_at": "2026-06-24T17:08:29.762051+09:00"
   },
   "12_1673124_7755741": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-06-24",
     "available_end": "2026-06-29",
-    "checked_at": "2026-06-24T11:29:09.310805+09:00"
+    "checked_at": "2026-06-24T17:08:29.762051+09:00"
   },
   "12_1678306_7776463": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-07-03",
     "available_end": "2026-07-12",
-    "checked_at": "2026-06-24T11:29:09.310805+09:00"
+    "checked_at": "2026-06-24T17:08:29.762051+09:00"
+  },
+  "12_1677108_7771571": {
+    "sale_start_date": null,
+    "sale_end_date": null,
+    "available_start": "2026-07-10",
+    "available_end": "2026-07-19",
+    "checked_at": "2026-06-24T17:08:29.762051+09:00"
   }
 }
