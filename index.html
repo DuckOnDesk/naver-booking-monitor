@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>네이버 예약 모니터</title>
+  <title>예약 모니터</title>
   <style>
     :root { --green: #03C75A; --red: #ff4d4f; --bg: #f4f6f8; --card: #fff; --text: #1a1a1a; --sub: #8c8c8c; --border: #e8e8e8; }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -44,6 +44,9 @@
     /* Buttons */
     .btn-primary { width: 100%; background: var(--green); color: #fff; border: none; border-radius: 12px; padding: 15px; font-size: 16px; font-weight: 700; cursor: pointer; }
     .btn-secondary { width: 100%; background: var(--bg); color: #555; border: none; border-radius: 12px; padding: 13px; font-size: 15px; cursor: pointer; margin-top: 8px; }
+    .sheet-actions { display: flex; gap: 10px; margin-top: 16px; }
+    .sheet-actions .btn-secondary { flex: 1; width: auto; margin-top: 0; }
+    .sheet-actions .btn-primary { flex: 2; width: auto; }
     .btn-sm { border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 500; cursor: pointer; }
     .btn-edit { background: #f0f0f0; color: #444; }
     .btn-del  { background: #fff1f0; color: var(--red); }
@@ -53,7 +56,10 @@
     /* Monitor card */
     .monitor-row { display: flex; align-items: flex-start; gap: 12px; }
     .monitor-info { flex: 1; min-width: 0; }
-    .monitor-name { font-weight: 600; font-size: 15px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .monitor-name { font-weight: 600; font-size: 15px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
+    .platform-badge { flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+    .platform-badge.naver { background: #03c75a; color: #fff; }
+    .platform-badge.kakao { background: #fee500; color: #3c1e1e; }
     .monitor-meta { font-size: 12px; color: var(--sub); margin-top: 3px; }
     .monitor-url  { font-size: 11px; color: #bbb; margin-top: 2px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     .monitor-actions { display: flex; gap: 8px; margin-top: 10px; }
@@ -83,6 +89,9 @@
     .period-tag span { flex: 1; }
     .period-tag button { background: none; border: none; color: #aaa; font-size: 18px; cursor: pointer; padding: 0 0 0 10px; line-height: 1; flex-shrink: 0; }
     .period-tag button:hover { color: var(--red); }
+    .quick-row { display: flex; gap: 16px; margin-bottom: 10px; }
+    .quick-check { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: #444; margin-bottom: 0; cursor: pointer; }
+    .quick-check input { width: 16px; height: 16px; accent-color: var(--green); cursor: pointer; }
     .empty { text-align: center; padding: 60px 20px; color: var(--sub); }
     .empty-icon { font-size: 52px; margin-bottom: 14px; }
 
@@ -123,7 +132,7 @@
 <header>
   <div class="header-row">
     <div>
-      <h1>네이버 예약 모니터</h1>
+      <h1>예약 모니터</h1>
       <p id="status">불러오는 중...</p>
     </div>
     <button class="bell-btn" onclick="openNotifPanel()">
@@ -196,10 +205,14 @@
     </div>
     <div class="form-group">
       <label>확인 기간</label>
+      <div class="quick-row">
+        <label class="quick-check"><input type="checkbox" id="f-quick-weekend" onchange="onQuickToggle('weekend', this.checked)"> 주말/공휴일</label>
+        <label class="quick-check"><input type="checkbox" id="f-quick-weekday" onchange="onQuickToggle('weekday', this.checked)"> 평일저녁 (18~24시)</label>
+      </div>
       <div class="date-row">
-        <input type="date" id="f-from">
+        <input type="date" id="f-from" onchange="onDateRangeChange()">
         <span class="sep">~</span>
-        <input type="date" id="f-to">
+        <input type="date" id="f-to" onchange="onDateRangeChange()">
       </div>
       <div class="date-row" style="margin-top:8px">
         <select id="f-time-from"></select>
@@ -211,8 +224,10 @@
       <div id="period-list" class="period-list"></div>
     </div>
 
-    <button class="btn-primary" onclick="submitMonitor()">등록</button>
-    <button class="btn-secondary" onclick="closeSheet()">취소</button>
+    <div class="sheet-actions">
+      <button class="btn-secondary" onclick="closeSheet()">취소</button>
+      <button class="btn-primary" onclick="submitMonitor()">등록</button>
+    </div>
   </div>
 </div>
 
@@ -226,7 +241,31 @@ let cfg = { ntfy_topic: '', monitors: [] };
 let sha = '';
 let editId = null;
 let patMasked = false;
-let periods = []; // [{from, to, timeFrom, timeTo}]
+let periods = []; // [{from, to, timeFrom, timeTo, kind?}]
+let scheduleCache = {}; // 팝업별 실제 판매기간/예약 가능 기간 캐시 (schedule_cache.json)
+
+// 대한민국 공휴일 (대체공휴일 포함, 2026~2027)
+const KR_HOLIDAYS = new Set([
+  '2026-01-01',
+  '2026-02-16','2026-02-17','2026-02-18',
+  '2026-03-01','2026-03-02',
+  '2026-05-05',
+  '2026-05-24','2026-05-25',
+  '2026-06-06',
+  '2026-08-15','2026-08-17',
+  '2026-09-24','2026-09-25','2026-09-26','2026-09-27',
+  '2026-10-03','2026-10-05','2026-10-09',
+  '2026-12-25',
+  '2027-01-01',
+  '2027-02-06','2027-02-07','2027-02-08','2027-02-09',
+  '2027-03-01','2027-03-02',
+  '2027-05-05','2027-05-13',
+  '2027-06-06',
+  '2027-08-15','2027-08-17',
+  '2027-09-14','2027-09-15','2027-09-16',
+  '2027-10-03','2027-10-05','2027-10-09',
+  '2027-12-25',
+]);
 
 const $ = id => document.getElementById(id);
 const getPAT = () => localStorage.getItem('gh_pat') || '';
@@ -297,8 +336,9 @@ function render() {
     <div class="card">
       <div class="monitor-row">
         <div class="monitor-info">
-          <div class="monitor-name">${esc(m.name)}</div>
+          <div class="monitor-name"><span class="platform-badge ${m.type==='kakao'?'kakao':'naver'}">${m.type==='kakao'?'K':'N'}</span>${esc(m.name)}</div>
           <div class="monitor-meta">${fmtDates(m.target_dates)}</div>
+          ${fmtAvailableRange(m.url)}
           <div class="monitor-url">${esc(m.url)}</div>
         </div>
         <label class="toggle">
@@ -320,6 +360,13 @@ function getDow(dateStr) {
   return days[new Date(y, m - 1, d).getDay()];
 }
 
+function isWeekendOrHoliday(dateStr) {
+  if (KR_HOLIDAYS.has(dateStr)) return true;
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dow = new Date(y, m - 1, d).getDay();
+  return dow === 0 || dow === 6;
+}
+
 function makeTimeOptions() {
   const opts = ['<option value="">시간 선택</option>'];
   for (let h = 0; h <= 24; h++) {
@@ -329,9 +376,67 @@ function makeTimeOptions() {
   return opts.join('');
 }
 
+// target_dates가 주말/공휴일·평일저녁 간편등록 패턴과 정확히 일치하면 해당 종류 목록 반환 (아니면 null)
+// 단일 날짜이거나, 지정 기간 내 모든 주말/공휴일(또는 평일)이 포함되지 않으면 null 반환
+function detectQuickKinds(dates) {
+  if (!dates || dates.length < 2) return null;
+  let hasWeekend = false, hasWeekday = false;
+  const weekendSet = new Set();
+  const weekdaySet = new Set();
+  for (const entry of dates) {
+    const sp = entry.indexOf(' ');
+    const d = sp >= 0 ? entry.slice(0, sp) : entry;
+    const t = sp >= 0 ? entry.slice(sp + 1) : '';
+    if (t === '' && isWeekendOrHoliday(d)) {
+      hasWeekend = true;
+      weekendSet.add(d);
+    } else if (t === '18:00-24:00' && !isWeekendOrHoliday(d)) {
+      hasWeekday = true;
+      weekdaySet.add(d);
+    } else {
+      return null;
+    }
+  }
+  // 기간 내 모든 주말/공휴일이 빠짐없이 포함되어야 간편등록 패턴으로 판정
+  if (hasWeekend) {
+    const sorted = [...weekendSet].sort();
+    const cur = new Date(sorted[0]), end = new Date(sorted[sorted.length - 1]);
+    while (cur <= end) {
+      const ds = cur.toISOString().slice(0, 10);
+      if (isWeekendOrHoliday(ds) && !weekendSet.has(ds)) return null;
+      cur.setDate(cur.getDate() + 1);
+    }
+  }
+  if (hasWeekday) {
+    const sorted = [...weekdaySet].sort();
+    const cur = new Date(sorted[0]), end = new Date(sorted[sorted.length - 1]);
+    while (cur <= end) {
+      const ds = cur.toISOString().slice(0, 10);
+      if (!isWeekendOrHoliday(ds) && !weekdaySet.has(ds)) return null;
+      cur.setDate(cur.getDate() + 1);
+    }
+  }
+  const kinds = [];
+  if (hasWeekend) kinds.push('주말/공휴일');
+  if (hasWeekday) kinds.push('평일저녁');
+  return kinds.length ? kinds : null;
+}
+
 function fmtDates(dates) {
   if (!dates || !dates.length) return '전체 날짜';
-  return parsePeriods(dates).map(p => {
+  const quickKinds = detectQuickKinds(dates);
+  if (quickKinds) return `[${quickKinds.join(', ')}]`;
+  const periods = parsePeriods(dates);
+  // 구간이 많으면(자동 등록 등) 목록이 너무 길어지므로 전체 범위로 요약 표시
+  if (periods.length > 4) {
+    const ds = dates.map(e => e.split(' ')[0]).sort();
+    const first = ds[0], last = ds[ds.length - 1];
+    const range = first === last
+      ? `${first.slice(5)}(${getDow(first)})`
+      : `${first.slice(5)}(${getDow(first)}) ~ ${last.slice(5)}(${getDow(last)})`;
+    return `${range} · ${new Set(ds).size}일`;
+  }
+  return periods.map(p => {
     const fd = getDow(p.from), td = getDow(p.to);
     const d = p.from === p.to
       ? `${p.from.slice(5)}(${fd})`
@@ -339,6 +444,15 @@ function fmtDates(dates) {
     const t = p.timeFrom ? (p.timeFrom === p.timeTo ? ` ${p.timeFrom}` : ` ${p.timeFrom}~${p.timeTo}`) : '';
     return d + t;
   }).join(' / ');
+}
+
+// 캐시에 저장된 팝업의 실제 운영 기간을 메타 라인으로 표시 (없으면 빈 문자열)
+function fmtAvailableRange(url) {
+  const range = getAvailableRange(url);
+  if (!range) return '';
+  const fLabel = `${range.start.slice(5)}(${getDow(range.start)})`;
+  const tLabel = `${range.end.slice(5)}(${getDow(range.end)})`;
+  return `<div class="monitor-meta">운영 기간: ${fLabel} ~ ${tLabel}</div>`;
 }
 
 // target_dates → [{from, to, timeFrom, timeTo}] 역변환
@@ -388,7 +502,13 @@ function addPeriod() {
   $('f-time-from').value = ''; $('f-time-to').value = '';
 }
 
-function removePeriod(i) { periods.splice(i, 1); renderPeriodList(); }
+function removePeriod(i) {
+  const p = periods[i];
+  periods.splice(i, 1);
+  if (p && p.kind === 'weekend') $('f-quick-weekend').checked = false;
+  if (p && p.kind === 'weekday') $('f-quick-weekday').checked = false;
+  renderPeriodList();
+}
 
 function renderPeriodList() {
   const el = $('period-list');
@@ -401,8 +521,49 @@ function renderPeriodList() {
     const tLabel = p.timeFrom
       ? (p.timeFrom === p.timeTo ? ` · ${p.timeFrom}` : ` · ${p.timeFrom} ~ ${p.timeTo}`)
       : ' · 전체 시간';
-    return `<div class="period-tag"><span>${dLabel}${tLabel}</span><button type="button" onclick="removePeriod(${i})" title="삭제">×</button></div>`;
+    const kLabel = p.kind === 'weekend' ? '🗓 주말/공휴일 · ' : p.kind === 'weekday' ? '🌙 평일저녁 · ' : '';
+    return `<div class="period-tag"><span>${kLabel}${dLabel}${tLabel}</span><button type="button" onclick="removePeriod(${i})" title="삭제">×</button></div>`;
   }).join('');
+}
+
+// 주말/공휴일, 평일저녁 간편등록 체크박스 처리
+function onQuickToggle(kind, checked) {
+  periods = periods.filter(p => p.kind !== kind);
+  if (checked) {
+    let from = $('f-from').value;
+    let to   = $('f-to').value;
+    if (!from) {
+      // 날짜를 입력하지 않았으면 오늘부터 90일간(실제 모니터링 조회 범위와 동일)으로 자동 설정
+      from = todayStr();
+      to   = addDaysStr(from, 90);
+      // 캐시에 팝업의 실제 운영 기간이 있으면 그 기간으로 좁힘 (시작일이 운영 시작일 이전이면 당김)
+      const range = getAvailableRange($('f-url').value);
+      if (range && range.start && range.start > from) from = range.start;
+      if (range && range.end && range.end >= from && range.end < to) to = range.end;
+      $('f-from').value = from;
+      $('f-to').value   = to;
+    } else if (!to) {
+      to = from;
+    }
+    if (from > to) {
+      alert('시작일이 종료일보다 늦습니다');
+      $(kind === 'weekend' ? 'f-quick-weekend' : 'f-quick-weekday').checked = false;
+      renderPeriodList();
+      return;
+    }
+    if (kind === 'weekend') {
+      periods.push({ from, to, timeFrom: '', timeTo: '', kind: 'weekend' });
+    } else {
+      periods.push({ from, to, timeFrom: '18:00', timeTo: '24:00', kind: 'weekday' });
+    }
+  }
+  renderPeriodList();
+}
+
+// 확인 기간(날짜) 변경 시, 체크된 간편등록 항목을 새 기간으로 갱신
+function onDateRangeChange() {
+  if ($('f-quick-weekend').checked) onQuickToggle('weekend', true);
+  if ($('f-quick-weekday').checked) onQuickToggle('weekday', true);
 }
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function setStatus(msg) { $('status').textContent = msg; }
@@ -446,6 +607,8 @@ function openSheet() {
   $('f-url').value  = '';
   $('f-from').value = ''; $('f-to').value = '';
   $('f-time-from').value = ''; $('f-time-to').value = '';
+  $('f-quick-weekend').checked = false;
+  $('f-quick-weekday').checked = false;
   periods = [];
   renderPeriodList();
   $('overlay').classList.add('open');
@@ -455,11 +618,13 @@ function openEdit(id) {
   const m = cfg.monitors.find(x => x.id === id);
   if (!m) return;
   editId = id;
-  $('sheet-title').textContent = '예약 모니터 수정';
+  $('sheet-title').textContent = `${m.name} 수정`;
   $('f-name').value = m.name;
   $('f-url').value  = m.url;
   $('f-from').value = ''; $('f-to').value = '';
   $('f-time-from').value = ''; $('f-time-to').value = '';
+  $('f-quick-weekend').checked = false;
+  $('f-quick-weekday').checked = false;
   periods = parsePeriods(m.target_dates || []);
   renderPeriodList();
   $('overlay').classList.add('open');
@@ -467,6 +632,35 @@ function openEdit(id) {
 
 function closeSheet() { $('overlay').classList.remove('open'); }
 function overlayClick(e) { if (e.target === $('overlay')) closeSheet(); }
+
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+function addDaysStr(dateStr, days) {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+// GitHub Actions가 주기적으로 갱신하는 팝업별 예약 가능 기간 캐시 로드 (raw, 인증 불필요)
+async function loadScheduleCache() {
+  try {
+    const res = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/main/schedule_cache.json?_=${Date.now()}`);
+    if (!res.ok) return;
+    scheduleCache = await res.json();
+  } catch (e) {
+    scheduleCache = {};
+  }
+}
+
+// URL로부터 캐시에 저장된 팝업의 실제 예약 가능 기간(available_start~available_end) 조회 (없으면 null)
+function getAvailableRange(url) {
+  const m = (url || '').trim().match(/\/booking\/(\d+)\/bizes\/(\d+)\/items\/(\d+)/);
+  if (!m) return null;
+  const entry = scheduleCache[`${m[1]}_${m[2]}_${m[3]}`];
+  if (!entry || !entry.available_start || !entry.available_end) return null;
+  return { start: entry.available_start, end: entry.available_end };
+}
 
 function genDates(from, to) {
   const out = [], d = new Date(from), end = new Date(to);
@@ -481,10 +675,11 @@ async function submitMonitor() {
   if (!name) { alert('이름을 입력하세요'); return; }
   if (!url || !url.includes('booking.naver.com')) { alert('네이버 예약 URL을 입력하세요'); return; }
 
-  // 입력 중인 기간이 있으면 자동 추가
+  // 입력 중인 기간이 있으면 자동 추가 (간편등록 체크박스가 켜져 있으면 해당 기간은 이미 추가됨)
+  const quickActive = $('f-quick-weekend').checked || $('f-quick-weekday').checked;
   const pendingFrom = $('f-from').value;
   const pendingTo   = $('f-to').value || pendingFrom;
-  if (pendingFrom) {
+  if (pendingFrom && !quickActive) {
     const ptf = $('f-time-from').value, ptt = $('f-time-to').value;
     if (pendingFrom > pendingTo) { alert('시작일이 종료일보다 늦습니다'); return; }
     if ((ptf && !ptt) || (!ptf && ptt)) { alert('시작 시간과 종료 시간을 모두 입력하거나 모두 비워주세요'); return; }
@@ -498,6 +693,8 @@ async function submitMonitor() {
   const target_dates = [];
   for (const p of periods) {
     for (const d of genDates(p.from, p.to)) {
+      if (p.kind === 'weekend' && !isWeekendOrHoliday(d)) continue;
+      if (p.kind === 'weekday' && isWeekendOrHoliday(d)) continue;
       if (p.timeFrom) {
         target_dates.push(p.timeFrom === p.timeTo ? `${d} ${p.timeFrom}` : `${d} ${p.timeFrom}-${p.timeTo}`);
       } else {
@@ -548,11 +745,14 @@ let notifData = [];
 let lastReadTime = parseInt(localStorage.getItem('notif_last_read') || '0');
 
 function relTime(ts) {
-  const d = Math.floor(Date.now() / 1000) - ts;
-  if (d < 60) return '방금';
-  if (d < 3600) return `${Math.floor(d/60)}분 전`;
-  if (d < 86400) return `${Math.floor(d/3600)}시간 전`;
-  return `${Math.floor(d/86400)}일 전`;
+  const d = new Date(ts * 1000);
+  const now = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  if (d.getFullYear() !== now.getFullYear()) {
+    return `${d.getFullYear()}.${pad(d.getMonth()+1)}.${pad(d.getDate())} ${time}`;
+  }
+  return `${d.getMonth()+1}월 ${d.getDate()}일 ${time}`;
 }
 
 async function fetchNotifications() {
@@ -627,7 +827,7 @@ window.onload = () => {
   const opts = makeTimeOptions();
   $('f-time-from').innerHTML = opts;
   $('f-time-to').innerHTML = opts;
-  loadConfig().then(() => fetchNotifications());
+  loadScheduleCache().then(() => loadConfig()).then(() => fetchNotifications());
 };
 </script>
 </body>
