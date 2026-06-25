@@ -3,10 +3,10 @@
   "check_interval_seconds": 60,
   "areas": [
     {
-      "query": "성수 팝업",
+      "query": "ì±ì íì",
       "x": "127.057",
       "y": "37.544",
-      "address_filter": "성동구"
+      "address_filter": "ì±ëêµ¬"
     }
   ],
   "disabled_places": [],
