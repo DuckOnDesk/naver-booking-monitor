@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-25T16:58:12.512392+09:00",
+  "updated_at": "2026-06-25T19:46:32.637313+09:00",
   "disabled_places": [],
   "places": [
     {
@@ -208,7 +208,7 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260622_228/1782112228168zzQan_JPEG/HK-sns-%C6%CB%BE%F7%BE%C8%B3%BB02-01%280622%29.jpg",
       "roadAddress": "성수이로18길 6 1층",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": "2026-06-25T18:00:00+09:00"
     },
     {
       "id": "2059199194",
