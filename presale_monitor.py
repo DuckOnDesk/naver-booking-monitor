@@ -199,6 +199,11 @@ def check_once(config: dict, prev: dict) -> dict:
 
     current: dict[str, dict] = {pid: normalize(p) for pid, p in raw.items()}
 
+    # 이전에 발견한 장소는 검색에 안 나와도 유지 (새 장소만 추가)
+    for pid, place in prev.items():
+        if pid not in current:
+            current[pid] = place
+
     # config의 booking_open_datetimes를 각 장소에 병합
     bod = config.get("booking_open_datetimes", {})
     for pid, place in current.items():
