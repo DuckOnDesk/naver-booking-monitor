@@ -90,6 +90,10 @@
     .c-addr { font-size: 11px; color: var(--t3); margin-top: 2px;
                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .c-period { font-size: 11px; color: var(--t2); margin-top: 3px; }
+    .c-open-time {
+      font-size: 11px; color: #d04800; margin-top: 3px; font-weight: 600;
+    }
+    .c-open-time.past { color: var(--t3); font-weight: 400; }
     .c-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 
     .tag {
@@ -108,6 +112,14 @@
       align-items: flex-end; justify-content: center;
       gap: 8px; flex-shrink: 0;
     }
+    .btn-time {
+      background: #f4f5f7; border: 1px solid var(--border);
+      border-radius: 7px; width: 30px; height: 26px;
+      font-size: 13px; cursor: pointer; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .btn-time:active { background: #e8e8e8; }
 
     /* ── Toggle ── */
     .tog-wrap { display: flex; align-items: center; gap: 5px; }
@@ -232,6 +244,19 @@
   <span id="ft">자동 새로고침 중 (30초마다)</span>
 </div>
 
+<!-- 예약 오픈 시간 설정 모달 -->
+<div class="overlay" id="time-overlay" onclick="if(event.target===this)closeTimePicker()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeTimePicker()">✕</button>
+    <h2>예약 오픈 예정 시간</h2>
+    <p id="time-place-name" style="font-weight:600;font-size:14px;color:var(--t1);margin-bottom:12px;line-height:1.4"></p>
+    <p style="margin-top:-8px">예약 오픈이 예정된 날짜와 시간을 입력하세요. 카드에 표시됩니다.</p>
+    <input class="inp" id="time-input" type="datetime-local">
+    <button class="btn-save" onclick="saveOpenTime()">저장</button>
+    <button class="btn-clear" onclick="clearOpenTime()">예정 시간 삭제</button>
+  </div>
+</div>
+
 <!-- 설정 모달 -->
 <div class="overlay" id="overlay" onclick="if(event.target===this)closeCfg()">
   <div class="modal">
@@ -255,9 +280,11 @@ const OWNER = 'Gohyedeok';
 const REPO  = 'naver-booking-monitor';
 const DATA_URL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/presale_data.json`;
 const CFG_PATH = 'presale_config.json';
+const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 // ── 상태 ──────────────────────────────────────────────
 let disabled = new Set();
+let placesMap = {};
 let pat = localStorage.getItem('gh_pat') || '';
 
 function getPat() { return localStorage.getItem('gh_pat') || ''; }
@@ -332,6 +359,91 @@ function fmt(d) {
   return d.replace(/^\d{2}\./, '').replace(/\.$/, '');
 }
 
+function fmtOpenTime(dt) {
+  if (!dt) return null;
+  const d = new Date(dt);
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  const mon = d.getMonth() + 1, day = d.getDate(), dow = days[d.getDay()];
+  const h = d.getHours(), m = String(d.getMinutes()).padStart(2, '0');
+  const ampm = h < 12 ? '오전' : '오후', h12 = h % 12 || 12;
+  return { str: `${mon}월 ${day}일(${dow}) ${ampm} ${h12}:${m}`, past: d < new Date() };
+}
+
+// ── 예약 오픈 시간 설정 ────────────────────────────────
+let currentTimeId = '';
+
+function openTimePicker(id) {
+  const p = placesMap[id];
+  if (!p) return;
+  currentTimeId = id;
+  document.getElementById('time-place-name').textContent = p.name;
+  const dt = p.bookingOpenDatetime;
+  document.getElementById('time-input').value = dt ? dt.slice(0, 16) : '';
+  document.getElementById('time-overlay').classList.add('show');
+}
+function closeTimePicker() {
+  document.getElementById('time-overlay').classList.remove('show');
+}
+
+async function doSetOpenTime(id, dt) {
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (isLocal) {
+    await fetch('/api/set-open-time', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, datetime: dt || null }),
+    });
+    return;
+  }
+
+  const token = getPat();
+  if (!token) { openCfg(); return; }
+
+  const base = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${CFG_PATH}`;
+  const headers = {
+    'Authorization': `Bearer ${token}`,
+    'Accept': 'application/vnd.github+json',
+  };
+
+  const r = await fetch(base, { headers });
+  if (!r.ok) { alert('토큰이 올바르지 않거나 권한이 없습니다.'); return; }
+  const file = await r.json();
+  const cfg = JSON.parse(atob(file.content.replace(/\n/g, '')));
+
+  if (!cfg.booking_open_datetimes) cfg.booking_open_datetimes = {};
+  if (dt) cfg.booking_open_datetimes[String(id)] = dt;
+  else delete cfg.booking_open_datetimes[String(id)];
+
+  const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(cfg, null, 2) + '\n')));
+  await fetch(base, {
+    method: 'PUT',
+    headers: { ...headers, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      message: `set-open-time: ${id} [skip ci]`,
+      content: newContent,
+      sha: file.sha,
+    }),
+  });
+}
+
+async function saveOpenTime() {
+  const v = document.getElementById('time-input').value;
+  if (!v) { alert('날짜와 시간을 선택해주세요.'); return; }
+  const dt = v + ':00+09:00';
+  await doSetOpenTime(currentTimeId, dt);
+  // placesMap 즉시 업데이트 (재로드 전 반영)
+  if (placesMap[currentTimeId]) placesMap[currentTimeId].bookingOpenDatetime = dt;
+  closeTimePicker();
+  load();
+}
+
+async function clearOpenTime() {
+  await doSetOpenTime(currentTimeId, null);
+  if (placesMap[currentTimeId]) placesMap[currentTimeId].bookingOpenDatetime = null;
+  closeTimePicker();
+  load();
+}
+
 // ── 카드 생성 ──────────────────────────────────────────
 function makeCard(p) {
   const isOpen = !!p.hasBooking;
@@ -359,6 +471,14 @@ function makeCard(p) {
   const urlTag  = isOpen && hasUrl ? `<span class="tag t-url">예약하기 →</span>` : '';
 
   const lblId = `lbl-${p.id}`;
+  const openInfo = !isOpen ? fmtOpenTime(p.bookingOpenDatetime) : null;
+  const openTimeHtml = openInfo
+    ? `<div class="c-open-time${openInfo.past ? ' past' : ''}">🕐 예약 오픈 예정: ${openInfo.str}</div>`
+    : '';
+  const timeBtnHtml = !isOpen
+    ? `<button class="btn-time" title="오픈 예정 시간 설정" onclick="event.stopPropagation();openTimePicker('${p.id}')">🕐</button>`
+    : '';
+
   card.innerHTML = `
     <div class="c-bar ${isOpen ? 'open' : 'wait'}"></div>
     ${thumb}
@@ -366,6 +486,7 @@ function makeCard(p) {
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
       <div class="c-period">운영 ${period}</div>
+      ${openTimeHtml}
       <div class="c-tags">${ddayTag}${stTag}${urlTag}</div>
     </div>
     <div class="c-right">
@@ -377,6 +498,7 @@ function makeCard(p) {
           <span class="tog-tr"></span>
         </label>
       </div>
+      ${timeBtnHtml}
     </div>
   `;
   return card;
@@ -385,17 +507,10 @@ function makeCard(p) {
 // ── 데이터 로드 ────────────────────────────────────────
 async function load() {
   try {
-    // cache-bust + PAT 있으면 GitHub API로 (no-cache), 없으면 raw URL
     let data;
-    const token = getPat();
-    if (token) {
-      const r = await fetch(
-        `https://api.github.com/repos/${OWNER}/${REPO}/contents/${CFG_PATH.replace('config','data')}`,
-        { headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' } }
-      );
-      // presale_data.json 은 그냥 raw로
-      const r2 = await fetch(DATA_URL + '?_=' + Date.now());
-      data = await r2.json();
+    if (IS_LOCAL) {
+      const r = await fetch('/api/data');
+      data = await r.json();
     } else {
       const r = await fetch(DATA_URL + '?_=' + Date.now());
       data = await r.json();
@@ -404,6 +519,8 @@ async function load() {
     disabled = new Set((data.disabled_places || []).map(String));
 
     const all     = data.places || [];
+    placesMap = {};
+    all.forEach(p => { placesMap[p.id] = p; });
     const opened  = all.filter(p =>  p.hasBooking);
     const waiting = all.filter(p => !p.hasBooking)
                        .sort((a, b) => (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999));

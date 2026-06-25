@@ -87,6 +87,38 @@ class Handler(BaseHTTPRequestHandler):
 
             self._json({"ok": True, "disabled_places": list(disabled)})
 
+        elif path == "/api/set-open-time":
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length).decode("utf-8"))
+            place_id = str(body.get("id", ""))
+            dt = body.get("datetime")  # ISO 문자열 또는 null
+
+            if not CONFIG_FILE.exists():
+                self._json({"error": "config not found"}, 500)
+                return
+
+            config = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
+            bod = config.setdefault("booking_open_datetimes", {})
+            if dt:
+                bod[place_id] = dt
+            else:
+                bod.pop(place_id, None)
+
+            CONFIG_FILE.write_text(
+                json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+
+            if DATA_FILE.exists():
+                data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+                for p in data.get("places", []):
+                    if str(p.get("id")) == place_id:
+                        p["bookingOpenDatetime"] = dt
+                DATA_FILE.write_text(
+                    json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
+                )
+
+            self._json({"ok": True})
+
         else:
             self._json({"error": "not found"}, 404)
 

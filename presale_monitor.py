@@ -136,6 +136,7 @@ def normalize(p: dict) -> dict:
         "imageUrl": p.get("imageUrl"),
         "roadAddress": p.get("roadAddress"),
         "commonAddress": p.get("commonAddress"),
+        "bookingOpenDatetime": None,  # check_once에서 config의 booking_open_datetimes로 채워짐
     }
 
 
@@ -197,6 +198,11 @@ def check_once(config: dict, prev: dict) -> dict:
                 raw[pid] = p
 
     current: dict[str, dict] = {pid: normalize(p) for pid, p in raw.items()}
+
+    # config의 booking_open_datetimes를 각 장소에 병합
+    bod = config.get("booking_open_datetimes", {})
+    for pid, place in current.items():
+        place["bookingOpenDatetime"] = bod.get(str(pid))
 
     for pid, place in current.items():
         name = place["name"]

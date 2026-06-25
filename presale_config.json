@@ -9,5 +9,8 @@
       "address_filter": "성동구"
     }
   ],
-  "disabled_places": []
+  "disabled_places": [],
+  "booking_open_datetimes": {
+    "2002640525": "2026-06-25T18:00:00+09:00"
+  }
 }
