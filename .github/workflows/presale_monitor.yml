@@ -1,0 +1,40 @@
+name: 사전예약 오픈 감지
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"   # 5분마다 실행
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+
+    concurrency:
+      group: presale-monitor
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - name: 사전예약 오픈 체크
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python -u presale_monitor.py --once
+
+      - name: 데이터 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add presale_data.json
+          git diff --staged --quiet || git commit -m "data: presale update $(date +'%H:%M KST' -d '+9 hours') [skip ci]"
+          git push
