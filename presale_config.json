@@ -1,5 +1,5 @@
 {
-  "ntfy_topic": "naver-booking-alert",
+  "ntfy_topic": "naver-presale-alert",
   "check_interval_seconds": 60,
   "areas": [
     {
