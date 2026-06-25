@@ -79,6 +79,13 @@
       "target_dates": [
         "2026-07-11"
       ]
+    },
+    {
+      "id": "mqsz9dzl",
+      "name": "마땡킴",
+      "url": "https://booking.naver.com/booking/13/bizes/1670302/items/7744302?fbclid=PAZnRzaASpfP5leHRuA2FlbQExAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp8iFif_IyTW4V6XM0_NdK7tOen0Ue9Lt0OqwS9PMx4V8oAZ-6yav0cwYCfcO_aem_-C_wnov6EEmkydXzTIQBSg&startDate=2026-06-27&tab=book",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
