@@ -44,12 +44,6 @@
 
     .wrap { max-width: 600px; margin: 0 auto; padding: 16px 12px 60px; }
 
-    .sec { margin-bottom: 24px; }
-    .sec-hd { font-size: 11px; font-weight: 700; color: var(--t3); letter-spacing: 1px;
-               margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .sec-cnt { background: #e8e8e8; color: var(--t3); padding: 2px 7px;
-                border-radius: 20px; font-size: 10px; font-weight: 700; }
-
     .cards { display: flex; flex-direction: column; gap: 8px; }
     .card {
       background: var(--card); border-radius: 12px;
@@ -77,16 +71,15 @@
 
     .tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 100px;
            font-size: 10px; font-weight: 700; white-space: nowrap; }
-    .t-open { background: #e6f9ee; color: #02a347; }
-    .t-wait { background: #f2f2f2; color: #999; }
-    .t-dday { background: #fff4e0; color: #c45000; }
+    .t-open   { background: #e6f9ee; color: #02a347; }
+    .t-closed { background: #fff3e0; color: #c45000; }
+    .t-wait   { background: #f2f2f2; color: #999; }
+    .t-dday   { background: #fff4e0; color: #c45000; }
 
-    .c-right { padding: 10px 14px 10px 4px; display: flex; flex-direction: column;
-               align-items: flex-end; justify-content: center; gap: 6px; flex-shrink: 0; }
+    .c-right { padding: 10px 14px 10px 4px; display: flex; align-items: center;
+               justify-content: center; flex-shrink: 0; }
 
     /* ── Toggle ── */
-    .tog-wrap { display: flex; align-items: center; gap: 5px; }
-    .tog-lbl { font-size: 10px; color: var(--t3); min-width: 44px; text-align: right; }
     .tog { position: relative; width: 44px; height: 24px; cursor: pointer; }
     .tog input { opacity: 0; width: 0; height: 0; position: absolute; }
     .tog-tr { position: absolute; inset: 0; background: #d0d0d0; border-radius: 24px; transition: background .22s; }
@@ -95,8 +88,9 @@
                       box-shadow: 0 1px 3px rgba(0,0,0,.22); transition: transform .22s; }
     .tog input:checked + .tog-tr { background: var(--green); }
     .tog input:checked + .tog-tr::before { transform: translateX(20px); }
+    .tog input:disabled + .tog-tr { opacity: 0.5; }
 
-    .empty { text-align: center; padding: 22px 0; color: var(--t3); font-size: 13px; }
+    .empty { text-align: center; padding: 40px 0; color: var(--t3); font-size: 13px; }
     .footer { text-align: center; padding: 14px; font-size: 11px; color: var(--t3); }
 
     .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
@@ -137,14 +131,7 @@
 </div>
 
 <div class="wrap">
-  <div class="sec">
-    <div class="sec-hd">🔔 모니터링 중 <span class="sec-cnt" id="b-on">0</span></div>
-    <div class="cards" id="list-on"></div>
-  </div>
-  <div class="sec">
-    <div class="sec-hd">➕ 팝업 후보 <span class="sec-cnt" id="b-off">0</span></div>
-    <div class="cards" id="list-off"></div>
-  </div>
+  <div class="cards" id="list"></div>
 </div>
 
 <div class="footer" id="ft">데이터 로딩 중...</div>
@@ -167,7 +154,7 @@
 </div>
 
 <script>
-const OWNER = 'Gohyedeok';
+const OWNER = 'DuckOnDesk';
 const REPO  = 'naver-booking-monitor';
 const DATA_URL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/presale_data.json`;
 const CFG_PATH = 'presale_config.json';
@@ -197,50 +184,81 @@ function fmt(d) {
   return d.replace(/^\d{2}\./, '').replace(/\.$/, '');
 }
 
-async function doToggle(id, watching, lblEl) {
-  const isOn = !!watching;
-  if (isOn) watchedIds.add(String(id)); else watchedIds.delete(String(id));
-  if (lblEl) lblEl.textContent = isOn ? '모니터링' : '후보';
-
-  if (IS_LOCAL) {
-    await fetch('/api/toggle', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, watching: isOn }),
-    });
-    return;
-  }
-
-  const token = getPat();
-  if (!token) { openCfg(); return; }
-
-  const base = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${CFG_PATH}`;
-  const headers = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' };
-
-  const r = await fetch(base, { headers });
-  if (!r.ok) { alert('토큰이 올바르지 않거나 권한이 없습니다.'); return; }
-  const file = await r.json();
-  const cfg = JSON.parse(atob(file.content.replace(/\n/g, '')));
-
-  const watched = new Set((cfg.watched_places || []).map(String));
-  if (isOn) watched.add(String(id)); else watched.delete(String(id));
-  cfg.watched_places = [...watched].sort();
-
-  const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(cfg, null, 2) + '\n')));
-  await fetch(base, {
-    method: 'PUT',
-    headers: { ...headers, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      message: `watch: ${isOn ? 'add' : 'remove'} ${id} [skip ci]`,
-      content: newContent,
-      sha: file.sha,
-    }),
-  });
+function bookingStatusTag(p) {
+  if (p.hasBooking) return '<span class="tag t-open">예약 오픈</span>';
+  if ((p.bookingOpenHistory || []).length > 0) return '<span class="tag t-closed">예약마감</span>';
+  return '<span class="tag t-wait">대기중</span>';
 }
 
-function makeCard(p, isWatching) {
-  const isOpen = !!p.hasBooking;
-  const dday   = p.status || (p.remainingDays != null ? `D-${p.remainingDays}` : null);
+function statusRank(p) {
+  if (p.hasBooking) return 0;
+  if ((p.bookingOpenHistory || []).length > 0) return 1;
+  return 2;
+}
+
+async function doToggle(id, watching, toggleEl) {
+  const isOn = !!watching;
+  const card = toggleEl.closest('.card');
+  const bar  = card ? card.querySelector('.c-bar') : null;
+
+  // Optimistic UI update
+  if (isOn) watchedIds.add(String(id)); else watchedIds.delete(String(id));
+  if (bar) bar.className = 'c-bar ' + (isOn ? 'on' : 'off');
+  toggleEl.disabled = true;
+
+  try {
+    if (IS_LOCAL) {
+      const res = await fetch('/api/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, watching: isOn }),
+      });
+      if (!res.ok) throw new Error('서버 오류');
+    } else {
+      const token = getPat();
+      if (!token) {
+        // Revert and open PAT modal
+        if (isOn) watchedIds.delete(String(id)); else watchedIds.add(String(id));
+        toggleEl.checked = !isOn;
+        if (bar) bar.className = 'c-bar ' + (!isOn ? 'on' : 'off');
+        openCfg();
+        return;
+      }
+      const base = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${CFG_PATH}`;
+      const headers = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' };
+      const r = await fetch(base, { headers });
+      if (!r.ok) throw new Error('토큰이 올바르지 않거나 권한이 없습니다.');
+      const file = await r.json();
+      const cfg  = JSON.parse(atob(file.content.replace(/\n/g, '')));
+      const ws   = new Set((cfg.watched_places || []).map(String));
+      if (isOn) ws.add(String(id)); else ws.delete(String(id));
+      cfg.watched_places = [...ws].sort();
+      const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(cfg, null, 2) + '\n')));
+      const pr = await fetch(base, {
+        method: 'PUT',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `watch: ${isOn ? 'add' : 'remove'} ${id} [skip ci]`,
+          content: newContent,
+          sha: file.sha,
+        }),
+      });
+      if (!pr.ok) throw new Error('저장에 실패했습니다.');
+    }
+  } catch (e) {
+    // Revert on error
+    if (isOn) watchedIds.delete(String(id)); else watchedIds.add(String(id));
+    toggleEl.checked = !isOn;
+    if (bar) bar.className = 'c-bar ' + (!isOn ? 'on' : 'off');
+    alert(e.message || '저장에 실패했습니다.');
+  } finally {
+    toggleEl.disabled = false;
+  }
+}
+
+function makeCard(p) {
+  const isWatching = watchedIds.has(String(p.id));
+  const dday = p.status || (p.remainingDays != null ? `D-${p.remainingDays}` : null);
   const s = fmt(p.operationStart), e = fmt(p.operationEnd);
   const period = e && e !== '?' ? `${s} ~ ${e}` : `${s} ~`;
 
@@ -249,9 +267,8 @@ function makeCard(p, isWatching) {
     : `<div class="c-ph">🏪</div>`;
 
   const ddayTag = dday ? `<span class="tag t-dday">${dday}</span>` : '';
-  const stTag   = `<span class="tag ${isOpen ? 't-open' : 't-wait'}">${isOpen ? '예약 오픈' : '대기중'}</span>`;
+  const stTag   = bookingStatusTag(p);
 
-  const lblId = `lbl-${p.id}`;
   const card = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
@@ -264,14 +281,11 @@ function makeCard(p, isWatching) {
       <div class="c-tags">${ddayTag}${stTag}</div>
     </div>
     <div class="c-right">
-      <div class="tog-wrap">
-        <span class="tog-lbl" id="${lblId}">${isWatching ? '모니터링' : '후보'}</span>
-        <label class="tog">
-          <input type="checkbox" ${isWatching ? 'checked' : ''}
-            onchange="doToggle('${p.id}', this.checked, document.getElementById('${lblId}'))">
-          <span class="tog-tr"></span>
-        </label>
-      </div>
+      <label class="tog">
+        <input type="checkbox" ${isWatching ? 'checked' : ''}
+          onchange="doToggle('${p.id}', this.checked, this)">
+        <span class="tog-tr"></span>
+      </label>
     </div>`;
   return card;
 }
@@ -286,23 +300,24 @@ async function load() {
     }
 
     watchedIds = new Set((data.watched_places || []).map(String));
-    const all = data.places || [];
+    const all  = (data.places || []).slice();
 
-    const watching  = all.filter(p =>  watchedIds.has(String(p.id)));
-    const candidate = all.filter(p => !watchedIds.has(String(p.id)));
+    // Sort: open → closed(history) → waiting, watched first within each group
+    all.sort((a, b) => {
+      const ra = statusRank(a), rb = statusRank(b);
+      if (ra !== rb) return ra - rb;
+      const wa = watchedIds.has(String(a.id)), wb = watchedIds.has(String(b.id));
+      if (wa !== wb) return wa ? -1 : 1;
+      return (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999);
+    });
 
-    document.getElementById('b-on').textContent  = watching.length;
-    document.getElementById('b-off').textContent = candidate.length;
-
-    const lon = document.getElementById('list-on');
-    const loff = document.getElementById('list-off');
-    lon.innerHTML = ''; loff.innerHTML = '';
-
-    if (!watching.length)  lon.innerHTML  = '<div class="empty">모니터링 중인 팝업이 없어요</div>';
-    if (!candidate.length) loff.innerHTML = '<div class="empty">후보 팝업이 없어요</div>';
-
-    watching.forEach(p  => lon.appendChild(makeCard(p, true)));
-    candidate.forEach(p => loff.appendChild(makeCard(p, false)));
+    const list = document.getElementById('list');
+    list.innerHTML = '';
+    if (!all.length) {
+      list.innerHTML = '<div class="empty">팝업 데이터가 없어요</div>';
+    } else {
+      all.forEach(p => list.appendChild(makeCard(p)));
+    }
 
     const ts = data.updated_at
       ? new Date(data.updated_at).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})
@@ -310,7 +325,7 @@ async function load() {
     document.getElementById('hd-sub').textContent = `전체 ${all.length}개 팝업 · ${ts}`;
     document.getElementById('ft').textContent = `마지막 업데이트: ${ts}`;
 
-    if (!getPat()) document.getElementById('notice').style.display = '';
+    if (!getPat() && !IS_LOCAL) document.getElementById('notice').style.display = '';
 
   } catch (e) {
     document.getElementById('ft').textContent = '⚠️ 데이터 로드 실패';

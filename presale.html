@@ -67,8 +67,9 @@
     .card.link:active { box-shadow: 0 4px 14px rgba(0,0,0,0.12); opacity: 0.95; }
 
     .c-bar { width: 4px; flex-shrink: 0; }
-    .c-bar.open { background: var(--green); }
-    .c-bar.wait { background: #d8d8d8; }
+    .c-bar.open   { background: var(--green); }
+    .c-bar.closed { background: var(--orange); }
+    .c-bar.wait   { background: #d8d8d8; }
 
     .c-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px;
               flex-shrink: 0; margin: 12px 0 12px 12px; background: #f0f0f0; }
@@ -87,10 +88,11 @@
 
     .tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 100px;
            font-size: 10px; font-weight: 700; white-space: nowrap; }
-    .t-open { background: #e6f9ee; color: #02a347; }
-    .t-wait { background: #f2f2f2; color: #999; }
-    .t-dday { background: #fff4e0; color: #c45000; }
-    .t-url  { background: #e8f2ff; color: #1a73e8; }
+    .t-open   { background: #e6f9ee; color: #02a347; }
+    .t-closed { background: #fff3e0; color: #c45000; }
+    .t-wait   { background: #f2f2f2; color: #999; }
+    .t-dday   { background: #fff4e0; color: #c45000; }
+    .t-url    { background: #e8f2ff; color: #1a73e8; }
 
     .c-right { padding: 10px 12px 10px 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .btn-time {
@@ -161,12 +163,16 @@
 
 <div class="wrap">
   <div class="sec">
+    <div class="sec-hd">✅ 예약 오픈됨 <span class="sec-cnt" id="b-open">0</span></div>
+    <div class="cards" id="list-open"></div>
+  </div>
+  <div class="sec">
     <div class="sec-hd">⏳ 오픈 대기 중 <span class="sec-cnt" id="b-wait">0</span></div>
     <div class="cards" id="list-wait"></div>
   </div>
   <div class="sec">
-    <div class="sec-hd">✅ 예약 오픈됨 <span class="sec-cnt" id="b-open">0</span></div>
-    <div class="cards" id="list-open"></div>
+    <div class="sec-hd">🔒 사전예약 마감 <span class="sec-cnt" id="b-closed">0</span></div>
+    <div class="cards" id="list-closed"></div>
   </div>
 </div>
 
@@ -206,7 +212,7 @@
 </div>
 
 <script>
-const OWNER = 'Gohyedeok';
+const OWNER = 'DuckOnDesk';
 const REPO  = 'naver-booking-monitor';
 const DATA_URL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/presale_data.json`;
 const CFG_PATH = 'presale_config.json';
@@ -285,10 +291,18 @@ async function clearOpenTime() {
   closeTimePicker(); load();
 }
 
+function bookingStatusTag(p) {
+  if (p.hasBooking) return '<span class="tag t-open">예약 오픈</span>';
+  if ((p.bookingOpenHistory || []).length > 0) return '<span class="tag t-closed">예약마감</span>';
+  return '<span class="tag t-wait">대기중</span>';
+}
+
 function makeCard(p) {
   const isOpen = !!p.hasBooking;
+  const hasClosed = !isOpen && (p.bookingOpenHistory || []).length > 0;
   const hasUrl = !!p.bookingUrl;
-  const dday   = p.status || (p.remainingDays != null ? `D-${p.remainingDays}` : null);
+  const barClass = isOpen ? 'open' : hasClosed ? 'closed' : 'wait';
+  const dday = p.status || (p.remainingDays != null ? `D-${p.remainingDays}` : null);
   const s = fmt(p.operationStart), e = fmt(p.operationEnd);
   const period = e && e !== '?' ? `${s} ~ ${e}` : `${s} ~`;
 
@@ -305,17 +319,16 @@ function makeCard(p) {
     ? `<img class="c-img" src="${p.imageUrl}" alt="" loading="lazy" onerror="this.style.display='none'">`
     : `<div class="c-ph">🏪</div>`;
 
-  const ddayTag = dday ? `<span class="tag t-dday">${dday}</span>` : '';
-  const stTag   = `<span class="tag ${isOpen ? 't-open' : 't-wait'}">${isOpen ? '예약 오픈' : '대기중'}</span>`;
-  const urlTag  = isOpen && hasUrl ? `<span class="tag t-url">예약하기 →</span>` : '';
+  const ddayTag  = dday ? `<span class="tag t-dday">${dday}</span>` : '';
+  const stTag    = bookingStatusTag(p);
+  const urlTag   = isOpen && hasUrl ? `<span class="tag t-url">예약하기 →</span>` : '';
 
-  // hasBooking 여부 무관하게 미래 오픈 시간 표시
   const openInfo = fmtOpenTime(p.bookingOpenDatetime);
   const openTimeHtml = openInfo && !openInfo.past
     ? `<div class="c-open-time">🕐 예약 오픈 예정: ${openInfo.str}</div>` : '';
 
   card.innerHTML = `
-    <div class="c-bar ${isOpen ? 'open' : 'wait'}"></div>
+    <div class="c-bar ${barClass}"></div>
     ${thumb}
     <div class="c-body">
       <div class="c-name">${p.name}</div>
@@ -347,23 +360,30 @@ async function load() {
       ? new Set((data.watched_places || []).map(String)) : null;
     const toShow = watchedIds ? all.filter(p => watchedIds.has(String(p.id))) : all;
 
-    const opened  = toShow.filter(p =>  p.hasBooking);
-    const waiting = toShow.filter(p => !p.hasBooking)
+    const opened  = toShow.filter(p => p.hasBooking);
+    const waiting = toShow.filter(p => !p.hasBooking && !(p.bookingOpenHistory || []).length)
                           .sort((a, b) => (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999));
+    const closed  = toShow.filter(p => !p.hasBooking && (p.bookingOpenHistory || []).length > 0);
 
     document.getElementById('cnt-all').textContent  = toShow.length;
     document.getElementById('cnt-open').textContent = opened.length;
     document.getElementById('cnt-wait').textContent = waiting.length;
-    document.getElementById('b-wait').textContent   = waiting.length;
     document.getElementById('b-open').textContent   = opened.length;
+    document.getElementById('b-wait').textContent   = waiting.length;
+    document.getElementById('b-closed').textContent = closed.length;
 
-    const lw = document.getElementById('list-wait');
     const lo = document.getElementById('list-open');
-    lw.innerHTML = ''; lo.innerHTML = '';
-    if (!waiting.length) lw.innerHTML = '<div class="empty">오픈 대기 중인 팝업이 없어요</div>';
+    const lw = document.getElementById('list-wait');
+    const lc = document.getElementById('list-closed');
+    lo.innerHTML = ''; lw.innerHTML = ''; lc.innerHTML = '';
+
     if (!opened.length)  lo.innerHTML = '<div class="empty">예약 오픈된 팝업이 없어요</div>';
-    waiting.forEach(p => lw.appendChild(makeCard(p)));
+    if (!waiting.length) lw.innerHTML = '<div class="empty">오픈 대기 중인 팝업이 없어요</div>';
+    if (!closed.length)  lc.innerHTML = '<div class="empty">예약 마감된 팝업이 없어요</div>';
+
     opened.forEach(p  => lo.appendChild(makeCard(p)));
+    waiting.forEach(p => lw.appendChild(makeCard(p)));
+    closed.forEach(p  => lc.appendChild(makeCard(p)));
 
     const ts = data.updated_at
       ? new Date(data.updated_at).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})

@@ -36,7 +36,7 @@ if not sys.stderr:
 
 KST = timezone(timedelta(hours=9))
 LIST_URL = "https://pcmap.place.naver.com/popupstore/list"
-PRESALE_KEY = "popupstore_label_prebook_and_walkin"
+PRESALE_NAME_FILTER = "사전예약"  # admissionCondition.name에 포함되는 키워드로 필터
 
 SESSION = requests.Session()
 SESSION.headers.update({
@@ -102,8 +102,12 @@ def fetch_presale_places(area: dict) -> list[dict]:
         print(f"  [JSON 오류] {e}")
         return []
 
-    items = [v for k, v in data.items() if k.startswith("PopupstoreSearchBusinessItem:")]
-    presale = [p for p in items if (p.get("admissionCondition") or {}).get("i18nKey") == PRESALE_KEY]
+    # 타입 prefix 무관하게 admissionCondition.name에 "사전예약" 포함된 항목만 수집
+    presale = [
+        v for v in data.values()
+        if isinstance(v, dict)
+        and PRESALE_NAME_FILTER in ((v.get("admissionCondition") or {}).get("name") or "")
+    ]
 
     # address_filter 설정 시 commonAddress로 필터링 (예: "성동구")
     addr_filter = area.get("address_filter", "").strip()
@@ -136,7 +140,8 @@ def normalize(p: dict) -> dict:
         "imageUrl": p.get("imageUrl"),
         "roadAddress": p.get("roadAddress"),
         "commonAddress": p.get("commonAddress"),
-        "bookingOpenDatetime": None,  # check_once에서 config의 booking_open_datetimes로 채워짐
+        "bookingOpenDatetime": None,
+        "bookingOpenHistory": [],  # 예약 오픈된 이력 (ISO datetime 목록)
     }
 
 
@@ -206,10 +211,12 @@ def check_once(config: dict, prev: dict) -> dict:
         if pid not in current:
             current[pid] = place
 
-    # config의 booking_open_datetimes를 각 장소에 병합
+    # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
     bod = config.get("booking_open_datetimes", {})
+    now_iso = datetime.now(KST).isoformat()
     for pid, place in current.items():
         place["bookingOpenDatetime"] = bod.get(str(pid))
+        place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
 
     for pid, place in current.items():
         name = place["name"]
@@ -220,14 +227,20 @@ def check_once(config: dict, prev: dict) -> dict:
 
         if pid not in prev:
             # 새로 등장한 팝업 → 선택 페이지로 안내
+            if is_open:
+                place["bookingOpenHistory"].append(now_iso)
             print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
             send_ntfy(ntfy_topic, f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
-        elif is_open and not was_open and pid in watched:
-            # 감시 중인 장소의 예약 오픈
-            print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
-            msg = f"지금 바로 예약하세요! → {booking_url}"
-            send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
-            send_toast(name, msg, booking_url)
+        elif is_open and not was_open:
+            # 예약 오픈됨 → 이력 추가, 감시 중인 경우만 알림
+            place["bookingOpenHistory"].append(now_iso)
+            if pid in watched:
+                print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
+                msg = f"지금 바로 예약하세요! → {booking_url}"
+                send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
+                send_toast(name, msg, booking_url)
+            else:
+                print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (알림없음)")
         elif is_open:
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중")
         else:
