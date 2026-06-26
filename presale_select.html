@@ -162,6 +162,7 @@ const CFG_PATH = 'presale_config.json';
 const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 let watchedIds = new Set();
+const recentToggles = {}; // CDN 캐시 window 내 자동 reload 시 로컬 토글 상태 유지
 
 function getPat() { return localStorage.getItem('gh_pat') || ''; }
 function savePat() {
@@ -179,6 +180,14 @@ function clearPat() {
 }
 function openCfg() { document.getElementById('pat-input').value = getPat(); document.getElementById('overlay').classList.add('show'); }
 function closeCfg() { document.getElementById('overlay').classList.remove('show'); }
+
+function showSavedFeedback(toggleEl) {
+  const label = toggleEl.closest('.tog');
+  if (!label) return;
+  label.style.outline = '2px solid var(--green)';
+  label.style.borderRadius = '24px';
+  setTimeout(() => { label.style.outline = ''; label.style.borderRadius = ''; }, 1200);
+}
 
 function fmt(d) {
   if (!d) return '?';
@@ -218,7 +227,7 @@ async function doToggle(id, watching, toggleEl) {
     } else {
       const token = getPat();
       if (!token) {
-        // Revert and open PAT modal
+        // Revert and open PAT modal — user must retry toggle after entering token
         if (isOn) watchedIds.delete(String(id)); else watchedIds.add(String(id));
         toggleEl.checked = !isOn;
         if (bar) bar.className = 'c-bar ' + (!isOn ? 'on' : 'off');
@@ -246,6 +255,9 @@ async function doToggle(id, watching, toggleEl) {
       });
       if (!pr.ok) throw new Error('저장에 실패했습니다.');
     }
+    // 저장 성공: CDN 캐시 window(~5분) 동안 로컬 상태 유지
+    recentToggles[String(id)] = { isOn, ts: Date.now() };
+    showSavedFeedback(toggleEl);
   } catch (e) {
     // Revert on error
     if (isOn) watchedIds.delete(String(id)); else watchedIds.add(String(id));
@@ -307,6 +319,17 @@ async function load() {
     }
 
     watchedIds = new Set((data.watched_places || []).map(String));
+
+    // 최근 저장된 토글이 CDN 캐시로 덮이지 않도록 로컬 상태 우선 적용 (최대 6분)
+    const now = Date.now();
+    for (const [tid, entry] of Object.entries(recentToggles)) {
+      if (now - entry.ts < 360000) {
+        if (entry.isOn) watchedIds.add(tid); else watchedIds.delete(tid);
+      } else {
+        delete recentToggles[tid];
+      }
+    }
+
     const all  = (data.places || []).slice();
 
     // Sort: open → closed(history) → waiting, watched first within each group
