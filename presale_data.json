@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-27T02:21:37.217672+09:00",
+  "updated_at": "2026-06-27T04:12:48.179391+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -39,9 +39,9 @@
     {
       "id": "1191821590",
       "name": "ASCEplus 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1673124",
+      "bookingBusinessId": "1673124",
       "operationStart": "26.06.19.",
       "operationEnd": "26.06.29.",
       "remainingDays": null,
@@ -51,7 +51,9 @@
       "roadAddress": "연무장길 31-1 금호아파트 1층 103호 517랩",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
+      "bookingOpenHistory": [
+        "2026-06-27T04:12:47.666494+09:00"
+      ]
     },
     {
       "id": "2051944825",
