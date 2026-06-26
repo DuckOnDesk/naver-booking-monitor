@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-26T11:48:02.483494+09:00",
+  "updated_at": "2026-06-26T17:47:02.622571+09:00",
   "watched_places": [
     "1191821590",
     "1999314744",
@@ -56,6 +56,25 @@
       "bookingOpenHistory": []
     },
     {
+      "id": "2051944825",
+      "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
+      "bookingBusinessId": "1669333",
+      "operationStart": "26.06.05.",
+      "operationEnd": "26.07.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260618_280/1781761943277KLaKj_JPEG/1781761937169.jpg",
+      "roadAddress": null,
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-26T17:46:55.905952+09:00"
+      ]
+    },
+    {
       "id": "2021908137",
       "name": "메르세데스-벤츠 스튜디오 서울",
       "hasBooking": true,
@@ -90,11 +109,28 @@
       "bookingOpenHistory": []
     },
     {
-      "id": "2071746450",
-      "name": "THE FIRST FAN",
+      "id": "2067613794",
+      "name": "디에디트 10주년 팝업스토어",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
+      "operationStart": "26.06.25.",
+      "operationEnd": "26.06.28.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260616_148/1781609955627Y1XDH_PNG/image.png",
+      "roadAddress": "서울숲2길 43 디에디트 10주년 팝업스토어",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
+    },
+    {
+      "id": "2071746450",
+      "name": "THE FIRST FAN",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683009",
+      "bookingBusinessId": "1683009",
       "operationStart": "26.07.01.",
       "operationEnd": "26.08.31.",
       "remainingDays": 5,
@@ -104,7 +140,9 @@
       "roadAddress": "연무장길 27 1층",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
+      "bookingOpenHistory": [
+        "2026-06-26T17:46:55.905952+09:00"
+      ]
     },
     {
       "id": "2053652128",
@@ -126,9 +164,9 @@
     {
       "id": "2043280218",
       "name": "오어스 뷰티스페이스1 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1683622",
+      "bookingBusinessId": "1683622",
       "operationStart": "26.07.01.",
       "operationEnd": "26.07.12.",
       "remainingDays": 5,
@@ -138,7 +176,9 @@
       "roadAddress": "연무장길 81 무신사 뷰티 스페이스1",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
+      "bookingOpenHistory": [
+        "2026-06-26T17:46:55.905952+09:00"
+      ]
     },
     {
       "id": "2076883271",
@@ -194,9 +234,9 @@
     {
       "id": "1999314744",
       "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "bookingBusinessId": "1656104",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
       "operationStart": "26.06.27.",
       "operationEnd": "26.07.05.",
       "remainingDays": 1,
