@@ -89,6 +89,13 @@
       "url": "https://booking.naver.com/booking/13/bizes/1670302/items/7744302?fbclid=PAZnRzaASpfP5leHRuA2FlbQExAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp8iFif_IyTW4V6XM0_NdK7tOen0Ue9Lt0OqwS9PMx4V8oAZ-6yav0cwYCfcO_aem_-C_wnov6EEmkydXzTIQBSg&startDate=2026-06-27&tab=book",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mquxjtov",
+      "name": "디에디트",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1673188/items/7755945?area=ple&lang=ko&startDateTime=2026-06-26T00%3A00%3A00%2B09%3A00&tab=book&theme=place",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
