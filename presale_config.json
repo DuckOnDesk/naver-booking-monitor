@@ -9,8 +9,23 @@
       "address_filter": "ì±ëêµ¬"
     }
   ],
-  "disabled_places": [],
   "booking_open_datetimes": {
     "2002640525": "2026-06-25T18:00:00+09:00"
-  }
+  },
+  "watched_places": [
+    "2082644987",
+    "1191821590",
+    "2021908137",
+    "2037187214",
+    "2046928640",
+    "2048293732",
+    "1999314744",
+    "2071746450",
+    "2053652128",
+    "2043280218",
+    "2076883271",
+    "2058062036",
+    "2002640525"
+  ],
+  "selection_page_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html"
 }

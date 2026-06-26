@@ -178,7 +178,8 @@ def send_toast(name: str, body: str, url: str) -> None:
 def save_data(places: list[dict], config: dict) -> None:
     data = {
         "updated_at": datetime.now(KST).isoformat(),
-        "disabled_places": config.get("disabled_places", []),
+        "watched_places": config.get("watched_places", []),
+        "booking_open_datetimes": config.get("booking_open_datetimes", {}),
         "places": places,
     }
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -186,9 +187,10 @@ def save_data(places: list[dict], config: dict) -> None:
 
 def check_once(config: dict, prev: dict) -> dict:
     now_str = datetime.now(KST).strftime("%H:%M:%S")
-    disabled = set(str(x) for x in config.get("disabled_places", []))
+    watched = set(str(x) for x in config.get("watched_places", []))
     # 환경변수 우선 (GitHub Actions secret), 없으면 config 값 사용
     ntfy_topic = os.environ.get("NTFY_TOPIC") or config.get("ntfy_topic", "")
+    sel_url = config.get("selection_page_url", "")
 
     raw: dict[str, dict] = {}
     for area in config.get("areas", []):
@@ -216,12 +218,16 @@ def check_once(config: dict, prev: dict) -> dict:
         booking_url = place.get("bookingUrl") or ""
         dday = place.get("status") or ""
 
-        if is_open and not was_open:
+        if pid not in prev:
+            # 새로 등장한 팝업 → 선택 페이지로 안내
+            print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
+            send_ntfy(ntfy_topic, f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
+        elif is_open and not was_open and pid in watched:
+            # 감시 중인 장소의 예약 오픈
             print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
-            if pid not in disabled:
-                msg = f"지금 바로 예약하세요! → {booking_url}"
-                send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
-                send_toast(name, msg, booking_url)
+            msg = f"지금 바로 예약하세요! → {booking_url}"
+            send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
+            send_toast(name, msg, booking_url)
         elif is_open:
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중")
         else:

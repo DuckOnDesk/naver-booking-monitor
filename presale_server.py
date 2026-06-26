@@ -17,6 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_FILE = BASE_DIR / "presale_data.json"
 CONFIG_FILE = BASE_DIR / "presale_config.json"
 HTML_FILE = BASE_DIR / "presale.html"
+SELECT_HTML_FILE = BASE_DIR / "presale_select.html"
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -41,6 +42,12 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self._send(404, "text/plain", b"presale.html not found")
 
+        elif path == "/presale_select.html":
+            if SELECT_HTML_FILE.exists():
+                self._send(200, "text/html; charset=utf-8", SELECT_HTML_FILE.read_bytes())
+            else:
+                self._send(404, "text/plain", b"presale_select.html not found")
+
         elif path == "/api/data":
             if DATA_FILE.exists():
                 data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
@@ -58,34 +65,34 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", 0))
             body = json.loads(self.rfile.read(length).decode("utf-8"))
             place_id = str(body.get("id", ""))
-            enabled = bool(body.get("enabled", True))
+            watching = bool(body.get("watching", True))
 
             if not CONFIG_FILE.exists():
                 self._json({"error": "config not found"}, 500)
                 return
 
             config = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
-            disabled = set(str(x) for x in config.get("disabled_places", []))
+            watched = set(str(x) for x in config.get("watched_places", []))
 
-            if enabled:
-                disabled.discard(place_id)
+            if watching:
+                watched.add(place_id)
             else:
-                disabled.add(place_id)
+                watched.discard(place_id)
 
-            config["disabled_places"] = sorted(disabled)
+            config["watched_places"] = sorted(watched)
             CONFIG_FILE.write_text(
                 json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8"
             )
 
-            # presale_data.json 의 disabled_places 도 즉시 반영
+            # presale_data.json 의 watched_places 도 즉시 반영
             if DATA_FILE.exists():
                 data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-                data["disabled_places"] = config["disabled_places"]
+                data["watched_places"] = config["watched_places"]
                 DATA_FILE.write_text(
                     json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
                 )
 
-            self._json({"ok": True, "disabled_places": list(disabled)})
+            self._json({"ok": True, "watched_places": list(watched)})
 
         elif path == "/api/set-open-time":
             length = int(self.headers.get("Content-Length", 0))
