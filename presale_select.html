@@ -157,6 +157,7 @@
 const OWNER = 'DuckOnDesk';
 const REPO  = 'naver-booking-monitor';
 const DATA_URL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/presale_data.json`;
+const CFG_URL  = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/presale_config.json`;
 const CFG_PATH = 'presale_config.json';
 const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
@@ -296,7 +297,13 @@ async function load() {
     if (IS_LOCAL) {
       data = await fetch('/api/data').then(r => r.json());
     } else {
-      data = await fetch(DATA_URL + '?_=' + Date.now()).then(r => r.json());
+      const ts = Date.now();
+      const [placeData, cfg] = await Promise.all([
+        fetch(DATA_URL + '?_=' + ts).then(r => r.json()),
+        fetch(CFG_URL  + '?_=' + ts).then(r => r.json()),
+      ]);
+      data = placeData;
+      if (cfg.watched_places) data.watched_places = cfg.watched_places;
     }
 
     watchedIds = new Set((data.watched_places || []).map(String));
