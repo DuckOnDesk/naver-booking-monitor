@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-26T22:25:39.500615+09:00",
+  "updated_at": "2026-06-27T00:37:51.194092+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -107,6 +107,25 @@
       "bookingOpenHistory": []
     },
     {
+      "id": "1999314744",
+      "name": "더 글렌그란트 The Glen Grant 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
+      "bookingBusinessId": "1656104",
+      "operationStart": "26.06.27.",
+      "operationEnd": "26.07.05.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_158/1781571375305sYVIf_JPEG/%280615%29%B3%D7%C0%CC%B9%F6_%BD%BA%B8%B6%C6%AE%C7%C3%B7%B9%C0%CC%BD%BA-01.jpg",
+      "roadAddress": "성수이로 72 스테이지 엑스 성수 차봇",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-26T22:25:39.500519+09:00"
+      ]
+    },
+    {
       "id": "2067613794",
       "name": "디에디트 10주년 팝업스토어",
       "hasBooking": false,
@@ -126,20 +145,21 @@
     {
       "id": "2071746450",
       "name": "THE FIRST FAN",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683009",
+      "bookingBusinessId": "1683009",
       "operationStart": "26.07.01.",
       "operationEnd": "26.08.31.",
-      "remainingDays": 5,
-      "status": "D-5",
+      "remainingDays": 4,
+      "status": "D-4",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_179/1782297473861Xlh0O_JPEG/20260624_150609621.jpg",
       "roadAddress": "연무장길 27 1층",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": "2026-06-29T19:00:00+09:00",
       "bookingOpenHistory": [
-        "2026-06-26T17:46:55.905952+09:00"
+        "2026-06-26T17:46:55.905952+09:00",
+        "2026-06-27T00:37:50.780486+09:00"
       ]
     },
     {
@@ -150,8 +170,8 @@
       "bookingBusinessId": null,
       "operationStart": "26.07.01.",
       "operationEnd": "26.07.28.",
-      "remainingDays": 5,
-      "status": "D-5",
+      "remainingDays": 4,
+      "status": "D-4",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
       "roadAddress": "연무장길 37-21",
@@ -162,20 +182,21 @@
     {
       "id": "2043280218",
       "name": "오어스 뷰티스페이스1 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1683622",
+      "bookingBusinessId": "1683622",
       "operationStart": "26.07.01.",
       "operationEnd": "26.07.12.",
-      "remainingDays": 5,
-      "status": "D-5",
+      "remainingDays": 4,
+      "status": "D-4",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260625_194/17823742763616I4cg_JPEG/%BF%C0%BE%EE%BD%BA_%B9%AB%BD%C5%BB%E7_%C6%CB%BE%F7_%C6%F7%BD%BA%C5%CD.jpg",
       "roadAddress": "연무장길 81 무신사 뷰티 스페이스1",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-06-26T17:46:55.905952+09:00"
+        "2026-06-26T17:46:55.905952+09:00",
+        "2026-06-27T00:37:50.780486+09:00"
       ]
     },
     {
@@ -186,8 +207,8 @@
       "bookingBusinessId": "1682141",
       "operationStart": "26.07.02.",
       "operationEnd": "26.07.14.",
-      "remainingDays": 6,
-      "status": "D-6",
+      "remainingDays": 5,
+      "status": "D-5",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260616_22/1781605132352S5bSE_JPEG/MAC_FY27_LUSTREGLASS_Liptint_Xoxo_0434_sRGB72.jpg",
       "roadAddress": "연무장7길 13 올리브영N 성수",
@@ -203,8 +224,8 @@
       "bookingBusinessId": null,
       "operationStart": "26.07.03.",
       "operationEnd": "26.07.12.",
-      "remainingDays": 7,
-      "status": "D-7",
+      "remainingDays": 6,
+      "status": "D-6",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260623_118/1782207743509Q25va_JPEG/KakaoTalk_Photo_2026-06-23-18-41-24.jpg",
       "roadAddress": "연무장5길 20 쎈느",
@@ -220,33 +241,14 @@
       "bookingBusinessId": null,
       "operationStart": "26.07.03.",
       "operationEnd": "26.07.05.",
-      "remainingDays": 7,
-      "status": "D-7",
+      "remainingDays": 6,
+      "status": "D-6",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260625_6/17823681234258Ae25_JPEG/%B3%D7%C0%CC%B9%F6_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg",
       "roadAddress": "연무장7길 16 성수포탈 1층 마당",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": []
-    },
-    {
-      "id": "1999314744",
-      "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "bookingBusinessId": "1656104",
-      "operationStart": "26.06.27.",
-      "operationEnd": "26.07.05.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_158/1781571375305sYVIf_JPEG/%280615%29%B3%D7%C0%CC%B9%F6_%BD%BA%B8%B6%C6%AE%C7%C3%B7%B9%C0%CC%BD%BA-01.jpg",
-      "roadAddress": "성수이로 72 스테이지 엑스 성수 차봇",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-26T22:25:39.500519+09:00"
-      ]
     },
     {
       "id": "2058062036",
