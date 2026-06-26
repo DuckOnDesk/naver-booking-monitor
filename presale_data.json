@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-27T07:18:35.694053+09:00",
+  "updated_at": "2026-06-27T08:37:44.782734+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -39,9 +39,9 @@
     {
       "id": "1191821590",
       "name": "ASCEplus 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1673124",
-      "bookingBusinessId": "1673124",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
       "operationStart": "26.06.19.",
       "operationEnd": "26.06.29.",
       "remainingDays": null,
