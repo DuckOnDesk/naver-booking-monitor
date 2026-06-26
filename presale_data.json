@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-27T00:37:51.194092+09:00",
+  "updated_at": "2026-06-27T02:21:37.217672+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -109,9 +109,9 @@
     {
       "id": "1999314744",
       "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "bookingBusinessId": "1656104",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
       "operationStart": "26.06.27.",
       "operationEnd": "26.07.05.",
       "remainingDays": null,
@@ -182,9 +182,9 @@
     {
       "id": "2043280218",
       "name": "오어스 뷰티스페이스1 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1683622",
-      "bookingBusinessId": "1683622",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
       "operationStart": "26.07.01.",
       "operationEnd": "26.07.12.",
       "remainingDays": 4,
