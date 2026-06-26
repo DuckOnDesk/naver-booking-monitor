@@ -1,19 +1,21 @@
 {
   "updated_at": "2026-06-26T11:48:02.483494+09:00",
   "watched_places": [
-    "2082644987",
     "1191821590",
+    "1999314744",
+    "2002640525",
     "2021908137",
     "2037187214",
+    "2043280218",
     "2046928640",
     "2048293732",
-    "1999314744",
-    "2071746450",
     "2053652128",
-    "2043280218",
-    "2076883271",
     "2058062036",
-    "2002640525"
+    "2059199194",
+    "2071746450",
+    "2076883271",
+    "2082644987",
+    "2083326059"
   ],
   "booking_open_datetimes": {
     "2002640525": "2026-06-25T18:00:00+09:00"
@@ -33,7 +35,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260622_158/1782122374475U86WR_JPEG/KakaoTalk_20260622_175458187.jpg",
       "roadAddress": "성수일로4길 52 신라면 분식 팝업",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "1191821590",
@@ -49,7 +52,8 @@
       "imageUrl": "https://naverbooking-phinf.pstatic.net/20260610_272/178105605925317on1_JPEG/image.jpg",
       "roadAddress": "연무장길 31-1 금호아파트 1층 103호 517랩",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2021908137",
@@ -65,7 +69,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
       "roadAddress": "연무장길 73 XYZ SEOUL",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2037187214",
@@ -81,7 +86,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260515_270/1778822142751hDDhQ_JPEG/CRT-CRT008-2605-57-18_KR_NAVER_MAP_%C6%CB%BE%F7%BD%BA%C5%E4%BE%EE%BC%D6%B7%E7%BC%C7_INTO_THE_WILD_FY26_PUDI11000_402x402.jpg",
       "roadAddress": "성수일로6길 36",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2071746450",
@@ -97,7 +103,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_179/1782297473861Xlh0O_JPEG/20260624_150609621.jpg",
       "roadAddress": "연무장길 27 1층",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2053652128",
@@ -113,7 +120,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
       "roadAddress": "연무장길 37-21",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2043280218",
@@ -129,7 +137,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260625_194/17823742763616I4cg_JPEG/%BF%C0%BE%EE%BD%BA_%B9%AB%BD%C5%BB%E7_%C6%CB%BE%F7_%C6%F7%BD%BA%C5%CD.jpg",
       "roadAddress": "연무장길 81 무신사 뷰티 스페이스1",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2076883271",
@@ -145,7 +154,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260616_22/1781605132352S5bSE_JPEG/MAC_FY27_LUSTREGLASS_Liptint_Xoxo_0434_sRGB72.jpg",
       "roadAddress": "연무장7길 13 올리브영N 성수",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2083326059",
@@ -161,7 +171,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260623_118/1782207743509Q25va_JPEG/KakaoTalk_Photo_2026-06-23-18-41-24.jpg",
       "roadAddress": "연무장5길 20 쎈느",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2059199194",
@@ -177,7 +188,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260625_6/17823681234258Ae25_JPEG/%B3%D7%C0%CC%B9%F6_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg",
       "roadAddress": "연무장7길 16 성수포탈 1층 마당",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "1999314744",
@@ -193,7 +205,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260616_158/1781571375305sYVIf_JPEG/%280615%29%B3%D7%C0%CC%B9%F6_%BD%BA%B8%B6%C6%AE%C7%C3%B7%B9%C0%CC%BD%BA-01.jpg",
       "roadAddress": "성수이로 72 스테이지 엑스 성수 차봇",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2058062036",
@@ -209,7 +222,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260612_170/1781250578513rmaHe_JPEG/%B7%CE%B0%ED.jpg",
       "roadAddress": "성수이로14길 15 1층 엘레멘츠",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2002640525",
@@ -225,7 +239,8 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260622_228/1782112228168zzQan_JPEG/HK-sns-%C6%CB%BE%F7%BE%C8%B3%BB02-01%280622%29.jpg",
       "roadAddress": "성수이로18길 6 1층",
       "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": "2026-06-25T18:00:00+09:00"
+      "bookingOpenDatetime": "2026-06-25T18:00:00+09:00",
+      "bookingOpenHistory": []
     }
   ]
 }

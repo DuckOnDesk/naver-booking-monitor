@@ -268,7 +268,7 @@ async function doSetOpenTime(id, dt) {
   const r = await fetch(base, {headers});
   if (!r.ok) { alert('토큰이 올바르지 않거나 권한이 없습니다.'); return; }
   const file = await r.json();
-  const cfg = JSON.parse(atob(file.content.replace(/\n/g,'')));
+  const cfg = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,'')))));
   if (!cfg.booking_open_datetimes) cfg.booking_open_datetimes = {};
   if (dt) cfg.booking_open_datetimes[String(id)] = dt;
   else delete cfg.booking_open_datetimes[String(id)];

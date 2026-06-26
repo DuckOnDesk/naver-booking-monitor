@@ -229,7 +229,7 @@ async function doToggle(id, watching, toggleEl) {
       const r = await fetch(base, { headers });
       if (!r.ok) throw new Error('토큰이 올바르지 않거나 권한이 없습니다.');
       const file = await r.json();
-      const cfg  = JSON.parse(atob(file.content.replace(/\n/g, '')));
+      const cfg  = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
       const ws   = new Set((cfg.watched_places || []).map(String));
       if (isOn) ws.add(String(id)); else ws.delete(String(id));
       cfg.watched_places = [...ws].sort();
