@@ -357,6 +357,12 @@ async function load() {
       ]);
       data = placeData;
       if (cfg.watched_places) data.watched_places = cfg.watched_places;
+      if (cfg.booking_open_datetimes) {
+        (data.places || []).forEach(p => {
+          const dt = cfg.booking_open_datetimes[String(p.id)];
+          if (dt !== undefined) p.bookingOpenDatetime = dt;
+        });
+      }
     }
 
     const all = data.places || [];
