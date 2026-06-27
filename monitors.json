@@ -2,13 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "mpuwam15",
-      "name": "명동 클레어스",
-      "url": "https://booking.naver.com/booking/6/bizes/680036/items/7702009?fbclid=PARlRTSASKDNdleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAacAJpMcXI1-3rUBOVMQWr2bHTQV063KjzYLHbu1EuzLp9Utgkf6p_kOOCdcIQ_aem_q3phAdarzbJrhNfM4vrqxA&startDate=2026-06-13",
-      "enabled": true,
-      "target_dates": []
-    },
-    {
       "id": "mqegxmq5",
       "name": "더 글렌그란트",
       "url": "https://m.booking.naver.com/booking/12/bizes/1656104/items/7686922?startDateTime=2026-06-27T00%3A00%3A00%2B09%3A00",
