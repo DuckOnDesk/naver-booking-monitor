@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-27T11:56:54.446542+09:00",
+  "updated_at": "2026-06-27T12:01:57.774511+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -37,25 +37,6 @@
       "bookingOpenHistory": []
     },
     {
-      "id": "1191821590",
-      "name": "ASCEplus 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.06.19.",
-      "operationEnd": "26.06.29.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260610_272/178105605925317on1_JPEG/image.jpg",
-      "roadAddress": "연무장길 31-1 금호아파트 1층 103호 517랩",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-27T04:12:47.666494+09:00"
-      ]
-    },
-    {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": true,
@@ -72,6 +53,25 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-06-26T17:46:55.905952+09:00"
+      ]
+    },
+    {
+      "id": "1191821590",
+      "name": "ASCEplus 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.06.19.",
+      "operationEnd": "26.06.29.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260610_272/178105605925317on1_JPEG/image.jpg",
+      "roadAddress": "연무장길 31-1 금호아파트 1층 103호 517랩",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-27T04:12:47.666494+09:00"
       ]
     },
     {
