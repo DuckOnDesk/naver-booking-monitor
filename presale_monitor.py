@@ -217,6 +217,11 @@ def check_once(config: dict, prev: dict) -> dict:
     for pid, place in current.items():
         place["bookingOpenDatetime"] = bod.get(str(pid))
         place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
+        # 예약 URL 보존: API에서 사라졌어도 이전 값 유지
+        if not place.get("bookingUrl") and prev.get(pid, {}).get("bookingUrl"):
+            place["bookingUrl"] = prev[pid]["bookingUrl"]
+        if not place.get("bookingBusinessId") and prev.get(pid, {}).get("bookingBusinessId"):
+            place["bookingBusinessId"] = prev[pid]["bookingBusinessId"]
 
     for pid, place in current.items():
         name = place["name"]
