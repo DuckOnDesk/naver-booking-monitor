@@ -9,6 +9,9 @@
       "address_filter": "성동구"
     }
   ],
+  "booking_direct_urls": {
+    "2076883271": "https://m.booking.naver.com/booking/6/bizes/1682141/items/7794800"
+  },
   "booking_open_datetimes": {
     "2002640525": "2026-06-25T18:00:00+09:00",
     "2071746450": "2026-06-29T19:00:00+09:00"
