@@ -10,14 +10,6 @@
       "booking_open_datetime": "2026-06-15T11:00:00+09:00"
     },
     {
-      "id": "kakao_641057",
-      "name": "토이스토리5 팝업",
-      "url": "https://booking.kakao.com/detail/ticket/641057?t_src=sharing",
-      "type": "kakao",
-      "enabled": true,
-      "target_dates": []
-    },
-    {
       "id": "mqrd8cqt",
       "name": "마른파이브",
       "url": "https://m.booking.naver.com/booking/12/bizes/1678306/items/7776463",
