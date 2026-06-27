@@ -2,18 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "mqegxmq5",
-      "name": "더 글렌그란트",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1656104/items/7686922?startDateTime=2026-06-27T00%3A00%3A00%2B09%3A00",
-      "enabled": false,
-      "target_dates": [
-        "2026-06-27",
-        "2026-06-28",
-        "2026-07-04",
-        "2026-07-05"
-      ]
-    },
-    {
       "id": "mqeh9385",
       "name": "엑소코바이오",
       "url": "https://m.booking.naver.com/booking/12/bizes/1673124/items/7755741?theme=place&lang=ko&area=pll",
