@@ -359,6 +359,12 @@ async function load() {
           if (dt !== undefined) p.bookingOpenDatetime = dt;
         });
       }
+      if (cfg.booking_direct_urls) {
+        (data.places || []).forEach(p => {
+          const url = cfg.booking_direct_urls[String(p.id)];
+          if (url) p.bookingUrl = url;
+        });
+      }
     }
 
     const all = data.places || [];
