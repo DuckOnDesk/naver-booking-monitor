@@ -2,16 +2,17 @@ name: 사전예약 오픈 감지
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # 30분마다 실행 (내부에서 5분 간격 6회 반복)
+    - cron: "0 0 * * *"   # 체인 끊겼을 때 복구용 백업 (매일 자정)
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: write    # 다음 실행 self-trigger용
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 360
 
     concurrency:
       group: presale-monitor
@@ -31,12 +32,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: 사전예약 오픈 체크 (5분 간격 6회)
+      - name: 사전예약 오픈 체크 (5분 간격, 5.5시간 루프)
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
-          for i in $(seq 1 6); do
-            echo "=== 체크 ${i}/6 ==="
+          END_TIME=$(($(date +%s) + 19800))
+          while [ $(date +%s) -lt $END_TIME ]; do
             python -u presale_monitor.py --once
             git add presale_data.json
             if ! git diff --staged --quiet; then
@@ -44,5 +45,12 @@ jobs:
               git commit -m "data: presale update [skip ci]"
               git push
             fi
-            [ $i -lt 6 ] && sleep 300
+            REMAINING=$((END_TIME - $(date +%s)))
+            [ $REMAINING -gt 300 ] && sleep 300
           done
+
+      - name: 다음 실행 즉시 트리거
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run presale_monitor.yml --repo ${{ github.repository }}
