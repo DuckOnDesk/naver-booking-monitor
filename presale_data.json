@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-27T12:42:24.958910+09:00",
+  "updated_at": "2026-06-27T12:47:28.170977+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -165,23 +165,6 @@
       ]
     },
     {
-      "id": "2053652128",
-      "name": "더얀 XYZ POP UP - 대체불가",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.01.",
-      "operationEnd": "26.07.28.",
-      "remainingDays": 4,
-      "status": "D-4",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
-      "roadAddress": "연무장길 37-21",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
-    },
-    {
       "id": "2043280218",
       "name": "오어스 뷰티스페이스1 팝업스토어",
       "hasBooking": false,
@@ -200,6 +183,23 @@
         "2026-06-26T17:46:55.905952+09:00",
         "2026-06-27T00:37:50.780486+09:00"
       ]
+    },
+    {
+      "id": "2053652128",
+      "name": "더얀 XYZ POP UP - 대체불가",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.01.",
+      "operationEnd": "26.07.28.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
+      "roadAddress": "연무장길 37-21",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2076883271",
