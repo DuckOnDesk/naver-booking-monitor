@@ -96,6 +96,15 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1673188/items/7755945?area=ple&lang=ko&startDateTime=2026-06-26T00%3A00%3A00%2B09%3A00&tab=book&theme=place",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mqvrqnc9",
+      "name": "칸세",
+      "url": "https://booking.naver.com/booking/12/bizes/1668686/items/7739429?fbclid=PAZnRzaASsGuFleHRuA2FlbQExAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp8q6YDDlLfhIub3clpOvOai2N6IFJK8PK_qCHY5BFMep4UM-lpPx2C-rAJ4P_aem_fNt01wGbSFHK9eNFEUY1eQ&startDateTime=2026-06-27T00%3A00%3A00%2B09%3A00&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
+      "enabled": true,
+      "target_dates": [
+        "2026-07-04 15:00-17:00"
+      ]
     }
   ]
 }
