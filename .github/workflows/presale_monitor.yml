@@ -39,7 +39,7 @@ jobs:
           END_TIME=$(($(date +%s) + 19800))
           while [ $(date +%s) -lt $END_TIME ]; do
             python -u presale_monitor.py --once
-            git add presale_data.json
+            git add presale_data.json presale_config.json
             if ! git diff --staged --quiet; then
               git pull --rebase --autostash origin main
               git commit -m "data: presale update [skip ci]"

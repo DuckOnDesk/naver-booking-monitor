@@ -145,6 +145,25 @@ def normalize(p: dict) -> dict:
     }
 
 
+def resolve_booking_item_url(booking_url: str) -> str:
+    """/search URL에서 /items/{id} 직접 예약 URL 자동 조회"""
+    if not booking_url or "/items/" in booking_url:
+        return booking_url
+    m = re.search(r"(https://m\.booking\.naver\.com/booking/(\d+)/bizes/(\d+))", booking_url)
+    if not m:
+        return booking_url
+    base_url = m.group(1)
+    try:
+        resp = SESSION.get(booking_url, timeout=15, allow_redirects=True)
+        ids = re.findall(r'''[\"'/]items/(\d+)''', resp.text)
+        if ids:
+            print(f"  [아이템 URL 발견] /items/{ids[0]}")
+            return f"{base_url}/items/{ids[0]}"
+    except Exception as e:
+        print(f"  [아이템 URL 조회 실패] {e}")
+    return booking_url
+
+
 def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
     if not topic:
         return
@@ -213,15 +232,33 @@ def check_once(config: dict, prev: dict) -> dict:
 
     # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
     bod = config.get("booking_open_datetimes", {})
+    direct_urls = config.get("booking_direct_urls", {})
     now_iso = datetime.now(KST).isoformat()
     for pid, place in current.items():
         place["bookingOpenDatetime"] = bod.get(str(pid))
         place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
-        # 예약 URL 보존: API에서 사라졌어도 이전 값 유지
-        if not place.get("bookingUrl") and prev.get(pid, {}).get("bookingUrl"):
-            place["bookingUrl"] = prev[pid]["bookingUrl"]
+
+        # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
+        prev_url = prev.get(pid, {}).get("bookingUrl") or ""
+        curr_url = place.get("bookingUrl") or ""
+        if str(pid) in direct_urls:
+            place["bookingUrl"] = direct_urls[str(pid)]
+        elif "/items/" in prev_url and "/items/" not in curr_url:
+            place["bookingUrl"] = prev_url  # 이전에 발견한 더 구체적인 URL 유지
+        elif not curr_url and prev_url:
+            place["bookingUrl"] = prev_url
+
         if not place.get("bookingBusinessId") and prev.get(pid, {}).get("bookingBusinessId"):
             place["bookingBusinessId"] = prev[pid]["bookingBusinessId"]
+
+    # 예약 중인 팝업의 /items/ URL 자동 조회 (수동 설정 없고 아직 /items/ 없는 경우)
+    for pid, place in current.items():
+        url = place.get("bookingUrl") or ""
+        if (place.get("hasBooking") and url and "/items/" not in url
+                and str(pid) not in direct_urls):
+            direct = resolve_booking_item_url(url)
+            if direct != url:
+                place["bookingUrl"] = direct
 
     for pid, place in current.items():
         name = place["name"]
@@ -250,6 +287,17 @@ def check_once(config: dict, prev: dict) -> dict:
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중")
         else:
             print(f"[{now_str}] ⏳ {name} ({dday}) — 대기중")
+
+    # 새로 발견된 팝업 자동으로 watched_places에 추가
+    new_pids = [pid for pid in current if pid not in prev]
+    if new_pids:
+        watched_list = list(config.get("watched_places", []))
+        watched_set = set(str(x) for x in watched_list)
+        to_add = [str(pid) for pid in new_pids if str(pid) not in watched_set]
+        if to_add:
+            config["watched_places"] = sorted(watched_set | set(to_add))
+            CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            print(f"  [자동 추가] watched_places에 {to_add} 추가됨")
 
     save_data(list(current.values()), config)
     return current
