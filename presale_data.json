@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-29T00:13:21.272223+09:00",
+  "updated_at": "2026-06-29T00:18:41.028283+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -32,23 +32,6 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260622_158/1782122374475U86WR_JPEG/KakaoTalk_20260622_175458187.jpg",
       "roadAddress": "성수일로4길 52 신라면 분식 팝업",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
-    },
-    {
-      "id": "2037187214",
-      "name": "까르띠에 '인투 더 와일드' 전시",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.06.19.",
-      "operationEnd": "26.06.28.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260515_270/1778822142751hDDhQ_JPEG/CRT-CRT008-2605-57-18_KR_NAVER_MAP_%C6%CB%BE%F7%BD%BA%C5%E4%BE%EE%BC%D6%B7%E7%BC%C7_INTO_THE_WILD_FY26_PUDI11000_402x402.jpg",
-      "roadAddress": "성수일로6길 36",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": []
@@ -107,28 +90,6 @@
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": []
-    },
-    {
-      "id": "2067613794",
-      "name": "디에디트 10주년 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1673188",
-      "bookingBusinessId": "1673188",
-      "operationStart": "26.06.25.",
-      "operationEnd": "26.06.28.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260616_148/1781609955627Y1XDH_PNG/image.png",
-      "roadAddress": "서울숲2길 43 디에디트 10주년 팝업스토어",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-28T04:05:29.922095+09:00",
-        "2026-06-28T11:02:30.092314+09:00",
-        "2026-06-28T13:39:39.622134+09:00",
-        "2026-06-28T16:21:25.522959+09:00"
-      ]
     },
     {
       "id": "1999314744",
@@ -259,6 +220,25 @@
       "bookingOpenHistory": []
     },
     {
+      "id": "2045566114",
+      "name": "셀퓨전씨 쿨링 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
+      "bookingBusinessId": "1680129",
+      "operationStart": "26.07.04.",
+      "operationEnd": "26.07.13.",
+      "remainingDays": 5,
+      "status": "D-5",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260625_173/1782360361402BxwdQ_PNG/image.png",
+      "roadAddress": "연무장길 31-1 1층",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-29T00:18:40.676076+09:00"
+      ]
+    },
+    {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
       "hasBooking": false,
@@ -266,8 +246,8 @@
       "bookingBusinessId": null,
       "operationStart": "26.07.10.",
       "operationEnd": "26.07.19.",
-      "remainingDays": 14,
-      "status": "D-14",
+      "remainingDays": 11,
+      "status": "D-11",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260612_170/1781250578513rmaHe_JPEG/%B7%CE%B0%ED.jpg",
       "roadAddress": "성수이로14길 15 1층 엘레멘츠",
@@ -283,14 +263,53 @@
       "bookingBusinessId": "1679931",
       "operationStart": "26.07.09.",
       "operationEnd": "26.07.14.",
-      "remainingDays": 13,
-      "status": "D-13",
+      "remainingDays": 10,
+      "status": "D-10",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260622_228/1782112228168zzQan_JPEG/HK-sns-%C6%CB%BE%F7%BE%C8%B3%BB02-01%280622%29.jpg",
       "roadAddress": "성수이로18길 6 1층",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": "2026-06-25T18:00:00+09:00",
       "bookingOpenHistory": []
+    },
+    {
+      "id": "2037187214",
+      "name": "까르띠에 '인투 더 와일드' 전시",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.06.19.",
+      "operationEnd": "26.06.28.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260515_270/1778822142751hDDhQ_JPEG/CRT-CRT008-2605-57-18_KR_NAVER_MAP_%C6%CB%BE%F7%BD%BA%C5%E4%BE%EE%BC%D6%B7%E7%BC%C7_INTO_THE_WILD_FY26_PUDI11000_402x402.jpg",
+      "roadAddress": "성수일로6길 36",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
+    },
+    {
+      "id": "2067613794",
+      "name": "디에디트 10주년 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1673188",
+      "bookingBusinessId": "1673188",
+      "operationStart": "26.06.25.",
+      "operationEnd": "26.06.28.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260616_148/1781609955627Y1XDH_PNG/image.png",
+      "roadAddress": "서울숲2길 43 디에디트 10주년 팝업스토어",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-28T04:05:29.922095+09:00",
+        "2026-06-28T11:02:30.092314+09:00",
+        "2026-06-28T13:39:39.622134+09:00",
+        "2026-06-28T16:21:25.522959+09:00"
+      ]
     }
   ]
 }
