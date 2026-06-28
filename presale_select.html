@@ -162,7 +162,22 @@ const CFG_PATH = 'presale_config.json';
 const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 let watchedIds = new Set();
-const recentToggles = {}; // CDN 캐시 window 내 자동 reload 시 로컬 토글 상태 유지
+
+// CDN 캐시(~5분) 동안 페이지 새로고침 후에도 토글 상태 유지 (localStorage, 6분 TTL)
+function getRecentToggles() {
+  try {
+    const data = JSON.parse(localStorage.getItem('presale_toggles') || '{}');
+    const now = Date.now();
+    return Object.fromEntries(Object.entries(data).filter(([, v]) => now - v.ts < 360000));
+  } catch { return {}; }
+}
+function setRecentToggle(id, isOn) {
+  try {
+    const data = getRecentToggles();
+    data[String(id)] = { isOn, ts: Date.now() };
+    localStorage.setItem('presale_toggles', JSON.stringify(data));
+  } catch {}
+}
 
 function getPat() { return localStorage.getItem('gh_pat') || ''; }
 function savePat() {
@@ -256,7 +271,7 @@ async function doToggle(id, watching, toggleEl) {
       if (!pr.ok) throw new Error('저장에 실패했습니다.');
     }
     // 저장 성공: CDN 캐시 window(~5분) 동안 로컬 상태 유지
-    recentToggles[String(id)] = { isOn, ts: Date.now() };
+    setRecentToggle(id, isOn);
     showSavedFeedback(toggleEl);
   } catch (e) {
     // Revert on error
@@ -321,13 +336,8 @@ async function load() {
     watchedIds = new Set((data.watched_places || []).map(String));
 
     // 최근 저장된 토글이 CDN 캐시로 덮이지 않도록 로컬 상태 우선 적용 (최대 6분)
-    const now = Date.now();
-    for (const [tid, entry] of Object.entries(recentToggles)) {
-      if (now - entry.ts < 360000) {
-        if (entry.isOn) watchedIds.add(tid); else watchedIds.delete(tid);
-      } else {
-        delete recentToggles[tid];
-      }
+    for (const [tid, entry] of Object.entries(getRecentToggles())) {
+      if (entry.isOn) watchedIds.add(tid); else watchedIds.delete(tid);
     }
 
     const all  = (data.places || []).slice();

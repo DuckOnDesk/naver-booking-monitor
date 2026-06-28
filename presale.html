@@ -371,8 +371,20 @@ async function load() {
     placesMap = {};
     all.forEach(p => { placesMap[p.id] = p; });
 
-    const watchedIds = data.watched_places != null
+    let watchedIds = data.watched_places != null
       ? new Set((data.watched_places || []).map(String)) : null;
+    // 최근 토글 변경(localStorage 6분 TTL) 반영 — CDN 캐시 무관하게 즉시 적용
+    if (watchedIds) {
+      try {
+        const rt = JSON.parse(localStorage.getItem('presale_toggles') || '{}');
+        const now = Date.now();
+        for (const [tid, entry] of Object.entries(rt)) {
+          if (now - entry.ts < 360000) {
+            if (entry.isOn) watchedIds.add(tid); else watchedIds.delete(tid);
+          }
+        }
+      } catch {}
+    }
     const toShow = watchedIds ? all.filter(p => watchedIds.has(String(p.id))) : all;
 
     const opened  = toShow
