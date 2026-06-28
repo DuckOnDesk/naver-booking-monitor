@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-28T10:57:26.890210+09:00",
+  "updated_at": "2026-06-28T11:02:30.220850+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -111,7 +111,7 @@
     {
       "id": "2067613794",
       "name": "디에디트 10주년 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1673188",
       "bookingBusinessId": "1673188",
       "operationStart": "26.06.25.",
@@ -124,7 +124,8 @@
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-06-28T04:05:29.922095+09:00"
+        "2026-06-28T04:05:29.922095+09:00",
+        "2026-06-28T11:02:30.092314+09:00"
       ]
     },
     {
