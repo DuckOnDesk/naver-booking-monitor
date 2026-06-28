@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-28T12:43:51.011334+09:00",
+  "updated_at": "2026-06-28T12:48:54.398987+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -111,7 +111,7 @@
     {
       "id": "2067613794",
       "name": "디에디트 10주년 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1673188",
       "bookingBusinessId": "1673188",
       "operationStart": "26.06.25.",
