@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-29T23:20:43.991939+09:00",
+  "updated_at": "2026-06-29T23:25:52.408301+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -250,7 +250,7 @@
     {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "bookingBusinessId": "1677108",
       "operationStart": "26.07.10.",
@@ -265,7 +265,8 @@
       "bookingOpenHistory": [
         "2026-06-29T03:22:51.406772+09:00",
         "2026-06-29T11:13:47.953867+09:00",
-        "2026-06-29T13:45:49.494805+09:00"
+        "2026-06-29T13:45:49.494805+09:00",
+        "2026-06-29T23:25:47.725770+09:00"
       ]
     },
     {
@@ -346,6 +347,13 @@
       "place_name": "마른파이브 비치클럽 인 마요르카",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
       "ts": "2026-06-29T23:20:39.884053+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2058062036",
+      "place_name": "아노에틱 뷰티 팝업 스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
+      "ts": "2026-06-29T23:25:47.725770+09:00"
     }
   ]
 }
