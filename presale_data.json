@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-29T23:15:36.266329+09:00",
+  "updated_at": "2026-06-29T23:20:43.991939+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -189,7 +189,7 @@
     {
       "id": "2083326059",
       "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
       "bookingBusinessId": "1678306",
       "operationStart": "26.07.03.",
@@ -204,7 +204,8 @@
       "bookingOpenHistory": [
         "2026-06-29T11:32:14.806161+09:00",
         "2026-06-29T17:16:49.954997+09:00",
-        "2026-06-29T19:24:53.137205+09:00"
+        "2026-06-29T19:24:53.137205+09:00",
+        "2026-06-29T23:20:39.884053+09:00"
       ]
     },
     {
@@ -338,6 +339,13 @@
       "place_name": "오어스 뷰티스페이스1 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1683622",
       "ts": "2026-06-29T21:47:51.034026+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083326059",
+      "place_name": "마른파이브 비치클럽 인 마요르카",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "ts": "2026-06-29T23:20:39.884053+09:00"
     }
   ]
 }
