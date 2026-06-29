@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-29T12:49:32.937232+09:00",
+  "updated_at": "2026-06-29T12:54:39.782141+09:00",
   "watched_places": [
     "1191821590",
     "2002640525",
@@ -207,7 +207,7 @@
     {
       "id": "2059199194",
       "name": "큐어 제주 알로에 농장 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683940",
       "bookingBusinessId": "1683940",
       "operationStart": "26.07.03.",
