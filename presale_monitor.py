@@ -167,21 +167,26 @@ def resolve_booking_item_url(booking_url: str) -> str:
 def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
     if not topic:
         return
-    try:
-        requests.post(
-            f"https://ntfy.sh/{topic}",
-            data=body.encode("utf-8"),
-            headers={
-                "Title": title.encode("utf-8"),
-                "Priority": "urgent",
-                "Click": url,
-                "Tags": "bell",
-            },
-            timeout=10,
-        )
-        print("  → ntfy 전송 완료")
-    except Exception as e:
-        print(f"  [ntfy 오류] {e}")
+    for attempt in range(3):
+        try:
+            requests.post(
+                f"https://ntfy.sh/{topic}",
+                data=body.encode("utf-8"),
+                headers={
+                    "Title": title.encode("utf-8"),
+                    "Priority": "urgent",
+                    "Click": url,
+                    "Tags": "bell",
+                },
+                timeout=10,
+            )
+            print(f"  → ntfy 전송 완료 (시도 {attempt + 1})")
+            return
+        except Exception as e:
+            print(f"  [ntfy 오류 {attempt + 1}/3] {e}")
+            if attempt < 2:
+                time.sleep(3)
+    print("  [ntfy] 3회 시도 모두 실패")
 
 
 def send_toast(name: str, body: str, url: str) -> None:
@@ -199,12 +204,23 @@ def send_toast(name: str, body: str, url: str) -> None:
         print(f"  [토스트 오류] {e}")
 
 
-def save_data(places: list[dict], config: dict) -> None:
+def load_prev_alerts() -> list[dict]:
+    try:
+        if DATA_FILE.exists():
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+            return data.get("alerts", [])
+    except Exception:
+        pass
+    return []
+
+
+def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None) -> None:
     data = {
         "updated_at": datetime.now(KST).isoformat(),
         "watched_places": config.get("watched_places", []),
         "booking_open_datetimes": config.get("booking_open_datetimes", {}),
         "places": places,
+        "alerts": (alerts or [])[-200:],  # 최근 200건만 유지
     }
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -212,9 +228,10 @@ def save_data(places: list[dict], config: dict) -> None:
 def check_once(config: dict, prev: dict) -> dict:
     now_str = datetime.now(KST).strftime("%H:%M:%S")
     watched = set(str(x) for x in config.get("watched_places", []))
-    # 환경변수 우선 (GitHub Actions secret), 없으면 config 값 사용
     ntfy_topic = os.environ.get("NTFY_TOPIC") or config.get("ntfy_topic", "")
     sel_url = config.get("selection_page_url", "")
+    prev_alerts = load_prev_alerts()
+    new_alerts: list[dict] = []
 
     raw: dict[str, dict] = {}
     for area in config.get("areas", []):
@@ -273,9 +290,13 @@ def check_once(config: dict, prev: dict) -> dict:
                 place["bookingOpenHistory"].append(now_iso)
             print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
             send_ntfy(ntfy_topic, f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
+            new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
+                                "booking_url": booking_url, "ts": now_iso})
         elif is_open and not was_open:
             # 예약 오픈됨 → 이력 추가, 감시 중인 경우만 알림
             place["bookingOpenHistory"].append(now_iso)
+            new_alerts.append({"type": "booking_open", "place_id": str(pid), "place_name": name,
+                                "booking_url": booking_url, "ts": now_iso})
             if pid in watched:
                 print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
                 msg = f"지금 바로 예약하세요! → {booking_url}"
@@ -299,7 +320,7 @@ def check_once(config: dict, prev: dict) -> dict:
             CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             print(f"  [자동 추가] watched_places에 {to_add} 추가됨")
 
-    save_data(list(current.values()), config)
+    save_data(list(current.values()), config, prev_alerts + new_alerts)
     return current
 
 

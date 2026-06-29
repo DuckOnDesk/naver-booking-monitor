@@ -135,12 +135,15 @@
       <h1>예약 모니터</h1>
       <p id="status">불러오는 중...</p>
     </div>
-    <button class="bell-btn" onclick="openNotifPanel()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-      </svg>
-      <span class="bell-badge" id="bell-badge"></span>
-    </button>
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+      <a href="presale.html" style="background:rgba(255,255,255,.2);border:none;color:rgba(255,255,255,.9);padding:6px 11px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">예약오픈정보 ›</a>
+      <button class="bell-btn" onclick="openNotifPanel()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6V11c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+        </svg>
+        <span class="bell-badge" id="bell-badge"></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -710,12 +713,17 @@ async function submitMonitor() {
     cfg.monitors.push({ id: Date.now().toString(36), name, url, enabled: true, target_dates });
   }
 
+  const submitBtn = document.querySelector('.sheet-actions .btn-primary');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '등록 중...'; }
   try {
     await saveConfig(editId ? '수정' : '추가: ' + name);
     closeSheet();
     render();
     setStatus(`${cfg.monitors.filter(m=>m.enabled).length}개 활성 / 전체 ${cfg.monitors.length}개`);
   } catch(e) { alert(`저장 실패: ${e.message}`); }
+  finally {
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '등록'; }
+  }
 }
 
 // ── Actions ─────────────────────────────────────────────────────────
