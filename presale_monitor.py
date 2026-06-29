@@ -320,6 +320,37 @@ def check_once(config: dict, prev: dict) -> dict:
             CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             print(f"  [자동 추가] watched_places에 {to_add} 추가됨")
 
+    # 운영 기간이 지난 팝업 자동 정리 (YY.MM.DD. 형식 파싱)
+    today = datetime.now(KST).date()
+    expired_pids = []
+    for pid, place in list(current.items()):
+        end = place.get("operationEnd") or ""
+        m = re.match(r"^(\d{2})\.(\d{2})\.(\d{2})", end)
+        if m:
+            try:
+                end_date = datetime(2000 + int(m.group(1)), int(m.group(2)), int(m.group(3))).date()
+                if end_date < today:
+                    expired_pids.append(pid)
+            except ValueError:
+                pass
+
+    if expired_pids:
+        ws = set(str(x) for x in config.get("watched_places", []))
+        cfg_changed = False
+        for pid in expired_pids:
+            name = current.pop(pid, {}).get("name", pid)
+            print(f"  [만료 정리] {name} ({pid}) — 운영 종료")
+            if str(pid) in ws:
+                ws.discard(str(pid))
+                cfg_changed = True
+            for key in ("booking_direct_urls", "booking_open_datetimes"):
+                config.get(key, {}).pop(str(pid), None)
+        if cfg_changed:
+            config["watched_places"] = sorted(ws)
+        if cfg_changed or expired_pids:
+            CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            print(f"  [만료 정리] {len(expired_pids)}개 제거됨")
+
     save_data(list(current.values()), config, prev_alerts + new_alerts)
     return current
 
