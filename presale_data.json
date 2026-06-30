@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-06-30T21:00:16.379136+09:00",
+  "updated_at": "2026-06-30T21:05:22.686215+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -152,7 +152,7 @@
     {
       "id": "2045566114",
       "name": "셀퓨전씨 쿨링 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "bookingBusinessId": "1680129",
       "operationStart": "26.07.04.",
