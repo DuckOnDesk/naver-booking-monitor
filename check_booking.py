@@ -359,14 +359,15 @@ def _playwright_check(url: str) -> tuple[bool, str]:
                         return True, f"URL 리다이렉트: {pat}"
                 if item_path and item_path not in final_url:
                     return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈"
-                content = page.content()
+                visible_text = " ".join(page.inner_text("body").split())
                 for pat in _CLOSED_TEXT_PATTERNS:
-                    if pat in content:
+                    if pat in visible_text:
                         return True, f"페이지 텍스트: {pat}"
                 return False, ""
             finally:
                 browser.close()
-    except Exception:
+    except Exception as exc:
+        print(f"  [경고] playwright 확인 실패 → 열림으로 간주: {exc}", flush=True)
         return False, ""
 
 
