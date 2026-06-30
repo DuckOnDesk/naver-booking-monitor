@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T01:26:14.114426+09:00",
+  "updated_at": "2026-07-01T01:31:20.777733+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -155,7 +155,7 @@
     {
       "id": "2083326059",
       "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
       "bookingBusinessId": "1678306",
       "operationStart": "26.07.03.",
@@ -171,7 +171,8 @@
         "2026-06-29T11:32:14.806161+09:00",
         "2026-06-29T17:16:49.954997+09:00",
         "2026-06-29T19:24:53.137205+09:00",
-        "2026-06-29T23:20:39.884053+09:00"
+        "2026-06-29T23:20:39.884053+09:00",
+        "2026-07-01T01:31:17.533612+09:00"
       ]
     },
     {
@@ -319,6 +320,13 @@
       "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "ts": "2026-06-30T23:28:21.805525+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083326059",
+      "place_name": "마른파이브 비치클럽 인 마요르카",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "ts": "2026-07-01T01:31:17.533612+09:00"
     }
   ]
 }
