@@ -315,12 +315,6 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
     return log_parts, increased
 
 
-def _urgency_tag(per_slot: list[tuple[str, int]]) -> str:
-    """잔여 자리가 극소수(<=2)면 경고 문구 반환. 알림 확인 전에 매진될 가능성이 높음."""
-    total = sum(c for _, c in per_slot)
-    return " ⚡ 자리 매우 적음 - 서두르세요!" if 0 < total <= 2 else ""
-
-
 _CLOSED_URL_PATTERNS  = ["/error/"]
 _CLOSED_TEXT_PATTERNS = [
     "운영하지 않는 예매 페이지",
@@ -643,9 +637,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                     if available > 0 and (prev_slots is None or increased):
                         if increased:
-                            title = f"🔒 {name} 자리 추가됨 (예약창 닫힘){_urgency_tag(per_slot)}"
+                            title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
                         else:
-                            title = f"🔒 {name} 자리 있음 (예약창 닫힘){_urgency_tag(per_slot)}"
+                            title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
                         body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
@@ -658,10 +652,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                     if prev_slots is None or increased:
                         if prev_slots is None:
-                            title = f"🎉 {name} 예약 가능!{_urgency_tag(per_slot)}"
+                            title = f"🎉 {name} 예약 가능!"
                         else:
                             inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
-                            title = f"🎉 {name} 자리 추가됨 - {inc_str}{_urgency_tag(per_slot)}"
+                            title = f"🎉 {name} 자리 추가됨 - {inc_str}"
                         body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
