@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T03:44:14.569014+09:00",
+  "updated_at": "2026-07-01T03:49:20.938593+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -235,7 +235,7 @@
     {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "bookingBusinessId": "1677108",
       "operationStart": "26.07.10.",
@@ -251,7 +251,8 @@
         "2026-06-29T03:22:51.406772+09:00",
         "2026-06-29T11:13:47.953867+09:00",
         "2026-06-29T13:45:49.494805+09:00",
-        "2026-06-29T23:25:47.725770+09:00"
+        "2026-06-29T23:25:47.725770+09:00",
+        "2026-07-01T03:49:17.879368+09:00"
       ]
     },
     {
@@ -335,6 +336,13 @@
       "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "ts": "2026-07-01T03:28:54.339370+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2058062036",
+      "place_name": "아노에틱 뷰티 팝업 스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
+      "ts": "2026-07-01T03:49:17.879368+09:00"
     }
   ]
 }
