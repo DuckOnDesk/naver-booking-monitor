@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T08:21:14.226213+09:00",
+  "updated_at": "2026-07-01T08:26:19.960194+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -115,7 +115,7 @@
     {
       "id": "2043280218",
       "name": "오어스 뷰티스페이스1 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1683622",
       "bookingBusinessId": "1683622",
       "operationStart": "26.07.01.",
