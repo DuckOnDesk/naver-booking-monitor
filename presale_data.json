@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T07:23:56.723958+09:00",
+  "updated_at": "2026-07-01T07:29:03.065164+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -73,7 +73,7 @@
     {
       "id": "1999314744",
       "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "bookingBusinessId": "1656104",
       "operationStart": "26.06.27.",
