@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T00:09:18.947244+09:00",
+  "updated_at": "2026-07-01T00:14:25.626038+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -109,6 +109,25 @@
       "bookingOpenHistory": []
     },
     {
+      "id": "2045566114",
+      "name": "셀퓨전씨 쿨링 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
+      "bookingBusinessId": "1680129",
+      "operationStart": "26.07.04.",
+      "operationEnd": "26.07.13.",
+      "remainingDays": 3,
+      "status": "D-3",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260625_173/1782360361402BxwdQ_PNG/image.png",
+      "roadAddress": "연무장길 31-1 1층",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-29T00:18:40.676076+09:00"
+      ]
+    },
+    {
       "id": "2083326059",
       "name": "마른파이브 비치클럽 인 마요르카",
       "hasBooking": false,
@@ -148,25 +167,6 @@
       "bookingOpenHistory": [
         "2026-06-29T11:27:06.933158+09:00",
         "2026-06-29T14:11:29.513919+09:00"
-      ]
-    },
-    {
-      "id": "2045566114",
-      "name": "셀퓨전씨 쿨링 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "bookingBusinessId": "1680129",
-      "operationStart": "26.07.04.",
-      "operationEnd": "26.07.13.",
-      "remainingDays": 3,
-      "status": "D-3",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260625_173/1782360361402BxwdQ_PNG/image.png",
-      "roadAddress": "연무장길 31-1 1층",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-29T00:18:40.676076+09:00"
       ]
     },
     {
