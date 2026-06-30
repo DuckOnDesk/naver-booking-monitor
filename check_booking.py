@@ -27,7 +27,7 @@ HEADERS = {
     "Referer": "https://m.booking.naver.com/",
 }
 
-GITHUB_RAW_URL = "https://raw.githubusercontent.com/Gohyedeok/naver-booking-monitor/main/monitors.json"
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/DuckOnDesk/naver-booking-monitor/main/monitors.json"
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
@@ -394,6 +394,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     except Exception:
         sched_cache = {}
 
+    _pruned_dates: list[tuple[str, str]] = []
+
     for item in active:
         name = item.get("name", "?")
         url = item.get("url", "")
@@ -475,6 +477,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if d_part not in target_time_map:
                     target_time_map[d_part] = None
         target_dates_only = list(target_time_map.keys())
+        has_target_dates = bool(target_dates_only)
 
         parsed = parse_naver_url(url)
         if not parsed:
@@ -483,6 +486,16 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
         cache_key   = f"{parsed['service_id']}_{parsed['biz_id']}_{parsed['item_id']}"
         cache_entry = sched_cache.get(cache_key, {})
+
+        if not cache_entry:
+            probed = probe_schedule_period(parsed)
+            if probed:
+                sched_cache[cache_key] = probed
+                cache_entry = probed
+                if save_schedule_cache(sched_cache):
+                    commit_schedule_cache()
+                print(f"[{now_str}] — {name} 운영 기간 최초 확인: {probed.get('available_start')}~{probed.get('available_end')}", flush=True)
+
         avail_start = cache_entry.get("available_start")
         avail_end   = cache_entry.get("available_end")
 
@@ -712,9 +725,64 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                 if r_stock is None:
                     print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 매진 (재고 정보 없음)", flush=True)
+                    if has_target_dates:
+                        _pruned_dates.append((item_id, datekey))
                     continue
 
                 print(f"[{now_str}] ❌ {name} {date_str}{time_hint} {_sold_out_label(r_stock, r_booking)}", flush=True)
+                if has_target_dates and r_stock == 0:
+                    _pruned_dates.append((item_id, datekey))
+
+    if _pruned_dates:
+        prune_dead_dates(_pruned_dates)
+
+
+def prune_dead_dates(pruned: list) -> None:
+    """재고가 0이거나 재고 정보가 없는 날짜를 monitors.json의 target_dates에서 제거.
+    매진(재고>0, 예약마감)은 취소표 발생 가능성이 있어 계속 추적 대상으로 남겨야 하므로 건드리지 않는다."""
+    try:
+        path = Path(__file__).parent / "monitors.json"
+        cfg = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"[경고] monitors.json 읽기 실패, 날짜 정리 건너뜀: {exc}", flush=True)
+        return
+
+    dead_by_item: dict[str, set] = {}
+    for item_id, datekey in pruned:
+        dead_by_item.setdefault(item_id, set()).add(datekey)
+
+    changed = False
+    removed_log = []
+    for m in cfg.get("monitors", []):
+        item_id = m.get("id", m.get("name", ""))
+        dead = dead_by_item.get(item_id)
+        if not dead:
+            continue
+        kept = [d for d in m.get("target_dates", []) if d.strip().split(" ", 1)[0] not in dead]
+        if len(kept) != len(m.get("target_dates", [])):
+            removed = [d for d in m.get("target_dates", []) if d not in kept]
+            removed_log.append(f"{m.get('name', item_id)}: {', '.join(removed)}")
+            m["target_dates"] = kept
+            changed = True
+
+    if not changed:
+        return
+
+    try:
+        path.write_text(json.dumps(cfg, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"  → 재고 없는 날짜 정리: {'; '.join(removed_log)}", flush=True)
+        subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+        subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
+        subprocess.run(["git", "add", "monitors.json"], check=True)
+        if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
+            return
+        subprocess.run(["git", "commit", "-m", "chore: 재고 없는 추적 날짜 정리"], check=True)
+        subprocess.run(["git", "fetch", "origin"], check=True)
+        subprocess.run(["git", "rebase", "origin/main"], check=True)
+        subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
+        print("  → monitors.json 커밋/푸시 완료", flush=True)
+    except Exception as exc:
+        print(f"[경고] monitors.json 커밋 실패: {exc}", flush=True)
 
 
 def print_startup_info(active: list) -> None:
@@ -770,10 +838,50 @@ def print_startup_info(active: list) -> None:
         print(f"  • {name} [{range_label}] | 예약창: {status}", flush=True)
 
 
+def probe_schedule_period(parsed: dict) -> dict | None:
+    """단일 팝업(URL 파싱 결과)의 실제 판매기간/예약 가능 기간을 조회해 캐시 항목으로 반환.
+    조회에 실패하면 None을 반환한다."""
+    now_kst = datetime.now(timezone(timedelta(hours=9))).isoformat()
+    result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], [])
+    if result is None:
+        return None
+    all_summary = result.get("_all_summary") or []
+    discovered = sorted(d["dateKey"] for d in all_summary if d.get("isSaleDay"))
+
+    scan_end_cache = datetime.now(timezone(timedelta(hours=9))).date() + timedelta(days=30)
+    if not discovered:
+        # 월별 스케줄 API가 비어있는 경우 (예: 일부 팝업) — 날짜별 개별 조회로 운영 기간 추정
+        scan_start = datetime.now(timezone(timedelta(hours=9))).date()
+        for i in range(30):
+            dk = (scan_start + timedelta(days=i)).isoformat()
+            si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
+            if si["queried"] and si.get("all_slots"):
+                discovered.append(dk)
+        discovered.sort()
+    else:
+        # API 슬라이딩 윈도우 너머 날짜 추가 스캔
+        last_known = date.fromisoformat(max(discovered))
+        cur = last_known + timedelta(days=1)
+        while cur <= scan_end_cache:
+            dk = cur.isoformat()
+            si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
+            if si["queried"] and si.get("all_slots"):
+                discovered.append(dk)
+            cur += timedelta(days=1)
+        discovered.sort()
+
+    return {
+        "sale_start_date": result.get("sale_start_date"),
+        "sale_end_date": result.get("sale_end_date"),
+        "available_start": discovered[0] if discovered else None,
+        "available_end": discovered[-1] if discovered else None,
+        "checked_at": now_kst,
+    }
+
+
 def build_schedule_cache(monitors: list) -> dict:
     """각 모니터(URL)별 팝업의 실제 판매기간/예약 가능 기간을 조회해 캐시 데이터로 정리.
     웹앱이 raw.githubusercontent.com에서 이 파일을 읽어 등록 폼/목록에 활용한다."""
-    now_kst = datetime.now(timezone(timedelta(hours=9))).isoformat()
     cache: dict = {}
     for m in monitors:
         parsed = parse_naver_url(m.get("url", ""))
@@ -782,41 +890,10 @@ def build_schedule_cache(monitors: list) -> dict:
         key = f"{parsed['service_id']}_{parsed['biz_id']}_{parsed['item_id']}"
         if key in cache:
             continue
-        result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], [])
-        if result is None:
+        probed = probe_schedule_period(parsed)
+        if probed is None:
             continue
-        all_summary = result.get("_all_summary") or []
-        discovered = sorted(d["dateKey"] for d in all_summary if d.get("isSaleDay"))
-
-        scan_end_cache = datetime.now(timezone(timedelta(hours=9))).date() + timedelta(days=30)
-        if not discovered:
-            # 월별 스케줄 API가 비어있는 경우 (예: 일부 팝업) — 날짜별 개별 조회로 운영 기간 추정
-            scan_start = datetime.now(timezone(timedelta(hours=9))).date()
-            for i in range(30):
-                dk = (scan_start + timedelta(days=i)).isoformat()
-                si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
-                if si["queried"] and si.get("all_slots"):
-                    discovered.append(dk)
-            discovered.sort()
-        else:
-            # API 슬라이딩 윈도우 너머 날짜 추가 스캔
-            last_known = date.fromisoformat(max(discovered))
-            cur = last_known + timedelta(days=1)
-            while cur <= scan_end_cache:
-                dk = cur.isoformat()
-                si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
-                if si["queried"] and si.get("all_slots"):
-                    discovered.append(dk)
-                cur += timedelta(days=1)
-            discovered.sort()
-
-        cache[key] = {
-            "sale_start_date": result.get("sale_start_date"),
-            "sale_end_date": result.get("sale_end_date"),
-            "available_start": discovered[0] if discovered else None,
-            "available_end": discovered[-1] if discovered else None,
-            "checked_at": now_kst,
-        }
+        cache[key] = probed
     return cache
 
 
