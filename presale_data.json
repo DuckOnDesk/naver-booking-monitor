@@ -1,7 +1,8 @@
 {
-  "updated_at": "2026-07-02T00:25:18.702434+09:00",
+  "updated_at": "2026-07-02T00:30:25.367523+09:00",
   "watched_places": [
     "2002640525",
+    "2008689464",
     "2043280218",
     "2045566114",
     "2046928640",
@@ -171,6 +172,23 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
       "roadAddress": "연무장길 37-21",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
+    },
+    {
+      "id": "2008689464",
+      "name": "성분에디터 그린토마토 마켓 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.02.",
+      "operationEnd": "26.07.13.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_226/1781615989886N4DGJ_JPEG/%B4%EB%C1%F6_1.jpg",
+      "roadAddress": "연무장7길 16 1층",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": []
@@ -447,6 +465,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-01T22:45:01.499967+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2008689464",
+      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-07-02T00:30:22.017532+09:00"
     }
   ]
 }
