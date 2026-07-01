@@ -97,7 +97,7 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
         "    } __typename } __typename } __typename } }"
     )
 
-    for query, has_window in [(enhanced_query, True), (base_query, False)]:
+    for i, (query, has_window) in enumerate([(enhanced_query, True), (base_query, False)]):
         try:
             resp = _post(query)
             resp.raise_for_status()
@@ -118,8 +118,12 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
                 "_all_summary": summary,
             }
         except requests.HTTPError as e:
-            print(f"  [오류] schedule API HTTP {e.response.status_code}", flush=True)
-            if e.response.status_code in (429, 403):
+            status = e.response.status_code
+            if status == 400 and i == 0:
+                # enhanced_query의 saleStartDate/saleEndDate 필드가 이 서비스 타입에서 미지원 → base_query로 재시도
+                continue
+            print(f"  [오류] schedule API HTTP {status}", flush=True)
+            if status in (429, 403):
                 global _rate_limit_hits
                 _rate_limit_hits += 1
             continue
