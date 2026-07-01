@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-02T03:08:45.006364+09:00",
+  "updated_at": "2026-07-02T03:13:50.967747+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -39,7 +39,7 @@
     {
       "id": "1999314744",
       "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "bookingBusinessId": "1656104",
       "operationStart": "26.06.27.",
@@ -58,7 +58,8 @@
         "2026-07-01T03:28:54.339370+09:00",
         "2026-07-01T10:03:08.217791+09:00",
         "2026-07-01T12:36:12.790163+09:00",
-        "2026-07-01T18:59:56.211584+09:00"
+        "2026-07-01T18:59:56.211584+09:00",
+        "2026-07-02T03:13:48.256734+09:00"
       ]
     },
     {
@@ -482,6 +483,13 @@
       "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "ts": "2026-07-02T00:40:52.907568+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "1999314744",
+      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
+      "ts": "2026-07-02T03:13:48.256734+09:00"
     }
   ]
 }
