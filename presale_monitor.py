@@ -164,6 +164,62 @@ def resolve_booking_item_url(booking_url: str) -> str:
     return booking_url
 
 
+def has_available_slots(booking_url: str, booking_business_id: str) -> bool:
+    """네이버 예약 슬롯 잔여 여부 확인.
+    - 슬롯 있음 확인 → True (알림 전송)
+    - 슬롯 없음 확인 → False (알림 생략)
+    - API 오류/구조 미확인 → True (기본: 알림 전송)
+    """
+    if not booking_url or not booking_business_id:
+        return True
+    m_type = re.search(r'/booking/(\d+)/bizes/', booking_url)
+    if not m_type:
+        return True
+    booking_type = m_type.group(1)
+    now = datetime.now(KST)
+
+    confirmed_no_slot = 0
+    checked_months = 0
+
+    for month_offset in (0, 1):
+        d = datetime(now.year, now.month, 1, tzinfo=KST)
+        if month_offset:
+            d = (d.replace(day=28) + timedelta(days=4)).replace(day=1)
+        ym = d.strftime("%Y-%m")
+        cal_url = f"https://m.booking.naver.com/booking/{booking_type}/bizes/{booking_business_id}/calendars/{ym}"
+        try:
+            resp = SESSION.get(cal_url, timeout=8)
+            if resp.status_code != 200:
+                continue
+            data = resp.json()
+            checked_months += 1
+
+            # list 형태: [{"date": "...", "status": "AVAILABLE"/"FULL"/...}, ...]
+            calendars = data.get("calendars") or data.get("data")
+            if isinstance(calendars, list):
+                for day in calendars:
+                    st = (day.get("status") or "").upper()
+                    if st in ("AVAILABLE", "A") or day.get("available") or day.get("bookable"):
+                        return True
+                confirmed_no_slot += 1
+            # dict 형태: {"YYYY-MM-DD": {"status": ...}, ...}
+            elif isinstance(calendars, dict):
+                for day in calendars.values():
+                    if isinstance(day, dict):
+                        st = (day.get("status") or "").upper()
+                        if st in ("AVAILABLE", "A") or day.get("available"):
+                            return True
+                confirmed_no_slot += 1
+        except Exception:
+            pass
+
+    # 2달 모두 확인됐고 슬롯 없음 → False
+    if checked_months >= 2 and confirmed_no_slot >= 2:
+        return False
+    # 확인 불충분 → 기본 알림
+    return True
+
+
 def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
     if not topic:
         return
@@ -298,10 +354,15 @@ def check_once(config: dict, prev: dict) -> dict:
             new_alerts.append({"type": "booking_open", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
             if pid in watched:
-                print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
-                msg = f"지금 바로 예약하세요! → {booking_url}"
-                send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
-                send_toast(name, msg, booking_url)
+                biz_id = place.get("bookingBusinessId") or ""
+                slots_ok = has_available_slots(booking_url, biz_id)
+                if slots_ok:
+                    print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
+                    msg = f"지금 바로 예약하세요! → {booking_url}"
+                    send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
+                    send_toast(name, msg, booking_url)
+                else:
+                    print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (잔여 없음, 알림 생략)")
             else:
                 print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (알림없음)")
         elif is_open:
