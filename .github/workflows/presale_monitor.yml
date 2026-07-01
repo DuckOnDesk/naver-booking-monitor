@@ -36,12 +36,17 @@ jobs:
         run: |
           END_TIME=$(($(date +%s) + 19800))
           while [ $(date +%s) -lt $END_TIME ]; do
-            python -u presale_monitor.py --once
+            python -u presale_monitor.py --once || true
             git add presale_data.json presale_config.json
             if ! git diff --staged --quiet; then
-              git pull --rebase --autostash origin main
-              git commit -m "data: presale update [skip ci]"
-              git push
+              if git pull --rebase --autostash origin main; then
+                git commit -m "data: presale update [skip ci]"
+                git push || echo "[경고] push 실패, 다음 주기에 재시도"
+              else
+                echo "[경고] rebase 충돌, 스테이지 초기화 후 계속"
+                git rebase --abort || true
+                git restore --staged presale_data.json presale_config.json 2>/dev/null || true
+              fi
             fi
             REMAINING=$((END_TIME - $(date +%s)))
             [ $REMAINING -gt 300 ] && sleep 300
