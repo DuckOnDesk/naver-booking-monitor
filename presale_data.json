@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-01T10:23:36.377437+09:00",
+  "updated_at": "2026-07-01T10:28:42.342774+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -33,6 +33,29 @@
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": []
+    },
+    {
+      "id": "1999314744",
+      "name": "더 글렌그란트 The Glen Grant 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
+      "bookingBusinessId": "1656104",
+      "operationStart": "26.06.27.",
+      "operationEnd": "26.07.05.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_158/1781571375305sYVIf_JPEG/%280615%29%B3%D7%C0%CC%B9%F6_%BD%BA%B8%B6%C6%AE%C7%C3%B7%B9%C0%CC%BD%BA-01.jpg",
+      "roadAddress": "성수이로 72 스테이지 엑스 성수 차봇",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-26T22:25:39.500519+09:00",
+        "2026-06-27T15:50:02.279599+09:00",
+        "2026-06-30T23:28:21.805525+09:00",
+        "2026-07-01T03:28:54.339370+09:00",
+        "2026-07-01T10:03:08.217791+09:00"
+      ]
     },
     {
       "id": "2051944825",
@@ -69,29 +92,6 @@
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": []
-    },
-    {
-      "id": "1999314744",
-      "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "bookingBusinessId": "1656104",
-      "operationStart": "26.06.27.",
-      "operationEnd": "26.07.05.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_158/1781571375305sYVIf_JPEG/%280615%29%B3%D7%C0%CC%B9%F6_%BD%BA%B8%B6%C6%AE%C7%C3%B7%B9%C0%CC%BD%BA-01.jpg",
-      "roadAddress": "성수이로 72 스테이지 엑스 성수 차봇",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-26T22:25:39.500519+09:00",
-        "2026-06-27T15:50:02.279599+09:00",
-        "2026-06-30T23:28:21.805525+09:00",
-        "2026-07-01T03:28:54.339370+09:00",
-        "2026-07-01T10:03:08.217791+09:00"
-      ]
     },
     {
       "id": "2071746450",
