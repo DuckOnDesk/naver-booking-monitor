@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-02T00:14:49.712525+09:00",
+  "updated_at": "2026-07-02T00:20:12.351342+09:00",
   "watched_places": [
     "2002640525",
     "2043280218",
@@ -116,6 +116,23 @@
       ]
     },
     {
+      "id": "2076883271",
+      "name": "맥 in 트렌드팟 바이 올리브영 성수",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1682141/items/7794800",
+      "bookingBusinessId": "1682141",
+      "operationStart": "26.07.02.",
+      "operationEnd": "26.07.14.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_22/1781605132352S5bSE_JPEG/MAC_FY27_LUSTREGLASS_Liptint_Xoxo_0434_sRGB72.jpg",
+      "roadAddress": "연무장7길 13 올리브영N 성수",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
+    },
+    {
       "id": "2043280218",
       "name": "오어스 뷰티스페이스1 팝업스토어",
       "hasBooking": false,
@@ -183,6 +200,49 @@
       ]
     },
     {
+      "id": "2002640525",
+      "name": "웰컴 투 헬스키친",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1679931",
+      "bookingBusinessId": "1679931",
+      "operationStart": "26.07.09.",
+      "operationEnd": "26.07.14.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260622_228/1782112228168zzQan_JPEG/HK-sns-%C6%CB%BE%F7%BE%C8%B3%BB02-01%280622%29.jpg",
+      "roadAddress": "성수이로18길 6 1층",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": "2026-06-25T18:00:00+09:00",
+      "bookingOpenHistory": []
+    },
+    {
+      "id": "2058062036",
+      "name": "아노에틱 뷰티 팝업 스토어",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677108",
+      "bookingBusinessId": "1677108",
+      "operationStart": "26.07.10.",
+      "operationEnd": "26.07.19.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260612_170/1781250578513rmaHe_JPEG/%B7%CE%B0%ED.jpg",
+      "roadAddress": "성수이로14길 15 1층 엘레멘츠",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-29T03:22:51.406772+09:00",
+        "2026-06-29T11:13:47.953867+09:00",
+        "2026-06-29T13:45:49.494805+09:00",
+        "2026-06-29T23:25:47.725770+09:00",
+        "2026-07-01T03:49:17.879368+09:00",
+        "2026-07-01T16:35:33.536328+09:00",
+        "2026-07-01T19:20:24.257691+09:00",
+        "2026-07-01T22:45:01.499967+09:00"
+      ]
+    },
+    {
       "id": "2059199194",
       "name": "큐어 제주 알로에 농장 팝업스토어",
       "hasBooking": false,
@@ -224,66 +284,6 @@
         "2026-06-29T23:20:39.884053+09:00",
         "2026-07-01T01:31:17.533612+09:00"
       ]
-    },
-    {
-      "id": "2076883271",
-      "name": "맥 in 트렌드팟 바이 올리브영 성수",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1682141/items/7794800",
-      "bookingBusinessId": "1682141",
-      "operationStart": "26.07.02.",
-      "operationEnd": "26.07.14.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_22/1781605132352S5bSE_JPEG/MAC_FY27_LUSTREGLASS_Liptint_Xoxo_0434_sRGB72.jpg",
-      "roadAddress": "연무장7길 13 올리브영N 성수",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
-    },
-    {
-      "id": "2058062036",
-      "name": "아노에틱 뷰티 팝업 스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "bookingBusinessId": "1677108",
-      "operationStart": "26.07.10.",
-      "operationEnd": "26.07.19.",
-      "remainingDays": 8,
-      "status": "D-8",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260612_170/1781250578513rmaHe_JPEG/%B7%CE%B0%ED.jpg",
-      "roadAddress": "성수이로14길 15 1층 엘레멘츠",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-29T03:22:51.406772+09:00",
-        "2026-06-29T11:13:47.953867+09:00",
-        "2026-06-29T13:45:49.494805+09:00",
-        "2026-06-29T23:25:47.725770+09:00",
-        "2026-07-01T03:49:17.879368+09:00",
-        "2026-07-01T16:35:33.536328+09:00",
-        "2026-07-01T19:20:24.257691+09:00",
-        "2026-07-01T22:45:01.499967+09:00"
-      ]
-    },
-    {
-      "id": "2002640525",
-      "name": "웰컴 투 헬스키친",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1679931",
-      "bookingBusinessId": "1679931",
-      "operationStart": "26.07.09.",
-      "operationEnd": "26.07.14.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260622_228/1782112228168zzQan_JPEG/HK-sns-%C6%CB%BE%F7%BE%C8%B3%BB02-01%280622%29.jpg",
-      "roadAddress": "성수이로18길 6 1층",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": "2026-06-25T18:00:00+09:00",
-      "bookingOpenHistory": []
     }
   ],
   "alerts": [
