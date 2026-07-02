@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-02T15:53:47.906433+09:00",
+  "updated_at": "2026-07-02T15:58:55.718027+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -20,26 +20,9 @@
   },
   "places": [
     {
-      "id": "2082644987",
-      "name": "신라면분식 더 팩토리",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.06.16.",
-      "operationEnd": "26.12.16.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260622_158/1782122374475U86WR_JPEG/KakaoTalk_20260622_175458187.jpg",
-      "roadAddress": "성수일로4길 52 신라면 분식 팝업",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
-    },
-    {
       "id": "1999314744",
       "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "bookingBusinessId": "1656104",
       "operationStart": "26.06.27.",
@@ -60,7 +43,8 @@
         "2026-07-01T12:36:12.790163+09:00",
         "2026-07-01T18:59:56.211584+09:00",
         "2026-07-02T03:13:48.256734+09:00",
-        "2026-07-02T11:52:45.741293+09:00"
+        "2026-07-02T11:52:45.741293+09:00",
+        "2026-07-02T15:58:51.547928+09:00"
       ]
     },
     {
@@ -311,6 +295,23 @@
         "2026-06-29T23:20:39.884053+09:00",
         "2026-07-01T01:31:17.533612+09:00"
       ]
+    },
+    {
+      "id": "2082644987",
+      "name": "신라면분식 더 팩토리",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.06.16.",
+      "operationEnd": "26.12.16.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260622_158/1782122374475U86WR_JPEG/KakaoTalk_20260622_175458187.jpg",
+      "roadAddress": "성수일로4길 52 신라면 분식 팝업",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     }
   ],
   "alerts": [
@@ -530,6 +531,13 @@
       "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "ts": "2026-07-02T11:52:45.741293+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "1999314744",
+      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
+      "ts": "2026-07-02T15:58:51.547928+09:00"
     }
   ]
 }
