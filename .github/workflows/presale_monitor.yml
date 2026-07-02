@@ -34,6 +34,14 @@ jobs:
 
       - name: 사전예약 오픈 체크 (5분 간격, 5.5시간 루프)
         run: |
+          push_with_retry() {
+            git push && return 0
+            echo "[경고] push 실패 → pull 후 재시도"
+            sleep 3
+            git pull --rebase --autostash origin main && git push && return 0
+            echo "[경고] push 2회 실패, 다음 주기에 재시도"
+            return 0
+          }
           END_TIME=$(($(date +%s) + 19800))
           while [ $(date +%s) -lt $END_TIME ]; do
             python -u presale_monitor.py --once || true
@@ -41,10 +49,11 @@ jobs:
             if ! git diff --staged --quiet; then
               if git pull --rebase --autostash origin main; then
                 git commit -m "data: presale update [skip ci]"
-                git push || echo "[경고] push 실패, 다음 주기에 재시도"
+                push_with_retry
               else
                 echo "[경고] rebase 충돌, 스테이지 초기화 후 계속"
                 git rebase --abort || true
+                git checkout origin/main -- presale_config.json 2>/dev/null || true
                 git restore --staged presale_data.json presale_config.json 2>/dev/null || true
               fi
             fi
