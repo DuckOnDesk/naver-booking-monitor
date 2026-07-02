@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-03T00:11:43.412915+09:00",
+  "updated_at": "2026-07-03T00:16:50.135950+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -148,6 +148,50 @@
       ]
     },
     {
+      "id": "2059199194",
+      "name": "큐어 제주 알로에 농장 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683940",
+      "bookingBusinessId": "1683940",
+      "operationStart": "26.07.03.",
+      "operationEnd": "26.07.05.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260625_6/17823681234258Ae25_JPEG/%B3%D7%C0%CC%B9%F6_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg",
+      "roadAddress": "연무장7길 16 성수포탈 1층 마당",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-29T11:27:06.933158+09:00",
+        "2026-06-29T14:11:29.513919+09:00",
+        "2026-07-02T23:56:18.400472+09:00"
+      ]
+    },
+    {
+      "id": "2083326059",
+      "name": "마른파이브 비치클럽 인 마요르카",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "bookingBusinessId": "1678306",
+      "operationStart": "26.07.03.",
+      "operationEnd": "26.07.12.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260623_118/1782207743509Q25va_JPEG/KakaoTalk_Photo_2026-06-23-18-41-24.jpg",
+      "roadAddress": "연무장5길 20 쎈느",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-29T11:32:14.806161+09:00",
+        "2026-06-29T17:16:49.954997+09:00",
+        "2026-06-29T19:24:53.137205+09:00",
+        "2026-06-29T23:20:39.884053+09:00",
+        "2026-07-01T01:31:17.533612+09:00"
+      ]
+    },
+    {
       "id": "2053652128",
       "name": "더얀 XYZ POP UP - 대체불가",
       "hasBooking": false,
@@ -186,31 +230,6 @@
         "2026-07-02T17:00:35.557020+09:00",
         "2026-07-02T19:23:54.349603+09:00",
         "2026-07-02T21:53:09.589232+09:00"
-      ]
-    },
-    {
-      "id": "2045566114",
-      "name": "셀퓨전씨 쿨링 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "bookingBusinessId": "1680129",
-      "operationStart": "26.07.04.",
-      "operationEnd": "26.07.13.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260625_173/1782360361402BxwdQ_PNG/image.png",
-      "roadAddress": "연무장길 31-1 1층",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-29T00:18:40.676076+09:00",
-        "2026-07-01T12:36:12.790163+09:00",
-        "2026-07-01T15:18:53.792425+09:00",
-        "2026-07-01T17:47:28.093097+09:00",
-        "2026-07-01T20:16:46.653785+09:00",
-        "2026-07-01T22:45:01.499967+09:00",
-        "2026-07-02T10:03:54.196737+09:00"
       ]
     },
     {
@@ -258,47 +277,28 @@
       ]
     },
     {
-      "id": "2059199194",
-      "name": "큐어 제주 알로에 농장 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683940",
-      "bookingBusinessId": "1683940",
-      "operationStart": "26.07.03.",
-      "operationEnd": "26.07.05.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260625_6/17823681234258Ae25_JPEG/%B3%D7%C0%CC%B9%F6_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg",
-      "roadAddress": "연무장7길 16 성수포탈 1층 마당",
+      "id": "2045566114",
+      "name": "셀퓨전씨 쿨링 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
+      "bookingBusinessId": "1680129",
+      "operationStart": "26.07.04.",
+      "operationEnd": "26.07.13.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260625_173/1782360361402BxwdQ_PNG/image.png",
+      "roadAddress": "연무장길 31-1 1층",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-06-29T11:27:06.933158+09:00",
-        "2026-06-29T14:11:29.513919+09:00",
-        "2026-07-02T23:56:18.400472+09:00"
-      ]
-    },
-    {
-      "id": "2083326059",
-      "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "bookingBusinessId": "1678306",
-      "operationStart": "26.07.03.",
-      "operationEnd": "26.07.12.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260623_118/1782207743509Q25va_JPEG/KakaoTalk_Photo_2026-06-23-18-41-24.jpg",
-      "roadAddress": "연무장5길 20 쎈느",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-29T11:32:14.806161+09:00",
-        "2026-06-29T17:16:49.954997+09:00",
-        "2026-06-29T19:24:53.137205+09:00",
-        "2026-06-29T23:20:39.884053+09:00",
-        "2026-07-01T01:31:17.533612+09:00"
+        "2026-06-29T00:18:40.676076+09:00",
+        "2026-07-01T12:36:12.790163+09:00",
+        "2026-07-01T15:18:53.792425+09:00",
+        "2026-07-01T17:47:28.093097+09:00",
+        "2026-07-01T20:16:46.653785+09:00",
+        "2026-07-01T22:45:01.499967+09:00",
+        "2026-07-02T10:03:54.196737+09:00"
       ]
     },
     {
