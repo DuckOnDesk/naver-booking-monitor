@@ -102,6 +102,13 @@
         "2026-09-26",
         "2026-09-27"
       ]
+    },
+    {
+      "id": "mr2sjz85",
+      "name": "아이쁘",
+      "url": "https://booking.naver.com/booking/12/bizes/1357646/items/7751512?area=pll&lang=ko&tab=book&theme=place",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
