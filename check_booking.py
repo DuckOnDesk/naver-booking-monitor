@@ -682,7 +682,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     pre_key = f"{alert_key}:pre"
                     log_parts, _ = _format_slot_parts(per_slot, None)
                     print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}", flush=True)
-                    if pre_key not in alerted:
+                    # booking_open_datetime이 설정된 경우: 오픈 시각에 window_open=True 되면서 자동으로 정규 알림 발송됨 → 미리 알림 생략
+                    if pre_key not in alerted and not item.get("booking_open_datetime"):
                         title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
                         body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot) + f"\n{window_reason}"
                         if ntfy_topic:
