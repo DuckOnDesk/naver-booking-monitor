@@ -54,5 +54,12 @@
     "available_start": "2026-07-02",
     "available_end": "2026-07-12",
     "checked_at": "2026-07-02T09:37:29.229424+09:00"
+  },
+  "12_1357646_7751512": {
+    "sale_start_date": null,
+    "sale_end_date": null,
+    "available_start": "2026-07-11",
+    "available_end": "2026-07-12",
+    "checked_at": "2026-07-02T09:57:21.451385+09:00"
   }
 }
