@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-03T14:48:18.186338+09:00",
+  "updated_at": "2026-07-03T14:53:25.544276+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -171,7 +171,7 @@
     {
       "id": "2083326059",
       "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
       "bookingBusinessId": "1678306",
       "operationStart": "26.07.03.",
