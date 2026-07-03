@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-04T00:16:25.860190+09:00",
+  "updated_at": "2026-07-04T00:21:32.855270+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -68,23 +68,6 @@
       ]
     },
     {
-      "id": "2021908137",
-      "name": "메르세데스-벤츠 스튜디오 서울",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "bookingBusinessId": "1643675",
-      "operationStart": "26.05.19.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
-      "roadAddress": "연무장길 73 XYZ SEOUL",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
-    },
-    {
       "id": "2071746450",
       "name": "THE FIRST FAN",
       "hasBooking": true,
@@ -103,6 +86,23 @@
         "2026-06-26T17:46:55.905952+09:00",
         "2026-06-27T00:37:50.780486+09:00"
       ]
+    },
+    {
+      "id": "2021908137",
+      "name": "메르세데스-벤츠 스튜디오 서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
+      "bookingBusinessId": "1643675",
+      "operationStart": "26.05.19.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
+      "roadAddress": "연무장길 73 XYZ SEOUL",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2043280218",
