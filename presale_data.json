@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-04T03:08:20.174832+09:00",
+  "updated_at": "2026-07-04T03:13:27.530833+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -22,7 +22,7 @@
     {
       "id": "1999314744",
       "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "bookingBusinessId": "1656104",
       "operationStart": "26.06.27.",
@@ -45,7 +45,8 @@
         "2026-07-02T03:13:48.256734+09:00",
         "2026-07-02T11:52:45.741293+09:00",
         "2026-07-02T15:58:51.547928+09:00",
-        "2026-07-02T17:26:11.549384+09:00"
+        "2026-07-02T17:26:11.549384+09:00",
+        "2026-07-04T03:13:23.388664+09:00"
       ]
     },
     {
@@ -202,7 +203,7 @@
     {
       "id": "2083326059",
       "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
       "bookingBusinessId": "1678306",
       "operationStart": "26.07.03.",
@@ -220,7 +221,8 @@
         "2026-06-29T19:24:53.137205+09:00",
         "2026-06-29T23:20:39.884053+09:00",
         "2026-07-01T01:31:17.533612+09:00",
-        "2026-07-03T23:35:27.540885+09:00"
+        "2026-07-03T23:35:27.540885+09:00",
+        "2026-07-04T03:13:23.388664+09:00"
       ]
     },
     {
@@ -698,6 +700,20 @@
       "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "ts": "2026-07-04T01:33:04.408838+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "1999314744",
+      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
+      "ts": "2026-07-04T03:13:23.388664+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083326059",
+      "place_name": "마른파이브 비치클럽 인 마요르카",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "ts": "2026-07-04T03:13:23.388664+09:00"
     }
   ]
 }
