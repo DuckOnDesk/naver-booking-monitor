@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-05T08:11:16.337580+09:00",
+  "updated_at": "2026-07-05T08:16:22.332449+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -109,7 +109,7 @@
     {
       "id": "2043280218",
       "name": "오어스 뷰티스페이스1 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1683622",
       "bookingBusinessId": "1683622",
       "operationStart": "26.07.01.",
@@ -153,7 +153,7 @@
     {
       "id": "2008689464",
       "name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "bookingBusinessId": "1686766",
       "operationStart": "26.07.02.",
