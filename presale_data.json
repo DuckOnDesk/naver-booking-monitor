@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-05T13:46:34.159479+09:00",
+  "updated_at": "2026-07-05T13:51:41.329682+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -251,7 +251,7 @@
     {
       "id": "2045566114",
       "name": "셀퓨전씨 쿨링 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "bookingBusinessId": "1680129",
       "operationStart": "26.07.04.",
@@ -284,7 +284,8 @@
         "2026-07-04T17:54:21.550293+09:00",
         "2026-07-04T22:58:35.245300+09:00",
         "2026-07-05T03:16:12.694429+09:00",
-        "2026-07-05T11:14:53.451530+09:00"
+        "2026-07-05T11:14:53.451530+09:00",
+        "2026-07-05T13:51:37.358496+09:00"
       ]
     },
     {
@@ -858,6 +859,13 @@
       "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
       "ts": "2026-07-05T12:30:03.596771+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2045566114",
+      "place_name": "셀퓨전씨 쿨링 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
+      "ts": "2026-07-05T13:51:37.358496+09:00"
     }
   ]
 }
