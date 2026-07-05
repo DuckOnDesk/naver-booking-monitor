@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-05T12:45:24.529831+09:00",
+  "updated_at": "2026-07-05T12:50:30.380647+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -72,6 +72,33 @@
       ]
     },
     {
+      "id": "2043280218",
+      "name": "오어스 뷰티스페이스1 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1683622",
+      "bookingBusinessId": "1683622",
+      "operationStart": "26.07.01.",
+      "operationEnd": "26.07.12.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260629_60/17827059224204p1Fg_JPEG/%BF%C0%BE%EE%BD%BA_%B9%AB%BD%C5%BB%E7_%C6%CB%BE%F7_%C6%F7%BD%BA%C5%CD.jpg",
+      "roadAddress": "연무장길 81 무신사 뷰티 스페이스1",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-26T17:46:55.905952+09:00",
+        "2026-06-27T00:37:50.780486+09:00",
+        "2026-06-29T13:20:11.728133+09:00",
+        "2026-06-29T21:47:51.034026+09:00",
+        "2026-06-30T04:38:30.454262+09:00",
+        "2026-06-30T14:24:21.680514+09:00",
+        "2026-07-01T04:50:33.490514+09:00",
+        "2026-07-01T20:11:38.368083+09:00",
+        "2026-07-05T04:43:06.911836+09:00"
+      ]
+    },
+    {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": false,
@@ -139,33 +166,6 @@
       ]
     },
     {
-      "id": "2043280218",
-      "name": "오어스 뷰티스페이스1 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1683622",
-      "bookingBusinessId": "1683622",
-      "operationStart": "26.07.01.",
-      "operationEnd": "26.07.12.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260629_60/17827059224204p1Fg_JPEG/%BF%C0%BE%EE%BD%BA_%B9%AB%BD%C5%BB%E7_%C6%CB%BE%F7_%C6%F7%BD%BA%C5%CD.jpg",
-      "roadAddress": "연무장길 81 무신사 뷰티 스페이스1",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-26T17:46:55.905952+09:00",
-        "2026-06-27T00:37:50.780486+09:00",
-        "2026-06-29T13:20:11.728133+09:00",
-        "2026-06-29T21:47:51.034026+09:00",
-        "2026-06-30T04:38:30.454262+09:00",
-        "2026-06-30T14:24:21.680514+09:00",
-        "2026-07-01T04:50:33.490514+09:00",
-        "2026-07-01T20:11:38.368083+09:00",
-        "2026-07-05T04:43:06.911836+09:00"
-      ]
-    },
-    {
       "id": "2076883271",
       "name": "맥 in 트렌드팟 바이 올리브영 성수",
       "hasBooking": true,
@@ -198,6 +198,55 @@
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": []
+    },
+    {
+      "id": "2083326059",
+      "name": "마른파이브 비치클럽 인 마요르카",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "bookingBusinessId": "1678306",
+      "operationStart": "26.07.03.",
+      "operationEnd": "26.07.12.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260623_118/1782207743509Q25va_JPEG/KakaoTalk_Photo_2026-06-23-18-41-24.jpg",
+      "roadAddress": "연무장5길 20 쎈느",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-29T11:32:14.806161+09:00",
+        "2026-06-29T17:16:49.954997+09:00",
+        "2026-06-29T19:24:53.137205+09:00",
+        "2026-06-29T23:20:39.884053+09:00",
+        "2026-07-01T01:31:17.533612+09:00",
+        "2026-07-03T23:35:27.540885+09:00",
+        "2026-07-04T03:13:23.388664+09:00",
+        "2026-07-04T12:34:10.059413+09:00",
+        "2026-07-04T17:49:13.315180+09:00",
+        "2026-07-05T02:14:56.452065+09:00"
+      ]
+    },
+    {
+      "id": "2059199194",
+      "name": "큐어 제주 알로에 농장 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683940",
+      "bookingBusinessId": "1683940",
+      "operationStart": "26.07.03.",
+      "operationEnd": "26.07.05.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260625_6/17823681234258Ae25_JPEG/%B3%D7%C0%CC%B9%F6_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg",
+      "roadAddress": "연무장7길 16 성수포탈 1층 마당",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-06-29T11:27:06.933158+09:00",
+        "2026-06-29T14:11:29.513919+09:00",
+        "2026-07-02T23:56:18.400472+09:00"
+      ]
     },
     {
       "id": "2045566114",
@@ -236,55 +285,6 @@
         "2026-07-04T22:58:35.245300+09:00",
         "2026-07-05T03:16:12.694429+09:00",
         "2026-07-05T11:14:53.451530+09:00"
-      ]
-    },
-    {
-      "id": "2059199194",
-      "name": "큐어 제주 알로에 농장 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683940",
-      "bookingBusinessId": "1683940",
-      "operationStart": "26.07.03.",
-      "operationEnd": "26.07.05.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260625_6/17823681234258Ae25_JPEG/%B3%D7%C0%CC%B9%F6_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg",
-      "roadAddress": "연무장7길 16 성수포탈 1층 마당",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-29T11:27:06.933158+09:00",
-        "2026-06-29T14:11:29.513919+09:00",
-        "2026-07-02T23:56:18.400472+09:00"
-      ]
-    },
-    {
-      "id": "2083326059",
-      "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "bookingBusinessId": "1678306",
-      "operationStart": "26.07.03.",
-      "operationEnd": "26.07.12.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260623_118/1782207743509Q25va_JPEG/KakaoTalk_Photo_2026-06-23-18-41-24.jpg",
-      "roadAddress": "연무장5길 20 쎈느",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-29T11:32:14.806161+09:00",
-        "2026-06-29T17:16:49.954997+09:00",
-        "2026-06-29T19:24:53.137205+09:00",
-        "2026-06-29T23:20:39.884053+09:00",
-        "2026-07-01T01:31:17.533612+09:00",
-        "2026-07-03T23:35:27.540885+09:00",
-        "2026-07-04T03:13:23.388664+09:00",
-        "2026-07-04T12:34:10.059413+09:00",
-        "2026-07-04T17:49:13.315180+09:00",
-        "2026-07-05T02:14:56.452065+09:00"
       ]
     },
     {
