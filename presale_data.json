@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-05T23:56:58.656509+09:00",
+  "updated_at": "2026-07-06T00:02:05.419633+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -9,7 +9,6 @@
     "2048293732",
     "2053652128",
     "2058062036",
-    "2059199194",
     "2076883271",
     "2082644987",
     "2083326059"
@@ -37,39 +36,6 @@
       "bookingOpenHistory": [
         "2026-06-26T17:46:55.905952+09:00",
         "2026-06-27T00:37:50.780486+09:00"
-      ]
-    },
-    {
-      "id": "1999314744",
-      "name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "bookingBusinessId": "1656104",
-      "operationStart": "26.06.27.",
-      "operationEnd": "26.07.05.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_158/1781571375305sYVIf_JPEG/%280615%29%B3%D7%C0%CC%B9%F6_%BD%BA%B8%B6%C6%AE%C7%C3%B7%B9%C0%CC%BD%BA-01.jpg",
-      "roadAddress": "성수이로 72 스테이지 엑스 성수 차봇",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-26T22:25:39.500519+09:00",
-        "2026-06-27T15:50:02.279599+09:00",
-        "2026-06-30T23:28:21.805525+09:00",
-        "2026-07-01T03:28:54.339370+09:00",
-        "2026-07-01T10:03:08.217791+09:00",
-        "2026-07-01T12:36:12.790163+09:00",
-        "2026-07-01T18:59:56.211584+09:00",
-        "2026-07-02T03:13:48.256734+09:00",
-        "2026-07-02T11:52:45.741293+09:00",
-        "2026-07-02T15:58:51.547928+09:00",
-        "2026-07-02T17:26:11.549384+09:00",
-        "2026-07-04T03:13:23.388664+09:00",
-        "2026-07-04T22:58:35.245300+09:00",
-        "2026-07-05T12:30:03.596771+09:00",
-        "2026-07-05T16:14:25.864949+09:00"
       ]
     },
     {
@@ -235,27 +201,6 @@
       ]
     },
     {
-      "id": "2059199194",
-      "name": "큐어 제주 알로에 농장 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683940",
-      "bookingBusinessId": "1683940",
-      "operationStart": "26.07.03.",
-      "operationEnd": "26.07.05.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260625_6/17823681234258Ae25_JPEG/%B3%D7%C0%CC%B9%F6_%B4%EB%C7%A5%C0%CC%B9%CC%C1%F6.jpg",
-      "roadAddress": "연무장7길 16 성수포탈 1층 마당",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-06-29T11:27:06.933158+09:00",
-        "2026-06-29T14:11:29.513919+09:00",
-        "2026-07-02T23:56:18.400472+09:00"
-      ]
-    },
-    {
       "id": "2045566114",
       "name": "셀퓨전씨 쿨링 팝업스토어",
       "hasBooking": true,
@@ -305,8 +250,8 @@
       "bookingBusinessId": "1679931",
       "operationStart": "26.07.09.",
       "operationEnd": "26.07.14.",
-      "remainingDays": 4,
-      "status": "D-4",
+      "remainingDays": 3,
+      "status": "D-3",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260622_228/1782112228168zzQan_JPEG/HK-sns-%C6%CB%BE%F7%BE%C8%B3%BB02-01%280622%29.jpg",
       "roadAddress": "성수이로18길 6 1층",
@@ -322,8 +267,8 @@
       "bookingBusinessId": "1677108",
       "operationStart": "26.07.10.",
       "operationEnd": "26.07.19.",
-      "remainingDays": 5,
-      "status": "D-5",
+      "remainingDays": 4,
+      "status": "D-4",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260612_170/1781250578513rmaHe_JPEG/%B7%CE%B0%ED.jpg",
       "roadAddress": "성수이로14길 15 1층 엘레멘츠",
