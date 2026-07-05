@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-06T00:02:05.419633+09:00",
+  "updated_at": "2026-07-06T00:07:12.321914+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -899,6 +899,20 @@
       "place_name": "셀퓨전씨 쿨링 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "ts": "2026-07-05T23:31:20.238812+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "1999314744",
+      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-07-06T00:07:08.601328+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2059199194",
+      "place_name": "큐어 제주 알로에 농장 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-07-06T00:07:08.601328+09:00"
     }
   ]
 }
