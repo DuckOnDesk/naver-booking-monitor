@@ -28,6 +28,7 @@ BASE_DIR = Path(__file__).parent
 CONFIG_FILE = BASE_DIR / "presale_config.json"
 DATA_FILE = BASE_DIR / "presale_data.json"
 LOG_FILE = BASE_DIR / "presale_monitor.log"
+PENDING_NTFY_FILE = BASE_DIR / "pending_ntfy.json"
 
 if not sys.stdout:
     sys.stdout = open(LOG_FILE, "a", encoding="utf-8", buffering=1)
@@ -245,6 +246,29 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
     print("  [ntfy] 3회 시도 모두 실패")
 
 
+def _queue_ntfy(title: str, body: str, url: str) -> None:
+    """새 팝업 알림을 파일에 큐잉. GitHub Actions 워크플로우가 git push 후 발송한다."""
+    try:
+        items = json.loads(PENDING_NTFY_FILE.read_text(encoding="utf-8")) if PENDING_NTFY_FILE.exists() else []
+    except Exception:
+        items = []
+    items.append({"title": title, "body": body, "url": url})
+    PENDING_NTFY_FILE.write_text(json.dumps(items, ensure_ascii=False), encoding="utf-8")
+
+
+def flush_pending_ntfy(topic: str) -> None:
+    """큐에 쌓인 알림을 즉시 발송하고 파일 삭제 (로컬 루프 모드 전용)."""
+    if not PENDING_NTFY_FILE.exists():
+        return
+    try:
+        items = json.loads(PENDING_NTFY_FILE.read_text(encoding="utf-8"))
+        PENDING_NTFY_FILE.unlink()
+    except Exception:
+        return
+    for item in items:
+        send_ntfy(topic, item["title"], item["body"], item["url"])
+
+
 def send_toast(name: str, body: str, url: str) -> None:
     try:
         from winotify import Notification, audio
@@ -341,11 +365,11 @@ def check_once(config: dict, prev: dict) -> dict:
         dday = place.get("status") or ""
 
         if pid not in prev:
-            # 새로 등장한 팝업 → 선택 페이지로 안내
+            # 새로 등장한 팝업 → git push 이후 알림 발송 (페이지 데이터가 업데이트된 뒤 수신되도록)
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
             print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
-            send_ntfy(ntfy_topic, f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
+            _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
             new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
         elif is_open and not was_open:
@@ -456,7 +480,9 @@ def main():
     while True:
         try:
             config = load_config()
+            ntfy_topic = os.environ.get("NTFY_TOPIC") or config.get("ntfy_topic", "")
             prev = check_once(config, prev)
+            flush_pending_ntfy(ntfy_topic)  # 로컬 루프: push 없으므로 즉시 발송
         except Exception as e:
             print(f"[오류] {e}")
         time.sleep(interval)
