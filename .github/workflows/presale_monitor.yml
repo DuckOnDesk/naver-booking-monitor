@@ -40,16 +40,35 @@ jobs:
             sleep 3
             git pull --rebase --autostash origin main && git push && return 0
             echo "[경고] push 2회 실패, 다음 주기에 재시도"
-            return 0
+            return 1
+          }
+          send_pending_ntfy() {
+            [ -f pending_ntfy.json ] || return 0
+            python3 -c "
+import json, requests, sys
+try:
+    topic = json.load(open('presale_config.json')).get('ntfy_topic','')
+    if not topic: sys.exit(0)
+    for it in json.load(open('pending_ntfy.json')):
+        requests.post(f'https://ntfy.sh/{topic}', data=it['body'].encode(),
+            headers={'Title': it['title'], 'Priority': 'urgent', 'Click': it['url'], 'Tags': 'bell'}, timeout=10)
+        print(f'  → ntfy 전송: {it[\"title\"]}')
+except Exception as e:
+    print(f'[경고] ntfy 전송 실패: {e}', file=sys.stderr)
+"
+            rm -f pending_ntfy.json
           }
           END_TIME=$(($(date +%s) + 19800))
           while [ $(date +%s) -lt $END_TIME ]; do
+            rm -f pending_ntfy.json
             python -u presale_monitor.py --once || true
             git add presale_data.json presale_config.json
             if ! git diff --staged --quiet; then
               if git pull --rebase --autostash origin main; then
                 git commit -m "data: presale update [skip ci]"
-                push_with_retry
+                if push_with_retry; then
+                  send_pending_ntfy
+                fi
               else
                 echo "[경고] rebase 충돌, 스테이지 초기화 후 계속"
                 git rebase --abort || true
@@ -57,6 +76,7 @@ jobs:
                 git restore --staged presale_data.json presale_config.json 2>/dev/null || true
               fi
             fi
+            rm -f pending_ntfy.json
             REMAINING=$((END_TIME - $(date +%s)))
             [ $REMAINING -gt 300 ] && sleep 300
           done
