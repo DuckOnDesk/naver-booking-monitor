@@ -100,7 +100,7 @@
       "id": "mr3gn7my",
       "name": "맥",
       "url": "https://m.booking.naver.com/booking/6/bizes/1682141/items/7794800?startDate=2026-07-02",
-      "enabled": true,
+      "enabled": false,
       "target_dates": [
         "2026-07-04"
       ]
