@@ -1,16 +1,15 @@
 {
-  "updated_at": "2026-07-06T17:09:22.903341+09:00",
+  "updated_at": "2026-07-06T17:14:33.601319+09:00",
   "watched_places": [
+    "1662673990",
     "2002640525",
     "2008689464",
     "2043280218",
     "2045566114",
     "2046928640",
     "2048293732",
-    "2053652128",
     "2058062036",
     "2076883271",
-    "2082644987",
     "2083326059"
   ],
   "booking_open_datetimes": {
@@ -296,6 +295,25 @@
         "2026-07-05T15:08:09.294417+09:00",
         "2026-07-05T22:21:09.623761+09:00",
         "2026-07-06T10:11:38.201651+09:00"
+      ]
+    },
+    {
+      "id": "1662673990",
+      "name": "영 이노베이터 드림 프로젝트 2026 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677398",
+      "bookingBusinessId": "1677398",
+      "operationStart": "26.07.10.",
+      "operationEnd": "26.07.12.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260624_64/1782301372890XaO0N_PNG/image.png",
+      "roadAddress": "성수이로 72 스테이지 엑스 성수 차봇",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-06T17:14:30.324558+09:00"
       ]
     },
     {
@@ -967,6 +985,13 @@
       "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "ts": "2026-07-06T13:06:03.754833+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "1662673990",
+      "place_name": "영 이노베이터 드림 프로젝트 2026 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677398",
+      "ts": "2026-07-06T17:14:30.324558+09:00"
     }
   ]
 }
