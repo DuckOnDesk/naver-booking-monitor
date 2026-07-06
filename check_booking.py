@@ -29,6 +29,7 @@ HEADERS = {
 
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/DuckOnDesk/naver-booking-monitor/main/monitors.json"
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
+ALERTED_FILE = Path(__file__).parent / "booking_alerted.json"
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
@@ -907,6 +908,47 @@ def build_schedule_cache(monitors: list) -> dict:
     return cache
 
 
+def load_alerted() -> dict:
+    """job 재시작 시 이전 알림 상태 복원 — alerted 딕셔너리를 파일에서 로드."""
+    try:
+        if ALERTED_FILE.exists():
+            return json.loads(ALERTED_FILE.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"[경고] booking_alerted.json 읽기 실패: {e}", flush=True)
+    return {}
+
+
+def save_alerted(alerted: dict) -> bool:
+    """alerted 딕셔너리를 파일에 저장. 내용이 바뀐 경우에만 True 반환."""
+    try:
+        new_content = json.dumps(alerted, ensure_ascii=False, indent=2) + "\n"
+        old_content = ALERTED_FILE.read_text(encoding="utf-8") if ALERTED_FILE.exists() else ""
+        if old_content == new_content:
+            return False
+        ALERTED_FILE.write_text(new_content, encoding="utf-8")
+        return True
+    except Exception as e:
+        print(f"[경고] booking_alerted.json 저장 실패: {e}", flush=True)
+        return False
+
+
+def commit_alerted() -> None:
+    """booking_alerted.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음)."""
+    try:
+        subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
+        subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
+        subprocess.run(["git", "add", "booking_alerted.json"], check=True)
+        if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
+            return
+        subprocess.run(["git", "commit", "-m", "data: 알림 상태 저장 [skip ci]"], check=True)
+        subprocess.run(["git", "fetch", "origin"], check=True)
+        subprocess.run(["git", "rebase", "origin/main"], check=True)
+        subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
+        print("  → booking_alerted.json 커밋/푸시 완료", flush=True)
+    except Exception as exc:
+        print(f"[경고] booking_alerted.json 커밋 실패: {exc}", flush=True)
+
+
 def save_schedule_cache(cache: dict) -> bool:
     """schedule_cache.json 갱신. 내용이 바뀐 경우에만 True 반환."""
     try:
@@ -955,7 +997,8 @@ def main():
     if save_schedule_cache(cache):
         commit_schedule_cache()
 
-    alerted: dict[str, int] = {}
+    # job 재시작 시 이전 알림 상태 복원 (중복 알림 방지)
+    alerted = load_alerted()
 
     for m in active:
         if not check_booking_accessible(m.get("url", "")):
@@ -980,6 +1023,9 @@ def main():
             check_all(monitors, ntfy_topic, alerted)
         except Exception as exc:
             print(f"[오류] check_all 예외: {exc}", flush=True)
+
+        if save_alerted(alerted):
+            commit_alerted()
 
         if _rate_limit_hits > 0 and interval < 120:
             interval = 120
