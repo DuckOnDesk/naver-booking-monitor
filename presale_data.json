@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-06T12:50:47.508719+09:00",
+  "updated_at": "2026-07-06T12:55:53.849694+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -65,6 +65,23 @@
         "2026-07-05T04:43:06.911836+09:00",
         "2026-07-05T23:05:46.741133+09:00"
       ]
+    },
+    {
+      "id": "2076883271",
+      "name": "맥 in 트렌드팟 바이 올리브영 성수",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1682141/items/7794800",
+      "bookingBusinessId": "1682141",
+      "operationStart": "26.07.02.",
+      "operationEnd": "26.07.14.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_22/1781605132352S5bSE_JPEG/MAC_FY27_LUSTREGLASS_Liptint_Xoxo_0434_sRGB72.jpg",
+      "roadAddress": "연무장7길 13 올리브영N 성수",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": []
     },
     {
       "id": "2051944825",
@@ -210,23 +227,6 @@
         "2026-07-05T23:31:20.238812+09:00",
         "2026-07-06T08:50:32.114745+09:00"
       ]
-    },
-    {
-      "id": "2076883271",
-      "name": "맥 in 트렌드팟 바이 올리브영 성수",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1682141/items/7794800",
-      "bookingBusinessId": "1682141",
-      "operationStart": "26.07.02.",
-      "operationEnd": "26.07.14.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260616_22/1781605132352S5bSE_JPEG/MAC_FY27_LUSTREGLASS_Liptint_Xoxo_0434_sRGB72.jpg",
-      "roadAddress": "연무장7길 13 올리브영N 성수",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": []
     },
     {
       "id": "2053652128",
