@@ -334,6 +334,7 @@ def check_once(config: dict, prev: dict) -> dict:
     for pid, place in current.items():
         place["bookingOpenDatetime"] = bod.get(str(pid))
         place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
+        place["lastBookingNotifiedAt"] = prev.get(pid, {}).get("lastBookingNotifiedAt")
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
         prev_url = prev.get(pid, {}).get("bookingUrl") or ""
@@ -368,6 +369,7 @@ def check_once(config: dict, prev: dict) -> dict:
             # 새로 등장한 팝업 → git push 이후 알림 발송 (페이지 데이터가 업데이트된 뒤 수신되도록)
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
+                place["lastBookingNotifiedAt"] = now_iso  # 새 팝업 발견 알림이 오픈 알림을 겸함
             print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
             _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
             new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
@@ -378,15 +380,28 @@ def check_once(config: dict, prev: dict) -> dict:
             new_alerts.append({"type": "booking_open", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
             if pid in watched:
-                biz_id = place.get("bookingBusinessId") or ""
-                slots_ok = has_available_slots(booking_url, biz_id)
-                if slots_ok:
-                    print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
-                    msg = f"지금 바로 예약하세요! → {booking_url}"
-                    send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
-                    send_toast(name, msg, booking_url)
+                # 24시간 내 이미 알림을 보낸 경우 중복 발송 방지 (API 오락가락 및 Actions 재시작 대응)
+                last_notif_at = prev.get(pid, {}).get("lastBookingNotifiedAt")
+                within_24h = False
+                if last_notif_at:
+                    try:
+                        last_dt = datetime.fromisoformat(last_notif_at)
+                        within_24h = (datetime.now(KST) - last_dt).total_seconds() < 24 * 3600
+                    except Exception:
+                        pass
+                if within_24h:
+                    print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (24시간 내 알림 이미 발송, 생략)")
                 else:
-                    print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (잔여 없음, 알림 생략)")
+                    biz_id = place.get("bookingBusinessId") or ""
+                    slots_ok = has_available_slots(booking_url, biz_id)
+                    if slots_ok:
+                        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
+                        msg = f"지금 바로 예약하세요! → {booking_url}"
+                        send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
+                        send_toast(name, msg, booking_url)
+                        place["lastBookingNotifiedAt"] = datetime.now(KST).isoformat()
+                    else:
+                        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (잔여 없음, 알림 생략)")
             else:
                 print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (알림없음)")
         elif is_open:
