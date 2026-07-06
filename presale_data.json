@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-06T13:01:00.468850+09:00",
+  "updated_at": "2026-07-06T13:06:06.633946+09:00",
   "watched_places": [
     "2002640525",
     "2008689464",
@@ -86,7 +86,7 @@
     {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "bookingBusinessId": "1669333",
       "operationStart": "26.06.05.",
@@ -99,7 +99,8 @@
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-06-26T17:46:55.905952+09:00"
+        "2026-06-26T17:46:55.905952+09:00",
+        "2026-07-06T13:06:03.754833+09:00"
       ]
     },
     {
@@ -959,6 +960,13 @@
       "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "ts": "2026-07-06T12:14:39.149308+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2051944825",
+      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
+      "ts": "2026-07-06T13:06:03.754833+09:00"
     }
   ]
 }
