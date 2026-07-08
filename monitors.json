@@ -48,7 +48,7 @@
       "id": "mr0jjavm",
       "name": "나비엔",
       "url": "https://m.booking.naver.com/booking/12/bizes/1682637/items/7801159?area=ple&lang=ko&startDateTime=2026-07-13T00%3A00%3A00%2B09%3A00&tab=book&theme=place",
-      "enabled": true,
+      "enabled": false,
       "target_dates": []
     },
     {
