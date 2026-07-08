@@ -2,57 +2,57 @@
   "12_1678306_7776463": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-07-08",
+    "available_start": "2026-07-09",
     "available_end": "2026-07-12",
-    "checked_at": "2026-07-08T23:21:23.185447+09:00"
+    "checked_at": "2026-07-09T04:55:10.455877+09:00"
   },
   "12_1677108_7771571": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-07-10",
     "available_end": "2026-07-19",
-    "checked_at": "2026-07-08T23:21:42.102413+09:00"
+    "checked_at": "2026-07-09T04:55:25.260523+09:00"
   },
   "13_1670302_7744302": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-07-08",
+    "available_start": "2026-07-09",
     "available_end": "2026-07-23",
-    "checked_at": "2026-07-08T23:21:54.944778+09:00"
+    "checked_at": "2026-07-09T04:55:35.767121+09:00"
   },
   "5_1683622_7811722": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-07-08",
+    "available_start": "2026-07-09",
     "available_end": "2026-07-12",
-    "checked_at": "2026-07-08T23:22:06.279086+09:00"
+    "checked_at": "2026-07-09T04:55:44.941455+09:00"
   },
   "12_1682637_7801159": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-07-08",
+    "available_start": "2026-07-09",
     "available_end": "2026-07-19",
-    "checked_at": "2026-07-08T23:22:22.611692+09:00"
+    "checked_at": "2026-07-09T04:55:58.128497+09:00"
   },
   "5_1683622_7801907": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-07-08",
+    "available_start": "2026-07-09",
     "available_end": "2026-07-12",
-    "checked_at": "2026-07-08T23:22:35.181768+09:00"
+    "checked_at": "2026-07-09T04:56:09.457463+09:00"
   },
   "12_1357646_7751512": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-07-11",
     "available_end": "2026-07-12",
-    "checked_at": "2026-07-08T23:22:51.956528+09:00"
+    "checked_at": "2026-07-09T04:56:23.517145+09:00"
   },
   "6_1682141_7794800": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-07-09",
     "available_end": "2026-07-14",
-    "checked_at": "2026-07-08T23:23:08.624198+09:00"
+    "checked_at": "2026-07-09T04:56:37.066851+09:00"
   }
 }
