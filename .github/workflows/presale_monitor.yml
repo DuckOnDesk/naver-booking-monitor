@@ -1,8 +1,11 @@
 name: 사전예약 오픈 감지
 
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/presale_monitor.yml']  # 워크플로우 파일 변경 시 자동 재시작
   schedule:
-    - cron: "0 0 * * *"   # 체인 끊겼을 때 복구용 백업 (매일 자정)
+    - cron: "0 0 * * *"   # 체인 끄겨즄 때 복구용 백업 (매일 자정)
   workflow_dispatch:
 
 permissions:
