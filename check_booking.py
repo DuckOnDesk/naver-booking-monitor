@@ -213,6 +213,132 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
 
 
+def _parse_period_to_minutes(value: int, unit: str | None) -> int:
+    """업체 설정 사전예약 제한 값을 분 단위로 변환."""
+    u = (unit or "").upper()
+    if u in ("DAY", "DAYS"):
+        return value * 24 * 60
+    if u in ("HOUR", "HOURS"):
+        return value * 60
+    return value  # MINUTE / 단위 없음 → 그대로 분으로 간주
+
+
+def fetch_item_restrictions(biz_id: str, item_id: str, service_id: int) -> int:
+    """업체가 설정한 사전예약 제한(최소 예약 시점 → 현재 기준 몇 분 후)을 Naver API에서 자동 조회.
+    감지 실패(필드 없음 / API 오류) 시 0 반환."""
+    schedule_params = {
+        "businessId": biz_id,
+        "bizItemId": item_id,
+        "businessTypeId": service_id,
+        "startDateTime": datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%dT00:00:00+09:00"),
+        "endDateTime": (datetime.now(timezone(timedelta(hours=9))) + timedelta(days=1)).strftime("%Y-%m-%dT23:59:59+09:00"),
+    }
+
+    # 네이버 예약 API에서 사전예약 제한 필드명 후보들 (알 수 없으므로 여러 조합 시도)
+    field_candidates = [
+        # (query_fields, period_key, unit_key)
+        (
+            "minAdvancedBookingPeriod minAdvancedBookingPeriodUnit",
+            "minAdvancedBookingPeriod",
+            "minAdvancedBookingPeriodUnit",
+        ),
+        (
+            "minAdvancedMinute",
+            "minAdvancedMinute",
+            None,
+        ),
+        (
+            "minBookingPrePeriod minBookingPrePeriodUnit",
+            "minBookingPrePeriod",
+            "minBookingPrePeriodUnit",
+        ),
+        (
+            "minBookingPeriod minBookingPeriodUnit",
+            "minBookingPeriod",
+            "minBookingPeriodUnit",
+        ),
+    ]
+
+    for fields_str, period_key, unit_key in field_candidates:
+        query = (
+            "query schedule($scheduleParams: ScheduleParams) {"
+            "  schedule(input: $scheduleParams) {"
+            f"    bizItemSchedule {{ {fields_str} __typename }}"
+            "    __typename"
+            "  }"
+            "}"
+        )
+        try:
+            resp = requests.post(
+                GRAPHQL_URL,
+                json={"operationName": "schedule", "variables": {"scheduleParams": schedule_params}, "query": query},
+                headers=HEADERS,
+                timeout=15,
+            )
+            if resp.status_code == 400:
+                continue  # 이 필드명이 스키마에 없음 → 다음 후보 시도
+            resp.raise_for_status()
+            data = resp.json()
+            if data.get("errors"):
+                continue
+            sched = data["data"]["schedule"]["bizItemSchedule"]
+            raw_value = sched.get(period_key)
+            if raw_value is None or raw_value == 0:
+                continue
+            unit = sched.get(unit_key) if unit_key else None
+            minutes = _parse_period_to_minutes(int(raw_value), unit)
+            if minutes > 0:
+                print(f"  [제한 감지] 사전예약 제한: {raw_value} {unit or 'MIN'} → {minutes}분", flush=True)
+                return minutes
+        except requests.HTTPError as e:
+            if e.response.status_code in (429, 403):
+                global _rate_limit_hits
+                _rate_limit_hits += 1
+            continue
+        except Exception:
+            continue
+
+    return 0
+
+
+def _apply_advance_filter(slot_info: dict, advance_mins: int, now_kst: datetime) -> dict:
+    """업체 사전예약 제한에 따라 예약 불가 시간대(now + advance_mins 이전 슬롯)를 필터링."""
+    if advance_mins <= 0 or not slot_info.get("queried"):
+        return slot_info
+
+    KST = timezone(timedelta(hours=9))
+    cutoff = now_kst + timedelta(minutes=advance_mins)
+
+    filtered_slots = []
+    for slot in slot_info.get("all_slots", []):
+        t_str = slot.get("unitStartTime")
+        if t_str:
+            try:
+                slot_dt = datetime.strptime(t_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=KST)
+                if slot_dt < cutoff:
+                    continue  # 사전예약 제한으로 예약 불가
+            except ValueError:
+                pass
+        filtered_slots.append(slot)
+
+    available_times = [
+        s["unitStartTime"][11:16]
+        for s in filtered_slots
+        if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
+    ]
+
+    removed = len(slot_info.get("all_slots", [])) - len(filtered_slots)
+    if removed > 0:
+        print(f"  [사전예약 제한 {advance_mins}분] {removed}개 시간대 제외", flush=True)
+
+    return {
+        **slot_info,
+        "all_slots": filtered_slots,
+        "times": available_times,
+        "total": len(filtered_slots),
+    }
+
+
 def check_kakao_dates(ticket_id: str, target_dates: list, kakao_cookies: str) -> list | None:
     today = datetime.now(timezone(timedelta(hours=9)))
     today_str = today.strftime("%Y-%m-%d")
@@ -501,8 +627,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     commit_schedule_cache()
                 print(f"[{now_str}] — {name} 운영 기간 최초 확인: {probed.get('available_start')}~{probed.get('available_end')}", flush=True)
 
-        avail_start = cache_entry.get("available_start")
-        avail_end   = cache_entry.get("available_end")
+        avail_start   = cache_entry.get("available_start")
+        avail_end     = cache_entry.get("available_end")
+        advance_mins  = cache_entry.get("advance_booking_minutes", 0)
 
         item_id   = item.get("id", name)
         closed_key = f"{item_id}:url_closed"
@@ -603,6 +730,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
             if d is not None and d["hasBookableSlots"]:
                 slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                slot_info = _apply_advance_filter(slot_info, advance_mins, now_kst)
 
                 if time_range is not None and slot_info["queried"]:
                     t_from, t_to = time_range
@@ -881,12 +1009,15 @@ def probe_schedule_period(parsed: dict) -> dict | None:
             cur += timedelta(days=1)
         discovered.sort()
 
+    advance_mins = fetch_item_restrictions(parsed["biz_id"], parsed["item_id"], parsed["service_id"])
+
     return {
         "sale_start_date": result.get("sale_start_date"),
         "sale_end_date": result.get("sale_end_date"),
         "available_start": discovered[0] if discovered else None,
         "available_end": discovered[-1] if discovered else None,
         "checked_at": now_kst,
+        "advance_booking_minutes": advance_mins,
     }
 
 
