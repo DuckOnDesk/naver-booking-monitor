@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths: ['.github/workflows/presale_monitor.yml']  # 워크플로우 파일 변경 시 자동 재시작
   schedule:
-    - cron: "0 0 * * *"   # 체인 끄겨즄 때 복구용 백업 (매일 자정)
+    - cron: "0 0 * * *"   # 체인 끊겼을 때 복구용 백업 (매일 자정)
   workflow_dispatch:
 
 permissions:
@@ -68,9 +68,13 @@ except Exception as e:
             git add presale_data.json presale_config.json
             if ! git diff --staged --quiet; then
               if git pull --rebase --autostash origin main; then
-                git commit -m "data: presale update [skip ci]"
-                if push_with_retry; then
-                  send_pending_ntfy
+                # autostash가 변경사항을 unstaged로 복원하므로 재스테이징 필요
+                git add presale_data.json presale_config.json
+                if ! git diff --staged --quiet; then
+                  git commit -m "data: presale update [skip ci]"
+                  if push_with_retry; then
+                    send_pending_ntfy
+                  fi
                 fi
               else
                 echo "[경고] rebase 충돌, 스테이지 초기화 후 계속"
