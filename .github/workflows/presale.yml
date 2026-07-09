@@ -44,18 +44,7 @@ jobs:
           }
           send_pending_ntfy() {
             [ -f pending_ntfy.json ] || return 0
-            python3 -c "
-import json, requests, sys
-try:
-    topic = json.load(open('presale_config.json')).get('ntfy_topic','')
-    if not topic: sys.exit(0)
-    for it in json.load(open('pending_ntfy.json')):
-        requests.post(f'https://ntfy.sh/{topic}', data=it['body'].encode(),
-            headers={'Title': it['title'], 'Priority': 'urgent', 'Click': it['url'], 'Tags': 'bell'}, timeout=10)
-        print(f'  → ntfy 전송: {it[\"title\"]}')
-except Exception as e:
-    print(f'[경고] ntfy 전송 실패: {e}', file=sys.stderr)
-"
+            python3 -c "import json,requests,sys;cfg=json.load(open('presale_config.json'));topic=cfg.get('ntfy_topic','');[requests.post(f'https://ntfy.sh/{topic}',data=it['body'].encode(),headers={'Title':it['title'],'Priority':'urgent','Click':it['url'],'Tags':'bell'},timeout=10) for it in json.load(open('pending_ntfy.json'))] if topic else None" 2>/dev/null || true
             rm -f pending_ntfy.json
           }
           END_TIME=$(($(date +%s) + 19800))
