@@ -213,6 +213,44 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
 
 
+def fetch_item_restrictions(biz_id: str) -> dict:
+    """업체(business) API에서 예약 가능 제한 코드·값을 조회.
+    네이버 예약 업체 설정의 bookingAvailableCode / bookingAvailableValue 필드를 읽는다.
+      RI01 → 제한 없음 (실시간 예약)
+      RI02 → 일(day) 단위 사전 마감 (value=1 이면 당일예약 불가)
+    조회 실패 시 빈 dict 반환."""
+    query = (
+        "query business($businessId: String) {"
+        "  business(input: { businessId: $businessId }) {"
+        "    bookingAvailableCode bookingAvailableValue __typename"
+        "  }"
+        "}"
+    )
+    try:
+        resp = requests.post(
+            "https://m.booking.naver.com/graphql?opName=business",
+            json={"operationName": "business", "variables": {"businessId": biz_id}, "query": query},
+            headers=HEADERS,
+            timeout=15,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if data.get("errors"):
+            return {}
+        biz = data["data"]["business"]
+        return {
+            "booking_available_code":  biz.get("bookingAvailableCode") or "RI01",
+            "booking_available_value": int(biz.get("bookingAvailableValue") or 0),
+        }
+    except requests.HTTPError as e:
+        if e.response.status_code in (429, 403):
+            global _rate_limit_hits
+            _rate_limit_hits += 1
+        return {}
+    except Exception:
+        return {}
+
+
 def check_kakao_dates(ticket_id: str, target_dates: list, kakao_cookies: str) -> list | None:
     today = datetime.now(timezone(timedelta(hours=9)))
     today_str = today.strftime("%Y-%m-%d")
@@ -504,6 +542,15 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         avail_start = cache_entry.get("available_start")
         avail_end   = cache_entry.get("available_end")
 
+        # 업체 설정 사전예약 제한 (RI02 = 일 단위 마감)
+        ba_code  = cache_entry.get("booking_available_code", "RI01")
+        ba_value = int(cache_entry.get("booking_available_value") or 0)
+        # cutoff_date: 이 날짜 미만인 datekey는 예약 불가 (당일 포함)
+        if ba_code == "RI02" and ba_value > 0:
+            cutoff_date = now_kst.date() + timedelta(days=ba_value)
+        else:
+            cutoff_date = None
+
         item_id   = item.get("id", name)
         closed_key = f"{item_id}:url_closed"
 
@@ -593,6 +640,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             time_range = target_time_map.get(datekey)
 
             if datekey < today_str:
+                continue
+            # 업체 사전예약 제한: cutoff_date 미만 날짜는 예약 불가 → 알림 제외
+            if cutoff_date and date.fromisoformat(datekey) < cutoff_date:
+                alerted.pop(alert_key, None)
+                alerted.pop(f"{alert_key}:pre", None)
+                print(f"[{now_str}] ⏭ {name} {date_str} — 사전예약 제한 ({ba_value}일 전 마감)", flush=True)
                 continue
             if datekey == today_str and time_range is not None:
                 _, t_to = time_range
@@ -881,12 +934,21 @@ def probe_schedule_period(parsed: dict) -> dict | None:
             cur += timedelta(days=1)
         discovered.sort()
 
+    restriction = fetch_item_restrictions(parsed["biz_id"])
+    if restriction.get("booking_available_code") and restriction["booking_available_code"] != "RI01":
+        print(
+            f"  [예약 제한] {restriction['booking_available_code']} / {restriction['booking_available_value']}일 전 마감",
+            flush=True,
+        )
+
     return {
         "sale_start_date": result.get("sale_start_date"),
         "sale_end_date": result.get("sale_end_date"),
         "available_start": discovered[0] if discovered else None,
         "available_end": discovered[-1] if discovered else None,
         "checked_at": now_kst,
+        "booking_available_code":  restriction.get("booking_available_code", "RI01"),
+        "booking_available_value": restriction.get("booking_available_value", 0),
     }
 
 
