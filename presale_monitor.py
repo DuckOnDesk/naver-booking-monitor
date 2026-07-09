@@ -122,6 +122,37 @@ def fetch_presale_places(area: dict) -> list[dict]:
     return presale
 
 
+def fetch_place_by_id(place_id: str) -> dict | None:
+    """개별 장소 ID로 장소 정보 조회 (batch 검색에 안 잡히는 watched_places 대응)"""
+    for path_prefix in ("popupstore", "place"):
+        url = f"https://pcmap.place.naver.com/{path_prefix}/{place_id}/home"
+        try:
+            resp = SESSION.get(url, timeout=15)
+            resp.encoding = "utf-8"
+            if resp.status_code != 200:
+                continue
+        except Exception as e:
+            print(f"  [개별 조회 오류] {place_id}: {e}")
+            break
+
+        m = re.search(
+            r'window\.__APOLLO_STATE__\s*=\s*(\{.+?\});\s*(?:</script>|window\.)',
+            resp.text, re.DOTALL,
+        )
+        if not m:
+            continue
+
+        try:
+            data = json.loads(m.group(1))
+        except json.JSONDecodeError:
+            continue
+
+        for v in data.values():
+            if isinstance(v, dict) and str(v.get("id")) == str(place_id) and v.get("name"):
+                return v
+    return None
+
+
 def normalize(p: dict) -> dict:
     status = p.get("status") or {}
     admission = p.get("admissionCondition") or {}
@@ -156,7 +187,7 @@ def resolve_booking_item_url(booking_url: str) -> str:
     base_url = m.group(1)
     try:
         resp = SESSION.get(booking_url, timeout=15, allow_redirects=True)
-        ids = re.findall(r'''[\"'/]items/(\d+)''', resp.text)
+        ids = re.findall(r'''["'/]items/(\d+)''', resp.text)
         if ids:
             print(f"  [아이템 URL 발견] /items/{ids[0]}")
             return f"{base_url}/items/{ids[0]}"
@@ -319,6 +350,14 @@ def check_once(config: dict, prev: dict) -> dict:
             pid = p.get("id")
             if pid and pid not in raw:
                 raw[pid] = p
+
+    # watched_places 중 batch 검색에 없는 장소 개별 조회 (검색 결과에 안 나오는 경우 대응)
+    for pid in watched:
+        if pid not in raw:
+            p = fetch_place_by_id(pid)
+            if p:
+                raw[pid] = p
+                print(f"  [개별 조회] {p.get('name', pid)}")
 
     current: dict[str, dict] = {pid: normalize(p) for pid, p in raw.items()}
 
