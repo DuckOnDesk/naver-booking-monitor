@@ -641,12 +641,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
             if datekey < today_str:
                 continue
-            # 업체 사전예약 제한: cutoff_date 미만 날짜는 예약 불가 → 알림 제외
-            if cutoff_date and date.fromisoformat(datekey) < cutoff_date:
+            # 업체 사전예약 제한: cutoff_date 미만 날짜는 예약 불가 → 알림만 제외, 로그는 그대로 표시
+            is_restricted = bool(cutoff_date and date.fromisoformat(datekey) < cutoff_date)
+            if is_restricted:
                 alerted.pop(alert_key, None)
                 alerted.pop(f"{alert_key}:pre", None)
-                print(f"[{now_str}] ⏭ {name} {date_str} — 사전예약 제한 ({ba_value}일 전 마감)", flush=True)
-                continue
+            restriction_note = f" — 사전예약 제한 ({ba_value}일 전 마감)" if is_restricted else ""
             if datekey == today_str and time_range is not None:
                 _, t_to = time_range
                 if now_kst.strftime("%H:%M") > t_to:
@@ -704,9 +704,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     prev_slots = alerted.get(closed_alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
-                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘", flush=True)
+                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘{restriction_note}", flush=True)
 
-                    if available > 0 and (prev_slots is None or increased):
+                    if not is_restricted and available > 0 and (prev_slots is None or increased):
                         if increased:
                             title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
                         else:
@@ -719,24 +719,25 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     prev_slots = alerted.get(alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
-                    print(f"[{now_str}] 🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info})", flush=True)
+                    print(f"[{now_str}] 🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}){restriction_note}", flush=True)
 
-                    if prev_slots is None or increased:
-                        if prev_slots is None:
-                            title = f"🎉 {name} 예약 가능!"
-                        else:
-                            inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
-                            title = f"🎉 {name} 자리 추가됨 - {inc_str}"
-                        body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
-                        if ntfy_topic:
-                            send_ntfy(ntfy_topic, title, body, url)
-                    alerted[alert_key] = dict(per_slot)
+                    if not is_restricted:
+                        if prev_slots is None or increased:
+                            if prev_slots is None:
+                                title = f"🎉 {name} 예약 가능!"
+                            else:
+                                inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
+                                title = f"🎉 {name} 자리 추가됨 - {inc_str}"
+                            body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                            if ntfy_topic:
+                                send_ntfy(ntfy_topic, title, body, url)
+                        alerted[alert_key] = dict(per_slot)
                 else:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
                     log_parts, _ = _format_slot_parts(per_slot, None)
-                    print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}", flush=True)
-                    if pre_key not in alerted:
+                    print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}{restriction_note}", flush=True)
+                    if not is_restricted and pre_key not in alerted:
                         if item.get("booking_open_datetime"):
                             open_dt = _parse_dt(item["booking_open_datetime"])
                             open_str = open_dt.strftime("%m/%d %H:%M") if open_dt else "?"
