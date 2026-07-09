@@ -5,8 +5,11 @@ monitors.json 파일에서 설정 읽기 (enabled 필드로 항목별 ON/OFF)
           CHECK_INTERVAL_SEC, LOOP_HOURS
 
 monitors.json 항목 선택 필드:
-  booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
-                         설정 시 해당 시각 이후 + 자리 있을 때만 알림 발송
+  booking_open_datetime      예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
+                             설정 시 해당 시각 이후 + 자리 있을 때만 알림 발송
+  advance_booking_minutes    예약 마감 제한 (분 단위). 해당 시간대 시작 N분 전부터 예약 불가인
+                             경우 설정. 예: 120 → 2시간 전 이후 슬롯만 알림 발송
+                             당일예약 불가 장소는 보통 1440 (24시간) 이상
 """
 
 import json
@@ -296,6 +299,31 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
         print("  → ntfy 전송 완료", flush=True)
     except Exception as exc:
         print(f"  [ntfy 오류] {exc}", flush=True)
+
+
+def _apply_advance_filter(slot_info: dict, advance_mins: int, now_kst: datetime) -> dict:
+    """advance_booking_minutes 제한 적용 — 예약 마감(N분 전 이내) 슬롯 제거.
+    예: advance_mins=120 이면 지금으로부터 2시간 내 슬롯은 예약 불가로 처리."""
+    if advance_mins <= 0 or not slot_info.get("queried"):
+        return slot_info
+    _KST = timezone(timedelta(hours=9))
+    cutoff_dt = now_kst + timedelta(minutes=advance_mins)
+    filtered = []
+    for s in slot_info.get("all_slots", []):
+        t_str = s.get("unitStartTime", "")
+        try:
+            slot_dt = datetime.strptime(t_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=_KST)
+            if slot_dt < cutoff_dt:
+                continue
+        except ValueError:
+            pass
+        filtered.append(s)
+    available_times = [
+        s["unitStartTime"][11:16]
+        for s in filtered
+        if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
+    ]
+    return {**slot_info, "all_slots": filtered, "times": available_times, "total": len(filtered)}
 
 
 def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None) -> tuple[list[str], list[tuple[str, int]]]:
@@ -601,8 +629,11 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
             d = days_map.get(datekey)
 
+            advance_mins = item.get("advance_booking_minutes", 0)
+
             if d is not None and d["hasBookableSlots"]:
                 slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                slot_info = _apply_advance_filter(slot_info, advance_mins, now_kst)
 
                 if time_range is not None and slot_info["queried"]:
                     t_from, t_to = time_range
@@ -701,6 +732,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 alerted.pop(f"{alert_key}:pre", None)
 
                 slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                slot_info = _apply_advance_filter(slot_info, advance_mins, now_kst)
                 all_slots = slot_info.get("all_slots", [])
 
                 if datekey == today_str and slot_info["queried"] and not all_slots:

@@ -207,6 +207,11 @@
       <div class="hint">네이버 예약 페이지에서 URL을 복사해 붙여넣으세요</div>
     </div>
     <div class="form-group">
+      <label>예약 마감 제한 (분)</label>
+      <input type="number" id="f-advance" min="0" step="30" placeholder="0 (제한 없음)">
+      <div class="hint">당일예약 불가 → 1440 / 2시간 전까지만 예약 가능 → 120</div>
+    </div>
+    <div class="form-group">
       <label>확인 기간</label>
       <div class="quick-row">
         <label class="quick-check"><input type="checkbox" id="f-quick-weekend" onchange="onQuickToggle('weekend', this.checked)"> 주말/공휴일</label>
@@ -608,6 +613,7 @@ function openSheet() {
   $('sheet-title').textContent = '예약 모니터 추가';
   $('f-name').value = '';
   $('f-url').value  = '';
+  $('f-advance').value = '';
   $('f-from').value = ''; $('f-to').value = '';
   $('f-time-from').value = ''; $('f-time-to').value = '';
   $('f-quick-weekend').checked = false;
@@ -624,6 +630,7 @@ function openEdit(id) {
   $('sheet-title').textContent = `${m.name} 수정`;
   $('f-name').value = m.name;
   $('f-url').value  = m.url;
+  $('f-advance').value = m.advance_booking_minutes || '';
   $('f-from').value = ''; $('f-to').value = '';
   $('f-time-from').value = ''; $('f-time-to').value = '';
   $('f-quick-weekend').checked = false;
@@ -706,11 +713,19 @@ async function submitMonitor() {
     }
   }
 
+  const advanceMins = parseInt($('f-advance').value) || 0;
+
   if (editId) {
     const m = cfg.monitors.find(x => x.id === editId);
-    if (m) Object.assign(m, { name, url, target_dates });
+    if (m) {
+      Object.assign(m, { name, url, target_dates });
+      if (advanceMins > 0) m.advance_booking_minutes = advanceMins;
+      else delete m.advance_booking_minutes;
+    }
   } else {
-    cfg.monitors.push({ id: Date.now().toString(36), name, url, enabled: true, target_dates });
+    const newMon = { id: Date.now().toString(36), name, url, enabled: true, target_dates };
+    if (advanceMins > 0) newMon.advance_booking_minutes = advanceMins;
+    cfg.monitors.push(newMon);
   }
 
   const submitBtn = document.querySelector('.sheet-actions .btn-primary');
