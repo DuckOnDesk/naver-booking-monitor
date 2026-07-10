@@ -11,6 +11,9 @@ on:
         description: 테스트 날짜 (YYYY-MM-DD, 비우면 자동 탐색)
         required: false
         default: ""
+  push:
+    branches: [main]
+    paths: [".autobook_test_request.json"]
 
 permissions:
   contents: read
@@ -41,7 +44,16 @@ jobs:
       - name: 드라이런 실행 (실제 예약 안 함)
         env:
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
-        run: python -u auto_book_test.py "${{ inputs.url }}" "${{ inputs.date }}"
+          INPUT_URL: ${{ inputs.url }}
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          URL="$INPUT_URL"
+          DATE="$INPUT_DATE"
+          if [ -z "$URL" ] && [ -f .autobook_test_request.json ]; then
+            URL=$(python -c "import json;print(json.load(open('.autobook_test_request.json')).get('url',''))")
+            DATE=$(python -c "import json;print(json.load(open('.autobook_test_request.json')).get('date',''))")
+          fi
+          python -u auto_book_test.py "$URL" "$DATE"
 
       - name: 스크린샷 업로드
         if: always()
