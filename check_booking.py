@@ -361,29 +361,97 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
     return log_parts, increased
 
 
+AUTO_BOOK_LOG_FILE = Path(__file__).parent / "auto_book_log.json"
+AUTO_BOOK_LOG_MAX = 300
+
+# 슬롯 자체가 없어진 실패 → 다른 계정으로 재시도해도 소용없는 메시지 패턴
+_ACCOUNT_SWITCH_USELESS = ["선택 가능한 것이 없음", "닫혀 있음", "날짜를 선택하지 못함"]
+
+
+def append_auto_book_log(entry: dict) -> None:
+    """자동예약 시도 로그를 auto_book_log.json에 추가 (최신이 앞, 최대 300건 유지)."""
+    try:
+        log = json.loads(AUTO_BOOK_LOG_FILE.read_text(encoding="utf-8")) if AUTO_BOOK_LOG_FILE.exists() else []
+        if not isinstance(log, list):
+            log = []
+    except Exception:
+        log = []
+    log.insert(0, entry)
+    del log[AUTO_BOOK_LOG_MAX:]
+    try:
+        AUTO_BOOK_LOG_FILE.write_text(json.dumps(log, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    except Exception as e:
+        print(f"[경고] auto_book_log.json 저장 실패: {e}", flush=True)
+
+
+def _auto_book_cfg(item: dict) -> dict | None:
+    """monitors.json의 auto_book 설정 정규화. 비활성/미설정이면 None.
+
+    auto_book: true (하위 호환) 또는 객체:
+      {enabled, dates[], times[](HH:MM 또는 HH:MM-HH:MM), accounts[](우선순위),
+       count, mode("immediate"|"scheduled"), start_at(ISO)}
+    빈 목록 = 모든 날짜/시간/계정 대상.
+    """
+    ab = item.get("auto_book")
+    if not ab:
+        return None
+    if not isinstance(ab, dict):
+        ab = {}
+    cfg = {
+        "enabled": ab.get("enabled", True),
+        "dates": ab.get("dates", item.get("auto_book_dates") or []),
+        "times": ab.get("times") or [],
+        "accounts": ab.get("accounts") or [],
+        "count": int(ab.get("count") or item.get("auto_book_count") or 1),
+        "mode": ab.get("mode", "immediate"),
+        "start_at": ab.get("start_at"),
+    }
+    return cfg if cfg["enabled"] else None
+
+
+def _match_time(t: str, patterns: list) -> bool:
+    """"HH:MM"이 설정 패턴(정확한 시각 또는 "HH:MM-HH:MM" 범위)과 일치하는지."""
+    if not patterns:
+        return True
+    for p in patterns:
+        p = str(p).strip()
+        if "-" in p[3:]:
+            a, b = p.split("-", 1)
+            if a.strip() <= t <= b.strip():
+                return True
+        elif t == p:
+            return True
+    return False
+
+
 def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
                     per_slot: list, ntfy_topic: str, alerted: dict) -> None:
     """auto_book이 켜진 항목에서 예약 가능 슬롯 발견 시 실제 예약 시도.
 
-    monitors.json 항목 필드:
-      auto_book        true면 자동 예약 활성화
-      auto_book_dates  예약 시도할 날짜 목록 (생략/빈 목록 = 감지된 모든 날짜)
-      auto_book_count  예약 인원 (기본 1)
+    계정 우선순위(cfg["accounts"], 빈 목록이면 등록된 모든 계정 1→5) 순으로
+    빠르게 갈아타며 시도한다 (계정당 예약 횟수 제한 대응).
 
     상태는 booking_alerted.json에 저장:
       {id}:auto_booked      예약 성공 기록 → 이후 시도 중단
       {id}:auto_book_state  {"sig": 슬롯 시그니처, "attempts": 횟수}
+    시도 내역은 auto_book_log.json에 기록 (웹 리포트에서 조회).
     """
-    if not item.get("auto_book"):
+    cfg = _auto_book_cfg(item)
+    if not cfg:
         return
     booked_key = f"{item_id}:auto_booked"
     if booked_key in alerted:
         return
-    ab_dates = item.get("auto_book_dates") or []
-    if ab_dates and datekey not in ab_dates:
+    if cfg["dates"] and datekey not in cfg["dates"]:
         return
 
-    times = [t for t, _ in per_slot]
+    now_kst = datetime.now(timezone(timedelta(hours=9)))
+    if cfg["mode"] == "scheduled" and cfg["start_at"]:
+        start_at = _parse_dt(cfg["start_at"])
+        if start_at and now_kst < start_at:
+            return
+
+    times = [t for t, _ in per_slot if _match_time(t, cfg["times"])]
     if not times:
         return
     sig = f"{datekey}|{','.join(times)}"
@@ -401,21 +469,56 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
 
     try:
         import auto_book
-        res = auto_book.try_book(url, datekey, times, count=int(item.get("auto_book_count") or 1))
+        accounts = auto_book.get_accounts(cfg["accounts"])
     except Exception as exc:
-        res = {"success": False, "message": f"auto_book 모듈 오류: {exc}", "booked_time": None, "dry_run": False}
+        accounts = []
+        print(f"  [자동예약] auto_book 모듈 오류: {exc}", flush=True)
 
-    print(f"  [자동예약] 결과: {'성공' if res['success'] else '실패'} — {res['message']}", flush=True)
+    if not accounts:
+        res = {"success": False, "message": "사용 가능한 계정 쿠키 없음 (NAVER_COOKIES_1~5 시크릿 확인)",
+               "booked_time": None, "dry_run": False, "account": None}
+        results = [res]
+    else:
+        results = []
+        res = None
+        for acct_no, cookie_str in accounts:
+            try:
+                res = auto_book.try_book(url, datekey, times, count=cfg["count"],
+                                         cookie_str=cookie_str, account=acct_no)
+            except Exception as exc:
+                res = {"success": False, "message": f"예외: {exc}", "booked_time": None,
+                       "dry_run": False, "account": acct_no}
+            results.append(res)
+            print(f"  [자동예약] 계정{acct_no} 결과: {'성공' if res['success'] else '실패'} — {res['message']}", flush=True)
+            if res["success"]:
+                break
+            # 슬롯이 사라진 실패는 계정을 바꿔도 소용없으므로 중단
+            if any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
+                break
+
+    for r in results:
+        append_auto_book_log({
+            "ts": now_kst.isoformat(timespec="seconds"),
+            "item_id": item_id,
+            "name": name,
+            "date": datekey,
+            "times": times,
+            "account": r.get("account"),
+            "success": bool(r["success"]),
+            "dry_run": bool(r.get("dry_run")),
+            "message": r["message"],
+        })
 
     if res["success"] and not res.get("dry_run"):
         alerted[booked_key] = {
             "date": datekey,
             "time": res.get("booked_time"),
-            "at": datetime.now(timezone(timedelta(hours=9))).isoformat(),
+            "account": res.get("account"),
+            "at": now_kst.isoformat(),
         }
         if ntfy_topic:
             send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
-                      f"{datekey} {res.get('booked_time') or ''} 예약 완료 — 네이버 예약 내역에서 확인하세요",
+                      f"{datekey} {res.get('booked_time') or ''} (계정{res.get('account')}) 예약 완료 — 네이버 예약 내역에서 확인하세요",
                       url)
     elif res["success"] and res.get("dry_run"):
         if state["attempts"] == 1 and ntfy_topic:
@@ -1077,11 +1180,11 @@ def save_alerted(alerted: dict) -> bool:
 
 
 def commit_alerted() -> None:
-    """booking_alerted.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음)."""
+    """booking_alerted.json·auto_book_log.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음)."""
     try:
         subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
         subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
-        subprocess.run(["git", "add", "booking_alerted.json"], check=True)
+        subprocess.run(["git", "add", "booking_alerted.json", "auto_book_log.json"], check=True)
         if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
             return
         subprocess.run(["git", "commit", "-m", "data: 알림 상태 저장 [skip ci]"], check=True)

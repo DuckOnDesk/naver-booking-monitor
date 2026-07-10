@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>자동 예약 설정</title>
+  <style>
+    :root { --green: #03C75A; --purple: #7c3aed; --red: #ff4d4f; --bg: #f4f6f8; --card: #fff; --text: #1a1a1a; --sub: #8c8c8c; --border: #e8e8e8; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; }
+    header { background: var(--purple); color: #fff; padding: 20px 16px 16px; position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 10px; }
+    header a { color: #fff; text-decoration: none; font-size: 22px; line-height: 1; }
+    header h1 { font-size: 18px; font-weight: 700; }
+    header p { font-size: 12px; opacity: .85; margin-top: 2px; }
+    .content { max-width: 540px; margin: 0 auto; padding: 14px 14px 0; }
+    .card { background: var(--card); border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+    .item-name { font-weight: 700; font-size: 16px; }
+    .item-url { font-size: 11px; color: #bbb; margin-top: 4px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
+    input[type=date], input[type=time], input[type=number], input[type=datetime-local], select {
+      width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 11px 13px; font-size: 15px; font-family: inherit; outline: none; background: #fafafa;
+    }
+    input:focus, select:focus { border-color: var(--purple); background-color: #fff; }
+    .hint { font-size: 11px; color: var(--sub); margin-top: 4px; }
+    .row { display: flex; gap: 8px; align-items: center; }
+    .row > * { flex: 1; }
+    .row .sep { flex: 0 0 auto; color: var(--sub); }
+    .btn-add { background: var(--purple); color: #fff; border: none; border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; flex: 0 0 auto; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tag { display: inline-flex; align-items: center; gap: 6px; background: #f3ebff; border: 1px solid #ddc9ff; border-radius: 8px; padding: 6px 10px; font-size: 13px; color: #5b21b6; }
+    .tag button { background: none; border: none; color: #aaa; font-size: 15px; cursor: pointer; padding: 0; line-height: 1; }
+    .tag button:hover { color: var(--red); }
+    .acct-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .acct-chip { position: relative; border: 1.5px solid var(--border); background: #fafafa; border-radius: 10px; padding: 10px 14px; font-size: 14px; cursor: pointer; user-select: none; }
+    .acct-chip.sel { border-color: var(--purple); background: #f3ebff; color: #5b21b6; font-weight: 700; }
+    .acct-chip .ord { position: absolute; top: -7px; right: -7px; background: var(--purple); color: #fff; width: 18px; height: 18px; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .radio-row { display: flex; flex-direction: column; gap: 8px; }
+    .radio-opt { display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 13px; cursor: pointer; font-size: 14px; background: #fafafa; }
+    .radio-opt.sel { border-color: var(--purple); background: #f3ebff; }
+    .radio-opt input { accent-color: var(--purple); width: 16px; height: 16px; }
+    .toggle { position: relative; width: 46px; height: 27px; flex-shrink: 0; }
+    .toggle input { display: none; }
+    .toggle-slider { position: absolute; inset: 0; background: #ccc; border-radius: 14px; cursor: pointer; transition: .2s; }
+    .toggle-slider::after { content: ''; position: absolute; left: 3px; top: 3px; width: 21px; height: 21px; background: #fff; border-radius: 50%; transition: .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
+    .toggle input:checked + .toggle-slider { background: var(--purple); }
+    .toggle input:checked + .toggle-slider::after { transform: translateX(19px); }
+    .head-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .head-row span { font-weight: 700; font-size: 15px; }
+    .btn-primary { width: 100%; background: var(--purple); color: #fff; border: none; border-radius: 12px; padding: 15px; font-size: 16px; font-weight: 700; cursor: pointer; }
+    .btn-primary:disabled { opacity: .6; }
+    .btn-report { width: 100%; background: #24292e; color: #fff; border: none; border-radius: 12px; padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+    .log-item { border-bottom: 1px solid var(--border); padding: 11px 2px; font-size: 13px; }
+    .log-item:last-child { border-bottom: none; }
+    .log-head { display: flex; justify-content: space-between; gap: 8px; }
+    .log-name { font-weight: 600; }
+    .log-badge { font-size: 11px; font-weight: 700; border-radius: 6px; padding: 2px 7px; flex-shrink: 0; }
+    .log-badge.ok { background: #e6f9ef; color: #059347; }
+    .log-badge.fail { background: #fff1f0; color: var(--red); }
+    .log-badge.dry { background: #fff8e1; color: #b45309; }
+    .log-meta { color: var(--sub); font-size: 12px; margin-top: 3px; }
+    .log-msg { color: #555; margin-top: 3px; word-break: break-all; }
+    .empty { text-align: center; padding: 30px 10px; color: var(--sub); font-size: 13px; }
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.5); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html">‹</a>
+  <div>
+    <h1>🤖 자동 예약 설정</h1>
+    <p id="status">불러오는 중...</p>
+  </div>
+</header>
+
+<div class="content">
+
+  <div class="card" id="item-card" style="display:none">
+    <div class="item-name" id="item-name"></div>
+    <div class="item-url" id="item-url"></div>
+  </div>
+
+  <div class="card" id="form-card" style="display:none">
+    <div class="head-row">
+      <span>자동 예약 사용</span>
+      <label class="toggle">
+        <input type="checkbox" id="f-enabled">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>예약 시도 날짜</label>
+      <div class="row">
+        <input type="date" id="f-date">
+        <button class="btn-add" onclick="addDate()">추가</button>
+      </div>
+      <div class="hint">미지정 = 예약 가능한 모든 날짜를 대상으로 시도</div>
+      <div class="tag-list" id="date-tags"></div>
+    </div>
+
+    <div class="form-group">
+      <label>예약 시도 시간</label>
+      <div class="row">
+        <input type="time" id="f-time-from" step="600">
+        <span class="sep">~</span>
+        <input type="time" id="f-time-to" step="600">
+        <button class="btn-add" onclick="addTime()">추가</button>
+      </div>
+      <div class="hint">미지정 = 모든 시간 · 시작 시간만 넣으면 그 시각만 대상</div>
+      <div class="tag-list" id="time-tags"></div>
+    </div>
+
+    <div class="form-group">
+      <label>계정 우선순위 <span style="font-weight:400;color:var(--sub)">(누른 순서대로 시도)</span></label>
+      <div class="acct-row" id="acct-row"></div>
+      <div class="hint">미지정 = 등록된 모든 계정을 1→5 순으로 시도 · 쿠키는 GitHub Secrets(NAVER_COOKIES_1~5)에 저장</div>
+    </div>
+
+    <div class="form-group">
+      <label>예약 시작 방식</label>
+      <div class="radio-row">
+        <label class="radio-opt" id="opt-immediate">
+          <input type="radio" name="mode" value="immediate" onchange="onModeChange()">
+          예약 가능해지면 바로 예약
+        </label>
+        <label class="radio-opt" id="opt-scheduled">
+          <input type="radio" name="mode" value="scheduled" onchange="onModeChange()">
+          지정한 시각부터 예약 시도
+        </label>
+      </div>
+      <input type="datetime-local" id="f-start-at" style="margin-top:8px;display:none">
+    </div>
+
+    <div class="form-group">
+      <label>예약 인원</label>
+      <input type="number" id="f-count" min="1" max="10" value="1">
+    </div>
+
+    <button class="btn-primary" id="save-btn" onclick="save()">저장</button>
+    <button class="btn-report" onclick="toggleReport()">📋 리포트 (자동예약 실행 로그)</button>
+  </div>
+
+  <div class="card" id="report-card" style="display:none">
+    <div class="head-row">
+      <span>📋 자동예약 실행 로그</span>
+      <label style="font-size:12px;font-weight:400;color:var(--sub);display:flex;align-items:center;gap:5px;margin:0">
+        <input type="checkbox" id="log-all" onchange="renderLog()" style="accent-color:var(--purple)"> 전체 팝업 보기
+      </label>
+    </div>
+    <div id="log-list"><div class="empty">불러오는 중...</div></div>
+  </div>
+
+</div>
+
+<script>
+const OWNER = 'DuckOnDesk';
+const REPO  = 'naver-booking-monitor';
+const API_MON = `https://api.github.com/repos/${OWNER}/${REPO}/contents/monitors.json`;
+const API_LOG = `https://api.github.com/repos/${OWNER}/${REPO}/contents/auto_book_log.json`;
+const getPAT = () => localStorage.getItem('gh_pat') || '';
+const $ = id => document.getElementById(id);
+
+const itemId = new URLSearchParams(location.search).get('id');
+let cfg = null, sha = '', monitor = null;
+let dates = [], times = [], accounts = [];
+let logData = null;
+
+async function apiFetch(url, method = 'GET', body = null) {
+  const u = method === 'GET' ? `${url}?_=${Date.now()}` : url;
+  const opts = { method, headers: { Authorization: `token ${getPAT()}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' } };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(u, opts);
+  if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+  return res.json();
+}
+const b64decode = c => JSON.parse(decodeURIComponent(escape(atob(c.replace(/\n/g,'')))));
+const b64encode = o => btoa(unescape(encodeURIComponent(JSON.stringify(o, null, 2))));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function load() {
+  if (!getPAT()) { $('status').textContent = '❌ 메인 페이지 설정에서 Token을 먼저 등록하세요'; return; }
+  try {
+    const data = await apiFetch(API_MON);
+    sha = data.sha;
+    cfg = b64decode(data.content);
+    monitor = cfg.monitors.find(m => m.id === itemId);
+    if (!monitor) { $('status').textContent = '❌ 항목을 찾을 수 없습니다'; return; }
+    initForm();
+    $('status').textContent = monitor.name;
+  } catch(e) {
+    $('status').textContent = `❌ 불러오기 실패: ${e.message}`;
+  }
+}
+
+function normAb(m) {
+  const ab = m.auto_book;
+  if (!ab) return { enabled: false, dates: m.auto_book_dates || [], times: [], accounts: [], count: m.auto_book_count || 1, mode: 'immediate', start_at: null };
+  if (typeof ab !== 'object') return { enabled: true, dates: m.auto_book_dates || [], times: [], accounts: [], count: m.auto_book_count || 1, mode: 'immediate', start_at: null };
+  return { enabled: ab.enabled !== false, dates: ab.dates || [], times: ab.times || [], accounts: ab.accounts || [], count: ab.count || 1, mode: ab.mode || 'immediate', start_at: ab.start_at || null };
+}
+
+function initForm() {
+  const ab = normAb(monitor);
+  $('item-name').textContent = monitor.name;
+  $('item-url').textContent = monitor.url;
+  $('item-card').style.display = 'block';
+  $('form-card').style.display = 'block';
+  $('f-enabled').checked = ab.enabled;
+  dates = [...ab.dates]; times = [...ab.times]; accounts = [...ab.accounts];
+  $('f-count').value = ab.count;
+  document.querySelector(`input[name=mode][value=${ab.mode === 'scheduled' ? 'scheduled' : 'immediate'}]`).checked = true;
+  if (ab.start_at) $('f-start-at').value = ab.start_at.slice(0, 16);
+  onModeChange();
+  renderDates(); renderTimes(); renderAccounts();
+}
+
+function renderDates() {
+  $('date-tags').innerHTML = dates.length
+    ? dates.map((d, i) => `<span class="tag">${d}<button onclick="dates.splice(${i},1);renderDates()">×</button></span>`).join('')
+    : '<span class="hint">모든 날짜 대상</span>';
+}
+function addDate() {
+  const v = $('f-date').value;
+  if (v && !dates.includes(v)) { dates.push(v); dates.sort(); renderDates(); }
+}
+
+function renderTimes() {
+  $('time-tags').innerHTML = times.length
+    ? times.map((t, i) => `<span class="tag">${t}<button onclick="times.splice(${i},1);renderTimes()">×</button></span>`).join('')
+    : '<span class="hint">모든 시간 대상</span>';
+}
+function addTime() {
+  const a = $('f-time-from').value, b = $('f-time-to').value;
+  if (!a) return;
+  const v = b && b !== a ? `${a}-${b}` : a;
+  if (!times.includes(v)) { times.push(v); times.sort(); renderTimes(); }
+}
+
+function renderAccounts() {
+  $('acct-row').innerHTML = [1,2,3,4,5].map(n => {
+    const idx = accounts.indexOf(n);
+    return `<div class="acct-chip ${idx >= 0 ? 'sel' : ''}" onclick="toggleAcct(${n})">계정${n}${idx >= 0 ? `<span class="ord">${idx + 1}</span>` : ''}</div>`;
+  }).join('');
+}
+function toggleAcct(n) {
+  const idx = accounts.indexOf(n);
+  if (idx >= 0) accounts.splice(idx, 1); else accounts.push(n);
+  renderAccounts();
+}
+
+function onModeChange() {
+  const mode = document.querySelector('input[name=mode]:checked').value;
+  $('f-start-at').style.display = mode === 'scheduled' ? 'block' : 'none';
+  $('opt-immediate').classList.toggle('sel', mode === 'immediate');
+  $('opt-scheduled').classList.toggle('sel', mode === 'scheduled');
+}
+
+async function save() {
+  const btn = $('save-btn');
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
+  const mode = document.querySelector('input[name=mode]:checked').value;
+  const ab = {
+    enabled: $('f-enabled').checked,
+    dates, times, accounts,
+    count: Math.max(1, parseInt($('f-count').value) || 1),
+    mode,
+    start_at: mode === 'scheduled' && $('f-start-at').value ? `${$('f-start-at').value}:00+09:00` : null,
+  };
+  try {
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const latest = await apiFetch(API_MON);
+      sha = latest.sha;
+      cfg = b64decode(latest.content);
+      const m = cfg.monitors.find(x => x.id === itemId);
+      if (!m) throw new Error('항목이 삭제되었습니다');
+      m.auto_book = ab;
+      delete m.auto_book_dates; delete m.auto_book_count;
+      try {
+        const data = await apiFetch(API_MON, 'PUT', { message: `autobook: ${m.name} 설정 저장`, content: b64encode(cfg), sha });
+        sha = data.content.sha;
+        monitor = m;
+        break;
+      } catch(e) {
+        if (!e.message.includes('409') || attempt === 2) throw e;
+        await new Promise(r => setTimeout(r, 400));
+      }
+    }
+    btn.textContent = '✅ 저장됨 (1분 내 모니터에 반영)';
+    setTimeout(() => { btn.textContent = '저장'; btn.disabled = false; }, 2000);
+  } catch(e) {
+    alert(`저장 실패: ${e.message}`);
+    btn.textContent = '저장'; btn.disabled = false;
+  }
+}
+
+async function toggleReport() {
+  const card = $('report-card');
+  if (card.style.display === 'block') { card.style.display = 'none'; return; }
+  card.style.display = 'block';
+  card.scrollIntoView({ behavior: 'smooth' });
+  try {
+    const data = await apiFetch(API_LOG);
+    logData = b64decode(data.content);
+  } catch(e) {
+    logData = e.message.includes('404') ? [] : null;
+  }
+  renderLog();
+}
+
+function renderLog() {
+  const el = $('log-list');
+  if (logData === null) { el.innerHTML = '<div class="empty">로그를 불러오지 못했습니다</div>'; return; }
+  const showAll = $('log-all').checked;
+  const rows = logData.filter(r => showAll || r.item_id === itemId);
+  if (!rows.length) { el.innerHTML = '<div class="empty">아직 자동예약 시도 기록이 없습니다</div>'; return; }
+  el.innerHTML = rows.slice(0, 100).map(r => {
+    const badge = r.success ? (r.dry_run ? '<span class="log-badge dry">드라이런 성공</span>' : '<span class="log-badge ok">성공</span>')
+                            : '<span class="log-badge fail">실패</span>';
+    const ts = (r.ts || '').replace('T', ' ').slice(0, 19);
+    return `<div class="log-item">
+      <div class="log-head"><span class="log-name">${esc(r.name || r.item_id)}</span>${badge}</div>
+      <div class="log-meta">${ts} · ${esc(r.date || '')} ${esc((r.times || []).join(', '))}${r.account ? ` · 계정${r.account}` : ''}</div>
+      <div class="log-msg">${esc(r.message || '')}</div>
+    </div>`;
+  }).join('');
+}
+
+load();
+</script>
+</body>
+</html>

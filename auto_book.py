@@ -2,10 +2,11 @@
 
 check_booking.py가 예약 가능 슬롯을 감지하면 이 모듈로 실제 예약을 시도한다.
 Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 선택 → 시간 선택
-→ 인원 확인 → 동의/확인 버튼 클릭까지 자동 진행.
+→ 인원 확인 → 동의/확정 버튼 클릭까지 자동 진행.
 
-필수 환경변수:
-  NAVER_COOKIES       로그인된 네이버 쿠키 문자열 (NID_AUT, NID_SES 포함 필수)
+계정 환경변수 (여러 계정 지원, 크롬에서 로그인 후 쿠키 복사):
+  NAVER_COOKIES_1 ~ NAVER_COOKIES_5   계정별 로그인 쿠키 (NID_AUT, NID_SES 포함)
+  NAVER_COOKIES                        (하위 호환) 계정1로 취급
 선택 환경변수:
   AUTO_BOOK_DRY_RUN   "1"이면 최종 확정 버튼 직전까지만 진행 (테스트용)
   AUTO_BOOK_CHROMIUM  chromium 실행 파일 경로 override (로컬 테스트용)
@@ -47,6 +48,27 @@ def _shot(page, tag: str, shots: list) -> None:
         shots.append(str(path))
     except Exception:
         pass
+
+
+def get_accounts(priority: list | None = None) -> list:
+    """사용 가능한 (계정번호, 쿠키) 목록. priority가 주어지면 그 순서·그 계정만 사용.
+
+    NAVER_COOKIES_1~5 환경변수에서 읽고, 없으면 NAVER_COOKIES를 계정 1로 취급."""
+    accounts = []
+    for i in range(1, 6):
+        c = os.environ.get(f"NAVER_COOKIES_{i}", "").strip()
+        if c:
+            accounts.append((i, c))
+    if not accounts:
+        c = os.environ.get("NAVER_COOKIES", "").strip()
+        if c:
+            accounts.append((1, c))
+    if priority:
+        by_id = dict(accounts)
+        ordered = [(int(i), by_id[int(i)]) for i in priority if int(i) in by_id]
+        if ordered:
+            return ordered
+    return accounts
 
 
 def _parse_cookies(cookie_str: str) -> list:
@@ -92,9 +114,12 @@ def _dump_dom_debug(page, tag: str) -> None:
                     txt: (e.innerText || '').trim().replace(/\\s+/g, '|').slice(0, 40),
                     dis: e.disabled || e.getAttribute('aria-disabled') || ''
                 }));
+                const notCal = Array.from(document.querySelectorAll('button, a[role=button], li'))
+                    .filter(e => !(e.className || '').toString().includes('calendar'));
                 return {
-                    calendarish: pick(document.querySelectorAll('[class*=calendar i], [class*=date i], table td'), 15),
-                    buttons: pick(document.querySelectorAll('button, a[role=button]'), 40),
+                    timeish: pick(document.querySelectorAll('[class*=time i], [class*=Time]'), 25),
+                    calendarish: pick(document.querySelectorAll('[class*=calendar i]'), 8),
+                    noncal_buttons: pick(notCal, 60),
                 };
             }"""
         )
@@ -166,28 +191,57 @@ def _select_date(page, datekey: str) -> bool:
     return False
 
 
+def _time_patterns(t: str) -> list:
+    """"19:30" → 페이지에 표기될 수 있는 형태들의 정규식 목록 (24시간/12시간/오전·오후)."""
+    h, m = t.split(":")
+    h = int(h)
+    pats = [rf"(?<!\d){h:02d}:{m}(?!\d)"]
+    if h == 0:
+        pats.append(rf"오전\s*12:{m}(?!\d)")
+    elif h < 12:
+        pats.append(rf"오전\s*{h}:{m}(?!\d)")
+    elif h == 12:
+        pats.append(rf"오후\s*12:{m}(?!\d)")
+    else:
+        pats.append(rf"오후\s*{h - 12}:{m}(?!\d)")
+    return [re.compile(p) for p in pats]
+
+
 def _select_time(page, wanted_times: list) -> str | None:
     """wanted_times(["15:00", ...]) 중 클릭 가능한 첫 시간대 선택. 성공 시 시간 문자열 반환."""
     for t in wanted_times:
-        for sel in (f'button:has-text("{t}")', f'li:has-text("{t}") button', f'[class*=time] :text("{t}")'):
-            loc = page.locator(sel)
-            try:
-                n = loc.count()
-            except Exception:
-                continue
-            for i in range(min(n, 5)):
-                el = loc.nth(i)
+        for pat in _time_patterns(t):
+            # 1) 시간 텍스트가 들어간 버튼 직접 클릭
+            # 2) 시간 텍스트가 들어간 li 내부의 버튼/a 클릭
+            # 3) li 자체 클릭
+            candidates = [
+                page.locator("button").filter(has_text=pat),
+                page.locator("li").filter(has_text=pat).locator("button, a"),
+                page.locator("li").filter(has_text=pat),
+                page.locator("a, span[role=button], label").filter(has_text=pat),
+            ]
+            for loc in candidates:
                 try:
-                    if el.is_disabled():
-                        continue
-                    cls = (el.get_attribute("class") or "")
-                    if "disable" in cls or "soldout" in cls or "dimmed" in cls:
-                        continue
-                    el.click(timeout=2000)
-                    page.wait_for_timeout(1200)
-                    return t
+                    n = loc.count()
                 except Exception:
                     continue
+                for i in range(min(n, 6)):
+                    el = loc.nth(i)
+                    try:
+                        cls = (el.get_attribute("class") or "")
+                        if any(k in cls for k in ("disable", "soldout", "dimmed", "unselectable", "calendar")):
+                            continue
+                        try:
+                            if el.is_disabled():
+                                continue
+                        except Exception:
+                            pass
+                        el.scroll_into_view_if_needed(timeout=1500)
+                        el.click(timeout=2000)
+                        page.wait_for_timeout(1200)
+                        return t
+                    except Exception:
+                        continue
     return None
 
 
@@ -271,20 +325,29 @@ def _is_success(page) -> bool:
         return False
 
 
-def try_book(url: str, datekey: str, wanted_times: list, count: int = 1) -> dict:
-    """예약 시도. wanted_times는 우선순위 순 시간 목록 (예: ["15:00", "16:00"])."""
+def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
+             cookie_str: str | None = None, account: int | None = None) -> dict:
+    """예약 시도. wanted_times는 우선순위 순 시간 목록 (예: ["15:00", "16:00"]).
+
+    cookie_str 미지정 시 사용 가능한 첫 계정의 쿠키 사용."""
     shots: list = []
     dry_run = os.environ.get("AUTO_BOOK_DRY_RUN", "").strip() in ("1", "true", "yes")
-    cookie_str = os.environ.get("NAVER_COOKIES", "").strip()
+    if cookie_str is None:
+        accounts = get_accounts()
+        if accounts:
+            account, cookie_str = accounts[0]
+        else:
+            cookie_str = ""
+    acct_label = f"계정{account}" if account else "계정?"
 
     def result(success: bool, message: str, booked_time: str | None = None) -> dict:
         return {"success": success, "message": message, "booked_time": booked_time,
-                "dry_run": dry_run, "screenshots": shots}
+                "dry_run": dry_run, "screenshots": shots, "account": account}
 
     if not cookie_str:
-        return result(False, "NAVER_COOKIES 환경변수 없음 — 로그인 쿠키가 있어야 예약 가능")
+        return result(False, "로그인 쿠키 없음 — NAVER_COOKIES_1~5 시크릿을 설정하세요")
     if not any(k in cookie_str for k in ("NID_AUT", "NID_SES")):
-        return result(False, "NAVER_COOKIES에 NID_AUT/NID_SES 없음 — 로그인 상태 쿠키 필요")
+        return result(False, f"{acct_label} 쿠키에 NID_AUT/NID_SES 없음 — 로그인 상태 쿠키 필요")
 
     try:
         from playwright.sync_api import sync_playwright
@@ -296,7 +359,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1) -> dict
     if exe:
         launch_kwargs["executable_path"] = exe
 
-    _log(f"예약 시도 시작: {datekey} {wanted_times} (인원 {count}){' [드라이런]' if dry_run else ''}")
+    _log(f"예약 시도 시작 [{acct_label}]: {datekey} {wanted_times} (인원 {count}){' [드라이런]' if dry_run else ''}")
 
     try:
         with sync_playwright() as p:

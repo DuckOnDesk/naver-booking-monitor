@@ -88,9 +88,15 @@
       "enabled": true,
       "booking_open_datetime": "2026-07-02T11:00:00+09:00",
       "target_dates": [],
-      "auto_book": true,
-      "auto_book_dates": [],
-      "auto_book_count": 1
+      "auto_book": {
+        "enabled": true,
+        "dates": [],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null
+      }
     },
     {
       "id": "mrd5fjha",
