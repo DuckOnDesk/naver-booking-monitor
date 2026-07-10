@@ -31,6 +31,9 @@ GITHUB_RAW_URL = "https://raw.githubusercontent.com/DuckOnDesk/naver-booking-mon
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 ALERTED_FILE = Path(__file__).parent / "booking_alerted.json"
 
+# 같은 슬롯 조합(signature)에 대한 자동 예약 최대 시도 횟수
+AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "5"))
+
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
 KAKAO_API_URL = "https://booking.kakao.com/api/product/public/ticket/tickets/availableDates"
@@ -356,6 +359,73 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
         else:
             log_parts.append(f"[{t}] {c}자리")
     return log_parts, increased
+
+
+def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
+                    per_slot: list, ntfy_topic: str, alerted: dict) -> None:
+    """auto_book이 켜진 항목에서 예약 가능 슬롯 발견 시 실제 예약 시도.
+
+    monitors.json 항목 필드:
+      auto_book        true면 자동 예약 활성화
+      auto_book_dates  예약 시도할 날짜 목록 (생략/빈 목록 = 감지된 모든 날짜)
+      auto_book_count  예약 인원 (기본 1)
+
+    상태는 booking_alerted.json에 저장:
+      {id}:auto_booked      예약 성공 기록 → 이후 시도 중단
+      {id}:auto_book_state  {"sig": 슬롯 시그니처, "attempts": 횟수}
+    """
+    if not item.get("auto_book"):
+        return
+    booked_key = f"{item_id}:auto_booked"
+    if booked_key in alerted:
+        return
+    ab_dates = item.get("auto_book_dates") or []
+    if ab_dates and datekey not in ab_dates:
+        return
+
+    times = [t for t, _ in per_slot]
+    if not times:
+        return
+    sig = f"{datekey}|{','.join(times)}"
+    state_key = f"{item_id}:auto_book_state"
+    state = alerted.get(state_key)
+    if not isinstance(state, dict) or state.get("sig") != sig:
+        state = {"sig": sig, "attempts": 0}
+    if state["attempts"] >= AUTO_BOOK_MAX_ATTEMPTS:
+        return
+    state["attempts"] += 1
+    alerted[state_key] = state
+
+    name = item.get("name", item_id)
+    print(f"  [자동예약] {name} {datekey} 시도 {state['attempts']}/{AUTO_BOOK_MAX_ATTEMPTS}", flush=True)
+
+    try:
+        import auto_book
+        res = auto_book.try_book(url, datekey, times, count=int(item.get("auto_book_count") or 1))
+    except Exception as exc:
+        res = {"success": False, "message": f"auto_book 모듈 오류: {exc}", "booked_time": None, "dry_run": False}
+
+    print(f"  [자동예약] 결과: {'성공' if res['success'] else '실패'} — {res['message']}", flush=True)
+
+    if res["success"] and not res.get("dry_run"):
+        alerted[booked_key] = {
+            "date": datekey,
+            "time": res.get("booked_time"),
+            "at": datetime.now(timezone(timedelta(hours=9))).isoformat(),
+        }
+        if ntfy_topic:
+            send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
+                      f"{datekey} {res.get('booked_time') or ''} 예약 완료 — 네이버 예약 내역에서 확인하세요",
+                      url)
+    elif res["success"] and res.get("dry_run"):
+        if state["attempts"] == 1 and ntfy_topic:
+            send_ntfy(ntfy_topic, f"🧪 {name} 자동예약 드라이런 성공",
+                      f"{datekey} {res.get('booked_time') or ''} — {res['message']}", url)
+    else:
+        # 실패: 같은 시그니처에 대해 첫 실패 때만 알림 (스팸 방지)
+        if state["attempts"] == 1 and ntfy_topic:
+            send_ntfy(ntfy_topic, f"⚠️ {name} 자동예약 실패",
+                      f"{datekey} — {res['message']}\n직접 예약을 시도해보세요!", url)
 
 
 _CLOSED_URL_PATTERNS  = ["/error/"]
@@ -741,6 +811,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                                 if ntfy_topic:
                                     send_ntfy(ntfy_topic, title, body, url)
                         alerted[alert_key] = dict(per_slot)
+                        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic, alerted)
                 else:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"

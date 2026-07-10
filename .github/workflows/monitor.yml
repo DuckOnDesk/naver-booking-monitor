@@ -42,7 +42,16 @@ jobs:
           LOOP_HOURS: "5.5"
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
           KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}
+          AUTO_BOOK_DRY_RUN: ${{ vars.AUTO_BOOK_DRY_RUN }}
         run: python -u check_booking.py
+
+      - name: 자동예약 스크린샷 업로드
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-book-shots-${{ github.run_id }}
+          path: auto_book_shots/
+          if-no-files-found: ignore
 
       - name: 다음 실행 즉시 트리거
         if: ${{ !cancelled() }}
