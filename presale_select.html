@@ -322,7 +322,8 @@ function makeCard(p) {
   const period = e && e !== '?' ? `${s} ~ ${e}` : `${s} ~`;
 
   const thumb = p.imageUrl
-    ? `<img class="c-img" src="${p.imageUrl}" alt="" loading="lazy" onerror="this.style.display='none'">`
+    ? `<img class="c-img" src="${p.imageUrl}" alt="" loading="lazy"
+        onerror="this.style.display='none';var d=document.createElement('div');d.className='c-ph';d.textContent='🏪';this.parentNode.insertBefore(d,this)">`
     : `<div class="c-ph">🏪</div>`;
 
   const ddayTag     = dday && !expired ? `<span class="tag t-dday">${dday}</span>` : '';
