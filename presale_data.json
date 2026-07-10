@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-10T17:33:54.416503+09:00",
+  "updated_at": "2026-07-10T17:39:02.241658+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -43,7 +43,7 @@
     {
       "id": "2045566114",
       "name": "셀퓨전씨 쿨링 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "bookingBusinessId": "1680129",
       "operationStart": "26.07.04.",
@@ -82,7 +82,8 @@
         "2026-07-05T23:31:20.238812+09:00",
         "2026-07-06T08:50:32.114745+09:00",
         "2026-07-09T13:21:34.055228+09:00",
-        "2026-07-10T11:14:07.960097+09:00"
+        "2026-07-10T11:14:07.960097+09:00",
+        "2026-07-10T17:38:58.150462+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-10T11:14:13.212134+09:00"
     },
@@ -1127,6 +1128,13 @@
       "place_name": "모코코 스트릿 팝업 in 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1681162",
       "ts": "2026-07-10T16:57:57.611327+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2045566114",
+      "place_name": "셀퓨전씨 쿨링 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
+      "ts": "2026-07-10T17:38:58.150462+09:00"
     }
   ]
 }
