@@ -209,30 +209,57 @@ def _time_patterns(t: str) -> list:
     return [re.compile(p) for p in pats]
 
 
-def _find_time_button_naver(page, t: str):
-    """네이버 표준 시간 UI(button.btn_time + .time_title 오전/오후 섹션)에서 정확히 매칭.
-    버튼 텍스트가 12시간제("7:30")라 섹션 제목으로 24시간제로 환산해 비교한다."""
+def _find_time_button(page, t: str):
+    """페이지의 모든 클릭 가능한 버튼에서 시간대 버튼을 찾는다.
+    12시간/24시간 표기를 동일하게 취급: "15:00" 요청 시 "15:00", "오후 3:00", "3:00"
+    (섹션 제목이 오후이거나 오전/오후 정보가 없는 경우) 모두 매칭.
+    오전/오후 판정 우선순위: 버튼 자체 텍스트 → 부모 li 텍스트 → 앞쪽 섹션 제목."""
     try:
         idx = page.evaluate(
             """(target) => {
-                const all = Array.from(document.querySelectorAll('.time_title, button.btn_time'));
-                const btns = Array.from(document.querySelectorAll('button.btn_time'));
-                let ampm = '';
-                const map = new Map();
-                for (const el of all) {
-                    if (el.classList.contains('time_title')) { ampm = el.textContent.trim(); continue; }
-                    map.set(el, ampm);
+                const [thS, tmS] = target.split(':');
+                const targetH = parseInt(thS), targetM = tmS;
+                const bad = /unselectable|disable|dimmed|soldout|calendar/;
+                // 오전/오후 섹션 제목 후보 (텍스트가 정확히 '오전'/'오후'인 말단 요소)
+                const markers = Array.from(document.querySelectorAll('div,span,strong,em,dt,h3,h4'))
+                    .filter(e => { const s = (e.textContent || '').trim(); return s === '오전' || s === '오후'; });
+                function ampmFor(el) {
+                    const own = (el.textContent || '');
+                    if (own.includes('오후')) return '오후';
+                    if (own.includes('오전')) return '오전';
+                    const li = el.closest('li');
+                    if (li) {
+                        const lt = (li.textContent || '');
+                        if (lt.includes('오후')) return '오후';
+                        if (lt.includes('오전')) return '오전';
+                    }
+                    let best = '';
+                    for (const m of markers) {
+                        if (m.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING)
+                            best = (m.textContent || '').trim();
+                    }
+                    return best;
                 }
-                for (let k = 0; k < btns.length; k++) {
-                    const b = btns[k];
-                    if (b.disabled || b.className.includes('unselectable')) continue;
-                    const mm = (b.textContent || '').trim().match(/(\\d{1,2}):(\\d{2})/);
-                    if (!mm) continue;
-                    let h = parseInt(mm[1]);
-                    const ap = map.get(b) || '';
-                    if (ap.includes('오후') && h < 12) h += 12;
-                    if (ap.includes('오전') && h === 12) h = 0;
-                    if (String(h).padStart(2, '0') + ':' + mm[2] === target) return k;
+                const all = Array.from(document.querySelectorAll('button, a'));
+                for (let i = 0; i < all.length; i++) {
+                    const b = all[i];
+                    const cls = (b.className || '').toString();
+                    if (b.disabled || bad.test(cls)) continue;
+                    if (b.getAttribute('aria-disabled') === 'true') continue;
+                    const mm = (b.textContent || '').trim().match(/(\\d{1,2})\\s*:\\s*(\\d{2})/);
+                    if (!mm || mm[2] !== targetM) continue;
+                    const h = parseInt(mm[1]);
+                    const ap = ampmFor(b);
+                    let ok;
+                    if (ap === '오후') {
+                        ok = (h >= 13 ? h : (h % 12) + 12) === targetH;   // "오후 3:00"도 "오후 15:00"도 15시
+                    } else if (ap === '오전') {
+                        ok = (h === 12 ? 0 : h) === targetH;
+                    } else {
+                        // 오전/오후 정보 없음: 24시간제 그대로 or 12시간제로 간주해 둘 다 허용
+                        ok = h === targetH || (h <= 12 && h + 12 === targetH);
+                    }
+                    if (ok) return i;
                 }
                 return -1;
             }""",
@@ -242,14 +269,14 @@ def _find_time_button_naver(page, t: str):
         return None
     if idx is None or idx < 0:
         return None
-    return page.locator("button.btn_time").nth(idx)
+    return page.locator("button, a").nth(idx)
 
 
 def _select_time(page, wanted_times: list) -> str | None:
     """wanted_times(["15:00", ...]) 중 클릭 가능한 첫 시간대 선택. 성공 시 시간 문자열 반환."""
-    # 1차: 네이버 표준 시간 UI 정밀 매칭
+    # 1차: 12시간/24시간 표기 통합 정밀 매칭
     for t in wanted_times:
-        el = _find_time_button_naver(page, t)
+        el = _find_time_button(page, t)
         if el is not None:
             try:
                 el.scroll_into_view_if_needed(timeout=1500)
