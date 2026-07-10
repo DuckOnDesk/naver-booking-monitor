@@ -122,45 +122,6 @@ def fetch_presale_places(area: dict) -> list[dict]:
     return presale
 
 
-def fetch_place_by_id(place_id: str) -> dict | None:
-    """개별 장소 ID로 장소 정보 조회 (batch 검색에 안 잡히는 watched_places 대응)"""
-    candidates = [
-        f"https://pcmap.place.naver.com/popupstore/{place_id}/home",
-        f"https://m.place.naver.com/popupstore/{place_id}/home",
-        f"https://pcmap.place.naver.com/place/{place_id}/home",
-        f"https://m.place.naver.com/place/{place_id}/home",
-    ]
-    for url in candidates:
-        try:
-            resp = SESSION.get(url, timeout=15)
-            resp.encoding = "utf-8"
-            if resp.status_code != 200:
-                continue
-        except Exception as e:
-            print(f"  [개별 조회 오류] {place_id}: {e}")
-            continue
-
-        m = re.search(
-            r'window\.__APOLLO_STATE__\s*=\s*(\{.+?\});\s*(?:</script>|window\.)',
-            resp.text, re.DOTALL,
-        )
-        if not m:
-            continue
-
-        try:
-            data = json.loads(m.group(1))
-        except json.JSONDecodeError:
-            continue
-
-        for v in data.values():
-            if isinstance(v, dict) and v.get("name"):
-                # id 또는 placeId 필드로 매칭 (naver Apollo state 포맷 차이 대응)
-                vid = str(v.get("id") or v.get("placeId") or "")
-                if vid == str(place_id):
-                    return v
-    return None
-
-
 def normalize(p: dict) -> dict:
     status = p.get("status") or {}
     admission = p.get("admissionCondition") or {}
@@ -359,30 +320,23 @@ def check_once(config: dict, prev: dict) -> dict:
             if pid and pid not in raw:
                 raw[pid] = p
 
-    # watched_places 중 batch 검색에 없는 장소 개별 조회 (검색 결과에 안 나오는 경우 대응)
-    for pid in watched:
-        if pid not in raw:
-            p = fetch_place_by_id(pid)
-            if p:
-                raw[pid] = p
-                print(f"  [개별 조회] {p.get('name', pid)}")
-
     current: dict[str, dict] = {pid: normalize(p) for pid, p in raw.items()}
 
-    # 이전에 발견한 장소는 검색에 안 나와도 유지 (단, 이미 만료된 장소는 제외)
-    _today = datetime.now(KST).date()
-    for pid, place in prev.items():
-        if pid not in current:
-            end = place.get("operationEnd") or ""
-            em = re.match(r"^(\d{2})\.(\d{2})\.(\d{2})", end)
-            if em:
-                try:
-                    end_date = datetime(2000 + int(em.group(1)), int(em.group(2)), int(em.group(3))).date()
-                    if end_date < _today:
-                        continue  # 만료된 장소는 carryover 제외
-                except ValueError:
-                    pass
-            current[pid] = place
+    # 지도 검색에 나오지 않는 장소는 종료된 팝업으로 간주하고 제거 (carryover 안 함)
+    removed = [pid for pid in prev if pid not in current]
+    for pid in removed:
+        print(f"  [검색 제외] {prev[pid].get('name', pid)} ({pid}) — 검색 결과에 없어 제거")
+
+    # watched_places 등 config에서도 검색에 없는 장소 정리
+    stale_watched = [pid for pid in watched if pid not in current]
+    if stale_watched:
+        config["watched_places"] = sorted(pid for pid in watched if pid in current)
+        for pid in stale_watched:
+            for key in ("booking_direct_urls", "booking_open_datetimes"):
+                config.get(key, {}).pop(str(pid), None)
+        CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"  [설정 정리] 검색에 없는 watched_places {stale_watched} 제거됨")
+        watched = set(config["watched_places"])
 
     # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
     bod = config.get("booking_open_datetimes", {})
