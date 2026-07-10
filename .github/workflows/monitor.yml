@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: "0 */5 * * *"   # 체인 끊겼을 때 복구용 백업
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".monitor_restart_request"]   # 이 파일 커밋으로 즉시 재시작
 
 permissions:
   contents: write   # schedule_cache.json 자동 커밋/푸시용
