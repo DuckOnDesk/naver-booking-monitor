@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-10T09:26:00.408311+09:00",
+  "updated_at": "2026-07-10T09:31:11.571630+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -373,24 +373,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2037854714",
-      "name": "나스 NEW 인세이셔블 리퀴드 블러쉬 팝업 스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": null,
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": null,
-      "admissionCondition": null,
-      "imageUrl": null,
-      "roadAddress": "서울 성동구 성수이로 62 1F",
-      "commonAddress": null,
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2048293732",
       "name": "낯가리는카페 팝업 in 성수",
       "hasBooking": false,
@@ -403,6 +385,24 @@
       "admissionCondition": null,
       "imageUrl": null,
       "roadAddress": "서울 성동구 왕십리로 101 1층",
+      "commonAddress": null,
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2037854714",
+      "name": "나스 NEW 인세이셔블 리퀴드 블러쉬 팝업 스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": null,
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": null,
+      "admissionCondition": null,
+      "imageUrl": null,
+      "roadAddress": "서울 성동구 성수이로 62 1F",
       "commonAddress": null,
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
