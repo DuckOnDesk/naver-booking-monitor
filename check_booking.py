@@ -564,16 +564,21 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             alerted[closed_key] = 1
             print(f"[{now_str}] 🔒 {name} — 예약창 닫힘 ({closed_reason})", flush=True)
         else:
+            just_reopened = False
             if closed_key in alerted:
+                just_reopened = True
                 alerted.pop(closed_key)
                 item_prefix = f"{item_id}:"
                 for k in list(alerted.keys()):
                     if k.startswith(item_prefix) and k.endswith(":closed"):
-                        alerted.pop(k)
+                        # :closed 항목을 삭제하지 않고 일반 키로 복사 → 이미 본 슬롯 재알림 방지
+                        base_key = k[: -len(":closed")]
+                        alerted[base_key] = alerted.pop(k)
                 print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
                 if ntfy_topic:
                     send_ntfy(ntfy_topic, f"✅ {name} 예약창 열림", "예약창이 열렸습니다. 직접 확인해보세요!", url)
             else:
+                just_reopened = False
                 print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
@@ -723,14 +728,18 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                     if not is_restricted:
                         if prev_slots is None or increased:
-                            if prev_slots is None:
-                                title = f"🎉 {name} 예약 가능!"
+                            if just_reopened:
+                                # 예약창 닫힘 → 열림 전환 직후: 이번 주기는 알림 생략, 상태만 기록
+                                print(f"  [전환 직후] 알림 생략 (다음 주기에 재확인)", flush=True)
                             else:
-                                inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
-                                title = f"🎉 {name} 자리 추가됨 - {inc_str}"
-                            body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
-                            if ntfy_topic:
-                                send_ntfy(ntfy_topic, title, body, url)
+                                if prev_slots is None:
+                                    title = f"🎉 {name} 예약 가능!"
+                                else:
+                                    inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
+                                    title = f"🎉 {name} 자리 추가됨 - {inc_str}"
+                                body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                                if ntfy_topic:
+                                    send_ntfy(ntfy_topic, title, body, url)
                         alerted[alert_key] = dict(per_slot)
                 else:
                     alerted.pop(alert_key, None)
