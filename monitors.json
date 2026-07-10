@@ -224,6 +224,13 @@
       "url": "https://booking.naver.com/booking/5/bizes/1666309/items/7832238?isProgramBizItem=false&startDateTime=2026-07-10T00%3A00%3A00%2B09%3A00",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mreyhcnf",
+      "name": "ddp 바캉스 7/31",
+      "url": "https://booking.naver.com/booking/5/bizes/1666309/items/7839609?startDateTime=2026-07-10T00%3A00%3A00%2B09%3A00",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
