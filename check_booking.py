@@ -847,6 +847,7 @@ def prune_dead_dates(pruned: list) -> None:
         subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
         print("  → monitors.json 커밋/푸시 완료", flush=True)
     except Exception as exc:
+        subprocess.run(["git", "rebase", "--abort"], check=False, capture_output=True)
         print(f"[경고] monitors.json 커밋 실패: {exc}", flush=True)
 
 
@@ -1009,6 +1010,7 @@ def commit_alerted() -> None:
         subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
         print("  → booking_alerted.json 커밋/푸시 완료", flush=True)
     except Exception as exc:
+        subprocess.run(["git", "rebase", "--abort"], check=False, capture_output=True)
         print(f"[경고] booking_alerted.json 커밋 실패: {exc}", flush=True)
 
 
@@ -1038,6 +1040,7 @@ def commit_schedule_cache() -> None:
         subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
         print("  → schedule_cache.json 커밋/푸시 완료", flush=True)
     except Exception as exc:
+        subprocess.run(["git", "rebase", "--abort"], check=False, capture_output=True)
         print(f"[경고] schedule_cache.json 커밋 실패: {exc}", flush=True)
 
 
