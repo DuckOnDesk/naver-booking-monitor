@@ -90,15 +90,6 @@
       "target_dates": []
     },
     {
-      "id": "mr3gn7my",
-      "name": "맥",
-      "url": "https://m.booking.naver.com/booking/6/bizes/1682141/items/7794800?startDate=2026-07-02",
-      "enabled": false,
-      "target_dates": [
-        "2026-07-04"
-      ]
-    },
-    {
       "id": "mrd5fjha",
       "name": "오늘도 출근햄니다",
       "url": "https://booking.naver.com/booking/12/bizes/1680929",
