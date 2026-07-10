@@ -45,13 +45,6 @@
       ]
     },
     {
-      "id": "mr0jjavm",
-      "name": "나비엔",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1682637/items/7801159?area=ple&lang=ko&startDateTime=2026-07-13T00%3A00%3A00%2B09%3A00&tab=book&theme=place",
-      "enabled": false,
-      "target_dates": []
-    },
-    {
       "id": "mr2rtjk7",
       "name": "오어스 1차",
       "url": "https://m.booking.naver.com/booking/5/bizes/1683622/items/7801907?area=ple&lang=ko&startDateTime=2026-07-01T00%3A00%3A00%2B09%3A00&theme=place",
