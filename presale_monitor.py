@@ -77,7 +77,7 @@ def fetch_presale_places(area: dict) -> list[dict]:
         "query": area["query"],
         "x": area["x"], "y": area["y"],
         "clientX": area["x"], "clientY": area["y"],
-        "display": "70",
+        "display": "100",
         "ts": str(int(time.time() * 1000)),
         "locale": "ko",
         "mapUrl": f"https://map.naver.com/p/search/{area['query']}",
@@ -369,9 +369,19 @@ def check_once(config: dict, prev: dict) -> dict:
 
     current: dict[str, dict] = {pid: normalize(p) for pid, p in raw.items()}
 
-    # 이전에 발견한 장소는 검색에 안 나와도 유지 (새 장소만 추가)
+    # 이전에 발견한 장소는 검색에 안 나와도 유지 (단, 이미 만료된 장소는 제외)
+    _today = datetime.now(KST).date()
     for pid, place in prev.items():
         if pid not in current:
+            end = place.get("operationEnd") or ""
+            em = re.match(r"^(\d{2})\.(\d{2})\.(\d{2})", end)
+            if em:
+                try:
+                    end_date = datetime(2000 + int(em.group(1)), int(em.group(2)), int(em.group(3))).date()
+                    if end_date < _today:
+                        continue  # 만료된 장소는 carryover 제외
+                except ValueError:
+                    pass
             current[pid] = place
 
     # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
