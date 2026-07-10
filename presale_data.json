@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-11T08:46:45.494389+09:00",
+  "updated_at": "2026-07-11T08:51:52.818749+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -288,7 +288,7 @@
     {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "bookingBusinessId": "1677108",
       "operationStart": "26.07.10.",
