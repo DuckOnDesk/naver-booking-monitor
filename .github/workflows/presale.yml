@@ -43,8 +43,8 @@ jobs:
             return 1
           }
           send_pending_ntfy() {
-            [ -f pending_ntfy.json ] || return 0
-            python3 -c "import json,requests,sys;cfg=json.load(open('presale_config.json'));topic=cfg.get('ntfy_topic','');[requests.post(f'https://ntfy.sh/{topic}',data=it['body'].encode(),headers={'Title':it['title'],'Priority':'urgent','Click':it['url'],'Tags':'bell'},timeout=10) for it in json.load(open('pending_ntfy.json'))] if topic else None" 2>/dev/null || true
+            # 한글 제목이 헤더 인코딩 오류로 발송 실패하지 않도록 presale_monitor.py의 검증된 발송 로직 사용
+            python3 presale_monitor.py --flush-ntfy || true
             rm -f pending_ntfy.json
           }
           END_TIME=$(($(date +%s) + 19800))

@@ -480,9 +480,15 @@ def load_prev_state() -> dict:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--once", action="store_true", help="한 번만 체크하고 종료 (GitHub Actions용)")
+    parser.add_argument("--flush-ntfy", action="store_true", help="큐에 쌓인 ntfy 알림만 발송하고 종료 (GitHub Actions용)")
     args = parser.parse_args()
 
     config = load_config()
+
+    if args.flush_ntfy:
+        topic = os.environ.get("NTFY_TOPIC") or config.get("ntfy_topic", "")
+        flush_pending_ntfy(topic)
+        return
     if not config.get("areas"):
         print("모니터링할 지역이 없습니다. presale_config.json 의 areas 를 설정하세요.")
         sys.exit(0)
