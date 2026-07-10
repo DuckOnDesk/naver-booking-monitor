@@ -181,9 +181,6 @@
     "18:30": 17,
     "19:00": 19
   },
-  "mr2sjz85:auto_book_state": {
-    "sig": "2026-07-11|15:00",
-    "attempts": 1
-  },
-  "mqrd8cqt:url_closed": 1
+  "mqrd8cqt:url_closed": 1,
+  "mr2sjz85:url_closed": 1
 }
