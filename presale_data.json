@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-10T15:42:22.314791+09:00",
+  "updated_at": "2026-07-10T15:47:30.658863+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -164,7 +164,7 @@
     {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "bookingBusinessId": "1669333",
       "operationStart": "26.06.05.",
@@ -179,7 +179,8 @@
       "bookingOpenHistory": [
         "2026-06-26T17:46:55.905952+09:00",
         "2026-07-06T13:06:03.754833+09:00",
-        "2026-07-10T09:25:56.139783+09:00"
+        "2026-07-10T09:25:56.139783+09:00",
+        "2026-07-10T15:47:27.159579+09:00"
       ],
       "lastBookingNotifiedAt": null
     },
@@ -1122,6 +1123,13 @@
       "place_name": "셀퓨전씨 쿨링 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "ts": "2026-07-10T11:14:07.960097+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2051944825",
+      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
+      "ts": "2026-07-10T15:47:27.159579+09:00"
     }
   ]
 }
