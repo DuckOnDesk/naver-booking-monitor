@@ -124,8 +124,13 @@ def fetch_presale_places(area: dict) -> list[dict]:
 
 def fetch_place_by_id(place_id: str) -> dict | None:
     """개별 장소 ID로 장소 정보 조회 (batch 검색에 안 잡히는 watched_places 대응)"""
-    for path_prefix in ("popupstore", "place"):
-        url = f"https://pcmap.place.naver.com/{path_prefix}/{place_id}/home"
+    candidates = [
+        f"https://pcmap.place.naver.com/popupstore/{place_id}/home",
+        f"https://m.place.naver.com/popupstore/{place_id}/home",
+        f"https://pcmap.place.naver.com/place/{place_id}/home",
+        f"https://m.place.naver.com/place/{place_id}/home",
+    ]
+    for url in candidates:
         try:
             resp = SESSION.get(url, timeout=15)
             resp.encoding = "utf-8"
@@ -133,7 +138,7 @@ def fetch_place_by_id(place_id: str) -> dict | None:
                 continue
         except Exception as e:
             print(f"  [개별 조회 오류] {place_id}: {e}")
-            break
+            continue
 
         m = re.search(
             r'window\.__APOLLO_STATE__\s*=\s*(\{.+?\});\s*(?:</script>|window\.)',
@@ -148,8 +153,11 @@ def fetch_place_by_id(place_id: str) -> dict | None:
             continue
 
         for v in data.values():
-            if isinstance(v, dict) and str(v.get("id")) == str(place_id) and v.get("name"):
-                return v
+            if isinstance(v, dict) and v.get("name"):
+                # id 또는 placeId 필드로 매칭 (naver Apollo state 포맷 차이 대응)
+                vid = str(v.get("id") or v.get("placeId") or "")
+                if vid == str(place_id):
+                    return v
     return None
 
 
