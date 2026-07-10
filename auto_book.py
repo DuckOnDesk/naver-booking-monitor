@@ -200,15 +200,65 @@ def _time_patterns(t: str) -> list:
         pats.append(rf"오전\s*12:{m}(?!\d)")
     elif h < 12:
         pats.append(rf"오전\s*{h}:{m}(?!\d)")
+        pats.append(rf"(?<!\d){h}:{m}(?!\d)")  # 앞자리 0 없는 표기 (예: "9:00")
     elif h == 12:
         pats.append(rf"오후\s*12:{m}(?!\d)")
     else:
         pats.append(rf"오후\s*{h - 12}:{m}(?!\d)")
+        pats.append(rf"(?<!\d){h - 12}:{m}(?!\d)")  # 12시간제 단독 표기 (예: "7:30", 오전/오후는 섹션 제목)
     return [re.compile(p) for p in pats]
+
+
+def _find_time_button_naver(page, t: str):
+    """네이버 표준 시간 UI(button.btn_time + .time_title 오전/오후 섹션)에서 정확히 매칭.
+    버튼 텍스트가 12시간제("7:30")라 섹션 제목으로 24시간제로 환산해 비교한다."""
+    try:
+        idx = page.evaluate(
+            """(target) => {
+                const all = Array.from(document.querySelectorAll('.time_title, button.btn_time'));
+                const btns = Array.from(document.querySelectorAll('button.btn_time'));
+                let ampm = '';
+                const map = new Map();
+                for (const el of all) {
+                    if (el.classList.contains('time_title')) { ampm = el.textContent.trim(); continue; }
+                    map.set(el, ampm);
+                }
+                for (let k = 0; k < btns.length; k++) {
+                    const b = btns[k];
+                    if (b.disabled || b.className.includes('unselectable')) continue;
+                    const mm = (b.textContent || '').trim().match(/(\\d{1,2}):(\\d{2})/);
+                    if (!mm) continue;
+                    let h = parseInt(mm[1]);
+                    const ap = map.get(b) || '';
+                    if (ap.includes('오후') && h < 12) h += 12;
+                    if (ap.includes('오전') && h === 12) h = 0;
+                    if (String(h).padStart(2, '0') + ':' + mm[2] === target) return k;
+                }
+                return -1;
+            }""",
+            t,
+        )
+    except Exception:
+        return None
+    if idx is None or idx < 0:
+        return None
+    return page.locator("button.btn_time").nth(idx)
 
 
 def _select_time(page, wanted_times: list) -> str | None:
     """wanted_times(["15:00", ...]) 중 클릭 가능한 첫 시간대 선택. 성공 시 시간 문자열 반환."""
+    # 1차: 네이버 표준 시간 UI 정밀 매칭
+    for t in wanted_times:
+        el = _find_time_button_naver(page, t)
+        if el is not None:
+            try:
+                el.scroll_into_view_if_needed(timeout=1500)
+                el.click(timeout=2000)
+                page.wait_for_timeout(1200)
+                return t
+            except Exception:
+                pass
+    # 2차: 텍스트 패턴 기반 탐색
     for t in wanted_times:
         for pat in _time_patterns(t):
             # 1) 시간 텍스트가 들어간 버튼 직접 클릭
@@ -338,16 +388,21 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
             account, cookie_str = accounts[0]
         else:
             cookie_str = ""
-    acct_label = f"계정{account}" if account else "계정?"
+    acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
 
     def result(success: bool, message: str, booked_time: str | None = None) -> dict:
         return {"success": success, "message": message, "booked_time": booked_time,
                 "dry_run": dry_run, "screenshots": shots, "account": account}
 
     if not cookie_str:
-        return result(False, "로그인 쿠키 없음 — NAVER_COOKIES_1~5 시크릿을 설정하세요")
-    if not any(k in cookie_str for k in ("NID_AUT", "NID_SES")):
-        return result(False, f"{acct_label} 쿠키에 NID_AUT/NID_SES 없음 — 로그인 상태 쿠키 필요")
+        # 드라이런은 비로그인으로도 날짜/시간 선택 검증까지 진행 가능
+        if not dry_run:
+            return result(False, "로그인 쿠키 없음 — NAVER_COOKIES_1~5 시크릿을 설정하세요")
+        _log("쿠키 없음 → 비로그인 드라이런 (날짜/시간 선택 검증까지만)")
+    elif not any(k in cookie_str for k in ("NID_AUT", "NID_SES")):
+        if not dry_run:
+            return result(False, f"{acct_label} 쿠키에 NID_AUT/NID_SES 없음 — 로그인 상태 쿠키 필요")
+        _log(f"{acct_label} 쿠키에 로그인 토큰 없음 → 드라이런이므로 계속 진행")
 
     try:
         from playwright.sync_api import sync_playwright
@@ -370,7 +425,8 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                                "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
                     locale="ko-KR",
                 )
-                context.add_cookies(_parse_cookies(cookie_str))
+                if cookie_str:
+                    context.add_cookies(_parse_cookies(cookie_str))
                 page = context.new_page()
                 page.goto(_with_start_date(url, datekey), wait_until="load", timeout=25000)
                 page.wait_for_timeout(3000)
@@ -413,7 +469,9 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 _shot(page, "04_after_next", shots)
 
                 if _is_login_page(page):
-                    return result(False, "예약 단계에서 로그인 요구 — NAVER_COOKIES 만료됨")
+                    if dry_run:
+                        return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
+                    return result(False, f"예약 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
 
                 # 이미 완료됐는지 (1단계 예약인 경우)
                 if _is_success(page):
@@ -443,7 +501,9 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                             _shot(page, "07_success", shots)
                             return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
                         if _is_login_page(page):
-                            return result(False, "확정 단계에서 로그인 요구 — NAVER_COOKIES 만료됨")
+                            if dry_run:
+                                return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
+                            return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
                     else:
                         page.wait_for_timeout(2000)
                         if _is_success(page):
