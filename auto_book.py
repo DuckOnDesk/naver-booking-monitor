@@ -20,6 +20,7 @@ import re
 import time as time_mod
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 SHOT_DIR = Path(__file__).parent / "auto_book_shots"
 
@@ -65,6 +66,47 @@ def _parse_cookies(cookie_str: str) -> list:
 
 def _is_login_page(page) -> bool:
     return "nid.naver.com" in page.url
+
+
+def _with_start_date(url: str, datekey: str) -> str:
+    """URL의 startDate/startDateTime 쿼리를 대상 날짜로 교체 (달력이 해당 날짜 기준으로 열리도록)."""
+    try:
+        parts = urlparse(url)
+        q = parse_qs(parts.query)
+        q.pop("startDateTime", None)
+        q["startDate"] = [datekey]
+        return urlunparse(parts._replace(query=urlencode(q, doseq=True)))
+    except Exception:
+        return url
+
+
+def _dump_dom_debug(page, tag: str) -> None:
+    """셀렉터 디버깅용 DOM 요약을 로그로 출력하고 HTML을 스크린샷 폴더에 저장."""
+    try:
+        _log(f"--- DOM 디버그 ({tag}) ---")
+        _log(f"URL: {page.url}")
+        info = page.evaluate(
+            """() => {
+                const pick = (els, n) => Array.from(els).slice(0, n).map(e => ({
+                    tag: e.tagName, cls: (e.className || '').toString().slice(0, 80),
+                    txt: (e.innerText || '').trim().replace(/\\s+/g, '|').slice(0, 40),
+                    dis: e.disabled || e.getAttribute('aria-disabled') || ''
+                }));
+                return {
+                    calendarish: pick(document.querySelectorAll('[class*=calendar i], [class*=date i], table td'), 15),
+                    buttons: pick(document.querySelectorAll('button, a[role=button]'), 40),
+                };
+            }"""
+        )
+        for group, items in info.items():
+            _log(f"[{group}]")
+            for it in items:
+                _log(f"  <{it['tag']}> cls={it['cls']!r} dis={it['dis']!r} txt={it['txt']!r}")
+        SHOT_DIR.mkdir(exist_ok=True)
+        (SHOT_DIR / f"{datetime.now(KST).strftime('%m%d_%H%M%S')}_{tag}.html").write_text(
+            page.content(), encoding="utf-8")
+    except Exception as exc:
+        _log(f"DOM 디버그 실패: {exc}")
 
 
 def _click_if_found(page, locator, timeout_ms: int = 2000) -> bool:
@@ -267,7 +309,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1) -> dict
                 )
                 context.add_cookies(_parse_cookies(cookie_str))
                 page = context.new_page()
-                page.goto(url, wait_until="load", timeout=25000)
+                page.goto(_with_start_date(url, datekey), wait_until="load", timeout=25000)
                 page.wait_for_timeout(3000)
 
                 if _is_login_page(page):
@@ -279,14 +321,18 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1) -> dict
 
                 _shot(page, "01_landing", shots)
 
-                if not _select_date(page, datekey):
+                if _select_date(page, datekey):
+                    _shot(page, "02_date", shots)
+                else:
+                    # 날짜가 자동 선택되는 페이지(startDate 반영)일 수 있으므로 시간 선택으로 계속 진행
+                    _log(f"달력에서 {datekey} 클릭 실패 — 시간대가 이미 보이는지 확인 후 계속")
                     _shot(page, "date_fail", shots)
-                    return result(False, f"달력에서 {datekey} 날짜를 선택하지 못함")
-                _shot(page, "02_date", shots)
+                    _dump_dom_debug(page, "date_fail")
 
                 booked_time = _select_time(page, wanted_times)
                 if not booked_time:
                     _shot(page, "time_fail", shots)
+                    _dump_dom_debug(page, "time_fail")
                     return result(False, f"시간대 {wanted_times} 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)")
                 _log(f"시간대 선택: {booked_time}")
                 _shot(page, "03_time", shots)
@@ -297,6 +343,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1) -> dict
                 clicked = _click_cta(page, _NEXT_BUTTON_TEXTS)
                 if not clicked:
                     _shot(page, "cta_fail", shots)
+                    _dump_dom_debug(page, "cta_fail")
                     return result(False, "예약 진행 버튼을 찾지 못함")
                 _log(f"진행 버튼 클릭: '{clicked}'")
                 page.wait_for_timeout(3500)
