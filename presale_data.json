@@ -1,9 +1,11 @@
 {
-  "updated_at": "2026-07-10T16:55:02.665825+09:00",
+  "updated_at": "2026-07-10T16:58:00.839060+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
+    "2003471362",
     "2008689464",
+    "2020855313",
     "2037854714",
     "2043280218",
     "2045566114",
@@ -360,74 +362,55 @@
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": null,
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": null,
-      "admissionCondition": null,
-      "imageUrl": null,
-      "roadAddress": "서울 성동구 성수이로 62 1F",
-      "commonAddress": null,
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2046928640",
-      "name": "티팩토리 성수 카메라렌탈",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": null,
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": null,
-      "admissionCondition": null,
-      "imageUrl": null,
-      "roadAddress": "서울 성동구 연무장1길 7-1 지하1층",
-      "commonAddress": null,
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2048293732",
-      "name": "낯가리는카페 팝업 in 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": null,
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": null,
-      "admissionCondition": null,
-      "imageUrl": null,
-      "roadAddress": "서울 성동구 왕십리로 101 1층",
-      "commonAddress": null,
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2082644987",
-      "name": "신라면분식 더 팩토리",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.06.16.",
-      "operationEnd": "26.12.16.",
-      "remainingDays": null,
-      "status": "진행중",
+      "operationStart": "26.07.11.",
+      "operationEnd": "26.07.24.",
+      "remainingDays": 1,
+      "status": "D-1",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260622_158/1782122374475U86WR_JPEG/KakaoTalk_20260622_175458187.jpg",
-      "roadAddress": "성수일로4길 52 신라면 분식 팝업",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260709_93/1783555024083NAXSw_JPEG/NS_%C0%CC%B9%CC%C1%F6_%B8%AE%BB%E7%C0%CC%C2%A1_2.jpg",
+      "roadAddress": "성수이로 62 1F",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2020855313",
+      "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.28.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
+      "roadAddress": "아차산로11길 7 아모레성수 2층 스토리에이",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2003471362",
+      "name": "모코코 스트릿 팝업 in 성수",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1681162",
+      "bookingBusinessId": "1681162",
+      "operationStart": "26.07.22.",
+      "operationEnd": "26.07.31.",
+      "remainingDays": 12,
+      "status": "D-12",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
+      "roadAddress": "성수이로 74 성수 무신사 대림창고",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-06-26T17:46:55.905952+09:00",
-        "2026-06-27T00:37:50.780486+09:00"
+        "2026-07-10T16:57:57.611327+09:00"
       ],
-      "lastBookingNotifiedAt": null
+      "lastBookingNotifiedAt": "2026-07-10T16:57:57.611327+09:00"
     }
   ],
   "alerts": [
@@ -1130,6 +1113,20 @@
       "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "ts": "2026-07-10T15:47:27.159579+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2020855313",
+      "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
+      "booking_url": "",
+      "ts": "2026-07-10T16:57:57.611327+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2003471362",
+      "place_name": "모코코 스트릿 팝업 in 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1681162",
+      "ts": "2026-07-10T16:57:57.611327+09:00"
     }
   ]
 }
