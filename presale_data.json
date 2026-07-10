@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-11T04:37:37.147745+09:00",
+  "updated_at": "2026-07-11T04:42:45.652182+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -194,7 +194,7 @@
     {
       "id": "2008689464",
       "name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "bookingBusinessId": "1686766",
       "operationStart": "26.07.02.",
@@ -226,9 +226,10 @@
         "2026-07-05T23:05:46.741133+09:00",
         "2026-07-06T08:14:50.524658+09:00",
         "2026-07-06T12:14:39.149308+09:00",
-        "2026-07-09T13:21:34.055228+09:00"
+        "2026-07-09T13:21:34.055228+09:00",
+        "2026-07-11T04:42:40.874917+09:00"
       ],
-      "lastBookingNotifiedAt": null
+      "lastBookingNotifiedAt": "2026-07-11T04:42:45.651715+09:00"
     },
     {
       "id": "2021908137",
@@ -1183,6 +1184,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-11T03:31:02.823415+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2008689464",
+      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
+      "ts": "2026-07-11T04:42:40.874917+09:00"
     }
   ]
 }
