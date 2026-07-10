@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-11T03:10:37.794354+09:00",
+  "updated_at": "2026-07-11T03:15:45.493250+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -139,9 +139,9 @@
     {
       "id": "2083326059",
       "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "bookingBusinessId": "1678306",
       "operationStart": "26.07.03.",
       "operationEnd": "26.07.12.",
       "remainingDays": null,
@@ -162,9 +162,10 @@
         "2026-07-04T12:34:10.059413+09:00",
         "2026-07-04T17:49:13.315180+09:00",
         "2026-07-05T02:14:56.452065+09:00",
-        "2026-07-05T23:31:20.238812+09:00"
+        "2026-07-05T23:31:20.238812+09:00",
+        "2026-07-11T03:15:41.394073+09:00"
       ],
-      "lastBookingNotifiedAt": null
+      "lastBookingNotifiedAt": "2026-07-11T03:15:45.492793+09:00"
     },
     {
       "id": "2051944825",
@@ -380,24 +381,6 @@
       "lastBookingNotifiedAt": "2026-07-10T09:25:56.139783+09:00"
     },
     {
-      "id": "2020855313",
-      "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.28.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 17,
-      "status": "D-17",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
-      "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2003471362",
       "name": "모코코 스트릿 팝업 in 성수",
       "hasBooking": false,
@@ -416,6 +399,24 @@
         "2026-07-10T16:57:57.611327+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-10T16:57:57.611327+09:00"
+    },
+    {
+      "id": "2020855313",
+      "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.28.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
+      "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     }
   ],
   "alerts": [
@@ -1167,6 +1168,13 @@
       "place_name": "셀퓨전씨 쿨링 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "ts": "2026-07-10T23:34:46.468509+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083326059",
+      "place_name": "마른파이브 비치클럽 인 마요르카",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "ts": "2026-07-11T03:15:41.394073+09:00"
     }
   ]
 }
