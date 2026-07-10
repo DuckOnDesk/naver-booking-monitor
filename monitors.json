@@ -92,10 +92,17 @@
         "enabled": true,
         "dates": [],
         "times": [],
-        "accounts": [],
+        "accounts": [
+          4,
+          1,
+          5,
+          2,
+          3
+        ],
         "count": 1,
         "mode": "immediate",
-        "start_at": null
+        "start_at": null,
+        "saved_at": "2026-07-10T16:42:32.766Z"
       }
     },
     {
