@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-10T09:36:22.106608+09:00",
+  "updated_at": "2026-07-10T09:41:32.419864+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -355,8 +355,8 @@
       "lastBookingNotifiedAt": "2026-07-10T09:25:56.139783+09:00"
     },
     {
-      "id": "2046928640",
-      "name": "티팩토리 성수 카메라렌탈",
+      "id": "2037854714",
+      "name": "나스 NEW 인세이셔블 리퀴드 블러쉬 팝업 스토어",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
@@ -366,7 +366,7 @@
       "status": null,
       "admissionCondition": null,
       "imageUrl": null,
-      "roadAddress": "서울 성동구 연무장1길 7-1 지하1층",
+      "roadAddress": "서울 성동구 성수이로 62 1F",
       "commonAddress": null,
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
@@ -391,8 +391,8 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2037854714",
-      "name": "나스 NEW 인세이셔블 리퀴드 블러쉬 팝업 스토어",
+      "id": "2046928640",
+      "name": "티팩토리 성수 카메라렌탈",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
@@ -402,7 +402,7 @@
       "status": null,
       "admissionCondition": null,
       "imageUrl": null,
-      "roadAddress": "서울 성동구 성수이로 62 1F",
+      "roadAddress": "서울 성동구 연무장1길 7-1 지하1층",
       "commonAddress": null,
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
