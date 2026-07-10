@@ -210,6 +210,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1685383/items/7811834?area=pll&lang=ko&tab=book&theme=place",
       "enabled": false,
       "target_dates": []
+    },
+    {
+      "id": "mreyfrhm",
+      "name": "ddp 바캉스 - 8/2",
+      "url": "https://booking.naver.com/booking/5/bizes/1666309/items/7726113?startDateTime=2026-07-10T00%3A00%3A00%2B09%3A00",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
