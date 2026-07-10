@@ -8,11 +8,14 @@
 
 import os
 import sys
+from datetime import datetime, timedelta, timezone
 
 os.environ["AUTO_BOOK_DRY_RUN"] = "1"  # 안전장치: 이 러너는 무조건 드라이런
 
 import auto_book
 from check_booking import check_availability, fetch_slots, parse_naver_url
+
+KST = timezone(timedelta(hours=9))
 
 
 def main() -> int:
@@ -37,13 +40,21 @@ def main() -> int:
         print("schedule API 조회 실패")
         return 1
 
+    all_summary = result.get("_all_summary") or []
+    print(f"월별 요약: {len(all_summary)}개 항목, isSaleDay={sum(1 for d in all_summary if d.get('isSaleDay'))}개", flush=True)
+
     if date_arg:
         candidates = [date_arg]
     else:
         days = result.get("days") or []
         candidates = sorted(d["dateKey"] for d in days if d.get("hasBookableSlots"))
         if not candidates:
-            candidates = sorted(d["dateKey"] for d in (result.get("_all_summary") or []) if d.get("isSaleDay"))
+            candidates = sorted(d["dateKey"] for d in all_summary if d.get("isSaleDay"))
+        if not candidates:
+            # 일부 서비스 타입은 월별 요약이 비어 있음 → 오늘부터 14일 개별 조회
+            today = datetime.now(KST).date()
+            candidates = [(today + timedelta(days=i)).isoformat() for i in range(14)]
+            print("월별 요약에 후보 없음 → 날짜별 개별 조회로 전환 (14일)", flush=True)
 
     target_date = None
     times: list = []
@@ -52,7 +63,7 @@ def main() -> int:
         if si["queried"] and si["times"]:
             target_date, times = datekey, si["times"]
             break
-        print(f"  {datekey}: 가용 시간대 없음 (조회 {'성공' if si['queried'] else '실패'})", flush=True)
+        print(f"  {datekey}: 가용 시간대 없음 (조회 {'성공' if si['queried'] else '실패'}, 미래 슬롯 {si['total']}개)", flush=True)
 
     if not target_date:
         print("예약 가능한 날짜/시간을 찾지 못함 — 테스트할 슬롯이 없습니다")
