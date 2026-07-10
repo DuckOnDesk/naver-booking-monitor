@@ -31,8 +31,9 @@ GITHUB_RAW_URL = "https://raw.githubusercontent.com/DuckOnDesk/naver-booking-mon
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 ALERTED_FILE = Path(__file__).parent / "booking_alerted.json"
 
-# 같은 슬롯 조합(signature)에 대한 자동 예약 최대 시도 횟수
-AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "5"))
+# 같은 슬롯 조합(signature)에 대한 자동 예약 최대 시도 횟수 (0 = 무제한:
+# 예약 성공 / 슬롯 소멸 / 설정 OFF 전까지 계속 시도)
+AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "0"))
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
@@ -405,6 +406,7 @@ def _auto_book_cfg(item: dict) -> dict | None:
         "count": int(ab.get("count") or item.get("auto_book_count") or 1),
         "mode": ab.get("mode", "immediate"),
         "start_at": ab.get("start_at"),
+        "saved_at": ab.get("saved_at"),
     }
     return cfg if cfg["enabled"] else None
 
@@ -440,8 +442,16 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     if not cfg:
         return
     booked_key = f"{item_id}:auto_booked"
-    if booked_key in alerted:
-        return
+    booked = alerted.get(booked_key)
+    if booked:
+        # 예약 성공 이후 설정을 다시 저장하면(saved_at 갱신) 자동예약 재무장
+        booked_at = _parse_dt(booked.get("at")) if isinstance(booked, dict) else None
+        saved_dt = _parse_dt(cfg.get("saved_at"))
+        if booked_at and saved_dt and booked_at < saved_dt:
+            alerted.pop(booked_key)
+            print(f"  [자동예약] {item.get('name', item_id)} — 설정 재저장 감지, 자동예약 재무장", flush=True)
+        else:
+            return
     if cfg["dates"] and datekey not in cfg["dates"]:
         return
 
@@ -459,13 +469,14 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     state = alerted.get(state_key)
     if not isinstance(state, dict) or state.get("sig") != sig:
         state = {"sig": sig, "attempts": 0}
-    if state["attempts"] >= AUTO_BOOK_MAX_ATTEMPTS:
+    if AUTO_BOOK_MAX_ATTEMPTS and state["attempts"] >= AUTO_BOOK_MAX_ATTEMPTS:
         return
     state["attempts"] += 1
     alerted[state_key] = state
 
     name = item.get("name", item_id)
-    print(f"  [자동예약] {name} {datekey} 시도 {state['attempts']}/{AUTO_BOOK_MAX_ATTEMPTS}", flush=True)
+    cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (성공/매진/OFF까지 계속)"
+    print(f"  [자동예약] {name} {datekey} 시도 {state['attempts']}{cap_label}", flush=True)
 
     try:
         import auto_book

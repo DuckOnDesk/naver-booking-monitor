@@ -91,6 +91,7 @@
         <span class="toggle-slider"></span>
       </label>
     </div>
+    <div class="hint" style="margin:-6px 0 14px">켜져 있는 동안 <b>예약 성공 · 매진(슬롯 소멸) · 여기서 끄기</b> 전까지 계속 재시도합니다. 저장은 약 1분 내 반영. 예약 성공 후 다시 저장하면 재시도가 재개됩니다.</div>
 
     <div class="form-group">
       <label>예약 시도 날짜</label>
@@ -269,6 +270,7 @@ async function save() {
     count: Math.max(1, parseInt($('f-count').value) || 1),
     mode,
     start_at: mode === 'scheduled' && $('f-start-at').value ? `${$('f-start-at').value}:00+09:00` : null,
+    saved_at: new Date().toISOString(),  // 성공 후 재저장하면 자동예약 재무장
   };
   try {
     for (let attempt = 0; attempt < 3; attempt++) {
