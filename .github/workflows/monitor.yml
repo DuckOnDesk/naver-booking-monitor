@@ -41,6 +41,11 @@ jobs:
           CHECK_INTERVAL_SEC: "60"
           LOOP_HOURS: "5.5"
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
+          NAVER_COOKIES_1: ${{ secrets.NAVER_COOKIES_1 }}
+          NAVER_COOKIES_2: ${{ secrets.NAVER_COOKIES_2 }}
+          NAVER_COOKIES_3: ${{ secrets.NAVER_COOKIES_3 }}
+          NAVER_COOKIES_4: ${{ secrets.NAVER_COOKIES_4 }}
+          NAVER_COOKIES_5: ${{ secrets.NAVER_COOKIES_5 }}
           KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}
           AUTO_BOOK_DRY_RUN: ${{ vars.AUTO_BOOK_DRY_RUN }}
         run: python -u check_booking.py
