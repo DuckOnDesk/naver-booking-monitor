@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-11T16:19:38.575864+09:00",
+  "updated_at": "2026-07-11T16:24:48.044055+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -98,9 +98,9 @@
     {
       "id": "2083326059",
       "name": "마른파이브 비치클럽 인 마요르카",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "bookingBusinessId": "1678306",
       "operationStart": "26.07.03.",
       "operationEnd": "26.07.12.",
       "remainingDays": null,
@@ -110,8 +110,10 @@
       "roadAddress": "연무장5길 20 쎈느",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
+      "bookingOpenHistory": [
+        "2026-07-11T16:24:42.411608+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-11T16:24:48.043380+09:00"
     },
     {
       "id": "2002640525",
@@ -1524,6 +1526,13 @@
       "place_name": "모코코 스트릿 팝업 in 성수",
       "booking_url": "",
       "ts": "2026-07-11T15:23:06.902194+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083326059",
+      "place_name": "마른파이브 비치클럽 인 마요르카",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
+      "ts": "2026-07-11T16:24:42.411608+09:00"
     }
   ],
   "seen_place_ids": [
