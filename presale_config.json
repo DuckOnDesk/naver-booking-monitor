@@ -10,23 +10,7 @@
     }
   ],
   "booking_direct_urls": {},
-  "booking_open_datetimes": {
-    "2071746450": "2026-06-29T19:00:00+09:00"
-  },
-  "watched_places": [
-    "1662673990",
-    "2002640525",
-    "2003471362",
-    "2008689464",
-    "2020855313",
-    "2021908137",
-    "2043280218",
-    "2045566114",
-    "2058062036",
-    "2071746450",
-    "2076883271",
-    "2083326059",
-    "2084130717"
-  ],
+  "booking_open_datetimes": {},
+  "watched_places": [],
   "selection_page_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html"
 }
