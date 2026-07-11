@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-12T03:29:51.569076+09:00",
+  "updated_at": "2026-07-12T03:34:58.644496+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -220,7 +220,7 @@
     {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "bookingBusinessId": "1677108",
       "operationStart": "26.07.10.",
@@ -236,7 +236,8 @@
         "2026-07-11T15:23:06.902194+09:00",
         "2026-07-11T16:29:51.951781+09:00",
         "2026-07-11T20:12:32.655226+09:00",
-        "2026-07-11T22:30:58.288022+09:00"
+        "2026-07-11T22:30:58.288022+09:00",
+        "2026-07-12T03:34:54.958384+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
     },
@@ -1582,6 +1583,13 @@
       "place_name": "셀퓨전씨 쿨링 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "ts": "2026-07-12T03:29:47.209021+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2058062036",
+      "place_name": "아노에틱 뷰티 팝업 스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
+      "ts": "2026-07-12T03:34:54.958384+09:00"
     }
   ],
   "seen_place_ids": [
