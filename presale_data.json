@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-11T15:48:51.046415+09:00",
+  "updated_at": "2026-07-11T15:53:59.057678+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -270,24 +270,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2020855313",
-      "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.28.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 17,
-      "status": "D-17",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
-      "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2003471362",
       "name": "모코코 스트릿 팝업 in 성수",
       "hasBooking": false,
@@ -300,6 +282,24 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
       "roadAddress": "성수이로 74 성수 무신사 대림창고",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2020855313",
+      "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.28.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
+      "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
