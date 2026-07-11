@@ -1,12 +1,11 @@
 {
-  "updated_at": "2026-07-11T11:20:39.517143+09:00",
+  "updated_at": "2026-07-11T11:25:47.270061+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
     "2003471362",
     "2008689464",
     "2020855313",
-    "2037854714",
     "2043280218",
     "2045566114",
     "2058062036",
@@ -346,24 +345,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2037854714",
-      "name": "나스 NEW 인세이셔블 리퀴드 블러쉬 팝업 스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.11.",
-      "operationEnd": "26.07.24.",
-      "remainingDays": null,
-      "status": "오늘오픈",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260709_93/1783555024083NAXSw_JPEG/NS_%C0%CC%B9%CC%C1%F6_%B8%AE%BB%E7%C0%CC%C2%A1_2.jpg",
-      "roadAddress": "성수이로 62 1F",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
       "hasBooking": false,
@@ -385,24 +366,6 @@
       "lastBookingNotifiedAt": "2026-07-10T09:25:56.139783+09:00"
     },
     {
-      "id": "2020855313",
-      "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.28.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 17,
-      "status": "D-17",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
-      "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2003471362",
       "name": "모코코 스트릿 팝업 in 성수",
       "hasBooking": false,
@@ -421,6 +384,24 @@
         "2026-07-10T16:57:57.611327+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-10T16:57:57.611327+09:00"
+    },
+    {
+      "id": "2020855313",
+      "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.28.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
+      "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     }
   ],
   "alerts": [
