@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-11T17:05:58.345087+09:00",
+  "updated_at": "2026-07-11T17:11:06.672203+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -158,7 +158,7 @@
     {
       "id": "2008689464",
       "name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "bookingBusinessId": "1686766",
       "operationStart": "26.07.02.",
