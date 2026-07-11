@@ -72,7 +72,8 @@ def load_config() -> dict:
     return cfg
 
 
-def fetch_presale_places(area: dict) -> list[dict]:
+def fetch_presale_places(area: dict) -> list[dict] | None:
+    """지역 검색 결과의 사전예약 팝업 목록. 조회/파싱 실패 시 None (빈 결과 []와 구분)."""
     params = {
         "query": area["query"],
         "x": area["x"], "y": area["y"],
@@ -87,7 +88,7 @@ def fetch_presale_places(area: dict) -> list[dict]:
         resp.encoding = "utf-8"
     except Exception as e:
         print(f"  [요청 오류] {area['query']}: {e}")
-        return []
+        return None
 
     m = re.search(
         r'window\.__APOLLO_STATE__\s*=\s*(\{.+?\});\s*(?:</script>|window\.)',
@@ -95,13 +96,13 @@ def fetch_presale_places(area: dict) -> list[dict]:
     )
     if not m:
         print(f"  [파싱 오류] Apollo state 없음: {area['query']} (status={resp.status_code})")
-        return []
+        return None
 
     try:
         data = json.loads(m.group(1))
     except json.JSONDecodeError as e:
         print(f"  [JSON 오류] {e}")
-        return []
+        return None
 
     # 타입 prefix 무관하게 admissionCondition.name에 "사전예약" 포함된 항목만 수집
     presale = [
@@ -294,13 +295,26 @@ def load_prev_alerts() -> list[dict]:
     return []
 
 
-def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None) -> None:
+def load_seen_ids() -> set[str]:
+    """지금까지 '새 팝업 발견' 알림을 보낸 장소 ID 영구 목록."""
+    try:
+        if DATA_FILE.exists():
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+            return set(str(x) for x in data.get("seen_place_ids", []))
+    except Exception:
+        pass
+    return set()
+
+
+def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None,
+              seen_ids: set | None = None) -> None:
     data = {
         "updated_at": datetime.now(KST).isoformat(),
         "watched_places": config.get("watched_places", []),
         "booking_open_datetimes": config.get("booking_open_datetimes", {}),
         "places": places,
         "alerts": (alerts or [])[-200:],  # 최근 200건만 유지
+        "seen_place_ids": sorted(seen_ids or set()),
     }
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -313,14 +327,33 @@ def check_once(config: dict, prev: dict) -> dict:
     prev_alerts = load_prev_alerts()
     new_alerts: list[dict] = []
 
+    # 이미 발견 알림을 보낸 팝업 ID (영구 저장) — 재등장해도 중복 알림 방지
+    seen_ids = load_seen_ids()
+    seen_ids |= {str(pid) for pid in prev}  # 마이그레이션: 기존 데이터의 장소는 이미 본 것으로 간주
+
     raw: dict[str, dict] = {}
+    fetch_failed = False
     for area in config.get("areas", []):
-        for p in fetch_presale_places(area):
+        result = fetch_presale_places(area)
+        if result is None:
+            fetch_failed = True
+            continue
+        for p in result:
             pid = p.get("id")
             if pid and pid not in raw:
                 raw[pid] = p
 
     current: dict[str, dict] = {pid: normalize(p) for pid, p in raw.items()}
+
+    if fetch_failed:
+        # 일부 지역 조회 실패 → 검색에서 빠진 장소를 종료로 오판해 삭제하지 않고 유지
+        carried = 0
+        for pid, place in prev.items():
+            if pid not in current:
+                current[pid] = dict(place)
+                carried += 1
+        if carried:
+            print(f"  [경고] 일부 지역 조회 실패 — 기존 장소 {carried}개 유지 (삭제 보류)")
 
     # 지도 검색에 나오지 않는 장소는 종료된 팝업으로 간주하고 제거 (carryover 안 함)
     removed = [pid for pid in prev if pid not in current]
@@ -376,8 +409,8 @@ def check_once(config: dict, prev: dict) -> dict:
         booking_url = place.get("bookingUrl") or ""
         dday = place.get("status") or ""
 
-        if pid not in prev:
-            # 새로 등장한 팝업 → git push 이후 알림 발송 (페이지 데이터가 업데이트된 뒤 수신되도록)
+        if pid not in prev and str(pid) not in seen_ids:
+            # 처음 보는 팝업 → git push 이후 알림 발송 (페이지 데이터가 업데이트된 뒤 수신되도록)
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
                 place["lastBookingNotifiedAt"] = now_iso  # 새 팝업 발견 알림이 오픈 알림을 겸함
@@ -385,6 +418,9 @@ def check_once(config: dict, prev: dict) -> dict:
             _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
             new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
+        elif pid not in prev:
+            # 과거에 이미 발견 알림을 보낸 팝업이 검색에 다시 나타남 → 조용히 복원
+            print(f"[{now_str}] ↩️ {name} — 재등장 (이미 발견한 팝업, 알림 생략)")
         elif is_open and not was_open:
             # 예약 오픈됨 → 이력 추가, 감시 중인 경우만 알림
             place["bookingOpenHistory"].append(now_iso)
@@ -462,7 +498,8 @@ def check_once(config: dict, prev: dict) -> dict:
             CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             print(f"  [만료 정리] {len(expired_pids)}개 제거됨")
 
-    save_data(list(current.values()), config, prev_alerts + new_alerts)
+    seen_ids |= {str(pid) for pid in current}
+    save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids)
     return current
 
 
