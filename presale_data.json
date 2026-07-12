@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-12T16:51:32.817331+09:00",
+  "updated_at": "2026-07-12T16:56:41.400853+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -164,7 +164,7 @@
     {
       "id": "2008689464",
       "name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "bookingBusinessId": "1686766",
       "operationStart": "26.07.02.",
@@ -181,9 +181,10 @@
         "2026-07-12T01:32:12.587652+09:00",
         "2026-07-12T09:30:31.852521+09:00",
         "2026-07-12T12:02:23.715180+09:00",
-        "2026-07-12T14:00:23.054546+09:00"
+        "2026-07-12T14:00:23.054546+09:00",
+        "2026-07-12T16:56:36.564984+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
+      "lastBookingNotifiedAt": "2026-07-12T16:56:41.400141+09:00"
     },
     {
       "id": "2021908137",
@@ -1655,6 +1656,13 @@
       "place_name": "셀퓨전씨 쿨링 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "ts": "2026-07-12T14:56:49.602214+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2008689464",
+      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
+      "ts": "2026-07-12T16:56:36.564984+09:00"
     }
   ],
   "seen_place_ids": [
