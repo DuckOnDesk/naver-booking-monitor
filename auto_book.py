@@ -26,8 +26,12 @@ from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 SHOT_DIR = Path(__file__).parent / "auto_book_shots"
 
 # 예약 완료로 판정하는 텍스트/URL 패턴
-_SUCCESS_TEXT = ["예약이 완료", "예약 완료", "신청이 완료", "예약이 확정", "결제가 완료"]
-_SUCCESS_URL = ["bookings", "complete", "done"]
+# (네이버 완료 페이지는 "예약 확정" + "예약번호 …"로 표시됨)
+_SUCCESS_TEXT = [
+    "예약이 완료", "예약 완료", "신청이 완료", "예약이 확정", "예약 확정",
+    "결제가 완료", "예약이 접수", "예약 신청이 완료", "예약해 주셔서",
+]
+_SUCCESS_URL = ["bookings", "complete", "done", "confirm", "/receipt"]
 
 # 단계 진행 버튼 후보 (우선순위 순)
 _NEXT_BUTTON_TEXTS = ["동의하고 예약", "예약하기", "바로예약", "예약 신청", "신청하기", "다음", "확인"]
@@ -397,9 +401,12 @@ def _is_success(page) -> bool:
         return True
     try:
         body = " ".join(page.inner_text("body").split())
-        return any(p in body for p in _SUCCESS_TEXT)
     except Exception:
         return False
+    # "예약번호 1289133135"처럼 예약번호 뒤에 숫자가 오면 확정 완료로 간주
+    if re.search(r"예약\s*번호\s*[:\s]*\d", body):
+        return True
+    return any(p in body for p in _SUCCESS_TEXT)
 
 
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
@@ -492,7 +499,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     _dump_dom_debug(page, "cta_fail")
                     return result(False, "예약 진행 버튼을 찾지 못함")
                 _log(f"진행 버튼 클릭: '{clicked}'")
-                page.wait_for_timeout(3500)
+                page.wait_for_timeout(3000)
                 _shot(page, "04_after_next", shots)
 
                 if _is_login_page(page):
@@ -506,8 +513,10 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
 
                 # 2단계: 예약 확인/동의 페이지
-                deadline = time_mod.time() + 45
+                # 계정별로 오래 붙잡지 않도록 타임아웃 단축 (다계정 스윕이 5분씩 걸리던 원인)
+                deadline = time_mod.time() + 18
                 step = 0
+                final_clicks = 0
                 while time_mod.time() < deadline:
                     step += 1
                     _check_agreements(page)
@@ -521,8 +530,9 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                         return result(True, f"[드라이런] 최종 확정 직전 중단 — 확정 버튼: '{final_btn}'", booked_time)
                     clicked = _click_cta(page, _FINAL_BUTTON_TEXTS)
                     if clicked:
+                        final_clicks += 1
                         _log(f"확정 버튼 클릭: '{clicked}'")
-                        page.wait_for_timeout(4000)
+                        page.wait_for_timeout(2500)
                         _shot(page, f"06_after_final_{step}", shots)
                         if _is_success(page):
                             _shot(page, "07_success", shots)
@@ -532,13 +542,16 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                                 return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
                             return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
                     else:
-                        page.wait_for_timeout(2000)
+                        page.wait_for_timeout(1500)
                         if _is_success(page):
                             _shot(page, "07_success", shots)
                             return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
 
+                # 확정 실패 — 다음 진단을 위해 확정 페이지 구조를 반드시 남긴다
                 _shot(page, "timeout", shots)
-                return result(False, "확정 단계에서 완료 확인 실패 (수동 확인 필요 — 예약이 됐을 수도 있음)")
+                _dump_dom_debug(page, "confirm_fail")
+                hint = "확정 버튼을 찾지 못함 (동의 미완료 가능)" if final_clicks == 0 else "확정 후 완료 페이지 미감지"
+                return result(False, f"확정 단계 실패: {hint} — 수동 확인 필요(예약됐을 수도 있음)")
             finally:
                 browser.close()
     except Exception as exc:
