@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-13T04:26:58.057952+09:00",
+  "updated_at": "2026-07-13T04:32:04.981631+09:00",
   "watched_places": [
     "2002640525",
     "2003471362",
@@ -125,7 +125,7 @@
     {
       "id": "2008689464",
       "name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "bookingBusinessId": "1686766",
       "operationStart": "26.07.02.",
@@ -146,7 +146,8 @@
         "2026-07-12T16:56:36.564984+09:00",
         "2026-07-12T19:14:55.935039+09:00",
         "2026-07-12T21:35:17.275239+09:00",
-        "2026-07-13T01:15:21.270641+09:00"
+        "2026-07-13T01:15:21.270641+09:00",
+        "2026-07-13T04:32:01.722944+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-12T16:56:41.400141+09:00"
     },
@@ -274,13 +275,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "ts": "2026-06-29T19:24:53.137205+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2043280218",
@@ -1673,6 +1667,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-13T03:30:50.062897+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2008689464",
+      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
+      "ts": "2026-07-13T04:32:01.722944+09:00"
     }
   ],
   "seen_place_ids": [
