@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-12T14:51:45.750646+09:00",
+  "updated_at": "2026-07-12T14:56:53.387114+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -22,7 +22,7 @@
     {
       "id": "2045566114",
       "name": "셀퓨전씨 쿨링 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1680129",
       "bookingBusinessId": "1680129",
       "operationStart": "26.07.04.",
@@ -37,7 +37,8 @@
       "bookingOpenHistory": [
         "2026-07-12T03:29:47.209021+09:00",
         "2026-07-12T08:49:38.725016+09:00",
-        "2026-07-12T12:38:19.958043+09:00"
+        "2026-07-12T12:38:19.958043+09:00",
+        "2026-07-12T14:56:49.602214+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-12T03:29:51.568545+09:00"
     },
@@ -1647,6 +1648,13 @@
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "ts": "2026-07-12T14:00:23.054546+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2045566114",
+      "place_name": "셀퓨전씨 쿨링 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
+      "ts": "2026-07-12T14:56:49.602214+09:00"
     }
   ],
   "seen_place_ids": [
