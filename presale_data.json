@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-12T10:55:47.198686+09:00",
+  "updated_at": "2026-07-12T11:00:55.100114+09:00",
   "watched_places": [
     "1662673990",
     "2002640525",
@@ -202,24 +202,6 @@
       "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
     },
     {
-      "id": "2053652128",
-      "name": "더얀 XYZ POP UP - 대체불가",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.01.",
-      "operationEnd": "26.07.28.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
-      "roadAddress": "연무장길 37-21",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
       "hasBooking": true,
@@ -243,6 +225,24 @@
         "2026-07-12T10:40:18.470626+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
+    },
+    {
+      "id": "2053652128",
+      "name": "더얀 XYZ POP UP - 대체불가",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.01.",
+      "operationEnd": "26.07.28.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
+      "roadAddress": "연무장길 37-21",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "1662673990",
