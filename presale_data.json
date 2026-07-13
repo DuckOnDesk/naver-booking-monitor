@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-13T20:17:15.559026+09:00",
+  "updated_at": "2026-07-13T20:22:23.196373+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -218,7 +218,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -235,7 +235,8 @@
         "2026-07-12T21:30:09.867908+09:00",
         "2026-07-12T23:53:30.434196+09:00",
         "2026-07-13T15:58:45.021245+09:00",
-        "2026-07-13T18:17:26.082224+09:00"
+        "2026-07-13T18:17:26.082224+09:00",
+        "2026-07-13T20:22:19.422242+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-13T15:58:50.661753+09:00"
     },
@@ -298,13 +299,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-01T12:36:12.790163+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2045566114",
@@ -1697,6 +1691,13 @@
       "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "ts": "2026-07-13T18:37:59.156758+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-13T20:22:19.422242+09:00"
     }
   ],
   "seen_place_ids": [
