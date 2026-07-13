@@ -1,11 +1,12 @@
 {
-  "updated_at": "2026-07-13T10:23:13.405579+09:00",
+  "updated_at": "2026-07-13T10:28:19.907260+09:00",
   "watched_places": [
     "2002640525",
     "2003471362",
     "2008689464",
     "2020855313",
     "2021908137",
+    "2041689219",
     "2045566114",
     "2051944825",
     "2053652128",
@@ -274,16 +275,27 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2041689219",
+      "name": "올랑말랑슬랑 성수 by 나우성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.31.",
+      "operationEnd": "26.08.02.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260711_147/1783734049477N3aoO_JPEG/GPT.jpg",
+      "roadAddress": "성수이로14길 15 1층",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-06-29T23:25:47.725770+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2043280218",
@@ -1676,6 +1688,13 @@
       "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "ts": "2026-07-13T09:26:54.140893+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2041689219",
+      "place_name": "올랑말랑슬랑 성수 by 나우성수",
+      "booking_url": "",
+      "ts": "2026-07-13T10:28:17.114317+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1685,6 +1704,7 @@
     "2008689464",
     "2020855313",
     "2021908137",
+    "2041689219",
     "2043280218",
     "2045566114",
     "2051944825",
