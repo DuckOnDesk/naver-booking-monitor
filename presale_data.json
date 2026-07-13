@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-13T15:53:41.303945+09:00",
+  "updated_at": "2026-07-13T15:58:50.662177+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -136,7 +136,7 @@
     {
       "id": "2008689464",
       "name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686766",
       "bookingBusinessId": "1686766",
       "operationStart": "26.07.02.",
@@ -160,7 +160,8 @@
         "2026-07-13T01:15:21.270641+09:00",
         "2026-07-13T04:32:01.722944+09:00",
         "2026-07-13T09:26:54.140893+09:00",
-        "2026-07-13T12:00:12.855574+09:00"
+        "2026-07-13T12:00:12.855574+09:00",
+        "2026-07-13T15:58:45.021245+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-12T16:56:41.400141+09:00"
     },
@@ -215,7 +216,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -230,9 +231,10 @@
       "bookingOpenHistory": [
         "2026-07-12T14:00:23.054546+09:00",
         "2026-07-12T21:30:09.867908+09:00",
-        "2026-07-12T23:53:30.434196+09:00"
+        "2026-07-12T23:53:30.434196+09:00",
+        "2026-07-13T15:58:45.021245+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-12T14:00:28.677560+09:00"
+      "lastBookingNotifiedAt": "2026-07-13T15:58:50.661753+09:00"
     },
     {
       "id": "2003471362",
@@ -292,20 +294,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "ts": "2026-07-01T01:31:17.533612+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "1999314744",
-      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "ts": "2026-07-01T03:28:54.339370+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2058062036",
@@ -1691,6 +1679,20 @@
       "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1696844",
       "ts": "2026-07-13T14:41:51.663225+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2008689464",
+      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
+      "ts": "2026-07-13T15:58:45.021245+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-13T15:58:45.021245+09:00"
     }
   ],
   "seen_place_ids": [
