@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-14T15:52:57.092323+09:00",
+  "updated_at": "2026-07-14T15:58:05.505408+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -161,7 +161,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -185,7 +185,8 @@
         "2026-07-14T04:41:27.654576+09:00",
         "2026-07-14T09:15:44.097581+09:00",
         "2026-07-14T09:41:21.519565+09:00",
-        "2026-07-14T11:29:08.342305+09:00"
+        "2026-07-14T11:29:08.342305+09:00",
+        "2026-07-14T15:58:01.053334+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-13T15:58:50.661753+09:00"
     },
@@ -250,13 +251,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-02T00:30:22.017532+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2008689464",
@@ -1649,6 +1643,13 @@
       "place_name": "올랑말랑슬랑 성수 by 나우성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698075",
       "ts": "2026-07-14T13:34:14.605526+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-14T15:58:01.053334+09:00"
     }
   ],
   "seen_place_ids": [
