@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-14T11:31:15.697078+09:00",
+  "updated_at": "2026-07-14T11:36:23.707214+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -217,7 +217,7 @@
       "operationEnd": "26.10.18.",
       "remainingDays": 14,
       "status": "D-14",
-      "admissionCondition": "사전예약&현장대기",
+      "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
       "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
       "commonAddress": "서울 성동구",
