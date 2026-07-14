@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-14T19:35:07.860677+09:00",
+  "updated_at": "2026-07-14T19:40:14.278597+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -52,7 +52,7 @@
     {
       "id": "2076883271",
       "name": "맥 in 트렌드팟 바이 올리브영 성수",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1682141/search",
       "bookingBusinessId": "1682141",
       "operationStart": "26.07.02.",
@@ -161,7 +161,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
