@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-15T23:52:09.595683+09:00",
+  "updated_at": "2026-07-15T23:57:15.986503+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -32,7 +32,7 @@
     {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "bookingBusinessId": "1677108",
       "operationStart": "26.07.10.",
@@ -61,7 +61,8 @@
         "2026-07-15T13:53:15.298473+09:00",
         "2026-07-15T16:29:20.243904+09:00",
         "2026-07-15T19:02:53.710441+09:00",
-        "2026-07-15T21:33:56.579228+09:00"
+        "2026-07-15T21:33:56.579228+09:00",
+        "2026-07-15T23:57:13.151707+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-15T03:33:27.815773+09:00"
     },
@@ -183,7 +184,7 @@
     {
       "id": "2041689219",
       "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
       "bookingBusinessId": "1698075",
       "operationStart": "26.07.31.",
@@ -223,13 +224,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2059199194",
-      "place_name": "큐어 제주 알로에 농장 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1683940",
-      "ts": "2026-07-02T23:56:18.400472+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2045566114",
@@ -1622,6 +1616,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-15T21:33:56.579228+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2058062036",
+      "place_name": "아노에틱 뷰티 팝업 스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
+      "ts": "2026-07-15T23:57:13.151707+09:00"
     }
   ],
   "seen_place_ids": [
