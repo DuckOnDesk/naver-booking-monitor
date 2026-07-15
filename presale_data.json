@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-15T17:00:08.185490+09:00",
+  "updated_at": "2026-07-15T17:05:15.985896+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -124,7 +124,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -155,7 +155,8 @@
         "2026-07-15T00:34:29.273225+09:00",
         "2026-07-15T09:14:07.992342+09:00",
         "2026-07-15T09:52:35.759203+09:00",
-        "2026-07-15T14:39:19.562475+09:00"
+        "2026-07-15T14:39:19.562475+09:00",
+        "2026-07-15T17:05:12.071764+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-14T18:33:40.039338+09:00"
     },
@@ -220,13 +221,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "1999314744",
-      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "ts": "2026-07-02T17:26:11.549384+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2008689464",
@@ -1619,6 +1613,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-15T16:29:20.243904+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-15T17:05:12.071764+09:00"
     }
   ],
   "seen_place_ids": [
