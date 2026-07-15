@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-15T09:09:04.361630+09:00",
+  "updated_at": "2026-07-15T09:14:12.055063+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -122,7 +122,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -150,7 +150,8 @@
         "2026-07-14T15:58:01.053334+09:00",
         "2026-07-14T18:33:35.404529+09:00",
         "2026-07-14T20:56:47.427461+09:00",
-        "2026-07-15T00:34:29.273225+09:00"
+        "2026-07-15T00:34:29.273225+09:00",
+        "2026-07-15T09:14:07.992342+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-14T18:33:40.039338+09:00"
     },
@@ -215,13 +216,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-02T10:03:54.196737+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2008689464",
@@ -1614,6 +1608,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-15T03:33:23.267771+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-15T09:14:07.992342+09:00"
     }
   ],
   "seen_place_ids": [
