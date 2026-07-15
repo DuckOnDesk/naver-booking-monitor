@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-16T00:58:36.369108+09:00",
+  "updated_at": "2026-07-16T01:03:44.270569+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -184,7 +184,7 @@
     {
       "id": "2041689219",
       "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
       "bookingBusinessId": "1698075",
       "operationStart": "26.07.31.",
@@ -197,9 +197,10 @@
       "commonAddress": "서울 성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-14T13:34:14.605526+09:00"
+        "2026-07-14T13:34:14.605526+09:00",
+        "2026-07-16T01:03:39.941234+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-14T13:34:19.735077+09:00"
+      "lastBookingNotifiedAt": "2026-07-16T01:03:44.270200+09:00"
     },
     {
       "id": "2020855313",
@@ -224,13 +225,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-03T03:20:19.906365+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2058062036",
@@ -1623,6 +1617,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-15T23:57:13.151707+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2041689219",
+      "place_name": "올랑말랑슬랑 성수 by 나우성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698075",
+      "ts": "2026-07-16T01:03:39.941234+09:00"
     }
   ],
   "seen_place_ids": [
