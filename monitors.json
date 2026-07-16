@@ -9,7 +9,19 @@
       "target_dates": [
         "2026-07-18",
         "2026-07-19"
-      ]
+      ],
+      "auto_book": {
+        "enabled": true,
+        "dates": [],
+        "times": [],
+        "accounts": [
+          4
+        ],
+        "count": 2,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-07-16T08:19:10.338Z"
+      }
     },
     {
       "id": "mqsz9dzl",
