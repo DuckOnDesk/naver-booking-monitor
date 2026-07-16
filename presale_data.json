@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T00:08:59.066101+09:00",
+  "updated_at": "2026-07-17T00:14:05.545766+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -126,24 +126,6 @@
       "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
     },
     {
-      "id": "2003471362",
-      "name": "모코코 스트릿 팝업 in 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.22.",
-      "operationEnd": "26.07.31.",
-      "remainingDays": 5,
-      "status": "D-5",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
-      "roadAddress": "성수이로 74 성수 무신사 대림창고",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
       "hasBooking": false,
@@ -152,7 +134,7 @@
       "operationStart": "26.07.17.",
       "operationEnd": "26.07.26.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://naverbooking-phinf.pstatic.net/20260707_258/1783402812892IqQK8_JPEG/image.jpg",
       "roadAddress": "연무장길 99 토니모리 팝업스토어",
@@ -184,6 +166,24 @@
         "2026-07-16T17:28:43.963622+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-16T11:58:17.401252+09:00"
+    },
+    {
+      "id": "2003471362",
+      "name": "모코코 스트릿 팝업 in 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.22.",
+      "operationEnd": "26.07.31.",
+      "remainingDays": 5,
+      "status": "D-5",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
+      "roadAddress": "성수이로 74 성수 무신사 대림창고",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2041689219",
