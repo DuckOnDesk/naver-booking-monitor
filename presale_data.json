@@ -1,11 +1,12 @@
 {
-  "updated_at": "2026-07-16T19:14:35.601568+09:00",
+  "updated_at": "2026-07-16T19:19:43.468191+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
     "2041689219",
     "2058062036",
-    "2084130717"
+    "2084130717",
+    "2092504039"
   ],
   "booking_open_datetimes": {},
   "places": [
@@ -225,16 +226,29 @@
         "2026-07-13T17:56:54.070035+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-13T14:41:56.870693+09:00"
+    },
+    {
+      "id": "2092504039",
+      "name": "네스카페 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "bookingBusinessId": "1699872",
+      "operationStart": "26.07.24.",
+      "operationEnd": "26.07.26.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260715_184/1784096554502HGBCa_JPEG/%B3%D7%BD%BA%C4%AB%C6%E4_sns_1200x750.jpg",
+      "roadAddress": "연무장5길 20 1층",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-16T19:19:39.507387+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-16T19:19:39.507387+09:00"
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-03T13:41:38.245244+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2008689464",
@@ -1627,6 +1641,13 @@
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "ts": "2026-07-16T17:28:43.963622+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2092504039",
+      "place_name": "네스카페 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "ts": "2026-07-16T19:19:39.507387+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1645,6 +1666,7 @@
     "2071746450",
     "2076883271",
     "2083326059",
-    "2084130717"
+    "2084130717",
+    "2092504039"
   ]
 }
