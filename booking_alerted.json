@@ -77,11 +77,10 @@
   },
   "mrdocxab:url_closed": 1,
   "mqrpw8bh:2026-07-19": {
-    "12:00": 1,
     "18:00": 2
   },
   "mqrpw8bh:auto_book_state": {
-    "sig": "2026-07-19|12:00,18:00",
+    "sig": "2026-07-19|18:00",
     "attempts": 1
   },
   "mqrpw8bh:2026-07-18": {
