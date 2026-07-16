@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T00:14:05.545766+09:00",
+  "updated_at": "2026-07-17T00:19:12.088849+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -186,6 +186,26 @@
       "lastBookingNotifiedAt": null
     },
     {
+      "id": "2092504039",
+      "name": "네스카페 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "bookingBusinessId": "1699872",
+      "operationStart": "26.07.24.",
+      "operationEnd": "26.07.26.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260715_184/1784096554502HGBCa_JPEG/%B3%D7%BD%BA%C4%AB%C6%E4_sns_1200x750.jpg",
+      "roadAddress": "연무장5길 20 1층",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-16T19:19:39.507387+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-16T19:19:39.507387+09:00"
+    },
+    {
       "id": "2041689219",
       "name": "올랑말랑슬랑 성수 by 나우성수",
       "hasBooking": true,
@@ -226,26 +246,6 @@
         "2026-07-13T17:56:54.070035+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-13T14:41:56.870693+09:00"
-    },
-    {
-      "id": "2092504039",
-      "name": "네스카페 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "bookingBusinessId": "1699872",
-      "operationStart": "26.07.24.",
-      "operationEnd": "26.07.26.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260715_184/1784096554502HGBCa_JPEG/%B3%D7%BD%BA%C4%AB%C6%E4_sns_1200x750.jpg",
-      "roadAddress": "연무장5길 20 1층",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-16T19:19:39.507387+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-16T19:19:39.507387+09:00"
     }
   ],
   "alerts": [
