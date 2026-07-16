@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T05:44:22.972580+09:00",
+  "updated_at": "2026-07-17T05:49:30.427853+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -130,7 +130,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -166,7 +166,8 @@
         "2026-07-16T11:58:13.168495+09:00",
         "2026-07-16T14:35:04.665422+09:00",
         "2026-07-16T17:28:43.963622+09:00",
-        "2026-07-17T00:39:35.838007+09:00"
+        "2026-07-17T00:39:35.838007+09:00",
+        "2026-07-17T05:49:26.321737+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-16T11:58:17.401252+09:00"
     },
@@ -252,13 +253,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-03T16:58:52.891684+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2045566114",
@@ -1651,6 +1645,13 @@
       "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "ts": "2026-07-17T05:44:19.257590+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-17T05:49:26.321737+09:00"
     }
   ],
   "seen_place_ids": [
