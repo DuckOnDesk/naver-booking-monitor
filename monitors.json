@@ -75,6 +75,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1694989/items/7849570?startDateTime=2026-07-25T00%3A00%3A00%2B09%3A00",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mrnd083u",
+      "name": "네스카페",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1699872/items/7871453?theme=place&lang=ko&area=ple",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
