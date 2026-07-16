@@ -83,5 +83,8 @@
     "18:00": 60,
     "18:30": 60
   },
-  "mrdocxab:url_closed": 1
+  "mrdocxab:url_closed": 1,
+  "mrdocxab:2026-07-17:closed": {
+    "11:30": 1
+  }
 }
