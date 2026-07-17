@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-17T19:33:57.635061+09:00",
+  "updated_at": "2026-07-17T19:39:03.788385+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -222,7 +222,7 @@
       "operationEnd": "26.08.02.",
       "remainingDays": 14,
       "status": "D-14",
-      "admissionCondition": "사전예약&현장대기",
+      "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260711_147/1783734049477N3aoO_JPEG/GPT.jpg",
       "roadAddress": "성수이로14길 15 1층",
       "commonAddress": "서울 성동구",
