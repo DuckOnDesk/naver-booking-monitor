@@ -11,7 +11,7 @@
         "2026-07-19"
       ],
       "auto_book": {
-        "enabled": true,
+        "enabled": false,
         "dates": [],
         "times": [],
         "accounts": [
@@ -20,7 +20,7 @@
         "count": 2,
         "mode": "immediate",
         "start_at": null,
-        "saved_at": "2026-07-16T08:19:10.338Z"
+        "saved_at": "2026-07-17T00:26:04.139Z"
       }
     },
     {
