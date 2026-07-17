@@ -81,5 +81,8 @@
   "mqrpw8bh:2026-07-19:closed": {
     "11:00": 1
   },
-  "mrdocxab:url_closed": 1
+  "mrdocxab:url_closed": 1,
+  "mrdocxab:2026-07-18:closed": {
+    "11:00": 1
+  }
 }
