@@ -49,7 +49,9 @@
       ],
       "auto_book": {
         "enabled": true,
-        "dates": [],
+        "dates": [
+          "2026-07-18"
+        ],
         "times": [
           "16:00-21:00"
         ],
@@ -59,7 +61,7 @@
         "count": 1,
         "mode": "immediate",
         "start_at": null,
-        "saved_at": "2026-07-17T07:54:03.835Z"
+        "saved_at": "2026-07-17T07:54:17.039Z"
       }
     },
     {
