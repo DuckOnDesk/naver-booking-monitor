@@ -80,7 +80,7 @@
       "id": "mrnd083u",
       "name": "네스카페",
       "url": "https://m.booking.naver.com/booking/12/bizes/1699872/items/7871453?theme=place&lang=ko&area=ple",
-      "enabled": true,
+      "enabled": false,
       "target_dates": []
     }
   ]
