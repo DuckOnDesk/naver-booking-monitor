@@ -35,7 +35,16 @@ _SUCCESS_URL = ["bookings", "complete", "done", "confirm", "/receipt"]
 
 # 단계 진행 버튼 후보 (우선순위 순)
 _NEXT_BUTTON_TEXTS = ["동의하고 예약", "예약하기", "바로예약", "예약 신청", "신청하기", "다음", "확인"]
-_FINAL_BUTTON_TEXTS = ["동의하고 예약", "결제하기", "예약 신청", "예약하기", "신청하기", "확인"]
+_FINAL_BUTTON_TEXTS = ["동의하고 예약", "결제하기", "예약 신청", "예약하기", "신청하기", "다음", "확인"]
+
+# CTA로 오인하면 안 되는 버튼 — 클래스에 포함되면 제외
+#   tab: 예약하기/상세정보/리뷰 탭 (제출 버튼 아님)
+#   btn_time/calendar/count: 시간·날짜·수량 컨트롤
+#   alert/btn_top/anchor: 알림받기/맨위로/로그인 등
+_CTA_EXCLUDE_CLASS = ("tab", "disable", "dimmed", "btn_time", "calendar",
+                      "count__", "btn_top", "alert", "footer__anchor")
+# 텍스트에 포함되면 제외 (알림받기 등)
+_CTA_EXCLUDE_TEXT = ("알림받기", "상세정보", "리뷰", "맨위로", "로그인", "수량")
 
 KST = timezone(timedelta(hours=9))
 
@@ -372,22 +381,40 @@ def _check_agreements(page) -> None:
         pass
 
 
+def _is_cta_button(el) -> bool:
+    """제출/진행 버튼으로 볼 수 있는지 — 탭·컨트롤·알림받기 등은 제외."""
+    try:
+        cls = (el.get_attribute("class") or "").lower()
+        if any(x in cls for x in _CTA_EXCLUDE_CLASS):
+            return False
+        txt = (el.inner_text() or "").strip()
+        if any(x in txt for x in _CTA_EXCLUDE_TEXT):
+            return False
+        if el.is_disabled():
+            return False
+        return True
+    except Exception:
+        return False
+
+
 def _click_cta(page, texts: list) -> str | None:
-    """하단 진행 버튼 클릭. 클릭한 버튼 텍스트 반환."""
+    """하단 진행 버튼 클릭. 탭/알림받기 등 가짜 버튼은 건너뛰고 진짜 CTA만 클릭."""
     for t in texts:
         loc = page.locator(f'button:has-text("{t}"), a:has-text("{t}")')
         try:
             n = loc.count()
         except Exception:
             continue
-        for i in range(min(n, 4)):
+        for i in range(min(n, 6)):
             el = loc.nth(i)
             try:
-                if el.is_disabled():
+                # 텍스트가 정확히 t이거나 t로 시작하는 버튼 우선 (부분일치 오탐 방지)
+                label = (el.inner_text() or "").strip()
+                if t not in label:
                     continue
-                cls = (el.get_attribute("class") or "")
-                if "disable" in cls or "dimmed" in cls:
+                if not _is_cta_button(el):
                     continue
+                el.scroll_into_view_if_needed(timeout=1500)
                 el.click(timeout=2500)
                 return t
             except Exception:
