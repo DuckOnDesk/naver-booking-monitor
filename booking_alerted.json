@@ -21,11 +21,6 @@
     "14:00": 2
   },
   "mrix29l0:url_closed": 1,
-  "mqrpw8bh:url_closed": 1,
-  "mqrpw8bh:2026-07-18:closed": {
-    "11:00": 1,
-    "15:00": 2
-  },
   "mrdocxab:url_closed": 1,
   "mrnd083u:2026-07-24": {
     "11:00": 60,
@@ -83,5 +78,16 @@
   },
   "mrdocxab:2026-07-17:closed": {
     "11:00": 2
+  },
+  "mqrpw8bh:2026-07-18": {
+    "11:00": 1,
+    "15:00": 2
+  },
+  "mqrpw8bh:auto_book_state": {
+    "sig": "2026-07-18|11:00,15:00",
+    "attempts": 1
+  },
+  "mrdocxab:2026-07-18:closed": {
+    "15:00": 1
   }
 }
