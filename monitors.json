@@ -46,7 +46,21 @@
       "target_dates": [
         "2026-07-17",
         "2026-07-18"
-      ]
+      ],
+      "auto_book": {
+        "enabled": true,
+        "dates": [],
+        "times": [
+          "16:00-21:00"
+        ],
+        "accounts": [
+          1
+        ],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-07-17T07:54:03.835Z"
+      }
     },
     {
       "id": "mreyfrhm",
