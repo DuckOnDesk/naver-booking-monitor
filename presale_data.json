@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-19T10:30:59.946025+09:00",
+  "updated_at": "2026-07-19T10:36:07.700355+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -92,48 +92,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2051944825",
-      "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "bookingBusinessId": "1669333",
-      "operationStart": "26.06.05.",
-      "operationEnd": "26.07.31.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260618_280/1781761943277KLaKj_JPEG/1781761937169.jpg",
-      "roadAddress": null,
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-11T15:23:06.902194+09:00",
-        "2026-07-17T05:44:19.257590+09:00",
-        "2026-07-17T22:56:02.797519+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "id": "2021908137",
-      "name": "메르세데스-벤츠 스튜디오 서울",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "bookingBusinessId": "1643675",
-      "operationStart": "26.05.19.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
-      "roadAddress": "연무장길 73 XYZ SEOUL",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-11T15:23:06.902194+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
       "hasBooking": true,
@@ -184,6 +142,48 @@
         "2026-07-19T10:25:48.951803+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-18T21:22:28.955033+09:00"
+    },
+    {
+      "id": "2051944825",
+      "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
+      "bookingBusinessId": "1669333",
+      "operationStart": "26.06.05.",
+      "operationEnd": "26.07.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260618_280/1781761943277KLaKj_JPEG/1781761937169.jpg",
+      "roadAddress": null,
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-11T15:23:06.902194+09:00",
+        "2026-07-17T05:44:19.257590+09:00",
+        "2026-07-17T22:56:02.797519+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
+    },
+    {
+      "id": "2021908137",
+      "name": "메르세데스-벤츠 스튜디오 서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
+      "bookingBusinessId": "1643675",
+      "operationStart": "26.05.19.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
+      "roadAddress": "연무장길 73 XYZ SEOUL",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-11T15:23:06.902194+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
     },
     {
       "id": "2003471362",
