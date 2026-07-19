@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-19T10:20:45.622055+09:00",
+  "updated_at": "2026-07-19T10:25:52.729269+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -136,7 +136,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -180,7 +180,8 @@
         "2026-07-18T05:48:02.825077+09:00",
         "2026-07-18T21:22:24.330624+09:00",
         "2026-07-19T00:51:54.866395+09:00",
-        "2026-07-19T05:41:46.383031+09:00"
+        "2026-07-19T05:41:46.383031+09:00",
+        "2026-07-19T10:25:48.951803+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-18T21:22:28.955033+09:00"
     },
@@ -266,13 +267,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "ts": "2026-07-04T17:49:13.315180+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2045566114",
@@ -1665,6 +1659,13 @@
       "place_name": "아노에틱 뷰티 팝업 스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
       "ts": "2026-07-19T09:24:20.245716+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-19T10:25:48.951803+09:00"
     }
   ],
   "seen_place_ids": [
