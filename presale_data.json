@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-19T11:17:06.423850+09:00",
+  "updated_at": "2026-07-19T11:22:13.417259+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -10,26 +10,6 @@
   ],
   "booking_open_datetimes": {},
   "places": [
-    {
-      "id": "2071746450",
-      "name": "THE FIRST FAN",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "bookingBusinessId": "1683009",
-      "operationStart": "26.07.01.",
-      "operationEnd": "26.08.31.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_179/1782297473861Xlh0O_JPEG/20260624_150609621.jpg",
-      "roadAddress": "연무장길 27 1층",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-11T15:23:06.902194+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
-    },
     {
       "id": "2058062036",
       "name": "아노에틱 뷰티 팝업 스토어",
@@ -72,6 +52,26 @@
         "2026-07-19T09:24:20.245716+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-19T03:49:10.131795+09:00"
+    },
+    {
+      "id": "2071746450",
+      "name": "THE FIRST FAN",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683009",
+      "bookingBusinessId": "1683009",
+      "operationStart": "26.07.01.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_179/1782297473861Xlh0O_JPEG/20260624_150609621.jpg",
+      "roadAddress": "연무장길 27 1층",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-11T15:23:06.902194+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
     },
     {
       "id": "2053652128",
