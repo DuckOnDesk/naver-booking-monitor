@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-20T11:18:44.272691+09:00",
+  "updated_at": "2026-07-20T11:23:52.013946+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -28,24 +28,6 @@
         "2026-07-11T15:23:06.902194+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "id": "2053652128",
-      "name": "더얀 XYZ POP UP - 대체불가",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.01.",
-      "operationEnd": "26.07.28.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
-      "roadAddress": "연무장길 37-21",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
     },
     {
       "id": "2084130717",
@@ -101,6 +83,24 @@
         "2026-07-20T08:52:10.405895+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-20T00:33:15.683988+09:00"
+    },
+    {
+      "id": "2053652128",
+      "name": "더얀 XYZ POP UP - 대체불가",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.01.",
+      "operationEnd": "26.07.28.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
+      "roadAddress": "연무장길 37-21",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2051944825",
