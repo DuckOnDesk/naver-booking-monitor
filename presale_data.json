@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-21T00:53:07.156798+09:00",
+  "updated_at": "2026-07-21T00:58:14.087330+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -105,7 +105,7 @@
     {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "bookingBusinessId": "1669333",
       "operationStart": "26.06.05.",
