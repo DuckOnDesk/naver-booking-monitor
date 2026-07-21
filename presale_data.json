@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-21T23:03:10.656916+09:00",
+  "updated_at": "2026-07-21T23:08:16.407487+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -12,7 +12,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -63,7 +63,8 @@
         "2026-07-20T08:52:10.405895+09:00",
         "2026-07-21T05:41:28.233527+09:00",
         "2026-07-21T09:34:46.237448+09:00",
-        "2026-07-21T19:36:32.314417+09:00"
+        "2026-07-21T19:36:32.314417+09:00",
+        "2026-07-21T23:08:14.060873+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-21T05:41:32.330360+09:00"
     },
@@ -233,13 +234,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "1999314744",
-      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "ts": "2026-07-05T12:30:03.596771+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2045566114",
@@ -1632,6 +1626,13 @@
       "place_name": "네스카페 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "ts": "2026-07-21T21:15:56.459524+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-21T23:08:14.060873+09:00"
     }
   ],
   "seen_place_ids": [
