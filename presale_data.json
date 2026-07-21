@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-22T00:14:33.336428+09:00",
+  "updated_at": "2026-07-22T00:19:39.039397+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -150,6 +150,24 @@
       "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
     },
     {
+      "id": "2003471362",
+      "name": "모코코 스트릿 팝업 in 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.22.",
+      "operationEnd": "26.07.31.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
+      "roadAddress": "성수이로 74 성수 무신사 대림창고",
+      "commonAddress": "서울 성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
       "hasBooking": false,
@@ -213,24 +231,6 @@
         "2026-07-16T01:03:39.941234+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-16T01:03:44.270200+09:00"
-    },
-    {
-      "id": "2003471362",
-      "name": "모코코 스트릿 팝업 in 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.22.",
-      "operationEnd": "26.07.31.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
-      "roadAddress": "성수이로 74 성수 무신사 대림창고",
-      "commonAddress": "서울 성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
     }
   ],
   "alerts": [
