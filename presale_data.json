@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-21T09:29:42.724566+09:00",
+  "updated_at": "2026-07-21T09:34:49.258135+09:00",
   "watched_places": [
     "2003471362",
     "2020855313",
@@ -32,7 +32,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -81,7 +81,8 @@
         "2026-07-19T21:00:35.058150+09:00",
         "2026-07-20T00:33:11.398579+09:00",
         "2026-07-20T08:52:10.405895+09:00",
-        "2026-07-21T05:41:28.233527+09:00"
+        "2026-07-21T05:41:28.233527+09:00",
+        "2026-07-21T09:34:46.237448+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-21T05:41:32.330360+09:00"
     },
@@ -228,13 +229,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2043280218",
-      "place_name": "오어스 뷰티스페이스1 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1683622",
-      "ts": "2026-07-05T04:43:06.911836+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2008689464",
@@ -1627,6 +1621,13 @@
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "ts": "2026-07-21T05:41:28.233527+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-21T09:34:46.237448+09:00"
     }
   ],
   "seen_place_ids": [
