@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-22T20:15:44.176529+09:00",
+  "updated_at": "2026-07-22T20:21:01.553431+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -473,7 +473,7 @@
     {
       "id": "2030273456",
       "name": "안경만두타운",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685086",
       "bookingBusinessId": "1685086",
       "operationStart": "26.07.09.",
