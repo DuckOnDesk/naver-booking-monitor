@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-22T18:29:35.237192+09:00",
+  "updated_at": "2026-07-22T18:34:54.053318+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -453,7 +453,7 @@
     {
       "id": "2030273456",
       "name": "안경만두타운",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685086",
       "bookingBusinessId": "1685086",
       "operationStart": "26.07.09.",
@@ -467,7 +467,8 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
+        "2026-07-22T16:10:57.904712+09:00",
+        "2026-07-22T18:34:44.693590+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
@@ -823,6 +824,13 @@
       "place_name": "네스카페 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "ts": "2026-07-22T17:52:12.100496+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2030273456",
+      "place_name": "안경만두타운",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685086",
+      "ts": "2026-07-22T18:34:44.693590+09:00"
     }
   ],
   "seen_place_ids": [
