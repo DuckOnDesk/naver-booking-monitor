@@ -17,6 +17,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -58,11 +59,46 @@ DEFAULT_CONFIG = {
 }
 
 
+def _recover_config_from_git() -> dict | None:
+    """손상된(충돌 마커/깨진 JSON) presale_config.json을 git 이력의 최근 유효 버전으로 복구.
+    tip이 깨져 있어도 과거 커밋에서 마지막 유효본을 찾아 파일을 다시 쓴다."""
+    fname = CONFIG_FILE.name
+    try:
+        out = subprocess.run(
+            ["git", "log", "--format=%H", "-n", "80", "--", fname],
+            capture_output=True, text=True, cwd=str(BASE_DIR),
+        ).stdout
+    except Exception as e:
+        print(f"  [복구 실패] git log 오류: {e}")
+        return None
+    for sha in out.split():
+        try:
+            blob = subprocess.run(
+                ["git", "show", f"{sha}:{fname}"],
+                capture_output=True, text=True, cwd=str(BASE_DIR), check=True,
+            ).stdout
+            cfg = json.loads(blob)
+        except Exception:
+            continue
+        CONFIG_FILE.write_text(blob if blob.endswith("\n") else blob + "\n", encoding="utf-8")
+        print(f"  [config 복구] 손상된 {fname}을 {sha[:7]} 버전으로 복원 (watched {len(cfg.get('watched_places', []))}개)")
+        return cfg
+    return None
+
+
 def load_config() -> dict:
     if not CONFIG_FILE.exists():
         CONFIG_FILE.write_text(json.dumps(DEFAULT_CONFIG, ensure_ascii=False, indent=2), encoding="utf-8")
         return DEFAULT_CONFIG
-    cfg = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
+    try:
+        cfg = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        # autostash 충돌 마커 등으로 파일이 깨진 경우: 크래시 대신 이력에서 자가복구
+        print("[경고] presale_config.json 파싱 실패 — git 이력에서 자가복구 시도")
+        cfg = _recover_config_from_git()
+        if cfg is None:
+            print("[치명] config 자가복구 실패 — 기본 설정으로 진행(watched 유지 불가)")
+            cfg = dict(DEFAULT_CONFIG)
     # 구버전 호환: "places" → "areas" 자동 마이그레이션
     if "places" in cfg and "areas" not in cfg:
         cfg["areas"] = DEFAULT_CONFIG["areas"]
