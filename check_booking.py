@@ -737,13 +737,29 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
         item_id   = item.get("id", name)
         closed_key = f"{item_id}:url_closed"
+        streak_key = f"{item_id}:url_close_streak"
 
-        is_url_closed, closed_reason = _playwright_check(url)
+        raw_closed, closed_reason = _playwright_check(url)
+
+        # playwright 닫힘 감지는 간헐적으로 오탐(리다이렉트/느린 로딩 등)이 발생한다.
+        # 단발성 오탐으로 closed_key가 붙었다 떨어지면 "예약창 열림" 알림이 반복 발송되므로,
+        # 2회 연속 '닫힘'으로 확인된 경우에만 실제 닫힘으로 확정한다 (flapping 방지).
+        CLOSE_CONFIRM = 2
+        if raw_closed:
+            streak = int(alerted.get(streak_key, 0)) + 1
+            alerted[streak_key] = streak
+            is_url_closed = streak >= CLOSE_CONFIRM
+            if not is_url_closed:
+                print(f"[{now_str}] ⚠️ {name} — 닫힘 감지 ({streak}/{CLOSE_CONFIRM}, 확정 전 대기): {closed_reason}", flush=True)
+        else:
+            alerted.pop(streak_key, None)
+            is_url_closed = False
 
         if is_url_closed:
             item_prefix = f"{item_id}:"
             for k in list(alerted.keys()):
-                if k.startswith(item_prefix) and k != closed_key and not k.endswith(":closed"):
+                if (k.startswith(item_prefix) and k != closed_key and k != streak_key
+                        and not k.endswith(":closed")):
                     alerted.pop(k)
             alerted[closed_key] = 1
             print(f"[{now_str}] 🔒 {name} — 예약창 닫힘 ({closed_reason})", flush=True)
@@ -1262,7 +1278,10 @@ def main():
 
     for m in active:
         if not check_booking_accessible(m.get("url", "")):
-            alerted[f"{m.get('id', m.get('name', ''))}:url_closed"] = 1
+            # 재시작 시점의 단발 체크는 오탐 가능성이 있으므로 바로 확정하지 않고
+            # streak만 1로 시드한다. 다음 주기에 한 번 더 닫힘이 확인돼야 확정된다.
+            mid = m.get("id", m.get("name", ""))
+            alerted.setdefault(f"{mid}:url_close_streak", 1)
     end_time = time.time() + loop_hours * 3600
     iteration = 0
 
