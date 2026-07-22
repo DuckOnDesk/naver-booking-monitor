@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>성수 팝업 예약 오픈 정보</title>
+  <title>서울 팝업 예약 오픈 정보</title>
   <style>
     :root {
       --green: #03C75A;
@@ -48,6 +48,18 @@
     .stat-n { font-size: 24px; font-weight: 700; line-height: 1; }
     .stat-l { font-size: 10px; color: var(--t3); margin-top: 4px; }
 
+    .chips { display: flex; gap: 6px; overflow-x: auto; padding: 10px 12px;
+             background: var(--card); border-bottom: 1px solid var(--border);
+             -webkit-overflow-scrolling: touch; max-width: 600px; margin: 0 auto; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chips { scrollbar-width: none; }
+    .chip { flex-shrink: 0; border: 1px solid var(--border); background: #fff; color: var(--t2);
+            border-radius: 100px; padding: 6px 12px; font-size: 12px; font-weight: 600;
+            cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+    .chip:active { background: #f0f0f0; }
+    .chip.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .chip-cnt { font-size: 10px; font-weight: 700; opacity: 0.8; }
+
     .wrap { max-width: 600px; margin: 0 auto; padding: 16px 12px 60px; }
 
     .sec { margin-bottom: 24px; }
@@ -72,8 +84,8 @@
     .c-bar.wait   { background: #d8d8d8; }
 
     .c-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px;
-              flex-shrink: 0; margin: 12px 0 12px 12px; background: #f0f0f0; }
-    .c-ph { width: 60px; height: 60px; flex-shrink: 0; margin: 12px 0 12px 12px;
+              flex-shrink: 0; align-self: center; margin: 12px 0 12px 12px; background: #f0f0f0; }
+    .c-ph { width: 60px; height: 60px; flex-shrink: 0; align-self: center; margin: 12px 0 12px 12px;
              border-radius: 8px; background: #f0f0f0;
              display: flex; align-items: center; justify-content: center; font-size: 22px; }
 
@@ -93,6 +105,8 @@
     .t-wait   { background: #f2f2f2; color: #999; }
     .t-dday   { background: #fff4e0; color: #c45000; }
     .t-url    { background: #e8f2ff; color: #1a73e8; }
+    .c-dist   { display: inline-block; font-size: 10px; font-weight: 700; color: #6b4fd8;
+                background: #f0ecff; padding: 2px 8px; border-radius: 100px; margin-bottom: 4px; }
 
     .c-right { padding: 10px 12px 10px 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .btn-time {
@@ -165,7 +179,7 @@
   <div class="hd-row">
     <div class="hd-left">
       <div class="nv">N</div>
-      <h1>성수 팝업 예약 오픈 정보</h1>
+      <h1>서울 팝업 예약 오픈 정보</h1>
     </div>
     <div class="hd-btns">
       <a href="presale_select.html" class="btn-mgr">관리 ›</a>
@@ -194,6 +208,8 @@
     </div>
   </div>
 </div>
+
+<div class="chips" id="chips"></div>
 
 <div class="wrap">
   <div class="sec">
@@ -263,6 +279,8 @@ const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127
 
 let placesMap = {};
 let alertData = [];
+let toShowAll = [];              // 현재 감시 중인 전체 팝업 (지역 필터 적용 전)
+let selectedDistrict = '전체';   // 선택된 지역 칩
 let alertLastRead = parseInt(localStorage.getItem('presale_alert_last_read') || '0');
 
 function getPat() { return localStorage.getItem('gh_pat') || ''; }
@@ -278,6 +296,14 @@ function closeCfg() { document.getElementById('overlay').classList.remove('show'
 function fmt(d) {
   if (!d) return '?';
   return d.replace(/^\d{2}\./, '').replace(/\.$/, '');
+}
+
+// 팝업의 구(區) 추출: 백엔드 district 우선, 없으면 commonAddress('서울 성동구')에서 파싱
+function getDistrict(p) {
+  if (p.district) return p.district;
+  const addr = p.commonAddress || '';
+  const tok = addr.split(/\s+/).find(t => t.endsWith('구'));
+  return tok || null;
 }
 
 function fmtOpenTime(dt) {
@@ -365,6 +391,8 @@ function makeCard(p) {
         onerror="this.style.display='none';var d=document.createElement('div');d.className='c-ph';d.textContent='🏪';this.parentNode.insertBefore(d,this)">`
     : `<div class="c-ph">🏪</div>`;
 
+  const dist      = getDistrict(p);
+  const distLabel = dist ? `<div class="c-dist">${dist}</div>` : '';
   const ddayTag  = dday ? `<span class="tag t-dday">${dday}</span>` : '';
   const stTag    = bookingStatusTag(p);
   const urlTag   = hasUrl ? `<span class="tag t-url">예약하기 →</span>` : '';
@@ -377,6 +405,7 @@ function makeCard(p) {
     <div class="c-bar ${barClass}"></div>
     ${thumb}
     <div class="c-body">
+      ${distLabel}
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
       <div class="c-period">운영 ${period}</div>
@@ -387,6 +416,56 @@ function makeCard(p) {
       <button class="btn-time" title="오픈 예정 시간 설정" onclick="event.stopPropagation();openTimePicker('${p.id}')">🕐</button>
     </div>`;
   return card;
+}
+
+function distOf(p) { return getDistrict(p) || '기타'; }
+
+function renderChips() {
+  const wrap = document.getElementById('chips');
+  const counts = {};
+  toShowAll.forEach(p => { const d = distOf(p); counts[d] = (counts[d] || 0) + 1; });
+  // 개수 많은 순 → 같으면 가나다순
+  const districts = Object.keys(counts)
+    .sort((a, b) => counts[b] - counts[a] || a.localeCompare(b, 'ko'));
+
+  // 지역이 하나뿐이면 칩을 숨김 (필터 의미 없음)
+  if (districts.length <= 1) { wrap.style.display = 'none'; wrap.innerHTML = ''; return; }
+  wrap.style.display = '';
+
+  const chips = [['전체', toShowAll.length], ...districts.map(d => [d, counts[d]])];
+  wrap.innerHTML = chips.map(([name, cnt]) =>
+    `<button class="chip${selectedDistrict === name ? ' active' : ''}" data-d="${name}">`
+    + `${name}<span class="chip-cnt">${cnt}</span></button>`
+  ).join('');
+  wrap.querySelectorAll('.chip').forEach(el => {
+    el.addEventListener('click', () => {
+      selectedDistrict = el.dataset.d;
+      renderChips();
+      renderList();
+    });
+  });
+}
+
+function renderList() {
+  const inDist = p => selectedDistrict === '전체' || distOf(p) === selectedDistrict;
+  const filtered = toShowAll.filter(inDist);
+
+  const opened = filtered
+    .filter(p => p.hasBooking || (p.bookingOpenHistory || []).length > 0)
+    .sort((a, b) => (b.hasBooking ? 1 : 0) - (a.hasBooking ? 1 : 0));
+  const waiting = filtered.filter(p => !p.hasBooking && !(p.bookingOpenHistory || []).length)
+                          .sort((a, b) => (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999));
+
+  document.getElementById('b-open').textContent = opened.length;
+  document.getElementById('b-wait').textContent = waiting.length;
+
+  const lo = document.getElementById('list-open');
+  const lw = document.getElementById('list-wait');
+  lo.innerHTML = ''; lw.innerHTML = '';
+  if (!opened.length)  lo.innerHTML = '<div class="empty">예약 오픈된 팝업이 없어요</div>';
+  if (!waiting.length) lw.innerHTML = '<div class="empty">오픈 대기 중인 팝업이 없어요</div>';
+  opened.forEach(p  => lo.appendChild(makeCard(p)));
+  waiting.forEach(p => lw.appendChild(makeCard(p)));
 }
 
 async function load() {
@@ -434,29 +513,20 @@ async function load() {
         }
       } catch {}
     }
-    const toShow = watchedIds ? all.filter(p => watchedIds.has(String(p.id))) : all;
+    toShowAll = watchedIds ? all.filter(p => watchedIds.has(String(p.id))) : all;
 
-    const opened  = toShow
-      .filter(p => p.hasBooking || (p.bookingOpenHistory || []).length > 0)
-      .sort((a, b) => (b.hasBooking ? 1 : 0) - (a.hasBooking ? 1 : 0));
-    const waiting = toShow.filter(p => !p.hasBooking && !(p.bookingOpenHistory || []).length)
-                          .sort((a, b) => (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999));
+    // 상단 통계는 지역 필터와 무관하게 전체 감시 대상 기준
+    document.getElementById('cnt-all').textContent  = toShowAll.length;
+    document.getElementById('cnt-open').textContent = toShowAll.filter(p => p.hasBooking).length;
+    document.getElementById('cnt-wait').textContent =
+      toShowAll.filter(p => !p.hasBooking && !(p.bookingOpenHistory || []).length).length;
 
-    document.getElementById('cnt-all').textContent  = toShow.length;
-    document.getElementById('cnt-open').textContent = opened.filter(p => p.hasBooking).length;
-    document.getElementById('cnt-wait').textContent = waiting.length;
-    document.getElementById('b-open').textContent   = opened.length;
-    document.getElementById('b-wait').textContent   = waiting.length;
+    // 선택된 지역이 더 이상 목록에 없으면 전체로 리셋
+    const districts = new Set(toShowAll.map(p => getDistrict(p) || '기타'));
+    if (selectedDistrict !== '전체' && !districts.has(selectedDistrict)) selectedDistrict = '전체';
 
-    const lo = document.getElementById('list-open');
-    const lw = document.getElementById('list-wait');
-    lo.innerHTML = ''; lw.innerHTML = '';
-
-    if (!opened.length)  lo.innerHTML = '<div class="empty">예약 오픈된 팝업이 없어요</div>';
-    if (!waiting.length) lw.innerHTML = '<div class="empty">오픈 대기 중인 팝업이 없어요</div>';
-
-    opened.forEach(p  => lo.appendChild(makeCard(p)));
-    waiting.forEach(p => lw.appendChild(makeCard(p)));
+    renderChips();
+    renderList();
 
     alertData = data.alerts || [];
     updateBellBadge();

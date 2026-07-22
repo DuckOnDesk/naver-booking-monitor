@@ -123,6 +123,16 @@ def fetch_presale_places(area: dict) -> list[dict] | None:
     return presale
 
 
+def extract_district(common_address: str | None) -> str | None:
+    """commonAddress('서울 성동구')에서 구 이름('성동구')만 추출."""
+    if not common_address:
+        return None
+    for tok in common_address.split():
+        if tok.endswith("구"):
+            return tok
+    return None
+
+
 def normalize(p: dict) -> dict:
     status = p.get("status") or {}
     admission = p.get("admissionCondition") or {}
@@ -142,6 +152,7 @@ def normalize(p: dict) -> dict:
         "imageUrl": p.get("imageUrl"),
         "roadAddress": p.get("roadAddress"),
         "commonAddress": p.get("commonAddress"),
+        "district": extract_district(p.get("commonAddress")),
         "bookingOpenDatetime": None,
         "bookingOpenHistory": [],  # 예약 오픈된 이력 (ISO datetime 목록)
     }
