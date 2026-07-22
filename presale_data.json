@@ -1,13 +1,31 @@
 {
-<<<<<<< Updated upstream
-  "updated_at": "2026-07-22T11:00:31.836384+09:00",
-=======
-  "updated_at": "2026-07-22T11:03:48.779239+09:00",
->>>>>>> Stashed changes
+  "updated_at": "2026-07-22T11:09:09.929990+09:00",
   "watched_places": [
+    "2002133748",
+    "2002918567",
     "2003471362",
+    "2006596949",
+    "2006648175",
+    "2015464753",
+    "2017034437",
+    "2017875070",
+    "2019923740",
     "2020855313",
+    "2021908137",
+    "2023862125",
+    "2027303446",
+    "2030273456",
+    "2034762449",
+    "2036674429",
     "2041689219",
+    "2043461454",
+    "2050153907",
+    "2051944825",
+    "2053652128",
+    "2058248160",
+    "2070762822",
+    "2071074882",
+    "2071746450",
     "2084130717",
     "2092504039"
   ],
@@ -17,8 +35,8 @@
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
       "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "bookingBusinessId": "1685383",
+      "bookingUrl": null,
+      "bookingBusinessId": null,
       "operationStart": "26.07.17.",
       "operationEnd": "26.07.26.",
       "remainingDays": null,
@@ -27,50 +45,10 @@
       "imageUrl": "https://naverbooking-phinf.pstatic.net/20260707_258/1783402812892IqQK8_JPEG/image.jpg",
       "roadAddress": "연무장길 99 토니모리 팝업스토어",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-12T14:00:23.054546+09:00",
-        "2026-07-12T21:30:09.867908+09:00",
-        "2026-07-12T23:53:30.434196+09:00",
-        "2026-07-13T15:58:45.021245+09:00",
-        "2026-07-13T18:17:26.082224+09:00",
-        "2026-07-13T20:22:19.422242+09:00",
-        "2026-07-13T21:18:37.886341+09:00",
-        "2026-07-13T22:45:35.953964+09:00",
-        "2026-07-14T04:41:27.654576+09:00",
-        "2026-07-14T09:15:44.097581+09:00",
-        "2026-07-14T09:41:21.519565+09:00",
-        "2026-07-14T11:29:08.342305+09:00",
-        "2026-07-14T15:58:01.053334+09:00",
-        "2026-07-14T18:33:35.404529+09:00",
-        "2026-07-14T20:56:47.427461+09:00",
-        "2026-07-15T00:34:29.273225+09:00",
-        "2026-07-15T09:14:07.992342+09:00",
-        "2026-07-15T09:52:35.759203+09:00",
-        "2026-07-15T14:39:19.562475+09:00",
-        "2026-07-15T17:05:12.071764+09:00",
-        "2026-07-16T11:58:13.168495+09:00",
-        "2026-07-16T14:35:04.665422+09:00",
-        "2026-07-16T17:28:43.963622+09:00",
-        "2026-07-17T00:39:35.838007+09:00",
-        "2026-07-17T05:49:26.321737+09:00",
-        "2026-07-17T10:31:21.120642+09:00",
-        "2026-07-17T21:16:01.692578+09:00",
-        "2026-07-18T00:43:38.100992+09:00",
-        "2026-07-18T05:48:02.825077+09:00",
-        "2026-07-18T21:22:24.330624+09:00",
-        "2026-07-19T00:51:54.866395+09:00",
-        "2026-07-19T05:41:46.383031+09:00",
-        "2026-07-19T10:25:48.951803+09:00",
-        "2026-07-19T21:00:35.058150+09:00",
-        "2026-07-20T00:33:11.398579+09:00",
-        "2026-07-20T08:52:10.405895+09:00",
-        "2026-07-21T05:41:28.233527+09:00",
-        "2026-07-21T09:34:46.237448+09:00",
-        "2026-07-21T19:36:32.314417+09:00",
-        "2026-07-21T23:08:14.060873+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-21T05:41:32.330360+09:00"
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2071746450",
@@ -86,11 +64,12 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_179/1782297473861Xlh0O_JPEG/20260624_150609621.jpg",
       "roadAddress": "연무장길 27 1층",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-11T15:23:06.902194+09:00"
+        "2026-07-22T11:09:01.181292+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "id": "2053652128",
@@ -106,6 +85,7 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
       "roadAddress": "연무장길 37-21",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
@@ -114,8 +94,8 @@
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "bookingBusinessId": "1669333",
+      "bookingUrl": null,
+      "bookingBusinessId": null,
       "operationStart": "26.06.05.",
       "operationEnd": "26.07.31.",
       "remainingDays": null,
@@ -124,14 +104,10 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260618_280/1781761943277KLaKj_JPEG/1781761937169.jpg",
       "roadAddress": null,
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-11T15:23:06.902194+09:00",
-        "2026-07-17T05:44:19.257590+09:00",
-        "2026-07-17T22:56:02.797519+09:00",
-        "2026-07-20T13:16:39.333703+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2021908137",
@@ -147,11 +123,12 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
       "roadAddress": "연무장길 73 XYZ SEOUL",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-11T15:23:06.902194+09:00"
+        "2026-07-22T11:09:01.181292+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-11T15:23:06.902194+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "id": "2003471362",
@@ -167,6 +144,7 @@
       "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
       "roadAddress": "성수이로 74 성수 무신사 대림창고",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
@@ -175,8 +153,8 @@
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
       "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "bookingBusinessId": "1699872",
+      "bookingUrl": null,
+      "bookingBusinessId": null,
       "operationStart": "26.07.24.",
       "operationEnd": "26.07.26.",
       "remainingDays": 2,
@@ -185,15 +163,10 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260715_184/1784096554502HGBCa_JPEG/%B3%D7%BD%BA%C4%AB%C6%E4_sns_1200x750.jpg",
       "roadAddress": "연무장5길 20 1층",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-16T19:19:39.507387+09:00",
-        "2026-07-21T12:18:12.092145+09:00",
-        "2026-07-21T15:51:14.540938+09:00",
-        "2026-07-21T21:15:56.459524+09:00",
-        "2026-07-22T00:39:59.923126+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-21T12:18:16.250535+09:00"
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2020855313",
@@ -209,12 +182,12 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
       "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-13T14:41:51.663225+09:00",
-        "2026-07-13T17:56:54.070035+09:00"
+        "2026-07-22T11:09:01.181292+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-13T14:41:56.870693+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "id": "2041689219",
@@ -230,1432 +203,597 @@
       "imageUrl": "https://ldb-phinf.pstatic.net/20260711_147/1783734049477N3aoO_JPEG/GPT.jpg",
       "roadAddress": "성수이로14길 15 1층",
       "commonAddress": "서울 성동구",
+      "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-14T13:34:14.605526+09:00",
-        "2026-07-16T01:03:39.941234+09:00"
+        "2026-07-22T11:09:01.181292+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-16T01:03:44.270200+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2017034437",
+      "name": "명탐정 코난 추리게임 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1524551",
+      "bookingBusinessId": "1524551",
+      "operationStart": "26.07.17.",
+      "operationEnd": "26.08.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260608_11/1780905615395lkOH0_PNG/image.png",
+      "roadAddress": "홍익로2길 7 B1층",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2015464753",
+      "name": "소담몰 (with 팝업스토어)",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.06.30.",
+      "operationEnd": "26.12.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260406_172/1775467193140og2gX_JPEG/4.jpg",
+      "roadAddress": "성암로 28 에스001동 1층 107호",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2071074882",
+      "name": "주술회전 사멸회유 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698453",
+      "bookingBusinessId": "1698453",
+      "operationStart": "26.07.24.",
+      "operationEnd": "26.08.09.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260708_234/17834836306631GEol_JPEG/%C6%D2%B5%F9_-_%C6%E4%C0%CC%C1%F6_%B8%DE%C0%CE_%B9%E8%B3%CA_%28%C0%A5%29.jpg",
+      "roadAddress": "양화로 178-5 LC타워 별관 지하2층",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2043461454",
+      "name": "<킬러들의 쇼핑몰 시즌2> 머더헬프 강남점",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1688295",
+      "bookingBusinessId": "1688295",
+      "operationStart": "26.07.10.",
+      "operationEnd": "26.08.08.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260629_225/1782717879374FjQw1_JPEG/%C5%B3%B7%AF%B5%E9%C0%C7%BC%EE%C7%CE%B8%F42_%B3%D7%C0%CC%B9%F6%C6%CB%BE%F7_1x1_%281%29.jpg",
+      "roadAddress": "강남대로 420 1층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2006648175",
+      "name": "LG전자 플래그십 D5",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694274/search",
+      "bookingBusinessId": "1694274",
+      "operationStart": "26.07.16.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_289/1783481591825XKUq5_PNG/image.png",
+      "roadAddress": "도산대로 403 LG전자 플래그십 D5",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2002918567",
+      "name": "엘모즈비스포크 청담 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1445445/search",
+      "bookingBusinessId": "1445445",
+      "operationStart": "25.03.01.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20250620_57/1750398211645nK9aX_JPEG/22-1.jpg",
+      "roadAddress": "압구정로 453 6층 엘모즈 청담점",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2002133748",
+      "name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.17.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260703_256/1783060542777KvN5f_JPEG/%B8%DE%C0%CE%C6%F7%BD%BA%C5%CD_%C1%A4%BB%E7%B0%A2%C7%FC_1080x1080.jpg",
+      "roadAddress": "올림픽로 240 잠실 롯데월드 B3F 이머시브플랫폼딥",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2023862125",
+      "name": "인사이드룸",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "25.03.01.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20250903_131/1756868764463HeMgv_PNG/%B4%EB%C1%F6_172x.png",
+      "roadAddress": "백제고분로43길 10 지하 1층",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2019923740",
+      "name": "IVE x MINIVE POP-UP in SEOUL",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "bookingBusinessId": "1698448",
+      "operationStart": "26.07.30.",
+      "operationEnd": "26.08.09.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260715_204/17841074193520oyzV_JPEG/image.jpg",
+      "roadAddress": "올림픽로 300 롯데월드몰 1층 아트리움",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2017875070",
+      "name": "승리의 여신: 니케 2026 여름 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
+      "bookingBusinessId": "1689014",
+      "operationStart": "26.07.17.",
+      "operationEnd": "26.07.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260701_118/1782862086990gbu1b_JPEG/%BD%BA%C5%A9%B8%B0%BC%A6_2026-07-01_%BF%C0%C0%FC_8.27.54.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 B1F 아이코닉 B1",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2030273456",
+      "name": "안경만두타운",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685086",
+      "bookingBusinessId": "1685086",
+      "operationStart": "26.07.09.",
+      "operationEnd": "26.07.22.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_270/1782280845279Cvx2X_JPEG/%BE%C8%B0%E6%B8%B8%B5%CE%C5%B8%BF%EE_%B7%CE%B0%ED_%C1%A4%B9%E6%C7%FC.jpg",
+      "roadAddress": "여의대로 108 더현대서울 ICONIC B2",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2006596949",
+      "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "bookingBusinessId": "1689846",
+      "operationStart": "26.07.19.",
+      "operationEnd": "26.08.04.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260701_196/1782874216191gJvKA_JPEG/%BD%BA%C6%C4%C0%CC%B4%F5%B8%C7_1-1%BA%F1%C0%B2_%281%29.jpg",
+      "roadAddress": "여의대로 108 더 현대 서울, 5층 에픽 서울",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2027303446",
+      "name": "성률 기획전 여름을 닮은 우리",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1596228",
+      "bookingBusinessId": "1596228",
+      "operationStart": "26.04.30.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_197/17760566869924uCnR_JPEG/%BC%BA%B7%FC_KV_poster_A4_01%28main%29.jpg",
+      "roadAddress": "한남대로 91 고메이494 한남 B층",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2058248160",
+      "name": "맥스 시덴토프 개인전",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1580585",
+      "bookingBusinessId": "1580585",
+      "operationStart": "26.03.27.",
+      "operationEnd": "26.08.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_28/1776056160593FpIBI_JPEG/MAX_KV_7_%C3%D6%C1%BE_260107.jpg",
+      "roadAddress": "세종대로 14 그랜드센트럴 3F",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2034762449",
+      "name": "샘케이크 롯데백화점 명동점 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "25.10.17.",
+      "operationEnd": "26.10.17.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260529_166/1780022650903w4Is5_JPEG/KakaoTalk_20260529_113833275_05.jpg",
+      "roadAddress": "남대문로 81 명동 롯데백화점 본점 B1 샘케이크",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2050153907",
+      "name": "패브릭 도쿄 [팝업 스토어]",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.03.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 73,
+      "status": "D-73",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260721_68/1784594268929658Ck_JPEG/edited-1784594268742-0.jpg",
+      "roadAddress": "명동길 62 재원빌딩 2층, 7층",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2070762822",
+      "name": "외모지상주의 Ep.인천 [선 : 죽음으로 가는 길]",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1681161",
+      "bookingBusinessId": "1681161",
+      "operationStart": "26.07.30.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260710_269/1783666852426deRtk_PNG/image.png",
+      "roadAddress": "대학로8가길 105 필더스페이스 1, 2, 6층",
+      "commonAddress": "서울 종로구",
+      "district": "종로구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T11:09:01.181292+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2036674429",
+      "name": "소녀전선2 망명 갤러리",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "25.12.25.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20251125_158/1764037278704wYjQn_JPEG/1_%C0%CC%B9%CC%C1%F6_2400x1500px_%281%29.jpg",
+      "roadAddress": "연희로11가길 32 소녀전선2 망명 갤러리",
+      "commonAddress": "서울 서대문구",
+      "district": "서대문구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     }
   ],
   "alerts": [
     {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-05T14:32:25.961315+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-05T15:08:09.294417+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "1999314744",
-      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1656104",
-      "ts": "2026-07-05T16:14:25.864949+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-05T16:14:25.864949+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-05T17:00:21.224631+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-05T19:27:28.920492+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-05T22:21:09.623761+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2043280218",
-      "place_name": "오어스 뷰티스페이스1 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1683622",
-      "ts": "2026-07-05T23:05:46.741133+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-05T23:05:46.741133+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "ts": "2026-07-05T23:31:20.238812+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-05T23:31:20.238812+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "1999314744",
-      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-06T00:07:08.601328+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2059199194",
-      "place_name": "큐어 제주 알로에 농장 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-06T00:07:08.601328+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "1999314744",
-      "place_name": "더 글렌그란트 The Glen Grant 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-06T00:12:15.626022+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2059199194",
-      "place_name": "큐어 제주 알로에 농장 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-06T00:12:15.626022+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-06T08:14:50.524658+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-06T08:50:32.114745+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-06T10:11:38.201651+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-06T12:14:39.149308+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-06T13:06:03.754833+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "1662673990",
-      "place_name": "영 이노베이터 드림 프로젝트 2026 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677398",
-      "ts": "2026-07-06T17:14:30.324558+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-10T09:25:56.139783+09:00"
-    },
-    {
       "type": "new_popup",
       "place_id": "2084130717",
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-10T09:25:56.139783+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2046928640",
-      "place_name": "티팩토리 성수 카메라렌탈",
       "booking_url": "",
-      "ts": "2026-07-10T09:25:56.139783+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2048293732",
-      "place_name": "낯가리는카페 팝업 in 성수",
-      "booking_url": "",
-      "ts": "2026-07-10T09:25:56.139783+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-10T11:14:07.960097+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-10T15:47:27.159579+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2020855313",
-      "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "booking_url": "",
-      "ts": "2026-07-10T16:57:57.611327+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2003471362",
-      "place_name": "모코코 스트릿 팝업 in 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1681162",
-      "ts": "2026-07-10T16:57:57.611327+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-10T17:38:58.150462+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-10T20:02:23.123788+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-10T21:49:37.730771+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-10T23:09:08.856540+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-10T23:34:46.468509+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "ts": "2026-07-11T03:15:41.394073+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T03:31:02.823415+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-11T04:42:40.874917+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-11T09:32:47.250296+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T10:13:48.491739+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-11T12:03:24.372224+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T13:56:15.132212+09:00"
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2071746450",
       "place_name": "THE FIRST FAN",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2076883271",
-      "place_name": "맥 in 트렌드팟 바이 올리브영 성수",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1682141/search",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2043280218",
-      "place_name": "오어스 뷰티스페이스1 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2002640525",
-      "place_name": "웰컴 투 헬스키친",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1679931",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2021908137",
-      "place_name": "메르세데스-벤츠 스튜디오 서울",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2053652128",
       "place_name": "더얀 XYZ POP UP - 대체불가",
       "booking_url": "",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "1662673990",
-      "place_name": "영 이노베이터 드림 프로젝트 2026 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677398",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2020855313",
-      "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "booking_url": "",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2003471362",
-      "place_name": "모코코 스트릿 팝업 in 성수",
-      "booking_url": "",
-      "ts": "2026-07-11T14:42:09.577910+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2071746450",
-      "place_name": "THE FIRST FAN",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2076883271",
-      "place_name": "맥 in 트렌드팟 바이 올리브영 성수",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1682141/search",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2043280218",
-      "place_name": "오어스 뷰티스페이스1 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2002640525",
-      "place_name": "웰컴 투 헬스키친",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1679931",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2051944825",
       "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
+      "booking_url": "",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2021908137",
       "place_name": "메르세데스-벤츠 스튜디오 서울",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2053652128",
-      "place_name": "더얀 XYZ POP UP - 대체불가",
-      "booking_url": "",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "1662673990",
-      "place_name": "영 이노베이터 드림 프로젝트 2026 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677398",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2003471362",
       "place_name": "모코코 스트릿 팝업 in 성수",
       "booking_url": "",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
-      "place_id": "2020855313",
-      "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
+      "place_id": "2092504039",
+      "place_name": "네스카페 팝업스토어",
       "booking_url": "",
-      "ts": "2026-07-11T15:02:40.461365+09:00"
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
-      "place_id": "2071746450",
-      "place_name": "THE FIRST FAN",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2076883271",
-      "place_name": "맥 in 트렌드팟 바이 올리브영 성수",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1682141/search",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2043280218",
-      "place_name": "오어스 뷰티스페이스1 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2002640525",
-      "place_name": "웰컴 투 헬스키친",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1679931",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2021908137",
-      "place_name": "메르세데스-벤츠 스튜디오 서울",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2053652128",
-      "place_name": "더얀 XYZ POP UP - 대체불가",
-      "booking_url": "",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "1662673990",
-      "place_name": "영 이노베이터 드림 프로젝트 2026 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677398",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2003471362",
-      "place_name": "모코코 스트릿 팝업 in 성수",
-      "booking_url": "",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2020855313",
-      "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "booking_url": "",
-      "ts": "2026-07-11T15:12:53.230713+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2071746450",
-      "place_name": "THE FIRST FAN",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2076883271",
-      "place_name": "맥 in 트렌드팟 바이 올리브영 성수",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1682141/search",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2043280218",
-      "place_name": "오어스 뷰티스페이스1 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2002640525",
-      "place_name": "웰컴 투 헬스키친",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1679931",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2021908137",
-      "place_name": "메르세데스-벤츠 스튜디오 서울",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2053652128",
-      "place_name": "더얀 XYZ POP UP - 대체불가",
-      "booking_url": "",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "1662673990",
-      "place_name": "영 이노베이터 드림 프로젝트 2026 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677398",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2020855313",
-      "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "booking_url": "",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2003471362",
-      "place_name": "모코코 스트릿 팝업 in 성수",
-      "booking_url": "",
-      "ts": "2026-07-11T15:23:06.902194+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "ts": "2026-07-11T16:24:42.411608+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T16:29:51.951781+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T20:12:32.655226+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2083326059",
-      "place_name": "마른파이브 비치클럽 인 마요르카",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1678306",
-      "ts": "2026-07-11T22:25:50.999541+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-11T22:30:58.288022+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-12T01:32:12.587652+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-12T03:29:47.209021+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-12T03:34:54.958384+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-12T08:49:38.725016+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-12T09:30:31.852521+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-12T10:40:18.470626+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-12T12:02:23.715180+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-12T12:38:19.958043+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-12T14:00:23.054546+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-12T14:00:23.054546+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-12T14:56:49.602214+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-12T16:56:36.564984+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-12T18:28:50.471945+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-12T19:14:55.935039+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-12T21:30:09.867908+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-12T21:35:17.275239+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-12T22:00:54.024849+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-12T23:53:30.434196+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2045566114",
-      "place_name": "셀퓨전씨 쿨링 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1680129",
-      "ts": "2026-07-13T00:39:33.228138+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-13T01:15:21.270641+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-13T03:30:50.062897+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-13T04:32:01.722944+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-13T08:45:52.616867+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-13T09:26:54.140893+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2041689219",
-      "place_name": "올랑말랑슬랑 성수 by 나우성수",
-      "booking_url": "",
-      "ts": "2026-07-13T10:28:17.114317+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-13T12:00:12.855574+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-13T12:00:12.855574+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2020855313",
       "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1696844",
-      "ts": "2026-07-13T14:41:51.663225+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-13T15:58:45.021245+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-13T15:58:45.021245+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-13T16:34:45.481844+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2020855313",
-      "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1696844",
-      "ts": "2026-07-13T17:56:54.070035+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-13T18:17:26.082224+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2008689464",
-      "place_name": "성분에디터 그린토마토 마켓 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1686766",
-      "ts": "2026-07-13T18:37:59.156758+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-13T20:22:19.422242+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-13T20:32:32.988275+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-13T21:18:37.886341+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-13T22:45:35.953964+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-13T22:55:50.693454+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-14T04:41:27.654576+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-14T09:15:44.097581+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-14T09:41:21.519565+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-14T11:29:08.342305+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2041689219",
-      "place_name": "올랑말랑슬랑 성수 by 나우성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698075",
-      "ts": "2026-07-14T13:34:14.605526+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-14T15:58:01.053334+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-14T18:33:35.404529+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-14T20:56:47.427461+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-15T00:34:29.273225+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-15T03:33:23.267771+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-15T09:14:07.992342+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-15T09:52:35.759203+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-15T13:53:15.298473+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-15T14:39:19.562475+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-15T16:29:20.243904+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-15T17:05:12.071764+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-15T19:02:53.710441+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-15T21:33:56.579228+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-15T23:57:13.151707+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2041689219",
-      "place_name": "올랑말랑슬랑 성수 by 나우성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698075",
-      "ts": "2026-07-16T01:03:39.941234+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-16T11:58:13.168495+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-16T14:35:04.665422+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-16T17:28:43.963622+09:00"
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
       "type": "new_popup",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-16T19:19:39.507387+09:00"
+      "place_id": "2041689219",
+      "place_name": "올랑말랑슬랑 성수 by 나우성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698075",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-17T00:39:35.838007+09:00"
+      "type": "new_popup",
+      "place_id": "2017034437",
+      "place_name": "명탐정 코난 추리게임 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1524551",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-17T03:48:37.387743+09:00"
+      "type": "new_popup",
+      "place_id": "2015464753",
+      "place_name": "소담몰 (with 팝업스토어)",
+      "booking_url": "",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-17T05:44:19.257590+09:00"
+      "type": "new_popup",
+      "place_id": "2071074882",
+      "place_name": "주술회전 사멸회유 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-17T05:49:26.321737+09:00"
+      "type": "new_popup",
+      "place_id": "2043461454",
+      "place_name": "<킬러들의 쇼핑몰 시즌2> 머더헬프 강남점",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1688295",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-17T09:29:49.636133+09:00"
+      "type": "new_popup",
+      "place_id": "2006648175",
+      "place_name": "LG전자 플래그십 D5",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1694274/search",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-17T10:31:21.120642+09:00"
+      "type": "new_popup",
+      "place_id": "2002918567",
+      "place_name": "엘모즈비스포크 청담 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1445445/search",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-17T15:46:55.855552+09:00"
+      "type": "new_popup",
+      "place_id": "2002133748",
+      "place_name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
+      "booking_url": "",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-17T21:16:01.692578+09:00"
+      "type": "new_popup",
+      "place_id": "2023862125",
+      "place_name": "인사이드룸",
+      "booking_url": "",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-17T22:56:02.797519+09:00"
+      "type": "new_popup",
+      "place_id": "2019923740",
+      "place_name": "IVE x MINIVE POP-UP in SEOUL",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-18T00:38:30.458180+09:00"
+      "type": "new_popup",
+      "place_id": "2017875070",
+      "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-18T00:43:38.100992+09:00"
+      "type": "new_popup",
+      "place_id": "2030273456",
+      "place_name": "안경만두타운",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685086",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-18T05:48:02.825077+09:00"
+      "type": "new_popup",
+      "place_id": "2006596949",
+      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-18T21:22:24.330624+09:00"
+      "type": "new_popup",
+      "place_id": "2027303446",
+      "place_name": "성률 기획전 여름을 닮은 우리",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1596228",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-19T00:51:54.866395+09:00"
+      "type": "new_popup",
+      "place_id": "2058248160",
+      "place_name": "맥스 시덴토프 개인전",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1580585",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-19T03:49:05.179736+09:00"
+      "type": "new_popup",
+      "place_id": "2034762449",
+      "place_name": "샘케이크 롯데백화점 명동점 팝업",
+      "booking_url": "",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-19T05:41:46.383031+09:00"
+      "type": "new_popup",
+      "place_id": "2050153907",
+      "place_name": "패브릭 도쿄 [팝업 스토어]",
+      "booking_url": "",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-19T09:24:20.245716+09:00"
+      "type": "new_popup",
+      "place_id": "2070762822",
+      "place_name": "외모지상주의 Ep.인천 [선 : 죽음으로 가는 길]",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1681161",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     },
     {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-19T10:25:48.951803+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-19T16:32:34.022104+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-19T21:00:35.058150+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-20T00:33:11.398579+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-20T08:52:10.405895+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-20T13:16:39.333703+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T05:41:28.233527+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T09:34:46.237448+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-21T12:18:12.092145+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-21T15:51:14.540938+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T19:36:32.314417+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-21T21:15:56.459524+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T23:08:14.060873+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-22T00:39:59.923126+09:00"
+      "type": "new_popup",
+      "place_id": "2036674429",
+      "place_name": "소녀전선2 망명 갤러리",
+      "booking_url": "",
+      "ts": "2026-07-22T11:09:01.181292+09:00"
     }
   ],
   "seen_place_ids": [
-    "1662673990",
-    "2002640525",
+    "2002133748",
+    "2002918567",
     "2003471362",
-    "2008689464",
+    "2006596949",
+    "2006648175",
+    "2015464753",
+    "2017034437",
+    "2017875070",
+    "2019923740",
     "2020855313",
     "2021908137",
+    "2023862125",
+    "2027303446",
+    "2030273456",
+    "2034762449",
+    "2036674429",
     "2041689219",
-    "2043280218",
-    "2045566114",
+    "2043461454",
+    "2050153907",
     "2051944825",
     "2053652128",
-    "2058062036",
+    "2058248160",
+    "2070762822",
+    "2071074882",
     "2071746450",
-    "2076883271",
-    "2083326059",
     "2084130717",
     "2092504039"
   ]
