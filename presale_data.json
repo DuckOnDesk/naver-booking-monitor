@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-23T00:14:41.083949+09:00",
+  "updated_at": "2026-07-23T00:19:57.639898+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -15,6 +15,7 @@
     "2041689219",
     "2043461454",
     "2050153907",
+    "2052645378",
     "2058248160",
     "2064927800",
     "2070762822",
@@ -148,27 +149,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2092504039",
-      "name": "네스카페 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "bookingBusinessId": "1699872",
-      "operationStart": "26.07.24.",
-      "operationEnd": "26.07.26.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260715_184/1784096554502HGBCa_JPEG/%B3%D7%BD%BA%C4%AB%C6%E4_sns_1200x750.jpg",
-      "roadAddress": "연무장5길 20 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T17:52:12.100496+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T17:52:23.370083+09:00"
-    },
-    {
       "id": "2020855313",
       "name": "STORY A 성수 : 뷰티서바이벌 살인사건",
       "hasBooking": true,
@@ -181,27 +161,6 @@
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260710_71/178365822627411kcM_JPEG/%C1%A4%BB%E7%B0%A2.jpg",
       "roadAddress": "아차산로11길 7 아모레성수 2층 STORY A 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
-    },
-    {
-      "id": "2041689219",
-      "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
-      "bookingBusinessId": "1698075",
-      "operationStart": "26.07.31.",
-      "operationEnd": "26.08.02.",
-      "remainingDays": 8,
-      "status": "D-8",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260711_147/1783734049477N3aoO_JPEG/GPT.jpg",
-      "roadAddress": "성수이로14길 15 1층",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -228,6 +187,48 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2041689219",
+      "name": "올랑말랑슬랑 성수 by 나우성수",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
+      "bookingBusinessId": "1698075",
+      "operationStart": "26.07.31.",
+      "operationEnd": "26.08.02.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260711_147/1783734049477N3aoO_JPEG/GPT.jpg",
+      "roadAddress": "성수이로14길 15 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
+    },
+    {
+      "id": "2092504039",
+      "name": "네스카페 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "bookingBusinessId": "1699872",
+      "operationStart": "26.07.24.",
+      "operationEnd": "26.07.26.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260715_184/1784096554502HGBCa_JPEG/%B3%D7%BD%BA%C4%AB%C6%E4_sns_1200x750.jpg",
+      "roadAddress": "연무장5길 20 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T17:52:12.100496+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-22T17:52:23.370083+09:00"
     },
     {
       "id": "2017034437",
@@ -371,6 +372,25 @@
         "2026-07-22T16:10:57.904712+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
+    },
+    {
+      "id": "2052645378",
+      "name": "쥬베룩 플래그십 스토어 오픈 이벤트",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.25.",
+      "operationEnd": "26.07.25.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260708_6/1783502358408FEJVI_JPEG/SNS_04.%BB%E7%C0%FC%BF%B9%BE%E0_%BE%C8%B3%BB_1.jpg",
+      "roadAddress": "영동대로 502 1층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2002133748",
@@ -852,6 +872,13 @@
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "ts": "2026-07-22T23:21:36.877045+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2052645378",
+      "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
+      "booking_url": "",
+      "ts": "2026-07-23T00:19:50.179987+09:00"
     }
   ],
   "seen_place_ids": [
@@ -875,6 +902,7 @@
     "2043461454",
     "2050153907",
     "2051944825",
+    "2052645378",
     "2053652128",
     "2058248160",
     "2064927800",
