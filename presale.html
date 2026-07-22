@@ -105,7 +105,8 @@
     .t-wait   { background: #f2f2f2; color: #999; }
     .t-dday   { background: #fff4e0; color: #c45000; }
     .t-url    { background: #e8f2ff; color: #1a73e8; }
-    .t-dist   { background: #f0ecff; color: #6b4fd8; }
+    .c-dist   { display: inline-block; font-size: 10px; font-weight: 700; color: #6b4fd8;
+                background: #f0ecff; padding: 2px 8px; border-radius: 100px; margin-bottom: 4px; }
 
     .c-right { padding: 10px 12px 10px 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .btn-time {
@@ -390,8 +391,8 @@ function makeCard(p) {
         onerror="this.style.display='none';var d=document.createElement('div');d.className='c-ph';d.textContent='🏪';this.parentNode.insertBefore(d,this)">`
     : `<div class="c-ph">🏪</div>`;
 
-  const dist     = getDistrict(p);
-  const distTag  = dist ? `<span class="tag t-dist">📍 ${dist}</span>` : '';
+  const dist      = getDistrict(p);
+  const distLabel = dist ? `<div class="c-dist">${dist}</div>` : '';
   const ddayTag  = dday ? `<span class="tag t-dday">${dday}</span>` : '';
   const stTag    = bookingStatusTag(p);
   const urlTag   = hasUrl ? `<span class="tag t-url">예약하기 →</span>` : '';
@@ -404,11 +405,12 @@ function makeCard(p) {
     <div class="c-bar ${barClass}"></div>
     ${thumb}
     <div class="c-body">
+      ${distLabel}
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
       <div class="c-period">운영 ${period}</div>
       ${openTimeHtml}
-      <div class="c-tags">${distTag}${ddayTag}${stTag}${urlTag}</div>
+      <div class="c-tags">${ddayTag}${stTag}${urlTag}</div>
     </div>
     <div class="c-right">
       <button class="btn-time" title="오픈 예정 시간 설정" onclick="event.stopPropagation();openTimePicker('${p.id}')">🕐</button>

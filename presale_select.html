@@ -102,7 +102,8 @@
     .tog input:checked + .tog-tr::before { transform: translateX(20px); }
     .tog input:disabled + .tog-tr { opacity: 0.5; }
 
-    .t-dist    { background: #f0ecff; color: #6b4fd8; }
+    .c-dist    { display: inline-block; font-size: 10px; font-weight: 700; color: #6b4fd8;
+                 background: #f0ecff; padding: 2px 8px; border-radius: 100px; margin-bottom: 4px; }
     .t-expired { background: #f0f0f0; color: #aaa; }
     .card.expired { opacity: 0.55; }
 
@@ -352,7 +353,7 @@ function makeCard(p) {
     : `<div class="c-ph">🏪</div>`;
 
   const dist        = getDistrict(p);
-  const distTag     = dist ? `<span class="tag t-dist">📍 ${dist}</span>` : '';
+  const distLabel   = dist ? `<div class="c-dist">${dist}</div>` : '';
   const ddayTag     = dday && !expired ? `<span class="tag t-dday">${dday}</span>` : '';
   const stTag       = expired ? '<span class="tag t-expired">만료</span>' : bookingStatusTag(p);
 
@@ -362,10 +363,11 @@ function makeCard(p) {
     <div class="c-bar ${isWatching ? 'on' : 'off'}"></div>
     ${thumb}
     <div class="c-body">
+      ${distLabel}
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
       <div class="c-period">운영 ${period}</div>
-      <div class="c-tags">${distTag}${ddayTag}${stTag}</div>
+      <div class="c-tags">${ddayTag}${stTag}</div>
     </div>
     <div class="c-right">
       <label class="tog">
