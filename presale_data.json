@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-23T02:42:35.185840+09:00",
+  "updated_at": "2026-07-23T02:47:52.587136+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -212,7 +212,7 @@
     {
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "bookingBusinessId": "1699872",
       "operationStart": "26.07.24.",
@@ -226,7 +226,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T17:52:12.100496+09:00"
+        "2026-07-22T17:52:12.100496+09:00",
+        "2026-07-23T02:47:44.186835+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T17:52:23.370083+09:00"
     },
@@ -879,6 +880,13 @@
       "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
       "booking_url": "",
       "ts": "2026-07-23T00:19:50.179987+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2092504039",
+      "place_name": "네스카페 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "ts": "2026-07-23T02:47:44.186835+09:00"
     }
   ],
   "seen_place_ids": [
