@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-22T11:14:32.105774+09:00",
+  "updated_at": "2026-07-22T11:19:52.350620+09:00",
   "watched_places": [
     "2002133748",
     "2002918567",
@@ -26,6 +26,7 @@
     "2070762822",
     "2071074882",
     "2071746450",
+    "2073328330",
     "2084130717",
     "2092504039"
   ],
@@ -392,6 +393,25 @@
         "2026-07-22T11:09:01.181292+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "id": "2073328330",
+      "name": "원피스 무기와라스토어 한국 출장점",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.30.",
+      "operationEnd": null,
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260722_151/1784683272782EFta5_JPEG/edited-1784683272388-0.jpg",
+      "roadAddress": "올림픽로 240 쇼핑몰동 B1F 24호",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2017875070",
@@ -766,6 +786,13 @@
       "place_name": "소녀전선2 망명 갤러리",
       "booking_url": "",
       "ts": "2026-07-22T11:09:01.181292+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2073328330",
+      "place_name": "원피스 무기와라스토어 한국 출장점",
+      "booking_url": "",
+      "ts": "2026-07-22T11:19:43.788963+09:00"
     }
   ],
   "seen_place_ids": [
@@ -794,6 +821,7 @@
     "2070762822",
     "2071074882",
     "2071746450",
+    "2073328330",
     "2084130717",
     "2092504039"
   ]
