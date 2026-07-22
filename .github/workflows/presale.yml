@@ -56,7 +56,20 @@ jobs:
               if git pull --rebase --autostash origin main; then
                 # autostash가 변경사항을 unstaged로 복원하므로 재스테이징 필요
                 git add presale_data.json presale_config.json
-                if ! git diff --staged --quiet; then
+                # 안전장치: autostash pop 충돌 마커나 깨진 JSON을 절대 커밋하지 않음
+                files_ok=1
+                for f in presale_config.json presale_data.json; do
+                  if grep -qE '^(<<<<<<<|=======|>>>>>>>)' "$f" \
+                     || ! python3 -c "import json,sys; json.load(open(sys.argv[1]))" "$f" 2>/dev/null; then
+                    echo "[경고] $f 손상 감지 (충돌 마커 또는 깨진 JSON)"
+                    files_ok=0
+                  fi
+                done
+                if [ $files_ok -eq 0 ]; then
+                  echo "[복구] origin/main 버전으로 되돌리고 이번 주기 커밋 건너뜀 (다음 주기 재시도)"
+                  git checkout origin/main -- presale_config.json presale_data.json 2>/dev/null || true
+                  git restore --staged presale_config.json presale_data.json 2>/dev/null || true
+                elif ! git diff --staged --quiet; then
                   git commit -m "data: presale update [skip ci]"
                   if push_with_retry; then
                     send_pending_ntfy
