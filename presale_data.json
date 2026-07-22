@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-22T18:34:54.053318+09:00",
+  "updated_at": "2026-07-22T18:40:13.395202+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -19,6 +19,7 @@
     "2064927800",
     "2070762822",
     "2071074882",
+    "2073241477",
     "2073328330",
     "2084130717",
     "2092504039"
@@ -207,6 +208,25 @@
         "2026-07-22T16:10:57.904712+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
+    },
+    {
+      "id": "2073241477",
+      "name": "키핀터치X무신사 뷰티 스페이스1 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.29.",
+      "operationEnd": "26.08.09.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260716_200/17841762297533Vl4B_JPEG/KPT_%C7%CE%C5%A9%B7%B1%B5%E5%B8%AE%BC%A5_%BD%BA%B8%B6%C6%AE%C7%C3%B7%B9%C0%CC%BD%BA_1.jpg",
+      "roadAddress": "연무장길 81 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2017034437",
@@ -831,6 +851,13 @@
       "place_name": "안경만두타운",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685086",
       "ts": "2026-07-22T18:34:44.693590+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2073241477",
+      "place_name": "키핀터치X무신사 뷰티 스페이스1 팝업",
+      "booking_url": "",
+      "ts": "2026-07-22T18:40:03.865290+09:00"
     }
   ],
   "seen_place_ids": [
@@ -860,6 +887,7 @@
     "2070762822",
     "2071074882",
     "2071746450",
+    "2073241477",
     "2073328330",
     "2084130717",
     "2092504039"
