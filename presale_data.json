@@ -1,9 +1,5 @@
 {
-<<<<<<< Updated upstream
-  "updated_at": "2026-07-22T11:19:52.350620+09:00",
-=======
-  "updated_at": "2026-07-22T13:53:34.945911+09:00",
->>>>>>> Stashed changes
+  "updated_at": "2026-07-22T16:11:06.466490+09:00",
   "watched_places": [
     "2002133748",
     "2002918567",
@@ -15,10 +11,7 @@
     "2017875070",
     "2019923740",
     "2020855313",
-<<<<<<< Updated upstream
     "2021908137",
-=======
->>>>>>> Stashed changes
     "2023862125",
     "2027303446",
     "2030273456",
@@ -27,19 +20,13 @@
     "2041689219",
     "2043461454",
     "2050153907",
-<<<<<<< Updated upstream
     "2051944825",
     "2053652128",
-    "2058248160",
-    "2070762822",
-    "2071074882",
-    "2071746450",
-=======
     "2058248160",
     "2064927800",
     "2070762822",
     "2071074882",
->>>>>>> Stashed changes
+    "2071746450",
     "2073328330",
     "2084130717",
     "2092504039"
@@ -49,15 +36,9 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-<<<<<<< Updated upstream
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-=======
       "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
->>>>>>> Stashed changes
       "operationStart": "26.07.17.",
       "operationEnd": "26.07.26.",
       "remainingDays": null,
@@ -68,55 +49,10 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-<<<<<<< Updated upstream
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-=======
       "bookingOpenHistory": [
-        "2026-07-12T14:00:23.054546+09:00",
-        "2026-07-12T21:30:09.867908+09:00",
-        "2026-07-12T23:53:30.434196+09:00",
-        "2026-07-13T15:58:45.021245+09:00",
-        "2026-07-13T18:17:26.082224+09:00",
-        "2026-07-13T20:22:19.422242+09:00",
-        "2026-07-13T21:18:37.886341+09:00",
-        "2026-07-13T22:45:35.953964+09:00",
-        "2026-07-14T04:41:27.654576+09:00",
-        "2026-07-14T09:15:44.097581+09:00",
-        "2026-07-14T09:41:21.519565+09:00",
-        "2026-07-14T11:29:08.342305+09:00",
-        "2026-07-14T15:58:01.053334+09:00",
-        "2026-07-14T18:33:35.404529+09:00",
-        "2026-07-14T20:56:47.427461+09:00",
-        "2026-07-15T00:34:29.273225+09:00",
-        "2026-07-15T09:14:07.992342+09:00",
-        "2026-07-15T09:52:35.759203+09:00",
-        "2026-07-15T14:39:19.562475+09:00",
-        "2026-07-15T17:05:12.071764+09:00",
-        "2026-07-16T11:58:13.168495+09:00",
-        "2026-07-16T14:35:04.665422+09:00",
-        "2026-07-16T17:28:43.963622+09:00",
-        "2026-07-17T00:39:35.838007+09:00",
-        "2026-07-17T05:49:26.321737+09:00",
-        "2026-07-17T10:31:21.120642+09:00",
-        "2026-07-17T21:16:01.692578+09:00",
-        "2026-07-18T00:43:38.100992+09:00",
-        "2026-07-18T05:48:02.825077+09:00",
-        "2026-07-18T21:22:24.330624+09:00",
-        "2026-07-19T00:51:54.866395+09:00",
-        "2026-07-19T05:41:46.383031+09:00",
-        "2026-07-19T10:25:48.951803+09:00",
-        "2026-07-19T21:00:35.058150+09:00",
-        "2026-07-20T00:33:11.398579+09:00",
-        "2026-07-20T08:52:10.405895+09:00",
-        "2026-07-21T05:41:28.233527+09:00",
-        "2026-07-21T09:34:46.237448+09:00",
-        "2026-07-21T19:36:32.314417+09:00",
-        "2026-07-21T23:08:14.060873+09:00",
-        "2026-07-22T13:53:25.438704+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:34.939422+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2071746450",
@@ -135,9 +71,9 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2053652128",
@@ -194,9 +130,9 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2003471362",
@@ -253,9 +189,9 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2041689219",
@@ -274,13 +210,9 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-<<<<<<< Updated upstream
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-      "lastBookingNotifiedAt": "2026-07-16T01:03:44.270200+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2017034437",
@@ -299,15 +231,9 @@
       "district": "마포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2015464753",
@@ -345,14 +271,9 @@
       "district": "마포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2064927800",
@@ -372,7 +293,6 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
->>>>>>> Stashed changes
     },
     {
       "id": "2043461454",
@@ -391,15 +311,9 @@
       "district": "강남구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2006648175",
@@ -418,15 +332,9 @@
       "district": "강남구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2002918567",
@@ -445,15 +353,9 @@
       "district": "강남구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2002133748",
@@ -510,15 +412,9 @@
       "district": "송파구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2073328330",
@@ -556,28 +452,16 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2030273456",
       "name": "안경만두타운",
-<<<<<<< Updated upstream
       "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685086",
       "bookingBusinessId": "1685086",
-=======
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
->>>>>>> Stashed changes
       "operationStart": "26.07.09.",
       "operationEnd": "26.07.22.",
       "remainingDays": null,
@@ -588,15 +472,10 @@
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
       "bookingOpenDatetime": null,
-<<<<<<< Updated upstream
       "bookingOpenHistory": [
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2006596949",
@@ -615,15 +494,9 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2027303446",
@@ -642,15 +515,9 @@
       "district": "용산구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2058248160",
@@ -669,15 +536,9 @@
       "district": "중구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2034762449",
@@ -734,15 +595,9 @@
       "district": "종로구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-<<<<<<< Updated upstream
-        "2026-07-22T11:09:01.181292+09:00"
+        "2026-07-22T16:10:57.904712+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T11:09:01.181292+09:00"
-=======
-        "2026-07-22T13:53:25.438704+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-22T13:53:25.438704+09:00"
->>>>>>> Stashed changes
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2036674429",
@@ -766,466 +621,215 @@
   ],
   "alerts": [
     {
-<<<<<<< Updated upstream
-=======
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-10T09:25:56.139783+09:00"
-    },
-    {
->>>>>>> Stashed changes
       "type": "new_popup",
       "place_id": "2084130717",
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2071746450",
       "place_name": "THE FIRST FAN",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2053652128",
       "place_name": "더얀 XYZ POP UP - 대체불가",
       "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2051944825",
       "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2021908137",
       "place_name": "메르세데스-벤츠 스튜디오 서울",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2003471362",
       "place_name": "모코코 스트릿 팝업 in 성수",
       "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2092504039",
       "place_name": "네스카페 팝업스토어",
       "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2020855313",
       "place_name": "STORY A 성수 : 뷰티서바이벌 살인사건",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1696844",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2041689219",
       "place_name": "올랑말랑슬랑 성수 by 나우성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698075",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2017034437",
       "place_name": "명탐정 코난 추리게임 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1524551",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2015464753",
       "place_name": "소담몰 (with 팝업스토어)",
       "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2071074882",
       "place_name": "주술회전 사멸회유 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2043461454",
-      "place_name": "<킬러들의 쇼핑몰 시즌2> 머더헬프 강남점",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1688295",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2006648175",
-      "place_name": "LG전자 플래그십 D5",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1694274/search",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2002918567",
-      "place_name": "엘모즈비스포크 청담 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1445445/search",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2002133748",
-      "place_name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
-      "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2023862125",
-      "place_name": "인사이드룸",
-      "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2019923740",
-      "place_name": "IVE x MINIVE POP-UP in SEOUL",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2017875070",
-      "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2030273456",
-      "place_name": "안경만두타운",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685086",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2006596949",
-      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2027303446",
-      "place_name": "성률 기획전 여름을 닮은 우리",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1596228",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2058248160",
-      "place_name": "맥스 시덴토프 개인전",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1580585",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2034762449",
-      "place_name": "샘케이크 롯데백화점 명동점 팝업",
-      "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2050153907",
-      "place_name": "패브릭 도쿄 [팝업 스토어]",
-      "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2070762822",
-      "place_name": "외모지상주의 Ep.인천 [선 : 죽음으로 가는 길]",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1681161",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2036674429",
-      "place_name": "소녀전선2 망명 갤러리",
-      "booking_url": "",
-      "ts": "2026-07-22T11:09:01.181292+09:00"
-    },
-    {
-<<<<<<< Updated upstream
-=======
-      "type": "booking_open",
-      "place_id": "2058062036",
-      "place_name": "아노에틱 뷰티 팝업 스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1677108",
-      "ts": "2026-07-19T16:32:34.022104+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-19T21:00:35.058150+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-20T00:33:11.398579+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-20T08:52:10.405895+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "ts": "2026-07-20T13:16:39.333703+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T05:41:28.233527+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T09:34:46.237448+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-21T12:18:12.092145+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-21T15:51:14.540938+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T19:36:32.314417+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-21T21:15:56.459524+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-21T23:08:14.060873+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-22T00:39:59.923126+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2017034437",
-      "place_name": "명탐정 코난 추리게임 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1524551",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2015464753",
-      "place_name": "소담몰 (with 팝업스토어)",
-      "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2071074882",
-      "place_name": "주술회전 사멸회유 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2064927800",
       "place_name": "MARCH MONSTERx에일리언 스테이지AaD공식팝업",
       "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2043461454",
       "place_name": "<킬러들의 쇼핑몰 시즌2> 머더헬프 강남점",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1688295",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2006648175",
       "place_name": "LG전자 플래그십 D5",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1694274/search",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2002918567",
       "place_name": "엘모즈비스포크 청담 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1445445/search",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2002133748",
       "place_name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
       "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2023862125",
       "place_name": "인사이드룸",
       "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2019923740",
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
->>>>>>> Stashed changes
       "type": "new_popup",
       "place_id": "2073328330",
       "place_name": "원피스 무기와라스토어 한국 출장점",
       "booking_url": "",
-<<<<<<< Updated upstream
-      "ts": "2026-07-22T11:19:43.788963+09:00"
-    }
-  ],
-  "seen_place_ids": [
-    "2002133748",
-=======
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2017875070",
       "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2030273456",
       "place_name": "안경만두타운",
-      "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685086",
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2006596949",
       "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2027303446",
       "place_name": "성률 기획전 여름을 닮은 우리",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1596228",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2058248160",
       "place_name": "맥스 시덴토프 개인전",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1580585",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2034762449",
       "place_name": "샘케이크 롯데백화점 명동점 팝업",
       "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2050153907",
       "place_name": "패브릭 도쿄 [팝업 스토어]",
       "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2070762822",
       "place_name": "외모지상주의 Ep.인천 [선 : 죽음으로 가는 길]",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1681161",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "type": "new_popup",
       "place_id": "2036674429",
       "place_name": "소녀전선2 망명 갤러리",
       "booking_url": "",
-      "ts": "2026-07-22T13:53:25.438704+09:00"
+      "ts": "2026-07-22T16:10:57.904712+09:00"
     }
   ],
   "seen_place_ids": [
-    "1662673990",
     "2002133748",
-    "2002640525",
->>>>>>> Stashed changes
     "2002918567",
     "2003471362",
     "2006596949",
     "2006648175",
-<<<<<<< Updated upstream
-=======
-    "2008689464",
->>>>>>> Stashed changes
     "2015464753",
     "2017034437",
     "2017875070",
@@ -1238,32 +842,16 @@
     "2034762449",
     "2036674429",
     "2041689219",
-<<<<<<< Updated upstream
     "2043461454",
     "2050153907",
     "2051944825",
     "2053652128",
-    "2058248160",
-=======
-    "2043280218",
-    "2043461454",
-    "2045566114",
-    "2050153907",
-    "2051944825",
-    "2053652128",
-    "2058062036",
     "2058248160",
     "2064927800",
->>>>>>> Stashed changes
     "2070762822",
     "2071074882",
     "2071746450",
     "2073328330",
-<<<<<<< Updated upstream
-=======
-    "2076883271",
-    "2083326059",
->>>>>>> Stashed changes
     "2084130717",
     "2092504039"
   ]
