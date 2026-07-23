@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-23T17:48:47.353463+09:00",
+  "updated_at": "2026-07-23T17:54:06.560384+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -232,7 +232,7 @@
     {
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "bookingBusinessId": "1699872",
       "operationStart": "26.07.24.",
@@ -247,9 +247,10 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-07-22T17:52:12.100496+09:00",
-        "2026-07-23T02:47:44.186835+09:00"
+        "2026-07-23T02:47:44.186835+09:00",
+        "2026-07-23T17:53:57.453909+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T17:52:23.370083+09:00"
+      "lastBookingNotifiedAt": "2026-07-23T17:54:06.559688+09:00"
     },
     {
       "id": "2017034437",
@@ -910,6 +911,13 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-07-23T17:32:48.761065+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2092504039",
+      "place_name": "네스카페 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "ts": "2026-07-23T17:53:57.453909+09:00"
     }
   ],
   "seen_place_ids": [
