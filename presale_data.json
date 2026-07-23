@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T05:46:30.157047+09:00",
+  "updated_at": "2026-07-24T05:51:45.651863+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -30,7 +30,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -48,7 +48,8 @@
         "2026-07-22T23:21:36.877045+09:00",
         "2026-07-23T02:53:01.459772+09:00",
         "2026-07-23T18:09:48.810567+09:00",
-        "2026-07-23T21:39:09.632424+09:00"
+        "2026-07-23T21:39:09.632424+09:00",
+        "2026-07-24T05:51:38.508358+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-23T18:09:57.350301+09:00"
     },
@@ -959,6 +960,13 @@
       "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "ts": "2026-07-24T05:41:07.868172+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-24T05:51:38.508358+09:00"
     }
   ],
   "seen_place_ids": [
