@@ -61,6 +61,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1699872/items/7871453?theme=place&lang=ko&area=ple",
       "enabled": false,
       "target_dates": []
+    },
+    {
+      "id": "mrx9w06j",
+      "name": "아이브 미니브",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1698448/items/7867052",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
