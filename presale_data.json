@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-23T17:27:39.343048+09:00",
+  "updated_at": "2026-07-23T17:32:57.362389+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -435,7 +435,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
@@ -449,9 +449,10 @@
       "district": "송파구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
+        "2026-07-22T16:10:57.904712+09:00",
+        "2026-07-23T17:32:48.761065+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
+      "lastBookingNotifiedAt": "2026-07-23T17:32:57.361865+09:00"
     },
     {
       "id": "2073328330",
@@ -902,6 +903,13 @@
       "place_name": "뷰오리 클럽 캘리포니아 팝업",
       "booking_url": "",
       "ts": "2026-07-23T10:16:59.441762+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2019923740",
+      "place_name": "IVE x MINIVE POP-UP in SEOUL",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "ts": "2026-07-23T17:32:48.761065+09:00"
     }
   ],
   "seen_place_ids": [
