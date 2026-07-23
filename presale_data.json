@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-23T12:13:36.567612+09:00",
+  "updated_at": "2026-07-23T12:18:54.002308+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -15,7 +15,6 @@
     "2041689219",
     "2043461454",
     "2050153907",
-    "2052645378",
     "2058248160",
     "2064927800",
     "2070762822",
@@ -394,25 +393,6 @@
         "2026-07-22T16:10:57.904712+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
-    },
-    {
-      "id": "2052645378",
-      "name": "쥬베룩 플래그십 스토어 오픈 이벤트",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.25.",
-      "operationEnd": "26.07.25.",
-      "remainingDays": 2,
-      "status": "D-2",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260708_6/1783502358408FEJVI_JPEG/SNS_04.%BB%E7%C0%FC%BF%B9%BE%E0_%BE%C8%B3%BB_1.jpg",
-      "roadAddress": "영동대로 502 1층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
     },
     {
       "id": "2002133748",
