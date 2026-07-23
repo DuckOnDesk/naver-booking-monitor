@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T02:42:34.302300+09:00",
+  "updated_at": "2026-07-24T02:47:49.759032+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -173,7 +173,7 @@
     {
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "bookingBusinessId": "1699872",
       "operationStart": "26.07.24.",
