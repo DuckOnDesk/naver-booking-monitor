@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T20:02:43.256044+09:00",
+  "updated_at": "2026-07-24T20:08:02.495723+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -479,9 +479,9 @@
     {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1704164/search",
-      "bookingBusinessId": "1704164",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705614",
+      "bookingBusinessId": "1705614",
       "operationStart": "26.07.30.",
       "operationEnd": null,
       "remainingDays": 6,
@@ -493,7 +493,8 @@
       "district": "송파구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-24T10:41:34.244026+09:00"
+        "2026-07-24T10:41:34.244026+09:00",
+        "2026-07-24T20:07:52.581178+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-24T10:41:44.368407+09:00"
     },
@@ -1026,6 +1027,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "",
       "ts": "2026-07-24T16:55:01.135763+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2073328330",
+      "place_name": "원피스 무기와라스토어 한국 출장점",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705614",
+      "ts": "2026-07-24T20:07:52.581178+09:00"
     }
   ],
   "seen_place_ids": [
