@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T00:23:35.913421+09:00",
+  "updated_at": "2026-07-25T00:28:55.273761+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -523,7 +523,7 @@
     {
       "id": "2017875070",
       "name": "승리의 여신: 니케 2026 여름 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "bookingBusinessId": "1689014",
       "operationStart": "26.07.17.",
