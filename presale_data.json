@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T10:36:22.252861+09:00",
+  "updated_at": "2026-07-24T10:41:44.368938+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -466,9 +466,9 @@
     {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1704164/search",
+      "bookingBusinessId": "1704164",
       "operationStart": "26.07.30.",
       "operationEnd": null,
       "remainingDays": 6,
@@ -479,8 +479,10 @@
       "commonAddress": "서울 송파구",
       "district": "송파구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
+      "bookingOpenHistory": [
+        "2026-07-24T10:41:34.244026+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-24T10:41:44.368407+09:00"
     },
     {
       "id": "2017875070",
@@ -983,6 +985,13 @@
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "ts": "2026-07-24T09:37:42.083854+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2073328330",
+      "place_name": "원피스 무기와라스토어 한국 출장점",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1704164/search",
+      "ts": "2026-07-24T10:41:34.244026+09:00"
     }
   ],
   "seen_place_ids": [
