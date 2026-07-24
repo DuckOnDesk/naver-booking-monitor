@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T08:43:24.223857+09:00",
+  "updated_at": "2026-07-25T08:48:43.266958+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -23,7 +23,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -44,7 +44,8 @@
         "2026-07-23T21:39:09.632424+09:00",
         "2026-07-24T05:51:38.508358+09:00",
         "2026-07-24T09:37:42.083854+09:00",
-        "2026-07-24T23:24:54.198624+09:00"
+        "2026-07-24T23:24:54.198624+09:00",
+        "2026-07-25T08:48:33.486030+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-24T23:25:05.249035+09:00"
     },
@@ -382,7 +383,7 @@
     {
       "id": "2052645378",
       "name": "쥬베룩 플래그십 스토어 오픈 이벤트",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1694989",
       "bookingBusinessId": "1694989",
       "operationStart": "26.07.25.",
@@ -1119,6 +1120,13 @@
       "place_name": "네스카페 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "ts": "2026-07-25T08:43:14.331730+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-25T08:48:33.486030+09:00"
     }
   ],
   "seen_place_ids": [
