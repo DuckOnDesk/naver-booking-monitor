@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T19:41:27.945879+09:00",
+  "updated_at": "2026-07-24T19:46:46.151751+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -22,7 +22,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
