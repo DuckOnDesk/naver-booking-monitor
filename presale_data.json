@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T15:03:20.751256+09:00",
+  "updated_at": "2026-07-24T15:08:39.593540+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -315,9 +315,9 @@
     {
       "id": "2064927800",
       "name": "MARCH MONSTERx에일리언 스테이지AaD공식팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1703859/search",
+      "bookingBusinessId": "1703859",
       "operationStart": "26.07.31.",
       "operationEnd": "26.08.16.",
       "remainingDays": 7,
@@ -328,7 +328,9 @@
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-07-24T15:08:30.906014+09:00"
+      ],
       "lastBookingNotifiedAt": null
     },
     {
@@ -983,6 +985,13 @@
       "place_name": "원피스 무기와라스토어 한국 출장점",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1704164/search",
       "ts": "2026-07-24T10:41:34.244026+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2064927800",
+      "place_name": "MARCH MONSTERx에일리언 스테이지AaD공식팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1703859/search",
+      "ts": "2026-07-24T15:08:30.906014+09:00"
     }
   ],
   "seen_place_ids": [
