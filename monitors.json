@@ -68,6 +68,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1698448/items/7867052",
       "enabled": false,
       "target_dates": []
+    },
+    {
+      "id": "mryadcyf",
+      "name": "바자하우스",
+      "url": "https://booking.naver.com/my/bookings/1301471589?popup=bookingCompletion",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
