@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T16:33:42.708983+09:00",
+  "updated_at": "2026-07-24T16:39:12.603056+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -9,6 +9,7 @@
     "2023862125",
     "2034762449",
     "2041689219",
+    "2043213423",
     "2043461454",
     "2050153907",
     "2073241477",
@@ -79,6 +80,25 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
       "roadAddress": "연무장길 37-21",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2043213423",
+      "name": "귀멸의 칼날 - 전집중전",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.06.27.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260625_103/17823867534187N6wj_JPEG/%B1%CD%B8%EA%C0%C7%C4%AE%B3%AF-mainimage.jpg",
+      "roadAddress": "연무장15길 11 성수 에스팩토리 D동 1F",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -992,6 +1012,13 @@
       "place_name": "MARCH MONSTERx에일리언 스테이지AaD공식팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1703859/search",
       "ts": "2026-07-24T15:08:30.906014+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2043213423",
+      "place_name": "귀멸의 칼날 - 전집중전",
+      "booking_url": "",
+      "ts": "2026-07-24T16:38:52.528923+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1012,6 +1039,7 @@
     "2034762449",
     "2036674429",
     "2041689219",
+    "2043213423",
     "2043461454",
     "2050153907",
     "2051944825",
