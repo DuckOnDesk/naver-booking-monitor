@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T07:55:35.029288+09:00",
+  "updated_at": "2026-07-25T08:00:53.311295+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -381,7 +381,7 @@
     {
       "id": "2052645378",
       "name": "쥬베룩 플래그십 스토어 오픈 이벤트",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1694989",
       "bookingBusinessId": "1694989",
       "operationStart": "26.07.25.",
@@ -395,7 +395,8 @@
       "district": "강남구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-25T00:44:41.911883+09:00"
+        "2026-07-25T00:44:41.911883+09:00",
+        "2026-07-25T08:00:44.064533+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-25T00:44:52.796319+09:00"
     },
@@ -1103,6 +1104,13 @@
       "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "ts": "2026-07-25T02:20:43.676567+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2052645378",
+      "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1694989",
+      "ts": "2026-07-25T08:00:44.064533+09:00"
     }
   ],
   "seen_place_ids": [
