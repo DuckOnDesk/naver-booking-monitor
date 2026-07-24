@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T10:41:44.368938+09:00",
+  "updated_at": "2026-07-24T10:47:04.750037+09:00",
   "watched_places": [
     "2002133748",
     "2006596949",
@@ -95,6 +95,25 @@
       "lastBookingNotifiedAt": null
     },
     {
+      "id": "2003471362",
+      "name": "모코코 스트릿 팝업 in 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.22.",
+      "operationEnd": "26.07.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
+      "roadAddress": "성수이로 74 성수 무신사 대림창고",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": true,
@@ -149,25 +168,6 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_282/17822865287771g6Ju_JPEG/%C6%CB%BE%F7_%C1%F6%B5%B5%BF%EB_%C0%CC%B9%CC%C1%F6.jpg",
       "roadAddress": "연무장11길 11",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2003471362",
-      "name": "모코코 스트릿 팝업 in 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.22.",
-      "operationEnd": "26.07.31.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
-      "roadAddress": "성수이로 74 성수 무신사 대림창고",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
