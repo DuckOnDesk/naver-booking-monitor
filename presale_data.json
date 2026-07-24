@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T16:49:51.351487+09:00",
+  "updated_at": "2026-07-24T16:55:10.138572+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -15,7 +15,8 @@
     "2073241477",
     "2076235934",
     "2084130717",
-    "2092504039"
+    "2092504039",
+    "2098663430"
   ],
   "booking_open_datetimes": {},
   "places": [
@@ -270,6 +271,25 @@
         "2026-07-22T16:10:57.904712+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
+    },
+    {
+      "id": "2098663430",
+      "name": "OFFICIAL HIGE DANDISM POP-UP",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.01.",
+      "operationEnd": "26.08.09.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260724_256/17848748255786JK66_JPEG/edited-1784874825307-0.jpg",
+      "roadAddress": "성수이로 97 1F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2017034437",
@@ -1019,6 +1039,13 @@
       "place_name": "귀멸의 칼날 - 전집중전",
       "booking_url": "",
       "ts": "2026-07-24T16:38:52.528923+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2098663430",
+      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
+      "booking_url": "",
+      "ts": "2026-07-24T16:55:01.135763+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1054,6 +1081,7 @@
     "2073328330",
     "2076235934",
     "2084130717",
-    "2092504039"
+    "2092504039",
+    "2098663430"
   ]
 }
