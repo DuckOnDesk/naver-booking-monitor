@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T08:38:04.825504+09:00",
+  "updated_at": "2026-07-25T08:43:24.223857+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -171,7 +171,7 @@
     {
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "bookingBusinessId": "1699872",
       "operationStart": "26.07.24.",
@@ -191,7 +191,8 @@
         "2026-07-23T21:28:33.935304+09:00",
         "2026-07-24T08:44:43.286029+09:00",
         "2026-07-24T21:32:55.956431+09:00",
-        "2026-07-25T01:00:40.055160+09:00"
+        "2026-07-25T01:00:40.055160+09:00",
+        "2026-07-25T08:43:14.331730+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-24T21:33:06.931781+09:00"
     },
@@ -1111,6 +1112,13 @@
       "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1694989",
       "ts": "2026-07-25T08:00:44.064533+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2092504039",
+      "place_name": "네스카페 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "ts": "2026-07-25T08:43:14.331730+09:00"
     }
   ],
   "seen_place_ids": [
