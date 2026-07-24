@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-24T23:19:44.939842+09:00",
+  "updated_at": "2026-07-24T23:25:05.249679+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -22,7 +22,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -42,9 +42,10 @@
         "2026-07-23T18:09:48.810567+09:00",
         "2026-07-23T21:39:09.632424+09:00",
         "2026-07-24T05:51:38.508358+09:00",
-        "2026-07-24T09:37:42.083854+09:00"
+        "2026-07-24T09:37:42.083854+09:00",
+        "2026-07-24T23:24:54.198624+09:00"
       ],
-      "lastBookingNotifiedAt": "2026-07-23T18:09:57.350301+09:00"
+      "lastBookingNotifiedAt": "2026-07-24T23:25:05.249035+09:00"
     },
     {
       "id": "2071746450",
@@ -1050,6 +1051,13 @@
       "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "ts": "2026-07-24T22:47:24.748632+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084130717",
+      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
+      "ts": "2026-07-24T23:24:54.198624+09:00"
     }
   ],
   "seen_place_ids": [
