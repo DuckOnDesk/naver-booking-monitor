@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T10:36:20.985806+09:00",
+  "updated_at": "2026-07-25T10:41:39.201530+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -48,6 +48,25 @@
         "2026-07-25T08:48:33.486030+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-24T23:25:05.249035+09:00"
+    },
+    {
+      "id": "2003471362",
+      "name": "모코코 스트릿 팝업 in 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.22.",
+      "operationEnd": "26.07.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
+      "roadAddress": "성수이로 74 성수 무신사 대림창고",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2071746450",
@@ -102,25 +121,6 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260625_103/17823867534187N6wj_JPEG/%B1%CD%B8%EA%C0%C7%C4%AE%B3%AF-mainimage.jpg",
       "roadAddress": "연무장15길 11 성수 에스팩토리 D동 1F",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2003471362",
-      "name": "모코코 스트릿 팝업 in 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.22.",
-      "operationEnd": "26.07.31.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_137/1783492496114pTD7t_JPEG/image.jpg",
-      "roadAddress": "성수이로 74 성수 무신사 대림창고",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
