@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T14:09:35.788967+09:00",
+  "updated_at": "2026-07-25T14:14:55.804631+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -387,7 +387,7 @@
     {
       "id": "2052645378",
       "name": "쥬베룩 플래그십 스토어 오픈 이벤트",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1694989",
       "bookingBusinessId": "1694989",
       "operationStart": "26.07.25.",
@@ -404,7 +404,8 @@
         "2026-07-25T00:44:41.911883+09:00",
         "2026-07-25T08:00:44.064533+09:00",
         "2026-07-25T09:41:47.386870+09:00",
-        "2026-07-25T11:18:43.649931+09:00"
+        "2026-07-25T11:18:43.649931+09:00",
+        "2026-07-25T14:14:44.971985+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-25T00:44:52.796319+09:00"
     },
@@ -1168,6 +1169,13 @@
       "place_name": "키핀터치X무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704774",
       "ts": "2026-07-25T13:37:22.067244+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2052645378",
+      "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1694989",
+      "ts": "2026-07-25T14:14:44.971985+09:00"
     }
   ],
   "seen_place_ids": [
