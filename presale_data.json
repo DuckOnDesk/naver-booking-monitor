@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T19:44:02.346603+09:00",
+  "updated_at": "2026-07-25T19:49:19.306868+09:00",
   "watched_places": [
     "2002918567",
     "2006596949",
@@ -24,7 +24,7 @@
     {
       "id": "2084130717",
       "name": "토니모리 20주년 UNCOMMON FACTORY",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "bookingBusinessId": "1685383",
       "operationStart": "26.07.17.",
@@ -175,7 +175,7 @@
     {
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "bookingBusinessId": "1699872",
       "operationStart": "26.07.24.",
