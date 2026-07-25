@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T09:36:37.916857+09:00",
+  "updated_at": "2026-07-25T09:41:58.047774+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -383,7 +383,7 @@
     {
       "id": "2052645378",
       "name": "쥬베룩 플래그십 스토어 오픈 이벤트",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1694989",
       "bookingBusinessId": "1694989",
       "operationStart": "26.07.25.",
@@ -398,7 +398,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-07-25T00:44:41.911883+09:00",
-        "2026-07-25T08:00:44.064533+09:00"
+        "2026-07-25T08:00:44.064533+09:00",
+        "2026-07-25T09:41:47.386870+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-25T00:44:52.796319+09:00"
     },
@@ -1127,6 +1128,13 @@
       "place_name": "토니모리 20주년 UNCOMMON FACTORY",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
       "ts": "2026-07-25T08:48:33.486030+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2052645378",
+      "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1694989",
+      "ts": "2026-07-25T09:41:47.386870+09:00"
     }
   ],
   "seen_place_ids": [
