@@ -78,6 +78,13 @@
         "2026-08-07 11:00",
         "2026-08-08 11:00"
       ]
+    },
+    {
+      "id": "ms07932p",
+      "name": "키핀 터치",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1704774/items/7903610?area=pll&startDateTime=2026-07-25T00%3A00%3A00%2B09%3A00&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnS9N-FwcJ9cBpg6MPrmdUKy3Ghg4AQWU0B1hjg3B4ZQdP0OWvjQVM_xvsq_s_aem_PmmwFyjon62Sql2iz8ZH8w",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
