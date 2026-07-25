@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-25T12:38:52.138199+09:00",
+  "updated_at": "2026-07-25T12:44:12.287650+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -90,25 +90,6 @@
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
-      "id": "2053652128",
-      "name": "더얀 XYZ POP UP - 대체불가",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.01.",
-      "operationEnd": "26.07.28.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
-      "roadAddress": "연무장길 37-21",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2043213423",
       "name": "귀멸의 칼날 - 전집중전",
       "hasBooking": false,
@@ -121,6 +102,25 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260625_103/17823867534187N6wj_JPEG/%B1%CD%B8%EA%C0%C7%C4%AE%B3%AF-mainimage.jpg",
       "roadAddress": "연무장15길 11 성수 에스팩토리 D동 1F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2053652128",
+      "name": "더얀 XYZ POP UP - 대체불가",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.01.",
+      "operationEnd": "26.07.28.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
+      "roadAddress": "연무장길 37-21",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
