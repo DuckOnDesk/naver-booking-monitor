@@ -2,32 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "mrdocxab",
-      "name": "토니모리",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1685383/items/7811834?area=pll&lang=ko&tab=book&theme=place",
-      "enabled": false,
-      "target_dates": [
-        "2026-07-17",
-        "2026-07-18"
-      ],
-      "auto_book": {
-        "enabled": false,
-        "dates": [
-          "2026-07-18"
-        ],
-        "times": [
-          "16:00-21:00"
-        ],
-        "accounts": [
-          1
-        ],
-        "count": 1,
-        "mode": "immediate",
-        "start_at": null,
-        "saved_at": "2026-07-17T15:52:12.866Z"
-      }
-    },
-    {
       "id": "mreyfrhm",
       "name": "ddp 바캉스 - 8/2",
       "url": "https://booking.naver.com/booking/5/bizes/1666309/items/7726113?startDateTime=2026-07-10T00%3A00%3A00%2B09%3A00",
