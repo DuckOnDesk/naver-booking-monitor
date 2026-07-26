@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-26T12:59:48.429860+09:00",
+  "updated_at": "2026-07-26T13:05:09.968133+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -12,6 +12,7 @@
     "2043213423",
     "2043461454",
     "2050153907",
+    "2073188735",
     "2073241477",
     "2084130717",
     "2092504039",
@@ -614,6 +615,25 @@
       "lastBookingNotifiedAt": null
     },
     {
+      "id": "2073188735",
+      "name": "필더스페이스",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.30.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260714_193/1784000429144zKcKf_JPEG/%B7%B9%C0%CC%BE%EE%B5%E5%BD%E6%B8%D3_%C0%CC%B9%CC%C1%F6_01.jpg",
+      "roadAddress": "대학로8가길 105 필더스페이스",
+      "commonAddress": "서울 종로구",
+      "district": "종로구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2070762822",
       "name": "외모지상주의 Ep.인천 [선 : 죽음으로 가는 길]",
       "hasBooking": true,
@@ -1165,6 +1185,13 @@
       "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "ts": "2026-07-26T10:24:39.837880+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2073188735",
+      "place_name": "필더스페이스",
+      "booking_url": "",
+      "ts": "2026-07-26T13:04:58.183989+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1196,6 +1223,7 @@
     "2070762822",
     "2071074882",
     "2071746450",
+    "2073188735",
     "2073241477",
     "2073328330",
     "2076235934",
