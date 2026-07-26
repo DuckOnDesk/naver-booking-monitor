@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-26T17:31:13.257197+09:00",
+  "updated_at": "2026-07-26T17:36:33.623952+09:00",
   "watched_places": [
     "2006596949",
     "2006648175",
@@ -94,7 +94,7 @@
     {
       "id": "2092504039",
       "name": "네스카페 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "bookingBusinessId": "1699872",
       "operationStart": "26.07.24.",
@@ -119,7 +119,8 @@
         "2026-07-25T12:22:42.286824+09:00",
         "2026-07-25T17:52:24.373430+09:00",
         "2026-07-26T10:24:39.837880+09:00",
-        "2026-07-26T13:58:24.780556+09:00"
+        "2026-07-26T13:58:24.780556+09:00",
+        "2026-07-26T17:36:23.269162+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-26T10:24:52.411104+09:00"
     },
@@ -1200,6 +1201,13 @@
       "place_name": "네스카페 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
       "ts": "2026-07-26T13:58:24.780556+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2092504039",
+      "place_name": "네스카페 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
+      "ts": "2026-07-26T17:36:23.269162+09:00"
     }
   ],
   "seen_place_ids": [
