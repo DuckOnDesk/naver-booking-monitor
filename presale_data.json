@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T08:44:31.353820+09:00",
+  "updated_at": "2026-07-28T08:49:48.494563+09:00",
   "watched_places": [
     "2006596949",
     "2015464753",
@@ -10,6 +10,7 @@
     "2043213423",
     "2043461454",
     "2050153907",
+    "2062024820",
     "2073241477",
     "2098663430"
   ],
@@ -489,6 +490,27 @@
         "2026-07-22T16:10:57.904712+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
+    },
+    {
+      "id": "2062024820",
+      "name": "라이엇게임즈 TFT 와일드 팬페스트 in 더현대서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "bookingBusinessId": "1693898",
+      "operationStart": "26.08.07.",
+      "operationEnd": "26.08.17.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260720_35/1784523562113gsrOD_JPEG/edited-1784523563042-0.jpg",
+      "roadAddress": "여의대로 108 더현대서울 5층 사운즈포레스트",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T08:49:40.037511+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-28T08:49:40.037511+09:00"
     },
     {
       "id": "2027303446",
@@ -1190,6 +1212,13 @@
       "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "ts": "2026-07-28T05:43:25.276390+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2062024820",
+      "place_name": "라이엇게임즈 TFT 와일드 팬페스트 in 더현대서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "ts": "2026-07-28T08:49:40.037511+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1217,6 +1246,7 @@
     "2052645378",
     "2053652128",
     "2058248160",
+    "2062024820",
     "2064927800",
     "2070762822",
     "2071074882",
