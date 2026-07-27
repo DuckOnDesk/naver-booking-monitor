@@ -33,6 +33,14 @@ _SUCCESS_TEXT = [
 ]
 _SUCCESS_URL = ["bookings", "complete", "done", "confirm", "/receipt"]
 
+# 최종 단계에서 "판매종료/매진 등으로 예약 불가" 팝업을 판정하는 텍스트.
+#   예: "현재 판매종료, 매진 등의 상황으로 예약 불가합니다."
+# 다이얼로그 안에서 찾을 때는 아래 넓은 패턴을 쓰고,
+# 본문 전체에서 찾을 때는 시간대 라벨의 "매진" 등과 헷갈리지 않도록 STRONG 패턴만 쓴다.
+_SOLDOUT_TEXT = ["예약 불가", "예약불가", "판매종료", "판매 종료", "매진", "품절"]
+_SOLDOUT_STRONG = ["예약 불가합니다", "예약이 불가", "예약이 불가능",
+                   "판매종료, 매진", "판매 종료, 매진"]
+
 # 단계 진행 버튼 후보 (우선순위 순)
 _NEXT_BUTTON_TEXTS = ["동의하고 예약", "예약하기", "바로예약", "예약 신청", "신청하기", "다음", "확인"]
 _FINAL_BUTTON_TEXTS = ["동의하고 예약", "결제하기", "예약 신청", "예약하기", "신청하기", "다음", "확인"]
@@ -436,6 +444,43 @@ def _is_success(page) -> bool:
     return any(p in body for p in _SUCCESS_TEXT)
 
 
+def _soldout_popup(page) -> str | None:
+    """'판매종료/매진 등으로 예약 불가' 팝업이 떠 있으면 매칭된 문구를 반환, 없으면 None.
+
+    시간대 라벨의 '매진' 등에 오탐하지 않도록:
+      1) 모달/다이얼로그 영역이 있으면 그 안에서 넓은 패턴으로 찾고,
+      2) 없으면 본문 전체에서 구체적(STRONG) 문구만 찾는다.
+    """
+    try:
+        for sel in ('[role="dialog"]', '[role="alertdialog"]',
+                    '[class*="modal"]', '[class*="Modal"]',
+                    '[class*="popup"]', '[class*="Popup"]',
+                    '[class*="layer"]', '[class*="Layer"]',
+                    '[class*="dialog"]', '[class*="Dialog"]'):
+            loc = page.locator(sel)
+            try:
+                if not loc.count():
+                    continue
+                txt = " ".join((loc.first.inner_text(timeout=1000) or "").split())
+            except Exception:
+                continue
+            if not txt:
+                continue
+            for pat in _SOLDOUT_TEXT:
+                if pat in txt:
+                    return pat
+    except Exception:
+        pass
+    try:
+        body = " ".join(page.inner_text("body").split())
+    except Exception:
+        return None
+    for pat in _SOLDOUT_STRONG:
+        if pat in body:
+            return pat
+    return None
+
+
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
              cookie_str: str | None = None, account: int | None = None) -> dict:
     """예약 시도. wanted_times는 우선순위 순 시간 목록 (예: ["15:00", "16:00"]).
@@ -451,9 +496,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
             cookie_str = ""
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
 
-    def result(success: bool, message: str, booked_time: str | None = None) -> dict:
+    def result(success: bool, message: str, booked_time: str | None = None,
+               blocked: bool = False) -> dict:
         return {"success": success, "message": message, "booked_time": booked_time,
-                "dry_run": dry_run, "screenshots": shots, "account": account}
+                "dry_run": dry_run, "screenshots": shots, "account": account,
+                "blocked": blocked}
 
     if not cookie_str:
         # 드라이런은 비로그인으로도 날짜/시간 선택 검증까지 진행 가능
@@ -529,6 +576,12 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 page.wait_for_timeout(3000)
                 _shot(page, "04_after_next", shots)
 
+                blocked_pat = _soldout_popup(page)
+                if blocked_pat:
+                    _shot(page, "soldout_blocked", shots)
+                    return result(False, f"최종예약불가: '{blocked_pat}' — 판매종료/매진 등으로 예약 불가 팝업",
+                                  booked_time, blocked=True)
+
                 if _is_login_page(page):
                     if dry_run:
                         return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
@@ -564,6 +617,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                         if _is_success(page):
                             _shot(page, "07_success", shots)
                             return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
+                        blocked_pat = _soldout_popup(page)
+                        if blocked_pat:
+                            _shot(page, "soldout_blocked", shots)
+                            return result(False, f"최종예약불가: '{blocked_pat}' — 판매종료/매진 등으로 예약 불가 팝업",
+                                          booked_time, blocked=True)
                         if _is_login_page(page):
                             if dry_run:
                                 return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)

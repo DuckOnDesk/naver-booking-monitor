@@ -411,6 +411,17 @@ def _auto_book_cfg(item: dict) -> dict | None:
     return cfg if cfg["enabled"] else None
 
 
+def _final_verify_enabled(item: dict) -> bool:
+    """이 항목이 '최종 예약 단계까지 실제로 확인'하는 대상인지.
+
+    True이면: 재고만 보고 '예약 가능!' 알림을 보내지 않고, 실제 예약 마지막
+    단계까지 진행해서 판매종료/매진 팝업이면 '최종 예약 불가' 알림,
+    실제 예약에 성공하면 '최종 예약 가능' 알림을 보낸다.
+    (auto_book이 함께 켜져 있어야 실제 예약 시도가 동작한다.)
+    """
+    return bool(item.get("final_verify"))
+
+
 def _match_time(t: str, patterns: list) -> bool:
     """"HH:MM"이 설정 패턴(정확한 시각 또는 "HH:MM-HH:MM" 범위)과 일치하는지."""
     if not patterns:
@@ -503,6 +514,9 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
             print(f"  [자동예약] 계정{acct_no} 결과: {'성공' if res['success'] else '실패'} — {res['message']}", flush=True)
             if res["success"]:
                 break
+            # 판매종료/매진 등 상품 단위 차단은 계정을 바꿔도 소용없으므로 중단
+            if res.get("blocked"):
+                break
             # 슬롯이 사라진 실패는 계정을 바꿔도 소용없으므로 중단
             if any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
                 break
@@ -520,6 +534,9 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
             "message": r["message"],
         })
 
+    blocked = bool(res.get("blocked"))
+    final_blocked_key = f"{item_id}:final_blocked"
+
     if res["success"] and not res.get("dry_run"):
         alerted[booked_key] = {
             "date": datekey,
@@ -527,14 +544,30 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
             "account": res.get("account"),
             "at": now_kst.isoformat(),
         }
+        # 최종 예약 불가 상태였다면 이제 해제 (막힘 → 가능 전환)
+        alerted.pop(final_blocked_key, None)
         if ntfy_topic:
-            send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
-                      f"{datekey} {res.get('booked_time') or ''} (계정{res.get('account')}) 예약 완료 — 네이버 예약 내역에서 확인하세요",
-                      url)
+            if _final_verify_enabled(item):
+                send_ntfy(ntfy_topic, f"✅ {name} 최종 예약 가능 — 예약 완료!",
+                          f"{datekey} {res.get('booked_time') or ''} (계정{res.get('account')}) 예약 완료 — 네이버 예약 내역에서 확인하세요",
+                          url)
+            else:
+                send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
+                          f"{datekey} {res.get('booked_time') or ''} (계정{res.get('account')}) 예약 완료 — 네이버 예약 내역에서 확인하세요",
+                          url)
     elif res["success"] and res.get("dry_run"):
         if state["attempts"] == 1 and ntfy_topic:
             send_ntfy(ntfy_topic, f"🧪 {name} 자동예약 드라이런 성공",
                       f"{datekey} {res.get('booked_time') or ''} — {res['message']}", url)
+    elif blocked:
+        # 예약창 열림·자리 있음이지만 마지막 단계에서 판매종료/매진으로 막힘.
+        # 같은 슬롯(sig)에 대해 상태가 바뀔 때만 한 번 알림 (스팸 방지)
+        if alerted.get(final_blocked_key) != sig:
+            alerted[final_blocked_key] = sig
+            if ntfy_topic:
+                send_ntfy(ntfy_topic, f"🚫 {name} 예약창 열림 자리 있음 최종 예약 불가",
+                          f"{datekey} {','.join(times)} — 재고는 있으나 마지막 예약 단계에서 판매종료/매진 등으로 막혀 있습니다. 예약 가능해지면 다시 알려드릴게요.",
+                          url)
     else:
         # 실패: 같은 시그니처에 대해 첫 실패 때만 알림 (스팸 방지)
         if state["attempts"] == 1 and ntfy_topic:
@@ -931,6 +964,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             if just_reopened:
                                 # 예약창 닫힘 → 열림 전환 직후: 이번 주기는 알림 생략, 상태만 기록
                                 print(f"  [전환 직후] 알림 생략 (다음 주기에 재확인)", flush=True)
+                            elif _final_verify_enabled(item):
+                                # 재고만으로는 '예약 가능' 단정 불가 — 실제 예약 마지막
+                                # 단계까지 확인한 뒤(maybe_auto_book) 최종 가능/불가를 알린다.
+                                print(f"  [최종확인 대상] 재고 알림 생략 — 실제 예약 단계 확인으로 대체", flush=True)
                             else:
                                 if prev_slots is None:
                                     title = f"🎉 {name} 예약 가능!"
