@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T18:14:08.432511+09:00",
+  "updated_at": "2026-07-28T18:19:44.755419+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -14,6 +14,7 @@
     "2041689219",
     "2042771625",
     "2043461454",
+    "2049944406",
     "2050153907",
     "2062024820",
     "2067967922",
@@ -289,6 +290,25 @@
       "bookingOpenHistory": [
         "2026-07-24T15:08:30.906014+09:00"
       ],
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2049944406",
+      "name": "온그리디언츠 더마 VIP 라운지행사",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.31.",
+      "operationEnd": "27.07.28.",
+      "remainingDays": 3,
+      "status": "D-3",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260724_232/1784853648193Bz60y_JPEG/edited-1784853646183-0.jpg",
+      "roadAddress": "동교로 189 1층 온그리디언츠 더마 VIP라운지",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
     },
     {
@@ -1525,6 +1545,13 @@
       "place_name": "라운즈 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705528",
       "ts": "2026-07-28T15:08:20.708742+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2049944406",
+      "place_name": "온그리디언츠 더마 VIP 라운지행사",
+      "booking_url": "",
+      "ts": "2026-07-28T18:19:32.098422+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1554,6 +1581,7 @@
     "2042771625",
     "2043213423",
     "2043461454",
+    "2049944406",
     "2050153907",
     "2050363685",
     "2051944825",
