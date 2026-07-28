@@ -70,7 +70,20 @@
       "name": "라운즈2차",
       "url": "https://m.booking.naver.com/booking/12/bizes/1705528/items/7912644",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-08-08",
+          "2026-08-09"
+        ],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-07-28T14:23:48.794Z"
+      }
     },
     {
       "id": "ms4qrh5o",
