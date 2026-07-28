@@ -107,7 +107,17 @@
       "name": "TFT 스탬프투어",
       "url": "https://m.booking.naver.com/booking/12/bizes/1693898/items/7845950",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-07-28T14:24:38.680Z"
+      }
     },
     {
       "id": "ms4qwci3",
