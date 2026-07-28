@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T10:14:46.563608+09:00",
+  "updated_at": "2026-07-28T10:20:05.437213+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -199,27 +199,6 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2002559489",
-      "name": "성수 콜랩코리아 팝업 스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1606313/search",
-      "bookingBusinessId": "1606313",
-      "operationStart": "26.08.11.",
-      "operationEnd": "26.08.23.",
-      "remainingDays": 14,
-      "status": "D-14",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260728_267/1785198869908p8SOX_JPEG/edited-1785198869408-0.jpg",
-      "roadAddress": "연무장7길 16",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T09:58:38.682505+09:00"
-      ],
-      "lastBookingNotifiedAt": "2026-07-28T09:58:38.682505+09:00"
     },
     {
       "id": "2073241477",
@@ -512,6 +491,27 @@
         "2026-07-22T16:10:57.904712+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
+    },
+    {
+      "id": "2002559489",
+      "name": "케스타 팝업스토어 더현대서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1606313/search",
+      "bookingBusinessId": "1606313",
+      "operationStart": "26.08.11.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260728_267/1785198869908p8SOX_JPEG/edited-1785198869408-0.jpg",
+      "roadAddress": "여의대로 108 3층 POPUP A ZONE",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T09:58:38.682505+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-28T09:58:38.682505+09:00"
     },
     {
       "id": "2062024820",
