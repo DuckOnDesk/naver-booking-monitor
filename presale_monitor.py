@@ -191,6 +191,7 @@ def normalize(p: dict) -> dict:
         "district": extract_district(p.get("commonAddress")),
         "bookingOpenDatetime": None,
         "bookingOpenHistory": [],  # 예약 오픈된 이력 (ISO datetime 목록)
+        "saleStartDate": None,  # 실제 판매 시작일 (네이버 API에서 자동 조회, ISO 문자열 또는 "" = 조회했지만 없음)
     }
 
 
@@ -267,6 +268,85 @@ def has_available_slots(booking_url: str, booking_business_id: str) -> bool:
         return False
     # 확인 불충분 → 기본 알림
     return True
+
+
+def parse_booking_item_url(url: str) -> dict | None:
+    """.../booking/{service_id}/bizes/{biz_id}/items/{item_id} URL 파싱."""
+    m = re.search(r"/booking/(\d+)/bizes/(\d+)/items/(\d+)", url or "")
+    if not m:
+        return None
+    return {"service_id": int(m.group(1)), "biz_id": m.group(2), "item_id": m.group(3)}
+
+
+def fetch_sale_start_date(booking_url: str, booking_business_id: str) -> str | None:
+    """네이버 예약 GraphQL(schedule)로 실제 판매 시작일(saleStartDate) 조회.
+    예약창(hasBooking)은 열려도 saleStartDate가 미래인 경우 실제 예약은 아직 불가하다.
+    미지원/조회 실패 시 None (호출 측에서 '정보 없음'으로 취급, 항상 재조회하지 않도록 캐싱 권장)."""
+    parsed = parse_booking_item_url(booking_url)
+    if not parsed or not booking_business_id:
+        return None
+    now = datetime.now(KST)
+    query = (
+        "query schedule($scheduleParams: ScheduleParams) {"
+        "  schedule(input: $scheduleParams) {"
+        "    bizItemSchedule { saleStartDate __typename } __typename } }"
+    )
+    body = {
+        "operationName": "schedule",
+        "variables": {
+            "scheduleParams": {
+                "businessId": booking_business_id,
+                "bizItemId": parsed["item_id"],
+                "businessTypeId": parsed["service_id"],
+                "startDateTime": now.strftime("%Y-%m-%dT00:00:00+09:00"),
+                "endDateTime": (now + timedelta(days=1)).strftime("%Y-%m-%dT23:59:59+09:00"),
+            }
+        },
+        "query": query,
+    }
+    try:
+        resp = requests.post(
+            "https://m.booking.naver.com/graphql?opName=schedule",
+            json=body,
+            headers={"Content-Type": "application/json", "User-Agent": SESSION.headers["User-Agent"],
+                     "Referer": "https://m.booking.naver.com/"},
+            timeout=10,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if data.get("errors"):
+            return None
+        return data["data"]["schedule"]["bizItemSchedule"].get("saleStartDate")
+    except Exception:
+        return None
+
+
+def resolve_sale_start(place: dict) -> "datetime | None":
+    """실제 판매 시작 시각. 수동 설정(booking_open_datetime)이 우선, 없으면 자동 조회한 saleStartDate 사용.
+    아직 자동 조회를 안 해봤으면(saleStartDate=None) place를 직접 갱신해 캐싱한다(재조회 방지)."""
+    manual = place.get("bookingOpenDatetime")
+    if manual:
+        try:
+            return datetime.fromisoformat(manual)
+        except Exception:
+            pass
+
+    cached = place.get("saleStartDate")
+    if cached is None:
+        biz_id = place.get("bookingBusinessId") or ""
+        booking_url = place.get("bookingUrl") or ""
+        if biz_id and "/items/" in booking_url:
+            fetched = fetch_sale_start_date(booking_url, biz_id)
+            place["saleStartDate"] = fetched or ""
+            cached = place["saleStartDate"]
+        else:
+            return None
+    if not cached:
+        return None
+    try:
+        return datetime.fromisoformat(cached)
+    except Exception:
+        return None
 
 
 def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
@@ -426,6 +506,7 @@ def check_once(config: dict, prev: dict) -> dict:
         place["bookingOpenDatetime"] = bod.get(str(pid))
         place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
         place["lastBookingNotifiedAt"] = prev.get(pid, {}).get("lastBookingNotifiedAt")
+        place["saleStartDate"] = prev.get(pid, {}).get("saleStartDate")
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
         prev_url = prev.get(pid, {}).get("bookingUrl") or ""
@@ -460,7 +541,6 @@ def check_once(config: dict, prev: dict) -> dict:
             # 처음 보는 팝업 → git push 이후 알림 발송 (페이지 데이터가 업데이트된 뒤 수신되도록)
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
-                place["lastBookingNotifiedAt"] = now_iso  # 새 팝업 발견 알림이 오픈 알림을 겸함
             print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
             _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
             new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
@@ -469,39 +549,51 @@ def check_once(config: dict, prev: dict) -> dict:
             # 과거에 이미 발견 알림을 보낸 팝업이 검색에 다시 나타남 → 조용히 복원
             print(f"[{now_str}] ↩️ {name} — 재등장 (이미 발견한 팝업, 알림 생략)")
         elif is_open and not was_open:
-            # 예약 오픈됨 → 이력 추가, 감시 중인 경우만 알림
+            # 예약창(페이지) 자체가 열림 — 실제 판매 시작 여부는 아래에서 별도 확인
             place["bookingOpenHistory"].append(now_iso)
             new_alerts.append({"type": "booking_open", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
-            if pid in watched:
-                # 24시간 내 이미 알림을 보낸 경우 중복 발송 방지 (API 오락가락 및 Actions 재시작 대응)
-                last_notif_at = prev.get(pid, {}).get("lastBookingNotifiedAt")
-                within_24h = False
-                if last_notif_at:
-                    try:
-                        last_dt = datetime.fromisoformat(last_notif_at)
-                        within_24h = (datetime.now(KST) - last_dt).total_seconds() < 24 * 3600
-                    except Exception:
-                        pass
-                if within_24h:
-                    print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (24시간 내 알림 이미 발송, 생략)")
-                else:
-                    biz_id = place.get("bookingBusinessId") or ""
-                    slots_ok = has_available_slots(booking_url, biz_id)
-                    if slots_ok:
-                        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
-                        msg = f"지금 바로 예약하세요! → {booking_url}"
-                        send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
-                        send_toast(name, msg, booking_url)
-                        place["lastBookingNotifiedAt"] = datetime.now(KST).isoformat()
-                    else:
-                        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (잔여 없음, 알림 생략)")
-            else:
-                print(f"[{now_str}] 🎉 {name} — 사전예약 오픈 (알림없음)")
-        elif is_open:
-            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중")
-        else:
+
+        if not is_open:
             print(f"[{now_str}] ⏳ {name} ({dday}) — 대기중")
+            continue
+
+        # 예약창은 열려 있음 — 실제 판매 시작일(saleStartDate, 수동 설정 우선)을 확인해
+        # 예약 창만 열리고 실제 예약은 아직 불가능한 경우("오픈" 오탐)를 걸러낸다.
+        sale_start = resolve_sale_start(place)
+        now_dt = datetime.now(KST)
+        if sale_start and now_dt < sale_start:
+            print(f"[{now_str}] ⏳ {name} — 예약창은 열렸지만 실제 판매 시작 전 "
+                  f"({sale_start.strftime('%m/%d %H:%M')} 시작 예정)")
+            continue
+
+        if pid not in watched:
+            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (알림없음)")
+            continue
+
+        # 24시간 내 이미 알림을 보낸 경우 중복 발송 방지 (API 오락가락 및 Actions 재시작 대응)
+        last_notif_at = place.get("lastBookingNotifiedAt")
+        within_24h = False
+        if last_notif_at:
+            try:
+                last_dt = datetime.fromisoformat(last_notif_at)
+                within_24h = (now_dt - last_dt).total_seconds() < 24 * 3600
+            except Exception:
+                pass
+        if within_24h:
+            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (24시간 내 알림 이미 발송, 생략)")
+            continue
+
+        biz_id = place.get("bookingBusinessId") or ""
+        slots_ok = has_available_slots(booking_url, biz_id)
+        if slots_ok:
+            print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
+            msg = f"지금 바로 예약하세요! → {booking_url}"
+            send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
+            send_toast(name, msg, booking_url)
+            place["lastBookingNotifiedAt"] = now_dt.isoformat()
+        else:
+            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (잔여 없음, 알림 생략)")
 
     # 새로 발견된 팝업 자동으로 watched_places에 추가
     new_pids = [pid for pid in current if pid not in prev]

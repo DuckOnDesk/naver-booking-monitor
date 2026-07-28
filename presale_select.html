@@ -86,6 +86,7 @@
     .t-open   { background: #e6f9ee; color: #02a347; }
     .t-closed { background: #fff3e0; color: #c45000; }
     .t-wait   { background: #f2f2f2; color: #999; }
+    .t-presale { background: #fff4e0; color: #c45000; }
     .t-dday   { background: #fff4e0; color: #c45000; }
     .t-url    { background: #eef1ff; color: #3b53d6; }
     .card.link { cursor: pointer; }
@@ -268,14 +269,30 @@ function isExpired(p) {
   return end < tod;
 }
 
+function pendingSaleStart(p) {
+  // 예약창(hasBooking)은 열렸지만 실제 판매 시작일(saleStartDate)이 아직 안 된 경우의 시작 시각
+  const src = p.bookingOpenDatetime || p.saleStartDate;
+  if (!src) return null;
+  const d = new Date(src);
+  return isNaN(d) || d <= new Date() ? null : d;
+}
+
+function fmtDateTime(d) {
+  return `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+
 function bookingStatusTag(p) {
-  if (p.hasBooking) return '<span class="tag t-open">예약 오픈</span>';
+  if (p.hasBooking) {
+    const pending = pendingSaleStart(p);
+    if (pending) return `<span class="tag t-presale">판매 대기 · ${fmtDateTime(pending)}</span>`;
+    return '<span class="tag t-open">예약 오픈</span>';
+  }
   if ((p.bookingOpenHistory || []).length > 0) return '<span class="tag t-closed">예약마감</span>';
   return '<span class="tag t-wait">대기중</span>';
 }
 
 function statusRank(p) {
-  if (p.hasBooking) return 0;
+  if (p.hasBooking) return pendingSaleStart(p) ? 0.5 : 0;
   if ((p.bookingOpenHistory || []).length > 0) return 1;
   return 2;
 }
