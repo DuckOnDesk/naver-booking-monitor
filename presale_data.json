@@ -1,6 +1,7 @@
 {
-  "updated_at": "2026-07-28T09:53:27.988924+09:00",
+  "updated_at": "2026-07-28T09:58:48.459370+09:00",
   "watched_places": [
+    "2002559489",
     "2006596949",
     "2015464753",
     "2019923740",
@@ -198,6 +199,27 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2002559489",
+      "name": "성수 콜랩코리아 팝업 스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1606313/search",
+      "bookingBusinessId": "1606313",
+      "operationStart": "26.08.11.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260728_267/1785198869908p8SOX_JPEG/edited-1785198869408-0.jpg",
+      "roadAddress": "연무장7길 16",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T09:58:38.682505+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-28T09:58:38.682505+09:00"
     },
     {
       "id": "2073241477",
@@ -1219,10 +1241,18 @@
       "place_name": "라이엇게임즈 TFT 와일드 팬페스트 in 더현대서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-07-28T08:49:40.037511+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2002559489",
+      "place_name": "성수 콜랩코리아 팝업 스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1606313/search",
+      "ts": "2026-07-28T09:58:38.682505+09:00"
     }
   ],
   "seen_place_ids": [
     "2002133748",
+    "2002559489",
     "2002918567",
     "2003471362",
     "2006596949",
