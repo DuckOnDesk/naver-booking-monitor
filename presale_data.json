@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T14:23:02.318468+09:00",
+  "updated_at": "2026-07-28T14:28:43.456534+09:00",
   "watched_places": [
     "2001371441",
     "2001855074",
@@ -768,7 +768,7 @@
     {
       "id": "2001855074",
       "name": "3WAAU 1st POP-UP Store",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1702396",
       "bookingBusinessId": "1702396",
       "operationStart": "26.07.24.",
