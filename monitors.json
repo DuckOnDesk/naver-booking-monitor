@@ -57,6 +57,13 @@
         "start_at": null,
         "saved_at": "2026-07-27T01:42:56.595Z"
       }
+    },
+    {
+      "id": "ms4b1p2p",
+      "name": "라운즈",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1705528/items/7901576?startDateTime=2026-07-28T00%3A00%3A00%2B09%3A00",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
