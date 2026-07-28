@@ -58,8 +58,6 @@
     /* Monitor card */
     .monitor-row { display: flex; align-items: flex-start; gap: 12px; }
     .monitor-info { flex: 1; min-width: 0; }
-    a.monitor-info { display: block; text-decoration: none; color: inherit; cursor: pointer; }
-    a.monitor-info:hover .monitor-name { text-decoration: underline; }
     .monitor-name { font-weight: 600; font-size: 15px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; display: flex; align-items: center; gap: 6px; }
     .platform-badge { flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
     .platform-badge.naver { background: #03c75a; color: #fff; }
@@ -342,14 +340,12 @@ function render() {
   el.innerHTML = cfg.monitors.map(m => `
     <div class="card">
       <div class="monitor-row">
-        ${m.url
-          ? `<a class="monitor-info" href="${esc(m.url)}" target="_blank" rel="noopener" title="예약 페이지 열기">`
-          : `<div class="monitor-info">`}
+        <div class="monitor-info">
           <div class="monitor-name"><span class="platform-badge ${m.type==='kakao'?'kakao':'naver'}">${m.type==='kakao'?'K':'N'}</span>${esc(m.name)}</div>
           <div class="monitor-meta">${fmtDates(m.target_dates)}</div>
           ${fmtAvailableRange(m.url)}
           <div class="monitor-url">${esc(m.url)}</div>
-        ${m.url ? `</a>` : `</div>`}
+        </div>
         <label class="toggle">
           <input type="checkbox" ${m.enabled?'checked':''} onchange="toggle('${m.id}',this.checked)">
           <span class="toggle-slider"></span>
