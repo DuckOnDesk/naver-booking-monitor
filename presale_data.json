@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T16:17:15.453492+09:00",
+  "updated_at": "2026-07-28T16:22:56.883735+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -77,25 +77,6 @@
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260624_34/1782301276275waQ3Q_JPEG/XYZ_7%BF%F9_%C6%F7%BD%BA%C5%CD_%BA%ED%B7%A2.jpg",
       "roadAddress": "연무장길 37-21",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2043213423",
-      "name": "귀멸의 칼날 - 전집중전",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.06.27.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260728_4/1785214084788lYCm1_JPEG/edited-1785214085421-0.jpg",
-      "roadAddress": "연무장15길 11 성수 에스팩토리 D동 1F",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -767,7 +748,7 @@
     {
       "id": "2001855074",
       "name": "3WAAU 1st POP-UP Store",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1702396",
       "bookingBusinessId": "1702396",
       "operationStart": "26.07.24.",
