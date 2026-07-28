@@ -131,14 +131,14 @@
       "enabled": true,
       "target_dates": [],
       "auto_book": {
-        "enabled": true,
+        "enabled": false,
         "dates": [],
         "times": [],
         "accounts": [],
         "count": 2,
         "mode": "scheduled",
         "start_at": "2026-07-29T15:00:00+09:00",
-        "saved_at": "2026-07-28T14:31:46.112Z"
+        "saved_at": "2026-07-28T14:44:27.766Z"
       }
     }
   ]
