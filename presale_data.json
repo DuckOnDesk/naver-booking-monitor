@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-29T03:00:11.488332+09:00",
+  "updated_at": "2026-07-29T03:05:45.703563+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -132,7 +132,7 @@
     {
       "id": "2073241477",
       "name": "키핀터치X무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704774",
       "bookingBusinessId": "1704774",
       "operationStart": "26.07.29.",
