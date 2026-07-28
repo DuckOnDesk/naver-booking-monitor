@@ -110,13 +110,18 @@
       "target_dates": [],
       "auto_book": {
         "enabled": true,
-        "dates": [],
+        "dates": [
+          "2026-08-08",
+          "2026-08-15",
+          "2026-08-16",
+          "2026-08-17"
+        ],
         "times": [],
         "accounts": [],
-        "count": 1,
+        "count": 2,
         "mode": "immediate",
         "start_at": null,
-        "saved_at": "2026-07-28T14:24:38.680Z"
+        "saved_at": "2026-07-28T14:26:58.949Z"
       }
     },
     {
