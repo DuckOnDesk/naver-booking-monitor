@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T14:40:05.948967+09:00",
+  "updated_at": "2026-07-28T14:45:48.663819+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -765,7 +765,7 @@
     {
       "id": "2001855074",
       "name": "3WAAU 1st POP-UP Store",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1702396",
       "bookingBusinessId": "1702396",
       "operationStart": "26.07.24.",
@@ -779,7 +779,8 @@
       "district": "양천구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
+        "2026-07-28T14:22:47.480213+09:00",
+        "2026-07-28T14:45:33.759370+09:00"
       ],
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
@@ -1527,6 +1528,13 @@
       "place_name": "2026 산리오 키즈 페스티벌",
       "booking_url": "",
       "ts": "2026-07-28T14:22:47.480213+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2001855074",
+      "place_name": "3WAAU 1st POP-UP Store",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1702396",
+      "ts": "2026-07-28T14:45:33.759370+09:00"
     }
   ],
   "seen_place_ids": [
