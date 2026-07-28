@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T15:02:53.879017+09:00",
+  "updated_at": "2026-07-28T15:08:36.930419+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -725,9 +725,9 @@
     {
       "id": "2067967922",
       "name": "라운즈 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705528",
+      "bookingBusinessId": "1705528",
       "operationStart": "26.08.07.",
       "operationEnd": "26.08.20.",
       "remainingDays": 10,
@@ -738,8 +738,10 @@
       "commonAddress": "서울 중구",
       "district": "중구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "lastBookingNotifiedAt": null
+      "bookingOpenHistory": [
+        "2026-07-28T15:08:20.708742+09:00"
+      ],
+      "lastBookingNotifiedAt": "2026-07-28T15:08:36.929698+09:00"
     },
     {
       "id": "2012113406",
@@ -1535,6 +1537,13 @@
       "place_name": "3WAAU 1st POP-UP Store",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1702396",
       "ts": "2026-07-28T14:45:33.759370+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2067967922",
+      "place_name": "라운즈 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705528",
+      "ts": "2026-07-28T15:08:20.708742+09:00"
     }
   ],
   "seen_place_ids": [
