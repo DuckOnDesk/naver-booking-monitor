@@ -109,7 +109,7 @@
       "enabled": true,
       "target_dates": [],
       "auto_book": {
-        "enabled": true,
+        "enabled": false,
         "dates": [
           "2026-08-08",
           "2026-08-15",
@@ -121,7 +121,7 @@
         "count": 1,
         "mode": "scheduled",
         "start_at": "2026-07-29T15:00:00+09:00",
-        "saved_at": "2026-07-28T14:31:32.466Z"
+        "saved_at": "2026-07-28T14:44:22.187Z"
       }
     },
     {
