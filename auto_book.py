@@ -277,6 +277,13 @@ def _select_date(page, datekey: str) -> bool:
     target = datetime.strptime(datekey, "%Y-%m-%d")
     day = str(target.day)
 
+    try:
+        if not page.locator(_CALENDAR_SELECTOR).count():
+            _log("달력 영역이 없는 페이지 — 날짜 선택 건너뜀")
+            return False   # 달력이 없으면 '다음 달' 이동을 7번 반복해도 의미가 없다
+    except Exception:
+        pass
+
     def _try_click_day() -> bool:
         # 1) aria-label에 날짜가 들어간 버튼 (예: "7월 11일", "2026년 7월 11일")
         for pat in (f"{target.month}월 {target.day}일", datekey):
@@ -684,6 +691,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 if "/error/" in page.url:
                     _shot(page, "page_closed", shots, always=True)
                     return result(False, "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)")
+                # 상품 페이지에서 업체 홈 등으로 밀려나면 예약할 화면 자체가 없다.
+                # 달력/시간대를 찾아 헤매며 15초씩 버리지 말고 바로 다음 계정으로 넘긴다.
+                if "/items/" in url and "/items/" not in page.url:
+                    _shot(page, "redirected", shots, always=True)
+                    return result(False, f"예약 화면으로 진입하지 못함 (리다이렉트: {page.url})")
 
                 _shot(page, "01_landing", shots)
 
