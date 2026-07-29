@@ -603,8 +603,12 @@ def sync_auto_book_state(monitors: list, alerted: dict) -> None:
                   f"{'성공' if last.get('success') else '실패'} — {last.get('message', '')}", flush=True)
 
 
-def dispatch_auto_book(item_id: str, datekey: str, times: list, sig: str, attempt: int) -> tuple[bool, str]:
-    """autobook.yml 워크플로를 실행 요청한다. (성공여부, 오류메시지) 반환."""
+def dispatch_auto_book(item_id: str, datekey: str, times: list, sig: str,
+                       attempt: int, detected_at: str = "") -> tuple[bool, str]:
+    """autobook.yml 워크플로를 실행 요청한다. (성공여부, 오류메시지) 반환.
+
+    detected_at(자리 감지 시각)은 워커가 "감지 → 예약 시작" 지연을 로그로 남기는 데 쓴다.
+    """
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or ""
     repo = os.environ.get("GITHUB_REPOSITORY", "DuckOnDesk/naver-booking-monitor")
     ref = os.environ.get("AUTO_BOOK_WORKFLOW_REF") or os.environ.get("GITHUB_REF_NAME") or "main"
@@ -619,6 +623,7 @@ def dispatch_auto_book(item_id: str, datekey: str, times: list, sig: str, attemp
             "times": ",".join(times),
             "sig": sig,
             "attempt": str(attempt),
+            "detected_at": detected_at,
         },
     }
     try:
@@ -690,9 +695,10 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     state["attempts"] += 1
 
     cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (성공/매진/OFF까지 계속)"
-    ok, err = dispatch_auto_book(item_id, datekey, times, sig, state["attempts"])
+    detected_at = now_kst.isoformat(timespec="seconds")
+    ok, err = dispatch_auto_book(item_id, datekey, times, sig, state["attempts"], detected_at)
     if ok:
-        state["dispatched_at"] = now_kst.isoformat(timespec="seconds")
+        state["dispatched_at"] = detected_at
         print(f"  [자동예약] {name} {datekey} {','.join(times[:5])} — "
               f"예약 워크플로 실행 요청 {state['attempts']}{cap_label}", flush=True)
     else:
@@ -1427,6 +1433,10 @@ def commit_files(paths: list, message: str, label: str = "") -> bool:
     모니터 job과 자동예약 워커 job이 동시에 푸시할 수 있으므로 파일 소유를
     나눠 둔다 (모니터: booking_alerted/schedule_cache, 워커: auto_book_*).
     같은 파일을 양쪽이 건드리지 않는 한 rebase가 자동으로 합쳐진다.
+
+    --autostash 필수: 이 함수는 한 번에 한 파일만 커밋하는데, 같은 회차에
+    다른 데이터 파일(schedule_cache.json 등)이 이미 수정돼 있으면 rebase가
+    "You have unstaged changes"로 거부한다.
     """
     label = label or ", ".join(paths)
     try:
@@ -1437,7 +1447,7 @@ def commit_files(paths: list, message: str, label: str = "") -> bool:
             return False
         subprocess.run(["git", "commit", "-m", message], check=True)
         subprocess.run(["git", "fetch", "origin"], check=True)
-        subprocess.run(["git", "rebase", "origin/main"], check=True)
+        subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=True)
         subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
         print(f"  → {label} 커밋/푸시 완료", flush=True)
         return True
