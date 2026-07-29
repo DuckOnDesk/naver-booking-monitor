@@ -100,7 +100,8 @@ def record_results(log_entries: list, item_id: str, state_entry: dict, tries: in
             _git("add", AUTO_BOOK_LOG_FILE.name, AUTO_BOOK_STATE_FILE.name)
             if _git("diff", "--cached", "--quiet", check=False).returncode != 0:
                 _git("commit", "-m", "data: 자동예약 결과 기록 [skip ci]")
-            _git("rebase", "origin/main")
+            # --autostash: 스크린샷 등으로 작업 트리가 지저분해도 rebase가 거부되지 않도록
+            _git("rebase", "--autostash", "origin/main")
             _git("push", "origin", "HEAD:main")
             print("  → 자동예약 결과 커밋/푸시 완료", flush=True)
             return True
@@ -152,7 +153,22 @@ def resolve_times(item: dict, cfg: dict, datekey: str, requested: list) -> list:
     return requested
 
 
-def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int) -> int:
+def report_lag(detected_at: str) -> float | None:
+    """모니터가 자리를 감지한 뒤 여기까지 걸린 시간(초)을 로그로 남긴다.
+
+    워크플로 큐 대기 + 체크아웃 + 브라우저 설치가 이 지연의 대부분이라,
+    예약 실패가 "늦어서"인지 "슬롯이 없어서"인지 구분하는 데 쓴다.
+    """
+    started = _parse_dt(detected_at)
+    if not started:
+        return None
+    lag = (datetime.now(KST) - started).total_seconds()
+    print(f"  감지 → 예약 시작 지연: {lag:.0f}초", flush=True)
+    return round(lag, 1)
+
+
+def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
+        detected_at: str = "") -> int:
     cfg_all = load_monitors(from_github=True)
     ntfy_topic = cfg_all.get("ntfy_topic", "")
     item = next((m for m in cfg_all.get("monitors", [])
@@ -194,6 +210,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int) -> 
         return record_skip(item_id, name, datekey, sig, attempt, "예약할 시간대가 없습니다")
 
     print(f"=== 자동예약 실행: {name} {datekey} {times} (시도 {attempt}) ===", flush=True)
+    lag_sec = report_lag(detected_at)
 
     accounts = auto_book.get_accounts(cfg["accounts"])
     if not accounts:
@@ -211,7 +228,8 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int) -> 
                 res = {"success": False, "message": f"예외: {exc}", "booked_time": None,
                        "dry_run": False, "account": acct_no}
             results.append(res)
-            print(f"  [자동예약] 계정{acct_no} 결과: {'성공' if res['success'] else '실패'} — {res['message']}", flush=True)
+            took = f" [{res['elapsed']}초]" if res.get("elapsed") is not None else ""
+            print(f"  [자동예약] 계정{acct_no} 결과: {'성공' if res['success'] else '실패'}{took} — {res['message']}", flush=True)
             if res["success"]:
                 break
             # 슬롯이 사라진 실패는 계정을 바꿔도 소용없으므로 중단
@@ -228,6 +246,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int) -> 
         "account": r.get("account"),
         "success": bool(r["success"]),
         "dry_run": bool(r.get("dry_run")),
+        "elapsed": r.get("elapsed"),
         "message": r["message"],
     } for r in results]
 
@@ -239,6 +258,8 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int) -> 
             "date": datekey,
             "times": times,
             "attempt": attempt,
+            "lag_sec": lag_sec,
+            "elapsed": res.get("elapsed"),
             "account": res.get("account"),
             "success": bool(res["success"]),
             "dry_run": bool(res.get("dry_run")),
@@ -282,6 +303,7 @@ def main() -> int:
     ap.add_argument("--times", default="", help="모니터가 감지한 시간대 (쉼표 구분)")
     ap.add_argument("--sig", default="", help="슬롯 시그니처 (모니터 상태 대조용)")
     ap.add_argument("--attempt", default="1", help="같은 시그니처에 대한 시도 횟수")
+    ap.add_argument("--detected-at", default="", help="모니터가 자리를 감지한 시각 (지연 측정용)")
     ap.add_argument("--fail-note", default="",
                     help="예약을 돌리지 않고 실행 실패 사실만 기록 (워크플로 실패 처리용)")
     args = ap.parse_args()
@@ -295,7 +317,7 @@ def main() -> int:
     if args.fail_note:
         # 워커가 죽었을 때 모니터가 15분을 기다리지 않도록 종료 사실만 남긴다
         return record_skip(item_id, "", datekey, sig, attempt, args.fail_note)
-    return run(item_id, datekey, requested, sig, attempt)
+    return run(item_id, datekey, requested, sig, attempt, args.detected_at.strip())
 
 
 if __name__ == "__main__":

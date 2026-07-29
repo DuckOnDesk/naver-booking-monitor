@@ -8,8 +8,11 @@ Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 �
   NAVER_COOKIES_1 ~ NAVER_COOKIES_5   계정별 로그인 쿠키 (NID_AUT, NID_SES 포함)
   NAVER_COOKIES                        (하위 호환) 계정1로 취급
 선택 환경변수:
-  AUTO_BOOK_DRY_RUN   "1"이면 최종 확정 버튼 직전까지만 진행 (테스트용)
-  AUTO_BOOK_CHROMIUM  chromium 실행 파일 경로 override (로컬 테스트용)
+  AUTO_BOOK_DRY_RUN     "1"이면 최종 확정 버튼 직전까지만 진행 (테스트용)
+  AUTO_BOOK_CHROMIUM    chromium 실행 파일 경로 override (로컬 테스트용)
+  AUTO_BOOK_SHOTS       스크린샷 정책: fail(기본, 실패·완료만) | all(단계별 전부) | off
+  AUTO_BOOK_BLOCK_ASSETS "0"이면 이미지/폰트/트래커 차단 끔 (기본 켬 — 페이지 로딩 단축)
+  AUTO_BOOK_DEBUG_DOM   "1"이면 실패 시 DOM 덤프를 매번 남김 (기본: 프로세스당 1회)
 
 결과는 dict로 반환:
   {"success": bool, "message": str, "booked_time": str|None,
@@ -48,12 +51,35 @@ _CTA_EXCLUDE_TEXT = ("알림받기", "상세정보", "리뷰", "맨위로", "로
 
 KST = timezone(timedelta(hours=9))
 
+# 취소표는 몇 초 만에 사라지므로 속도가 곧 성공률이다. 아래 상수들은
+# "느려서 놓치는" 구간(전체 페이지 렌더 대기, 고정 sleep, 불필요한 스크린샷)을
+# 줄이기 위한 것으로, 모두 조건 확인 후 즉시 진행하는 형태다.
+
+# 스크린샷 정책 — 전체 페이지 캡처는 장당 1~2초라 단계별로 찍으면 그것만 10초가 된다.
+SHOT_MODE = os.environ.get("AUTO_BOOK_SHOTS", "fail").strip().lower()
+# 예약 흐름에 필요 없는 리소스 (이미지·폰트·광고/로그 수집)는 아예 받지 않는다.
+BLOCK_ASSETS = os.environ.get("AUTO_BOOK_BLOCK_ASSETS", "1").strip() not in ("0", "false", "no")
+_BLOCKED_TYPES = {"image", "media", "font"}
+_BLOCKED_URL_PARTS = (
+    "google-analytics", "googletagmanager", "doubleclick", "googlesyndication",
+    "facebook.net", "connect.facebook", "criteo", "adsystem", "adservice",
+    "wcs.naver.net", "nlog.naver.com", "siape.veta.naver.com", "ssl.pstatic.net/tveta",
+)
+# 시간대/달력 UI가 그려졌는지 판단하는 셀렉터 (고정 sleep 대신 이게 보이면 바로 진행)
+_TIME_UI_SELECTOR = '[class*=time i] button, [class*=time i] a, li button:has-text(":")'
+_CALENDAR_SELECTOR = '[class*=calendar i], [class*=Calendar]'
+
+_dom_dumped = False   # DOM 덤프는 진단용이라 계정마다 반복할 필요가 없다
+
 
 def _log(msg: str) -> None:
     print(f"  [자동예약] {msg}", flush=True)
 
 
-def _shot(page, tag: str, shots: list) -> None:
+def _shot(page, tag: str, shots: list, always: bool = False) -> None:
+    """스크린샷 저장. always=True(실패·완료 시점)가 아니면 AUTO_BOOK_SHOTS=all일 때만."""
+    if SHOT_MODE == "off" or (SHOT_MODE != "all" and not always):
+        return
     try:
         SHOT_DIR.mkdir(exist_ok=True)
         path = SHOT_DIR / f"{datetime.now(KST).strftime('%m%d_%H%M%S')}_{tag}.png"
@@ -61,6 +87,42 @@ def _shot(page, tag: str, shots: list) -> None:
         shots.append(str(path))
     except Exception:
         pass
+
+
+def _install_fast_routes(context) -> None:
+    """예약에 필요 없는 리소스를 차단해 페이지 로딩을 앞당긴다.
+
+    CSS·JS는 그대로 둔다 (버튼 표시/활성 판정이 스타일에 걸려 있어서 끊으면 위험).
+    """
+    if not BLOCK_ASSETS:
+        return
+
+    def handler(route):
+        try:
+            req = route.request
+            if req.resource_type in _BLOCKED_TYPES or any(p in req.url for p in _BLOCKED_URL_PARTS):
+                route.abort()
+                return
+            route.continue_()
+        except Exception:
+            try:
+                route.continue_()
+            except Exception:
+                pass
+
+    try:
+        context.route("**/*", handler)
+    except Exception as exc:
+        _log(f"리소스 차단 설정 실패(무시하고 진행): {exc}")
+
+
+def _wait_any(page, selector: str, timeout_ms: int) -> bool:
+    """selector가 하나라도 붙으면 즉시 True. 없으면 timeout까지 기다렸다 False."""
+    try:
+        page.wait_for_selector(selector, timeout=timeout_ms, state="attached")
+        return True
+    except Exception:
+        return False
 
 
 def get_accounts(priority: list | None = None) -> list:
@@ -116,7 +178,17 @@ def _with_start_date(url: str, datekey: str) -> str:
 
 
 def _dump_dom_debug(page, tag: str) -> None:
-    """셀렉터 디버깅용 DOM 요약을 로그로 출력하고 HTML을 스크린샷 폴더에 저장."""
+    """셀렉터 디버깅용 DOM 요약을 로그로 출력하고 HTML을 스크린샷 폴더에 저장.
+
+    page.content()가 1~3초씩 걸려 계정마다 반복하면 다음 계정 시도가 그만큼
+    늦어진다. 진단에는 한 번이면 충분하므로 프로세스당 1회만 남긴다
+    (AUTO_BOOK_DEBUG_DOM=1이면 매번).
+    """
+    global _dom_dumped
+    if _dom_dumped and os.environ.get("AUTO_BOOK_DEBUG_DOM", "").strip() not in ("1", "true", "yes"):
+        _log(f"DOM 디버그 생략 ({tag}) — 이번 실행에서 이미 남김")
+        return
+    _dom_dumped = True
     try:
         _log(f"--- DOM 디버그 ({tag}) ---")
         _log(f"URL: {page.url}")
@@ -147,6 +219,51 @@ def _dump_dom_debug(page, tag: str) -> None:
         _log(f"DOM 디버그 실패: {exc}")
 
 
+def _poll_until(page, check, cap_ms: int, step_ms: int = 200) -> bool:
+    """조건이 참이 되면 즉시 True (고정 sleep 대신 사용). cap_ms까지만 기다린다."""
+    deadline = time_mod.time() + cap_ms / 1000
+    while True:
+        try:
+            if check():
+                return True
+        except Exception:
+            pass
+        if time_mod.time() >= deadline:
+            return False
+        page.wait_for_timeout(step_ms)
+
+
+def _has_any_button(page, texts: list) -> bool:
+    """texts 중 하나가 들어간 "진짜" CTA가 화면에 있는지 — 한 번의 evaluate로 확인.
+
+    탭("예약하기" 탭처럼 같은 글자를 쓰는 요소)·비활성·아직 숨겨진 버튼은 제외한다.
+    이걸 빼면 탭 하나 때문에 항상 참이 돼서, 이 함수로 기다리는 의미가 없어진다
+    (실제로 CTA가 나타나기 전에 클릭을 시도해 실패했다).
+    """
+    try:
+        return bool(page.evaluate(
+            """([texts, badClass, badText]) =>
+                Array.from(document.querySelectorAll('button, a')).some(b => {
+                    const cls = (b.className || '').toString().toLowerCase();
+                    if (badClass.some(x => cls.includes(x))) return false;
+                    const t = (b.textContent || '').trim();
+                    if (badText.some(x => t.includes(x))) return false;
+                    if (b.disabled || b.getAttribute('aria-disabled') === 'true') return false;
+                    if (!b.getClientRects().length) return false;   // 아직 안 보이는 버튼
+                    return texts.some(x => t.includes(x));
+                })""",
+            [texts, [c.lower() for c in _CTA_EXCLUDE_CLASS], list(_CTA_EXCLUDE_TEXT)],
+        ))
+    except Exception:
+        return False
+
+
+def _wait_next_after_time(page) -> None:
+    """시간 선택 후 진행 버튼이 뜨면 즉시 다음 단계로 (고정 1.2초 대기 대체)."""
+    page.wait_for_timeout(250)
+    _poll_until(page, lambda: _has_any_button(page, _NEXT_BUTTON_TEXTS), 950, 150)
+
+
 def _click_if_found(page, locator, timeout_ms: int = 2000) -> bool:
     try:
         locator.first.click(timeout=timeout_ms)
@@ -159,6 +276,13 @@ def _select_date(page, datekey: str) -> bool:
     """달력에서 datekey(YYYY-MM-DD) 날짜 클릭. 다음달 이동 최대 6회 시도."""
     target = datetime.strptime(datekey, "%Y-%m-%d")
     day = str(target.day)
+
+    try:
+        if not page.locator(_CALENDAR_SELECTOR).count():
+            _log("달력 영역이 없는 페이지 — 날짜 선택 건너뜀")
+            return False   # 달력이 없으면 '다음 달' 이동을 7번 반복해도 의미가 없다
+    except Exception:
+        pass
 
     def _try_click_day() -> bool:
         # 1) aria-label에 날짜가 들어간 버튼 (예: "7월 11일", "2026년 7월 11일")
@@ -189,7 +313,9 @@ def _select_date(page, datekey: str) -> bool:
 
     for _ in range(7):
         if _month_visible() and _try_click_day():
-            page.wait_for_timeout(1500)
+            # 시간대 목록이 다시 그려질 시간만 주고, 준비되면 바로 진행
+            page.wait_for_timeout(700)
+            _wait_any(page, _TIME_UI_SELECTOR, 1200)
             return True
         # 다음 달 이동 버튼
         moved = False
@@ -204,8 +330,13 @@ def _select_date(page, datekey: str) -> bool:
     return False
 
 
-def _time_patterns(t: str) -> list:
-    """"19:30" → 페이지에 표기될 수 있는 형태들의 정규식 목록 (24시간/12시간/오전·오후)."""
+def _time_patterns(t: str, bare_12h: bool = True) -> list:
+    """"19:30" → 페이지에 표기될 수 있는 형태들의 정규식 목록 (24시간/12시간/오전·오후).
+
+    bare_12h=False면 오전/오후가 안 붙은 12시간 표기("7:30")는 후보에서 뺀다.
+    페이지가 오전/오후를 구분해 표시하는데도 이 패턴을 쓰면, 예를 들어 22:00을
+    요청했을 때 "오전 10:00" 버튼을 눌러 엉뚱한 시간을 예약할 수 있다.
+    """
     h, m = t.split(":")
     h = int(h)
     pats = [rf"(?<!\d){h:02d}:{m}(?!\d)"]
@@ -213,13 +344,25 @@ def _time_patterns(t: str) -> list:
         pats.append(rf"오전\s*12:{m}(?!\d)")
     elif h < 12:
         pats.append(rf"오전\s*{h}:{m}(?!\d)")
-        pats.append(rf"(?<!\d){h}:{m}(?!\d)")  # 앞자리 0 없는 표기 (예: "9:00")
+        if bare_12h:
+            pats.append(rf"(?<!\d){h}:{m}(?!\d)")  # 앞자리 0 없는 표기 (예: "9:00")
     elif h == 12:
         pats.append(rf"오후\s*12:{m}(?!\d)")
     else:
         pats.append(rf"오후\s*{h - 12}:{m}(?!\d)")
-        pats.append(rf"(?<!\d){h - 12}:{m}(?!\d)")  # 12시간제 단독 표기 (예: "7:30", 오전/오후는 섹션 제목)
+        if bare_12h:
+            pats.append(rf"(?<!\d){h - 12}:{m}(?!\d)")  # 12시간제 단독 표기 (예: "7:30")
     return [re.compile(p) for p in pats]
+
+
+def _page_has_ampm(page) -> bool:
+    """페이지가 오전/오후를 구분해 표기하는지 (모호한 12시간 매칭 허용 여부 판단용)."""
+    try:
+        return bool(page.evaluate(
+            "() => { const t = document.body ? document.body.textContent || '' : '';"
+            "        return t.includes('오전') || t.includes('오후'); }"))
+    except Exception:
+        return True   # 판단 불가하면 안전한 쪽(모호한 매칭 금지)으로
 
 
 def _find_time_button(page, t: str):
@@ -294,13 +437,14 @@ def _select_time(page, wanted_times: list) -> str | None:
             try:
                 el.scroll_into_view_if_needed(timeout=1500)
                 el.click(timeout=2000)
-                page.wait_for_timeout(1200)
+                _wait_next_after_time(page)
                 return t
             except Exception:
                 pass
-    # 2차: 텍스트 패턴 기반 탐색
+    # 2차: 텍스트 패턴 기반 탐색 (1차 정밀 매칭이 구조 변경 등으로 실패했을 때)
+    bare_12h = not _page_has_ampm(page)
     for t in wanted_times:
-        for pat in _time_patterns(t):
+        for pat in _time_patterns(t, bare_12h):
             # 1) 시간 텍스트가 들어간 버튼 직접 클릭
             # 2) 시간 텍스트가 들어간 li 내부의 버튼/a 클릭
             # 3) li 자체 클릭
@@ -328,7 +472,7 @@ def _select_time(page, wanted_times: list) -> str | None:
                             pass
                         el.scroll_into_view_if_needed(timeout=1500)
                         el.click(timeout=2000)
-                        page.wait_for_timeout(1200)
+                        _wait_next_after_time(page)
                         return t
                     except Exception:
                         continue
@@ -356,14 +500,27 @@ def _ensure_quantity(page, count: int) -> None:
 
 
 def _check_agreements(page) -> None:
-    """약관 동의 체크박스 처리: '모두 동의'가 있으면 그것만, 없으면 미체크 박스 전부."""
+    """약관 동의 체크박스 처리: '모두 동의'가 있으면 그것만, 없으면 미체크 박스 전부.
+
+    확정 루프에서 반복 호출되므로, 없는 셀렉터를 기다리며 시간을 버리지 않도록
+    count()로 존재를 먼저 확인하고 타임아웃도 짧게 잡는다 (예전에는 '모두 동의'가
+    없는 페이지에서 매번 4×1.5초를 그냥 버렸다).
+    """
     for sel in ('label:has-text("모두 동의")', 'label:has-text("전체 동의")',
                 ':text("모두 동의")', ':text("전체 동의")'):
-        if _click_if_found(page, page.locator(sel), 1500):
-            page.wait_for_timeout(500)
+        loc = page.locator(sel)
+        try:
+            if not loc.count():
+                continue
+        except Exception:
+            continue
+        if _click_if_found(page, loc, 800):
+            page.wait_for_timeout(300)
             return
     try:
         boxes = page.locator('input[type=checkbox]')
+        if not boxes.count():
+            return
         for i in range(min(boxes.count(), 10)):
             box = boxes.nth(i)
             try:
@@ -398,7 +555,16 @@ def _is_cta_button(el) -> bool:
 
 
 def _click_cta(page, texts: list) -> str | None:
-    """하단 진행 버튼 클릭. 탭/알림받기 등 가짜 버튼은 건너뛰고 진짜 CTA만 클릭."""
+    """하단 진행 버튼 클릭. 탭/알림받기 등 가짜 버튼은 건너뛰고 진짜 CTA만 클릭.
+
+    클릭이 곧바로 페이지 이동을 일으키면 뒤따르는 조작에서 예외가 날 수 있는데,
+    그때 "버튼을 못 찾았다"고 보고하면 실제로는 진행됐는데도 예약이 중단된다.
+    URL이 바뀌었으면 클릭에 성공한 것으로 본다.
+    """
+    try:
+        before_url = page.url
+    except Exception:
+        before_url = ""
     for t in texts:
         loc = page.locator(f'button:has-text("{t}"), a:has-text("{t}")')
         try:
@@ -418,22 +584,41 @@ def _click_cta(page, texts: list) -> str | None:
                 el.click(timeout=2500)
                 return t
             except Exception:
+                try:
+                    if before_url and page.url != before_url:
+                        return t     # 클릭 직후 이동 — 성공으로 처리
+                except Exception:
+                    pass
                 continue
+    try:
+        if before_url and page.url != before_url:
+            return "(페이지 이동 감지)"
+    except Exception:
+        pass
     return None
 
 
 def _is_success(page) -> bool:
+    """완료 페이지 도달 여부. 확정 루프에서 반복 호출되므로 최대한 싸게 판정한다.
+
+    예전에는 page.inner_text("body")로 문서 전체를 렌더 기준으로 뽑았는데
+    (레이아웃 계산 강제 → 페이지가 클수록 느림), 판정에는 textContent면 충분해
+    브라우저 안에서 한 번에 매칭하고 불리언만 받아온다.
+    """
     url = page.url.lower()
     if any(p in url for p in _SUCCESS_URL):
         return True
     try:
-        body = " ".join(page.inner_text("body").split())
+        return bool(page.evaluate(
+            """(pats) => {
+                const t = document.body ? document.body.textContent || '' : '';
+                if (/예약\\s*번호\\s*[:\\s]*\\d/.test(t)) return true;
+                return pats.some(p => t.includes(p));
+            }""",
+            _SUCCESS_TEXT,
+        ))
     except Exception:
         return False
-    # "예약번호 1289133135"처럼 예약번호 뒤에 숫자가 오면 확정 완료로 간주
-    if re.search(r"예약\s*번호\s*[:\s]*\d", body):
-        return True
-    return any(p in body for p in _SUCCESS_TEXT)
 
 
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
@@ -442,6 +627,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
 
     cookie_str 미지정 시 사용 가능한 첫 계정의 쿠키 사용."""
     shots: list = []
+    t0 = time_mod.time()
     dry_run = os.environ.get("AUTO_BOOK_DRY_RUN", "").strip() in ("1", "true", "yes")
     if cookie_str is None:
         accounts = get_accounts()
@@ -452,8 +638,10 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
 
     def result(success: bool, message: str, booked_time: str | None = None) -> dict:
+        # elapsed: 이 계정 시도에 걸린 초. 어디서 늦어지는지 로그로 추적하기 위한 값.
         return {"success": success, "message": message, "booked_time": booked_time,
-                "dry_run": dry_run, "screenshots": shots, "account": account}
+                "dry_run": dry_run, "screenshots": shots, "account": account,
+                "elapsed": round(time_mod.time() - t0, 1)}
 
     if not cookie_str:
         # 드라이런은 비로그인으로도 날짜/시간 선택 검증까지 진행 가능
@@ -488,16 +676,35 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 )
                 if cookie_str:
                     context.add_cookies(_parse_cookies(cookie_str))
+                _install_fast_routes(context)
                 page = context.new_page()
-                page.goto(_with_start_date(url, datekey), wait_until="load", timeout=25000)
-                page.wait_for_timeout(3000)
+                # load(모든 리소스 완료) + 고정 3초 대신, DOM이 오면 바로 받아서
+                # 달력/시간 UI가 그려지는 즉시 진행한다.
+                def page_problem() -> tuple[str, str] | None:
+                    """예약을 진행할 수 없는 페이지면 (스크린샷 태그, 사유)를 돌려준다.
 
-                if _is_login_page(page):
-                    _shot(page, "login_required", shots)
-                    return result(False, "네이버 로그인 페이지로 리다이렉트 — NAVER_COOKIES 만료됨")
-                if "/error/" in page.url:
-                    _shot(page, "page_closed", shots)
-                    return result(False, "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)")
+                    상품 페이지(/items/)에서 업체 홈 등으로 밀려나면 달력도 시간대도
+                    없으므로, 찾아 헤매지 말고 바로 다음 계정으로 넘어가야 한다.
+                    """
+                    if _is_login_page(page):
+                        return "login_required", "네이버 로그인 페이지로 리다이렉트 — NAVER_COOKIES 만료됨"
+                    if "/error/" in page.url:
+                        return "page_closed", "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)"
+                    if "/items/" in url and "/items/" not in page.url:
+                        return "redirected", f"예약 화면으로 진입하지 못함 (리다이렉트: {page.url})"
+                    return None
+
+                page.goto(_with_start_date(url, datekey), wait_until="domcontentloaded", timeout=25000)
+                # 리다이렉트는 URL만 보면 알 수 있다 — UI를 기다리며 몇 초 버리기 전에 먼저 판정
+                problem = page_problem()
+                if not problem:
+                    if not _wait_any(page, f"{_CALENDAR_SELECTOR}, {_TIME_UI_SELECTOR}", 6000):
+                        page.wait_for_timeout(800)   # 구조가 다른 페이지 — 조금만 더 기다려 본다
+                    problem = page_problem()         # 로딩 중 뒤늦게 이동하는 경우까지
+                if problem:
+                    _shot(page, problem[0], shots, always=True)
+                    return result(False, problem[1])
+                _log(f"페이지 준비 완료 ({time_mod.time() - t0:.1f}초)")
 
                 _shot(page, "01_landing", shots)
 
@@ -506,15 +713,15 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 else:
                     # 날짜가 자동 선택되는 페이지(startDate 반영)일 수 있으므로 시간 선택으로 계속 진행
                     _log(f"달력에서 {datekey} 클릭 실패 — 시간대가 이미 보이는지 확인 후 계속")
-                    _shot(page, "date_fail", shots)
+                    _shot(page, "date_fail", shots, always=True)
                     _dump_dom_debug(page, "date_fail")
 
                 booked_time = _select_time(page, wanted_times)
                 if not booked_time:
-                    _shot(page, "time_fail", shots)
+                    _shot(page, "time_fail", shots, always=True)
                     _dump_dom_debug(page, "time_fail")
                     return result(False, f"시간대 {wanted_times} 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)")
-                _log(f"시간대 선택: {booked_time}")
+                _log(f"시간대 선택: {booked_time} ({time_mod.time() - t0:.1f}초)")
                 _shot(page, "03_time", shots)
 
                 _ensure_quantity(page, count)
@@ -522,11 +729,13 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
 
                 clicked = _click_cta(page, _NEXT_BUTTON_TEXTS)
                 if not clicked:
-                    _shot(page, "cta_fail", shots)
+                    _shot(page, "cta_fail", shots, always=True)
                     _dump_dom_debug(page, "cta_fail")
                     return result(False, "예약 진행 버튼을 찾지 못함")
                 _log(f"진행 버튼 클릭: '{clicked}'")
-                page.wait_for_timeout(3000)
+                # 다음 화면(완료 또는 확정 단계)이 뜨는 즉시 진행 — 최대 3초
+                _poll_until(page, lambda: _is_success(page) or _is_login_page(page)
+                            or _has_any_button(page, _FINAL_BUTTON_TEXTS), 3000)
                 _shot(page, "04_after_next", shots)
 
                 if _is_login_page(page):
@@ -536,7 +745,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
 
                 # 이미 완료됐는지 (1단계 예약인 경우)
                 if _is_success(page):
-                    _shot(page, "05_done", shots)
+                    _shot(page, "05_done", shots, always=True)
                     return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
 
                 # 2단계: 예약 확인/동의 페이지
@@ -548,7 +757,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     step += 1
                     _check_agreements(page)
                     if dry_run:
-                        _shot(page, "dryrun_stop", shots)
+                        _shot(page, "dryrun_stop", shots, always=True)
                         final_btn = None
                         for t in _FINAL_BUTTON_TEXTS:
                             if page.locator(f'button:has-text("{t}")').count():
@@ -559,23 +768,24 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     if clicked:
                         final_clicks += 1
                         _log(f"확정 버튼 클릭: '{clicked}'")
-                        page.wait_for_timeout(2500)
+                        # 완료 화면이 뜨면 즉시 성공 처리 — 최대 2.5초
+                        _poll_until(page, lambda: _is_success(page) or _is_login_page(page), 2500)
                         _shot(page, f"06_after_final_{step}", shots)
                         if _is_success(page):
-                            _shot(page, "07_success", shots)
+                            _shot(page, "07_success", shots, always=True)
                             return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
                         if _is_login_page(page):
                             if dry_run:
                                 return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
                             return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
                     else:
-                        page.wait_for_timeout(1500)
-                        if _is_success(page):
-                            _shot(page, "07_success", shots)
+                        # 확정 버튼이 아직 없음 — 완료 화면이 뜨는지 보며 대기
+                        if _poll_until(page, lambda: _is_success(page), 1500, 250):
+                            _shot(page, "07_success", shots, always=True)
                             return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
 
                 # 확정 실패 — 다음 진단을 위해 확정 페이지 구조를 반드시 남긴다
-                _shot(page, "timeout", shots)
+                _shot(page, "timeout", shots, always=True)
                 _dump_dom_debug(page, "confirm_fail")
                 hint = "확정 버튼을 찾지 못함 (동의 미완료 가능)" if final_clicks == 0 else "확정 후 완료 페이지 미감지"
                 return result(False, f"확정 단계 실패: {hint} — 수동 확인 필요(예약됐을 수도 있음)")

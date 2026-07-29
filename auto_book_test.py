@@ -11,6 +11,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 
 os.environ["AUTO_BOOK_DRY_RUN"] = "1"  # 안전장치: 이 러너는 무조건 드라이런
+os.environ.setdefault("AUTO_BOOK_SHOTS", "all")  # 테스트는 단계별 스크린샷을 모두 남긴다
 
 import auto_book
 from check_booking import check_availability, fetch_slots, parse_naver_url

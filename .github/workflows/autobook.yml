@@ -24,6 +24,10 @@ on:
         description: 같은 슬롯에 대한 시도 횟수
         required: false
         default: "1"
+      detected_at:
+        description: 모니터가 자리를 감지한 시각 (지연 측정용)
+        required: false
+        default: ""
 
 permissions:
   contents: write   # auto_book_log.json·auto_book_state.json 커밋/푸시용
@@ -46,7 +50,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install requests playwright
+      - run: pip install --quiet --disable-pip-version-check requests playwright
 
       - name: Playwright 캐시
         uses: actions/cache@v4
@@ -55,7 +59,18 @@ jobs:
           key: playwright-chromium-${{ runner.os }}
 
       - name: Chromium 설치
-        run: playwright install chromium --with-deps
+        # 취소표는 몇 초 만에 사라지므로 준비 시간도 성공률에 직결된다.
+        # --with-deps는 매번 apt를 돌려 20~40초를 쓰는데, 러너 이미지에 필요한
+        # 라이브러리가 대부분 들어 있어 보통 불필요하다. 실제로 브라우저가 뜨는지
+        # 확인해 보고, 안 뜰 때만 의존성을 설치한다.
+        run: |
+          playwright install chromium
+          python - <<'PY' || playwright install-deps chromium
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              p.chromium.launch(headless=True).close()
+          print("chromium 실행 확인")
+          PY
 
       - name: 예약 시도
         id: book
@@ -73,7 +88,8 @@ jobs:
             --date "${{ inputs.date }}" \
             --times "${{ inputs.times }}" \
             --sig "${{ inputs.sig }}" \
-            --attempt "${{ inputs.attempt }}"
+            --attempt "${{ inputs.attempt }}" \
+            --detected-at "${{ inputs.detected_at }}"
 
       - name: 실행 실패 기록
         # 워커가 결과를 못 남기고 죽은 경우(설치 실패·타임아웃 등)에도 종료 사실을
