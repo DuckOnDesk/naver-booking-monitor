@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T02:48:59.604873+09:00",
+  "updated_at": "2026-07-30T02:54:31.836620+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -532,7 +532,7 @@
     {
       "id": "2006596949",
       "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "bookingBusinessId": "1689846",
       "operationStart": "26.07.19.",
@@ -546,7 +546,8 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
+        "2026-07-22T16:10:57.904712+09:00",
+        "2026-07-30T02:54:19.926258+09:00"
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-29T09:20:54.243032+09:00"
@@ -1669,6 +1670,13 @@
       "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "ts": "2026-07-30T00:34:36.389385+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2006596949",
+      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "ts": "2026-07-30T02:54:19.926258+09:00"
     }
   ],
   "seen_place_ids": [
