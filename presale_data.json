@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T00:29:13.607511+09:00",
+  "updated_at": "2026-07-30T00:34:49.597042+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -498,7 +498,7 @@
     {
       "id": "2017875070",
       "name": "승리의 여신: 니케 2026 여름 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "bookingBusinessId": "1689014",
       "operationStart": "26.07.17.",
@@ -523,7 +523,8 @@
         "2026-07-28T00:35:10.457912+09:00",
         "2026-07-28T21:12:34.670666+09:00",
         "2026-07-29T00:40:01.038210+09:00",
-        "2026-07-29T21:07:19.216451+09:00"
+        "2026-07-29T21:07:19.216451+09:00",
+        "2026-07-30T00:34:36.389385+09:00"
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-26T10:24:53.469161+09:00"
@@ -1661,6 +1662,13 @@
       "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "ts": "2026-07-29T21:07:19.216451+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2017875070",
+      "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
+      "ts": "2026-07-30T00:34:36.389385+09:00"
     }
   ],
   "seen_place_ids": [
