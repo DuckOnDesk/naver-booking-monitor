@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-29T09:58:37.899503+09:00",
+  "updated_at": "2026-07-29T09:59:03.314931+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -193,6 +193,70 @@
       "roadAddress": "성수이로 97 1F",
       "commonAddress": "서울 성동구",
       "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2001371441",
+      "name": "SEGA 미니 뮤지엄 <세가 : 즐거움의 여정>",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1640758",
+      "bookingBusinessId": "1640758",
+      "operationStart": "26.05.01.",
+      "operationEnd": "26.09.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260422_76/1776843065414SDShA_PNG/%C1%A6%B8%F1_%BE%F8%C0%BD-1.png",
+      "roadAddress": "디지털로 185 마리오아울렛 1관 5층",
+      "commonAddress": "서울 금천구",
+      "district": "금천구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
+    },
+    {
+      "id": "2050363685",
+      "name": "콜라보카페 세이브포인트",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
+      "bookingBusinessId": "1641637",
+      "operationStart": "26.05.01.",
+      "operationEnd": "26.09.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260728_44/1785217770166knRLi_JPEG/edited-1785217769349-0.jpg",
+      "roadAddress": "디지털로 185 마리오아울렛 1관 5층(신관)",
+      "commonAddress": "서울 금천구",
+      "district": "금천구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
+    },
+    {
+      "id": "2042771625",
+      "name": "가상체험 XR 라이브",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.22.",
+      "operationEnd": "27.01.21.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260714_282/1784016226422pymLy_JPEG/%C1%D6%BD%C4%C8%B8%BB%E7_%B8%B6%B8%AE%BF%C0%B0%D4%C0%D3%B9%C2%C1%F6%BE%F6_%C4%BF%BD%BA%C5%D2_%BD%BA%C5%B2_%C7%E0%BB%E7_%B4%EB%C7%A5_%C0%CC%B9%CC%C1%F6.jpg",
+      "roadAddress": "디지털로 185 마리오아울렛 1관 6층(본관)",
+      "commonAddress": "서울 금천구",
+      "district": "금천구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "saleStartDate": null,
@@ -524,7 +588,7 @@
         "2026-07-28T09:58:38.682505+09:00"
       ],
       "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-28T09:58:38.682505+09:00"
+      "lastBookingNotifiedAt": "2026-07-29T09:59:02.131771+09:00"
     },
     {
       "id": "2062024820",
@@ -804,70 +868,6 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
-    },
-    {
-      "id": "2001371441",
-      "name": "SEGA 미니 뮤지엄 <세가 : 즐거움의 여정>",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1640758",
-      "bookingBusinessId": "1640758",
-      "operationStart": "26.05.01.",
-      "operationEnd": "26.09.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260422_76/1776843065414SDShA_PNG/%C1%A6%B8%F1_%BE%F8%C0%BD-1.png",
-      "roadAddress": "디지털로 185 마리오아울렛 1관 5층",
-      "commonAddress": "서울 금천구",
-      "district": "금천구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
-    },
-    {
-      "id": "2050363685",
-      "name": "콜라보카페 세이브포인트",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
-      "bookingBusinessId": "1641637",
-      "operationStart": "26.05.01.",
-      "operationEnd": "26.09.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260728_44/1785217770166knRLi_JPEG/edited-1785217769349-0.jpg",
-      "roadAddress": "디지털로 185 마리오아울렛 1관 5층(신관)",
-      "commonAddress": "서울 금천구",
-      "district": "금천구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
-    },
-    {
-      "id": "2042771625",
-      "name": "가상체험 XR 라이브",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.22.",
-      "operationEnd": "27.01.21.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260714_282/1784016226422pymLy_JPEG/%C1%D6%BD%C4%C8%B8%BB%E7_%B8%B6%B8%AE%BF%C0%B0%D4%C0%D3%B9%C2%C1%F6%BE%F6_%C4%BF%BD%BA%C5%D2_%BD%BA%C5%B2_%C7%E0%BB%E7_%B4%EB%C7%A5_%C0%CC%B9%CC%C1%F6.jpg",
-      "roadAddress": "디지털로 185 마리오아울렛 1관 6층(본관)",
-      "commonAddress": "서울 금천구",
-      "district": "금천구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": null
     },
     {
       "id": "2091748507",
