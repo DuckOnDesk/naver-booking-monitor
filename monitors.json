@@ -89,7 +89,7 @@
       "id": "ms4qrh5o",
       "name": "TFT QWER",
       "url": "https://m.booking.naver.com/booking/12/bizes/1693898/items/7874777?isProgramBizItem=false&tab=details",
-      "enabled": true,
+      "enabled": false,
       "target_dates": [],
       "auto_book": {
         "enabled": false,
