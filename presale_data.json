@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-29T11:26:26.640449+09:00",
+  "updated_at": "2026-07-29T11:32:08.709736+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -20,6 +20,7 @@
     "2067967922",
     "2073241477",
     "2075560121",
+    "2076235934",
     "2091748507",
     "2098663430"
   ],
@@ -193,6 +194,26 @@
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260724_256/17848748255786JK66_JPEG/edited-1784874825307-0.jpg",
       "roadAddress": "성수이로 97 1F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2076235934",
+      "name": "뷰오리 클럽 캘리포니아 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.13.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 15,
+      "status": "D-15",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_282/17822865287771g6Ju_JPEG/%C6%CB%BE%F7_%C1%F6%B5%B5%BF%EB_%C0%CC%B9%CC%C1%F6.jpg",
+      "roadAddress": "연무장11길 11",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
