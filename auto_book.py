@@ -680,22 +680,31 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 page = context.new_page()
                 # load(모든 리소스 완료) + 고정 3초 대신, DOM이 오면 바로 받아서
                 # 달력/시간 UI가 그려지는 즉시 진행한다.
-                page.goto(_with_start_date(url, datekey), wait_until="domcontentloaded", timeout=25000)
-                if not _wait_any(page, f"{_CALENDAR_SELECTOR}, {_TIME_UI_SELECTOR}", 6000):
-                    page.wait_for_timeout(800)   # 구조가 다른 페이지 — 조금만 더 기다려 본다
-                _log(f"페이지 준비 완료 ({time_mod.time() - t0:.1f}초)")
+                def page_problem() -> tuple[str, str] | None:
+                    """예약을 진행할 수 없는 페이지면 (스크린샷 태그, 사유)를 돌려준다.
 
-                if _is_login_page(page):
-                    _shot(page, "login_required", shots, always=True)
-                    return result(False, "네이버 로그인 페이지로 리다이렉트 — NAVER_COOKIES 만료됨")
-                if "/error/" in page.url:
-                    _shot(page, "page_closed", shots, always=True)
-                    return result(False, "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)")
-                # 상품 페이지에서 업체 홈 등으로 밀려나면 예약할 화면 자체가 없다.
-                # 달력/시간대를 찾아 헤매며 15초씩 버리지 말고 바로 다음 계정으로 넘긴다.
-                if "/items/" in url and "/items/" not in page.url:
-                    _shot(page, "redirected", shots, always=True)
-                    return result(False, f"예약 화면으로 진입하지 못함 (리다이렉트: {page.url})")
+                    상품 페이지(/items/)에서 업체 홈 등으로 밀려나면 달력도 시간대도
+                    없으므로, 찾아 헤매지 말고 바로 다음 계정으로 넘어가야 한다.
+                    """
+                    if _is_login_page(page):
+                        return "login_required", "네이버 로그인 페이지로 리다이렉트 — NAVER_COOKIES 만료됨"
+                    if "/error/" in page.url:
+                        return "page_closed", "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)"
+                    if "/items/" in url and "/items/" not in page.url:
+                        return "redirected", f"예약 화면으로 진입하지 못함 (리다이렉트: {page.url})"
+                    return None
+
+                page.goto(_with_start_date(url, datekey), wait_until="domcontentloaded", timeout=25000)
+                # 리다이렉트는 URL만 보면 알 수 있다 — UI를 기다리며 몇 초 버리기 전에 먼저 판정
+                problem = page_problem()
+                if not problem:
+                    if not _wait_any(page, f"{_CALENDAR_SELECTOR}, {_TIME_UI_SELECTOR}", 6000):
+                        page.wait_for_timeout(800)   # 구조가 다른 페이지 — 조금만 더 기다려 본다
+                    problem = page_problem()         # 로딩 중 뒤늦게 이동하는 경우까지
+                if problem:
+                    _shot(page, problem[0], shots, always=True)
+                    return result(False, problem[1])
+                _log(f"페이지 준비 완료 ({time_mod.time() - t0:.1f}초)")
 
                 _shot(page, "01_landing", shots)
 
