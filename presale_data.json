@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T01:02:46.548301+09:00",
+  "updated_at": "2026-07-30T01:08:22.259753+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -532,7 +532,7 @@
     {
       "id": "2006596949",
       "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "bookingBusinessId": "1689846",
       "operationStart": "26.07.19.",
