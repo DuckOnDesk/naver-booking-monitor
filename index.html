@@ -86,6 +86,13 @@
 
     /* Period list */
     .btn-add-period { background: var(--green); color: #fff; border: none; border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+
+    /* 운영 기간 초기화 */
+    .reprobe-current { font-size: 14px; font-weight: 600; color: #333; background: var(--bg); border-radius: 10px; padding: 11px 13px; margin-bottom: 8px; }
+    .btn-reprobe { width: 100%; background: #fff; color: #555; border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-reprobe:disabled { opacity: .6; cursor: default; }
+    #reprobe-hint.working { color: var(--green); font-weight: 600; }
+    #reprobe-hint.failed { color: #ff4d4f; font-weight: 600; }
     .period-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
     .period-tag { display: flex; align-items: center; justify-content: space-between; background: #f0fdf4; border: 1px solid #b7f5d0; border-radius: 8px; padding: 8px 12px; font-size: 13px; color: #1a5c34; }
     .period-tag span { flex: 1; }
@@ -229,6 +236,14 @@
       <div id="period-list" class="period-list"></div>
     </div>
 
+    <!-- 운영 기간 초기화 (수정 모드에서만 노출) -->
+    <div class="form-group" id="reprobe-box" style="display:none">
+      <label>운영 기간</label>
+      <div class="reprobe-current" id="reprobe-current">-</div>
+      <button type="button" class="btn-reprobe" id="reprobe-btn" onclick="resetPeriod()">↻ 운영 기간 초기화</button>
+      <div class="hint" id="reprobe-hint">업체가 운영 기간을 바꿨을 때 사용하세요. 저장된 기간을 지우고 지금 바로 다시 탐색합니다 (1~3분).</div>
+    </div>
+
     <div class="sheet-actions">
       <button class="btn-secondary" onclick="closeSheet()">취소</button>
       <button class="btn-primary" onclick="submitMonitor()">등록</button>
@@ -287,6 +302,20 @@ async function apiFetch(method = 'GET', body = null) {
   };
   if (body) opts.body = JSON.stringify(body);
   const res = await fetch(url, opts);
+  if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+  return res.json();
+}
+
+// monitors.json 외 임의 파일용 (운영 기간 초기화 요청 파일 등)
+async function apiFetchFile(path, method = 'GET', body = null) {
+  const pat = getPAT();
+  const base = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+  const opts = {
+    method,
+    headers: { Authorization: `token ${pat}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' }
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(method === 'GET' ? `${base}?_=${Date.now()}` : base, opts);
   if (!res.ok) throw new Error(`GitHub API ${res.status}`);
   return res.json();
 }
@@ -623,6 +652,7 @@ function openSheet() {
   $('f-quick-weekday').checked = false;
   periods = [];
   renderPeriodList();
+  $('reprobe-box').style.display = 'none';   // 신규 등록 시에는 초기화할 캐시가 없다
   $('overlay').classList.add('open');
 }
 
@@ -639,7 +669,105 @@ function openEdit(id) {
   $('f-quick-weekday').checked = false;
   periods = parsePeriods(m.target_dates || []);
   renderPeriodList();
+  renderReprobeBox(m.url);
   $('overlay').classList.add('open');
+}
+
+// ── 운영 기간 초기화 ────────────────────────────────────────────────
+// 정적 페이지는 네이버를 직접 조회할 수 없으므로, 재탐색 요청 파일을 커밋해
+// GitHub Actions(reprobe 워크플로 / 실행 중인 모니터 루프)가 처리하게 한다.
+const REPROBE_FILE = '.schedule_reprobe_request.json';
+
+function cacheKeyOf(url) {
+  const m = (url || '').trim().match(/\/booking\/(\d+)\/bizes\/(\d+)\/items\/(\d+)/);
+  return m ? `${m[1]}_${m[2]}_${m[3]}` : null;
+}
+
+function renderReprobeBox(url) {
+  const box = $('reprobe-box');
+  if (editId === null) { box.style.display = 'none'; return; }
+  box.style.display = '';
+  const range = getAvailableRange(url);
+  const entry = scheduleCache[cacheKeyOf(url)] || {};
+  const checked = entry.checked_at ? ` · ${entry.checked_at.slice(5, 16).replace('T', ' ')} 확인` : '';
+  $('reprobe-current').textContent = range
+    ? `${range.start} ~ ${range.end}${checked}`
+    : '아직 탐색되지 않음';
+  setReprobeHint('업체가 운영 기간을 바꿨을 때 사용하세요. 저장된 기간을 지우고 지금 바로 다시 탐색합니다 (1~3분).', '');
+  $('reprobe-btn').disabled = false;
+  $('reprobe-btn').textContent = '↻ 운영 기간 초기화';
+}
+
+function setReprobeHint(msg, cls) {
+  const el = $('reprobe-hint');
+  el.textContent = msg;
+  el.className = `hint ${cls}`.trim();
+}
+
+async function resetPeriod() {
+  const url = $('f-url').value.trim();
+  const key = cacheKeyOf(url);
+  if (!key) { alert('네이버 예약 URL을 먼저 입력하세요'); return; }
+  if (!getPAT()) { alert('설정에서 GitHub Token을 먼저 입력하세요'); return; }
+  if (!confirm('저장된 운영 기간을 지우고 지금 다시 탐색할까요?\n결과가 나오기까지 1~3분 걸립니다.')) return;
+
+  const btn = $('reprobe-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner" style="border-color:rgba(0,0,0,.2);border-top-color:#555"></span>';
+  const requestedAt = new Date().toISOString();
+
+  try {
+    // 1) 재탐색 요청 파일에 이 항목을 기록 (다른 항목의 대기 중 요청은 보존)
+    let sha0 = null, reqs = {};
+    try {
+      const cur = await apiFetchFile(REPROBE_FILE);
+      sha0 = cur.sha;
+      const parsed = JSON.parse(decodeURIComponent(escape(atob(cur.content.replace(/\n/g, '')))));
+      reqs = (parsed && parsed.requests) || {};
+    } catch (e) {
+      if (!e.message.includes('404')) throw e;   // 파일이 없으면 새로 만든다
+    }
+    reqs[key] = requestedAt;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify({ requests: reqs }, null, 2) + '\n')));
+    const body = { message: `운영 기간 재탐색 요청: ${$('f-name').value.trim() || key}`, content };
+    if (sha0) body.sha = sha0;
+    await apiFetchFile(REPROBE_FILE, 'PUT', body);
+
+    // 2) 캐시가 갱신될 때까지 폴링 (checked_at이 요청 시각을 넘어서면 처리 완료)
+    setReprobeHint('요청을 보냈습니다. 탐색 결과를 기다리는 중...', 'working');
+    const deadline = Date.now() + 4 * 60 * 1000;
+    let updated = null;
+    while (Date.now() < deadline) {
+      await new Promise(r => setTimeout(r, 10000));
+      await loadScheduleCache();
+      const entry = scheduleCache[key];
+      if (entry && entry.checked_at && new Date(entry.checked_at) > new Date(requestedAt)) { updated = entry; break; }
+      const left = Math.ceil((deadline - Date.now()) / 1000);
+      setReprobeHint(`탐색 중... (최대 ${left}초 더 기다립니다)`, 'working');
+    }
+
+    if (!updated) {
+      setReprobeHint('아직 결과가 없습니다. 잠시 후 수정 화면을 다시 열어 확인해주세요.', 'failed');
+      return;
+    }
+
+    // 3) 새 운영 기간을 확인 기간 입력란에 채워준다
+    renderReprobeBox(url);
+    if (updated.available_start && updated.available_end) {
+      $('f-from').value = updated.available_start;
+      $('f-to').value   = updated.available_end;
+      onDateRangeChange();
+      setReprobeHint(`새 운영 기간 ${updated.available_start} ~ ${updated.available_end} 을 확인 기간에 채웠습니다.`, 'working');
+    } else {
+      setReprobeHint('탐색 결과: 예약 가능한 날짜가 없습니다.', 'failed');
+    }
+    render();
+  } catch (e) {
+    setReprobeHint(`요청 실패: ${e.message}`, 'failed');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '↻ 운영 기간 초기화';
+  }
 }
 
 function closeSheet() { $('overlay').classList.remove('open'); }

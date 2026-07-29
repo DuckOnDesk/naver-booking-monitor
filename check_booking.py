@@ -27,9 +27,15 @@ HEADERS = {
     "Referer": "https://m.booking.naver.com/",
 }
 
-GITHUB_RAW_URL = "https://raw.githubusercontent.com/DuckOnDesk/naver-booking-monitor/main/monitors.json"
+GITHUB_RAW_BASE = "https://raw.githubusercontent.com/DuckOnDesk/naver-booking-monitor/main"
+GITHUB_RAW_URL = f"{GITHUB_RAW_BASE}/monitors.json"
+GITHUB_RAW_REPROBE_URL = f"{GITHUB_RAW_BASE}/.schedule_reprobe_request.json"
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 ALERTED_FILE = Path(__file__).parent / "booking_alerted.json"
+# 웹앱이 "운영 기간 초기화" 버튼으로 기록하는 재탐색 요청 파일.
+# {"requests": {"<cache_key>": "<요청 시각 ISO>"}} 형태이며, 요청 시각이 캐시의
+# checked_at보다 나중이면 TTL과 무관하게 즉시 재탐색한다.
+REPROBE_REQUEST_FILE = Path(__file__).parent / ".schedule_reprobe_request.json"
 
 # 같은 슬롯 조합(signature)에 대한 자동 예약 최대 시도 횟수 (0 = 무제한:
 # 예약 성공 / 슬롯 소멸 / 설정 OFF 전까지 계속 시도)
@@ -319,6 +325,41 @@ def _cache_entry_stale(cache_entry: dict, now_kst: datetime) -> bool:
     if checked_at is None:
         return True
     return (now_kst - checked_at) >= timedelta(minutes=SCHEDULE_CACHE_TTL_MIN)
+
+
+def load_reprobe_requests(from_github: bool = True) -> dict:
+    """웹앱이 남긴 운영 기간 재탐색 요청 로드 → {cache_key: 요청 시각 문자열}.
+
+    실행 중인 job은 로컬 파일만 보면 요청을 볼 수 없으므로 GitHub raw를 먼저 읽는다.
+    파일이 없거나 읽기에 실패하면 빈 dict (요청 없음으로 간주).
+    """
+    data = None
+    if from_github:
+        try:
+            resp = requests.get(f"{GITHUB_RAW_REPROBE_URL}?_={int(time.time())}", timeout=10)
+            if resp.status_code == 200:
+                data = resp.json()
+        except Exception as exc:
+            print(f"[경고] 재탐색 요청 읽기 실패(GitHub), 로컬 파일 사용: {exc}", flush=True)
+    if data is None:
+        try:
+            if REPROBE_REQUEST_FILE.exists():
+                data = json.loads(REPROBE_REQUEST_FILE.read_text(encoding="utf-8"))
+        except Exception as exc:
+            print(f"[경고] 재탐색 요청 파일 읽기 실패: {exc}", flush=True)
+    if not isinstance(data, dict):
+        return {}
+    reqs = data.get("requests")
+    return reqs if isinstance(reqs, dict) else {}
+
+
+def _reprobe_requested(cache_entry: dict, requested_at: str | None) -> bool:
+    """재탐색 요청 시각이 캐시의 checked_at보다 나중인지 (= 아직 처리 안 된 요청)."""
+    req_dt = _parse_dt(requested_at)
+    if req_dt is None:
+        return False
+    checked_at = _parse_dt(cache_entry.get("checked_at"))
+    return checked_at is None or req_dt > checked_at
 
 
 def _period_changed(old: dict, new: dict) -> bool:
@@ -690,6 +731,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
     _pruned_dates: list[tuple[str, str]] = []
     _reprobed_this_round = 0  # 이번 회차에 TTL 만료로 재탐색한 항목 수
+    reprobe_reqs = load_reprobe_requests()  # 웹앱의 "운영 기간 초기화" 요청
 
     for item in active:
         name = item.get("name", "?")
@@ -792,11 +834,16 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         cache_entry = sched_cache.get(cache_key, {})
 
         is_first_probe = not cache_entry
+        # 웹앱에서 "운영 기간 초기화"를 누른 항목은 사용자가 결과를 기다리고 있으므로
+        # TTL·회차당 건수 제한을 모두 무시하고 이번 회차에 바로 재탐색한다.
+        forced = _reprobe_requested(cache_entry, reprobe_reqs.get(cache_key))
         # 캐시가 없으면 즉시, 있으면 TTL 경과 시 재탐색 (회차당 최대 SCHEDULE_REPROBE_PER_ROUND건)
-        need_probe = is_first_probe or (
+        need_probe = is_first_probe or forced or (
             _reprobed_this_round < SCHEDULE_REPROBE_PER_ROUND
             and _cache_entry_stale(cache_entry, now_kst)
         )
+        if forced and not is_first_probe:
+            print(f"[{now_str}] ↻ {name} 운영 기간 초기화 요청 감지 — 즉시 재탐색", flush=True)
         if need_probe:
             probed = probe_schedule_period(parsed)
             if probed:
@@ -813,20 +860,27 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 save_schedule_cache(sched_cache)
                 if is_first_probe:
                     print(f"[{now_str}] — {name} 운영 기간 최초 확인: {new_range}", flush=True)
-                    commit_schedule_cache()
                 elif changed:
-                    print(f"[{now_str}] 🔄 {name} 운영 기간 변경 감지: {old_range} → {new_range}", flush=True)
-                    commit_schedule_cache()
-                    if ntfy_topic:
-                        body = _describe_period_change(cache_entry_before, probed)
-                        # 자동예약 날짜를 직접 지정해 둔 항목은 기간이 늘어나도 그 날짜만 시도한다.
-                        # 늘어난 날짜를 놓치기 쉬운 지점이라 알림에 같이 알려준다.
-                        _ab = _auto_book_cfg(item)
-                        if _ab and _ab["dates"]:
-                            body += "\n⚠️ 자동예약 날짜가 지정돼 있어 새로 늘어난 날짜는 대상이 아닙니다."
-                        send_ntfy(ntfy_topic, f"🔄 {name} 운영 기간 변경", body, url)
+                    prefix = "↻ 운영 기간 초기화 완료" if forced else "🔄 운영 기간 변경 감지"
+                    print(f"[{now_str}] {prefix}: {name} {old_range} → {new_range}", flush=True)
+                elif forced:
+                    print(f"[{now_str}] ↻ {name} 운영 기간 초기화 완료: {new_range} (변경 없음)", flush=True)
                 else:
                     print(f"[{now_str}] — {name} 운영 기간 재확인: {new_range} (변경 없음)", flush=True)
+
+                # forced일 때 변경이 없어도 커밋해야 한다. 요청 처리 완료 판정이 원격
+                # checked_at 기준이라, 안 올리면 요청이 계속 유효해 매 회차 재탐색이 반복된다.
+                if is_first_probe or changed or forced:
+                    commit_schedule_cache()
+
+                if changed and not is_first_probe and ntfy_topic:
+                    body = _describe_period_change(cache_entry_before, probed)
+                    # 자동예약 날짜를 직접 지정해 둔 항목은 기간이 늘어나도 그 날짜만 시도한다.
+                    # 늘어난 날짜를 놓치기 쉬운 지점이라 알림에 같이 알려준다.
+                    _ab = _auto_book_cfg(item)
+                    if _ab and _ab["dates"]:
+                        body += "\n⚠️ 자동예약 날짜가 지정돼 있어 새로 늘어난 날짜는 대상이 아닙니다."
+                    send_ntfy(ntfy_topic, f"🔄 {name} 운영 기간 변경", body, url)
             elif not is_first_probe:
                 _reprobed_this_round += 1
                 print(f"[{now_str}] [경고] {name} 운영 기간 재확인 실패 — 기존 캐시 유지", flush=True)
@@ -1362,7 +1416,66 @@ def commit_schedule_cache() -> None:
         print(f"[경고] schedule_cache.json 커밋 실패: {exc}", flush=True)
 
 
+def run_reprobe_requests() -> int:
+    """웹앱의 "운영 기간 초기화" 요청만 처리하고 끝나는 단발 실행 (reprobe 워크플로용).
+
+    모니터 job이 돌지 않는 시간대에도 버튼이 동작하게 하는 경로다.
+    모니터가 돌고 있으면 양쪽이 같은 결과를 쓰므로 중복 처리돼도 무해하다.
+    """
+    reqs = load_reprobe_requests(from_github=False)
+    if not reqs:
+        print("재탐색 요청 없음", flush=True)
+        return 0
+
+    cfg = load_monitors()
+    # cache_key → 모니터 이름 (로그용)
+    names: dict[str, str] = {}
+    parsed_by_key: dict[str, dict] = {}
+    for m in cfg.get("monitors", []):
+        p = parse_naver_url(m.get("url", ""))
+        if not p:
+            continue
+        k = f"{p['service_id']}_{p['biz_id']}_{p['item_id']}"
+        parsed_by_key.setdefault(k, p)
+        names.setdefault(k, m.get("name", k))
+
+    try:
+        cache = json.loads(SCHEDULE_CACHE_FILE.read_text(encoding="utf-8")) if SCHEDULE_CACHE_FILE.exists() else {}
+    except Exception:
+        cache = {}
+
+    done = 0
+    for key, requested_at in reqs.items():
+        entry = cache.get(key, {})
+        if not _reprobe_requested(entry, requested_at):
+            print(f"  • {names.get(key, key)} — 이미 처리된 요청, 건너뜀", flush=True)
+            continue
+        parsed = parsed_by_key.get(key)
+        if not parsed:
+            print(f"  • {key} — monitors.json에 없는 항목, 건너뜀", flush=True)
+            continue
+        probed = probe_schedule_period(parsed)
+        if not probed:
+            print(f"  • {names.get(key, key)} — 조회 실패, 기존 캐시 유지", flush=True)
+            continue
+        old_range = f"{entry.get('available_start')}~{entry.get('available_end')}"
+        cache[key] = probed
+        done += 1
+        print(f"  • {names.get(key, key)} 운영 기간: {old_range} → "
+              f"{probed.get('available_start')}~{probed.get('available_end')}", flush=True)
+
+    if done:
+        save_schedule_cache(cache)
+        commit_schedule_cache()
+    print(f"재탐색 완료: {done}건", flush=True)
+    return done
+
+
 def main():
+    if "--reprobe" in sys.argv:
+        run_reprobe_requests()
+        return
+
     cfg = load_monitors()
     ntfy_topic = os.environ.get("NTFY_TOPIC") or cfg.get("ntfy_topic", "")
     interval = int(os.environ.get("CHECK_INTERVAL_SEC", "30"))
