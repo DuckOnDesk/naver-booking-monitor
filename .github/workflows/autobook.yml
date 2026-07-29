@@ -1,0 +1,96 @@
+name: 자동예약 실행
+
+# 모니터(monitor.yml)가 예약 가능 슬롯을 발견하면 이 워크플로를 디스패치한다.
+# 실제 예약(Playwright)은 여기서만 돌기 때문에, 예약을 시도하는 동안에도
+# 모니터 job은 계속 감시할 수 있다.
+on:
+  workflow_dispatch:
+    inputs:
+      item_id:
+        description: monitors.json 항목 id
+        required: true
+      date:
+        description: 예약 날짜 (YYYY-MM-DD)
+        required: true
+      times:
+        description: 모니터가 감지한 시간대 (쉼표 구분, 비우면 워커가 재조회)
+        required: false
+        default: ""
+      sig:
+        description: 슬롯 시그니처 (모니터 상태 대조용)
+        required: false
+        default: ""
+      attempt:
+        description: 같은 슬롯에 대한 시도 횟수
+        required: false
+        default: "1"
+
+permissions:
+  contents: write   # auto_book_log.json·auto_book_state.json 커밋/푸시용
+
+concurrency:
+  # 같은 항목의 예약은 한 번에 하나만 (중복 예약 방지).
+  # 다른 항목끼리는 동시에 돌 수 있다.
+  group: autobook-${{ inputs.item_id }}
+  cancel-in-progress: false
+
+jobs:
+  book:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests playwright
+
+      - name: Playwright 캐시
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ runner.os }}
+
+      - name: Chromium 설치
+        run: playwright install chromium --with-deps
+
+      - name: 예약 시도
+        id: book
+        env:
+          NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
+          NAVER_COOKIES_1: ${{ secrets.NAVER_COOKIES_1 }}
+          NAVER_COOKIES_2: ${{ secrets.NAVER_COOKIES_2 }}
+          NAVER_COOKIES_3: ${{ secrets.NAVER_COOKIES_3 }}
+          NAVER_COOKIES_4: ${{ secrets.NAVER_COOKIES_4 }}
+          NAVER_COOKIES_5: ${{ secrets.NAVER_COOKIES_5 }}
+          AUTO_BOOK_DRY_RUN: ${{ vars.AUTO_BOOK_DRY_RUN }}
+        run: |
+          python -u auto_book_worker.py \
+            --item-id "${{ inputs.item_id }}" \
+            --date "${{ inputs.date }}" \
+            --times "${{ inputs.times }}" \
+            --sig "${{ inputs.sig }}" \
+            --attempt "${{ inputs.attempt }}"
+
+      - name: 실행 실패 기록
+        # 워커가 결과를 못 남기고 죽은 경우(설치 실패·타임아웃 등)에도 종료 사실을
+        # 남겨 모니터가 대기 없이 다음 시도로 넘어가게 한다.
+        if: failure()
+        run: |
+          python -u auto_book_worker.py \
+            --item-id "${{ inputs.item_id }}" \
+            --date "${{ inputs.date }}" \
+            --sig "${{ inputs.sig }}" \
+            --attempt "${{ inputs.attempt }}" \
+            --fail-note "자동예약 워크플로 실행 실패 (run ${{ github.run_id }})" || true
+
+      - name: 스크린샷 업로드
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-book-shots-${{ github.run_id }}
+          path: auto_book_shots/
+          if-no-files-found: ignore
