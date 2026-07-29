@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-29T15:28:37.795526+09:00",
+  "updated_at": "2026-07-29T15:29:12.415808+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -808,29 +808,6 @@
       "lastBookingNotifiedAt": "2026-07-29T14:28:04.705113+09:00"
     },
     {
-      "id": "2001855074",
-      "name": "3WAAU 1st POP-UP Store",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1702396",
-      "bookingBusinessId": "1702396",
-      "operationStart": "26.07.24.",
-      "operationEnd": "26.07.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260716_179/1784181644157eYljS_JPEG/1080x1080_%C4%AB%B5%E5%B4%BA%BD%BA-2.jpg",
-      "roadAddress": "목동동로 257 현대백화점 B2 비클린 쓰리와우 팝업스토어",
-      "commonAddress": "서울 양천구",
-      "district": "양천구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00",
-        "2026-07-28T14:45:33.759370+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
-    },
-    {
       "id": "2001371441",
       "name": "SEGA 미니 뮤지엄 <세가 : 즐거움의 여정>",
       "hasBooking": true,
@@ -893,6 +870,29 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2001855074",
+      "name": "3WAAU 1st POP-UP Store",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1702396",
+      "bookingBusinessId": "1702396",
+      "operationStart": "26.07.24.",
+      "operationEnd": "26.07.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260716_179/1784181644157eYljS_JPEG/1080x1080_%C4%AB%B5%E5%B4%BA%BD%BA-2.jpg",
+      "roadAddress": "목동동로 257 현대백화점 B2 비클린 쓰리와우 팝업스토어",
+      "commonAddress": "서울 양천구",
+      "district": "양천구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00",
+        "2026-07-28T14:45:33.759370+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
       "id": "2091748507",
