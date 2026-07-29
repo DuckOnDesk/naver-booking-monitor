@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T00:18:02.544211+09:00",
+  "updated_at": "2026-07-30T00:23:38.268629+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -158,28 +158,6 @@
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
-      "id": "2041689219",
-      "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
-      "bookingBusinessId": "1698075",
-      "operationStart": "26.07.31.",
-      "operationEnd": "26.08.02.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_26/1785315157140wORLi_JPEG/edited-1785315156956-0.jpg",
-      "roadAddress": "성수이로14길 15 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-29T09:20:50.871222+09:00"
-    },
-    {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
       "hasBooking": true,
@@ -200,6 +178,28 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-29T13:42:29.191876+09:00"
+    },
+    {
+      "id": "2041689219",
+      "name": "올랑말랑슬랑 성수 by 나우성수",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
+      "bookingBusinessId": "1698075",
+      "operationStart": "26.07.31.",
+      "operationEnd": "26.08.02.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_26/1785315157140wORLi_JPEG/edited-1785315156956-0.jpg",
+      "roadAddress": "성수이로14길 15 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-29T09:20:50.871222+09:00"
     },
     {
       "id": "2076235934",
@@ -368,6 +368,28 @@
       "lastBookingNotifiedAt": null
     },
     {
+      "id": "2025764652",
+      "name": "2026 유이크 쿨링 충전소 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686431",
+      "bookingBusinessId": "1686431",
+      "operationStart": "26.07.30.",
+      "operationEnd": "26.08.05.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260720_15/17845065110793l6IT_JPEG/image.jpg",
+      "roadAddress": "영동대로 513 코엑스 케이타운포유 4층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-29T14:28:03.374492+09:00"
+    },
+    {
       "id": "2002918567",
       "name": "엘모즈비스포크 청담 팝업스토어",
       "hasBooking": true,
@@ -408,26 +430,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2023862125",
-      "name": "인사이드룸",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "25.03.01.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20250903_131/1756868764463HeMgv_PNG/%B4%EB%C1%F6_172x.png",
-      "roadAddress": "백제고분로43길 10 지하 1층",
-      "commonAddress": "서울 송파구",
-      "district": "송파구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
       "hasBooking": true,
@@ -436,7 +438,7 @@
       "operationStart": "26.07.30.",
       "operationEnd": "26.08.09.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약",
       "imageUrl": "https://naverbooking-phinf.pstatic.net/20260715_204/17841074193520oyzV_JPEG/image.jpg",
       "roadAddress": "올림픽로 300 롯데월드몰 1층 아트리움",
@@ -459,7 +461,7 @@
       "operationStart": "26.07.30.",
       "operationEnd": null,
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260722_151/1784683272782EFta5_JPEG/edited-1784683272388-0.jpg",
       "roadAddress": "올림픽로 240 쇼핑몰동 B1F 24호",
@@ -472,6 +474,26 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-24T10:41:44.368407+09:00"
+    },
+    {
+      "id": "2023862125",
+      "name": "인사이드룸",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "25.03.01.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20250903_131/1756868764463HeMgv_PNG/%B4%EB%C1%F6_172x.png",
+      "roadAddress": "백제고분로43길 10 지하 1층",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2017875070",
@@ -665,7 +687,7 @@
       "operationStart": "26.07.30.",
       "operationEnd": "26.08.23.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260726_163/17850384228754qVpv_JPEG/edited-1785038424106-0.jpg",
       "roadAddress": "대학로8가길 105 필더스페이스",
@@ -685,7 +707,7 @@
       "operationStart": "26.07.30.",
       "operationEnd": "26.08.23.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://naverbooking-phinf.pstatic.net/20260710_269/1783666852426deRtk_PNG/image.png",
       "roadAddress": "대학로8가길 105 필더스페이스 1, 2, 6층",
@@ -739,28 +761,6 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
-    },
-    {
-      "id": "2025764652",
-      "name": "2026 유이크 쿨링 충전소 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1686431",
-      "bookingBusinessId": "1686431",
-      "operationStart": "26.07.30.",
-      "operationEnd": "26.08.05.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260720_15/17845065110793l6IT_JPEG/image.jpg",
-      "roadAddress": "영동대로 513 코엑스 케이타운포유 4층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-29T14:28:03.374492+09:00"
     },
     {
       "id": "2067967922",
