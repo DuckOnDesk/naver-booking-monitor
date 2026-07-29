@@ -129,7 +129,7 @@
       "id": "ms4qwci3",
       "name": "TFT 비트펠라하우스 공연",
       "url": "https://m.booking.naver.com/booking/12/bizes/1693898/items/7874760",
-      "enabled": false,
+      "enabled": true,
       "target_dates": [],
       "auto_book": {
         "enabled": false,
