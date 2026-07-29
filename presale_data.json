@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-29T15:30:35.592038+09:00",
+  "updated_at": "2026-07-29T15:31:22.753903+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -700,6 +700,26 @@
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
+      "id": "2036674429",
+      "name": "소녀전선2 망명 갤러리",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "25.12.25.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20251125_158/1764037278704wYjQn_JPEG/1_%C0%CC%B9%CC%C1%F6_2400x1500px_%281%29.jpg",
+      "roadAddress": "연희로11가길 32 소녀전선2 망명 갤러리",
+      "commonAddress": "서울 서대문구",
+      "district": "서대문구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2004678306",
       "name": "하우스 아카이브: 홈 디깅 페어",
       "hasBooking": true,
@@ -742,6 +762,73 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-29T14:28:03.374492+09:00"
+    },
+    {
+      "id": "2067967922",
+      "name": "라운즈 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705528",
+      "bookingBusinessId": "1705528",
+      "operationStart": "26.08.07.",
+      "operationEnd": "26.08.20.",
+      "remainingDays": 9,
+      "status": "D-9",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260722_226/1784700272408fMYqD_JPEG/edited-1784700263086-1.jpg",
+      "roadAddress": "장충단로13길 20 동대문 현대시티아울렛 1층 팝업존",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T15:08:20.708742+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-29T15:13:49.762365+09:00"
+    },
+    {
+      "id": "2012113406",
+      "name": "방추리 복숭아카페 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694470/search",
+      "bookingBusinessId": "1694470",
+      "operationStart": "26.07.15.",
+      "operationEnd": "26.09.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260721_169/1784592382492GyT5t_JPEG/edited-1784592379397-1.jpg",
+      "roadAddress": "능동로 172 B08호",
+      "commonAddress": "서울 광진구",
+      "district": "광진구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-29T14:28:04.705113+09:00"
+    },
+    {
+      "id": "2001855074",
+      "name": "3WAAU 1st POP-UP Store",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1702396",
+      "bookingBusinessId": "1702396",
+      "operationStart": "26.07.24.",
+      "operationEnd": "26.07.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260716_179/1784181644157eYljS_JPEG/1080x1080_%C4%AB%B5%E5%B4%BA%BD%BA-2.jpg",
+      "roadAddress": "목동동로 257 현대백화점 B2 비클린 쓰리와우 팝업스토어",
+      "commonAddress": "서울 양천구",
+      "district": "양천구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00",
+        "2026-07-28T14:45:33.759370+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
       "id": "2091748507",
@@ -802,70 +889,6 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2036674429",
-      "name": "소녀전선2 망명 갤러리",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "25.12.25.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20251125_158/1764037278704wYjQn_JPEG/1_%C0%CC%B9%CC%C1%F6_2400x1500px_%281%29.jpg",
-      "roadAddress": "연희로11가길 32 소녀전선2 망명 갤러리",
-      "commonAddress": "서울 서대문구",
-      "district": "서대문구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2067967922",
-      "name": "라운즈 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705528",
-      "bookingBusinessId": "1705528",
-      "operationStart": "26.08.07.",
-      "operationEnd": "26.08.20.",
-      "remainingDays": 9,
-      "status": "D-9",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260722_226/1784700272408fMYqD_JPEG/edited-1784700263086-1.jpg",
-      "roadAddress": "장충단로13길 20 동대문 현대시티아울렛 1층 팝업존",
-      "commonAddress": "서울 중구",
-      "district": "중구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T15:08:20.708742+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-29T15:13:49.762365+09:00"
-    },
-    {
-      "id": "2012113406",
-      "name": "방추리 복숭아카페 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694470/search",
-      "bookingBusinessId": "1694470",
-      "operationStart": "26.07.15.",
-      "operationEnd": "26.09.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260721_169/1784592382492GyT5t_JPEG/edited-1784592379397-1.jpg",
-      "roadAddress": "능동로 172 B08호",
-      "commonAddress": "서울 광진구",
-      "district": "광진구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-29T14:28:04.705113+09:00"
     },
     {
       "id": "2001371441",
@@ -930,29 +953,6 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2001855074",
-      "name": "3WAAU 1st POP-UP Store",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1702396",
-      "bookingBusinessId": "1702396",
-      "operationStart": "26.07.24.",
-      "operationEnd": "26.07.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260716_179/1784181644157eYljS_JPEG/1080x1080_%C4%AB%B5%E5%B4%BA%BD%BA-2.jpg",
-      "roadAddress": "목동동로 257 현대백화점 B2 비클린 쓰리와우 팝업스토어",
-      "commonAddress": "서울 양천구",
-      "district": "양천구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00",
-        "2026-07-28T14:45:33.759370+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     }
   ],
   "alerts": [
