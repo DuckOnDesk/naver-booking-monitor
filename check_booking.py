@@ -35,6 +35,13 @@ ALERTED_FILE = Path(__file__).parent / "booking_alerted.json"
 # 예약 성공 / 슬롯 소멸 / 설정 OFF 전까지 계속 시도)
 AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "0"))
 
+# schedule_cache.json 항목의 유효 시간(분). 이 시간이 지난 항목은 루프 도중에도
+# 다시 조회해 운영 기간 변경을 반영한다 (0 = 재탐색 끔 = 종전 동작).
+SCHEDULE_CACHE_TTL_MIN = int(os.environ.get("SCHEDULE_CACHE_TTL_MIN", "60"))
+# 한 회차에 재탐색할 최대 항목 수. 캐시가 한꺼번에 만료돼도 루프가 멈추지 않도록
+# 회차당 1건씩만 갱신해 자연스럽게 분산시킨다.
+SCHEDULE_REPROBE_PER_ROUND = int(os.environ.get("SCHEDULE_REPROBE_PER_ROUND", "1"))
+
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
 KAKAO_API_URL = "https://booking.kakao.com/api/product/public/ticket/tickets/availableDates"
@@ -297,6 +304,66 @@ def _parse_dt(dt_str: str | None) -> datetime | None:
         return dt
     except ValueError:
         return None
+
+
+def _cache_entry_stale(cache_entry: dict, now_kst: datetime) -> bool:
+    """schedule_cache 항목이 TTL을 넘겨 재탐색이 필요한지 여부.
+
+    업체가 운영 기간을 도중에 바꾸면 캐시가 옛 기간을 물고 있게 되고,
+    늘어난 날짜는 탐색 범위 제한에 걸려 아예 조회되지 않는다.
+    checked_at이 TTL보다 오래된 항목은 루프 도중에도 다시 조회한다.
+    """
+    if SCHEDULE_CACHE_TTL_MIN <= 0:
+        return False
+    checked_at = _parse_dt(cache_entry.get("checked_at"))
+    if checked_at is None:
+        return True
+    return (now_kst - checked_at) >= timedelta(minutes=SCHEDULE_CACHE_TTL_MIN)
+
+
+def _period_changed(old: dict, new: dict) -> bool:
+    """운영 기간/예약 제한이 실제로 바뀌었는지 (checked_at 갱신만인 경우는 제외)."""
+    keys = ("available_start", "available_end", "sale_start_date", "sale_end_date",
+            "booking_available_code", "booking_available_value")
+    return any(old.get(k) != new.get(k) for k in keys)
+
+
+def _fmt_range(entry: dict, start_key: str, end_key: str) -> str:
+    """캐시 항목의 기간을 'MM-DD~MM-DD' 형태로. 값이 없으면 '없음'."""
+    s, e = entry.get(start_key), entry.get(end_key)
+    if not s and not e:
+        return "없음"
+    return f"{(s or '?')[5:] if s else '?'}~{(e or '?')[5:] if e else '?'}"
+
+
+def _describe_period_change(old: dict, new: dict) -> str:
+    """운영 기간 변경 내용을 알림 본문용 문자열로. 바뀐 항목만 줄 단위로 나열."""
+    lines = []
+
+    if (old.get("available_start") != new.get("available_start")
+            or old.get("available_end") != new.get("available_end")):
+        before, after = _fmt_range(old, "available_start", "available_end"), _fmt_range(new, "available_start", "available_end")
+        note = ""
+        o_end, n_end = old.get("available_end"), new.get("available_end")
+        if o_end and n_end:
+            diff = (date.fromisoformat(n_end) - date.fromisoformat(o_end)).days
+            if diff > 0:
+                note = f" (종료일 {diff}일 연장)"
+            elif diff < 0:
+                note = f" (종료일 {-diff}일 단축)"
+        lines.append(f"운영 기간: {before} → {after}{note}")
+
+    if (old.get("sale_start_date") != new.get("sale_start_date")
+            or old.get("sale_end_date") != new.get("sale_end_date")):
+        lines.append(f"판매 기간: {_fmt_range(old, 'sale_start_date', 'sale_end_date')} → "
+                     f"{_fmt_range(new, 'sale_start_date', 'sale_end_date')}")
+
+    if (old.get("booking_available_code") != new.get("booking_available_code")
+            or old.get("booking_available_value") != new.get("booking_available_value")):
+        lines.append(f"예약 제한: {old.get('booking_available_code') or '없음'}/{old.get('booking_available_value') or 0}일 → "
+                     f"{new.get('booking_available_code') or '없음'}/{new.get('booking_available_value') or 0}일")
+
+    return "\n".join(lines)
 
 
 def booking_window_status(item: dict, sale_start_date: str | None, sale_end_date: str | None) -> tuple[bool, str]:
@@ -622,6 +689,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         sched_cache = {}
 
     _pruned_dates: list[tuple[str, str]] = []
+    _reprobed_this_round = 0  # 이번 회차에 TTL 만료로 재탐색한 항목 수
 
     for item in active:
         name = item.get("name", "?")
@@ -723,14 +791,45 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         cache_key   = f"{parsed['service_id']}_{parsed['biz_id']}_{parsed['item_id']}"
         cache_entry = sched_cache.get(cache_key, {})
 
-        if not cache_entry:
+        is_first_probe = not cache_entry
+        # 캐시가 없으면 즉시, 있으면 TTL 경과 시 재탐색 (회차당 최대 SCHEDULE_REPROBE_PER_ROUND건)
+        need_probe = is_first_probe or (
+            _reprobed_this_round < SCHEDULE_REPROBE_PER_ROUND
+            and _cache_entry_stale(cache_entry, now_kst)
+        )
+        if need_probe:
             probed = probe_schedule_period(parsed)
             if probed:
+                if not is_first_probe:
+                    _reprobed_this_round += 1
+                cache_entry_before = cache_entry
+                changed = _period_changed(cache_entry_before, probed)
+                old_range = f"{cache_entry_before.get('available_start')}~{cache_entry_before.get('available_end')}"
+                new_range = f"{probed.get('available_start')}~{probed.get('available_end')}"
                 sched_cache[cache_key] = probed
                 cache_entry = probed
-                if save_schedule_cache(sched_cache):
+                # checked_at만 바뀐 재탐색까지 커밋하면 커밋이 과도하게 쌓이므로,
+                # 파일은 항상 갱신하되(다음 TTL 기준점) 커밋은 실제 변경 시에만 한다.
+                save_schedule_cache(sched_cache)
+                if is_first_probe:
+                    print(f"[{now_str}] — {name} 운영 기간 최초 확인: {new_range}", flush=True)
                     commit_schedule_cache()
-                print(f"[{now_str}] — {name} 운영 기간 최초 확인: {probed.get('available_start')}~{probed.get('available_end')}", flush=True)
+                elif changed:
+                    print(f"[{now_str}] 🔄 {name} 운영 기간 변경 감지: {old_range} → {new_range}", flush=True)
+                    commit_schedule_cache()
+                    if ntfy_topic:
+                        body = _describe_period_change(cache_entry_before, probed)
+                        # 자동예약 날짜를 직접 지정해 둔 항목은 기간이 늘어나도 그 날짜만 시도한다.
+                        # 늘어난 날짜를 놓치기 쉬운 지점이라 알림에 같이 알려준다.
+                        _ab = _auto_book_cfg(item)
+                        if _ab and _ab["dates"]:
+                            body += "\n⚠️ 자동예약 날짜가 지정돼 있어 새로 늘어난 날짜는 대상이 아닙니다."
+                        send_ntfy(ntfy_topic, f"🔄 {name} 운영 기간 변경", body, url)
+                else:
+                    print(f"[{now_str}] — {name} 운영 기간 재확인: {new_range} (변경 없음)", flush=True)
+            elif not is_first_probe:
+                _reprobed_this_round += 1
+                print(f"[{now_str}] [경고] {name} 운영 기간 재확인 실패 — 기존 캐시 유지", flush=True)
 
         avail_start = cache_entry.get("available_start")
         avail_end   = cache_entry.get("available_end")
