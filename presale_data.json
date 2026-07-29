@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-29T10:17:38.190668+09:00",
+  "updated_at": "2026-07-29T10:23:18.473140+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -7,6 +7,7 @@
     "2012113406",
     "2015464753",
     "2019923740",
+    "2021947047",
     "2023862125",
     "2025764652",
     "2034762449",
@@ -908,6 +909,26 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2021947047",
+      "name": "무민팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.07.",
+      "operationEnd": "26.08.17.",
+      "remainingDays": 9,
+      "status": "D-9",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_269/1785286842844MVTrc_JPEG/edited-1785286842746-0.jpg",
+      "roadAddress": "신반포로 176 신세계 강남 센트럴 1층 오픈스테이지",
+      "commonAddress": "서울 서초구",
+      "district": "서초구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
     }
   ],
   "alerts": [
@@ -1589,6 +1610,13 @@
       "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
       "ts": "2026-07-29T00:40:01.038210+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2021947047",
+      "place_name": "무민팝업스토어",
+      "booking_url": "",
+      "ts": "2026-07-29T10:23:05.293584+09:00"
     }
   ],
   "seen_place_ids": [
@@ -1608,6 +1636,7 @@
     "2019923740",
     "2020855313",
     "2021908137",
+    "2021947047",
     "2023862125",
     "2025764652",
     "2027303446",
