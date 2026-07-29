@@ -627,6 +627,15 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         name = item.get("name", "?")
         url = item.get("url", "")
 
+        ab_cfg = _auto_book_cfg(item)
+        if ab_cfg and ab_cfg["mode"] == "scheduled" and ab_cfg["start_at"]:
+            start_at = _parse_dt(ab_cfg["start_at"])
+            if start_at and now_kst < start_at:
+                remain_min = int((start_at - now_kst).total_seconds() // 60)
+                print(f"[{now_str}] ⏸ {name} — 자동예약 시작 대기 중 "
+                      f"({start_at.strftime('%m/%d %H:%M')}, {remain_min}분 남음, 탐색 보류)", flush=True)
+                continue
+
         if item.get("type") == "kakao":
             item_id = item.get("id", name)
             ticket_id = parse_kakao_url(url)

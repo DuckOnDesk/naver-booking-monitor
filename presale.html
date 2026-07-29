@@ -103,6 +103,7 @@
     .t-open   { background: #e6f9ee; color: #02a347; }
     .t-closed { background: #fff3e0; color: #c45000; }
     .t-wait   { background: #f2f2f2; color: #999; }
+    .t-presale { background: #fff4e0; color: #c45000; }
     .t-dday   { background: #fff4e0; color: #c45000; }
     .t-url    { background: #e8f2ff; color: #1a73e8; }
     .c-dist   { display: inline-block; font-size: 10px; font-weight: 700; color: #6b4fd8;
@@ -362,14 +363,25 @@ async function clearOpenTime() {
   closeTimePicker(); load();
 }
 
+function pendingOpenSrc(p) {
+  // 예약창(hasBooking)은 열렸지만 실제 판매 시작일이 아직 안 된 경우의 시작 시각 문자열
+  // (수동 설정한 bookingOpenDatetime 우선, 없으면 네이버 API에서 자동 조회한 saleStartDate)
+  return p.bookingOpenDatetime || p.saleStartDate || null;
+}
+
 function bookingStatusTag(p) {
-  if (p.hasBooking) return '<span class="tag t-open">예약 오픈</span>';
+  if (p.hasBooking) {
+    const info = fmtOpenTime(pendingOpenSrc(p));
+    if (info && !info.past) return '<span class="tag t-presale">판매 대기</span>';
+    return '<span class="tag t-open">예약 오픈</span>';
+  }
   if ((p.bookingOpenHistory || []).length > 0) return '<span class="tag t-closed">자리 없음</span>';
   return '<span class="tag t-wait">대기중</span>';
 }
 
 function makeCard(p) {
-  const isOpen = !!p.hasBooking;
+  const openInfoEarly = fmtOpenTime(pendingOpenSrc(p));
+  const isOpen = !!p.hasBooking && !(openInfoEarly && !openInfoEarly.past);
   const hasClosed = !isOpen && (p.bookingOpenHistory || []).length > 0;
   const hasUrl = !!p.bookingUrl;
   const barClass = isOpen ? 'open' : hasClosed ? 'closed' : 'wait';
@@ -397,9 +409,9 @@ function makeCard(p) {
   const stTag    = bookingStatusTag(p);
   const urlTag   = hasUrl ? `<span class="tag t-url">예약하기 →</span>` : '';
 
-  const openInfo = fmtOpenTime(p.bookingOpenDatetime);
+  const openInfo = fmtOpenTime(pendingOpenSrc(p));
   const openTimeHtml = openInfo && !openInfo.past
-    ? `<div class="c-open-time">🕐 예약 오픈 예정: ${openInfo.str}</div>` : '';
+    ? `<div class="c-open-time">🕐 예약 오픈 예정: ${openInfo.str}${p.bookingOpenDatetime ? '' : ' (자동 감지)'}</div>` : '';
 
   card.innerHTML = `
     <div class="c-bar ${barClass}"></div>
