@@ -41,26 +41,15 @@ jobs:
 
       - name: 예약 자리 확인
         env:
+          # 자동예약 워크플로(autobook.yml) 디스패치용 — 예약 시도는 별도 job에서 돈다
+          GITHUB_TOKEN: ${{ github.token }}
           CHECK_INTERVAL_SEC: "60"
           LOOP_HOURS: "5.5"
           SCHEDULE_CACHE_TTL_MIN: "60"   # 운영 기간 캐시 재탐색 주기(분), 0 = 끔
+          # 예약창 접근 확인용. 계정 쿠키(NAVER_COOKIES_1~5)는 autobook.yml에서 쓴다.
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
-          NAVER_COOKIES_1: ${{ secrets.NAVER_COOKIES_1 }}
-          NAVER_COOKIES_2: ${{ secrets.NAVER_COOKIES_2 }}
-          NAVER_COOKIES_3: ${{ secrets.NAVER_COOKIES_3 }}
-          NAVER_COOKIES_4: ${{ secrets.NAVER_COOKIES_4 }}
-          NAVER_COOKIES_5: ${{ secrets.NAVER_COOKIES_5 }}
           KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}
-          AUTO_BOOK_DRY_RUN: ${{ vars.AUTO_BOOK_DRY_RUN }}
         run: python -u check_booking.py
-
-      - name: 자동예약 스크린샷 업로드
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: auto-book-shots-${{ github.run_id }}
-          path: auto_book_shots/
-          if-no-files-found: ignore
 
       - name: 다음 실행 즉시 트리거
         if: ${{ !cancelled() }}

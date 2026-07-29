@@ -1,6 +1,12 @@
 """
 네이버 예약 자리 모니터 — GitHub Actions 클라우드 버전
 monitors.json 파일에서 설정 읽기 (enabled 필드로 항목별 ON/OFF)
+
+자동예약은 이 프로세스에서 직접 실행하지 않는다. 예약 가능 슬롯을 발견하면
+autobook.yml 워크플로(auto_book_worker.py)를 디스패치하고 바로 다음 감시 주기로
+넘어가므로, 예약을 시도하는 몇 분 동안에도 감시가 멈추지 않는다. 워커의 결과는
+auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
+
 환경변수: NTFY_TOPIC (선택, monitors.json 값 override)
           CHECK_INTERVAL_SEC, LOOP_HOURS
 
@@ -32,6 +38,9 @@ GITHUB_RAW_URL = f"{GITHUB_RAW_BASE}/monitors.json"
 GITHUB_RAW_REPROBE_URL = f"{GITHUB_RAW_BASE}/.schedule_reprobe_request.json"
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 ALERTED_FILE = Path(__file__).parent / "booking_alerted.json"
+# 자동예약 워커(auto_book_worker.py)가 남기는 실행 결과. 모니터는 읽기만 한다.
+AUTO_BOOK_STATE_FILE = Path(__file__).parent / "auto_book_state.json"
+GITHUB_RAW_AUTOBOOK_STATE_URL = f"{GITHUB_RAW_BASE}/auto_book_state.json"
 # 웹앱이 "운영 기간 초기화" 버튼으로 기록하는 재탐색 요청 파일.
 # {"requests": {"<cache_key>": "<요청 시각 ISO>"}} 형태이며, 요청 시각이 캐시의
 # checked_at보다 나중이면 TTL과 무관하게 즉시 재탐색한다.
@@ -40,6 +49,13 @@ REPROBE_REQUEST_FILE = Path(__file__).parent / ".schedule_reprobe_request.json"
 # 같은 슬롯 조합(signature)에 대한 자동 예약 최대 시도 횟수 (0 = 무제한:
 # 예약 성공 / 슬롯 소멸 / 설정 OFF 전까지 계속 시도)
 AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "0"))
+
+# 실제 예약 시도는 별도 워크플로(autobook.yml → auto_book_worker.py)에서 돈다.
+# 모니터는 디스패치만 하고 바로 다음 감시 주기로 넘어가므로, 예약을 시도하는
+# 동안에도 감시가 멈추지 않는다.
+AUTO_BOOK_WORKFLOW = os.environ.get("AUTO_BOOK_WORKFLOW", "autobook.yml")
+# 디스패치한 실행이 이 시간(분) 안에 결과를 남기지 않으면 죽은 것으로 보고 재시도.
+AUTO_BOOK_DISPATCH_TIMEOUT_MIN = int(os.environ.get("AUTO_BOOK_DISPATCH_TIMEOUT_MIN", "15"))
 
 # schedule_cache.json 항목의 유효 시간(분). 이 시간이 지난 항목은 루프 도중에도
 # 다시 조회해 운영 기간 변경을 반영한다 (0 = 재탐색 끔 = 종전 동작).
@@ -470,29 +486,6 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
     return log_parts, increased
 
 
-AUTO_BOOK_LOG_FILE = Path(__file__).parent / "auto_book_log.json"
-AUTO_BOOK_LOG_MAX = 300
-
-# 슬롯 자체가 없어진 실패 → 다른 계정으로 재시도해도 소용없는 메시지 패턴
-_ACCOUNT_SWITCH_USELESS = ["선택 가능한 것이 없음", "닫혀 있음", "날짜를 선택하지 못함"]
-
-
-def append_auto_book_log(entry: dict) -> None:
-    """자동예약 시도 로그를 auto_book_log.json에 추가 (최신이 앞, 최대 300건 유지)."""
-    try:
-        log = json.loads(AUTO_BOOK_LOG_FILE.read_text(encoding="utf-8")) if AUTO_BOOK_LOG_FILE.exists() else []
-        if not isinstance(log, list):
-            log = []
-    except Exception:
-        log = []
-    log.insert(0, entry)
-    del log[AUTO_BOOK_LOG_MAX:]
-    try:
-        AUTO_BOOK_LOG_FILE.write_text(json.dumps(log, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    except Exception as e:
-        print(f"[경고] auto_book_log.json 저장 실패: {e}", flush=True)
-
-
 def _auto_book_cfg(item: dict) -> dict | None:
     """monitors.json의 auto_book 설정 정규화. 비활성/미설정이면 None.
 
@@ -534,32 +527,132 @@ def _match_time(t: str, patterns: list) -> bool:
     return False
 
 
+def load_auto_book_state(from_github: bool = True) -> dict:
+    """자동예약 워커가 남긴 실행 결과(auto_book_state.json)를 읽는다.
+
+    워커는 모니터와 다른 job/러너에서 돌기 때문에 결과는 저장소를 통해서만
+    전달된다. 커밋 직후에도 바로 보이도록 캐시를 우회해서 받아온다.
+    """
+    if from_github:
+        try:
+            resp = requests.get(f"{GITHUB_RAW_AUTOBOOK_STATE_URL}?t={int(time.time())}",
+                                headers={"Cache-Control": "no-cache"}, timeout=10)
+            if resp.status_code == 404:
+                return {}   # 아직 자동예약이 한 번도 돌지 않음
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as exc:
+            print(f"[경고] auto_book_state.json 읽기 실패, 로컬 파일 사용: {exc}", flush=True)
+    try:
+        if AUTO_BOOK_STATE_FILE.exists():
+            return json.loads(AUTO_BOOK_STATE_FILE.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"[경고] 로컬 auto_book_state.json 읽기 실패: {exc}", flush=True)
+    return {}
+
+
+def sync_auto_book_state(monitors: list, alerted: dict) -> None:
+    """워커의 실행 결과를 모니터 상태(alerted)에 반영.
+
+      - 예약 성공 기록을 {id}:auto_booked로 가져와 이후 디스패치를 멈춘다
+      - 디스패치한 실행이 끝났으면 dispatched_at을 지워 다음 시도를 허용한다
+    상태 파일을 못 읽으면 아무것도 건드리지 않는다 (실행 중으로 간주하고 대기).
+    """
+    remote = load_auto_book_state()
+    for item in monitors:
+        item_id = item.get("id", item.get("name", ""))
+        if not item_id:
+            continue
+        name = item.get("name", item_id)
+        entry = remote.get(item_id) or {}
+        cfg = _auto_book_cfg(item)
+        booked_key = f"{item_id}:auto_booked"
+
+        # 워커 기록이 없으면 기존 로컬 기록(구버전 인라인 실행분)을 그대로 존중한다
+        booked = entry.get("booked")
+        if not isinstance(booked, dict):
+            prev = alerted.get(booked_key)
+            booked = prev if isinstance(prev, dict) else None
+        if booked:
+            booked_at = _parse_dt(booked.get("at"))
+            saved_dt = _parse_dt(cfg.get("saved_at")) if cfg else None
+            if booked_at and saved_dt and booked_at < saved_dt:
+                # 예약 성공 이후 설정을 다시 저장하면(saved_at 갱신) 자동예약 재무장
+                if booked_key in alerted:
+                    print(f"  [자동예약] {name} — 설정 재저장 감지, 자동예약 재무장", flush=True)
+                alerted.pop(booked_key, None)
+            else:
+                if booked_key not in alerted:
+                    print(f"  [자동예약] {name} 예약 성공 확인 ({booked.get('date')} "
+                          f"{booked.get('time') or ''}) — 이후 시도 중단", flush=True)
+                alerted[booked_key] = booked
+
+        state_key = f"{item_id}:auto_book_state"
+        state = alerted.get(state_key)
+        if not isinstance(state, dict) or not state.get("dispatched_at"):
+            continue
+        last = entry.get("last_run")
+        if not isinstance(last, dict):
+            continue
+        last_at = _parse_dt(last.get("at"))
+        disp_at = _parse_dt(state["dispatched_at"])
+        if last_at and disp_at and last_at >= disp_at:
+            state.pop("dispatched_at", None)
+            alerted[state_key] = state
+            print(f"  [자동예약] {name} 실행 종료: "
+                  f"{'성공' if last.get('success') else '실패'} — {last.get('message', '')}", flush=True)
+
+
+def dispatch_auto_book(item_id: str, datekey: str, times: list, sig: str, attempt: int) -> tuple[bool, str]:
+    """autobook.yml 워크플로를 실행 요청한다. (성공여부, 오류메시지) 반환."""
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or ""
+    repo = os.environ.get("GITHUB_REPOSITORY", "DuckOnDesk/naver-booking-monitor")
+    ref = os.environ.get("AUTO_BOOK_WORKFLOW_REF") or os.environ.get("GITHUB_REF_NAME") or "main"
+    if not token:
+        return False, "GITHUB_TOKEN 없음 (monitor.yml의 env 설정 확인)"
+    api = f"https://api.github.com/repos/{repo}/actions/workflows/{AUTO_BOOK_WORKFLOW}/dispatches"
+    payload = {
+        "ref": ref,
+        "inputs": {
+            "item_id": item_id,
+            "date": datekey,
+            "times": ",".join(times),
+            "sig": sig,
+            "attempt": str(attempt),
+        },
+    }
+    try:
+        resp = requests.post(api, json=payload, timeout=15, headers={
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        })
+    except Exception as exc:
+        return False, f"디스패치 요청 실패: {exc}"
+    if resp.status_code in (201, 204):
+        return True, ""
+    return False, f"디스패치 실패 (HTTP {resp.status_code}): {resp.text[:200]}"
+
+
 def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
                     per_slot: list, ntfy_topic: str, alerted: dict) -> None:
-    """auto_book이 켜진 항목에서 예약 가능 슬롯 발견 시 실제 예약 시도.
+    """auto_book이 켜진 항목에서 예약 가능 슬롯 발견 시 자동예약 워크플로를 띄운다.
 
-    계정 우선순위(cfg["accounts"], 빈 목록이면 등록된 모든 계정 1→5) 순으로
-    빠르게 갈아타며 시도한다 (계정당 예약 횟수 제한 대응).
+    실제 예약(Playwright, 계정별 재시도)은 autobook.yml → auto_book_worker.py가
+    별도 러너에서 수행한다. 이 함수는 요청만 보내고 몇 초 안에 끝나므로
+    예약을 시도하는 동안에도 모니터링 주기가 밀리지 않는다.
 
     상태는 booking_alerted.json에 저장:
-      {id}:auto_booked      예약 성공 기록 → 이후 시도 중단
-      {id}:auto_book_state  {"sig": 슬롯 시그니처, "attempts": 횟수}
-    시도 내역은 auto_book_log.json에 기록 (웹 리포트에서 조회).
+      {id}:auto_booked      예약 성공 기록 (워커 결과를 sync_auto_book_state가 반영)
+      {id}:auto_book_state  {"sig": 슬롯 시그니처, "attempts": 횟수,
+                             "dispatched_at": 실행 중인 디스패치 시각}
+    시도 내역은 워커가 auto_book_log.json에 기록한다 (웹 리포트에서 조회).
     """
     cfg = _auto_book_cfg(item)
     if not cfg:
         return
-    booked_key = f"{item_id}:auto_booked"
-    booked = alerted.get(booked_key)
-    if booked:
-        # 예약 성공 이후 설정을 다시 저장하면(saved_at 갱신) 자동예약 재무장
-        booked_at = _parse_dt(booked.get("at")) if isinstance(booked, dict) else None
-        saved_dt = _parse_dt(cfg.get("saved_at"))
-        if booked_at and saved_dt and booked_at < saved_dt:
-            alerted.pop(booked_key)
-            print(f"  [자동예약] {item.get('name', item_id)} — 설정 재저장 감지, 자동예약 재무장", flush=True)
-        else:
-            return
+    if alerted.get(f"{item_id}:auto_booked"):
+        return
     if cfg["dates"] and datekey not in cfg["dates"]:
         return
 
@@ -572,82 +665,42 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     times = [t for t, _ in per_slot if _match_time(t, cfg["times"])]
     if not times:
         return
+    name = item.get("name", item_id)
     sig = f"{datekey}|{','.join(times)}"
     state_key = f"{item_id}:auto_book_state"
     state = alerted.get(state_key)
     if not isinstance(state, dict) or state.get("sig") != sig:
         state = {"sig": sig, "attempts": 0}
+
+    # 이미 실행 중이면 중복 디스패치하지 않는다. 결과가 올라오면
+    # sync_auto_book_state가 dispatched_at을 지워 다음 시도를 열어준다.
+    dispatched_at = _parse_dt(state.get("dispatched_at"))
+    if dispatched_at:
+        waited_min = (now_kst - dispatched_at).total_seconds() / 60
+        if waited_min < AUTO_BOOK_DISPATCH_TIMEOUT_MIN:
+            print(f"  [자동예약] {name} {datekey} — 예약 실행 중 ({waited_min:.1f}분 경과), 감시 계속", flush=True)
+            alerted[state_key] = state
+            return
+        print(f"  [자동예약] {name} — {AUTO_BOOK_DISPATCH_TIMEOUT_MIN}분간 실행 결과 없음, 재시도", flush=True)
+        state.pop("dispatched_at", None)
+
     if AUTO_BOOK_MAX_ATTEMPTS and state["attempts"] >= AUTO_BOOK_MAX_ATTEMPTS:
+        alerted[state_key] = state
         return
     state["attempts"] += 1
-    alerted[state_key] = state
 
-    name = item.get("name", item_id)
     cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (성공/매진/OFF까지 계속)"
-    print(f"  [자동예약] {name} {datekey} 시도 {state['attempts']}{cap_label}", flush=True)
-
-    try:
-        import auto_book
-        accounts = auto_book.get_accounts(cfg["accounts"])
-    except Exception as exc:
-        accounts = []
-        print(f"  [자동예약] auto_book 모듈 오류: {exc}", flush=True)
-
-    if not accounts:
-        res = {"success": False, "message": "사용 가능한 계정 쿠키 없음 (NAVER_COOKIES_1~5 시크릿 확인)",
-               "booked_time": None, "dry_run": False, "account": None}
-        results = [res]
+    ok, err = dispatch_auto_book(item_id, datekey, times, sig, state["attempts"])
+    if ok:
+        state["dispatched_at"] = now_kst.isoformat(timespec="seconds")
+        print(f"  [자동예약] {name} {datekey} {','.join(times[:5])} — "
+              f"예약 워크플로 실행 요청 {state['attempts']}{cap_label}", flush=True)
     else:
-        results = []
-        res = None
-        for acct_no, cookie_str in accounts:
-            try:
-                res = auto_book.try_book(url, datekey, times, count=cfg["count"],
-                                         cookie_str=cookie_str, account=acct_no)
-            except Exception as exc:
-                res = {"success": False, "message": f"예외: {exc}", "booked_time": None,
-                       "dry_run": False, "account": acct_no}
-            results.append(res)
-            print(f"  [자동예약] 계정{acct_no} 결과: {'성공' if res['success'] else '실패'} — {res['message']}", flush=True)
-            if res["success"]:
-                break
-            # 슬롯이 사라진 실패는 계정을 바꿔도 소용없으므로 중단
-            if any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
-                break
-
-    for r in results:
-        append_auto_book_log({
-            "ts": now_kst.isoformat(timespec="seconds"),
-            "item_id": item_id,
-            "name": name,
-            "date": datekey,
-            "times": times,
-            "account": r.get("account"),
-            "success": bool(r["success"]),
-            "dry_run": bool(r.get("dry_run")),
-            "message": r["message"],
-        })
-
-    if res["success"] and not res.get("dry_run"):
-        alerted[booked_key] = {
-            "date": datekey,
-            "time": res.get("booked_time"),
-            "account": res.get("account"),
-            "at": now_kst.isoformat(),
-        }
-        if ntfy_topic:
-            send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
-                      f"{datekey} {res.get('booked_time') or ''} (계정{res.get('account')}) 예약 완료 — 네이버 예약 내역에서 확인하세요",
-                      url)
-    elif res["success"] and res.get("dry_run"):
+        print(f"  [자동예약] {name} — {err}", flush=True)
         if state["attempts"] == 1 and ntfy_topic:
-            send_ntfy(ntfy_topic, f"🧪 {name} 자동예약 드라이런 성공",
-                      f"{datekey} {res.get('booked_time') or ''} — {res['message']}", url)
-    else:
-        # 실패: 같은 시그니처에 대해 첫 실패 때만 알림 (스팸 방지)
-        if state["attempts"] == 1 and ntfy_topic:
-            send_ntfy(ntfy_topic, f"⚠️ {name} 자동예약 실패",
-                      f"{datekey} — {res['message']}\n직접 예약을 시도해보세요!", url)
+            send_ntfy(ntfy_topic, f"⚠️ {name} 자동예약 실행 요청 실패",
+                      f"{datekey} — {err}\n직접 예약을 시도해보세요!", url)
+    alerted[state_key] = state
 
 
 _CLOSED_URL_PATTERNS  = ["/error/"]
@@ -1368,22 +1421,38 @@ def save_alerted(alerted: dict) -> bool:
         return False
 
 
-def commit_alerted() -> None:
-    """booking_alerted.json·auto_book_log.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음)."""
+def commit_files(paths: list, message: str, label: str = "") -> bool:
+    """지정한 파일을 main에 커밋/푸시. 실패해도 예외를 올리지 않는다.
+
+    모니터 job과 자동예약 워커 job이 동시에 푸시할 수 있으므로 파일 소유를
+    나눠 둔다 (모니터: booking_alerted/schedule_cache, 워커: auto_book_*).
+    같은 파일을 양쪽이 건드리지 않는 한 rebase가 자동으로 합쳐진다.
+    """
+    label = label or ", ".join(paths)
     try:
         subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
         subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
-        subprocess.run(["git", "add", "booking_alerted.json", "auto_book_log.json"], check=True)
+        subprocess.run(["git", "add", *paths], check=True)
         if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
-            return
-        subprocess.run(["git", "commit", "-m", "data: 알림 상태 저장 [skip ci]"], check=True)
+            return False
+        subprocess.run(["git", "commit", "-m", message], check=True)
         subprocess.run(["git", "fetch", "origin"], check=True)
         subprocess.run(["git", "rebase", "origin/main"], check=True)
         subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
-        print("  → booking_alerted.json 커밋/푸시 완료", flush=True)
+        print(f"  → {label} 커밋/푸시 완료", flush=True)
+        return True
     except Exception as exc:
         subprocess.run(["git", "rebase", "--abort"], check=False, capture_output=True)
-        print(f"[경고] booking_alerted.json 커밋 실패: {exc}", flush=True)
+        print(f"[경고] {label} 커밋 실패: {exc}", flush=True)
+        return False
+
+
+def commit_alerted() -> None:
+    """booking_alerted.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음).
+
+    auto_book_log.json은 자동예약 워커가 소유하므로 여기서 건드리지 않는다.
+    """
+    commit_files(["booking_alerted.json"], "data: 알림 상태 저장 [skip ci]", "booking_alerted.json")
 
 
 def save_schedule_cache(cache: dict) -> bool:
@@ -1400,20 +1469,7 @@ def save_schedule_cache(cache: dict) -> bool:
 
 def commit_schedule_cache() -> None:
     """변경된 schedule_cache.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음)"""
-    try:
-        subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
-        subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
-        subprocess.run(["git", "add", "schedule_cache.json"], check=True)
-        if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
-            return
-        subprocess.run(["git", "commit", "-m", "chore: 팝업 예약 가능 기간 캐시 갱신"], check=True)
-        subprocess.run(["git", "fetch", "origin"], check=True)
-        subprocess.run(["git", "rebase", "origin/main"], check=True)
-        subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
-        print("  → schedule_cache.json 커밋/푸시 완료", flush=True)
-    except Exception as exc:
-        subprocess.run(["git", "rebase", "--abort"], check=False, capture_output=True)
-        print(f"[경고] schedule_cache.json 커밋 실패: {exc}", flush=True)
+    commit_files(["schedule_cache.json"], "chore: 팝업 예약 가능 기간 캐시 갱신", "schedule_cache.json")
 
 
 def run_reprobe_requests() -> int:
@@ -1496,6 +1552,7 @@ def main():
 
     # job 재시작 시 이전 알림 상태 복원 (중복 알림 방지)
     alerted = load_alerted()
+    sync_auto_book_state(monitors, alerted)
 
     for m in active:
         if not check_booking_accessible(m.get("url", "")):
@@ -1517,6 +1574,8 @@ def main():
 
         remaining_min = (end_time - time.time()) / 60
         print(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 ---", flush=True)
+        # 별도 워크플로에서 돌고 있는 자동예약의 결과를 먼저 반영
+        sync_auto_book_state(monitors, alerted)
         global _rate_limit_hits
         _rate_limit_hits = 0
         try:
