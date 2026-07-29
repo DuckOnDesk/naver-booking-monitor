@@ -43,6 +43,7 @@ jobs:
         env:
           CHECK_INTERVAL_SEC: "60"
           LOOP_HOURS: "5.5"
+          SCHEDULE_CACHE_TTL_MIN: "60"   # 운영 기간 캐시 재탐색 주기(분), 0 = 끔
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
           NAVER_COOKIES_1: ${{ secrets.NAVER_COOKIES_1 }}
           NAVER_COOKIES_2: ${{ secrets.NAVER_COOKIES_2 }}
