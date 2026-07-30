@@ -1,0 +1,20 @@
+{
+  "ms4qtfmh": {
+    "name": "TFT 스탬프투어",
+    "last_run": {
+      "at": "2026-07-30T21:07:56+09:00",
+      "sig": "2026-08-08|12:00",
+      "date": "2026-08-08",
+      "times": [
+        "12:00"
+      ],
+      "attempt": 1,
+      "lag_sec": 34.1,
+      "elapsed": 12.4,
+      "account": 5,
+      "success": false,
+      "dry_run": false,
+      "message": "예약 진행 버튼을 찾지 못함"
+    }
+  }
+}

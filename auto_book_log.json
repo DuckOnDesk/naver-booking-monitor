@@ -1,5 +1,75 @@
 [
   {
+    "ts": "2026-07-30T21:07:56+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-08",
+    "times": [
+      "12:00"
+    ],
+    "account": 1,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 12.5,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
+    "ts": "2026-07-30T21:07:56+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-08",
+    "times": [
+      "12:00"
+    ],
+    "account": 2,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 12.5,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
+    "ts": "2026-07-30T21:07:56+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-08",
+    "times": [
+      "12:00"
+    ],
+    "account": 3,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 12.4,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
+    "ts": "2026-07-30T21:07:56+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-08",
+    "times": [
+      "12:00"
+    ],
+    "account": 4,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 12.5,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
+    "ts": "2026-07-30T21:07:56+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-08",
+    "times": [
+      "12:00"
+    ],
+    "account": 5,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 12.4,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
     "ts": "2026-07-28T23:44:02+09:00",
     "item_id": "ms4qtfmh",
     "name": "TFT 스탬프투어",
