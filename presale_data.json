@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T16:48:54.091236+09:00",
+  "updated_at": "2026-07-30T16:54:35.227415+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -683,48 +683,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2073188735",
-      "name": "필더스페이스",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.30.",
-      "operationEnd": "26.08.23.",
-      "remainingDays": null,
-      "status": "오늘오픈",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260726_163/17850384228754qVpv_JPEG/edited-1785038424106-0.jpg",
-      "roadAddress": "대학로8가길 105 필더스페이스",
-      "commonAddress": "서울 종로구",
-      "district": "종로구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2070762822",
-      "name": "외모지상주의 Ep.인천 [선 : 죽음으로 가는 길]",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1681161",
-      "bookingBusinessId": "1681161",
-      "operationStart": "26.07.30.",
-      "operationEnd": "26.08.23.",
-      "remainingDays": null,
-      "status": "오늘오픈",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260710_269/1783666852426deRtk_PNG/image.png",
-      "roadAddress": "대학로8가길 105 필더스페이스 1, 2, 6층",
-      "commonAddress": "서울 종로구",
-      "district": "종로구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
-    },
-    {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
       "hasBooking": false,
@@ -956,6 +914,48 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2073188735",
+      "name": "필더스페이스",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.30.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260726_163/17850384228754qVpv_JPEG/edited-1785038424106-0.jpg",
+      "roadAddress": "대학로8가길 105 필더스페이스",
+      "commonAddress": "서울 종로구",
+      "district": "종로구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2070762822",
+      "name": "외모지상주의 Ep.인천 [선 : 죽음으로 가는 길]",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1681161",
+      "bookingBusinessId": "1681161",
+      "operationStart": "26.07.30.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260710_269/1783666852426deRtk_PNG/image.png",
+      "roadAddress": "대학로8가길 105 필더스페이스 1, 2, 6층",
+      "commonAddress": "서울 종로구",
+      "district": "종로구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     }
   ],
   "alerts": [
