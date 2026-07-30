@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T11:47:07.325125+09:00",
+  "updated_at": "2026-07-30T11:52:45.970970+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -208,11 +208,11 @@
       "bookingUrl": null,
       "bookingBusinessId": null,
       "operationStart": "26.08.13.",
-      "operationEnd": "26.08.28.",
+      "operationEnd": "26.08.30.",
       "remainingDays": 14,
       "status": "D-14",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_282/17822865287771g6Ju_JPEG/%C6%CB%BE%F7_%C1%F6%B5%B5%BF%EB_%C0%CC%B9%CC%C1%F6.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260730_112/1785377778994EwA7w_JPEG/edited-1785377778653-0.jpg",
       "roadAddress": "연무장11길 11",
       "commonAddress": "서울 성동구",
       "district": "성동구",
