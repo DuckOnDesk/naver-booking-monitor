@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T12:31:52.033997+09:00",
+  "updated_at": "2026-07-30T12:37:28.017898+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -115,7 +115,7 @@
     {
       "id": "2073241477",
       "name": "키핀터치X무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704774",
       "bookingBusinessId": "1704774",
       "operationStart": "26.07.29.",
@@ -130,10 +130,11 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-07-25T13:37:22.067244+09:00",
-        "2026-07-29T11:08:59.400868+09:00"
+        "2026-07-29T11:08:59.400868+09:00",
+        "2026-07-30T12:37:15.320702+09:00"
       ],
       "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-29T11:09:13.673980+09:00"
+      "lastBookingNotifiedAt": "2026-07-30T12:37:26.904988+09:00"
     },
     {
       "id": "2020855313",
@@ -1677,6 +1678,13 @@
       "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "ts": "2026-07-30T02:54:19.926258+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2073241477",
+      "place_name": "키핀터치X무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704774",
+      "ts": "2026-07-30T12:37:15.320702+09:00"
     }
   ],
   "seen_place_ids": [
