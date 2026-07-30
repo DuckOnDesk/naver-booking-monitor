@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T08:33:54.261197+09:00",
+  "updated_at": "2026-07-31T08:39:24.948074+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -72,7 +72,7 @@
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
       "bookingBusinessId": "1669333",
       "operationStart": "26.06.05.",
-      "operationEnd": "26.07.31.",
+      "operationEnd": "26.10.30.",
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약",
