@@ -16,5 +16,23 @@
       "dry_run": false,
       "message": "예약 진행 버튼을 찾지 못함"
     }
+  },
+  "ms4qwci3": {
+    "name": "TFT 비트펠라하우스 공연",
+    "last_run": {
+      "at": "2026-07-30T21:12:44+09:00",
+      "sig": "2026-08-09|19:30",
+      "date": "2026-08-09",
+      "times": [
+        "19:30"
+      ],
+      "attempt": 1,
+      "lag_sec": 33.6,
+      "elapsed": 10.7,
+      "account": 1,
+      "success": false,
+      "dry_run": false,
+      "message": "시간대 ['19:30'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
+    }
   }
 }
