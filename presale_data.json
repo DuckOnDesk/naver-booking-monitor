@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T13:32:41.340006+09:00",
+  "updated_at": "2026-07-30T13:33:32.743010+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -305,6 +305,50 @@
       "lastBookingNotifiedAt": null
     },
     {
+      "id": "2004678306",
+      "name": "하우스 아카이브: 홈 디깅 페어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
+      "bookingBusinessId": "1666185",
+      "operationStart": "26.08.13.",
+      "operationEnd": "26.08.16.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
+      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
+    },
+    {
+      "id": "2012113406",
+      "name": "방추리 복숭아카페 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694470/search",
+      "bookingBusinessId": "1694470",
+      "operationStart": "26.07.15.",
+      "operationEnd": "26.09.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260721_169/1784592382492GyT5t_JPEG/edited-1784592379397-1.jpg",
+      "roadAddress": "능동로 172 B08호",
+      "commonAddress": "서울 광진구",
+      "district": "광진구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-29T14:28:04.705113+09:00"
+    },
+    {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
       "hasBooking": false,
@@ -553,28 +597,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2012113406",
-      "name": "방추리 복숭아카페 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694470/search",
-      "bookingBusinessId": "1694470",
-      "operationStart": "26.07.15.",
-      "operationEnd": "26.09.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260721_169/1784592382492GyT5t_JPEG/edited-1784592379397-1.jpg",
-      "roadAddress": "능동로 172 B08호",
-      "commonAddress": "서울 광진구",
-      "district": "광진구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-29T14:28:04.705113+09:00"
-    },
-    {
       "id": "2002133748",
       "name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
       "hasBooking": false,
@@ -659,28 +681,6 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2004678306",
-      "name": "하우스 아카이브: 홈 디깅 페어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
-      "bookingBusinessId": "1666185",
-      "operationStart": "26.08.13.",
-      "operationEnd": "26.08.16.",
-      "remainingDays": 14,
-      "status": "D-14",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
-      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
       "id": "2017875070",
