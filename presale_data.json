@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-30T18:08:17.549515+09:00",
+  "updated_at": "2026-07-30T18:13:56.681720+09:00",
   "watched_places": [
     "2001855074",
     "2002559489",
@@ -115,7 +115,7 @@
     {
       "id": "2073241477",
       "name": "키핀터치X무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704774",
       "bookingBusinessId": "1704774",
       "operationStart": "26.07.29.",
@@ -131,7 +131,8 @@
       "bookingOpenHistory": [
         "2026-07-25T13:37:22.067244+09:00",
         "2026-07-29T11:08:59.400868+09:00",
-        "2026-07-30T12:37:15.320702+09:00"
+        "2026-07-30T12:37:15.320702+09:00",
+        "2026-07-30T18:13:43.809782+09:00"
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-30T12:37:26.904988+09:00"
@@ -1708,6 +1709,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-07-30T17:05:44.321877+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2073241477",
+      "place_name": "키핀터치X무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704774",
+      "ts": "2026-07-30T18:13:43.809782+09:00"
     }
   ],
   "seen_place_ids": [
