@@ -121,7 +121,7 @@
   "mrx9w06j:2026-07-30": {
     "21:00": 1
   },
-  "ms07932p:url_close_streak": 2446,
+  "ms07932p:url_close_streak": 2447,
   "ms07932p:url_closed": 1,
   "ms07932p:2026-08-01:closed": {
     "13:30": 2
@@ -148,22 +148,19 @@
   "ms07932p:2026-07-31:closed": {
     "14:30": 1
   },
-  "ms4b1p2p:url_close_streak": 409,
-  "ms4b3fl4:url_close_streak": 409,
+  "ms4b1p2p:url_close_streak": 410,
+  "ms4b3fl4:url_close_streak": 410,
   "ms4b1p2p:url_closed": 1,
   "ms4b3fl4:url_closed": 1,
   "ms07932p:2026-07-30:closed": {
     "11:30": 1
   },
-  "mreyfrhm:url_close_streak": 67,
-  "mreygixc:url_close_streak": 67,
-  "mreyhcnf:url_close_streak": 67,
+  "mreyfrhm:url_close_streak": 68,
+  "mreygixc:url_close_streak": 68,
+  "mreyhcnf:url_close_streak": 68,
   "mreyfrhm:url_closed": 1,
   "mreygixc:url_closed": 1,
   "mreyhcnf:url_closed": 1,
-  "ms4qwci3:2026-08-09": {
-    "19:30": 1
-  },
   "ms4qwci3:auto_book_state": {
     "sig": "2026-08-09|19:30",
     "attempts": 1,
