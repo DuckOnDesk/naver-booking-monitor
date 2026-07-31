@@ -72,6 +72,11 @@ jobs:
           print("chromium 실행 확인")
           PY
 
+      - name: 한글 폰트 설치
+        # 러너에 한글 폰트가 없어 스크린샷의 한글이 전부 네모(□)로 찍힌다.
+        # 나눔고딕 TTF만 내려받아 1~2초에 끝낸다 (apt는 실패했을 때만).
+        run: bash scripts/install_korean_fonts.sh
+
       - name: 예약 시도
         id: book
         env:

@@ -31,7 +31,10 @@ from check_booking import (
     _match_time,
     _parse_dt,
     fetch_slots,
+    in_booking_period,
+    item_booking_period,
     load_monitors,
+    load_schedule_cache,
     parse_naver_url,
     send_ntfy,
 )
@@ -182,9 +185,20 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
     cfg = _auto_book_cfg(item)
     if not cfg:
         return record_skip(item_id, name, datekey, sig, attempt, "자동예약이 꺼져 있습니다")
-    if cfg["dates"] and datekey not in cfg["dates"]:
-        return record_skip(item_id, name, datekey, sig, attempt,
-                           f"{datekey}는 자동예약 대상 날짜가 아닙니다")
+    if cfg["dates"]:
+        if datekey not in cfg["dates"]:
+            return record_skip(item_id, name, datekey, sig, attempt,
+                               f"{datekey}는 자동예약 대상 날짜가 아닙니다")
+    else:
+        # 날짜 미지정 = 등록된 예약 기간 전체가 대상. 기간을 모르면 그대로 진행한다.
+        period = item_booking_period(item, load_schedule_cache(from_github=True))
+        if not in_booking_period(datekey, period):
+            return record_skip(item_id, name, datekey, sig, attempt,
+                               f"{datekey}는 등록된 예약 기간"
+                               f"({period[0] or '?'}~{period[1] or '?'}) 밖입니다")
+        if period[0] or period[1]:
+            print(f"  예약 기간 기준 탐색: {period[0] or '?'}~{period[1] or '?'} "
+                  f"(자동예약 날짜 미지정)", flush=True)
 
     now_kst = datetime.now(KST)
     if cfg["mode"] == "scheduled" and cfg["start_at"]:

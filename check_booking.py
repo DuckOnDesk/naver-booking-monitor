@@ -56,6 +56,9 @@ AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "0"))
 AUTO_BOOK_WORKFLOW = os.environ.get("AUTO_BOOK_WORKFLOW", "autobook.yml")
 # 디스패치한 실행이 이 시간(분) 안에 결과를 남기지 않으면 죽은 것으로 보고 재시도.
 AUTO_BOOK_DISPATCH_TIMEOUT_MIN = int(os.environ.get("AUTO_BOOK_DISPATCH_TIMEOUT_MIN", "15"))
+# 자동예약 날짜 미지정 항목에서, 감시 대상 밖 날짜를 한 회차에 몇 개까지 추가 조회할지.
+# (예약 기간이 아주 긴 항목이 한 회차의 API 호출을 독차지하지 않도록 하는 상한)
+AUTO_BOOK_SWEEP_MAX = int(os.environ.get("AUTO_BOOK_SWEEP_MAX", "31"))
 
 # schedule_cache.json 항목의 유효 시간(분). 이 시간이 지난 항목은 루프 도중에도
 # 다시 조회해 운영 기간 변경을 반영한다 (0 = 재탐색 끔 = 종전 동작).
@@ -639,8 +642,81 @@ def dispatch_auto_book(item_id: str, datekey: str, times: list, sig: str,
     return False, f"디스패치 실패 (HTTP {resp.status_code}): {resp.text[:200]}"
 
 
+def _date_only(value) -> str | None:
+    """"2026-08-01T00:00:00+09:00" 같은 값에서 날짜(YYYY-MM-DD)만 뽑는다."""
+    if not value:
+        return None
+    s = str(value).strip()[:10]
+    return s if re.fullmatch(r"\d{4}-\d{2}-\d{2}", s) else None
+
+
+def booking_period(cache_entry: dict) -> tuple[str | None, str | None]:
+    """해당 예약 장소에 등록된 예약 기간 (시작일, 종료일). 모르면 (None, None).
+
+    schedule_cache.json이 탐색해 둔 실제 예약 가능 기간(available_start~available_end)을
+    우선 쓰고, 그게 없으면 네이버가 알려주는 판매 기간(saleStartDate~saleEndDate)을 쓴다.
+    자동예약에서 날짜를 지정하지 않았을 때의 탐색 범위가 이 기간이다.
+    """
+    if not isinstance(cache_entry, dict):
+        return None, None
+    start = (_date_only(cache_entry.get("available_start"))
+             or _date_only(cache_entry.get("sale_start_date")))
+    end = (_date_only(cache_entry.get("available_end"))
+           or _date_only(cache_entry.get("sale_end_date")))
+    return start, end
+
+
+def in_booking_period(datekey: str, period: tuple | None) -> bool:
+    """datekey가 등록된 예약 기간 안인지. 기간을 모르면(양쪽 다 None) 항상 True."""
+    start, end = period if period else (None, None)
+    if start and datekey < start:
+        return False
+    if end and datekey > end:
+        return False
+    return True
+
+
+def _period_label(period: tuple | None) -> str:
+    start, end = period if period else (None, None)
+    return f"{start or '?'}~{end or '?'}"
+
+
+def load_schedule_cache(from_github: bool = False) -> dict:
+    """schedule_cache.json 로드 (팝업별 등록된 예약 기간).
+
+    워커처럼 체크아웃 시점이 뒤처질 수 있는 곳에서는 from_github=True로 최신본을 읽는다.
+    """
+    if from_github:
+        try:
+            resp = requests.get(f"{GITHUB_RAW_BASE}/schedule_cache.json", timeout=10)
+            resp.raise_for_status()
+            data = resp.json()
+            if isinstance(data, dict):
+                return data
+        except Exception as exc:
+            print(f"[경고] GitHub에서 schedule_cache.json 읽기 실패, 로컬 파일 사용: {exc}", flush=True)
+    try:
+        if SCHEDULE_CACHE_FILE.exists():
+            data = json.loads(SCHEDULE_CACHE_FILE.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                return data
+    except Exception as exc:
+        print(f"[경고] schedule_cache.json 읽기 실패: {exc}", flush=True)
+    return {}
+
+
+def item_booking_period(item: dict, cache: dict) -> tuple[str | None, str | None]:
+    """monitors.json 항목 + schedule_cache로 그 장소에 등록된 예약 기간을 구한다."""
+    parsed = parse_naver_url(item.get("url", ""))
+    if not parsed:
+        return None, None
+    key = f"{parsed['service_id']}_{parsed['biz_id']}_{parsed['item_id']}"
+    return booking_period(cache.get(key) or {})
+
+
 def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
-                    per_slot: list, ntfy_topic: str, alerted: dict) -> None:
+                    per_slot: list, ntfy_topic: str, alerted: dict,
+                    period: tuple | None = None) -> None:
     """auto_book이 켜진 항목에서 예약 가능 슬롯 발견 시 자동예약 워크플로를 띄운다.
 
     실제 예약(Playwright, 계정별 재시도)은 autobook.yml → auto_book_worker.py가
@@ -658,7 +734,14 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
         return
     if alerted.get(f"{item_id}:auto_booked"):
         return
-    if cfg["dates"] and datekey not in cfg["dates"]:
+    name = item.get("name", item_id)
+    if cfg["dates"]:
+        if datekey not in cfg["dates"]:
+            return
+    elif not in_booking_period(datekey, period):
+        # 날짜 미지정 = "등록된 예약 기간 전체"가 대상 → 기간 밖 날짜는 시도하지 않는다
+        print(f"  [자동예약] {name} {datekey} — 등록된 예약 기간({_period_label(period)}) 밖이라 건너뜀",
+              flush=True)
         return
 
     now_kst = datetime.now(timezone(timedelta(hours=9)))
@@ -670,7 +753,6 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     times = [t for t, _ in per_slot if _match_time(t, cfg["times"])]
     if not times:
         return
-    name = item.get("name", item_id)
     sig = f"{datekey}|{','.join(times)}"
     state_key = f"{item_id}:auto_book_state"
     state = alerted.get(state_key)
@@ -707,6 +789,60 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
             send_ntfy(ntfy_topic, f"⚠️ {name} 자동예약 실행 요청 실패",
                       f"{datekey} — {err}\n직접 예약을 시도해보세요!", url)
     alerted[state_key] = state
+
+
+def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
+                           all_summary: list, period: tuple, covered: set,
+                           cutoff_date, ntfy_topic: str, alerted: dict) -> None:
+    """자동예약 날짜를 지정하지 않은 항목의 남은 예약 기간을 마저 훑는다.
+
+    자동예약에서 날짜를 비워 두면 "등록된 예약 기간 전체"가 대상이다. 그런데 감시
+    날짜(target_dates)를 좁게 잡아 둔 항목은 메인 루프가 그 날짜만 돌기 때문에,
+    기간 안의 나머지 날짜는 자리가 나도 자동예약이 걸리지 않았다.
+
+    메인 루프가 이미 확인한 날짜(covered)는 건너뛰므로, 추가 조회는 기간 안에서
+    아직 안 본 "예약 가능 슬롯이 있는 날짜"에만 발생한다.
+    """
+    cfg = _auto_book_cfg(item)
+    if not cfg or cfg["dates"]:
+        return                      # 날짜를 지정한 항목은 그 날짜만 대상
+    if alerted.get(f"{item_id}:auto_booked"):
+        return
+    start, end = period if period else (None, None)
+    if not start and not end:
+        return                      # 예약 기간을 모르면 기존 동작(메인 루프)만 유지
+
+    name = item.get("name", item_id)
+    today_str = datetime.now(timezone(timedelta(hours=9))).date().isoformat()
+    extra = sorted(
+        d["dateKey"] for d in all_summary
+        if d.get("hasBookableSlots") and d.get("dateKey") not in covered
+        and d.get("dateKey", "") >= today_str
+        and in_booking_period(d["dateKey"], period)
+        and not (cutoff_date and date.fromisoformat(d["dateKey"]) < cutoff_date)
+    )
+    if not extra:
+        return
+    if len(extra) > AUTO_BOOK_SWEEP_MAX:
+        # 기간이 아주 긴 항목에서 한 회차에 API를 과도하게 쓰지 않도록 앞쪽(가까운 날짜)만
+        print(f"  [자동예약] {name} — 예약 기간 내 추가 날짜 {len(extra)}개 중 "
+              f"가까운 {AUTO_BOOK_SWEEP_MAX}개만 이번 회차에 확인", flush=True)
+        extra = extra[:AUTO_BOOK_SWEEP_MAX]
+    print(f"  [자동예약] {name} — 날짜 미지정: 예약 기간({_period_label(period)}) 중 "
+          f"감시 대상 밖 날짜 {len(extra)}개 추가 확인: {', '.join(extra[:5])}"
+          f"{' 외' if len(extra) > 5 else ''}", flush=True)
+    for datekey in extra:
+        slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+        if not slot_info["queried"]:
+            continue
+        per_slot = [
+            (s["unitStartTime"][11:16], s.get("unitStock", 0) - s.get("unitBookingCount", 0))
+            for s in slot_info.get("all_slots", [])
+            if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
+        ]
+        if not per_slot:
+            continue
+        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic, alerted, period)
 
 
 _CLOSED_URL_PATTERNS  = ["/error/"]
@@ -946,6 +1082,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
         avail_start = cache_entry.get("available_start")
         avail_end   = cache_entry.get("available_end")
+        # 자동예약에서 날짜를 지정하지 않았을 때의 탐색 범위 (= 등록된 예약 기간)
+        ab_period = booking_period(cache_entry)
 
         # 업체 설정 사전예약 제한 (RI02 = 일 단위 마감)
         ba_code  = cache_entry.get("booking_available_code", "RI01")
@@ -1162,7 +1300,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                                 if ntfy_topic:
                                     send_ntfy(ntfy_topic, title, body, url)
                         alerted[alert_key] = dict(per_slot)
-                        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic, alerted)
+                        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
+                                        alerted, ab_period)
                 else:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
@@ -1228,6 +1367,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 print(f"[{now_str}] ❌ {name} {date_str}{time_hint} {_sold_out_label(r_stock, r_booking)}", flush=True)
                 if has_target_dates and r_stock == 0:
                     _pruned_dates.append((item_id, datekey))
+
+        # 자동예약 날짜 미지정 항목은 등록된 예약 기간 전체가 대상이다.
+        # 감시 날짜를 좁게 잡아 위 루프가 그 날짜만 돌았다면, 기간 안의 나머지 날짜를 여기서 마저 본다.
+        if not is_url_closed and window_open:
+            sweep_auto_book_period(item, item_id, url, parsed, result.get("_all_summary") or [],
+                                   ab_period, set(effective_dates), cutoff_date, ntfy_topic, alerted)
 
     if _pruned_dates:
         prune_dead_dates(_pruned_dates)

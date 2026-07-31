@@ -4,6 +4,10 @@ check_booking.py가 예약 가능 슬롯을 감지하면 이 모듈로 실제 �
 Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 선택 → 시간 선택
 → 인원 확인 → 동의/확정 버튼 클릭까지 자동 진행.
 
+날짜 안전장치: 요청한 날짜를 달력에서 확실히 고르지 못하면 시간 선택으로 넘어가지
+않고 즉시 실패로 끝낸다. 확정 화면의 날짜 표기도 한 번 더 대조한다 — 예약이 안 되는
+것보다 엉뚱한 날짜가 예약되는 쪽이 훨씬 나쁘기 때문이다.
+
 계정 환경변수 (여러 계정 지원, 크롬에서 로그인 후 쿠키 복사):
   NAVER_COOKIES_1 ~ NAVER_COOKIES_5   계정별 로그인 쿠키 (NID_AUT, NID_SES 포함)
   NAVER_COOKIES                        (하위 호환) 계정1로 취급
@@ -166,12 +170,19 @@ def _is_login_page(page) -> bool:
 
 
 def _with_start_date(url: str, datekey: str) -> str:
-    """URL의 startDate/startDateTime 쿼리를 대상 날짜로 교체 (달력이 해당 날짜 기준으로 열리도록)."""
+    """URL의 startDate/startDateTime 쿼리를 대상 날짜로 교체 (달력이 해당 날짜 기준으로 열리도록).
+
+    예전에는 startDateTime을 지우기만 했는데, 네이버 예약 링크(booking.naver.com/booking/5/...)는
+    달력의 기준 월을 startDateTime으로 잡는 경우가 많아 지워 버리면 "오늘" 기준 달이 열렸다.
+    두 파라미터를 모두 대상 날짜로 맞춰 준다.
+    """
     try:
         parts = urlparse(url)
         q = parse_qs(parts.query)
-        q.pop("startDateTime", None)
         q["startDate"] = [datekey]
+        if "startDateTime" in q or "endDateTime" in q:
+            q["startDateTime"] = [f"{datekey}T00:00:00+09:00"]
+            q.pop("endDateTime", None)   # 대상 날짜보다 앞선 종료일이 남아 있으면 범위가 어긋난다
         return urlunparse(parts._replace(query=urlencode(q, doseq=True)))
     except Exception:
         return url
@@ -272,62 +283,311 @@ def _click_if_found(page, locator, timeout_ms: int = 2000) -> bool:
         return False
 
 
-def _select_date(page, datekey: str) -> bool:
-    """달력에서 datekey(YYYY-MM-DD) 날짜 클릭. 다음달 이동 최대 6회 시도."""
-    target = datetime.strptime(datekey, "%Y-%m-%d")
-    day = str(target.day)
+# ---------------------------------------------------------------------------
+# 날짜 선택
+#
+# 예전 구현은 "대상 월이 보이는가"를 헤더 문자열 부분일치로 판단하고, 아니면
+# '다음 달'을 눌렀다. 그런데 (1) 날짜 클릭이 실패해도 다음 달로 넘어가고
+# (2) "2월"이 "12월"에도 부분일치하며 (3) 헤더를 못 읽으면 무조건 클릭을 시도해서,
+# 2026-07을 요청해도 다음 달 버튼을 7번 눌러 2027-02 달력을 보는 일이 생겼다.
+# 그 상태로 시간 선택까지 그대로 진행됐으니 "엉뚱한 날짜 예약" 위험도 있었다.
+#
+# 지금은 달력을 브라우저 안에서 한 번에 훑어(_JS_SCAN_CALENDAR):
+#   - 표시 중인 연/월을 실제로 파싱하고
+#   - 날짜 칸이 어느 달에 속하는지 확인한 뒤 대상 날짜 칸만 찍고
+#   - 대상 월이 이미 보이는데 그 날짜를 못 고르면 달 이동을 하지 않는다.
+# 이동이 필요할 때만, 필요한 방향으로, 필요한 횟수만큼 움직인다.
+# ---------------------------------------------------------------------------
 
+_JS_SCAN_CALENDAR = r"""(target) => {
+    const [ty, tm, td] = target.split('-').map(Number);
+    const txt = (el) => (el.textContent || '').replace(/\s+/g, ' ').trim();
+
+    // --- 달력 루트: 날짜 숫자 칸을 가장 많이 품은 요소 (같으면 바깥쪽) ---
+    const roots = Array.from(document.querySelectorAll(
+        '[class*="calendar" i],[id*="calendar" i],[data-testid*="calendar" i]'));
+    const dayCount = (el) => Array.from(el.querySelectorAll('button,a,td,li,span,div'))
+        .filter(e => /^\d{1,2}$/.test(txt(e))).length;
+    let root = null, best = 0;
+    for (const r of roots) {
+        const n = dayCount(r);
+        if (n > best) { best = n; root = r; }
+    }
+    if (!root || best < 10) return {calendar: false};
+
+    // --- 월 헤더 파싱 ("2026.07", "2026. 7.", "2026년 7월", "7월") ---
+    const parseYm = (s) => {
+        let m = s.match(/(\d{4})\s*[.\-\/년]\s*(\d{1,2})\s*(?:월|[.\-\/]|$)/);
+        if (m) return {y: +m[1], m: +m[2]};
+        m = s.match(/(?:^|[^\d])(\d{1,2})\s*월(?!\s*[가-힣])/);
+        if (m) return {y: null, m: +m[1]};
+        return null;
+    };
+    const headers = [];
+    for (const el of root.querySelectorAll('*')) {
+        const s = txt(el);
+        if (!s || s.length > 24) continue;
+        const ym = parseYm(s);
+        if (!ym || ym.m < 1 || ym.m > 12) continue;
+        // 같은 표기를 가진 더 안쪽 요소가 있으면 그쪽을 헤더로 삼는다
+        if (Array.from(el.children).some(c => parseYm(txt(c)))) continue;
+        headers.push({el, y: ym.y, m: ym.m, label: s});
+    }
+    // 연도 없는 헤더("8월")는 앞선 헤더의 연도를 잇고, 그래도 없으면 오늘 기준 추정
+    const now = new Date();
+    let carry = null;
+    for (const h of headers) { if (h.y) carry = h.y; else if (carry) h.y = carry; }
+    for (const h of headers) {
+        if (!h.y) h.y = h.m < now.getMonth() + 1 ? now.getFullYear() + 1 : now.getFullYear();
+    }
+    const monthOf = (el) => {
+        let found = null;   // 문서 순서상 이 칸보다 앞에 있는 마지막 헤더
+        for (const h of headers) {
+            if (h.el.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) found = h;
+        }
+        return found;
+    };
+
+    // --- 날짜 칸의 날짜 읽기: 속성 우선, 없으면 숫자 텍스트 + 소속 월 ---
+    const DATE_ATTRS = ['data-date', 'data-datekey', 'data-value', 'data-day',
+                        'data-testid', 'aria-label', 'title'];
+    const attrDate = (el) => {
+        if (!el.getAttribute) return null;
+        for (const a of DATE_ATTRS) {
+            const v = el.getAttribute(a);
+            if (!v) continue;
+            let m = v.match(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/);
+            if (m) return [+m[1], +m[2], +m[3]];
+            m = v.match(/(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/);
+            if (m) return [+m[1], +m[2], +m[3]];
+            m = v.match(/(\d{1,2})월\s*(\d{1,2})일/);
+            if (m) return [null, +m[1], +m[2]];
+        }
+        return null;
+    };
+    const BAD = /disable|dimmed|soldout|sold_out|unselectable|blocked|closed|impossible|past|off\b/;
+    const isDisabled = (el) => {
+        let e = el;
+        for (let i = 0; i < 4 && e; i++, e = e.parentElement) {
+            if (e.disabled) return true;
+            if (e.getAttribute && e.getAttribute('aria-disabled') === 'true') return true;
+            if (BAD.test((e.className || '').toString().toLowerCase())) return true;
+        }
+        return false;
+    };
+
+    // 날짜 칸의 "일" 숫자. 칸 안에 배지/가격 같은 텍스트가 더 있어도(예: "1 예약가능")
+    // 숫자만 든 말단 요소가 정확히 하나면 그것을 날짜로 본다.
+    const isNum = (el) => /^\d{1,2}$/.test(txt(el));
+    const dayNum = (el) => {
+        const s = txt(el);
+        if (/^\d{1,2}$/.test(s)) return +s;
+        if (!s || s.length > 40) return null;
+        const leaves = Array.from(el.querySelectorAll('*')).filter(
+            e => isNum(e) && !Array.from(e.children).some(isNum));
+        return leaves.length === 1 ? +txt(leaves[0]) : null;
+    };
+
+    let picked = null, sawDay = false, disabledDay = false;
+    for (const el of root.querySelectorAll('button,a,td,li,[role="button"],[role="gridcell"]')) {
+        let y = null, mo = null, d = null;
+        const ad = attrDate(el);
+        if (ad) { y = ad[0]; mo = ad[1]; d = ad[2]; }
+        if (d === null) {
+            d = dayNum(el);
+            if (d === null) continue;
+            const h = monthOf(el);
+            if (!h) continue;          // 어느 달인지 모르는 칸은 절대 클릭하지 않는다
+            y = h.y; mo = h.m;
+        } else if (y === null) {
+            const h = monthOf(el);
+            y = h ? h.y : ty;
+        }
+        if (mo !== tm || d !== td || y !== ty) continue;
+        if (!el.getClientRects().length) continue;
+        sawDay = true;
+        if (isDisabled(el)) { disabledDay = true; continue; }
+        picked = el;
+        break;
+    }
+    if (picked) {   // td/li를 잡았으면 실제 클릭 대상인 안쪽 버튼으로 내려간다
+        const inner = picked.querySelector('button,a,[role="button"]');
+        if (inner && inner.getClientRects().length) picked = inner;
+        document.querySelectorAll('[data-ab-pick]').forEach(e => e.removeAttribute('data-ab-pick'));
+        picked.setAttribute('data-ab-pick', '1');
+    }
+    return {
+        calendar: true,
+        found: !!picked,
+        sawDay, disabledDay,
+        months: headers.map(h => ({y: h.y, m: h.m})),
+        header: headers.map(h => h.label).join(' / ') || txt(root).slice(0, 40),
+    };
+}"""
+
+# 선택된 날짜 칸을 읽어 "지금 무슨 날짜가 선택돼 있는지" 확인 (엉뚱한 날짜 방지용).
+# aria-current는 '오늘'을 표시하는 데도 쓰여 선택과 헷갈리므로 보지 않는다.
+_JS_SELECTED_DATES = r"""() => {
+    const out = [];
+    for (const el of document.querySelectorAll('[aria-selected="true"],[aria-pressed="true"]')) {
+        for (const a of ['data-date', 'data-datekey', 'data-value', 'aria-label', 'title']) {
+            const v = el.getAttribute(a);
+            if (!v) continue;
+            const m = v.match(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/)
+                   || v.match(/(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일/);
+            if (m) { out.push([+m[1], +m[2], +m[3]]); break; }
+        }
+    }
+    return out.slice(0, 5);
+}"""
+
+
+def _scan_calendar(page, datekey: str) -> dict:
     try:
-        if not page.locator(_CALENDAR_SELECTOR).count():
-            _log("달력 영역이 없는 페이지 — 날짜 선택 건너뜀")
-            return False   # 달력이 없으면 '다음 달' 이동을 7번 반복해도 의미가 없다
+        return page.evaluate(_JS_SCAN_CALENDAR, datekey) or {}
+    except Exception as exc:
+        _log(f"달력 파싱 실패: {exc}")
+        return {}
+
+
+def _selected_conflict(page, datekey: str) -> str | None:
+    """달력에서 '선택됨'으로 표시된 날짜가 대상과 다르면 그 사유 문자열을 돌려준다."""
+    target = datetime.strptime(datekey, "%Y-%m-%d")
+    try:
+        picked = page.evaluate(_JS_SELECTED_DATES) or []
     except Exception:
-        pass
+        return None
+    full = [p for p in picked if p[0] and p[1]]
+    if not full:
+        return None
+    if any(p[0] == target.year and p[1] == target.month and p[2] == target.day for p in full):
+        return None
+    shown = ", ".join(f"{p[0]}-{p[1]:02d}-{p[2]:02d}" for p in full[:3])
+    return f"달력에 선택된 날짜가 다름 (선택됨: {shown})"
 
-    def _try_click_day() -> bool:
-        # 1) aria-label에 날짜가 들어간 버튼 (예: "7월 11일", "2026년 7월 11일")
-        for pat in (f"{target.month}월 {target.day}일", datekey):
-            loc = page.locator(f'[class*=calendar] [aria-label*="{pat}"]:not([disabled])')
-            if loc.count() and _click_if_found(page, loc):
-                return True
-            loc = page.locator(f'[aria-label*="{pat}"]:not([disabled]):not([aria-disabled="true"])')
-            if loc.count() and _click_if_found(page, loc):
-                return True
-        # 2) 달력 영역 내 날짜 숫자와 정확히 일치하는 활성 버튼/셀
-        for sel in ('[class*=calendar] button:not([disabled])', "table td button:not([disabled])",
-                    '[class*=calendar] td:not([class*=disable]) button', '[class*=Calendar] button:not([disabled])'):
-            loc = page.locator(sel).filter(has_text=re.compile(rf"^\s*{day}\s*$"))
-            if loc.count() and _click_if_found(page, loc):
-                return True
-        return False
 
-    def _month_visible() -> bool:
-        # 달력 헤더에 대상 연/월 표기가 보이는지 ("2026.07", "7월", "2026년 7월" 등)
-        pats = [f"{target.year}.{target.month:02d}", f"{target.year}. {target.month:02d}",
-                f"{target.year}년 {target.month}월", f"{target.month}월"]
+def _months_label(months: list) -> str:
+    return ", ".join(f"{m['y']}년 {m['m']}월" for m in months[:4]) or "(월 표기 없음)"
+
+
+def _move_month(page, forward: bool) -> bool:
+    """달력을 다음/이전 달로 이동. 클릭에 성공하면 True."""
+    if forward:
+        sels = ('[class*="calendar" i] button[class*="next" i]', 'button[class*="next" i]',
+                '[class*="calendar" i] [aria-label*="다음"]', '[aria-label*="다음 달"]',
+                '[aria-label*="다음달"]')
+    else:
+        sels = ('[class*="calendar" i] button[class*="prev" i]', 'button[class*="prev" i]',
+                '[class*="calendar" i] [aria-label*="이전"]', '[aria-label*="이전 달"]',
+                '[aria-label*="이전달"]')
+    for sel in sels:
+        loc = page.locator(sel)
         try:
-            header = page.locator('[class*=calendar], [class*=Calendar]').first.inner_text(timeout=3000)
+            if not loc.count():
+                continue
         except Exception:
-            return True  # 헤더를 못 읽으면 그냥 클릭 시도
-        return any(p in header for p in pats)
-
-    for _ in range(7):
-        if _month_visible() and _try_click_day():
-            # 시간대 목록이 다시 그려질 시간만 주고, 준비되면 바로 진행
-            page.wait_for_timeout(700)
-            _wait_any(page, _TIME_UI_SELECTOR, 1200)
+            continue
+        if _click_if_found(page, loc, 1500):
+            page.wait_for_timeout(400)
             return True
-        # 다음 달 이동 버튼
-        moved = False
-        for sel in ('[class*=calendar] button[class*=next]', 'button[class*=next]',
-                    '[class*=calendar] [aria-label*="다음"]', '[aria-label*="다음 달"]'):
-            if _click_if_found(page, page.locator(sel), 1500):
-                page.wait_for_timeout(1000)
-                moved = True
-                break
-        if not moved:
-            break
     return False
+
+
+def _select_date(page, datekey: str) -> tuple[bool, str]:
+    """달력에서 datekey(YYYY-MM-DD)를 선택한다.
+
+    반환: (성공 여부, 사유). 실패 사유가 "no_calendar"면 달력이 없는 페이지라는 뜻이고,
+    그 외에는 호출부가 그대로 실패 메시지로 쓸 수 있는 설명이다.
+    대상 월로 갈 수 없거나 그 날짜를 고를 수 없으면 **다른 달을 헤매지 않고** 실패로 끝낸다.
+    """
+    target = datetime.strptime(datekey, "%Y-%m-%d")
+    tkey = target.year * 12 + target.month
+
+    state = _scan_calendar(page, datekey)
+    if not state.get("calendar"):
+        return False, "no_calendar"
+
+    # 이동 한도는 처음 본 달과의 실제 거리(+여유 2)로 잡는다. 예전처럼 무조건 7번씩
+    # 넘기면 도달 못 할 달을 향해 헛돌며 시간만 쓴다 (그리고 엉뚱한 달에서 끝났다).
+    budget = None
+    moved = 0
+    while True:
+        months = state.get("months") or []
+        header = state.get("header") or ""
+        if state.get("found"):
+            loc = page.locator('[data-ab-pick="1"]')
+            if not _click_if_found(page, loc, 2500):
+                return False, f"{datekey} 날짜 칸 클릭 실패 (표시 중: {header})"
+            # 시간대 목록이 다시 그려질 시간만 주고, 준비되면 바로 진행
+            page.wait_for_timeout(500)
+            _wait_any(page, _TIME_UI_SELECTOR, 1200)
+            conflict = _selected_conflict(page, datekey)
+            if conflict:
+                return False, conflict
+            _log(f"날짜 선택 완료: {datekey} (달력 표시: {header})")
+            return True, "ok"
+
+        shown = [m["y"] * 12 + m["m"] for m in months if m.get("y") and m.get("m")]
+        if tkey in shown:
+            # 대상 월은 이미 보인다 → 달을 넘겨도 그 날짜가 나올 리 없다.
+            # (예전 코드가 여기서 다음 달로 넘어가며 엉뚱한 달까지 밀려났다)
+            why = "품절/비활성" if state.get("disabledDay") else "달력에 없음"
+            return False, f"{datekey}를 선택할 수 없음 — {why} (표시 중: {header})"
+        if not shown:
+            return False, f"달력의 연/월 표기를 읽지 못해 날짜를 특정할 수 없음 (표시 중: {header})"
+
+        # 필요한 방향으로만 한 달씩 이동 (가장 가까운 표시 월 기준)
+        nearest = min(shown, key=lambda k: abs(k - tkey))
+        forward = tkey > nearest
+        if budget is None:
+            budget = min(14, abs(tkey - nearest) + 2)
+        if moved >= budget:
+            return False, (f"달력 이동 {moved}회로도 {target.year}년 {target.month}월에 도달하지 못함 "
+                           f"(표시 중: {_months_label(months)})")
+        moved += 1
+        if not _move_month(page, forward):
+            return False, (f"달력을 {target.year}년 {target.month}월로 이동하지 못함 "
+                           f"({'다음' if forward else '이전'} 달 버튼 없음, 표시 중: {_months_label(months)})")
+        state = _scan_calendar(page, datekey)
+        new_shown = [m["y"] * 12 + m["m"] for m in (state.get("months") or []) if m.get("y") and m.get("m")]
+        if new_shown == shown:
+            return False, (f"달력이 {target.year}년 {target.month}월로 넘어가지 않음 "
+                           f"(표시 중: {_months_label(months)})")
+
+
+def _page_date_conflict(page, datekey: str) -> str | None:
+    """확정 화면에 적힌 예약 날짜가 대상과 다르면 사유를 돌려준다 (마지막 안전장치).
+
+    연도까지 있는 날짜 표기를 모두 긁어, 그중 대상 날짜가 하나도 없을 때만 불일치로 본다.
+    (취소 기한·약관 개정일 같은 다른 날짜와의 공존은 허용하고, 연도 없이 "8월 1일"로만
+    적힌 화면도 통과시킨다 — 확실한 불일치가 아니면 예약을 막지 않는다.)
+    """
+    target = datetime.strptime(datekey, "%Y-%m-%d")
+    try:
+        found = page.evaluate(
+            r"""() => {
+                const t = document.body ? document.body.innerText || '' : '';
+                const full = [], md = [];
+                let m;
+                const reFull = /(\d{4})\s*[.\-년]\s*(\d{1,2})\s*[.\-월]\s*(\d{1,2})/g;
+                while ((m = reFull.exec(t)) !== null) full.push([+m[1], +m[2], +m[3]]);
+                const reMd = /(\d{1,2})\s*월\s*(\d{1,2})\s*일/g;
+                while ((m = reMd.exec(t)) !== null) md.push([+m[1], +m[2]]);
+                return {full: full.slice(0, 40), md: md.slice(0, 40)};
+            }"""
+        ) or {}
+    except Exception:
+        return None
+    full = found.get("full") or []
+    if not full:
+        return None
+    if any(d[0] == target.year and d[1] == target.month and d[2] == target.day for d in full):
+        return None
+    # 연도 없이 "8월 1일"로만 적혀 있어도 대상 날짜가 화면에 있는 것으로 본다
+    if any(d[0] == target.month and d[1] == target.day for d in (found.get("md") or [])):
+        return None
+    shown = ", ".join(f"{d[0]}-{d[1]:02d}-{d[2]:02d}" for d in full[:3])
+    return f"확정 화면의 날짜가 요청과 다름 (화면: {shown} / 요청: {datekey})"
 
 
 def _time_patterns(t: str, bare_12h: bool = True) -> list:
@@ -708,13 +968,24 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
 
                 _shot(page, "01_landing", shots)
 
-                if _select_date(page, datekey):
+                picked, reason = _select_date(page, datekey)
+                if picked:
                     _shot(page, "02_date", shots)
+                elif reason == "no_calendar":
+                    # 달력이 없는 페이지 — URL의 startDate로 이미 그 날짜가 열려 있을 수 있다.
+                    # 다만 화면이 다른 날짜를 선택 중이면 그대로 진행하면 안 된다.
+                    conflict = _selected_conflict(page, datekey)
+                    if conflict:
+                        _shot(page, "date_mismatch", shots, always=True)
+                        _dump_dom_debug(page, "date_mismatch")
+                        return result(False, f"날짜를 선택하지 못함 — {conflict}")
+                    _log("달력 영역이 없는 페이지 — URL로 열린 날짜 그대로 진행")
                 else:
-                    # 날짜가 자동 선택되는 페이지(startDate 반영)일 수 있으므로 시간 선택으로 계속 진행
-                    _log(f"달력에서 {datekey} 클릭 실패 — 시간대가 이미 보이는지 확인 후 계속")
+                    # 다른 달의 시간대를 눌러 엉뚱한 날짜를 예약하는 사고를 막기 위해 여기서 중단한다.
+                    _log(f"날짜 선택 실패 — {reason}")
                     _shot(page, "date_fail", shots, always=True)
                     _dump_dom_debug(page, "date_fail")
+                    return result(False, f"날짜를 선택하지 못함: {reason}")
 
                 booked_time = _select_time(page, wanted_times)
                 if not booked_time:
@@ -749,6 +1020,13 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
 
                 # 2단계: 예약 확인/동의 페이지
+                # 확정 버튼을 누르기 전 마지막 안전장치 — 화면에 적힌 날짜가 요청과 다르면 멈춘다
+                conflict = _page_date_conflict(page, datekey)
+                if conflict:
+                    _shot(page, "date_mismatch", shots, always=True)
+                    _dump_dom_debug(page, "date_mismatch")
+                    return result(False, f"날짜를 선택하지 못함 — {conflict}")
+
                 # 계정별로 오래 붙잡지 않도록 타임아웃 단축 (다계정 스윕이 5분씩 걸리던 원인)
                 deadline = time_mod.time() + 18
                 step = 0
