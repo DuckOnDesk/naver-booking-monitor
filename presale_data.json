@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T18:52:44.484114+09:00",
+  "updated_at": "2026-07-31T18:58:20.330097+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -141,7 +141,7 @@
     {
       "id": "2041689219",
       "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
       "bookingBusinessId": "1698075",
       "operationStart": "26.07.31.",
