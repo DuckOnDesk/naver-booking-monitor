@@ -45,11 +45,14 @@ jobs:
         # 이게 없으면 드라이런 스크린샷의 한글이 전부 네모(□)로 나와 확인이 불가능하다
         run: bash scripts/install_korean_fonts.sh
 
-      - name: 날짜 선택 회귀 테스트 (로컬 HTML, 네트워크 불필요)
-        # 요청한 달이 아닌 엉뚱한 달의 달력을 고르는 회귀를 잡는다.
+      - name: 회귀 테스트 (로컬 HTML·모의 데이터, 네트워크 불필요)
+        # - 날짜 선택: 요청한 달이 아닌 엉뚱한 달의 달력을 고르는 회귀
+        # - 예약 기간: 날짜 미지정 시 등록된 예약 기간을 기준으로 탐색하는지
         # 실패해도 드라이런은 계속 진행하고, 로그로만 알린다.
         continue-on-error: true
-        run: python -u auto_book_date_test.py
+        run: |
+          python -u auto_book_date_test.py
+          python -u auto_book_period_test.py
 
       - name: 드라이런 실행 (실제 예약 안 함)
         env:

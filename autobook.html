@@ -99,7 +99,7 @@
         <input type="date" id="f-date">
         <button class="btn-add" onclick="addDate()">추가</button>
       </div>
-      <div class="hint">미지정 = 예약 가능한 모든 날짜를 대상으로 시도</div>
+      <div class="hint" id="date-hint">미지정 = 등록된 예약 기간 전체를 대상으로 탐색</div>
       <div class="tag-list" id="date-tags"></div>
     </div>
 
@@ -169,6 +169,27 @@ const itemId = new URLSearchParams(location.search).get('id');
 let cfg = null, sha = '', monitor = null;
 let dates = [], times = [], accounts = [];
 let logData = null;
+let scheduleCache = {};   // 팝업별 등록된 예약 기간 (schedule_cache.json)
+
+// GitHub Actions가 갱신하는 예약 기간 캐시 (raw, 인증 불필요)
+async function loadScheduleCache() {
+  try {
+    const res = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/main/schedule_cache.json?_=${Date.now()}`);
+    if (res.ok) scheduleCache = await res.json();
+  } catch (e) { scheduleCache = {}; }
+}
+
+// 해당 예약 장소에 등록된 예약 기간 {start, end} (모르면 null)
+function bookingPeriod(url) {
+  const m = (url || '').trim().match(/\/booking\/(\d+)\/bizes\/(\d+)\/items\/(\d+)/);
+  if (!m) return null;
+  const e = scheduleCache[`${m[1]}_${m[2]}_${m[3]}`];
+  if (!e) return null;
+  const only = v => (v && String(v).slice(0, 10).match(/^\d{4}-\d{2}-\d{2}$/) ? String(v).slice(0, 10) : null);
+  const start = only(e.available_start) || only(e.sale_start_date);
+  const end   = only(e.available_end)   || only(e.sale_end_date);
+  return start || end ? { start, end } : null;
+}
 
 async function apiFetch(url, method = 'GET', body = null) {
   const u = method === 'GET' ? `${url}?_=${Date.now()}` : url;
@@ -185,6 +206,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 async function load() {
   if (!getPAT()) { $('status').textContent = '❌ 메인 페이지 설정에서 Token을 먼저 등록하세요'; return; }
   try {
+    await loadScheduleCache();
     const data = await apiFetch(API_MON);
     sha = data.sha;
     cfg = b64decode(data.content);
@@ -219,14 +241,37 @@ function initForm() {
   renderDates(); renderTimes(); renderAccounts();
 }
 
-function renderDates() {
-  $('date-tags').innerHTML = dates.length
-    ? dates.map((d, i) => `<span class="tag">${d}<button onclick="dates.splice(${i},1);renderDates()">×</button></span>`).join('')
-    : '<span class="hint">모든 날짜 대상</span>';
+function periodLabel() {
+  const p = bookingPeriod(monitor && monitor.url);
+  if (!p) return null;
+  return `${p.start || '?'} ~ ${p.end || '?'}`;
 }
+
+function renderDates() {
+  const label = periodLabel();
+  // 날짜를 지정하지 않으면 등록된 예약 기간 전체가 탐색 대상이다 (모니터/워커도 같은 기준).
+  $('date-hint').textContent = label
+    ? `미지정 = 등록된 예약 기간 전체(${label})를 대상으로 탐색`
+    : '미지정 = 등록된 예약 기간 전체를 대상으로 탐색 (기간은 아직 탐색되지 않음 — 예약 가능한 모든 날짜 대상)';
+  $('date-tags').innerHTML = dates.length
+    ? dates.map((d, i) => {
+        const out = outsidePeriod(d) ? ' <span title="등록된 예약 기간 밖">⚠️</span>' : '';
+        return `<span class="tag">${d}${out}<button onclick="dates.splice(${i},1);renderDates()">×</button></span>`;
+      }).join('')
+    : `<span class="hint">${label ? `예약 기간 전체 (${label})` : '모든 날짜'} 대상</span>`;
+}
+
+function outsidePeriod(d) {
+  const p = bookingPeriod(monitor && monitor.url);
+  if (!p) return false;
+  return (p.start && d < p.start) || (p.end && d > p.end);
+}
+
 function addDate() {
   const v = $('f-date').value;
-  if (v && !dates.includes(v)) { dates.push(v); dates.sort(); renderDates(); }
+  if (!v || dates.includes(v)) return;
+  if (outsidePeriod(v) && !confirm(`${v}은(는) 등록된 예약 기간(${periodLabel()}) 밖입니다.\n그래도 추가할까요?`)) return;
+  dates.push(v); dates.sort(); renderDates();
 }
 
 function renderTimes() {
