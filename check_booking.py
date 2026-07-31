@@ -474,6 +474,14 @@ def booking_window_status(item: dict, sale_start_date: str | None, sale_end_date
     return True, ""
 
 
+def _open_time_label(target: datetime | None) -> str:
+    """오픈 예정 시각을 '오픈전-D일 H시 오픈' 형태로. target을 모르면 '오픈전'."""
+    if not target:
+        return "오픈전"
+    time_part = target.strftime("%d일 %H시") if target.minute == 0 else target.strftime("%d일 %H시%M분")
+    return f"오픈전-{time_part} 오픈"
+
+
 def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
     try:
         requests.post(
@@ -1340,7 +1348,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             title = f"⏳ {name} 자리있음 ({open_str} 오픈)"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                         else:
-                            title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
+                            open_dt = _parse_dt(result.get("sale_start_date"))
+                            title = f"⏳ {name} 자리 있음 ({_open_time_label(open_dt)})"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot) + f"\n{window_reason}"
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
