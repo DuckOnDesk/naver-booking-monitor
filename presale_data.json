@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T12:37:46.350099+09:00",
+  "updated_at": "2026-07-31T12:43:26.307887+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -44,28 +44,6 @@
       "lastBookingNotifiedAt": null
     },
     {
-      "id": "2071746450",
-      "name": "THE FIRST FAN",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "bookingBusinessId": "1683009",
-      "operationStart": "26.07.01.",
-      "operationEnd": "26.08.31.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_179/1782297473861Xlh0O_JPEG/20260624_150609621.jpg",
-      "roadAddress": "연무장길 27 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
-      ],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
-    },
-    {
       "id": "2073241477",
       "name": "키핀터치X무신사 뷰티 스페이스1 팝업",
       "hasBooking": true,
@@ -92,6 +70,28 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
+    },
+    {
+      "id": "2071746450",
+      "name": "THE FIRST FAN",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683009",
+      "bookingBusinessId": "1683009",
+      "operationStart": "26.07.01.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260624_179/1782297473861Xlh0O_JPEG/20260624_150609621.jpg",
+      "roadAddress": "연무장길 27 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00"
+      ],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
       "id": "2051944825",
@@ -184,6 +184,26 @@
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
+      "id": "2076235934",
+      "name": "뷰오리 클럽 캘리포니아 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.13.",
+      "operationEnd": "26.08.30.",
+      "remainingDays": 13,
+      "status": "D-13",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260730_112/1785377778994EwA7w_JPEG/edited-1785377778653-0.jpg",
+      "roadAddress": "연무장11길 11",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
       "hasBooking": false,
@@ -207,26 +227,6 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-30T13:44:47.678864+09:00"
-    },
-    {
-      "id": "2076235934",
-      "name": "뷰오리 클럽 캘리포니아 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.13.",
-      "operationEnd": "26.08.30.",
-      "remainingDays": 13,
-      "status": "D-13",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260730_112/1785377778994EwA7w_JPEG/edited-1785377778653-0.jpg",
-      "roadAddress": "연무장11길 11",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": null
     },
     {
       "id": "2017034437",
