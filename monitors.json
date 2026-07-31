@@ -141,6 +141,13 @@
         "start_at": "2026-07-29T15:00:00+09:00",
         "saved_at": "2026-07-29T05:55:27.663Z"
       }
+    },
+    {
+      "id": "ms8sb2xv",
+      "name": "키핀터치 일반",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1704774/items/7897322?area=pll&startDateTime=2026-08-03T00%3A00%3A00%2B09%3A00&tab=details",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
