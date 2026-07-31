@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T20:38:36.007266+09:00",
+  "updated_at": "2026-07-31T20:44:09.788102+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -141,7 +141,7 @@
     {
       "id": "2041689219",
       "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
       "bookingBusinessId": "1698075",
       "operationStart": "26.07.31.",
@@ -155,7 +155,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
+        "2026-07-22T16:10:57.904712+09:00",
+        "2026-07-31T20:43:57.138307+09:00"
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-31T09:29:23.984307+09:00"
@@ -1762,6 +1763,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-07-31T19:31:36.623280+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2041689219",
+      "place_name": "올랑말랑슬랑 성수 by 나우성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698075",
+      "ts": "2026-07-31T20:43:57.138307+09:00"
     }
   ],
   "seen_place_ids": [
