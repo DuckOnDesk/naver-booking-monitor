@@ -474,6 +474,21 @@ def booking_window_status(item: dict, sale_start_date: str | None, sale_end_date
     return True, ""
 
 
+def _time_until_label(target: datetime | None, now: datetime) -> str:
+    """target까지 남은 시간을 'N일 N시간 후 오픈' 형태로. target을 모르면 '예약창 미오픈'."""
+    if not target:
+        return "예약창 미오픈"
+    remain = target - now
+    total_min = max(int(remain.total_seconds() // 60), 0)
+    days, rem_min = divmod(total_min, 24 * 60)
+    hours, minutes = divmod(rem_min, 60)
+    if days > 0:
+        return f"{days}일 {hours}시간 후 오픈"
+    if hours > 0:
+        return f"{hours}시간 {minutes}분 후 오픈"
+    return f"{minutes}분 후 오픈"
+
+
 def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
     try:
         requests.post(
@@ -1340,7 +1355,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             title = f"⏳ {name} 자리있음 ({open_str} 오픈)"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                         else:
-                            title = f"⏳ {name} 자리 있음 (예약창 미오픈)"
+                            open_dt = _parse_dt(result.get("sale_start_date"))
+                            title = f"⏳ {name} 자리 있음 ({_time_until_label(open_dt, now_kst)})"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot) + f"\n{window_reason}"
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
