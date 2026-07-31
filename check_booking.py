@@ -474,19 +474,12 @@ def booking_window_status(item: dict, sale_start_date: str | None, sale_end_date
     return True, ""
 
 
-def _time_until_label(target: datetime | None, now: datetime) -> str:
-    """target까지 남은 시간을 'N일 N시간 후 오픈' 형태로. target을 모르면 '예약창 미오픈'."""
+def _open_time_label(target: datetime | None) -> str:
+    """오픈 예정 시각을 '오픈전-D일 H시 오픈' 형태로. target을 모르면 '오픈전'."""
     if not target:
-        return "예약창 미오픈"
-    remain = target - now
-    total_min = max(int(remain.total_seconds() // 60), 0)
-    days, rem_min = divmod(total_min, 24 * 60)
-    hours, minutes = divmod(rem_min, 60)
-    if days > 0:
-        return f"{days}일 {hours}시간 후 오픈"
-    if hours > 0:
-        return f"{hours}시간 {minutes}분 후 오픈"
-    return f"{minutes}분 후 오픈"
+        return "오픈전"
+    time_part = target.strftime("%d일 %H시") if target.minute == 0 else target.strftime("%d일 %H시%M분")
+    return f"오픈전-{time_part} 오픈"
 
 
 def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
@@ -1356,7 +1349,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                         else:
                             open_dt = _parse_dt(result.get("sale_start_date"))
-                            title = f"⏳ {name} 자리 있음 ({_time_until_label(open_dt, now_kst)})"
+                            title = f"⏳ {name} 자리 있음 ({_open_time_label(open_dt)})"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot) + f"\n{window_reason}"
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
