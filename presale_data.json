@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T17:05:46.250240+09:00",
+  "updated_at": "2026-07-31T17:11:25.707343+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -205,7 +205,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
@@ -223,7 +223,8 @@
         "2026-07-30T17:05:44.321877+09:00",
         "2026-07-31T04:08:22.389951+09:00",
         "2026-07-31T09:34:50.856398+09:00",
-        "2026-07-31T13:22:45.382171+09:00"
+        "2026-07-31T13:22:45.382171+09:00",
+        "2026-07-31T17:11:11.808935+09:00"
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-31T13:45:42.434917+09:00"
@@ -1746,6 +1747,13 @@
       "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "ts": "2026-07-31T16:19:25.689886+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2098663430",
+      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
+      "ts": "2026-07-31T17:11:11.808935+09:00"
     }
   ],
   "seen_place_ids": [
