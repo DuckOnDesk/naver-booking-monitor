@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-01T02:03:21.834862+09:00",
+  "updated_at": "2026-08-01T02:08:56.716826+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -120,7 +120,7 @@
     {
       "id": "2041689219",
       "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
       "bookingBusinessId": "1698075",
       "operationStart": "26.07.31.",
@@ -165,7 +165,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
@@ -186,7 +186,8 @@
         "2026-07-31T13:22:45.382171+09:00",
         "2026-07-31T17:11:11.808935+09:00",
         "2026-07-31T19:31:36.623280+09:00",
-        "2026-07-31T22:35:17.331448+09:00"
+        "2026-07-31T22:35:17.331448+09:00",
+        "2026-08-01T02:08:44.088849+09:00"
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-31T13:45:42.434917+09:00"
@@ -1745,6 +1746,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-07-31T22:35:17.331448+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2098663430",
+      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
+      "ts": "2026-08-01T02:08:44.088849+09:00"
     }
   ],
   "seen_place_ids": [
