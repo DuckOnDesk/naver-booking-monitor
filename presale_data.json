@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-01T00:17:17.319681+09:00",
+  "updated_at": "2026-08-01T00:22:56.676748+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -163,26 +163,6 @@
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
-      "id": "2076235934",
-      "name": "뷰오리 클럽 캘리포니아 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.13.",
-      "operationEnd": "26.08.30.",
-      "remainingDays": 12,
-      "status": "D-12",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260730_112/1785377778994EwA7w_JPEG/edited-1785377778653-0.jpg",
-      "roadAddress": "연무장11길 11",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
       "hasBooking": true,
@@ -191,7 +171,7 @@
       "operationStart": "26.08.01.",
       "operationEnd": "26.08.09.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260724_256/17848748255786JK66_JPEG/edited-1784874825307-0.jpg",
       "roadAddress": "성수이로 97 1F",
@@ -210,6 +190,26 @@
       ],
       "saleStartDate": null,
       "lastBookingNotifiedAt": "2026-07-31T13:45:42.434917+09:00"
+    },
+    {
+      "id": "2076235934",
+      "name": "뷰오리 클럽 캘리포니아 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.13.",
+      "operationEnd": "26.08.30.",
+      "remainingDays": 12,
+      "status": "D-12",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260730_112/1785377778994EwA7w_JPEG/edited-1785377778653-0.jpg",
+      "roadAddress": "연무장11길 11",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2017034437",
