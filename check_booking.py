@@ -381,6 +381,31 @@ def _reprobe_requested(cache_entry: dict, requested_at: str | None) -> bool:
     return checked_at is None or req_dt > checked_at
 
 
+def _merge_probed_period(old: dict, new: dict) -> dict:
+    """재탐색 결과(new)를 기존 캐시(old)와 병합하되, 이미 시작된 운영 기간의
+    available_start는 유지한다.
+
+    schedule API는 startDateTime=오늘 기준으로만 날짜를 돌려주므로(check_availability),
+    이미 시작된 팝업을 재탐색하면 과거 시작일은 API 응답 범위 밖이라 보이지 않고 '오늘'이
+    새 시작일처럼 관측된다. 이 값을 그대로 받아들이면 실제로는 기간이 바뀌지 않았는데도
+    available_start가 하루 지날 때마다 오늘 날짜로 계속 밀려나며 "운영 기간 변경"으로
+    오탐된다. 기존 시작일이 이미 지났다면(오늘 >= 기존 시작일) 재탐색으로는 그 값을 다시
+    확인할 방법이 없으므로 새로 관측된 값을 버리고 기존 값을 그대로 유지한다.
+    """
+    old_start = old.get("available_start")
+    if not old_start:
+        return new
+    try:
+        already_started = date.fromisoformat(old_start) <= datetime.now(timezone(timedelta(hours=9))).date()
+    except ValueError:
+        already_started = False
+    if not already_started:
+        return new
+    merged = dict(new)
+    merged["available_start"] = old_start
+    return merged
+
+
 def _period_changed(old: dict, new: dict) -> bool:
     """운영 기간/예약 제한이 실제로 바뀌었는지 (checked_at 갱신만인 경우는 제외)."""
     keys = ("available_start", "available_end", "sale_start_date", "sale_end_date",
@@ -1045,6 +1070,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if not is_first_probe:
                     _reprobed_this_round += 1
                 cache_entry_before = cache_entry
+                probed = _merge_probed_period(cache_entry_before, probed)
                 changed = _period_changed(cache_entry_before, probed)
                 old_range = f"{cache_entry_before.get('available_start')}~{cache_entry_before.get('available_end')}"
                 new_range = f"{probed.get('available_start')}~{probed.get('available_end')}"
@@ -1669,6 +1695,7 @@ def run_reprobe_requests() -> int:
         if not probed:
             print(f"  • {names.get(key, key)} — 조회 실패, 기존 캐시 유지", flush=True)
             continue
+        probed = _merge_probed_period(entry, probed)
         old_range = f"{entry.get('available_start')}~{entry.get('available_end')}"
         cache[key] = probed
         done += 1
