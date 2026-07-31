@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-31T10:30:50.630244+09:00",
+  "updated_at": "2026-07-31T10:36:28.016831+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -114,7 +114,7 @@
     {
       "id": "2073241477",
       "name": "키핀터치X무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704774",
       "bookingBusinessId": "1704774",
       "operationStart": "26.07.29.",
@@ -504,7 +504,7 @@
     {
       "id": "2006596949",
       "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "bookingBusinessId": "1689846",
       "operationStart": "26.07.19.",
@@ -522,10 +522,11 @@
         "2026-07-30T02:54:19.926258+09:00",
         "2026-07-30T14:29:40.306328+09:00",
         "2026-07-31T01:23:39.610663+09:00",
-        "2026-07-31T05:47:14.527770+09:00"
+        "2026-07-31T05:47:14.527770+09:00",
+        "2026-07-31T10:36:14.696781+09:00"
       ],
       "saleStartDate": null,
-      "lastBookingNotifiedAt": "2026-07-30T09:26:15.259276+09:00"
+      "lastBookingNotifiedAt": "2026-07-31T10:36:26.662785+09:00"
     },
     {
       "id": "2020528155",
@@ -1735,6 +1736,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-07-31T09:34:50.856398+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2006596949",
+      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "ts": "2026-07-31T10:36:14.696781+09:00"
     }
   ],
   "seen_place_ids": [
