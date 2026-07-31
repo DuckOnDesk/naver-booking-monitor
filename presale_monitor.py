@@ -192,6 +192,8 @@ def normalize(p: dict) -> dict:
         "bookingOpenDatetime": None,
         "bookingOpenHistory": [],  # 예약 오픈된 이력 (ISO datetime 목록)
         "saleStartDate": None,  # 실제 판매 시작일 (네이버 API에서 자동 조회, ISO 문자열 또는 "" = 조회했지만 없음)
+        "bookingNotified": False,  # 이번 "오픈 상태"에 대해 이미 알림을 보냈는지 (닫힘 확정 전까지 True 유지)
+        "bookingClosedStreak": 0,  # 연속으로 hasBooking=false 관측된 횟수 (짧은 흔들림과 진짜 닫힘 구분용)
     }
 
 
@@ -507,6 +509,8 @@ def check_once(config: dict, prev: dict) -> dict:
         place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
         place["lastBookingNotifiedAt"] = prev.get(pid, {}).get("lastBookingNotifiedAt")
         place["saleStartDate"] = prev.get(pid, {}).get("saleStartDate")
+        place["bookingNotified"] = prev.get(pid, {}).get("bookingNotified", False)
+        place["bookingClosedStreak"] = prev.get(pid, {}).get("bookingClosedStreak", 0)
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
         prev_url = prev.get(pid, {}).get("bookingUrl") or ""
@@ -556,7 +560,15 @@ def check_once(config: dict, prev: dict) -> dict:
 
         if not is_open:
             print(f"[{now_str}] ⏳ {name} ({dday}) — 대기중")
+            # hasBooking은 네이버 쪽에서 간헐적으로 흔들려(false↔true) 매번 리셋하면
+            # 짧은 흔들림만으로도 "새로 열림"으로 오인해 알림이 반복 발송된다. 2회
+            # 연속으로 닫힘이 확인된 경우에만 진짜 닫힘으로 보고 알림 상태를 초기화한다.
+            streak = int(place.get("bookingClosedStreak", 0)) + 1
+            place["bookingClosedStreak"] = streak
+            if streak >= 2:
+                place["bookingNotified"] = False
             continue
+        place["bookingClosedStreak"] = 0
 
         # 예약창은 열려 있음 — 실제 판매 시작일(saleStartDate, 수동 설정 우선)을 확인해
         # 예약 창만 열리고 실제 예약은 아직 불가능한 경우("오픈" 오탐)를 걸러낸다.
@@ -571,29 +583,28 @@ def check_once(config: dict, prev: dict) -> dict:
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (알림없음)")
             continue
 
-        # 24시간 내 이미 알림을 보낸 경우 중복 발송 방지 (API 오락가락 및 Actions 재시작 대응)
-        last_notif_at = place.get("lastBookingNotifiedAt")
-        within_24h = False
-        if last_notif_at:
-            try:
-                last_dt = datetime.fromisoformat(last_notif_at)
-                within_24h = (now_dt - last_dt).total_seconds() < 24 * 3600
-            except Exception:
-                pass
-        if within_24h:
-            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (24시간 내 알림 이미 발송, 생략)")
-            continue
-
         biz_id = place.get("bookingBusinessId") or ""
         slots_ok = has_available_slots(booking_url, biz_id)
-        if slots_ok:
-            print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
-            msg = f"지금 바로 예약하세요! → {booking_url}"
-            send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
-            send_toast(name, msg, booking_url)
-            place["lastBookingNotifiedAt"] = now_dt.isoformat()
-        else:
+        if not slots_ok:
+            # 매진되면 알림 상태를 초기화해, 나중에 진짜로 재입고될 때 다시 알린다.
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (잔여 없음, 알림 생략)")
+            place["bookingNotified"] = False
+            continue
+
+        # 이번 "오픈 상태"에 대해 이미 알림을 보냈으면 다시 보내지 않는다.
+        # (기존에는 24시간 시간 경과만 보고 재발송해서, 계속 열려 있고 잔여도 그대로인
+        # 팝업인데도 하루 지나면 "새로 오픈"인 것처럼 알림이 반복됐다. 진짜 새 소식
+        # — 매진 후 재입고, 또는 확정된 닫힘 후 재오픈 — 일 때만 다시 알림이 나간다.)
+        if place.get("bookingNotified"):
+            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (이미 알림 발송함, 생략)")
+            continue
+
+        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
+        msg = f"지금 바로 예약하세요! → {booking_url}"
+        send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
+        send_toast(name, msg, booking_url)
+        place["lastBookingNotifiedAt"] = now_dt.isoformat()
+        place["bookingNotified"] = True
 
     # 새로 발견된 팝업 자동으로 watched_places에 추가
     new_pids = [pid for pid in current if pid not in prev]
