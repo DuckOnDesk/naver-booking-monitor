@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-01T09:37:09.175327+09:00",
+  "updated_at": "2026-08-01T09:42:45.501510+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -48,7 +48,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -98,7 +98,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -147,7 +147,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": "2026-07-31T09:29:23.984307+09:00"
     },
     {
@@ -203,7 +203,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": "2026-07-31T13:45:42.434917+09:00"
     },
     {
@@ -225,51 +225,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2006648175",
-      "name": "LG전자 플래그십 D5",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694274/search",
-      "bookingBusinessId": "1694274",
-      "operationStart": "26.07.16.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_289/1783481591825XKUq5_PNG/image.png",
-      "roadAddress": "도산대로 403 LG전자 플래그십 D5",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 0,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2002918567",
-      "name": "엘모즈비스포크 청담 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1445445/search",
-      "bookingBusinessId": "1445445",
-      "operationStart": "25.03.01.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20250620_57/1750398211645nK9aX_JPEG/22-1.jpg",
-      "roadAddress": "압구정로 453 6층 엘모즈 청담점",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -363,7 +319,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -387,6 +343,28 @@
       "bookingNotified": true,
       "bookingClosedStreak": 0,
       "lastBookingNotifiedAt": "2026-08-01T04:50:39.446126+09:00"
+    },
+    {
+      "id": "2006648175",
+      "name": "LG전자 플래그십 D5",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694274/search",
+      "bookingBusinessId": "1694274",
+      "operationStart": "26.07.16.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260708_289/1783481591825XKUq5_PNG/image.png",
+      "roadAddress": "도산대로 403 LG전자 플래그십 D5",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 0,
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2025764652",
@@ -413,6 +391,28 @@
       "lastBookingNotifiedAt": "2026-08-01T04:50:40.608740+09:00"
     },
     {
+      "id": "2002918567",
+      "name": "엘모즈비스포크 청담 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1445445/search",
+      "bookingBusinessId": "1445445",
+      "operationStart": "25.03.01.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20250620_57/1750398211645nK9aX_JPEG/22-1.jpg",
+      "roadAddress": "압구정로 453 6층 엘모즈 청담점",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 0,
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2002133748",
       "name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
       "hasBooking": false,
@@ -431,7 +431,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -503,7 +503,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -535,7 +535,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 17,
+      "bookingClosedStreak": 18,
       "lastBookingNotifiedAt": "2026-08-01T05:46:53.794389+09:00"
     },
     {
@@ -677,7 +677,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -699,7 +699,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -721,7 +721,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -767,7 +767,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -909,7 +909,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -931,7 +931,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     },
     {
@@ -953,7 +953,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 59,
+      "bookingClosedStreak": 60,
       "lastBookingNotifiedAt": null
     }
   ],
