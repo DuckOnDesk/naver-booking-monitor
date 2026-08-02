@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-02T23:54:41.050572+09:00",
+  "updated_at": "2026-08-03T00:00:18.071074+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -9,7 +9,6 @@
     "2021947047",
     "2025764652",
     "2034762449",
-    "2041689219",
     "2042771625",
     "2043461454",
     "2050153907",
@@ -49,7 +48,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -119,33 +118,8 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 144,
+      "bookingClosedStreak": 145,
       "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2041689219",
-      "name": "올랑말랑슬랑 성수 by 나우성수",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698075",
-      "bookingBusinessId": "1698075",
-      "operationStart": "26.07.31.",
-      "operationEnd": "26.08.02.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_26/1785315157140wORLi_JPEG/edited-1785315156956-0.jpg",
-      "roadAddress": "성수이로14길 15 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00",
-        "2026-07-31T20:43:57.138307+09:00"
-      ],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 492,
-      "lastBookingNotifiedAt": "2026-07-31T09:29:23.984307+09:00"
     },
     {
       "id": "2051944825",
@@ -170,7 +144,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -235,8 +209,8 @@
         "2026-08-02T22:18:49.881138+09:00"
       ],
       "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingClosedStreak": 1,
+      "bookingNotified": false,
+      "bookingClosedStreak": 2,
       "lastBookingNotifiedAt": "2026-08-02T22:19:01.790782+09:00"
     },
     {
@@ -258,7 +232,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -352,7 +326,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -514,7 +488,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -536,7 +510,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -576,7 +550,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 10,
+      "bookingClosedStreak": 11,
       "lastBookingNotifiedAt": "2026-08-02T21:16:55.966285+09:00"
     },
     {
@@ -718,7 +692,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -740,7 +714,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -786,7 +760,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -808,7 +782,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -950,29 +924,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2075560121",
-      "name": "2026 산리오 키즈 페스티벌",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.31.",
-      "operationEnd": "26.08.02.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260706_180/1783301278116ifBhF_JPEG/%C0%DA%BB%EA_1.jpg",
-      "roadAddress": "신반포로 176 1층 오픈스테이지",
-      "commonAddress": "서울 서초구",
-      "district": "서초구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     },
     {
@@ -983,8 +935,8 @@
       "bookingBusinessId": null,
       "operationStart": "26.08.07.",
       "operationEnd": "26.08.17.",
-      "remainingDays": 5,
-      "status": "D-5",
+      "remainingDays": 4,
+      "status": "D-4",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260729_269/1785286842844MVTrc_JPEG/edited-1785286842746-0.jpg",
       "roadAddress": "신반포로 176 신세계 강남 센트럴 1층 오픈스테이지",
@@ -994,7 +946,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 492,
+      "bookingClosedStreak": 493,
       "lastBookingNotifiedAt": null
     }
   ],
