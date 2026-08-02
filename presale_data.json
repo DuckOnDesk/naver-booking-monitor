@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T08:48:43.456311+09:00",
+  "updated_at": "2026-08-03T08:54:30.592838+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -14,6 +14,7 @@
     "2050153907",
     "2053652128",
     "2062024820",
+    "2066415670",
     "2067967922",
     "2073241477",
     "2076235934",
@@ -48,7 +49,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -118,7 +119,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 250,
+      "bookingClosedStreak": 251,
       "lastBookingNotifiedAt": null
     },
     {
@@ -144,7 +145,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -234,7 +235,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -328,7 +329,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -514,7 +515,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -536,13 +537,13 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
       "id": "2006596949",
       "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "bookingBusinessId": "1689846",
       "operationStart": "26.07.19.",
@@ -573,12 +574,13 @@
         "2026-08-02T10:09:28.044731+09:00",
         "2026-08-02T17:45:27.641011+09:00",
         "2026-08-02T21:16:41.316277+09:00",
-        "2026-08-03T00:43:43.845897+09:00"
+        "2026-08-03T00:43:43.845897+09:00",
+        "2026-08-03T08:54:06.102975+09:00"
       ],
       "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 71,
-      "lastBookingNotifiedAt": "2026-08-03T00:43:58.442425+09:00"
+      "bookingNotified": true,
+      "bookingClosedStreak": 0,
+      "lastBookingNotifiedAt": "2026-08-03T08:54:24.530273+09:00"
     },
     {
       "id": "2020528155",
@@ -677,6 +679,28 @@
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
+      "id": "2066415670",
+      "name": "PVCS 아카이브 세일",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.22.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 19,
+      "status": "D-19",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_252/178532293555991WGw_JPEG/edited-1785322940290-0.jpg",
+      "roadAddress": "이태원로 210 PVCS",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 1,
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2058248160",
       "name": "맥스 시덴토프 개인전",
       "hasBooking": true,
@@ -719,7 +743,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -741,7 +765,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -787,7 +811,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -809,7 +833,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -927,7 +951,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     },
     {
@@ -949,7 +973,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 598,
+      "bookingClosedStreak": 599,
       "lastBookingNotifiedAt": null
     }
   ],
@@ -1982,6 +2006,20 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-03T07:51:06.749006+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2006596949",
+      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "ts": "2026-08-03T08:54:06.102975+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "",
+      "ts": "2026-08-03T08:54:06.102975+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2023,6 +2061,7 @@
     "2058940403",
     "2062024820",
     "2064927800",
+    "2066415670",
     "2067967922",
     "2070762822",
     "2071074882",
