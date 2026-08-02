@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-02T11:23:19.684690+09:00",
+  "updated_at": "2026-08-02T11:28:57.856180+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -13,6 +13,7 @@
     "2042771625",
     "2043461454",
     "2050153907",
+    "2053652128",
     "2062024820",
     "2067967922",
     "2073241477",
@@ -72,8 +73,30 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
+    },
+    {
+      "id": "2053652128",
+      "name": "더얀 XYZ POP UP - 대체불가",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.01.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260802_82/1785636805768W3qny_JPEG/edited-1785636805187-0.jpg",
+      "roadAddress": "연무장길 37-21",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 1,
+      "lastBookingNotifiedAt": null
     },
     {
       "id": "2020855313",
@@ -122,7 +145,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -171,7 +194,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": "2026-07-31T09:29:23.984307+09:00"
     },
     {
@@ -209,7 +232,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 2,
+      "bookingClosedStreak": 3,
       "lastBookingNotifiedAt": "2026-08-02T09:30:19.004993+09:00"
     },
     {
@@ -231,7 +254,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -325,7 +348,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -437,7 +460,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -509,7 +532,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -689,7 +712,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -711,7 +734,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -757,7 +780,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -779,7 +802,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -921,7 +944,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -943,7 +966,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     },
     {
@@ -965,7 +988,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 348,
+      "bookingClosedStreak": 349,
       "lastBookingNotifiedAt": null
     }
   ],
