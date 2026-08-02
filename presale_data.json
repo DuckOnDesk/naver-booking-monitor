@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T01:35:05.976466+09:00",
+  "updated_at": "2026-08-03T01:40:46.042098+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -48,7 +48,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -118,7 +118,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 169,
+      "bookingClosedStreak": 170,
       "lastBookingNotifiedAt": null
     },
     {
@@ -144,7 +144,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -174,7 +174,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
@@ -211,7 +211,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "bookingClosedStreak": 1,
       "lastBookingNotifiedAt": "2026-08-03T01:17:56.528333+09:00"
     },
     {
@@ -233,7 +233,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -327,7 +327,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -513,7 +513,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -535,7 +535,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -718,7 +718,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -740,7 +740,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -786,7 +786,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -808,7 +808,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -926,7 +926,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     },
     {
@@ -948,7 +948,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 517,
+      "bookingClosedStreak": 518,
       "lastBookingNotifiedAt": null
     }
   ],
