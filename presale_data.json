@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-02T21:11:21.860367+09:00",
+  "updated_at": "2026-08-02T21:17:00.691761+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -49,7 +49,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -119,7 +119,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 115,
+      "bookingClosedStreak": 116,
       "lastBookingNotifiedAt": null
     },
     {
@@ -144,7 +144,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": "2026-07-31T09:29:23.984307+09:00"
     },
     {
@@ -170,7 +170,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -234,7 +234,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 11,
+      "bookingClosedStreak": 12,
       "lastBookingNotifiedAt": "2026-08-02T16:49:17.420985+09:00"
     },
     {
@@ -256,7 +256,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -350,7 +350,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -512,7 +512,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -534,13 +534,13 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
       "id": "2006596949",
       "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "bookingBusinessId": "1689846",
       "operationStart": "26.07.19.",
@@ -569,12 +569,13 @@
         "2026-08-01T21:35:12.092930+09:00",
         "2026-08-02T01:07:42.628217+09:00",
         "2026-08-02T10:09:28.044731+09:00",
-        "2026-08-02T17:45:27.641011+09:00"
+        "2026-08-02T17:45:27.641011+09:00",
+        "2026-08-02T21:16:41.316277+09:00"
       ],
       "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 19,
-      "lastBookingNotifiedAt": "2026-08-02T17:45:41.736720+09:00"
+      "bookingNotified": true,
+      "bookingClosedStreak": 0,
+      "lastBookingNotifiedAt": "2026-08-02T21:16:55.966285+09:00"
     },
     {
       "id": "2020528155",
@@ -715,7 +716,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -737,7 +738,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -783,7 +784,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -805,7 +806,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -947,7 +948,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -969,7 +970,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     },
     {
@@ -991,7 +992,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 463,
+      "bookingClosedStreak": 464,
       "lastBookingNotifiedAt": null
     }
   ],
@@ -1982,6 +1983,13 @@
       "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "ts": "2026-08-02T17:45:27.641011+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2006596949",
+      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "ts": "2026-08-02T21:16:41.316277+09:00"
     }
   ],
   "seen_place_ids": [
