@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-02T11:51:33.765594+09:00",
+  "updated_at": "2026-08-02T11:57:12.392666+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -73,7 +73,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -95,7 +95,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 5,
+      "bookingClosedStreak": 6,
       "lastBookingNotifiedAt": null
     },
     {
@@ -145,7 +145,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -194,7 +194,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": "2026-07-31T09:29:23.984307+09:00"
     },
     {
@@ -232,7 +232,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 7,
+      "bookingClosedStreak": 8,
       "lastBookingNotifiedAt": "2026-08-02T09:30:19.004993+09:00"
     },
     {
@@ -254,7 +254,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -348,7 +348,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -442,6 +442,31 @@
       "lastBookingNotifiedAt": null
     },
     {
+      "id": "2019923740",
+      "name": "IVE x MINIVE POP-UP in SEOUL",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "bookingBusinessId": "1698448",
+      "operationStart": "26.07.30.",
+      "operationEnd": "26.08.09.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260715_204/17841074193520oyzV_JPEG/image.jpg",
+      "roadAddress": "올림픽로 300 롯데월드몰 1층 아트리움",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00",
+        "2026-07-23T17:32:48.761065+09:00"
+      ],
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingClosedStreak": 0,
+      "lastBookingNotifiedAt": "2026-08-01T04:50:41.655422+09:00"
+    },
+    {
       "id": "2002133748",
       "name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
       "hasBooking": false,
@@ -460,7 +485,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -489,31 +514,6 @@
       "lastBookingNotifiedAt": "2026-07-24T10:41:44.368407+09:00"
     },
     {
-      "id": "2019923740",
-      "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
-      "bookingBusinessId": "1698448",
-      "operationStart": "26.07.30.",
-      "operationEnd": "26.08.09.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260715_204/17841074193520oyzV_JPEG/image.jpg",
-      "roadAddress": "올림픽로 300 롯데월드몰 1층 아트리움",
-      "commonAddress": "서울 송파구",
-      "district": "송파구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00",
-        "2026-07-23T17:32:48.761065+09:00"
-      ],
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingClosedStreak": 0,
-      "lastBookingNotifiedAt": "2026-08-01T04:50:41.655422+09:00"
-    },
-    {
       "id": "2023862125",
       "name": "인사이드룸",
       "hasBooking": false,
@@ -532,7 +532,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -712,7 +712,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -734,7 +734,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -780,7 +780,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -802,7 +802,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -944,7 +944,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -966,7 +966,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     },
     {
@@ -988,7 +988,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 353,
+      "bookingClosedStreak": 354,
       "lastBookingNotifiedAt": null
     }
   ],
