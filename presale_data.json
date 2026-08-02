@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T00:15:45.510873+09:00",
+  "updated_at": "2026-08-03T00:21:25.586506+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -48,7 +48,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -118,7 +118,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 155,
+      "bookingClosedStreak": 156,
       "lastBookingNotifiedAt": null
     },
     {
@@ -144,7 +144,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -210,7 +210,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 12,
+      "bookingClosedStreak": 13,
       "lastBookingNotifiedAt": "2026-08-02T22:19:01.790782+09:00"
     },
     {
@@ -232,7 +232,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -326,7 +326,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -420,6 +420,30 @@
       "lastBookingNotifiedAt": null
     },
     {
+      "id": "2004678306",
+      "name": "하우스 아카이브: 홈 디깅 페어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
+      "bookingBusinessId": "1666185",
+      "operationStart": "26.08.13.",
+      "operationEnd": "26.08.16.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
+      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 0,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
+    },
+    {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
       "hasBooking": true,
@@ -488,7 +512,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -510,7 +534,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -550,7 +574,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 21,
+      "bookingClosedStreak": 22,
       "lastBookingNotifiedAt": "2026-08-02T21:16:55.966285+09:00"
     },
     {
@@ -692,7 +716,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -714,7 +738,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -760,7 +784,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -782,32 +806,8 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2004678306",
-      "name": "하우스 아카이브: 홈 디깅 페어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
-      "bookingBusinessId": "1666185",
-      "operationStart": "26.08.13.",
-      "operationEnd": "26.08.16.",
-      "remainingDays": 10,
-      "status": "D-10",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
-      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 0,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
       "id": "2067967922",
@@ -924,7 +924,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     },
     {
@@ -946,7 +946,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 503,
+      "bookingClosedStreak": 504,
       "lastBookingNotifiedAt": null
     }
   ],
