@@ -39,6 +39,11 @@ if not sys.stderr:
 KST = timezone(timedelta(hours=9))
 LIST_URL = "https://pcmap.place.naver.com/popupstore/list"
 PRESALE_NAME_FILTER = "사전예약"  # admissionCondition.name에 포함되는 키워드로 필터
+# 인기 팝업은 예약 슬롯이 짧은 시간 안에 마감→취소로 재입고를 반복해 hasBooking이
+# 자주 흔들린다(예: OFFICIAL HIGE DANDISM — 5분 간격 폴링에서 몇 시간 새 십여 차례
+# "닫힘 확정→재오픈"이 감지됨). bookingClosedStreak만으로는 이 흔들림을 다 못 걸러
+# 내므로, 알림 자체에도 최소 재발송 간격을 둬 짧은 주기로 반복 발송되지 않게 한다.
+RENOTIFY_COOLDOWN_MINUTES = 180
 
 SESSION = requests.Session()
 SESSION.headers.update({
@@ -598,6 +603,21 @@ def check_once(config: dict, prev: dict) -> dict:
         if place.get("bookingNotified"):
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (이미 알림 발송함, 생략)")
             continue
+
+        # 닫힘→재오픈이 확정돼 bookingNotified가 초기화됐더라도, 직전 알림이 너무
+        # 최근이면 생략한다. 인기 팝업은 슬롯 마감/재입고가 짧은 주기로 반복돼 이
+        # 가드가 없으면 몇 시간 새 알림이 십여 차례씩 재발송된다.
+        last_notified_at = place.get("lastBookingNotifiedAt")
+        if last_notified_at:
+            try:
+                last_dt = datetime.fromisoformat(last_notified_at)
+                elapsed_min = (now_dt - last_dt).total_seconds() / 60
+                if elapsed_min < RENOTIFY_COOLDOWN_MINUTES:
+                    print(f"[{now_str}] ✅ {name} ({dday}) — 재오픈 감지했지만 직전 알림 후 "
+                          f"{elapsed_min:.0f}분 경과 (쿨다운 {RENOTIFY_COOLDOWN_MINUTES}분 미만, 생략)")
+                    continue
+            except Exception:
+                pass
 
         print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
         msg = f"지금 바로 예약하세요! → {booking_url}"
