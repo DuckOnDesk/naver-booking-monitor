@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-02T20:37:50.611267+09:00",
+  "updated_at": "2026-08-02T20:43:18.275683+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -22,6 +22,50 @@
   ],
   "booking_open_datetimes": {},
   "places": [
+    {
+      "id": "2075560121",
+      "name": "2026 산리오 키즈 페스티벌",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.07.31.",
+      "operationEnd": "26.08.02.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260706_180/1783301278116ifBhF_JPEG/%C0%DA%BB%EA_1.jpg",
+      "roadAddress": "신반포로 176 1층 오픈스테이지",
+      "commonAddress": "서울 서초구",
+      "district": "서초구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 458,
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2021947047",
+      "name": "무민팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.07.",
+      "operationEnd": "26.08.17.",
+      "remainingDays": 5,
+      "status": "D-5",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_269/1785286842844MVTrc_JPEG/edited-1785286842746-0.jpg",
+      "roadAddress": "신반포로 176 신세계 강남 센트럴 1층 오픈스테이지",
+      "commonAddress": "서울 서초구",
+      "district": "서초구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 458,
+      "lastBookingNotifiedAt": null
+    },
     {
       "id": "2001371441",
       "name": "SEGA 미니 뮤지엄 <세가 : 즐거움의 여정>",
@@ -89,51 +133,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2075560121",
-      "name": "2026 산리오 키즈 페스티벌",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.07.31.",
-      "operationEnd": "26.08.02.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260706_180/1783301278116ifBhF_JPEG/%C0%DA%BB%EA_1.jpg",
-      "roadAddress": "신반포로 176 1층 오픈스테이지",
-      "commonAddress": "서울 서초구",
-      "district": "서초구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 457,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2021947047",
-      "name": "무민팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.07.",
-      "operationEnd": "26.08.17.",
-      "remainingDays": 5,
-      "status": "D-5",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_269/1785286842844MVTrc_JPEG/edited-1785286842746-0.jpg",
-      "roadAddress": "신반포로 176 신세계 강남 센트럴 1층 오픈스테이지",
-      "commonAddress": "서울 서초구",
-      "district": "서초구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -179,7 +179,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -225,7 +225,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -319,7 +319,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -349,7 +349,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -419,7 +419,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 109,
+      "bookingClosedStreak": 110,
       "lastBookingNotifiedAt": null
     },
     {
@@ -444,7 +444,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": "2026-07-31T09:29:23.984307+09:00"
     },
     {
@@ -470,7 +470,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -534,7 +534,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 5,
+      "bookingClosedStreak": 6,
       "lastBookingNotifiedAt": "2026-08-02T16:49:17.420985+09:00"
     },
     {
@@ -556,7 +556,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -742,7 +742,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -764,7 +764,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -803,7 +803,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 13,
+      "bookingClosedStreak": 14,
       "lastBookingNotifiedAt": "2026-08-02T17:45:41.736720+09:00"
     },
     {
@@ -945,7 +945,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
@@ -967,7 +967,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 457,
+      "bookingClosedStreak": 458,
       "lastBookingNotifiedAt": null
     },
     {
