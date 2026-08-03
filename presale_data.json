@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T09:40:56.139249+09:00",
+  "updated_at": "2026-08-03T09:46:44.933521+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -49,7 +49,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -119,7 +119,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 259,
+      "bookingClosedStreak": 260,
       "lastBookingNotifiedAt": null
     },
     {
@@ -145,7 +145,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -212,8 +212,8 @@
         "2026-08-03T07:51:06.749006+09:00"
       ],
       "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingClosedStreak": 1,
+      "bookingNotified": false,
+      "bookingClosedStreak": 2,
       "lastBookingNotifiedAt": "2026-08-03T07:51:19.791277+09:00"
     },
     {
@@ -235,7 +235,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -329,7 +329,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -515,7 +515,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -537,7 +537,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -689,7 +689,7 @@
       "remainingDays": 19,
       "status": "D-19",
       "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260803_187/1785715726782tpCdK_JPEG/edited-1785715726505-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260803_247/1785717311132C5VJa_JPEG/edited-1785717310837-0.jpg",
       "roadAddress": "이태원로 210 PVCS",
       "commonAddress": "서울 용산구",
       "district": "용산구",
@@ -745,7 +745,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -767,7 +767,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -813,7 +813,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -835,7 +835,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -953,7 +953,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     },
     {
@@ -975,7 +975,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 607,
+      "bookingClosedStreak": 608,
       "lastBookingNotifiedAt": null
     }
   ],
