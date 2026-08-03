@@ -39,11 +39,6 @@ if not sys.stderr:
 KST = timezone(timedelta(hours=9))
 LIST_URL = "https://pcmap.place.naver.com/popupstore/list"
 PRESALE_NAME_FILTER = "사전예약"  # admissionCondition.name에 포함되는 키워드로 필터
-# 인기 팝업은 예약 슬롯이 짧은 시간 안에 마감→취소로 재입고를 반복해 hasBooking이
-# 자주 흔들린다(예: OFFICIAL HIGE DANDISM — 5분 간격 폴링에서 몇 시간 새 십여 차례
-# "닫힘 확정→재오픈"이 감지됨). bookingClosedStreak만으로는 이 흔들림을 다 못 걸러
-# 내므로, 알림 자체에도 최소 재발송 간격을 둬 짧은 주기로 반복 발송되지 않게 한다.
-RENOTIFY_COOLDOWN_MINUTES = 180
 
 SESSION = requests.Session()
 SESSION.headers.update({
@@ -197,8 +192,8 @@ def normalize(p: dict) -> dict:
         "bookingOpenDatetime": None,
         "bookingOpenHistory": [],  # 예약 오픈된 이력 (ISO datetime 목록)
         "saleStartDate": None,  # 실제 판매 시작일 (네이버 API에서 자동 조회, ISO 문자열 또는 "" = 조회했지만 없음)
-        "bookingNotified": False,  # 이번 "오픈 상태"에 대해 이미 알림을 보냈는지 (닫힘 확정 전까지 True 유지)
-        "bookingClosedStreak": 0,  # 연속으로 hasBooking=false 관측된 횟수 (짧은 흔들림과 진짜 닫힘 구분용)
+        "bookingNotified": False,  # 처음 오픈 알림을 보냈는지 (한 번 True가 되면 계속 유지 — 재오픈 알림은 안 보냄)
+        "discoveredAt": None,  # 새 팝업으로 처음 발견된 시각 (ISO) — 관리 페이지 NEW 표시용
     }
 
 
@@ -515,7 +510,7 @@ def check_once(config: dict, prev: dict) -> dict:
         place["lastBookingNotifiedAt"] = prev.get(pid, {}).get("lastBookingNotifiedAt")
         place["saleStartDate"] = prev.get(pid, {}).get("saleStartDate")
         place["bookingNotified"] = prev.get(pid, {}).get("bookingNotified", False)
-        place["bookingClosedStreak"] = prev.get(pid, {}).get("bookingClosedStreak", 0)
+        place["discoveredAt"] = prev.get(pid, {}).get("discoveredAt")
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
         prev_url = prev.get(pid, {}).get("bookingUrl") or ""
@@ -548,6 +543,7 @@ def check_once(config: dict, prev: dict) -> dict:
 
         if pid not in prev and str(pid) not in seen_ids:
             # 처음 보는 팝업 → git push 이후 알림 발송 (페이지 데이터가 업데이트된 뒤 수신되도록)
+            place["discoveredAt"] = now_iso
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
             print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
@@ -565,15 +561,7 @@ def check_once(config: dict, prev: dict) -> dict:
 
         if not is_open:
             print(f"[{now_str}] ⏳ {name} ({dday}) — 대기중")
-            # hasBooking은 네이버 쪽에서 간헐적으로 흔들려(false↔true) 매번 리셋하면
-            # 짧은 흔들림만으로도 "새로 열림"으로 오인해 알림이 반복 발송된다. 2회
-            # 연속으로 닫힘이 확인된 경우에만 진짜 닫힘으로 보고 알림 상태를 초기화한다.
-            streak = int(place.get("bookingClosedStreak", 0)) + 1
-            place["bookingClosedStreak"] = streak
-            if streak >= 2:
-                place["bookingNotified"] = False
             continue
-        place["bookingClosedStreak"] = 0
 
         # 예약창은 열려 있음 — 실제 판매 시작일(saleStartDate, 수동 설정 우선)을 확인해
         # 예약 창만 열리고 실제 예약은 아직 불가능한 경우("오픈" 오탐)를 걸러낸다.
@@ -588,36 +576,17 @@ def check_once(config: dict, prev: dict) -> dict:
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (알림없음)")
             continue
 
-        biz_id = place.get("bookingBusinessId") or ""
-        slots_ok = has_available_slots(booking_url, biz_id)
-        if not slots_ok:
-            # 매진되면 알림 상태를 초기화해, 나중에 진짜로 재입고될 때 다시 알린다.
-            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (잔여 없음, 알림 생략)")
-            place["bookingNotified"] = False
-            continue
-
-        # 이번 "오픈 상태"에 대해 이미 알림을 보냈으면 다시 보내지 않는다.
-        # (기존에는 24시간 시간 경과만 보고 재발송해서, 계속 열려 있고 잔여도 그대로인
-        # 팝업인데도 하루 지나면 "새로 오픈"인 것처럼 알림이 반복됐다. 진짜 새 소식
-        # — 매진 후 재입고, 또는 확정된 닫힘 후 재오픈 — 일 때만 다시 알림이 나간다.)
+        # presale_monitor는 "처음 오픈" 알림 전용이다. 닫힘 후 재오픈 감지·알림은
+        # check_booking.py(monitors.json) 쪽에서 항목별로 다룬다 — 한 번 알림을
+        # 보낸 장소는 bookingNotified를 계속 True로 유지해 다시 알리지 않는다.
         if place.get("bookingNotified"):
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (이미 알림 발송함, 생략)")
             continue
 
-        # 닫힘→재오픈이 확정돼 bookingNotified가 초기화됐더라도, 직전 알림이 너무
-        # 최근이면 생략한다. 인기 팝업은 슬롯 마감/재입고가 짧은 주기로 반복돼 이
-        # 가드가 없으면 몇 시간 새 알림이 십여 차례씩 재발송된다.
-        last_notified_at = place.get("lastBookingNotifiedAt")
-        if last_notified_at:
-            try:
-                last_dt = datetime.fromisoformat(last_notified_at)
-                elapsed_min = (now_dt - last_dt).total_seconds() / 60
-                if elapsed_min < RENOTIFY_COOLDOWN_MINUTES:
-                    print(f"[{now_str}] ✅ {name} ({dday}) — 재오픈 감지했지만 직전 알림 후 "
-                          f"{elapsed_min:.0f}분 경과 (쿨다운 {RENOTIFY_COOLDOWN_MINUTES}분 미만, 생략)")
-                    continue
-            except Exception:
-                pass
+        biz_id = place.get("bookingBusinessId") or ""
+        if not has_available_slots(booking_url, biz_id):
+            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (잔여 없음, 알림 생략)")
+            continue
 
         print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
         msg = f"지금 바로 예약하세요! → {booking_url}"
