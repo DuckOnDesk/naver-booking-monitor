@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T09:17:38.191927+09:00",
+  "updated_at": "2026-08-03T09:23:28.245080+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -49,7 +49,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -119,7 +119,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 255,
+      "bookingClosedStreak": 256,
       "lastBookingNotifiedAt": null
     },
     {
@@ -145,7 +145,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -235,7 +235,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -329,7 +329,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -515,7 +515,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -537,7 +537,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -681,24 +681,26 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
       "operationEnd": "26.08.23.",
       "remainingDays": 19,
       "status": "D-19",
       "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_252/178532293555991WGw_JPEG/edited-1785322940290-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260803_187/1785715726782tpCdK_JPEG/edited-1785715726505-0.jpg",
       "roadAddress": "이태원로 210 PVCS",
       "commonAddress": "서울 용산구",
       "district": "용산구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-03T09:23:02.567385+09:00"
+      ],
       "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 5,
-      "lastBookingNotifiedAt": null
+      "bookingNotified": true,
+      "bookingClosedStreak": 0,
+      "lastBookingNotifiedAt": "2026-08-03T09:23:25.006681+09:00"
     },
     {
       "id": "2058248160",
@@ -743,7 +745,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -765,7 +767,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -811,7 +813,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -833,7 +835,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -951,7 +953,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     },
     {
@@ -973,7 +975,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 603,
+      "bookingClosedStreak": 604,
       "lastBookingNotifiedAt": null
     }
   ],
@@ -2020,6 +2022,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "",
       "ts": "2026-08-03T08:54:06.102975+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-03T09:23:02.567385+09:00"
     }
   ],
   "seen_place_ids": [
