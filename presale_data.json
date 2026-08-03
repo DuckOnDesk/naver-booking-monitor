@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-04T01:11:35.258210+09:00",
+  "updated_at": "2026-08-04T01:17:09.177265+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -594,7 +594,7 @@
     {
       "id": "2006596949",
       "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "bookingBusinessId": "1689846",
       "operationStart": "26.07.19.",
@@ -628,7 +628,8 @@
         "2026-08-03T00:43:43.845897+09:00",
         "2026-08-03T08:54:06.102975+09:00",
         "2026-08-03T16:26:02.446459+09:00",
-        "2026-08-03T21:47:45.963200+09:00"
+        "2026-08-03T21:47:45.963200+09:00",
+        "2026-08-04T01:16:56.694603+09:00"
       ],
       "saleStartDate": null,
       "bookingNotified": true,
@@ -2174,6 +2175,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-03T22:29:28.067476+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2006596949",
+      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "ts": "2026-08-04T01:16:56.694603+09:00"
     }
   ],
   "seen_place_ids": [
