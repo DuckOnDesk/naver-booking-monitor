@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T14:44:42.577525+09:00",
+  "updated_at": "2026-08-03T14:50:19.929630+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -50,7 +50,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -74,7 +74,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -98,7 +98,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -120,7 +120,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 314,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -166,7 +166,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-03T14:33:02.473059+09:00"
     },
     {
@@ -190,7 +190,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -216,7 +216,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -240,7 +240,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 11,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-03T13:06:32.168852+09:00"
     },
     {
@@ -264,7 +264,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -288,7 +288,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -312,7 +312,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -334,7 +334,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -356,7 +356,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 8,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -378,7 +378,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:39.446126+09:00"
     },
     {
@@ -402,7 +402,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:40.608740+09:00"
     },
     {
@@ -424,7 +424,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -446,7 +446,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -471,7 +471,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-24T10:41:44.368407+09:00"
     },
     {
@@ -496,7 +496,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:41.655422+09:00"
     },
     {
@@ -518,7 +518,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -540,7 +540,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -582,7 +582,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 6,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-03T08:54:24.530273+09:00"
     },
     {
@@ -606,7 +606,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-31T00:45:18.187520+09:00"
     },
     {
@@ -630,7 +630,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:42.646055+09:00"
     },
     {
@@ -654,7 +654,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:43.642721+09:00"
     },
     {
@@ -678,7 +678,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -702,7 +702,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-03T09:23:25.006681+09:00"
     },
     {
@@ -726,7 +726,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -748,7 +748,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -770,7 +770,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -794,7 +794,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
@@ -816,7 +816,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -838,7 +838,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -862,7 +862,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
@@ -886,7 +886,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:44.862580+09:00"
     },
     {
@@ -910,7 +910,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:45.885779+09:00"
     },
     {
@@ -934,7 +934,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
@@ -958,7 +958,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 0,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
@@ -980,7 +980,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     },
     {
@@ -1002,7 +1002,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 662,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null
     }
   ],
