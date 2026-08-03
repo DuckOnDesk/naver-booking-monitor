@@ -1,8 +1,9 @@
 {
-  "updated_at": "2026-08-03T18:43:13.124450+09:00",
+  "updated_at": "2026-08-03T18:48:52.008438+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
+    "2007641747",
     "2012113406",
     "2015464753",
     "2019923740",
@@ -10,6 +11,7 @@
     "2021947047",
     "2025764652",
     "2034762449",
+    "2039988652",
     "2042771625",
     "2043461454",
     "2050153907",
@@ -706,6 +708,28 @@
       "lastBookingNotifiedAt": "2026-08-01T04:50:43.642721+09:00"
     },
     {
+      "id": "2039988652",
+      "name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.27.",
+      "operationEnd": "26.09.02.",
+      "remainingDays": 24,
+      "status": "D-24",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260731_72/17854610386393e9fL_JPEG/edited-1785461033062-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 지하2층 아이코닉존",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-03T18:48:37.997148+09:00",
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2027303446",
       "name": "성률 기획전 여름을 닮은 우리",
       "hasBooking": true,
@@ -887,6 +911,28 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2007641747",
+      "name": "드래곤빌리지 팝업 SVIP 라운지",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.14.",
+      "operationEnd": "26.08.16.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260803_70/1785723396358JxgCH_JPEG/edited-1785723393689-0.jpg",
+      "roadAddress": "영동대로 513 코엑스 밀레니엄 광장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-03T18:48:37.997148+09:00",
       "lastBookingNotifiedAt": null
     },
     {
@@ -2122,6 +2168,20 @@
       "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "ts": "2026-08-03T16:26:02.446459+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2039988652",
+      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
+      "booking_url": "",
+      "ts": "2026-08-03T18:48:37.997148+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2007641747",
+      "place_name": "드래곤빌리지 팝업 SVIP 라운지",
+      "booking_url": "",
+      "ts": "2026-08-03T18:48:37.997148+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2134,6 +2194,7 @@
     "2004678306",
     "2006596949",
     "2006648175",
+    "2007641747",
     "2012113406",
     "2015464753",
     "2017034437",
@@ -2150,6 +2211,7 @@
     "2030273456",
     "2034762449",
     "2036674429",
+    "2039988652",
     "2041689219",
     "2042771625",
     "2043213423",
