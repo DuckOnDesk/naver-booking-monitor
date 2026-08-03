@@ -144,7 +144,17 @@
       "name": "뷰오리",
       "url": "https://m.booking.naver.com/booking/12/bizes/1704534/items/7896085?startDateTime=2026-08-16T00%3A00%3A00%2B09%3A00",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-08-03T15:20:48.400Z"
+      }
     }
   ]
 }
