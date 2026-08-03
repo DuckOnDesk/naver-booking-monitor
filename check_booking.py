@@ -249,6 +249,45 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
 
 
+def fetch_calendar_day_status(service_id: int, biz_id: str, datekey: str) -> bool | None:
+    """네이버 예약 캘린더(월별) API로 특정 날짜의 실제 마감 여부를 재확인.
+
+    hourlySchedule/schedule GraphQL의 재고·예약수는 인기 상품에서 몇 분~몇십 분씩
+    캐시가 지연돼, 실제로는 매진된 날짜인데도 자리 있음으로 보일 때가 있다(실제
+    예약 페이지 캘린더에는 "마감"으로 뜨는데 우리 쪽은 계속 재고>0으로 판단하는
+    사례 확인됨). 캘린더 API는 페이지가 실제로 쓰는 값을 그대로 반환하므로, 알림
+    발송 직전 교차 확인용으로만 쓴다.
+    True=예약 가능 확인, False=마감 확인, None=조회 실패/판단 불가(알림 보류하지 않음)."""
+    ym = datekey[:7]
+    try:
+        resp = requests.get(
+            f"https://m.booking.naver.com/booking/{service_id}/bizes/{biz_id}/calendars/{ym}",
+            headers=HEADERS, timeout=10,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception:
+        return None
+
+    calendars = data.get("calendars") or data.get("data")
+    day = None
+    if isinstance(calendars, list):
+        day = next((d for d in calendars if d.get("date") == datekey or d.get("dateKey") == datekey), None)
+    elif isinstance(calendars, dict):
+        day = calendars.get(datekey)
+    if not isinstance(day, dict):
+        return None
+
+    if day.get("available") or day.get("bookable"):
+        return True
+    status = (day.get("status") or "").upper()
+    if status in ("AVAILABLE", "A"):
+        return True
+    if status:
+        return False
+    return None
+
+
 def fetch_item_restrictions(biz_id: str) -> dict:
     """업체(business) API에서 예약 가능 제한 코드·값을 조회.
     네이버 예약 업체 설정의 bookingAvailableCode / bookingAvailableValue 필드를 읽는다.
@@ -1305,14 +1344,18 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘{restriction_note}", flush=True)
 
                     if not is_restricted and available > 0 and (prev_slots is None or increased):
-                        if increased:
-                            title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
+                        cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
+                        if cal_ok is False:
+                            print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림 생략 (재고 정보 지연 의심)", flush=True)
                         else:
-                            title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
-                        body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
-                        if ntfy_topic:
-                            send_ntfy(ntfy_topic, title, body, url)
-                        alerted[closed_alert_key] = dict(per_slot)
+                            if increased:
+                                title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
+                            else:
+                                title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
+                            body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                            if ntfy_topic:
+                                send_ntfy(ntfy_topic, title, body, url)
+                            alerted[closed_alert_key] = dict(per_slot)
                 elif window_open:
                     prev_slots = alerted.get(alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
@@ -1320,22 +1363,29 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     print(f"[{now_str}] 🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}){restriction_note}", flush=True)
 
                     if not is_restricted:
+                        cal_ok = True
                         if prev_slots is None or increased:
                             if just_reopened:
                                 # 예약창 닫힘 → 열림 전환 직후: 이번 주기는 알림 생략, 상태만 기록
                                 print(f"  [전환 직후] 알림 생략 (다음 주기에 재확인)", flush=True)
                             else:
-                                if prev_slots is None:
-                                    title = f"🎉 {name} 예약 가능!"
+                                cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
+                                if cal_ok is False:
+                                    print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림·자동예약 생략 "
+                                          f"(재고 정보 지연 의심)", flush=True)
                                 else:
-                                    inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
-                                    title = f"🎉 {name} 자리 추가됨 - {inc_str}"
-                                body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
-                                if ntfy_topic:
-                                    send_ntfy(ntfy_topic, title, body, url)
-                        alerted[alert_key] = dict(per_slot)
-                        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
-                                        alerted, ab_period)
+                                    if prev_slots is None:
+                                        title = f"🎉 {name} 예약 가능!"
+                                    else:
+                                        inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
+                                        title = f"🎉 {name} 자리 추가됨 - {inc_str}"
+                                    body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                                    if ntfy_topic:
+                                        send_ntfy(ntfy_topic, title, body, url)
+                        if cal_ok is not False:
+                            alerted[alert_key] = dict(per_slot)
+                            maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
+                                            alerted, ab_period)
                 else:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
