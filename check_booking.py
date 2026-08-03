@@ -288,6 +288,31 @@ def fetch_calendar_day_status(service_id: int, biz_id: str, datekey: str) -> boo
     return None
 
 
+def _log_alert_diagnostics(name: str, date_str: str, day_summary: dict | None,
+                           slot_info: dict, ref_slots: list, cal_status: bool | None,
+                           ba_code: str, ba_value: int, tag: str) -> None:
+    """알림 발송을 판단하는 시점의 API 원본 값을 로그로 남긴다 (동작에는 영향 없음).
+
+    실제 예약 페이지는 "마감"인데 우리 쪽은 자리 있음으로 판단해 알림이 나가는 사례가
+    있었다(뷰오리: 재고 30 / 예약 0인 채로 상품이 내려갔는데도 hasBookableSlots=true).
+    그런 일이 또 생겼을 때 어떤 필드가 실제 화면과 어긋났는지 로그만 보고 판단할 수
+    있도록, 판단 근거가 된 값을 원본 그대로 남긴다.
+    """
+    d = day_summary or {}
+    slots = ", ".join(
+        f"{(s.get('unitStartTime') or '?')[11:16]}"
+        f"(saleDay={s.get('isUnitSaleDay')},stock={s.get('unitStock')},booked={s.get('unitBookingCount')})"
+        for s in (ref_slots or [])
+    ) or "없음"
+    print(f"  [진단:{tag}] {name} {date_str}", flush=True)
+    print(f"  [진단:{tag}]   daily  = hasBookableSlots={d.get('hasBookableSlots')} "
+          f"isSaleDay={d.get('isSaleDay')} stock={d.get('stock')} bookingCount={d.get('bookingCount')}", flush=True)
+    print(f"  [진단:{tag}]   hourly = {slots}", flush=True)
+    print(f"  [진단:{tag}]   기타   = calendarAPI={cal_status}(True=가능/False=마감/None=판단불가) "
+          f"queried={slot_info.get('queried')} total={slot_info.get('total')} "
+          f"예약제한={ba_code}/{ba_value}일", flush=True)
+
+
 def fetch_item_restrictions(biz_id: str) -> dict:
     """업체(business) API에서 예약 가능 제한 코드·값을 조회.
     네이버 예약 업체 설정의 bookingAvailableCode / bookingAvailableValue 필드를 읽는다.
@@ -1345,6 +1370,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                     if not is_restricted and available > 0 and (prev_slots is None or increased):
                         cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
+                        _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
+                                               cal_ok, ba_code, ba_value, "닫힘")
                         if cal_ok is False:
                             print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림 생략 (재고 정보 지연 의심)", flush=True)
                         else:
@@ -1370,6 +1397,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                                 print(f"  [전환 직후] 알림 생략 (다음 주기에 재확인)", flush=True)
                             else:
                                 cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
+                                _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
+                                                       cal_ok, ba_code, ba_value, "오픈")
                                 if cal_ok is False:
                                     print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림·자동예약 생략 "
                                           f"(재고 정보 지연 의심)", flush=True)
