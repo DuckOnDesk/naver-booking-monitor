@@ -249,6 +249,47 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         return {"times": [], "total": 0, "queried": False, "all_slots": []}
 
 
+# 시간대(hourly) 슬롯이 없는 일 단위 상품에서 "하루 전체"를 가리키는 슬롯 이름.
+# unitStartTime[11:16] 슬라이스가 그대로 이 값이 되도록 슬롯을 만들어,
+# 시간대 상품과 같은 코드 경로로 잔여 좌석·알림·상태 저장이 돌게 한다.
+DAY_UNIT_TIME = "종일"
+
+
+def day_has_stock(day: dict | None) -> bool:
+    """일별 요약(daily summary) 기준으로 아직 살 자리가 남아 있는 판매일인지."""
+    if not day or not day.get("isSaleDay"):
+        return False
+    return (day.get("stock") or 0) - (day.get("bookingCount") or 0) > 0
+
+
+def fetch_day_slots(parsed: dict, datekey: str, day: dict | None) -> dict:
+    """해당 날짜의 시간대 슬롯 조회 (fetch_slots + 일 단위 상품 보정).
+
+    businessTypeId 13 같은 일부 상품은 hourlySchedule에 시간대 슬롯이 하나도 없고
+    일별 요약에만 재고가 실려 온다. 이때 daily.summary의 hasBookableSlots도 false로
+    오기 때문에, 예전에는 재고가 남아 있어도 "예약불가"로 흘려보내 알림이 나가지
+    않았다 (트루스 오브 뷰티: 재고 480 / 예약 0인데 매 회차 예약불가로 기록됨).
+    시간대가 없을 뿐 예약은 되는 상품이므로, 하루 전체를 슬롯 하나로 만들어 준다.
+    """
+    info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+    if info["queried"] and not info.get("all_slots") and day_has_stock(day):
+        stock = day.get("stock") or 0
+        booked = day.get("bookingCount") or 0
+        return {
+            "times": [DAY_UNIT_TIME],
+            "total": 1,
+            "queried": True,
+            "day_unit": True,
+            "all_slots": [{
+                "unitStartTime": f"{datekey} {DAY_UNIT_TIME}",
+                "unitStock": stock,
+                "unitBookingCount": booked,
+                "isUnitSaleDay": True,
+            }],
+        }
+    return info
+
+
 def fetch_calendar_day_status(service_id: int, biz_id: str, datekey: str) -> bool | None:
     """네이버 예약 캘린더(월별) API로 특정 날짜의 실제 마감 여부를 재확인.
 
@@ -850,6 +891,9 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     times = [t for t, _ in per_slot if _match_time(t, cfg["times"])]
     if not times:
         return
+    # 일 단위 상품은 워커에 넘길 시간대가 없다. 시그니처는 그대로 두고 시간 목록만
+    # 비워 보내, 워커가 예약 페이지에서 직접 슬롯을 찾게 한다.
+    dispatch_times = [] if times == [DAY_UNIT_TIME] else times
     sig = f"{datekey}|{','.join(times)}"
     state_key = f"{item_id}:auto_book_state"
     state = alerted.get(state_key)
@@ -875,7 +919,7 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
 
     cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (성공/매진/OFF까지 계속)"
     detected_at = now_kst.isoformat(timespec="seconds")
-    ok, err = dispatch_auto_book(item_id, datekey, times, sig, state["attempts"], detected_at)
+    ok, err = dispatch_auto_book(item_id, datekey, dispatch_times, sig, state["attempts"], detected_at)
     if ok:
         state["dispatched_at"] = detected_at
         print(f"  [자동예약] {name} {datekey} {','.join(times[:5])} — "
@@ -911,9 +955,10 @@ def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
 
     name = item.get("name", item_id)
     today_str = datetime.now(timezone(timedelta(hours=9))).date().isoformat()
+    by_date = {d.get("dateKey"): d for d in all_summary}
     extra = sorted(
         d["dateKey"] for d in all_summary
-        if d.get("hasBookableSlots") and d.get("dateKey") not in covered
+        if (d.get("hasBookableSlots") or day_has_stock(d)) and d.get("dateKey") not in covered
         and d.get("dateKey", "") >= today_str
         and in_booking_period(d["dateKey"], period)
         and not (cutoff_date and date.fromisoformat(d["dateKey"]) < cutoff_date)
@@ -929,7 +974,7 @@ def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
           f"감시 대상 밖 날짜 {len(extra)}개 추가 확인: {', '.join(extra[:5])}"
           f"{' 외' if len(extra) > 5 else ''}", flush=True)
     for datekey in extra:
-        slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+        slot_info = fetch_day_slots(parsed, datekey, by_date.get(datekey))
         if not slot_info["queried"]:
             continue
         per_slot = [
@@ -1316,22 +1361,30 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
             d = days_map.get(datekey)
 
-            if d is not None and d["hasBookableSlots"]:
-                slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+            # hasBookableSlots는 시간대 슬롯이 있는 상품 기준이라, 일 단위로만 재고를
+            # 내려주는 상품에서는 판매 중인데도 false로 온다. 판매일이고 일별 재고가
+            # 남아 있으면 슬롯을 한 번 더 확인한다 (실제 마감 여부는 알림 직전
+            # 캘린더 API 교차 확인이 걸러 준다).
+            if d is not None and (d["hasBookableSlots"] or day_has_stock(d)):
+                slot_info = fetch_day_slots(parsed, datekey, d)
+                # 일 단위 상품은 고를 시간대가 없다 → 시간 범위 필터는 적용하지 않는다
+                is_day_unit = bool(slot_info.get("day_unit"))
 
-                if time_range is not None and slot_info["queried"]:
+                if time_range is not None:
                     t_from, t_to = time_range
-                    range_slots = [
-                        s for s in slot_info.get("all_slots", [])
-                        if t_from <= s["unitStartTime"][11:16] <= t_to
-                    ]
-                    slot_info = {
-                        **slot_info,
-                        "times": [t for t in slot_info["times"] if t_from <= t <= t_to],
-                        "range_stock":   sum(s.get("unitStock",        0) for s in range_slots),
-                        "range_booking": sum(s.get("unitBookingCount", 0) for s in range_slots),
-                        "range_slots":   range_slots,
-                    }
+                    if slot_info["queried"] and not is_day_unit:
+                        range_slots = [
+                            s for s in slot_info.get("all_slots", [])
+                            if t_from <= s["unitStartTime"][11:16] <= t_to
+                        ]
+                        slot_info = {
+                            **slot_info,
+                            "times": [t for t in slot_info["times"] if t_from <= t <= t_to],
+                            "range_stock":   sum(s.get("unitStock",        0) for s in range_slots),
+                            "range_booking": sum(s.get("unitBookingCount", 0) for s in range_slots),
+                            "range_slots":   range_slots,
+                        }
+                time_hint = f" [{t_from}~{t_to}]" if (time_range is not None and not is_day_unit) else ""
 
                 if slot_info["queried"] and slot_info["total"] == 0 and datekey == today_str:
                     alerted.pop(alert_key, None)
@@ -1344,14 +1397,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     alerted.pop(f"{alert_key}:pre", None)
                     r_stock   = slot_info.get("range_stock",   d["stock"])
                     r_booking = slot_info.get("range_booking", d["bookingCount"])
-                    time_hint = f" [{t_from}~{t_to}]" if time_range is not None else ""
                     print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 예약 가능 자리 없음 (재고:{r_stock} / 예약:{r_booking})", flush=True)
                     continue
 
                 r_stock   = slot_info.get("range_stock",   d["stock"])
                 r_booking = slot_info.get("range_booking", d["bookingCount"])
                 available = r_stock - r_booking
-                time_hint = f" [{t_from}~{t_to}]" if time_range is not None else ""
 
                 ref_slots = slot_info.get("range_slots", slot_info.get("all_slots", []))
                 per_slot = [
@@ -1446,6 +1497,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                 def _sold_out_label(r_stock: int, r_booking: int) -> str:
                     if r_stock > r_booking:
+                        # 재고가 남았는데 여기까지 왔다 = 판매일이 아니거나 일별 요약이 없는 날
+                        if d is not None and not d.get("isSaleDay"):
+                            return f"판매일 아님 (재고:{r_stock} / 예약:{r_booking})"
                         return f"예약불가 (재고:{r_stock} / 예약:{r_booking})"
                     return f"매진 (재고:{r_stock} / 예약:{r_booking})"
 
