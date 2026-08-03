@@ -1,9 +1,8 @@
 {
-  "updated_at": "2026-08-03T22:29:42.377032+09:00",
+  "updated_at": "2026-08-03T22:35:20.616059+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
-    "2007641747",
     "2012113406",
     "2015464753",
     "2019923740",
@@ -913,28 +912,6 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2007641747",
-      "name": "드래곤빌리지 팝업 SVIP 라운지",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.14.",
-      "operationEnd": "26.08.16.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260803_70/1785723396358JxgCH_JPEG/edited-1785723393689-0.jpg",
-      "roadAddress": "영동대로 513 코엑스 밀레니엄 광장",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-03T18:48:37.997148+09:00",
       "lastBookingNotifiedAt": null
     },
     {
