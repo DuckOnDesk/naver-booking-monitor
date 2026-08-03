@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T21:42:22.681919+09:00",
+  "updated_at": "2026-08-03T21:47:59.290083+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -595,7 +595,7 @@
     {
       "id": "2006596949",
       "name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "bookingBusinessId": "1689846",
       "operationStart": "26.07.19.",
@@ -628,7 +628,8 @@
         "2026-08-02T21:16:41.316277+09:00",
         "2026-08-03T00:43:43.845897+09:00",
         "2026-08-03T08:54:06.102975+09:00",
-        "2026-08-03T16:26:02.446459+09:00"
+        "2026-08-03T16:26:02.446459+09:00",
+        "2026-08-03T21:47:45.963200+09:00"
       ],
       "saleStartDate": null,
       "bookingNotified": true,
@@ -2182,6 +2183,13 @@
       "place_name": "드래곤빌리지 팝업 SVIP 라운지",
       "booking_url": "",
       "ts": "2026-08-03T18:48:37.997148+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2006596949",
+      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
+      "ts": "2026-08-03T21:47:45.963200+09:00"
     }
   ],
   "seen_place_ids": [
