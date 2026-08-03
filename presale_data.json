@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T13:58:36.367691+09:00",
+  "updated_at": "2026-08-03T14:04:21.558133+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -18,6 +18,7 @@
     "2067967922",
     "2073241477",
     "2076235934",
+    "2093484387",
     "2098663430"
   ],
   "booking_open_datetimes": {},
@@ -49,7 +50,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -119,7 +120,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 306,
+      "bookingClosedStreak": 307,
       "lastBookingNotifiedAt": null
     },
     {
@@ -164,7 +165,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 8,
+      "bookingClosedStreak": 9,
       "lastBookingNotifiedAt": "2026-08-03T11:28:41.178170+09:00"
     },
     {
@@ -214,7 +215,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -238,7 +239,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 3,
+      "bookingClosedStreak": 4,
       "lastBookingNotifiedAt": "2026-08-03T13:06:32.168852+09:00"
     },
     {
@@ -332,7 +333,29 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
+      "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2093484387",
+      "name": "명탐정 코난: 하이웨이의 타천사 & 야이바 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.12.",
+      "operationEnd": "26.08.30.",
+      "remainingDays": 9,
+      "status": "D-9",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260730_47/1785414816107cvhsd_JPEG/edited-1785414815962-0.jpg",
+      "roadAddress": "양화로 178-5 LC타워 별관 지하2층 팬베이스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 1,
       "lastBookingNotifiedAt": null
     },
     {
@@ -494,7 +517,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -516,7 +539,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -724,7 +747,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -746,7 +769,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -792,7 +815,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -814,7 +837,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -956,7 +979,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     },
     {
@@ -978,7 +1001,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 654,
+      "bookingClosedStreak": 655,
       "lastBookingNotifiedAt": null
     }
   ],
@@ -2046,6 +2069,13 @@
       "place_name": "뷰오리 드림니트 @성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704534",
       "ts": "2026-08-03T13:06:18.716818+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2093484387",
+      "place_name": "명탐정 코난: 하이웨이의 타천사 & 야이바 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-08-03T14:04:01.853589+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2100,6 +2130,7 @@
     "2084130717",
     "2091748507",
     "2092504039",
+    "2093484387",
     "2098663430"
   ]
 }
