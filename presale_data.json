@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T12:37:53.785536+09:00",
+  "updated_at": "2026-08-03T12:43:37.735180+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -49,7 +49,7 @@
       ],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": "2026-07-31T12:37:45.262955+09:00"
     },
     {
@@ -119,7 +119,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 292,
+      "bookingClosedStreak": 293,
       "lastBookingNotifiedAt": null
     },
     {
@@ -168,32 +168,6 @@
       "lastBookingNotifiedAt": "2026-08-03T11:28:41.178170+09:00"
     },
     {
-      "id": "2051944825",
-      "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
-      "bookingBusinessId": "1669333",
-      "operationStart": "26.06.05.",
-      "operationEnd": "26.10.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260618_280/1781761943277KLaKj_JPEG/1781761937169.jpg",
-      "roadAddress": null,
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-24T05:41:07.868172+09:00",
-        "2026-07-25T12:17:21.954008+09:00",
-        "2026-07-28T05:43:25.276390+09:00"
-      ],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingClosedStreak": 640,
-      "lastBookingNotifiedAt": null
-    },
-    {
       "id": "2021908137",
       "name": "메르세데스-벤츠 스튜디오 서울",
       "hasBooking": true,
@@ -218,6 +192,32 @@
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00"
     },
     {
+      "id": "2051944825",
+      "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1669333",
+      "bookingBusinessId": "1669333",
+      "operationStart": "26.06.05.",
+      "operationEnd": "26.10.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260618_280/1781761943277KLaKj_JPEG/1781761937169.jpg",
+      "roadAddress": null,
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-24T05:41:07.868172+09:00",
+        "2026-07-25T12:17:21.954008+09:00",
+        "2026-07-28T05:43:25.276390+09:00"
+      ],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingClosedStreak": 641,
+      "lastBookingNotifiedAt": null
+    },
+    {
       "id": "2076235934",
       "name": "뷰오리 드림니트 @성수 팝업",
       "hasBooking": false,
@@ -236,7 +236,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -330,7 +330,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -516,7 +516,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -538,7 +538,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -746,7 +746,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -768,7 +768,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -814,7 +814,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -836,7 +836,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -954,7 +954,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     },
     {
@@ -976,7 +976,7 @@
       "bookingOpenHistory": [],
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingClosedStreak": 640,
+      "bookingClosedStreak": 641,
       "lastBookingNotifiedAt": null
     }
   ],
