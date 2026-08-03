@@ -110,6 +110,7 @@
                  background: #f0ecff; padding: 2px 8px; border-radius: 100px; margin-bottom: 4px; }
     .t-expired { background: #f0f0f0; color: #aaa; }
     .card.expired { opacity: 0.55; }
+    .t-new { background: #ff3b30; color: #fff; }
 
     .cleanup-banner {
       display: none; background: #fff8e8; border-bottom: 1px solid #ffe08a;
@@ -259,6 +260,12 @@ function fmt(d) {
   return d.replace(/^\d{2}\./, '').replace(/\.$/, '');
 }
 
+function isNewPopup(p) {
+  if (!p.discoveredAt) return false;
+  const d = new Date(p.discoveredAt);
+  return !isNaN(d) && (Date.now() - d.getTime()) < 86400000; // 24시간
+}
+
 function isExpired(p) {
   const e = p.operationEnd;
   if (!e) return false;
@@ -374,6 +381,7 @@ function makeCard(p) {
 
   const dist        = getDistrict(p);
   const distLabel   = dist ? `<div class="c-dist">${dist}</div>` : '';
+  const newTag      = isNewPopup(p) ? '<span class="tag t-new">NEW</span>' : '';
   const ddayTag     = dday && !expired ? `<span class="tag t-dday">${dday}</span>` : '';
   const stTag       = expired ? '<span class="tag t-expired">만료</span>' : bookingStatusTag(p);
 
@@ -392,7 +400,7 @@ function makeCard(p) {
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
       <div class="c-period">운영 ${period}</div>
-      <div class="c-tags">${ddayTag}${stTag}${urlTag}</div>
+      <div class="c-tags">${newTag}${ddayTag}${stTag}${urlTag}</div>
     </div>
     <div class="c-right">
       <label class="tog">
@@ -470,10 +478,12 @@ async function load() {
 
     const all  = (data.places || []).slice();
 
-    // Sort: open → closed(history) → waiting → expired, watched first within each group
+    // Sort: new(24h 이내 발견) → open → closed(history) → waiting → expired, watched first within each group
     all.sort((a, b) => {
       const ea = isExpired(a), eb = isExpired(b);
       if (ea !== eb) return ea ? 1 : -1;
+      const na = isNewPopup(a), nb = isNewPopup(b);
+      if (na !== nb) return na ? -1 : 1;
       const ra = statusRank(a), rb = statusRank(b);
       if (ra !== rb) return ra - rb;
       const wa = watchedIds.has(String(a.id)), wb = watchedIds.has(String(b.id));
