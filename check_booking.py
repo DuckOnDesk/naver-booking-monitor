@@ -1172,12 +1172,6 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         streak_key = f"{item_id}:url_close_streak"
 
         raw_closed, closed_reason = _playwright_check(url)
-        # URL 자체가 리다이렉트로 사라진 경우(상품 삭제/종료)는 재고 API가 마지막
-        # 관측치를 그대로 얼려서 돌려주는 사례가 확인됐다(뷰오리: URL이 /error/로
-        # 리다이렉트된 뒤에도 재고 API는 몇십 분째 재고:30/예약:0을 그대로 반환).
-        # 이 상태에서는 재고 수치 자체를 신뢰할 수 없고, 알림에 담을 유효한 예약
-        # URL도 없으므로 재고 기반 알림(취소표 포함)을 아예 하지 않는다.
-        dead_link = raw_closed and closed_reason.startswith("URL 리다이렉트")
 
         # playwright 닫힘 감지는 간헐적으로 오탐(리다이렉트/느린 로딩 등)이 발생한다.
         # 단발성 오탐으로 closed_key가 붙었다 떨어지면 "예약창 열림" 알림이 반복 발송되므로,
@@ -1347,12 +1341,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     prev_slots = alerted.get(closed_alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
-                    dead_note = " [URL 소멸 — 재고 수치 신뢰 불가]" if dead_link else ""
-                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘{restriction_note}{dead_note}", flush=True)
+                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘{restriction_note}", flush=True)
 
-                    if dead_link:
-                        alerted.pop(closed_alert_key, None)
-                    elif not is_restricted and available > 0 and (prev_slots is None or increased):
+                    if not is_restricted and available > 0 and (prev_slots is None or increased):
                         cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
                         if cal_ok is False:
                             print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림 생략 (재고 정보 지연 의심)", flush=True)
