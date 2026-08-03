@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-03T18:14:13.106710+09:00",
+  "updated_at": "2026-08-03T18:19:53.857795+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -104,7 +104,7 @@
     },
     {
       "id": "2053652128",
-      "name": "더얀 XYZ POP UP - 대체불가",
+      "name": "더얀 XYZ POP UP - 0℃",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
@@ -449,6 +449,30 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null
+    },
+    {
+      "id": "2004678306",
+      "name": "하우스 아카이브: 홈 디깅 페어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
+      "bookingBusinessId": "1666185",
+      "operationStart": "26.08.13.",
+      "operationEnd": "26.08.16.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
+      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
       "id": "2073328330",
@@ -864,30 +888,6 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null
-    },
-    {
-      "id": "2004678306",
-      "name": "하우스 아카이브: 홈 디깅 페어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
-      "bookingBusinessId": "1666185",
-      "operationStart": "26.08.13.",
-      "operationEnd": "26.08.16.",
-      "remainingDays": 10,
-      "status": "D-10",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
-      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00"
     },
     {
       "id": "2067967922",
