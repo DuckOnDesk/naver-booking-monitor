@@ -106,8 +106,9 @@
     .tog input:checked + .tog-tr::before { transform: translateX(20px); }
     .tog input:disabled + .tog-tr { opacity: 0.5; }
 
+    .c-top     { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-bottom: 4px; }
     .c-dist    { display: inline-block; font-size: 10px; font-weight: 700; color: #6b4fd8;
-                 background: #f0ecff; padding: 2px 8px; border-radius: 100px; margin-bottom: 4px; }
+                 background: #f0ecff; padding: 2px 8px; border-radius: 100px; }
     .t-expired { background: #f0f0f0; color: #aaa; }
     .card.expired { opacity: 0.55; }
     .t-new { background: #ff3b30; color: #fff; }
@@ -278,7 +279,8 @@ function isExpired(p) {
 
 function pendingSaleStart(p) {
   // 예약창(hasBooking)은 열렸지만 실제 판매 시작일(saleStartDate)이 아직 안 된 경우의 시작 시각
-  const src = p.bookingOpenDatetime || p.saleStartDate;
+  // 우선순위: 직접 입력 > 업체가 지정한 오픈 시각(bookableSettingJson) > 판매 시작일
+  const src = p.bookingOpenDatetime || p.bookingOpenAuto || p.saleStartDate;
   if (!src) return null;
   const d = new Date(src);
   return isNaN(d) || d <= new Date() ? null : d;
@@ -291,7 +293,7 @@ function fmtDateTime(d) {
 function bookingStatusTag(p) {
   if (p.hasBooking) {
     const pending = pendingSaleStart(p);
-    if (pending) return `<span class="tag t-presale">판매 대기 · ${fmtDateTime(pending)}</span>`;
+    if (pending) return `<span class="tag t-presale">오픈 예정 · ${fmtDateTime(pending)}</span>`;
     return '<span class="tag t-open">예약 오픈</span>';
   }
   if ((p.bookingOpenHistory || []).length > 0) return '<span class="tag t-closed">예약마감</span>';
@@ -380,8 +382,10 @@ function makeCard(p) {
     : `<div class="c-ph">🏪</div>`;
 
   const dist        = getDistrict(p);
-  const distLabel   = dist ? `<div class="c-dist">${dist}</div>` : '';
+  const distLabel   = dist ? `<span class="c-dist">${dist}</span>` : '';
+  // NEW 뱃지는 지역 뱃지 바로 옆에 (아래 태그 줄이 아니라 카드 첫 줄)
   const newTag      = isNewPopup(p) ? '<span class="tag t-new">NEW</span>' : '';
+  const topRow      = (distLabel || newTag) ? `<div class="c-top">${distLabel}${newTag}</div>` : '';
   const ddayTag     = dday && !expired ? `<span class="tag t-dday">${dday}</span>` : '';
   const stTag       = expired ? '<span class="tag t-expired">만료</span>' : bookingStatusTag(p);
 
@@ -396,11 +400,11 @@ function makeCard(p) {
     <div class="c-bar ${isWatching ? 'on' : 'off'}"></div>
     ${thumb}
     <div class="c-body">
-      ${distLabel}
+      ${topRow}
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
-      <div class="c-period">운영 ${period}</div>
-      <div class="c-tags">${newTag}${ddayTag}${stTag}${urlTag}</div>
+      ${p.operationStart ? `<div class="c-period">운영 ${period}</div>` : ''}
+      <div class="c-tags">${ddayTag}${stTag}${urlTag}</div>
     </div>
     <div class="c-right">
       <label class="tog">

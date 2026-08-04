@@ -126,6 +126,40 @@ class Handler(BaseHTTPRequestHandler):
 
             self._json({"ok": True})
 
+        elif path in ("/api/add-manual", "/api/remove-manual"):
+            # 지도 검색에 안 나오는 팝업을 예약 링크로 직접 등록/삭제 (config.manual_places)
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length).decode("utf-8"))
+            place_id = str(body.get("id", ""))
+            if not place_id:
+                self._json({"error": "id required"}, 400)
+                return
+            if not CONFIG_FILE.exists():
+                self._json({"error": "config not found"}, 500)
+                return
+
+            config = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
+            manual = [m for m in config.get("manual_places", []) if str(m.get("id")) != place_id]
+            watched = set(str(x) for x in config.get("watched_places", []))
+
+            if path == "/api/add-manual":
+                if not body.get("bookingUrl"):
+                    self._json({"error": "bookingUrl required"}, 400)
+                    return
+                manual.append(body)
+                watched.add(place_id)
+            else:
+                watched.discard(place_id)
+                config.get("booking_open_datetimes", {}).pop(place_id, None)
+                config.get("booking_direct_urls", {}).pop(place_id, None)
+
+            config["manual_places"] = manual
+            config["watched_places"] = sorted(watched)
+            CONFIG_FILE.write_text(
+                json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+            self._json({"ok": True})
+
         else:
             self._json({"error": "not found"}, 404)
 

@@ -191,9 +191,51 @@ def normalize(p: dict) -> dict:
         "district": extract_district(p.get("commonAddress")),
         "bookingOpenDatetime": None,
         "bookingOpenHistory": [],  # 예약 오픈된 이력 (ISO datetime 목록)
+        # 업체가 예약 관리에 지정한 오픈 예정 시각 (bookableSettingJson.openDateTime)
+        # ISO 문자열 / "" = 조회했지만 없음 / None = 아직 조회 안 함
+        "bookingOpenAuto": None,
+        "bookingOpenAutoCheckedAt": None,
+        "bookingPaused": False,
         "saleStartDate": None,  # 실제 판매 시작일 (네이버 API에서 자동 조회, ISO 문자열 또는 "" = 조회했지만 없음)
         "bookingNotified": False,  # 처음 오픈 알림을 보냈는지 (한 번 True가 되면 계속 유지 — 재오픈 알림은 안 보냄)
         "discoveredAt": None,  # 새 팝업으로 처음 발견된 시각 (ISO) — 관리 페이지 NEW 표시용
+    }
+
+
+def normalize_manual(entry: dict) -> dict:
+    """config.manual_places 항목 → 장소 레코드.
+
+    지도 검색(popupstore/list)에 안 나오고 예약 링크만 공개된 팝업을 직접 등록하기 위한 것.
+    지도에서 오는 정보(이미지·주소·운영기간·D-day)는 없고, 예약 상태는 상품의
+    bookableSettingJson으로 판단한다.
+    """
+    url = (entry.get("bookingUrl") or "").strip()
+    parsed = parse_booking_item_url(url)
+    return {
+        "id": str(entry.get("id") or ""),
+        "name": (entry.get("name") or "").strip(),
+        "hasBooking": False,        # refresh_booking_open_auto 결과로 아래에서 결정
+        "bookingUrl": url,
+        "bookingBusinessId": (parsed or {}).get("biz_id") or entry.get("bookingBusinessId"),
+        "operationStart": entry.get("operationStart"),
+        "operationEnd": entry.get("operationEnd"),
+        "remainingDays": None,
+        "status": None,
+        "admissionCondition": None,
+        "imageUrl": None,
+        "roadAddress": entry.get("roadAddress"),
+        "commonAddress": entry.get("commonAddress"),
+        "district": entry.get("district") or extract_district(entry.get("commonAddress")),
+        "bookingOpenDatetime": None,
+        "bookingOpenHistory": [],
+        "bookingOpenAuto": None,
+        "bookingOpenAutoCheckedAt": None,
+        "bookingPaused": False,
+        "bookingIsOpened": False,
+        "saleStartDate": None,
+        "bookingNotified": False,
+        "discoveredAt": None,
+        "isManual": True,           # 지도 검색에 없어도 목록에서 지우지 않는 표시
     }
 
 
@@ -323,13 +365,112 @@ def fetch_sale_start_date(booking_url: str, booking_business_id: str) -> str | N
         return None
 
 
+def fetch_bookable_setting(booking_url: str, booking_business_id: str) -> dict | None:
+    """상품의 예약 오픈 설정(bookableSettingJson) 조회.
+
+      {"isPaused": false, "isUseOpen": true,
+       "openDateTime": "2026-08-04T00:00:00+09:00", "isOpened": true}
+
+    업체가 예약 관리에서 직접 지정한 오픈 예정 시각이라, 판매 시작일(saleStartDate)보다
+    정확하다. saleStartDate는 이 상품처럼 null로 오는 경우가 많다.
+    조회 실패 시 None."""
+    parsed = parse_booking_item_url(booking_url)
+    if not parsed or not booking_business_id:
+        return None
+    body = {
+        "operationName": "bizItem",
+        "variables": {"businessId": booking_business_id, "bizItemId": parsed["item_id"]},
+        "query": ("query bizItem($businessId: String!, $bizItemId: String!) {"
+                  "  bizItem(input: { businessId: $businessId, bizItemId: $bizItemId }) {"
+                  "    name bookableSettingJson } }"),
+    }
+    try:
+        resp = requests.post(
+            "https://m.booking.naver.com/graphql?opName=bizItem",
+            json=body,
+            headers={"Content-Type": "application/json", "User-Agent": SESSION.headers["User-Agent"],
+                     "Referer": "https://m.booking.naver.com/"},
+            timeout=10,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if data.get("errors"):
+            return None
+        item = (data.get("data") or {}).get("bizItem") or {}
+        setting = item.get("bookableSettingJson")
+        if not isinstance(setting, dict):
+            return None
+        return {**setting, "name": item.get("name")}
+    except Exception:
+        return None
+
+
+def booking_open_from_setting(setting: dict | None) -> str | None:
+    """bookableSettingJson에서 오픈 예정 시각(ISO) 추출. 오픈 예약을 안 쓰면 None."""
+    if not setting or not setting.get("isUseOpen"):
+        return None
+    dt = setting.get("openDateTime")
+    return dt if isinstance(dt, str) and dt else None
+
+
+def refresh_booking_open_auto(place: dict) -> None:
+    """place의 자동 감지 오픈 예정 시각(bookingOpenAuto)을 갱신·캐싱한다.
+
+    캐시 규칙 — 매 주기 조회하지 않으면서도 업체가 나중에 시각을 바꾸면 따라가도록:
+      - 한 번도 조회 안 함        → 조회
+      - 마지막 조회가 30분 초과   → 아직 오픈 시각이 미래이거나 값이 없을 때만 재조회
+      - 오픈 시각이 이미 지남     → 확정으로 보고 더는 조회하지 않음
+    """
+    booking_url = place.get("bookingUrl") or ""
+    biz_id = place.get("bookingBusinessId") or ""
+    if not biz_id or "/items/" not in booking_url:
+        return
+
+    cached = place.get("bookingOpenAuto")
+    checked_at = place.get("bookingOpenAutoCheckedAt")
+    now = datetime.now(KST)
+
+    if cached is not None and checked_at:
+        try:
+            if (now - datetime.fromisoformat(checked_at)) < timedelta(minutes=30):
+                return
+        except Exception:
+            pass
+        if cached:
+            try:
+                if datetime.fromisoformat(cached) <= now:
+                    return          # 이미 오픈함 — 값이 더 바뀔 일 없음
+            except Exception:
+                pass
+
+    setting = fetch_bookable_setting(booking_url, biz_id)
+    if setting is None:
+        return                      # 조회 실패 — 기존 캐시 유지
+    place["bookingOpenAuto"] = booking_open_from_setting(setting) or ""
+    place["bookingOpenAutoCheckedAt"] = now.isoformat()
+    place["bookingPaused"] = bool(setting.get("isPaused"))
+    place["bookingIsOpened"] = bool(setting.get("isOpened"))
+    if place.get("isManual") and not place.get("name") and setting.get("name"):
+        place["name"] = setting["name"]
+
+
 def resolve_sale_start(place: dict) -> "datetime | None":
-    """실제 판매 시작 시각. 수동 설정(booking_open_datetime)이 우선, 없으면 자동 조회한 saleStartDate 사용.
-    아직 자동 조회를 안 해봤으면(saleStartDate=None) place를 직접 갱신해 캐싱한다(재조회 방지)."""
+    """실제 판매 시작 시각.
+    우선순위: 수동 설정(booking_open_datetimes) > 업체 오픈 설정(bookableSettingJson)
+              > 판매 시작일(saleStartDate)
+    아직 자동 조회를 안 해봤으면 place를 직접 갱신해 캐싱한다(재조회 방지)."""
     manual = place.get("bookingOpenDatetime")
     if manual:
         try:
             return datetime.fromisoformat(manual)
+        except Exception:
+            pass
+
+    refresh_booking_open_auto(place)
+    auto = place.get("bookingOpenAuto")
+    if auto:
+        try:
+            return datetime.fromisoformat(auto)
         except Exception:
             pass
 
@@ -441,6 +582,7 @@ def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None
         "updated_at": datetime.now(KST).isoformat(),
         "watched_places": config.get("watched_places", []),
         "booking_open_datetimes": config.get("booking_open_datetimes", {}),
+        "manual_places": config.get("manual_places", []),
         "places": places,
         "alerts": (alerts or [])[-200:],  # 최근 200건만 유지
         "seen_place_ids": sorted(seen_ids or set()),
@@ -473,6 +615,13 @@ def check_once(config: dict, prev: dict) -> dict:
                 raw[pid] = p
 
     current: dict[str, dict] = {pid: normalize(p) for pid, p in raw.items()}
+
+    # 링크로 직접 등록한 팝업 (지도 검색에 안 나오는 것) — 검색 결과와 무관하게 항상 유지
+    for entry in config.get("manual_places", []):
+        place = normalize_manual(entry)
+        if not place["id"] or not place["bookingUrl"]:
+            continue
+        current[place["id"]] = place
 
     if fetch_failed:
         # 일부 지역 조회 실패 → 검색에서 빠진 장소를 종료로 오판해 삭제하지 않고 유지
@@ -509,6 +658,10 @@ def check_once(config: dict, prev: dict) -> dict:
         place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
         place["lastBookingNotifiedAt"] = prev.get(pid, {}).get("lastBookingNotifiedAt")
         place["saleStartDate"] = prev.get(pid, {}).get("saleStartDate")
+        place["bookingOpenAuto"] = prev.get(pid, {}).get("bookingOpenAuto")
+        place["bookingOpenAutoCheckedAt"] = prev.get(pid, {}).get("bookingOpenAutoCheckedAt")
+        place["bookingPaused"] = prev.get(pid, {}).get("bookingPaused", False)
+        place["bookingIsOpened"] = prev.get(pid, {}).get("bookingIsOpened", False)
         place["bookingNotified"] = prev.get(pid, {}).get("bookingNotified", False)
         place["discoveredAt"] = prev.get(pid, {}).get("discoveredAt")
 
@@ -534,6 +687,18 @@ def check_once(config: dict, prev: dict) -> dict:
             if direct != url:
                 place["bookingUrl"] = direct
 
+    # 예약 오픈 예정 시각 자동 감지 (업체가 예약 관리에 지정한 bookableSettingJson).
+    # 오픈 전 팝업도 "오픈 정보"에 시각이 떠야 하므로 hasBooking과 무관하게 갱신한다.
+    # 조회는 30분 캐시가 걸려 있어 매 주기 요청하지 않는다 (refresh_booking_open_auto).
+    for pid, place in current.items():
+        if place.get("isManual") or str(pid) in watched:
+            refresh_booking_open_auto(place)
+        if place.get("isManual"):
+            # 지도 정보가 없으므로 예약 오픈 여부는 상품 설정으로만 판단
+            place["hasBooking"] = bool(place.get("bookingIsOpened")) and not place.get("bookingPaused")
+            if not place["name"]:
+                place["name"] = "(이름 미확인)"
+
     for pid, place in current.items():
         name = place["name"]
         is_open = place["hasBooking"]
@@ -546,8 +711,12 @@ def check_once(config: dict, prev: dict) -> dict:
             place["discoveredAt"] = now_iso
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
-            print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
-            _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
+            if place.get("isManual"):
+                # 사용자가 링크로 직접 등록한 팝업 — 본인이 방금 추가했으므로 발견 알림은 생략
+                print(f"[{now_str}] ➕ {name} — 링크로 직접 등록됨")
+            else:
+                print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
+                _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
             new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
         elif pid not in prev:
