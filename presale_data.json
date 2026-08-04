@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-04T19:07:28.549486+09:00",
+  "updated_at": "2026-08-04T19:13:00.502826+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -8,6 +8,7 @@
     "2009522804",
     "2012113406",
     "2015464753",
+    "2019832187",
     "2019923740",
     "2021119485",
     "2021947047",
@@ -1089,6 +1090,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-04T17:32:28.556378+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2019832187",
+      "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.24.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": 20,
+      "status": "D-20",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260804_227/17858236666703Kgmr_JPEG/edited-1785823666362-0.jpg",
+      "roadAddress": "서소문로 127 지하 1층 두두두서울",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-04T19:12:47.802868+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -2534,6 +2561,13 @@
       "place_name": "화이트샌즈 팝업",
       "booking_url": "",
       "ts": "2026-08-04T18:22:54.164398+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2019832187",
+      "place_name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
+      "booking_url": "",
+      "ts": "2026-08-04T19:12:47.802868+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2554,6 +2588,7 @@
     "2015464753",
     "2017034437",
     "2017875070",
+    "2019832187",
     "2019923740",
     "2020528155",
     "2020855313",
