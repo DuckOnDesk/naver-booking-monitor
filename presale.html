@@ -273,7 +273,7 @@
 <div class="overlay" id="time-overlay" onclick="if(event.target===this)closeTimePicker()">
   <div class="modal">
     <button class="modal-close" onclick="closeTimePicker()">✕</button>
-    <h2>예약 오픈 예정 시간</h2>
+    <h2>오픈 예정 시간</h2>
     <p id="time-place-name" style="font-weight:600;font-size:14px;color:var(--t1);margin-bottom:12px;line-height:1.4"></p>
     <p style="margin-top:-8px">예약 오픈이 예정된 날짜와 시간을 입력하세요. 카드에 표시됩니다.</p>
     <input class="inp" id="time-input" type="datetime-local">
@@ -535,7 +535,7 @@ function pendingOpenSrc(p) {
 function bookingStatusTag(p) {
   if (p.hasBooking) {
     const info = fmtOpenTime(pendingOpenSrc(p));
-    if (info && !info.past) return '<span class="tag t-presale">판매 대기</span>';
+    if (info && !info.past) return '<span class="tag t-presale">오픈 예정</span>';
     return '<span class="tag t-open">예약 오픈</span>';
   }
   if ((p.bookingOpenHistory || []).length > 0) return '<span class="tag t-closed">자리 없음</span>';
@@ -577,7 +577,7 @@ function makeCard(p) {
 
   const openInfo = fmtOpenTime(pendingOpenSrc(p));
   const openTimeHtml = openInfo && !openInfo.past
-    ? `<div class="c-open-time">🕐 예약 오픈 예정: ${openInfo.str}${p.bookingOpenDatetime ? '' : (p.bookingOpenAuto ? ' (업체 설정)' : ' (자동 감지)')}</div>` : '';
+    ? `<div class="c-open-time">🕐 오픈 예정: ${openInfo.str}${p.bookingOpenDatetime ? '' : (p.bookingOpenAuto ? ' (업체 설정)' : ' (자동 감지)')}</div>` : '';
 
   card.innerHTML = `
     <div class="c-bar ${barClass}"></div>

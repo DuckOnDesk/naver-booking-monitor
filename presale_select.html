@@ -293,7 +293,7 @@ function fmtDateTime(d) {
 function bookingStatusTag(p) {
   if (p.hasBooking) {
     const pending = pendingSaleStart(p);
-    if (pending) return `<span class="tag t-presale">판매 대기 · ${fmtDateTime(pending)}</span>`;
+    if (pending) return `<span class="tag t-presale">오픈 예정 · ${fmtDateTime(pending)}</span>`;
     return '<span class="tag t-open">예약 오픈</span>';
   }
   if ((p.bookingOpenHistory || []).length > 0) return '<span class="tag t-closed">예약마감</span>';
