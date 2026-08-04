@@ -109,13 +109,23 @@
     .c-dist   { display: inline-block; font-size: 10px; font-weight: 700; color: #6b4fd8;
                 background: #f0ecff; padding: 2px 8px; border-radius: 100px; margin-bottom: 4px; }
 
-    .c-right { padding: 10px 12px 10px 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .c-right { padding: 10px 12px 10px 4px; display: flex; flex-direction: column; gap: 5px;
+               align-items: center; justify-content: center; flex-shrink: 0; }
     .btn-time {
       background: #f4f5f7; border: 1px solid var(--border); border-radius: 7px;
       width: 30px; height: 26px; font-size: 13px; cursor: pointer; padding: 0;
       display: flex; align-items: center; justify-content: center;
     }
     .btn-time:active { background: #e8e8e8; }
+    .btn-del { background: #fff0ef; border: 1px solid #ffd5d2; border-radius: 7px; color: #d93025;
+               width: 30px; height: 26px; font-size: 13px; cursor: pointer; padding: 0;
+               display: flex; align-items: center; justify-content: center; }
+    .btn-del:active { background: #ffe0de; }
+    .btn-add { width: 100%; margin-bottom: 12px; padding: 11px; border-radius: 10px;
+               border: 1px dashed var(--border); background: var(--card); color: var(--t2);
+               font-size: 13px; font-weight: 700; cursor: pointer; }
+    .btn-add:active { background: #f4f5f7; }
+    .t-manual { background: #f0ecff; color: #6b4fd8; }
 
     .empty { text-align: center; padding: 22px 0; color: var(--t3); font-size: 13px; }
     .footer { text-align: center; padding: 14px; font-size: 11px; color: var(--t3); }
@@ -213,6 +223,7 @@
 <div class="chips" id="chips"></div>
 
 <div class="wrap">
+  <button class="btn-add" onclick="openAddManual()">＋ 예약 링크로 팝업 추가</button>
   <div class="sec">
     <div class="sec-hd">✅ 예약 오픈됨 <span class="sec-cnt" id="b-open">0</span></div>
     <div class="cards" id="list-open"></div>
@@ -237,6 +248,24 @@
   </div>
   <div class="alert-list" id="alert-list">
     <div class="alert-empty">알림이 없어요</div>
+  </div>
+</div>
+
+<!-- 예약 링크로 팝업 직접 추가 모달 -->
+<div class="overlay" id="add-overlay" onclick="if(event.target===this)closeAddManual()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeAddManual()">✕</button>
+    <h2>예약 링크로 팝업 추가</h2>
+    <p>
+      지도 검색에 안 나오고 예약 링크만 공개된 팝업을 직접 등록합니다.<br>
+      네이버 예약 상품 URL을 붙여넣으세요.
+    </p>
+    <input class="inp" id="add-url" type="url" autocomplete="off"
+           placeholder="https://booking.naver.com/booking/13/bizes/1707570/items/7913541">
+    <input class="inp" id="add-name" type="text" autocomplete="off"
+           placeholder="이름 (비우면 네이버에서 자동으로 가져옵니다)">
+    <input class="inp" id="add-dist" type="text" autocomplete="off" placeholder="지역 (선택, 예: 성동구)">
+    <button class="btn-save" onclick="saveManual()">추가</button>
   </div>
 </div>
 
@@ -284,11 +313,63 @@ let toShowAll = [];              // 현재 감시 중인 전체 팝업 (지역 �
 let selectedDistrict = '전체';   // 선택된 지역 칩
 let alertLastRead = parseInt(localStorage.getItem('presale_alert_last_read') || '0');
 
+// raw.githubusercontent 는 ~5분간 캐시돼서, 저장 직후 다시 읽으면 예전 값이 온다.
+// 방금 저장한 값을 6분 동안 로컬에 들고 있다가 화면에 덧씌워 "저장이 안 된 것처럼" 보이지 않게 한다.
+const PENDING_TTL = 360000;
+function readPending(key) {
+  try {
+    const data = JSON.parse(localStorage.getItem(key) || '{}');
+    const now = Date.now();
+    return Object.fromEntries(Object.entries(data).filter(([, v]) => now - v.ts < PENDING_TTL));
+  } catch { return {}; }
+}
+function writePending(key, id, value) {
+  try {
+    const data = readPending(key);
+    data[String(id)] = { value, ts: Date.now() };
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch {}
+}
+
 function getPat() { return localStorage.getItem('gh_pat') || ''; }
 function savePat() {
   const v = document.getElementById('pat-input').value.trim();
   if (!v) { alert('토큰을 입력해주세요.'); return; }
   localStorage.setItem('gh_pat', v); closeCfg();
+}
+
+// presale_config.json 읽기 → 수정 → 쓰기. 다른 곳(모니터 워크플로)이 동시에 커밋해
+// sha가 밀리면 409가 나므로, 새로 읽어 다시 적용한다. 실패하면 예외를 던져
+// 호출 측이 "저장됨"으로 착각하지 않게 한다.
+async function updateConfig(mutate, message) {
+  const token = getPat();
+  if (!token) { openCfg(); throw new Error('NO_TOKEN'); }
+  const base = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${CFG_PATH}`;
+  const headers = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' };
+
+  let lastErr = '';
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const r = await fetch(base + '?ref=main&_=' + Date.now(), { headers, cache: 'no-store' });
+    if (r.status === 401 || r.status === 403) throw new Error('토큰이 올바르지 않거나 권한이 없습니다.');
+    if (!r.ok) throw new Error(`설정 파일을 읽지 못했습니다 (HTTP ${r.status})`);
+    const file = await r.json();
+    const cfg = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
+    mutate(cfg);
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(cfg, null, 2) + '\n')));
+    const w = await fetch(base, {
+      method: 'PUT', headers: { ...headers, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `${message} [skip ci]`, content, sha: file.sha, branch: 'main' }),
+    });
+    if (w.ok) return;
+    lastErr = `HTTP ${w.status}`;
+    if (w.status !== 409) {
+      let detail = '';
+      try { detail = (await w.json()).message || ''; } catch {}
+      throw new Error(`저장에 실패했습니다 (${lastErr}${detail ? ': ' + detail : ''})`);
+    }
+    await new Promise(res => setTimeout(res, 400 * (attempt + 1)));   // 409 → sha 다시 읽고 재시도
+  }
+  throw new Error(`저장에 실패했습니다 (${lastErr} — 잠시 후 다시 시도해주세요)`);
 }
 function clearPat() { localStorage.removeItem('gh_pat'); document.getElementById('pat-input').value = ''; closeCfg(); }
 function openCfg() { document.getElementById('pat-input').value = getPat(); document.getElementById('overlay').classList.add('show'); }
@@ -317,6 +398,80 @@ function fmtOpenTime(dt) {
   return { str: `${mon}월 ${day}일(${dow}) ${ampm} ${h12}:${m}`, past: d < new Date() };
 }
 
+// ── 예약 링크로 팝업 직접 추가 ───────────────────────────────────────────
+function openAddManual() {
+  ['add-url', 'add-name', 'add-dist'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('add-overlay').classList.add('show');
+}
+function closeAddManual() { document.getElementById('add-overlay').classList.remove('show'); }
+
+function parseBookingUrl(url) {
+  const m = (url || '').match(/\/booking\/(\d+)\/bizes\/(\d+)(?:\/items\/(\d+))?/);
+  return m ? { serviceId: m[1], bizId: m[2], itemId: m[3] || null } : null;
+}
+
+async function saveManual() {
+  const url  = document.getElementById('add-url').value.trim();
+  const name = document.getElementById('add-name').value.trim();
+  const dist = document.getElementById('add-dist').value.trim();
+  const parsed = parseBookingUrl(url);
+  if (!parsed) {
+    alert('네이버 예약 URL 형식이 아닙니다.\n예: https://booking.naver.com/booking/13/bizes/1707570/items/7913541');
+    return;
+  }
+  if (!parsed.itemId) {
+    alert('상품 URL(/items/…)이 필요합니다.\n예약 페이지에서 상품을 고른 뒤의 주소를 붙여넣어 주세요.');
+    return;
+  }
+  const id = `manual-${parsed.bizId}-${parsed.itemId}`;
+  const entry = { id, name, bookingUrl: url, district: dist || null, addedAt: new Date().toISOString() };
+
+  const btn = document.querySelector('#add-overlay .btn-save');
+  if (btn) { btn.disabled = true; btn.textContent = '추가 중…'; }
+  try {
+    if (IS_LOCAL) {
+      const r = await fetch('/api/add-manual', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry) });
+      if (!r.ok) throw new Error(`추가에 실패했습니다 (HTTP ${r.status})`);
+    } else {
+      await updateConfig(cfg => {
+        cfg.manual_places = (cfg.manual_places || []).filter(m => String(m.id) !== id);
+        cfg.manual_places.push(entry);
+        const w = new Set((cfg.watched_places || []).map(String));
+        w.add(id);
+        cfg.watched_places = [...w].sort();
+      }, `add-manual-place: ${id}`);
+    }
+    closeAddManual(); load();
+    alert('추가했습니다. 다음 감시 주기(최대 5분)에 예약 상태를 확인합니다.');
+  } catch (e) {
+    if (e.message !== 'NO_TOKEN') alert(e.message || '추가에 실패했습니다.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '추가'; }
+  }
+}
+
+async function removeManual(id) {
+  const p = placesMap[id];
+  if (!confirm(`'${(p && p.name) || id}'을(를) 목록에서 삭제할까요?`)) return;
+  try {
+    if (IS_LOCAL) {
+      const r = await fetch('/api/remove-manual', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) });
+      if (!r.ok) throw new Error(`삭제에 실패했습니다 (HTTP ${r.status})`);
+    } else {
+      await updateConfig(cfg => {
+        cfg.manual_places = (cfg.manual_places || []).filter(m => String(m.id) !== String(id));
+        cfg.watched_places = (cfg.watched_places || []).filter(x => String(x) !== String(id));
+        if (cfg.booking_open_datetimes) delete cfg.booking_open_datetimes[String(id)];
+        if (cfg.booking_direct_urls) delete cfg.booking_direct_urls[String(id)];
+      }, `remove-manual-place: ${id}`);
+    }
+    delete placesMap[id];
+    load();
+  } catch (e) {
+    if (e.message !== 'NO_TOKEN') alert(e.message || '삭제에 실패했습니다.');
+  }
+}
+
 let currentTimeId = '';
 function openTimePicker(id) {
   const p = placesMap[id]; if (!p) return;
@@ -330,43 +485,51 @@ function closeTimePicker() { document.getElementById('time-overlay').classList.r
 
 async function doSetOpenTime(id, dt) {
   if (IS_LOCAL) {
-    await fetch('/api/set-open-time', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id, datetime:dt||null}) });
+    const r = await fetch('/api/set-open-time', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({id, datetime:dt||null}) });
+    if (!r.ok) throw new Error(`저장에 실패했습니다 (HTTP ${r.status})`);
     return;
   }
-  const token = getPat();
-  if (!token) { openCfg(); return; }
-  const base = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${CFG_PATH}`;
-  const headers = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' };
-  const r = await fetch(base, {headers});
-  if (!r.ok) { alert('토큰이 올바르지 않거나 권한이 없습니다.'); return; }
-  const file = await r.json();
-  const cfg = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g,'')))));
-  if (!cfg.booking_open_datetimes) cfg.booking_open_datetimes = {};
-  if (dt) cfg.booking_open_datetimes[String(id)] = dt;
-  else delete cfg.booking_open_datetimes[String(id)];
-  const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(cfg,null,2)+'\n')));
-  await fetch(base, { method:'PUT', headers:{...headers,'Content-Type':'application/json'},
-    body: JSON.stringify({message:`set-open-time: ${id} [skip ci]`, content:newContent, sha:file.sha}) });
+  await updateConfig(cfg => {
+    if (!cfg.booking_open_datetimes) cfg.booking_open_datetimes = {};
+    if (dt) cfg.booking_open_datetimes[String(id)] = dt;
+    else delete cfg.booking_open_datetimes[String(id)];
+  }, `set-open-time: ${id}`);
+  // 저장 성공 — CDN 캐시가 갱신될 때까지 방금 값을 로컬에서 덧씌운다
+  writePending('presale_open_times', id, dt);
 }
 
 async function saveOpenTime() {
   const v = document.getElementById('time-input').value;
   if (!v) { alert('날짜와 시간을 선택해주세요.'); return; }
   const dt = v + ':00+09:00';
-  await doSetOpenTime(currentTimeId, dt);
-  if (placesMap[currentTimeId]) placesMap[currentTimeId].bookingOpenDatetime = dt;
-  closeTimePicker(); load();
+  const btn = document.querySelector('#time-overlay .btn-save');
+  if (btn) { btn.disabled = true; btn.textContent = '저장 중…'; }
+  try {
+    await doSetOpenTime(currentTimeId, dt);
+    if (placesMap[currentTimeId]) placesMap[currentTimeId].bookingOpenDatetime = dt;
+    closeTimePicker(); load();
+  } catch (e) {
+    if (e.message !== 'NO_TOKEN') alert(e.message || '저장에 실패했습니다.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '저장'; }
+  }
 }
 async function clearOpenTime() {
-  await doSetOpenTime(currentTimeId, null);
-  if (placesMap[currentTimeId]) placesMap[currentTimeId].bookingOpenDatetime = null;
-  closeTimePicker(); load();
+  try {
+    await doSetOpenTime(currentTimeId, null);
+    if (placesMap[currentTimeId]) placesMap[currentTimeId].bookingOpenDatetime = null;
+    closeTimePicker(); load();
+  } catch (e) {
+    if (e.message !== 'NO_TOKEN') alert(e.message || '삭제에 실패했습니다.');
+  }
 }
 
 function pendingOpenSrc(p) {
-  // 예약창(hasBooking)은 열렸지만 실제 판매 시작일이 아직 안 된 경우의 시작 시각 문자열
-  // (수동 설정한 bookingOpenDatetime 우선, 없으면 네이버 API에서 자동 조회한 saleStartDate)
-  return p.bookingOpenDatetime || p.saleStartDate || null;
+  // 예약 오픈 예정 시각 문자열. 우선순위:
+  //   1) 직접 입력한 시각 (booking_open_datetimes)
+  //   2) 업체가 예약 관리에 지정한 오픈 시각 (bookableSettingJson.openDateTime) — 가장 정확
+  //   3) 판매 시작일 (schedule.saleStartDate) — 없는 상품이 많다
+  return p.bookingOpenDatetime || p.bookingOpenAuto || p.saleStartDate || null;
 }
 
 function bookingStatusTag(p) {
@@ -406,12 +569,15 @@ function makeCard(p) {
   const dist      = getDistrict(p);
   const distLabel = dist ? `<div class="c-dist">${dist}</div>` : '';
   const ddayTag  = dday ? `<span class="tag t-dday">${dday}</span>` : '';
-  const stTag    = bookingStatusTag(p);
+  const stTag    = p.pendingFirstCheck ? '<span class="tag t-wait">확인 대기</span>' : bookingStatusTag(p);
   const urlTag   = hasUrl ? `<span class="tag t-url">예약하기 →</span>` : '';
+  const manualTag = p.isManual ? '<span class="tag t-manual">링크 추가</span>' : '';
+  const delBtn   = p.isManual
+    ? `<button class="btn-del" title="목록에서 삭제" onclick="event.stopPropagation();removeManual('${p.id}')">🗑</button>` : '';
 
   const openInfo = fmtOpenTime(pendingOpenSrc(p));
   const openTimeHtml = openInfo && !openInfo.past
-    ? `<div class="c-open-time">🕐 예약 오픈 예정: ${openInfo.str}${p.bookingOpenDatetime ? '' : ' (자동 감지)'}</div>` : '';
+    ? `<div class="c-open-time">🕐 예약 오픈 예정: ${openInfo.str}${p.bookingOpenDatetime ? '' : (p.bookingOpenAuto ? ' (업체 설정)' : ' (자동 감지)')}</div>` : '';
 
   card.innerHTML = `
     <div class="c-bar ${barClass}"></div>
@@ -420,12 +586,13 @@ function makeCard(p) {
       ${distLabel}
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
-      <div class="c-period">운영 ${period}</div>
+      ${p.isManual && !p.operationStart ? '' : `<div class="c-period">운영 ${period}</div>`}
       ${openTimeHtml}
-      <div class="c-tags">${ddayTag}${stTag}${urlTag}</div>
+      <div class="c-tags">${manualTag}${ddayTag}${stTag}${urlTag}</div>
     </div>
     <div class="c-right">
       <button class="btn-time" title="오픈 예정 시간 설정" onclick="event.stopPropagation();openTimePicker('${p.id}')">🕐</button>
+      ${delBtn}
     </div>`;
   return card;
 }
@@ -505,7 +672,25 @@ async function load() {
           if (url) p.bookingUrl = url;
         });
       }
+      // 방금 링크로 추가했는데 아직 모니터가 한 바퀴 안 돈 팝업도 목록에 보여준다
+      const known = new Set((data.places || []).map(p => String(p.id)));
+      (cfg.manual_places || []).forEach(m => {
+        if (!m || !m.id || known.has(String(m.id))) return;
+        (data.places = data.places || []).push({
+          id: String(m.id), name: m.name || '(이름 미확인)', bookingUrl: m.bookingUrl,
+          district: m.district || null, hasBooking: false, bookingOpenHistory: [],
+          isManual: true, pendingFirstCheck: true,
+        });
+        (data.watched_places = data.watched_places || []).push(String(m.id));
+      });
     }
+
+    // 저장 직후 CDN 캐시가 예전 값을 주는 구간 동안 방금 저장한 값을 덧씌운다
+    const pendingTimes = readPending('presale_open_times');
+    (data.places || []).forEach(p => {
+      const e = pendingTimes[String(p.id)];
+      if (e) p.bookingOpenDatetime = e.value;
+    });
 
     const all = data.places || [];
     placesMap = {};
