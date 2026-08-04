@@ -381,10 +381,10 @@ function render() {
         </label>
       </div>
       <div class="monitor-actions">
-        <button class="btn-sm btn-edit" onclick="openEdit('${m.id}')">✏️ 수정</button>
-        <button class="btn-sm btn-del"  onclick="del('${m.id}')">🗑️ 삭제</button>
-        <a class="btn-sm btn-link" href="${esc(m.url)}" target="_blank" rel="noopener">🔗 예약</a>
-        <a class="btn-sm btn-auto ${isAutoBookOn(m)?'on':''}" href="autobook.html?id=${m.id}">🤖 자동예약${isAutoBookOn(m)?' ON':''}</a>
+        <button class="btn-sm btn-edit" onclick="openEdit('${m.id}')">수정</button>
+        <button class="btn-sm btn-del"  onclick="del('${m.id}')">삭제</button>
+        <a class="btn-sm btn-link" href="${esc(m.url)}" target="_blank" rel="noopener">예약</a>
+        <a class="btn-sm btn-auto ${isAutoBookOn(m)?'on':''}" href="autobook.html?id=${m.id}">자동예약${isAutoBookOn(m)?' ON':''}</a>
       </div>
     </div>`).join('');
 }

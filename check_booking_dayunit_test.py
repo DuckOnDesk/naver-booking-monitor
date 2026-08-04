@@ -2,7 +2,7 @@
 
 네트워크 없이 돈다 (naver API·playwright·ntfy는 모두 대체 함수로 교체).
 
-배경 — 두 가지 문제가 연달아 나왔다:
+배경 — 세 가지 문제가 연달아 나왔다:
   1) 이 상품의 daily.summary는 hasBookableSlots를 아예 안 내려준다(None). 감시 루프가
      그 값만 보고 예약 가능 경로를 건너뛰어서, 재고 480 / 예약 0인 날짜가 매 회차
      "예약불가"로만 기록되고 알림이 한 번도 나가지 않았다.
@@ -10,6 +10,9 @@
      단위 48개로 전부 내려주고 영업시간 밖 슬롯도 isUnitSaleDay=true에 재고까지
      채워서 주기 때문. 실제 페이지는 11:00~18:30 16개만 띄우고, 화면에서 빼는
      기준은 isUnitBusinessDay였다.
+  3) 그 다음엔 매진인 날에 "[종일] 521자리" 오알림이 갔다. 시간대가 전부 걸러져
+     목록이 비자, 시간대가 원래 없는 일 단위 상품으로 오해하고 일별 재고를 통째로
+     자리로 본 것. 이 상품의 일별 재고에는 영업시간 밖 유령 슬롯 몫까지 들어 있다.
 
 확인 내용:
   - 영업시간 밖 슬롯(isUnitBusinessDay=false)은 제외한다
@@ -21,6 +24,8 @@
   - 감시 시간 범위(11:00-13:00)를 걸어 둬도 일 단위 상품은 걸러지지 않는다
   - 재고가 없으면(매진) 예전처럼 알림을 보내지 않는다
   - 캘린더 API가 "마감"이라고 하면 알림을 보내지 않는다 (오탐 방지 장치 유지)
+  - 일 단위 보정은 API가 시간대를 하나도 안 준 상품에만 적용한다
+  - 볼 수 있는 시간대가 없는 날은 일별 재고가 남아도 자리로 보지 않는다
 
 사용법: python check_booking_dayunit_test.py
 """
@@ -50,10 +55,16 @@ def summary(has_bookable, stock, booked, is_sale_day=True):
             "hasBookableSlots": has_bookable, "isSaleDay": is_sale_day}
 
 
-def run_check(day, hourly, target_dates, calendar_status=None):
-    """check_all을 한 항목·한 날짜에 대해 돌리고 (로그, 보낸 알림)을 돌려준다."""
+def run_check(day, hourly, target_dates, calendar_status=None, api_slot_count=None):
+    """check_all을 한 항목·한 날짜에 대해 돌리고 (로그, 보낸 알림)을 돌려준다.
+
+    api_slot_count = 걸러내기 전 API가 내려준 시간대 개수.
+    기본값은 len(hourly)이고, "API는 시간대를 줬는데 전부 걸러진 날"을 만들려면
+    hourly=[] 로 두고 api_slot_count만 크게 준다.
+    """
     logs: list = []
     sent: list = []
+    raw_count = len(hourly) if api_slot_count is None else api_slot_count
 
     cb.check_availability = lambda b, i, s, t: {
         "days": [day], "sale_start_date": None, "sale_end_date": None, "_all_summary": [day],
@@ -62,6 +73,7 @@ def run_check(day, hourly, target_dates, calendar_status=None):
         "times": [x["unitStartTime"][11:16] for x in hourly
                   if x.get("unitStock", 0) - x.get("unitBookingCount", 0) > 0],
         "total": len(hourly), "queried": True, "all_slots": list(hourly),
+        "api_slot_count": raw_count,
     }
     cb.fetch_calendar_day_status = lambda s, b, dk: calendar_status
     cb._playwright_check = lambda u: (False, "")
@@ -181,23 +193,23 @@ def main() -> int:
     check(not cb.day_has_stock(None), "요약이 없으면 제외")
 
     print("2) 일 단위 상품 (hourly 비어 있음, hasBookableSlots=false)")
-    logs, sent = run_check(summary(False, 480, 0), [], [])
+    logs, sent = run_check(summary(False, 480, 0), [], [], api_slot_count=0)
     check("예약불가" not in logs, "더 이상 '예약불가'로 흘려보내지 않는다")
     check(f"[{cb.DAY_UNIT_TIME}] 480자리" in logs, f"하루 전체를 [{cb.DAY_UNIT_TIME}] 480자리로 기록")
     check(len(sent) == 1 and "예약 가능" in sent[0][0], f"예약 가능 알림 발송 ({sent})")
 
     print("3) 일 단위 상품 + 감시 시간 범위 지정")
-    logs, sent = run_check(summary(False, 480, 0), [], [f"{D} 11:00-13:00"])
+    logs, sent = run_check(summary(False, 480, 0), [], [f"{D} 11:00-13:00"], api_slot_count=0)
     check(len(sent) == 1, "시간 범위를 걸어 둬도 일 단위 상품은 걸러지지 않는다")
     check("[11:00~13:00]" not in logs, "고를 시간대가 없으므로 시간 범위는 표시하지 않는다")
 
     print("4) 일 단위 상품이지만 매진")
-    logs, sent = run_check(summary(False, 480, 480), [], [])
+    logs, sent = run_check(summary(False, 480, 480), [], [], api_slot_count=0)
     check(not sent, "재고가 없으면 알림 없음")
     check("매진" in logs, f"매진으로 기록 ({logs.strip().splitlines()[-1:]})")
 
     print("5) 캘린더 API가 마감이라고 하면 (오탐 방지)")
-    logs, sent = run_check(summary(False, 480, 0), [], [], calendar_status=False)
+    logs, sent = run_check(summary(False, 480, 0), [], [], calendar_status=False, api_slot_count=0)
     check(not sent, "캘린더 교차 확인에서 마감이면 알림 없음")
 
     print("6) 시간대 슬롯이 있는 상품 (기존 동작 유지)")
@@ -208,6 +220,23 @@ def main() -> int:
     logs, sent = run_check(summary(True, 20, 18), hourly, [])
     check(cb.DAY_UNIT_TIME not in logs, "시간대가 있으면 일 단위 보정을 하지 않는다")
     check("[11:00] 2자리" in logs, "슬롯별 잔여 좌석 그대로")
+
+    print("6-1) 시간대는 있는데 전부 걸러진 날 → 일 단위로 오해하지 않는다")
+    # 트루스 오브 뷰티 실제 사고: 영업시간 밖 슬롯만 남아 all_slots가 비었는데
+    # 일별 재고(유령 슬롯 포함 521)를 "[종일] 521자리"로 알렸다.
+    logs, sent = run_check(summary(None, 641, 120), [], [], api_slot_count=48)
+    check(not sent, f"알림을 보내지 않는다 (실제: {sent})")
+    check(cb.DAY_UNIT_TIME not in logs, "[종일] 슬롯을 만들지 않는다")
+    check("예약 가능한 시간대 없음" in logs, f"자리 없음으로 기록 ({logs.strip().splitlines()[-1:]})")
+
+    print("6-2) 시간대가 전부 매진인 날도 알리지 않는다")
+    sold_out = [
+        {"unitStartTime": f"{D} 11:00:00", "unitStock": 10, "unitBookingCount": 10, "isUnitSaleDay": True},
+        {"unitStartTime": f"{D} 11:30:00", "unitStock": 10, "unitBookingCount": 10, "isUnitSaleDay": True},
+    ]
+    logs, sent = run_check(summary(True, 641, 120), sold_out, [])
+    check(not sent, "매진이면 알림 없음")
+    check(cb.DAY_UNIT_TIME not in logs, "일별 재고가 남아도 [종일]로 대체하지 않는다")
 
     print("7) 시간대 슬롯 + 감시 시간 범위 (범위 밖 슬롯 제외)")
     logs, sent = run_check(summary(True, 20, 18), hourly, [f"{D} 14:00-16:00"])

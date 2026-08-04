@@ -259,16 +259,19 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
             if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
         ]
 
-        return {"times": available_times, "total": len(future_slots), "queried": True, "all_slots": future_slots}
+        # api_slot_count: 걸러내기 전 API가 내려준 시간대 개수.
+        # "시간대가 원래 없는 상품"과 "시간대는 있는데 지금 살 게 없는 날"을 구분하는 데 쓴다.
+        return {"times": available_times, "total": len(future_slots), "queried": True,
+                "all_slots": future_slots, "api_slot_count": len(hourly)}
 
     except requests.HTTPError as e:
         print(f"  [오류] hourlySchedule API HTTP {e.response.status_code}", flush=True)
         if e.response.status_code in (429, 403):
             global _rate_limit_hits
             _rate_limit_hits += 1
-        return {"times": [], "total": 0, "queried": False, "all_slots": []}
+        return {"times": [], "total": 0, "queried": False, "all_slots": [], "api_slot_count": 0}
     except Exception:
-        return {"times": [], "total": 0, "queried": False, "all_slots": []}
+        return {"times": [], "total": 0, "queried": False, "all_slots": [], "api_slot_count": 0}
 
 
 # 시간대(hourly) 슬롯이 없는 일 단위 상품에서 "하루 전체"를 가리키는 슬롯 이름.
@@ -287,14 +290,18 @@ def day_has_stock(day: dict | None) -> bool:
 def fetch_day_slots(parsed: dict, datekey: str, day: dict | None) -> dict:
     """해당 날짜의 시간대 슬롯 조회 (fetch_slots + 일 단위 상품 보정).
 
-    businessTypeId 13 같은 일부 상품은 hourlySchedule에 시간대 슬롯이 하나도 없고
-    일별 요약에만 재고가 실려 온다. 이때 daily.summary의 hasBookableSlots도 false로
-    오기 때문에, 예전에는 재고가 남아 있어도 "예약불가"로 흘려보내 알림이 나가지
-    않았다 (트루스 오브 뷰티: 재고 480 / 예약 0인데 매 회차 예약불가로 기록됨).
-    시간대가 없을 뿐 예약은 되는 상품이므로, 하루 전체를 슬롯 하나로 만들어 준다.
+    시간대(hourly)를 아예 안 쓰고 일별 재고만 파는 상품이 있다. 그런 상품은 시간대가
+    없다는 이유로 흘려보내면 자리가 나도 알림이 안 가므로, 하루 전체를 슬롯 하나로
+    만들어 준다.
+
+    단, "API가 시간대를 하나도 안 준 상품"일 때만 그렇게 한다. 시간대가 있는데
+    지금 살 수 있는 게 없어서 목록이 비는 날(영업시간 밖만 남음·판매일 아님 등)까지
+    일 단위로 보면, 일별 재고를 통째로 "자리 있음"으로 오해한다. 실제로 트루스
+    오브 뷰티가 매진인데 "[종일] 521자리" 알림이 나갔다. 이 상품의 일별 재고는
+    영업시간 밖 유령 슬롯까지 더한 값이라 실제 정원보다 훨씬 크다.
     """
     info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
-    if info["queried"] and not info.get("all_slots") and day_has_stock(day):
+    if info["queried"] and info.get("api_slot_count") == 0 and day_has_stock(day):
         stock = day.get("stock") or 0
         booked = day.get("bookingCount") or 0
         return {
@@ -302,6 +309,7 @@ def fetch_day_slots(parsed: dict, datekey: str, day: dict | None) -> dict:
             "total": 1,
             "queried": True,
             "day_unit": True,
+            "api_slot_count": 0,
             "all_slots": [{
                 "unitStartTime": f"{datekey} {DAY_UNIT_TIME}",
                 "unitStock": stock,
@@ -1409,10 +1417,14 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         }
                 time_hint = f" [{t_from}~{t_to}]" if (time_range is not None and not is_day_unit) else ""
 
-                if slot_info["queried"] and slot_info["total"] == 0 and datekey == today_str:
+                # 볼 수 있는 시간대가 하나도 없는 날. 일별 재고가 남아 있어도 살 수 있는
+                # 시간대가 없으면 자리가 아니다 (일별 재고에는 영업시간 밖 몫까지 들어 있다).
+                if slot_info["queried"] and slot_info["total"] == 0:
                     alerted.pop(alert_key, None)
                     alerted.pop(f"{alert_key}:pre", None)
-                    print(f"[{now_str}] ⏭ {name} {date_str} 오늘 남은 시간대 없음 (모두 지남)", flush=True)
+                    reason = "오늘 남은 시간대 없음 (모두 지남)" if datekey == today_str \
+                        else "예약 가능한 시간대 없음"
+                    print(f"[{now_str}] ⏭ {name} {date_str} {reason}", flush=True)
                     continue
 
                 if slot_info["queried"] and slot_info["total"] > 0 and not slot_info["times"]:
