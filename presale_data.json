@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T01:12:11.503346+09:00",
+  "updated_at": "2026-08-05T01:17:45.978688+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -583,7 +583,7 @@
     {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705614",
       "bookingBusinessId": "1705614",
       "operationStart": "26.07.30.",
