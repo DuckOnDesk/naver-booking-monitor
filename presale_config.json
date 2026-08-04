@@ -208,7 +208,9 @@
     }
   ],
   "booking_direct_urls": {},
-  "booking_open_datetimes": {},
+  "booking_open_datetimes": {
+    "2066415670": "2026-08-07T11:00:00+09:00"
+  },
   "watched_places": [
     "2002559489",
     "2006596949",
