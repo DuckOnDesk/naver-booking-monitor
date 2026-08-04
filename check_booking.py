@@ -173,7 +173,7 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
 
 def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) -> dict:
     """
-    hourlySchedule API로 시간대별 슬롯 조회. 이미 지난 시간대는 제외.
+    hourlySchedule API로 시간대별 슬롯 조회. 이미 지난 시간대·영업시간 밖은 제외.
       times   : 예약 가능한 미래 시간대 목록 (HH:MM)
       total   : 미래 슬롯 수 (지난 슬롯 제외, 가용 여부 무관)
       queried : API 호출 성공 여부
@@ -181,38 +181,57 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
     KST = timezone(timedelta(hours=9))
     now_kst = datetime.now(KST)
 
-    try:
-        resp = requests.post(
-            "https://m.booking.naver.com/graphql?opName=hourlySchedule",
-            json={
-                "operationName": "hourlySchedule",
-                "variables": {
-                    "scheduleParams": {
-                        "businessId": biz_id,
-                        "businessTypeId": service_id,
-                        "bizItemId": item_id,
-                        "startDateTime": f"{target_date}T00:00:00+09:00",
-                        "endDateTime": f"{target_date}T00:00:00+09:00",
-                    }
-                },
-                "query": (
-                    "query hourlySchedule($scheduleParams: ScheduleParams) {"
-                    "  schedule(input: $scheduleParams) {"
-                    "    bizItemSchedule {"
-                    "      hourly {"
-                    "        unitStartTime unitBookingCount unitStock isUnitSaleDay __typename"
-                    "      } __typename"
-                    "    } __typename"
-                    "  }"
-                    "}"
-                ),
-            },
-            headers=HEADERS,
-            timeout=15,
+    # 네이버는 하루 24시간을 예약 단위(보통 30분)로 전부 내려준다. 영업시간 밖 슬롯도
+    # isUnitSaleDay=true에 재고까지 채워서 오기 때문에, 이것만 보면 새벽 3시가 "자리
+    # 있음"으로 잡힌다 (트루스 오브 뷰티: 실제 페이지는 11:00~18:30 16개인데 48개가 옴).
+    # 실제 예약 페이지가 화면에서 빼는 기준이 isUnitBusinessDay이므로 같이 조회한다.
+    # 이 필드를 지원하지 않는 스키마에 대비해, 실패하면 종전 필드만으로 재시도한다.
+    def _query(fields: str) -> str:
+        return (
+            "query hourlySchedule($scheduleParams: ScheduleParams) {"
+            "  schedule(input: $scheduleParams) {"
+            "    bizItemSchedule {"
+            f"      hourly {{ {fields} __typename }} __typename"
+            "    } __typename"
+            "  }"
+            "}"
         )
-        resp.raise_for_status()
-        data = resp.json()
-        if data.get("errors"):
+
+    base_fields = "unitStartTime unitBookingCount unitStock isUnitSaleDay"
+    queries = [_query(base_fields + " isUnitBusinessDay"), _query(base_fields)]
+
+    try:
+        data = None
+        for i, query in enumerate(queries):
+            resp = requests.post(
+                "https://m.booking.naver.com/graphql?opName=hourlySchedule",
+                json={
+                    "operationName": "hourlySchedule",
+                    "variables": {
+                        "scheduleParams": {
+                            "businessId": biz_id,
+                            "businessTypeId": service_id,
+                            "bizItemId": item_id,
+                            "startDateTime": f"{target_date}T00:00:00+09:00",
+                            "endDateTime": f"{target_date}T00:00:00+09:00",
+                        }
+                    },
+                    "query": query,
+                },
+                headers=HEADERS,
+                timeout=15,
+            )
+            if resp.status_code == 400 and i == 0:
+                continue          # isUnitBusinessDay 미지원 스키마 → 종전 쿼리로
+            resp.raise_for_status()
+            data = resp.json()
+            if data.get("errors"):
+                if i == 0:
+                    data = None
+                    continue
+                return {"times": [], "total": 0, "queried": False, "all_slots": []}
+            break
+        if data is None:
             return {"times": [], "total": 0, "queried": False, "all_slots": []}
 
         hourly = data["data"]["schedule"]["bizItemSchedule"].get("hourly") or []
@@ -220,6 +239,9 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         future_slots = []
         for slot in hourly:
             if not slot.get("isUnitSaleDay"):
+                continue
+            # 필드를 안 내려주는 상품(None)은 종전대로 통과시킨다 — false일 때만 제외
+            if slot.get("isUnitBusinessDay") is False:
                 continue
             t_str = slot.get("unitStartTime")
             if t_str:
@@ -342,7 +364,8 @@ def _log_alert_diagnostics(name: str, date_str: str, day_summary: dict | None,
     d = day_summary or {}
     slots = ", ".join(
         f"{(s.get('unitStartTime') or '?')[11:16]}"
-        f"(saleDay={s.get('isUnitSaleDay')},stock={s.get('unitStock')},booked={s.get('unitBookingCount')})"
+        f"(saleDay={s.get('isUnitSaleDay')},bizDay={s.get('isUnitBusinessDay')},"
+        f"stock={s.get('unitStock')},booked={s.get('unitBookingCount')})"
         for s in (ref_slots or [])
     ) or "없음"
     print(f"  [진단:{tag}] {name} {date_str}", flush=True)
