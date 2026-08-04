@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-04T15:29:02.391919+09:00",
+  "updated_at": "2026-08-04T15:34:38.773349+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -523,34 +523,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2004678306",
-      "name": "하우스 아카이브: 홈 디깅 페어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
-      "bookingBusinessId": "1666185",
-      "operationStart": "26.08.13.",
-      "operationEnd": "26.08.16.",
-      "remainingDays": 9,
-      "status": "D-9",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
-      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-28T14:22:47.480213+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
       "hasBooking": true,
@@ -1061,6 +1033,34 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2004678306",
+      "name": "하우스 아카이브: 홈 디깅 페어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1666185",
+      "bookingBusinessId": "1666185",
+      "operationStart": "26.08.13.",
+      "operationEnd": "26.08.16.",
+      "remainingDays": 9,
+      "status": "D-9",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260609_113/1780968193569XoPUF_JPEG/image.jpg",
+      "roadAddress": "영동대로 513 코엑스 더플라츠홀 2층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-28T14:22:47.480213+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00",
       "bookingIsOpened": false
     },
     {
