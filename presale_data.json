@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-04T08:59:00.116345+09:00",
+  "updated_at": "2026-08-04T09:04:37.408643+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -827,9 +827,9 @@
     {
       "id": "2050153907",
       "name": "패브릭 도쿄 [팝업 스토어]",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1703810/search",
+      "bookingBusinessId": "1703810",
       "operationStart": "26.10.03.",
       "operationEnd": "26.10.11.",
       "remainingDays": 60,
@@ -840,11 +840,13 @@
       "commonAddress": "서울 중구",
       "district": "중구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-04T09:04:22.827425+09:00"
+      ],
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null
+      "lastBookingNotifiedAt": "2026-08-04T09:04:36.302555+09:00"
     },
     {
       "id": "2070762822",
@@ -2182,6 +2184,13 @@
       "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
       "ts": "2026-08-04T01:16:56.694603+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2050153907",
+      "place_name": "패브릭 도쿄 [팝업 스토어]",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1703810/search",
+      "ts": "2026-08-04T09:04:22.827425+09:00"
     }
   ],
   "seen_place_ids": [
