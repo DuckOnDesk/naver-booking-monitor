@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-04T11:00:32.002229+09:00",
+  "updated_at": "2026-08-04T11:06:13.689619+09:00",
   "watched_places": [
     "2002559489",
     "2006596949",
@@ -22,7 +22,9 @@
     "2093484387",
     "2098663430"
   ],
-  "booking_open_datetimes": {},
+  "booking_open_datetimes": {
+    "2066415670": "2026-08-07T11:00:00+09:00"
+  },
   "places": [
     {
       "id": "2073241477",
@@ -769,7 +771,7 @@
       "roadAddress": "이태원로 210 PVCS",
       "commonAddress": "서울 용산구",
       "district": "용산구",
-      "bookingOpenDatetime": null,
+      "bookingOpenDatetime": "2026-08-07T11:00:00+09:00",
       "bookingOpenHistory": [
         "2026-08-03T09:23:02.567385+09:00"
       ],
