@@ -1,9 +1,10 @@
 {
-  "updated_at": "2026-08-04T18:06:21.376269+09:00",
+  "updated_at": "2026-08-04T18:11:56.149471+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
     "2006596949",
+    "2006916982",
     "2009522804",
     "2012113406",
     "2015464753",
@@ -819,6 +820,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:43.642721+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2006916982",
+      "name": "발레클로젯 팝업 - 디아트레 메시아 포타 in더현대서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.27.",
+      "operationEnd": "26.09.02.",
+      "remainingDays": 23,
+      "status": "D-23",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260804_13/1785813714298XIkpi_JPEG/edited-1785813716804-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울, 지하 2층 아이코닉존",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-04T18:11:43.743778+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -2432,6 +2459,13 @@
       "place_name": "COSMOS : BIGBANG 20TH",
       "booking_url": "",
       "ts": "2026-08-04T17:32:28.556378+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2006916982",
+      "place_name": "발레클로젯 팝업 - 디아트레 메시아 포타 in더현대서울",
+      "booking_url": "",
+      "ts": "2026-08-04T18:11:43.743778+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2445,6 +2479,7 @@
     "2004678306",
     "2006596949",
     "2006648175",
+    "2006916982",
     "2007641747",
     "2009522804",
     "2012113406",
