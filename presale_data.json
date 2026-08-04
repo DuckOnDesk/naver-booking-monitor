@@ -1,8 +1,10 @@
 {
-  "updated_at": "2026-08-04T17:27:04.297488+09:00",
+  "updated_at": "2026-08-04T17:32:41.466747+09:00",
   "watched_places": [
+    "1893291672",
     "2002559489",
     "2006596949",
+    "2009522804",
     "2012113406",
     "2015464753",
     "2019923740",
@@ -278,6 +280,34 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-03T13:06:32.168852+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "1893291672",
+      "name": "트루스오브뷰티 별별 문방구 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1707570",
+      "bookingBusinessId": "1707570",
+      "operationStart": "26.08.12.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260804_73/1785798586399p2MRp_JPEG/image.jpg",
+      "roadAddress": "연무장길 81 무신사 뷰티 스페이스 1",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-04T17:32:28.556378+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-04T17:32:28.556378+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -953,6 +983,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-04T09:04:36.302555+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2009522804",
+      "name": "COSMOS : BIGBANG 20TH",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.21.",
+      "operationEnd": "26.08.30.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260803_8/1785727228847HBseL_JPEG/edited-1785727230253-0.jpg",
+      "roadAddress": "서소문로 127 지하 두두두서울",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-04T17:32:28.556378+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -2362,9 +2418,24 @@
       "place_name": "패브릭 도쿄 [팝업 스토어]",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1703810/search",
       "ts": "2026-08-04T09:04:22.827425+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "1893291672",
+      "place_name": "트루스오브뷰티 별별 문방구 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1707570",
+      "ts": "2026-08-04T17:32:28.556378+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2009522804",
+      "place_name": "COSMOS : BIGBANG 20TH",
+      "booking_url": "",
+      "ts": "2026-08-04T17:32:28.556378+09:00"
     }
   ],
   "seen_place_ids": [
+    "1893291672",
     "2001371441",
     "2001855074",
     "2002133748",
@@ -2375,6 +2446,7 @@
     "2006596949",
     "2006648175",
     "2007641747",
+    "2009522804",
     "2012113406",
     "2015464753",
     "2017034437",
