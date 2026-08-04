@@ -1,5 +1,19 @@
 [
   {
+    "ts": "2026-08-04T16:47:30+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-17",
+    "times": [
+      "14:00"
+    ],
+    "account": 1,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 4.4,
+    "message": "시간대 ['14:00'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
+  },
+  {
     "ts": "2026-07-31T13:21:54+09:00",
     "item_id": "ms4qtfmh",
     "name": "TFT 스탬프투어",
