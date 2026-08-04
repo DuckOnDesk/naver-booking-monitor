@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-04T20:42:45.782675+09:00",
+  "updated_at": "2026-08-04T20:48:21.405887+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -70,7 +70,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
