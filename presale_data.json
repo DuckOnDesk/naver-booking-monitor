@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T13:29:23.218171+09:00",
+  "updated_at": "2026-08-05T13:35:03.272959+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -63,7 +63,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
@@ -102,7 +102,8 @@
         "2026-08-03T14:27:02.376041+09:00",
         "2026-08-03T22:29:28.067476+09:00",
         "2026-08-04T22:34:48.175720+09:00",
-        "2026-08-05T07:42:57.316221+09:00"
+        "2026-08-05T07:42:57.316221+09:00",
+        "2026-08-05T13:34:48.600409+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1029,7 +1030,7 @@
       "bookingUrl": null,
       "bookingBusinessId": null,
       "operationStart": "26.08.24.",
-      "operationEnd": null,
+      "operationEnd": "26.09.27.",
       "remainingDays": 19,
       "status": "D-19",
       "admissionCondition": "사전예약",
@@ -2567,6 +2568,13 @@
       "place_name": "드래곤빌리지 팝업 SVIP 라운지",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711162",
       "ts": "2026-08-05T12:54:54.796015+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2098663430",
+      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
+      "ts": "2026-08-05T13:34:48.600409+09:00"
     }
   ],
   "seen_place_ids": [
