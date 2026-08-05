@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T12:49:28.858568+09:00",
+  "updated_at": "2026-08-05T12:55:10.572867+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -1132,9 +1132,9 @@
     {
       "id": "2007641747",
       "name": "드래곤빌리지 팝업 SVIP 라운지",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711162",
+      "bookingBusinessId": "1711162",
       "operationStart": "26.08.14.",
       "operationEnd": "26.08.16.",
       "remainingDays": 9,
@@ -1145,14 +1145,16 @@
       "commonAddress": "서울 강남구",
       "district": "강남구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-05T12:54:54.796015+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-05T12:55:09.444472+09:00",
       "bookingIsOpened": false
     },
     {
@@ -2531,6 +2533,13 @@
       "place_name": "트루스오브뷰티 별별 문방구 팝업",
       "booking_url": "https://m.booking.naver.com/booking/13/bizes/1707570",
       "ts": "2026-08-05T11:41:00.587404+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2007641747",
+      "place_name": "드래곤빌리지 팝업 SVIP 라운지",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711162",
+      "ts": "2026-08-05T12:54:54.796015+09:00"
     }
   ],
   "seen_place_ids": [
