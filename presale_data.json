@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T11:35:34.432218+09:00",
+  "updated_at": "2026-08-05T11:41:16.003370+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -289,7 +289,7 @@
     {
       "id": "1893291672",
       "name": "트루스오브뷰티 별별 문방구 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1707570",
       "bookingBusinessId": "1707570",
       "operationStart": "26.08.12.",
@@ -303,7 +303,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-08-04T17:32:28.556378+09:00"
+        "2026-08-04T17:32:28.556378+09:00",
+        "2026-08-05T11:41:00.587404+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -2496,6 +2497,13 @@
       "place_name": "뷰오리 드림니트 @성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704534",
       "ts": "2026-08-05T09:35:49.910024+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "1893291672",
+      "place_name": "트루스오브뷰티 별별 문방구 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1707570",
+      "ts": "2026-08-05T11:41:00.587404+09:00"
     }
   ],
   "seen_place_ids": [
