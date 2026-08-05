@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T09:19:05.022401+09:00",
+  "updated_at": "2026-08-05T09:24:44.476621+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -288,7 +288,7 @@
     {
       "id": "1893291672",
       "name": "트루스오브뷰티 별별 문방구 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1707570",
       "bookingBusinessId": "1707570",
       "operationStart": "26.08.12.",
