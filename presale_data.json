@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T15:01:16.240931+09:00",
+  "updated_at": "2026-08-05T15:06:57.473564+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -1030,7 +1030,7 @@
       "bookingUrl": null,
       "bookingBusinessId": null,
       "operationStart": "26.08.24.",
-      "operationEnd": "26.09.27.",
+      "operationEnd": null,
       "remainingDays": 19,
       "status": "D-19",
       "admissionCondition": "사전예약",
