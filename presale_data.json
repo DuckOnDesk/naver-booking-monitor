@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T21:31:24.245472+09:00",
+  "updated_at": "2026-08-05T21:36:56.134679+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -16,6 +16,7 @@
     "2042771625",
     "2043425985",
     "2043461454",
+    "2045247144",
     "2050153907",
     "2053652128",
     "2062024820",
@@ -859,6 +860,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-01T04:50:43.642721+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2045247144",
+      "name": "JJING-NYANG PAJAMA PARTY POPUP",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.15.",
+      "operationEnd": "26.08.21.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260723_231/1784783747275X08Mg_JPEG/edited-1784783747208-0.jpg",
+      "roadAddress": "영중로 15 영등포 타임스퀘어 3F 팝업스퀘어",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-05T21:36:44.866434+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -2636,6 +2663,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-05T21:03:39.133183+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2045247144",
+      "place_name": "JJING-NYANG PAJAMA PARTY POPUP",
+      "booking_url": "",
+      "ts": "2026-08-05T21:36:44.866434+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2677,6 +2711,7 @@
     "2043213423",
     "2043425985",
     "2043461454",
+    "2045247144",
     "2049944406",
     "2050153907",
     "2050363685",
