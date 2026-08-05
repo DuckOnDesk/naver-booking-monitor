@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T09:30:23.746465+09:00",
+  "updated_at": "2026-08-05T09:36:06.436581+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -260,7 +260,7 @@
     {
       "id": "2076235934",
       "name": "뷰오리 드림니트 @성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704534",
       "bookingBusinessId": "1704534",
       "operationStart": "26.08.13.",
@@ -274,15 +274,16 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-08-03T13:06:18.716818+09:00"
+        "2026-08-03T13:06:18.716818+09:00",
+        "2026-08-05T09:35:49.910024+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-03T13:06:32.168852+09:00",
+      "lastBookingNotifiedAt": "2026-08-05T09:36:05.325450+09:00",
       "bookingIsOpened": false
     },
     {
@@ -2488,6 +2489,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-05T07:42:57.316221+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2076235934",
+      "place_name": "뷰오리 드림니트 @성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704534",
+      "ts": "2026-08-05T09:35:49.910024+09:00"
     }
   ],
   "seen_place_ids": [
