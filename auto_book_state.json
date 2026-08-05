@@ -38,16 +38,16 @@
   "ms4b3fl4": {
     "name": "라운즈2차",
     "last_run": {
-      "at": "2026-08-06T04:30:24+09:00",
+      "at": "2026-08-06T05:09:15+09:00",
       "sig": "2026-08-11|11:00",
       "date": "2026-08-11",
       "times": [
         "11:00"
       ],
-      "attempt": 2,
-      "lag_sec": 37.6,
-      "elapsed": 2.8,
-      "account": 5,
+      "attempt": 3,
+      "lag_sec": 28.9,
+      "elapsed": 3.5,
+      "account": 4,
       "success": false,
       "dry_run": false,
       "message": "시간대 ['11:00'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
