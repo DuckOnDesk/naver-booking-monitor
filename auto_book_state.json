@@ -38,15 +38,15 @@
   "ms4b3fl4": {
     "name": "라운즈2차",
     "last_run": {
-      "at": "2026-08-06T03:23:32+09:00",
+      "at": "2026-08-06T03:25:45+09:00",
       "sig": "2026-08-10|11:00",
       "date": "2026-08-10",
       "times": [
         "11:00"
       ],
       "attempt": 1,
-      "lag_sec": 35.2,
-      "elapsed": 3.0,
+      "lag_sec": 35.3,
+      "elapsed": 3.2,
       "account": 3,
       "success": false,
       "dry_run": false,
