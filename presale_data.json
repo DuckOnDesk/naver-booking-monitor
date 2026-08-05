@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T23:32:42.071467+09:00",
+  "updated_at": "2026-08-05T23:38:12.471718+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -640,7 +640,7 @@
     {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705614",
       "bookingBusinessId": "1705614",
       "operationStart": "26.07.30.",
@@ -657,7 +657,8 @@
         "2026-07-24T10:41:34.244026+09:00",
         "2026-07-24T20:07:52.581178+09:00",
         "2026-08-05T03:02:23.236880+09:00",
-        "2026-08-05T15:18:05.595511+09:00"
+        "2026-08-05T15:18:05.595511+09:00",
+        "2026-08-05T23:38:01.628513+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -2641,6 +2642,13 @@
       "place_name": "JJING-NYANG PAJAMA PARTY POPUP",
       "booking_url": "",
       "ts": "2026-08-05T21:36:44.866434+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2073328330",
+      "place_name": "원피스 무기와라스토어 한국 출장점",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705614",
+      "ts": "2026-08-05T23:38:01.628513+09:00"
     }
   ],
   "seen_place_ids": [
