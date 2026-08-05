@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T18:14:39.498620+09:00",
+  "updated_at": "2026-08-05T18:20:19.046131+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -12,6 +12,7 @@
     "2021947047",
     "2025764652",
     "2034762449",
+    "2038805228",
     "2042771625",
     "2043425985",
     "2043461454",
@@ -476,6 +477,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2038805228",
+      "name": "가정교사 히트맨 리본 20주년 기념",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.17.",
+      "operationEnd": "26.09.01.",
+      "remainingDays": 12,
+      "status": "D-12",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260805_54/17859111468175DjCW_JPEG/edited-1785911146286-0.jpg",
+      "roadAddress": "양화로 188 AK PLAZA 1층",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-05T18:20:04.892785+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -2561,6 +2588,13 @@
       "place_name": "원피스 무기와라스토어 한국 출장점",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705614",
       "ts": "2026-08-05T15:18:05.595511+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2038805228",
+      "place_name": "가정교사 히트맨 리본 20주년 기념",
+      "booking_url": "",
+      "ts": "2026-08-05T18:20:04.892785+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2594,6 +2628,7 @@
     "2030273456",
     "2034762449",
     "2036674429",
+    "2038805228",
     "2039988652",
     "2041689219",
     "2042771625",
