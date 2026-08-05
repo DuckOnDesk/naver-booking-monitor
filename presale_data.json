@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-05T20:58:19.416688+09:00",
+  "updated_at": "2026-08-05T21:03:50.519471+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -63,7 +63,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
@@ -103,7 +103,8 @@
         "2026-08-03T22:29:28.067476+09:00",
         "2026-08-04T22:34:48.175720+09:00",
         "2026-08-05T07:42:57.316221+09:00",
-        "2026-08-05T13:34:48.600409+09:00"
+        "2026-08-05T13:34:48.600409+09:00",
+        "2026-08-05T21:03:39.133183+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -2628,6 +2629,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "",
       "ts": "2026-08-05T18:31:23.684050+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2098663430",
+      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
+      "ts": "2026-08-05T21:03:39.133183+09:00"
     }
   ],
   "seen_place_ids": [
