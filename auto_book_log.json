@@ -1,5 +1,47 @@
 [
   {
+    "ts": "2026-08-06T04:30:24+09:00",
+    "item_id": "ms4b3fl4",
+    "name": "라운즈2차",
+    "date": "2026-08-11",
+    "times": [
+      "11:00"
+    ],
+    "account": 3,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.0,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
+    "ts": "2026-08-06T04:30:24+09:00",
+    "item_id": "ms4b3fl4",
+    "name": "라운즈2차",
+    "date": "2026-08-11",
+    "times": [
+      "11:00"
+    ],
+    "account": 4,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 5.8,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
+    "ts": "2026-08-06T04:30:24+09:00",
+    "item_id": "ms4b3fl4",
+    "name": "라운즈2차",
+    "date": "2026-08-11",
+    "times": [
+      "11:00"
+    ],
+    "account": 5,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 2.8,
+    "message": "시간대 ['11:00'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
+  },
+  {
     "ts": "2026-08-06T03:34:26+09:00",
     "item_id": "ms4b3fl4",
     "name": "라운즈2차",
