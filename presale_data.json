@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-06T15:40:21.245686+09:00",
+  "updated_at": "2026-08-06T15:46:13.275533+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -320,32 +320,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2027174717",
-      "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.14.",
-      "operationEnd": "26.08.23.",
-      "remainingDays": 8,
-      "status": "D-8",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260727_286/1785120958387Uj5uA_JPEG/jm_sku_L5S901_3000x3000_3.jpg",
-      "roadAddress": "연무장길 96 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-05T18:31:23.684050+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2062283789",
       "name": "드래곤볼 전시",
       "hasBooking": false,
@@ -368,6 +342,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2027174717",
+      "name": "조 말론 런던 팝업스토어 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.14.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260727_286/1785120958387Uj5uA_JPEG/jm_sku_L5S901_3000x3000_3.jpg",
+      "roadAddress": "연무장길 96 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-05T18:31:23.684050+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -646,7 +646,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
@@ -661,7 +661,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-07-22T16:10:57.904712+09:00",
-        "2026-07-23T17:32:48.761065+09:00"
+        "2026-07-23T17:32:48.761065+09:00",
+        "2026-08-06T15:45:53.339078+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -2672,6 +2673,13 @@
       "place_name": "드래곤빌리지 팝업 SVIP 라운지",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711162",
       "ts": "2026-08-06T15:10:24.313141+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2019923740",
+      "place_name": "IVE x MINIVE POP-UP in SEOUL",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "ts": "2026-08-06T15:45:53.339078+09:00"
     }
   ],
   "seen_place_ids": [
