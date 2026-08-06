@@ -152,7 +152,7 @@
   "mreyfrhm:url_closed": 1,
   "mreygixc:url_closed": 1,
   "mreyhcnf:url_closed": 1,
-  "ms8sb2xv:url_close_streak": 3211,
+  "ms8sb2xv:url_close_streak": 3212,
   "ms8sb2xv:url_closed": 1,
   "ms98ehfg:2026-08-01": {
     "16:00": 3
@@ -162,25 +162,28 @@
     "14:30": 1,
     "15:30": 1
   },
-  "mscpmau4:url_close_streak": 1687,
+  "mscpmau4:url_close_streak": 1688,
   "mscpmau4:url_closed": 1,
   "mscpmau4:2026-08-16:closed": {
     "10:00": 15,
     "12:00": 15
   },
-  "msddyhkc:url_close_streak": 603,
+  "msddyhkc:url_close_streak": 604,
   "msddyhkc:url_closed": 1,
-  "ms4qtfmh:url_close_streak": 212,
-  "ms4qwci3:url_close_streak": 212,
-  "ms4qrh5o:url_close_streak": 211,
+  "ms4qtfmh:url_close_streak": 213,
+  "ms4qwci3:url_close_streak": 213,
+  "ms4qrh5o:url_close_streak": 212,
   "ms4qtfmh:url_closed": 1,
   "ms4qwci3:url_closed": 1,
   "ms4qrh5o:url_closed": 1,
-  "ms4b1p2p:url_close_streak": 57,
-  "ms4b3fl4:url_close_streak": 57,
+  "ms4b1p2p:url_close_streak": 58,
+  "ms4b3fl4:url_close_streak": 58,
   "ms4b1p2p:url_closed": 1,
   "ms4b3fl4:url_closed": 1,
   "ms4qwci3:2026-08-09:closed": {
     "19:30": 2
+  },
+  "ms4b1p2p:2026-08-07:closed": {
+    "12:00": 1
   }
 }
