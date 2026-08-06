@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-06T15:04:39.880420+09:00",
+  "updated_at": "2026-08-06T15:10:49.351579+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -835,9 +835,9 @@
     {
       "id": "2045247144",
       "name": "JJING-NYANG PAJAMA PARTY POPUP",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704525",
+      "bookingBusinessId": "1704525",
       "operationStart": "26.08.15.",
       "operationEnd": "26.08.21.",
       "remainingDays": 9,
@@ -848,14 +848,16 @@
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-06T15:10:24.313141+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-06T15:10:47.766717+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1185,7 +1187,7 @@
     {
       "id": "2007641747",
       "name": "드래곤빌리지 팝업 SVIP 라운지",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711162",
       "bookingBusinessId": "1711162",
       "operationStart": "26.08.14.",
@@ -1198,7 +1200,9 @@
       "commonAddress": "서울 강남구",
       "district": "강남구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-06T15:10:24.313141+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
@@ -2654,6 +2658,20 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-06T00:38:45.732620+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2045247144",
+      "place_name": "JJING-NYANG PAJAMA PARTY POPUP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704525",
+      "ts": "2026-08-06T15:10:24.313141+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2007641747",
+      "place_name": "드래곤빌리지 팝업 SVIP 라운지",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711162",
+      "ts": "2026-08-06T15:10:24.313141+09:00"
     }
   ],
   "seen_place_ids": [
