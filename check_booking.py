@@ -56,6 +56,15 @@ AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "0"))
 AUTO_BOOK_WORKFLOW = os.environ.get("AUTO_BOOK_WORKFLOW", "autobook.yml")
 # 디스패치한 실행이 이 시간(분) 안에 결과를 남기지 않으면 죽은 것으로 보고 재시도.
 AUTO_BOOK_DISPATCH_TIMEOUT_MIN = int(os.environ.get("AUTO_BOOK_DISPATCH_TIMEOUT_MIN", "15"))
+# 감지 즉시 모니터 러너에서 첫 계정으로 예약을 한 번 눌러 볼지 (1=켬).
+# 워크플로 디스패치는 큐 대기 + 러너 준비로 30~70초가 걸려 취소표를 놓치기 쉽다.
+AUTO_BOOK_INLINE = os.environ.get("AUTO_BOOK_INLINE", "1").strip() not in ("0", "false", "no")
+# 선시도에 쓸 시간 예산(초). 이 시간을 넘기면 감시가 밀리므로 브라우저 단계별 대기를 줄인다.
+AUTO_BOOK_INLINE_BUDGET_SEC = int(os.environ.get("AUTO_BOOK_INLINE_BUDGET_SEC", "25"))
+# 예약 페이지가 "선택 불가"로 막은 슬롯을 다시 시도하기까지 쉬는 시간(분).
+# API는 자리가 있다고 답하는데 페이지에서는 못 누르는 경우가 있어, 그대로 두면
+# 같은 슬롯에 2분 간격으로 워크플로가 계속 뜬다 (실제로 15분에 14번 실행됐다).
+AUTO_BOOK_BLOCKED_BACKOFF_MIN = int(os.environ.get("AUTO_BOOK_BLOCKED_BACKOFF_MIN", "10"))
 # 자동예약 날짜 미지정 항목에서, 감시 대상 밖 날짜를 한 회차에 몇 개까지 추가 조회할지.
 # (예약 기간이 아주 긴 항목이 한 회차의 API 호출을 독차지하지 않도록 하는 상한)
 AUTO_BOOK_SWEEP_MAX = int(os.environ.get("AUTO_BOOK_SWEEP_MAX", "31"))
@@ -770,6 +779,14 @@ def sync_auto_book_state(monitors: list, alerted: dict) -> None:
         disp_at = _parse_dt(state["dispatched_at"])
         if last_at and disp_at and last_at >= disp_at:
             state.pop("dispatched_at", None)
+            if last.get("unbookable") and last.get("sig") == state.get("sig"):
+                # 예약 페이지가 이 슬롯을 "선택 불가"로 막았다 → 지금 다시 띄워도 결과가 같다.
+                # API가 계속 "자리 있음"이라고 답하는 동안 2분마다 헛도는 것을 막는다.
+                state["blocked_until"] = (datetime.now(timezone(timedelta(hours=9)))
+                                          + timedelta(minutes=AUTO_BOOK_BLOCKED_BACKOFF_MIN)
+                                          ).isoformat(timespec="seconds")
+                print(f"  [자동예약] {name} — 페이지가 선택 불가로 막은 슬롯 "
+                      f"({state.get('sig')}) → {AUTO_BOOK_BLOCKED_BACKOFF_MIN}분간 재시도 보류", flush=True)
             alerted[state_key] = state
             print(f"  [자동예약] {name} 실행 종료: "
                   f"{'성공' if last.get('success') else '실패'} — {last.get('message', '')}", flush=True)
@@ -883,6 +900,87 @@ def item_booking_period(item: dict, cache: dict) -> tuple[str | None, str | None
     return booking_period(cache.get(key) or {})
 
 
+AUTO_BOOK_LOG_FILE = Path(__file__).parent / "auto_book_log.json"
+
+
+def record_inline_attempt(entry: dict, tries: int = 2) -> None:
+    """선(先)시도 결과를 auto_book_log.json에 남긴다 (웹 리포트용, best-effort).
+
+    이 파일의 주인은 워커라, 모니터는 매번 원격 최신본을 받아 이번 한 줄만 얹는다.
+    실패해도 예약 자체와는 무관하므로 경고만 남기고 넘어간다.
+    """
+    for attempt in range(1, tries + 1):
+        try:
+            subprocess.run(["git", "fetch", "origin", "main"], check=True, capture_output=True)
+            subprocess.run(["git", "checkout", "origin/main", "--", AUTO_BOOK_LOG_FILE.name],
+                           check=False, capture_output=True)
+            log = []
+            if AUTO_BOOK_LOG_FILE.exists():
+                try:
+                    log = json.loads(AUTO_BOOK_LOG_FILE.read_text(encoding="utf-8"))
+                except Exception:
+                    log = []
+            if not isinstance(log, list):
+                log = []
+            log.insert(0, entry)
+            del log[300:]
+            AUTO_BOOK_LOG_FILE.write_text(json.dumps(log, ensure_ascii=False, indent=2) + "\n",
+                                          encoding="utf-8")
+            if commit_files([AUTO_BOOK_LOG_FILE.name],
+                            "data: 자동예약 선시도 결과 기록 [skip ci]", AUTO_BOOK_LOG_FILE.name):
+                return
+        except Exception as exc:
+            print(f"[경고] 선시도 결과 기록 실패 ({attempt}/{tries}): {exc}", flush=True)
+
+
+def _inline_try_book(item: dict, item_id: str, url: str, datekey: str,
+                     times: list, cfg: dict, name: str) -> dict | None:
+    """감지 즉시 모니터 러너에서 첫 계정으로 한 번 예약을 시도한다 (실패해도 워커가 이어받음).
+
+    워크플로를 새로 띄우면 큐 대기 + 러너 준비로 30~70초가 지나간다. 취소표는 그 사이
+    사라지므로, 이미 chromium이 깔려 있는 이 프로세스에서 먼저 한 번 눌러 보는 것이
+    성공률에 가장 크게 기여한다. 대신 감시가 멈추는 시간을 짧게 유지하려고
+      - 계정 1개만 (나머지는 워커가 담당)
+      - AUTO_BOOK_INLINE_BUDGET_SEC(기본 25초) 안에 끝나지 않으면 포기
+    로 제한한다. AUTO_BOOK_INLINE=0으로 끄면 종전처럼 워크플로만 쓴다.
+
+    반환: try_book 결과 dict, 또는 시도하지 않았으면 None.
+    """
+    if not AUTO_BOOK_INLINE or not times:
+        return None      # 일 단위 상품(고를 시간대가 없음)은 워커가 페이지에서 직접 찾는다
+    try:
+        import auto_book
+    except Exception as exc:
+        print(f"  [자동예약] 즉시 시도 불가(모듈 로드 실패): {exc}", flush=True)
+        return None
+    accounts = auto_book.get_accounts(cfg["accounts"])
+    if not accounts:
+        return None
+    acct_no, cookie_str = accounts[0]
+    print(f"  [자동예약] {name} {datekey} — 감지 즉시 계정{acct_no}로 선(先)시도 "
+          f"(예산 {AUTO_BOOK_INLINE_BUDGET_SEC}초)", flush=True)
+    started = time.time()
+    try:
+        res = auto_book.try_book(url, datekey, times, count=cfg["count"],
+                                 cookie_str=cookie_str, account=acct_no,
+                                 budget_sec=AUTO_BOOK_INLINE_BUDGET_SEC)
+    except Exception as exc:
+        print(f"  [자동예약] 즉시 시도 예외: {exc}", flush=True)
+        return None
+    took = time.time() - started
+    print(f"  [자동예약] 즉시 시도 결과 [{took:.1f}초]: "
+          f"{'성공' if res.get('success') else '실패'} — {res.get('message')}", flush=True)
+    record_inline_attempt({
+        "ts": datetime.now(timezone(timedelta(hours=9))).isoformat(timespec="seconds"),
+        "item_id": item_id, "name": name, "date": datekey, "times": times,
+        "account": res.get("account"), "success": bool(res.get("success")),
+        "dry_run": bool(res.get("dry_run")), "elapsed": res.get("elapsed"),
+        "unbookable": bool(res.get("unbookable")), "inline": True,
+        "message": res.get("message", ""),
+    })
+    return res
+
+
 def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
                     per_slot: list, ntfy_topic: str, alerted: dict,
                     period: tuple | None = None) -> None:
@@ -943,6 +1041,16 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
         print(f"  [자동예약] {name} — {AUTO_BOOK_DISPATCH_TIMEOUT_MIN}분간 실행 결과 없음, 재시도", flush=True)
         state.pop("dispatched_at", None)
 
+    # 예약 페이지가 "선택 불가"로 막았던 슬롯이면 잠시 쉰다 (API가 계속 자리 있다고 답해도)
+    blocked_until = _parse_dt(state.get("blocked_until"))
+    if blocked_until:
+        if now_kst < blocked_until:
+            print(f"  [자동예약] {name} {datekey} — 페이지에서 선택 불가로 확인된 슬롯, "
+                  f"{(blocked_until - now_kst).total_seconds() / 60:.0f}분 뒤 재시도", flush=True)
+            alerted[state_key] = state
+            return
+        state.pop("blocked_until", None)
+
     if AUTO_BOOK_MAX_ATTEMPTS and state["attempts"] >= AUTO_BOOK_MAX_ATTEMPTS:
         alerted[state_key] = state
         return
@@ -950,6 +1058,32 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
 
     cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (성공/매진/OFF까지 계속)"
     detected_at = now_kst.isoformat(timespec="seconds")
+
+    # 러너를 새로 띄우면 큐 대기 + 준비에 30~70초가 걸린다. 취소표는 그 사이 사라지므로,
+    # 모니터 러너(이미 chromium이 있다)에서 첫 계정으로 즉시 한 번 시도해 본다.
+    # 여기서 성공하면 워크플로는 띄우지 않고, 실패하면 종전대로 워커에 넘긴다.
+    inline = _inline_try_book(item, item_id, url, datekey, dispatch_times, cfg, name)
+    if inline is not None:
+        if inline.get("success"):
+            booked = {"date": datekey, "time": inline.get("booked_time"),
+                      "account": inline.get("account"), "at": detected_at, "inline": True}
+            alerted[f"{item_id}:auto_booked"] = booked
+            alerted[state_key] = state
+            if ntfy_topic:
+                send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
+                          f"{datekey} {inline.get('booked_time') or ''} "
+                          f"(계정{inline.get('account')}, 즉시 시도) 예약 완료 "
+                          f"— 네이버 예약 내역에서 확인하세요", url)
+            return
+        if inline.get("unbookable"):
+            # 페이지가 막은 슬롯 — 워커를 띄워 봐야 같은 결과다
+            state["blocked_until"] = (now_kst + timedelta(minutes=AUTO_BOOK_BLOCKED_BACKOFF_MIN)
+                                      ).isoformat(timespec="seconds")
+            print(f"  [자동예약] {name} {datekey} — 즉시 시도에서 선택 불가 확인, "
+                  f"{AUTO_BOOK_BLOCKED_BACKOFF_MIN}분간 보류 (워크플로 생략)", flush=True)
+            alerted[state_key] = state
+            return
+
     ok, err = dispatch_auto_book(item_id, datekey, dispatch_times, sig, state["attempts"], detected_at)
     if ok:
         state["dispatched_at"] = detected_at

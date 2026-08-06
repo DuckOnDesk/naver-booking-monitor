@@ -22,6 +22,7 @@ import argparse
 import json
 import subprocess
 import sys
+import time as time_mod
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -86,32 +87,41 @@ def _apply_results(log_entries: list, item_id: str, state_entry: dict) -> None:
     _write_json(AUTO_BOOK_STATE_FILE, state)
 
 
-def record_results(log_entries: list, item_id: str, state_entry: dict, tries: int = 3) -> bool:
+def record_results(log_entries: list, item_id: str, state_entry: dict, tries: int = 5) -> bool:
     """결과를 기록하고 main에 커밋/푸시.
 
-    다른 항목의 워커가 같은 파일을 동시에 밀어 넣을 수 있으므로, 매 시도마다
-    원격 최신본을 받아 그 위에 이번 결과만 다시 얹는다 (충돌 대신 병합).
+    여러 워커(날짜별로 따로 뜬다)가 거의 동시에 끝나면 같은 JSON을 동시에 밀게 된다.
+    예전에는 "커밋을 만든 뒤 rebase"였는데, 상대가 같은 파일을 먼저 올려 두면 rebase가
+    충돌로 죽어 결과를 아예 못 남겼다(실제로 하룻밤에 여러 건 유실 → 모니터가 결과를
+    못 보고 같은 슬롯을 계속 재디스패치). 지금은 매 시도마다
+
+        원격 최신본으로 되감기 → 이번 결과만 다시 얹기 → 커밋 → push
+
+    순서로 돌린다. 커밋이 항상 origin/main 바로 위에 놓이므로 충돌 자체가 없고,
+    push가 거절되면(그 사이 누가 또 올림) 같은 과정을 반복한다.
     """
     for attempt in range(1, tries + 1):
         try:
             _git("config", "user.name", "github-actions[bot]")
             _git("config", "user.email", "github-actions[bot]@users.noreply.github.com")
             _git("fetch", "origin", "main")
-            for name in (AUTO_BOOK_LOG_FILE.name, AUTO_BOOK_STATE_FILE.name):
-                _git("checkout", "origin/main", "--", name, check=False)
+            # 추적 파일은 이 두 JSON뿐이고 스크린샷은 gitignore라 되감아도 잃을 게 없다
+            _git("reset", "--hard", "origin/main")
             _apply_results(log_entries, item_id, state_entry)
             _git("add", AUTO_BOOK_LOG_FILE.name, AUTO_BOOK_STATE_FILE.name)
-            if _git("diff", "--cached", "--quiet", check=False).returncode != 0:
-                _git("commit", "-m", "data: 자동예약 결과 기록 [skip ci]")
-            # --autostash: 스크린샷 등으로 작업 트리가 지저분해도 rebase가 거부되지 않도록
-            _git("rebase", "--autostash", "origin/main")
-            _git("push", "origin", "HEAD:main")
-            print("  → 자동예약 결과 커밋/푸시 완료", flush=True)
-            return True
+            if _git("diff", "--cached", "--quiet", check=False).returncode == 0:
+                print("  → 기록할 변경 없음", flush=True)
+                return True
+            _git("commit", "-m", "data: 자동예약 결과 기록 [skip ci]")
+            if _git("push", "origin", "HEAD:main", check=False).returncode == 0:
+                print("  → 자동예약 결과 커밋/푸시 완료", flush=True)
+                return True
+            print(f"[경고] 결과 push 거절 ({attempt}/{tries}) — 최신본 위에서 다시 시도", flush=True)
+            time_mod.sleep(0.5 * attempt)
         except subprocess.CalledProcessError as exc:
-            _git("rebase", "--abort", check=False)
             err = (exc.stderr or exc.stdout or "").strip().splitlines()[-1:] or [str(exc)]
             print(f"[경고] 결과 커밋 실패 ({attempt}/{tries}): {err[0]}", flush=True)
+            time_mod.sleep(0.5 * attempt)
     print("[경고] 결과를 저장소에 남기지 못했습니다 — 모니터가 재시도할 수 있습니다", flush=True)
     return False
 
@@ -132,6 +142,26 @@ def record_skip(item_id: str, name: str, datekey: str, sig: str, attempt: int, m
         entry["name"] = name
     record_results([], item_id, entry)
     return 0
+
+
+def api_slot_snapshot(item: dict, datekey: str) -> list:
+    """예약 직전 API가 말하는 슬롯 원본값. API와 실제 페이지가 어긋날 때 판정하려고 남긴다.
+
+    [{"t": "11:00", "stock": 2, "booked": 1}, ...] 형태 (조회 실패면 빈 목록).
+    """
+    parsed = parse_naver_url(item.get("url", ""))
+    if not parsed:
+        return []
+    try:
+        info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+    except Exception:
+        return []
+    if not info.get("queried"):
+        return []
+    return [{"t": s.get("unitStartTime", "")[11:16],
+             "stock": s.get("unitStock", 0),
+             "booked": s.get("unitBookingCount", 0)}
+            for s in (info.get("all_slots") or [])][:20]
 
 
 def resolve_times(item: dict, cfg: dict, datekey: str, requested: list) -> list:
@@ -246,11 +276,21 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
             print(f"  [자동예약] 계정{acct_no} 결과: {'성공' if res['success'] else '실패'}{took} — {res['message']}", flush=True)
             if res["success"]:
                 break
-            # 슬롯이 사라진 실패는 계정을 바꿔도 소용없으므로 중단
-            if any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
+            # 슬롯이 사라졌거나 페이지가 선택 불가로 막은 실패는 계정을 바꿔도 소용없다
+            if res.get("unbookable") or any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
                 break
 
     finished_at = datetime.now(KST).isoformat(timespec="seconds")
+    unbookable = any(r.get("unbookable") for r in results)
+    # API는 "자리 있음"이라는데 페이지는 "선택 불가"인 경우가 있다. 어느 쪽이 맞는지
+    # 다음 사례에서 바로 판정할 수 있도록, 실패했을 때만 API 원본값을 함께 남긴다.
+    api_slots = api_slot_snapshot(item, datekey) if not (res and res["success"]) else []
+    if unbookable and api_slots:
+        avail = [s for s in api_slots if s["stock"] - s["booked"] > 0]
+        print(f"  [진단] 페이지는 선택 불가인데 API 원본은 {api_slots} "
+              f"→ API 기준 남은 자리 {len(avail)}개"
+              f"{' ⚠️ API·페이지 불일치(유령 자리)' if avail else ' (API도 자리 없음)'}", flush=True)
+
     log_entries = [{
         "ts": finished_at,
         "item_id": item_id,
@@ -261,6 +301,8 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
         "success": bool(r["success"]),
         "dry_run": bool(r.get("dry_run")),
         "elapsed": r.get("elapsed"),
+        "unbookable": bool(r.get("unbookable")),
+        "api_slots": api_slots if r is results[-1] else None,
         "message": r["message"],
     } for r in results]
 
@@ -277,6 +319,9 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
             "account": res.get("account"),
             "success": bool(res["success"]),
             "dry_run": bool(res.get("dry_run")),
+            # 페이지가 이 슬롯을 선택 불가로 막았다는 신호 — 모니터가 잠시 쉬는 근거
+            "unbookable": unbookable,
+            "api_slots": api_slots or None,
             "message": res["message"],
         },
     }

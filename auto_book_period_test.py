@@ -1,4 +1,4 @@
-"""자동예약 "날짜 미지정 = 등록된 예약 기간 전체" 회귀 테스트.
+"""자동예약 디스패치 규칙(예약 기간 · 선시도 · 선택 불가 백오프) 회귀 테스트.
 
 네트워크·브라우저 없이 돈다 (naver API·GitHub 디스패치·playwright는 모두 대체 함수로 교체).
 
@@ -8,6 +8,8 @@
   - 날짜를 지정한 항목은 지정 날짜만 시도한다 (사용자 지정이 우선)
   - 감시 날짜(target_dates)를 좁게 잡아도 예약 기간 전체가 자동예약 대상이 된다
   - 예약 기간을 아직 모르면 종전대로 동작한다
+  - 감지 즉시 첫 계정으로 선시도하고, 성공하면 워크플로를 띄우지 않는다
+  - 페이지가 "선택 불가"로 막은 슬롯은 일정 시간 재시도를 보류한다
 
 사용법: python auto_book_period_test.py
 """
@@ -129,6 +131,54 @@ def main() -> int:
         finally:
             (cb._playwright_check, cb.probe_schedule_period, cb.check_availability,
              cb.save_schedule_cache, cb.commit_schedule_cache, cb.send_ntfy) = saved
+        print("7) 감지 즉시 선(先)시도")
+        inline_calls: list = []
+        orig_inline, orig_record = cb._inline_try_book, cb.record_inline_attempt
+        cb.record_inline_attempt = lambda entry, tries=2: None
+        try:
+            # 성공하면 워크플로를 띄우지 않고 예약 성공으로 기록한다
+            cb._inline_try_book = lambda *a, **kw: (
+                inline_calls.append(a[3]) or {"success": True, "booked_time": "11:00", "account": 3})
+            alerted: dict = {}
+            dispatched.clear()
+            cb.maybe_auto_book(item_with([]), "t1", URL, D[2], [("11:00", 1)], "", alerted, period)
+            check(not dispatched, "선시도 성공 시 워크플로를 띄우지 않음")
+            check(isinstance(alerted.get("t1:auto_booked"), dict), "예약 성공으로 기록")
+
+            # 실패하면 종전대로 워커에 넘긴다
+            cb._inline_try_book = lambda *a, **kw: {"success": False, "message": "시간대 없음"}
+            alerted = {}
+            dispatched.clear()
+            cb.maybe_auto_book(item_with([]), "t1", URL, D[2], [("11:00", 1)], "", alerted, period)
+            check(dispatched == [D[2]], "선시도 실패 시 워크플로로 이어받음")
+
+            print("8) 페이지가 선택 불가로 막은 슬롯은 재시도 보류")
+            cb._inline_try_book = lambda *a, **kw: {
+                "success": False, "unbookable": True, "message": "선택 불가 상태"}
+            alerted = {}
+            dispatched.clear()
+            cb.maybe_auto_book(item_with([]), "t1", URL, D[2], [("11:00", 1)], "", alerted, period)
+            check(not dispatched, "선택 불가면 워크플로도 띄우지 않음")
+            state = alerted.get("t1:auto_book_state") or {}
+            check(bool(state.get("blocked_until")), f"보류 시각 기록 ({state.get('blocked_until')})")
+
+            # 보류 중에는 선시도조차 하지 않는다
+            inline_calls.clear()
+            cb._inline_try_book = lambda *a, **kw: (inline_calls.append(1) or None)
+            cb.maybe_auto_book(item_with([]), "t1", URL, D[2], [("11:00", 1)], "", alerted, period)
+            check(not inline_calls and not dispatched, "보류 시간 안에는 아무것도 시도하지 않음")
+
+            # 보류 시간이 지나면 다시 시도한다
+            past = (cb.datetime.now(cb.timezone(cb.timedelta(hours=9)))
+                    - cb.timedelta(minutes=1)).isoformat(timespec="seconds")
+            alerted["t1:auto_book_state"]["blocked_until"] = past
+            inline_calls.clear()
+            dispatched.clear()
+            cb._inline_try_book = lambda *a, **kw: None
+            cb.maybe_auto_book(item_with([]), "t1", URL, D[2], [("11:00", 1)], "", alerted, period)
+            check(dispatched == [D[2]], "보류가 끝나면 재시도 재개")
+        finally:
+            cb._inline_try_book, cb.record_inline_attempt = orig_inline, orig_record
     finally:
         cb.dispatch_auto_book, cb.fetch_slots = orig_dispatch, orig_fetch
 

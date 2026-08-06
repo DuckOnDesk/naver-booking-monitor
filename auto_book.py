@@ -129,6 +129,44 @@ def _wait_any(page, selector: str, timeout_ms: int) -> bool:
         return False
 
 
+# 예약 UI가 "실제로 그려졌는지" 판정하는 스크립트.
+#   - 껍데기만 있는 <div class="calendar_area"></div>는 SSR HTML에 처음부터 들어 있어서
+#     요소 부착(attached)만 기다리면 0초에 통과해 버린다. 실제로 그것 때문에
+#     달력이 비어 있는 상태로 진행해 "달력 없음 → 시간대 없음"으로 3초 만에 실패했다.
+#   - 그래서 날짜 칸(숫자 셀) 또는 시간대 버튼이 눈에 보일 때까지 기다린다.
+_JS_UI_READY = r"""() => {
+    const txt = (el) => (el.textContent || '').replace(/\s+/g, ' ').trim();
+    const visible = (el) => el.getClientRects().length > 0;
+    let days = 0;
+    for (const el of document.querySelectorAll(
+            '[class*="calendar" i] button,[class*="calendar" i] td,[class*="calendar" i] li')) {
+        if (/^\d{1,2}$/.test(txt(el)) || /^\d{1,2}$/.test(txt(el.firstElementChild || el))) {
+            if (visible(el)) days++;
+        }
+    }
+    let times = 0;
+    for (const el of document.querySelectorAll('button,a,li')) {
+        if (/\d{1,2}\s*:\s*\d{2}/.test(txt(el)) && visible(el)) times++;
+    }
+    return {days, times, ready: days >= 10 || times >= 1};
+}"""
+
+
+def _wait_booking_ui(page, timeout_ms: int = 8000) -> bool:
+    """달력 날짜 칸이나 시간대 버튼이 실제로 그려질 때까지 기다린다 (준비되면 즉시 반환)."""
+    def ready() -> bool:
+        try:
+            return bool((page.evaluate(_JS_UI_READY) or {}).get("ready"))
+        except Exception:
+            return False
+
+    if _poll_until(page, ready, timeout_ms, 150):
+        return True
+    # 구조가 다른 페이지(달력·시간대가 없는 단일 상품 등)일 수 있으므로 실패로 끊지는 않는다
+    _log(f"예약 UI가 {timeout_ms / 1000:.0f}초 안에 그려지지 않음 — 현재 상태로 계속 진행")
+    return False
+
+
 def get_accounts(priority: list | None = None) -> list:
     """사용 가능한 (계정번호, 쿠키) 목록. priority가 주어지면 그 순서·그 계정만 사용.
 
@@ -505,7 +543,12 @@ def _select_date(page, datekey: str) -> tuple[bool, str]:
 
     state = _scan_calendar(page, datekey)
     if not state.get("calendar"):
-        return False, "no_calendar"
+        # 달력이 늦게 그려지는 경우가 있어 한 번 더 짧게 기다려 본다.
+        # (예전에는 여기서 곧바로 "달력 없음"으로 판정해 빈 페이지에서 예약을 포기했다)
+        if _poll_until(page, lambda: bool(_scan_calendar(page, datekey).get("calendar")), 2500, 300):
+            state = _scan_calendar(page, datekey)
+        else:
+            return False, "no_calendar"
 
     # 이동 한도는 처음 본 달과의 실제 거리(+여유 2)로 잡는다. 예전처럼 무조건 7번씩
     # 넘기면 도달 못 할 달을 향해 헛돌며 시간만 쓴다 (그리고 엉뚱한 달에서 끝났다).
@@ -688,8 +731,58 @@ def _find_time_button(page, t: str):
     return page.locator("button, a").nth(idx)
 
 
+# 시간대 칸이 "선택 불가"인지 — 자기 자신뿐 아니라 안쪽 버튼까지 본다.
+# 네이버는 <li class="time_item"><button class="btn_time unselectable">오전 11:00</button></li>
+# 처럼 li에는 아무 표시가 없어서, li만 보고 클릭하면 죽은 칸을 눌러 놓고 성공으로 착각한다.
+_JS_TIME_BLOCKED = r"""(sel) => {
+    const el = document.querySelector(sel);
+    if (!el) return true;
+    const BAD = /unselectable|disable|dimmed|soldout|sold_out|impossible|blocked|closed/;
+    const bad = (e) => e && ((e.className || '').toString().toLowerCase().match(BAD)
+                             || e.disabled || e.getAttribute('aria-disabled') === 'true');
+    if (bad(el)) return true;
+    for (const inner of el.querySelectorAll('button,a,[role="button"]')) {
+        if (bad(inner)) return true;
+    }
+    return false;
+}"""
+
+# 클릭한 시간대가 실제로 "선택됨"으로 바뀌었는지
+_JS_TIME_SELECTED = r"""() => {
+    const SEL = /select|active|\bon\b|checked|current|chosen/;
+    for (const el of document.querySelectorAll(
+            '[class*="time" i] button,[class*="time" i] a,[class*="time" i] li')) {
+        if (!/\d{1,2}\s*:\s*\d{2}/.test((el.textContent || ''))) continue;
+        if (el.getAttribute('aria-selected') === 'true' || el.getAttribute('aria-pressed') === 'true') return true;
+        if (SEL.test((el.className || '').toString().toLowerCase())) return true;
+    }
+    return false;
+}"""
+
+
+def _time_click_took(page) -> bool:
+    """시간대 클릭이 실제로 먹혔는지 — 선택 표시가 생겼거나 진행 버튼이 활성화됐으면 True.
+
+    둘 다 아니면 그 칸은 사실상 죽은 칸이다. 예전에는 이 확인이 없어서 선택 불가
+    슬롯을 누르고도 "시간대 선택 완료"라고 보고했고, 다음 단계에서 "예약 진행 버튼을
+    찾지 못함"이라는 엉뚱한 사유로 실패해 계정만 3개씩 소모했다.
+    """
+    def ok() -> bool:
+        try:
+            if page.evaluate(_JS_TIME_SELECTED):
+                return True
+        except Exception:
+            pass
+        return _has_any_button(page, _NEXT_BUTTON_TEXTS)
+
+    return _poll_until(page, ok, 1500, 150)
+
+
 def _select_time(page, wanted_times: list) -> str | None:
-    """wanted_times(["15:00", ...]) 중 클릭 가능한 첫 시간대 선택. 성공 시 시간 문자열 반환."""
+    """wanted_times(["15:00", ...]) 중 클릭 가능한 첫 시간대 선택. 성공 시 시간 문자열 반환.
+
+    클릭 후 선택이 실제로 반영됐는지까지 확인한다 (반영 안 되면 선택 실패로 본다).
+    """
     # 1차: 12시간/24시간 표기 통합 정밀 매칭
     for t in wanted_times:
         el = _find_time_button(page, t)
@@ -698,7 +791,9 @@ def _select_time(page, wanted_times: list) -> str | None:
                 el.scroll_into_view_if_needed(timeout=1500)
                 el.click(timeout=2000)
                 _wait_next_after_time(page)
-                return t
+                if _time_click_took(page):
+                    return t
+                _log(f"{t} 클릭했지만 선택이 반영되지 않음 — 다른 후보를 계속 찾는다")
             except Exception:
                 pass
     # 2차: 텍스트 패턴 기반 탐색 (1차 정밀 매칭이 구조 변경 등으로 실패했을 때)
@@ -730,13 +825,70 @@ def _select_time(page, wanted_times: list) -> str | None:
                                 continue
                         except Exception:
                             pass
+                        # li처럼 겉은 멀쩡한데 안쪽 버튼이 선택 불가인 칸을 걸러 낸다
+                        el.evaluate("e => e.setAttribute('data-ab-time', '1')")
+                        blocked = page.evaluate(_JS_TIME_BLOCKED, '[data-ab-time="1"]')
+                        el.evaluate("e => e.removeAttribute('data-ab-time')")
+                        if blocked:
+                            continue
                         el.scroll_into_view_if_needed(timeout=1500)
                         el.click(timeout=2000)
                         _wait_next_after_time(page)
-                        return t
+                        if _time_click_took(page):
+                            return t
                     except Exception:
                         continue
     return None
+
+
+_JS_TIME_SLOTS = r"""() => {
+    const BAD = /unselectable|disable|dimmed|soldout|sold_out|impossible|blocked|closed/;
+    const out = [];
+    for (const el of document.querySelectorAll('button,a,[role="button"]')) {
+        const t = (el.textContent || '').replace(/\s+/g, ' ').trim();
+        const m = t.match(/(\d{1,2})\s*:\s*(\d{2})/);
+        if (!m || !el.getClientRects().length) continue;
+        const cls = (el.className || '').toString().toLowerCase();
+        out.push({
+            text: t.slice(0, 24),
+            h: +m[1], mm: m[2],
+            ampm: t.includes('오후') ? 'pm' : (t.includes('오전') ? 'am' : ''),
+            blocked: !!(BAD.test(cls) || el.disabled || el.getAttribute('aria-disabled') === 'true'),
+        });
+    }
+    return out.slice(0, 40);
+}"""
+
+
+def _blocked_slots(page, wanted_times: list) -> list:
+    """요청한 시간대가 페이지에 "선택 불가" 상태로 떠 있으면 그 목록을 돌려준다.
+
+    "칸 자체가 없다"(=슬롯 소멸)와 "칸은 있는데 못 누른다"(=매진·마감)를 구분하기 위한 것.
+    후자는 계정을 바꿔도 결과가 같으므로 즉시 중단하고, 모니터도 잠시 쉬어야 한다.
+    """
+    try:
+        slots = page.evaluate(_JS_TIME_SLOTS) or []
+    except Exception:
+        return []
+    if slots:
+        _log("페이지 시간대 상태: "
+             + ", ".join(f"{s['text']}{'(선택불가)' if s['blocked'] else ''}" for s in slots[:8]))
+    hit = []
+    for t in wanted_times:
+        th, tm = t.split(":")
+        th = int(th)
+        for s in slots:
+            if s["mm"] != tm:
+                continue
+            h = s["h"]
+            if s["ampm"] == "pm":
+                h = h if h >= 13 else (h % 12) + 12
+            elif s["ampm"] == "am":
+                h = 0 if h == 12 else h
+            if (h == th or (not s["ampm"] and h <= 12 and h + 12 == th)) and s["blocked"]:
+                hit.append(t)
+                break
+    return hit
 
 
 def _ensure_quantity(page, count: int) -> None:
@@ -882,7 +1034,8 @@ def _is_success(page) -> bool:
 
 
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
-             cookie_str: str | None = None, account: int | None = None) -> dict:
+             cookie_str: str | None = None, account: int | None = None,
+             budget_sec: float | None = None) -> dict:
     """예약 시도. wanted_times는 우선순위 순 시간 목록 (예: ["15:00", "16:00"]).
 
     cookie_str 미지정 시 사용 가능한 첫 계정의 쿠키 사용."""
@@ -897,10 +1050,14 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
             cookie_str = ""
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
 
-    def result(success: bool, message: str, booked_time: str | None = None) -> dict:
+    def result(success: bool, message: str, booked_time: str | None = None,
+               unbookable: bool = False) -> dict:
         # elapsed: 이 계정 시도에 걸린 초. 어디서 늦어지는지 로그로 추적하기 위한 값.
+        # unbookable: 페이지가 그 슬롯을 "선택 불가"로 표시 — 계정을 바꿔도, 곧 다시
+        #             시도해도 결과가 같다는 신호 (워커·모니터가 백오프에 쓴다).
         return {"success": success, "message": message, "booked_time": booked_time,
                 "dry_run": dry_run, "screenshots": shots, "account": account,
+                "unbookable": unbookable,
                 "elapsed": round(time_mod.time() - t0, 1)}
 
     if not cookie_str:
@@ -958,8 +1115,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 # 리다이렉트는 URL만 보면 알 수 있다 — UI를 기다리며 몇 초 버리기 전에 먼저 판정
                 problem = page_problem()
                 if not problem:
-                    if not _wait_any(page, f"{_CALENDAR_SELECTOR}, {_TIME_UI_SELECTOR}", 6000):
-                        page.wait_for_timeout(800)   # 구조가 다른 페이지 — 조금만 더 기다려 본다
+                    _wait_booking_ui(page)
                     problem = page_problem()         # 로딩 중 뒤늦게 이동하는 경우까지
                 if problem:
                     _shot(page, problem[0], shots, always=True)
@@ -989,8 +1145,13 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
 
                 booked_time = _select_time(page, wanted_times)
                 if not booked_time:
+                    blocked = _blocked_slots(page, wanted_times)
                     _shot(page, "time_fail", shots, always=True)
                     _dump_dom_debug(page, "time_fail")
+                    if blocked:
+                        # 칸은 떠 있는데 누를 수 없는 상태 — 계정을 바꿔도 같다
+                        return result(False, f"시간대 {blocked}이(가) 예약 페이지에서 선택 불가 상태 "
+                                             f"(매진·마감) — 계정을 바꿔도 동일", unbookable=True)
                     return result(False, f"시간대 {wanted_times} 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)")
                 _log(f"시간대 선택: {booked_time} ({time_mod.time() - t0:.1f}초)")
                 _shot(page, "03_time", shots)
@@ -1027,8 +1188,13 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     _dump_dom_debug(page, "date_mismatch")
                     return result(False, f"날짜를 선택하지 못함 — {conflict}")
 
-                # 계정별로 오래 붙잡지 않도록 타임아웃 단축 (다계정 스윕이 5분씩 걸리던 원인)
-                deadline = time_mod.time() + 18
+                # 계정별로 오래 붙잡지 않도록 타임아웃 단축 (다계정 스윕이 5분씩 걸리던 원인).
+                # budget_sec이 주어지면(모니터 안에서의 선시도) 남은 예산 안에서만 확정을 기다린다.
+                confirm_wait = 18.0
+                if budget_sec:
+                    left = budget_sec - (time_mod.time() - t0)
+                    confirm_wait = max(6.0, min(confirm_wait, left))
+                deadline = time_mod.time() + confirm_wait
                 step = 0
                 final_clicks = 0
                 while time_mod.time() < deadline:

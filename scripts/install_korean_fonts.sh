@@ -24,6 +24,15 @@ if has_korean_font; then
   exit 0
 fi
 
+# 캐시(actions/cache)로 폰트 파일만 복원된 상태 — 색인만 다시 만들면 끝난다
+if ls "${FONT_DIR}"/NanumGothic-*.ttf >/dev/null 2>&1; then
+  fc-cache -f "$FONT_DIR" >/dev/null 2>&1 || fc-cache -f >/dev/null 2>&1 || true
+  if has_korean_font; then
+    echo "캐시된 한글 폰트 사용: $(fc-list :lang=ko | head -1 | cut -d: -f2)"
+    exit 0
+  fi
+fi
+
 echo "한글 폰트 없음 → 나눔고딕 설치 시도"
 mkdir -p "$FONT_DIR"
 downloaded=0

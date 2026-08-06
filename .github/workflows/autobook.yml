@@ -49,21 +49,37 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip                      # 매번 새로 받던 wheel을 캐시에서 (약 3초 절약)
 
       - run: pip install --quiet --disable-pip-version-check requests playwright
 
       - name: Playwright 캐시
+        id: pw-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}
 
+      - name: 한글 폰트 캐시
+        id: font-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/fonts
+          key: korean-fonts-nanum-${{ runner.os }}
+
       - name: Chromium 설치
         # 취소표는 몇 초 만에 사라지므로 준비 시간도 성공률에 직결된다.
         # --with-deps는 매번 apt를 돌려 20~40초를 쓰는데, 러너 이미지에 필요한
         # 라이브러리가 대부분 들어 있어 보통 불필요하다. 실제로 브라우저가 뜨는지
-        # 확인해 보고, 안 뜰 때만 의존성을 설치한다.
+        # 확인해 보고, 안 뜰 때만 설치·의존성 보강을 한다.
+        # (캐시가 맞으면 `playwright install`을 아예 건너뛴다 — 약 8초 절약)
         run: |
+          python - <<'PY' && exit 0
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              p.chromium.launch(headless=True).close()
+          print("chromium 캐시 사용 — 설치 생략")
+          PY
           playwright install chromium
           python - <<'PY' || playwright install-deps chromium
           from playwright.sync_api import sync_playwright
@@ -74,7 +90,7 @@ jobs:
 
       - name: 한글 폰트 설치
         # 러너에 한글 폰트가 없어 스크린샷의 한글이 전부 네모(□)로 찍힌다.
-        # 나눔고딕 TTF만 내려받아 1~2초에 끝낸다 (apt는 실패했을 때만).
+        # 캐시가 있으면 fc-cache만 돌려 1초 안에 끝난다.
         run: bash scripts/install_korean_fonts.sh
 
       - name: 예약 시도
