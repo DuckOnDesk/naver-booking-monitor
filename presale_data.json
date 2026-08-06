@@ -1,6 +1,7 @@
 {
-  "updated_at": "2026-08-06T22:34:42.452717+09:00",
+  "updated_at": "2026-08-06T22:40:19.320492+09:00",
   "watched_places": [
+    "1646280504",
     "1893291672",
     "2002559489",
     "2006916982",
@@ -319,6 +320,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2062283789",
+      "name": "드래곤볼 전시",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.22.",
+      "operationEnd": "26.11.15.",
+      "remainingDays": 16,
+      "status": "D-16",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260804_92/1785826832687Iwuwr_JPEG/edited-1785826832266-0.jpg",
+      "roadAddress": "뚝섬로 403",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
       "hasBooking": true,
@@ -347,28 +374,30 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2062283789",
-      "name": "드래곤볼 전시",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.22.",
-      "operationEnd": "26.11.15.",
-      "remainingDays": 16,
-      "status": "D-16",
+      "id": "1646280504",
+      "name": "틴더 패스포트 라운지",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1710955",
+      "bookingBusinessId": "1710955",
+      "operationStart": "26.08.21.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 15,
+      "status": "D-15",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260804_92/1785826832687Iwuwr_JPEG/edited-1785826832266-0.jpg",
-      "roadAddress": "뚝섬로 403",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260806_282/17860032950320Xfb9_PNG/image.png",
+      "roadAddress": "연무장7길 16 한서빌딩 1층",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-06T22:40:05.606761+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
+      "discoveredAt": "2026-08-06T22:40:05.606761+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -2675,9 +2704,17 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-08-06T20:36:37.211349+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "1646280504",
+      "place_name": "틴더 패스포트 라운지",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1710955",
+      "ts": "2026-08-06T22:40:05.606761+09:00"
     }
   ],
   "seen_place_ids": [
+    "1646280504",
     "1893291672",
     "2001371441",
     "2001855074",
