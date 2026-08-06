@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-06T14:24:04.885526+09:00",
+  "updated_at": "2026-08-06T14:29:53.303898+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -1185,7 +1185,7 @@
     {
       "id": "2007641747",
       "name": "드래곤빌리지 팝업 SVIP 라운지",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711162",
       "bookingBusinessId": "1711162",
       "operationStart": "26.08.14.",
