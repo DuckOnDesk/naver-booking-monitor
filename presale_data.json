@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-06T18:27:41.962243+09:00",
+  "updated_at": "2026-08-06T18:33:22.265647+09:00",
   "watched_places": [
     "1893291672",
     "2002559489",
@@ -11,6 +11,7 @@
     "2021119485",
     "2021947047",
     "2027174717",
+    "2033013073",
     "2043425985",
     "2043461454",
     "2045247144",
@@ -341,6 +342,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2033013073",
+      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.04.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 29,
+      "status": "D-29",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
+      "roadAddress": "아차산로 84 1-2 F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-06T18:33:08.310630+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -2651,6 +2678,13 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-08-06T15:45:53.339078+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2033013073",
+      "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-08-06T18:33:08.310630+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2683,6 +2717,7 @@
     "2027174717",
     "2027303446",
     "2030273456",
+    "2033013073",
     "2034762449",
     "2036674429",
     "2038805228",
