@@ -7,8 +7,13 @@ autobook.yml 워크플로(auto_book_worker.py)를 디스패치하고 바로 다�
 넘어가므로, 예약을 시도하는 몇 분 동안에도 감시가 멈추지 않는다. 워커의 결과는
 auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
 
+로그는 상태가 바뀔 때만 남긴다. 같은 자리 상황이 이어지는 회차는 줄을 생략하고
+회차 끝에 생략 건수만 한 줄로 요약한다 (log_state 참고).
+
 환경변수: NTFY_TOPIC (선택, monitors.json 값 override)
           CHECK_INTERVAL_SEC, LOOP_HOURS
+          LOG_DEDUP (0이면 종전처럼 매 회차 전부 출력)
+          LOG_HEARTBEAT_MIN (변화가 없어도 이 간격마다 한 번은 출력, 기본 10분)
 
 monitors.json 항목 선택 필드:
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
@@ -84,6 +89,63 @@ KAKAO_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
     "Referer": "https://booking.kakao.com/",
 }
+
+
+# ── 상태 변화 기반 로그 ────────────────────────────────────────────────
+# 자리 상황은 대부분의 회차에서 직전 회차와 똑같다. 같은 줄을 매 회차 다시 찍으면
+# 로그가 수천 줄로 불어나 정작 변화가 묻히고, 항목·날짜가 많을수록 stdout 쓰기가
+# 한 회차 시간을 갉아먹는다. 그래서 "정상 상태" 로그는 바뀐 줄만 남긴다.
+#   - 최초 관측(프로세스 시작 후 그 항목/날짜를 처음 본 회차)은 항상 남긴다
+#   - 이후에는 직전 상태와 다를 때만 남긴다 (자리 수 증감 포함)
+#   - 변화가 없어도 LOG_HEARTBEAT_MIN 간격으로 한 번은 남겨 감시가 살아 있음을 보인다
+# 오류·경고·전환 알림은 이 규칙을 타지 않고 항상 그대로 출력한다.
+# 알림(ntfy)·자동예약 판단은 이 규칙과 무관하다 — 출력만 줄인다.
+LOG_DEDUP = os.environ.get("LOG_DEDUP", "1") != "0"
+LOG_HEARTBEAT_MIN = float(os.environ.get("LOG_HEARTBEAT_MIN", "10"))
+
+_log_state: dict[str, tuple[str, float]] = {}  # key → (마지막 출력 상태 서명, 출력 시각)
+_log_skipped = 0                               # 이번 회차에 생략한 줄 수
+
+
+def log_state(key: str, body: str, *, sig: str | None = None, now_str: str | None = None,
+              stamp: bool = True) -> bool:
+    """상태가 직전과 달라졌을 때만 로그를 남긴다. 실제로 출력했으면 True.
+
+    key  : 상태 단위(항목 또는 항목:날짜). 같은 key끼리 직전 값과 비교한다.
+    body : 타임스탬프를 뺀 본문. 본문이 곧 상태이므로 그대로 서명으로 쓴다.
+    sig  : 본문에 '남은 시간'처럼 매 회차 변하는 값이 섞여 있을 때만 따로 넘긴다.
+    stamp: False면 타임스탬프 없이 본문만 출력한다 (들여쓴 보조 로그용).
+    """
+    global _log_skipped
+    signature = body if sig is None else sig
+    now = time.monotonic()
+    prev = _log_state.get(key)
+    if LOG_DEDUP and prev is not None:
+        prev_sig, prev_at = prev
+        if prev_sig == signature and (now - prev_at) < LOG_HEARTBEAT_MIN * 60:
+            _log_skipped += 1
+            return False
+    _log_state[key] = (signature, now)
+    if not stamp:
+        print(body, flush=True)
+        return True
+    ts = now_str or datetime.now(timezone(timedelta(hours=9))).strftime("%H:%M:%S")
+    print(f"[{ts}] {body}", flush=True)
+    return True
+
+
+def reset_log_state() -> None:
+    """상태 기억을 지운다 (테스트에서 회차 간 독립성을 확보할 때 사용)."""
+    global _log_skipped
+    _log_state.clear()
+    _log_skipped = 0
+
+
+def log_round_summary() -> None:
+    """이번 회차에 생략한 줄 수를 한 줄로 요약한다."""
+    if _log_skipped:
+        print(f"  → 직전과 동일한 상태 {_log_skipped}줄 생략 "
+              f"(변화 시 즉시 기록 / 최대 {LOG_HEARTBEAT_MIN:g}분 간격 재출력)", flush=True)
 
 
 def load_monitors(from_github: bool = False) -> dict:
@@ -1135,9 +1197,10 @@ def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
         print(f"  [자동예약] {name} — 예약 기간 내 추가 날짜 {len(extra)}개 중 "
               f"가까운 {AUTO_BOOK_SWEEP_MAX}개만 이번 회차에 확인", flush=True)
         extra = extra[:AUTO_BOOK_SWEEP_MAX]
-    print(f"  [자동예약] {name} — 날짜 미지정: 예약 기간({_period_label(period)}) 중 "
-          f"감시 대상 밖 날짜 {len(extra)}개 추가 확인: {', '.join(extra[:5])}"
-          f"{' 외' if len(extra) > 5 else ''}", flush=True)
+    log_state(f"{item_id}:sweep",
+              f"  [자동예약] {name} — 날짜 미지정: 예약 기간({_period_label(period)}) 중 "
+              f"감시 대상 밖 날짜 {len(extra)}개 추가 확인: {', '.join(extra[:5])}"
+              f"{' 외' if len(extra) > 5 else ''}", stamp=False)
     for datekey in extra:
         slot_info = fetch_day_slots(parsed, datekey, by_date.get(datekey))
         if not slot_info["queried"]:
@@ -1231,6 +1294,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     except Exception:
         sched_cache = {}
 
+    global _log_skipped
+    _log_skipped = 0
+
     _pruned_dates: list[tuple[str, str]] = []
     _reprobed_this_round = 0  # 이번 회차에 TTL 만료로 재탐색한 항목 수
     reprobe_reqs = load_reprobe_requests()  # 웹앱의 "운영 기간 초기화" 요청
@@ -1244,8 +1310,11 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             start_at = _parse_dt(ab_cfg["start_at"])
             if start_at and now_kst < start_at:
                 remain_min = int((start_at - now_kst).total_seconds() // 60)
-                print(f"[{now_str}] ⏸ {name} — 자동예약 시작 대기 중 "
-                      f"({start_at.strftime('%m/%d %H:%M')}, {remain_min}분 남음, 탐색 보류)", flush=True)
+                # 남은 시간은 매 회차 줄어드니 서명에서 뺀다 (상태는 '대기 중' 하나)
+                log_state(f"{item.get('id', name)}:status",
+                          f"⏸ {name} — 자동예약 시작 대기 중 "
+                          f"({start_at.strftime('%m/%d %H:%M')}, {remain_min}분 남음, 탐색 보류)",
+                          sig=f"ab_wait:{ab_cfg['start_at']}", now_str=now_str)
                 continue
 
         if item.get("type") == "kakao":
@@ -1267,7 +1336,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             # available=true인 날짜가 하나도 없으면 예약창 닫힘
             sale_dates = [d for d in all_kakao if d.get("available")]
             if not sale_dates:
-                print(f"[{now_str}] 🔒 {name} — 예약창 닫힘", flush=True)
+                log_state(f"{item_id}:status", f"🔒 {name} — 예약창 닫힘", now_str=now_str)
                 for k in list(alerted.keys()):
                     if k.startswith(item_prefix) and k != closed_key:
                         alerted.pop(k)
@@ -1280,8 +1349,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
                 if ntfy_topic:
                     send_ntfy(ntfy_topic, f"✅ {name} 예약창 열림", "예약창이 열렸습니다. 직접 확인해보세요!", url)
+                _log_state[f"{item_id}:status"] = ("열림", time.monotonic())
             else:
-                print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
+                log_state(f"{item_id}:status", f"✅ {name} — 예약창 열림",
+                          sig="열림", now_str=now_str)
 
             new_date_details = []
             current_available_set = set()
@@ -1293,13 +1364,13 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 ak = f"{item_id}:{dk}"
                 if stock > 0:
                     current_available_set.add(dk)
-                    print(f"[{now_str}] 🎉 {name} {ds} {stock}자리 (예약가능:{stock})", flush=True)
+                    log_state(f"log:{ak}", f"🎉 {name} {ds} {stock}자리 (예약가능:{stock})", now_str=now_str)
                     if ak not in alerted:
                         new_date_details.append(f"{ds} {stock}자리")
                         alerted[ak] = stock
                 else:
                     alerted.pop(ak, None)
-                    print(f"[{now_str}] ❌ {name} {ds} 매진 (예약가능:0)", flush=True)
+                    log_state(f"log:{ak}", f"❌ {name} {ds} 매진 (예약가능:0)", now_str=now_str)
 
             for k in list(alerted.keys()):
                 if k.startswith(item_prefix) and k != closed_key and k[len(item_prefix):] not in current_available_set:
@@ -1429,7 +1500,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         and not k.endswith(":closed")):
                     alerted.pop(k)
             alerted[closed_key] = 1
-            print(f"[{now_str}] 🔒 {name} — 예약창 닫힘 ({closed_reason})", flush=True)
+            log_state(f"{item_id}:status", f"🔒 {name} — 예약창 닫힘 ({closed_reason})", now_str=now_str)
         else:
             just_reopened = False
             if closed_key in alerted:
@@ -1444,9 +1515,11 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
                 if ntfy_topic:
                     send_ntfy(ntfy_topic, f"✅ {name} 예약창 열림", "예약창이 열렸습니다. 직접 확인해보세요!", url)
+                _log_state[f"{item_id}:status"] = ("열림", time.monotonic())
             else:
                 just_reopened = False
-                print(f"[{now_str}] ✅ {name} — 예약창 열림", flush=True)
+                log_state(f"{item_id}:status", f"✅ {name} — 예약창 열림",
+                          sig="열림", now_str=now_str)
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
         if result is None:
@@ -1467,7 +1540,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             scan_end = date.fromisoformat(avail_end) if avail_end else scan_start + timedelta(days=30)
 
             if not discovered:
-                print(f"[{now_str}] — {name} 전체 날짜 스캔 중...", flush=True)
+                log_state(f"{item_id}:scan", f"— {name} 전체 날짜 스캔 중...", now_str=now_str)
                 cur = scan_start
                 while cur <= scan_end:
                     dk = cur.isoformat()
@@ -1489,7 +1562,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         cur += timedelta(days=1)
 
             if not discovered:
-                print(f"[{now_str}] — {name} 판매 중인 날짜 없음 (캐시 기간 내)", flush=True)
+                log_state(f"{item_id}:nosale", f"— {name} 판매 중인 날짜 없음 (캐시 기간 내)", now_str=now_str)
                 continue
             effective_dates = discovered
         else:
@@ -1502,13 +1575,18 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if (not avail_start or d >= avail_start) and (not avail_end or d <= avail_end)
             ]
             if len(trimmed) < len(effective_dates):
-                print(f"[{now_str}] — {name} 운영 기간({avail_start}~{avail_end}) 외 날짜 {len(effective_dates)-len(trimmed)}개 제외", flush=True)
+                log_state(f"{item_id}:trim",
+                          f"— {name} 운영 기간({avail_start}~{avail_end}) 외 날짜 "
+                          f"{len(effective_dates)-len(trimmed)}개 제외", now_str=now_str)
             effective_dates = trimmed
 
         for datekey in effective_dates:
             dow       = weekdays[date.fromisoformat(datekey).weekday()]
             date_str  = f"{datekey[5:]}({dow})"
             alert_key = f"{item_id}:{datekey}"
+            # 날짜 하나 = 상태 하나. 어느 분기로 가든 같은 key로 비교해야
+            # 매진 ↔ 자리 있음 같은 분기 전환이 '변화'로 잡힌다.
+            log_key   = f"log:{item_id}:{datekey}"
             time_range = target_time_map.get(datekey)
 
             if datekey < today_str:
@@ -1558,7 +1636,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     alerted.pop(f"{alert_key}:pre", None)
                     reason = "오늘 남은 시간대 없음 (모두 지남)" if datekey == today_str \
                         else "예약 가능한 시간대 없음"
-                    print(f"[{now_str}] ⏭ {name} {date_str} {reason}", flush=True)
+                    log_state(log_key, f"⏭ {name} {date_str} {reason}", now_str=now_str)
                     continue
 
                 if slot_info["queried"] and slot_info["total"] > 0 and not slot_info["times"]:
@@ -1566,7 +1644,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     alerted.pop(f"{alert_key}:pre", None)
                     r_stock   = slot_info.get("range_stock",   d["stock"])
                     r_booking = slot_info.get("range_booking", d["bookingCount"])
-                    print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 예약 가능 자리 없음 (재고:{r_stock} / 예약:{r_booking})", flush=True)
+                    log_state(log_key,
+                              f"❌ {name} {date_str}{time_hint} 예약 가능 자리 없음 "
+                              f"(재고:{r_stock} / 예약:{r_booking})", now_str=now_str)
                     continue
 
                 r_stock   = slot_info.get("range_stock",   d["stock"])
@@ -1586,7 +1666,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     prev_slots = alerted.get(closed_alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
-                    print(f"[{now_str}] 🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) - 예약창 닫힘{restriction_note}", flush=True)
+                    log_state(log_key,
+                              f"🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} "
+                              f"({stock_info}) - 예약창 닫힘{restriction_note}", now_str=now_str)
 
                     if not is_restricted and available > 0 and (prev_slots is None or increased):
                         cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
@@ -1607,7 +1689,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     prev_slots = alerted.get(alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
 
-                    print(f"[{now_str}] 🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}){restriction_note}", flush=True)
+                    log_state(log_key,
+                              f"🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} "
+                              f"({stock_info}){restriction_note}", now_str=now_str)
 
                     if not is_restricted:
                         cal_ok = True
@@ -1639,7 +1723,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
                     log_parts, _ = _format_slot_parts(per_slot, None)
-                    print(f"[{now_str}] ⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} ({stock_info}) · {window_reason}{restriction_note}", flush=True)
+                    log_state(log_key,
+                              f"⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} "
+                              f"({stock_info}) · {window_reason}{restriction_note}", now_str=now_str)
                     if not is_restricted and pre_key not in alerted:
                         if item.get("booking_open_datetime"):
                             open_dt = _parse_dt(item["booking_open_datetime"])
@@ -1696,12 +1782,14 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         r_stock = r_booking = None
 
                 if r_stock is None:
-                    print(f"[{now_str}] ❌ {name} {date_str}{time_hint} 매진 (재고 정보 없음)", flush=True)
+                    log_state(log_key, f"❌ {name} {date_str}{time_hint} 매진 (재고 정보 없음)", now_str=now_str)
                     if has_target_dates:
                         _pruned_dates.append((item_id, datekey))
                     continue
 
-                print(f"[{now_str}] ❌ {name} {date_str}{time_hint} {_sold_out_label(r_stock, r_booking)}", flush=True)
+                log_state(log_key,
+                          f"❌ {name} {date_str}{time_hint} {_sold_out_label(r_stock, r_booking)}",
+                          now_str=now_str)
                 if has_target_dates and r_stock == 0:
                     _pruned_dates.append((item_id, datekey))
 
@@ -1713,6 +1801,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
     if _pruned_dates:
         prune_dead_dates(_pruned_dates)
+
+    log_round_summary()
 
 
 def prune_dead_dates(pruned: list) -> None:

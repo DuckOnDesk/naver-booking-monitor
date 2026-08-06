@@ -88,6 +88,9 @@ def run_check(day, hourly, target_dates, calendar_status=None, api_slot_count=No
     def fake_print(*args, **kwargs):
         logs.append(" ".join(str(a) for a in args))
 
+    # 로그는 상태가 바뀔 때만 남는다. 시나리오끼리 상태를 물려받지 않도록 매번 초기화.
+    cb.reset_log_state()
+
     builtins.print = fake_print
     try:
         cb.check_all(
