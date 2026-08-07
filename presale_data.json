@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-07T13:01:49.516302+09:00",
+  "updated_at": "2026-08-07T13:07:27.520025+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -646,7 +646,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
