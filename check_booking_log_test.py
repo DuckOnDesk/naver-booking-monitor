@@ -8,7 +8,7 @@
 
 확인 내용:
   - 처음 본 날짜는 자리 유무와 관계없이 항상 로그를 남긴다
-  - 다음 회차에 상태가 같으면 로그를 생략하고 생략 건수만 요약한다
+  - 다음 회차에 상태가 같으면 회차 머리글까지 통째로 침묵한다
   - 자리 수가 바뀌면(증가·감소) 즉시 다시 남긴다
   - 매진 ↔ 자리 있음처럼 분기가 바뀌면 즉시 다시 남긴다
   - 변화가 없어도 LOG_HEARTBEAT_MIN이 지나면 한 번 다시 남긴다
@@ -103,10 +103,9 @@ def main() -> int:
     check(len(first) == 1 and "3자리" in first[0], f"최초 관측 1줄 (실제: {first})")
     check(any("예약 가능" in t for t in sent), f"최초 자리 발견 알림 (실제: {sent})")
 
-    print("2) 같은 상태가 이어지면 생략한다")
+    print("2) 상태가 그대로면 회차 전체가 침묵한다")
     logs, sent = run_round([unit("11:00", stock=3)], alerted)
-    check(date_lines(logs) == [], f"날짜 줄 없음 (실제: {date_lines(logs)})")
-    check(any("생략" in l for l in logs), f"생략 건수 요약 (실제: {logs})")
+    check(logs == [], f"한 줄도 찍지 않음 (실제: {logs})")
     check(sent == [], f"상태가 같으면 알림도 없음 (실제: {sent})")
 
     print("3) 자리 수가 바뀌면 즉시 남긴다")

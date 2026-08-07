@@ -24,6 +24,7 @@ monitors.json 항목 선택 필드:
                          설정 시 해당 시각 이후 + 자리 있을 때만 알림 발송
 """
 
+import builtins
 import json
 import os
 import re
@@ -121,14 +122,51 @@ KAKAO_HEADERS = {
 # 한 회차 시간을 갉아먹는다. 그래서 "정상 상태" 로그는 바뀐 줄만 남긴다.
 #   - 최초 관측(프로세스 시작 후 그 항목/날짜를 처음 본 회차)은 항상 남긴다
 #   - 이후에는 직전 상태와 다를 때만 남긴다 (자리 수 증감 포함)
-#   - 변화가 없어도 LOG_HEARTBEAT_MIN 간격으로 한 번은 남겨 감시가 살아 있음을 보인다
+#   - 바뀐 게 하나도 없는 회차는 회차 머리글까지 통째로 침묵한다
 # 오류·경고·전환 알림은 이 규칙을 타지 않고 항상 그대로 출력한다.
 # 알림(ntfy)·자동예약 판단은 이 규칙과 무관하다 — 출력만 줄인다.
+#
+# 완전히 조용해지면 감시가 도는지 멈췄는지 구분이 안 되므로 두 단계로 살아 있음을 알린다.
+#   LOG_TICK_MIN      무변동이 이어질 때 이 간격마다 한 줄 (회차·남은 시간·무변동 건수)
+#   LOG_HEARTBEAT_MIN 변화가 없어도 이 간격마다 상태 줄 전체를 다시 찍는다 (스냅샷)
 LOG_DEDUP = os.environ.get("LOG_DEDUP", "1") != "0"
-LOG_HEARTBEAT_MIN = _env_num("LOG_HEARTBEAT_MIN", 10.0, float)
+LOG_HEARTBEAT_MIN = _env_num("LOG_HEARTBEAT_MIN", 60.0, float)
+LOG_TICK_MIN = _env_num("LOG_TICK_MIN", 10.0, float)
 
 _log_state: dict[str, tuple[str, float]] = {}  # key → (마지막 출력 상태 서명, 출력 시각)
 _log_skipped = 0                               # 이번 회차에 생략한 줄 수
+_round_header: str | None = None               # 아직 안 찍은 회차 머리글
+_round_printed = False                         # 이번 회차에 뭐라도 찍었는지
+_last_tick_at = 0.0                            # 마지막으로 살아 있음을 알린 시각
+
+
+def set_round_header(text: str) -> None:
+    """회차 머리글을 예약해 둔다. 실제 출력은 이 회차에 남길 게 생겼을 때."""
+    global _round_header, _round_printed
+    _round_header, _round_printed = text, False
+
+
+def flush_round_header() -> None:
+    """예약된 머리글이 있으면 지금 찍는다 (다른 줄보다 먼저 나오도록)."""
+    global _round_header, _round_printed, _last_tick_at
+    _round_printed = True
+    _last_tick_at = time.monotonic()
+    if _round_header is not None:
+        # 아래 print 래퍼를 거치면 무한 재귀가 되므로 먼저 비우고 원본으로 찍는다
+        header, _round_header = _round_header, None
+        builtins.print(header, flush=True)
+
+
+def print(*args, **kwargs):     # noqa: A001 — 이 모듈 안의 print를 의도적으로 가린다
+    """출력 직전에 회차 머리글을 먼저 내보낸다.
+
+    머리글을 늦게 찍는 방식이라, 어느 줄이 먼저 나오든 그 앞에 머리글이 와야 한다.
+    출력 지점이 수십 군데(상태 줄·경고·오류·자동예약·진단)라 호출부를 일일이
+    고치는 대신 모듈의 print를 한 겹 감싼다. builtins.print를 호출 시점에
+    찾으므로 테스트가 print를 바꿔치기해도 그대로 동작한다.
+    """
+    flush_round_header()
+    builtins.print(*args, **kwargs)
 
 
 def log_state(key: str, body: str, *, sig: str | None = None, now_str: str | None = None,
@@ -150,6 +188,7 @@ def log_state(key: str, body: str, *, sig: str | None = None, now_str: str | Non
             _log_skipped += 1
             return False
     _log_state[key] = (signature, now)
+    flush_round_header()
     if not stamp:
         print(body, flush=True)
         return True
@@ -160,17 +199,34 @@ def log_state(key: str, body: str, *, sig: str | None = None, now_str: str | Non
 
 def reset_log_state() -> None:
     """상태 기억을 지운다 (테스트에서 회차 간 독립성을 확보할 때 사용)."""
-    global _log_skipped
+    global _log_skipped, _round_header, _round_printed, _last_tick_at
     _log_state.clear()
     _log_skipped = 0
+    _round_header, _round_printed, _last_tick_at = None, False, 0.0
     _url_checked_at.clear()   # 예약창 재확인 주기도 같이 리셋
 
 
 def log_round_summary() -> None:
-    """이번 회차에 생략한 줄 수를 한 줄로 요약한다."""
-    if _log_skipped:
+    """이번 회차에 생략한 줄 수를 한 줄로 요약한다.
+
+    아무것도 안 찍힌 회차에서는 이 줄도 찍지 않는다. 그 회차는 통째로 침묵한다.
+    """
+    if _round_printed and _log_skipped:
         print(f"  → 직전과 동일한 상태 {_log_skipped}줄 생략 "
               f"(변화 시 즉시 기록 / 최대 {LOG_HEARTBEAT_MIN:g}분 간격 재출력)", flush=True)
+
+
+def log_round_tick(iteration: int, remaining_min: float) -> None:
+    """무변동으로 조용히 지나간 회차에, 가끔 살아 있다는 한 줄만 남긴다."""
+    global _round_header, _last_tick_at
+    if _round_printed:
+        return                                   # 이미 뭔가 찍힌 회차
+    now = time.monotonic()
+    if now - _last_tick_at >= LOG_TICK_MIN * 60:
+        _last_tick_at = now
+        print(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 | "
+              f"무변동 ({len(_log_state)}건 동일) ---", flush=True)
+    _round_header = None
 
 
 def load_monitors(from_github: bool = False) -> dict:
@@ -1488,9 +1544,12 @@ class UrlGate:
 
 
 def log_url_check_summary() -> None:
-    """이번 회차에 브라우저를 몇 번 켰고 몇 건을 건너뛰었는지 한 줄로."""
+    """이번 회차에 브라우저를 몇 번 켰고 몇 건을 건너뛰었는지 한 줄로.
+
+    아무것도 안 찍힌 회차에서는 이 줄도 찍지 않는다 (통째로 침묵).
+    """
     skipped = sum(_url_skips.values())
-    if not (_url_checks_done or skipped):
+    if not _round_printed or not (_url_checks_done or skipped):
         return
     detail = ", ".join(f"{r} {n}" for r, n in sorted(_url_skips.items()))
     log_state("round:urlcheck",
@@ -1521,9 +1580,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     except Exception:
         sched_cache = {}
 
-    global _log_skipped, _url_checks_done
+    global _log_skipped, _url_checks_done, _round_printed
     _log_skipped = 0
     _url_checks_done = 0
+    _round_printed = False      # 이 회차에 뭐라도 찍혔는지 (조용한 회차 판정용)
     _url_skips.clear()
 
     _pruned_dates: list[tuple[str, str]] = []
@@ -2212,6 +2272,9 @@ def commit_files(paths: list, message: str, label: str = "") -> bool:
         subprocess.run(["git", "add", *paths], check=True)
         if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
             return False
+        # git이 stdout을 그대로 물려받아 찍으므로, 회차 머리글을 먼저 내보낸다
+        # (조용한 회차에 커밋 로그만 머리글 없이 뜨는 것을 막는다).
+        flush_round_header()
         subprocess.run(["git", "commit", "-m", message], check=True)
         subprocess.run(["git", "fetch", "origin"], check=True)
         subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=True)
@@ -2351,7 +2414,8 @@ def main():
             print(f"[경고] monitors.json 읽기 실패, 이전 설정 유지: {exc}", flush=True)
 
         remaining_min = (end_time - time.time()) / 60
-        print(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 ---", flush=True)
+        # 머리글은 예약만 해 둔다. 이 회차에 남길 게 하나도 없으면 머리글도 안 찍는다.
+        set_round_header(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 ---")
         # 별도 워크플로에서 돌고 있는 자동예약의 결과를 먼저 반영
         sync_auto_book_state(monitors, alerted)
         global _rate_limit_hits
@@ -2363,6 +2427,10 @@ def main():
 
         if save_alerted(alerted):
             commit_alerted()
+
+        # 여기까지 아무것도 안 찍혔으면 이 회차는 통째로 조용히 지나간다.
+        # 다만 감시가 멈춘 것과 구분되도록 가끔 한 줄은 남긴다.
+        log_round_tick(iteration, remaining_min)
 
         if _rate_limit_hits > 0 and interval < 120:
             interval = 120
