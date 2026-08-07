@@ -39,43 +39,18 @@ jobs:
       - name: Chromium 설치
         run: playwright install chromium --with-deps
 
-      - name: 한글 폰트 캐시
-        uses: actions/cache@v4
-        with:
-          path: ~/.local/share/fonts
-          key: korean-fonts-nanum-${{ runner.os }}
-
-      - name: 한글 폰트 설치
-        # 선(先)시도가 남기는 스크린샷의 한글이 네모(□)로 깨지지 않도록
-        run: bash scripts/install_korean_fonts.sh
-
       - name: 예약 자리 확인
         env:
-          # 자동예약 워크플로(autobook.yml) 디스패치용 — 계정 스윕은 여전히 별도 job에서 돈다
-          GITHUB_TOKEN: ${{ github.token }}
+          # 이 워크플로는 자리 감시만 한다. 예약 시도는 자리를 찾았을 때
+          # autobook.yml(auto_book_worker.py)을 디스패치해 그쪽에서 수행한다.
+          # 여기서 직접 예약을 누르면 그동안 감시가 멈춘다.
+          GITHUB_TOKEN: ${{ github.token }}   # autobook.yml 디스패치용
           CHECK_INTERVAL_SEC: "60"
           LOOP_HOURS: "5.5"
           SCHEDULE_CACHE_TTL_MIN: "60"   # 운영 기간 캐시 재탐색 주기(분), 0 = 끔
-          # 감지 즉시 첫 계정으로 여기서 한 번 예약을 눌러 본다 (워크플로 큐 대기 30~70초 회피).
-          # 끄려면 저장소 변수 AUTO_BOOK_INLINE=0.
-          AUTO_BOOK_INLINE: ${{ vars.AUTO_BOOK_INLINE }}
-          AUTO_BOOK_INLINE_BUDGET_SEC: ${{ vars.AUTO_BOOK_INLINE_BUDGET_SEC }}
-          NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
-          NAVER_COOKIES_1: ${{ secrets.NAVER_COOKIES_1 }}
-          NAVER_COOKIES_2: ${{ secrets.NAVER_COOKIES_2 }}
-          NAVER_COOKIES_3: ${{ secrets.NAVER_COOKIES_3 }}
-          NAVER_COOKIES_4: ${{ secrets.NAVER_COOKIES_4 }}
-          NAVER_COOKIES_5: ${{ secrets.NAVER_COOKIES_5 }}
+          NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}   # 예약창 열림/닫힘 확인용
           KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}
         run: python -u check_booking.py
-
-      - name: 선시도 스크린샷 업로드
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: monitor-inline-shots-${{ github.run_id }}
-          path: auto_book_shots/
-          if-no-files-found: ignore
 
       - name: 다음 실행 즉시 트리거
         if: ${{ !cancelled() }}

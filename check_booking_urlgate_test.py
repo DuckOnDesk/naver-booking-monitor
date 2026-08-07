@@ -17,8 +17,6 @@
   - 닫힘 연속 카운트에 상한이 있어 alerted가 회차마다 바뀌지 않는다
     (바뀌면 회차마다 git 커밋·푸시가 돈다)
   - 브라우저가 죽으면 다음 확인에서 새로 띄운다
-  - 자동예약 선시도 전에는 공유 브라우저 세션을 닫는다
-    (playwright sync API는 한 스레드에 두 세션을 허용하지 않는다)
 
 사용법: python check_booking_urlgate_test.py
 """
@@ -167,9 +165,7 @@ def main() -> int:
     cb.reset_log_state()
     closed_now = True
     dispatched: list = []
-    real_inline_try_book = cb._inline_try_book      # 11)에서 원본을 다시 쓴다
     cb.dispatch_auto_book = lambda *a, **kw: (dispatched.append(a) or (True, ""))
-    cb._inline_try_book = lambda *a, **kw: None
     ab_item = {"id": "t2", "name": "자동예약", "url": URL, "enabled": True,
                "target_dates": [D], "auto_book": {"enabled": True}}
     alerted2: dict = {"t2:url_closed": 1, "t2:url_close_streak": cb.CLOSE_CONFIRM}
@@ -217,39 +213,6 @@ def main() -> int:
     finally:
         cb._browser_get = real_launch
         cb._pw_browser = cb._pw_handle = None
-
-    print("11) 자동예약 선시도 전에 공유 브라우저 세션을 닫는다")
-    # playwright sync API는 한 스레드에 세션이 살아 있으면 두 번째 세션을 거부한다
-    # ("Sync API inside the asyncio loop"). 예약창 확인용 브라우저를 물고 있으면
-    # auto_book.try_book이 0초 만에 예외로 죽는다.
-    import types
-    torn_down: list = []
-
-    class SharedBrowser:
-        def is_connected(self):
-            return True
-
-        def close(self):
-            torn_down.append("browser")
-
-    class SharedHandle:
-        def stop(self):
-            torn_down.append("handle")
-
-    cb._pw_browser, cb._pw_handle = SharedBrowser(), SharedHandle()
-    seen: list = []
-    fake_ab = types.ModuleType("auto_book")
-    fake_ab.get_accounts = lambda accounts: [(1, "cookie=x")]
-    fake_ab.try_book = lambda *a, **kw: (
-        seen.append((cb._pw_browser, cb._pw_handle)) or {"success": False, "message": "테스트"})
-    sys.modules["auto_book"] = fake_ab
-    cb.record_inline_attempt = lambda rec: None
-    cb.AUTO_BOOK_INLINE = True
-    real_inline_try_book({}, "t3", URL, D, ["11:00"], {"accounts": [], "count": 1}, "테스트")
-    check(seen and seen[0] == (None, None),
-          f"try_book 호출 시점에 공유 세션이 닫혀 있음 (실제: {seen})")
-    check(sorted(torn_down) == ["browser", "handle"],
-          f"브라우저와 핸들 모두 정리됨 (실제: {torn_down})")
 
     print(f"\n=== 실패 {len(fails)}건 ===", flush=True)
     for f in fails:
