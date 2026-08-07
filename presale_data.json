@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-07T16:56:41.016057+09:00",
+  "updated_at": "2026-08-07T17:02:25.615983+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -65,7 +65,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
@@ -109,7 +109,8 @@
         "2026-08-05T21:03:39.133183+09:00",
         "2026-08-06T00:38:45.732620+09:00",
         "2026-08-07T10:57:23.578903+09:00",
-        "2026-08-07T13:18:32.499752+09:00"
+        "2026-08-07T13:18:32.499752+09:00",
+        "2026-08-07T17:02:09.253362+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1015,7 +1016,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1476,13 +1477,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2053652128",
-      "place_name": "더얀 XYZ POP UP - 대체불가",
-      "booking_url": "",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2051944825",
@@ -2875,6 +2869,13 @@
       "place_name": "주술회전 사멸회유 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "ts": "2026-08-07T16:50:40.442340+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2098663430",
+      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
+      "ts": "2026-08-07T17:02:09.253362+09:00"
     }
   ],
   "seen_place_ids": [
