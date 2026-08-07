@@ -152,7 +152,7 @@
   "mreyfrhm:url_closed": 1,
   "mreygixc:url_closed": 1,
   "mreyhcnf:url_closed": 1,
-  "ms8sb2xv:url_close_streak": 3499,
+  "ms8sb2xv:url_close_streak": 3500,
   "ms8sb2xv:url_closed": 1,
   "ms98ehfg:2026-08-01": {
     "16:00": 3
@@ -162,20 +162,20 @@
     "14:30": 1,
     "15:30": 1
   },
-  "mscpmau4:url_close_streak": 1975,
+  "mscpmau4:url_close_streak": 1976,
   "mscpmau4:url_closed": 1,
   "mscpmau4:2026-08-16:closed": {
     "10:00": 15,
     "12:00": 15
   },
-  "msddyhkc:url_close_streak": 891,
+  "msddyhkc:url_close_streak": 892,
   "msddyhkc:url_closed": 1,
-  "ms4b1p2p:url_close_streak": 345,
-  "ms4b3fl4:url_close_streak": 345,
+  "ms4b1p2p:url_close_streak": 346,
+  "ms4b3fl4:url_close_streak": 346,
   "ms4b1p2p:url_closed": 1,
   "ms4b3fl4:url_closed": 1,
   "ms4b1p2p:2026-08-07:closed": {
-    "12:00": 2
+    "12:00": 5
   },
   "mshdnloi:2026-08-14": {
     "11:00": 20,
@@ -410,5 +410,8 @@
   "ms4qwci3:auto_book_state": {
     "sig": "2026-08-09|19:30",
     "attempts": 2
+  },
+  "ms4b3fl4:2026-08-17:closed": {
+    "11:00": 1
   }
 }
