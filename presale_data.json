@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-07T16:45:10.369865+09:00",
+  "updated_at": "2026-08-07T16:50:55.528912+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -491,7 +491,7 @@
     {
       "id": "2071074882",
       "name": "주술회전 사멸회유 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "bookingBusinessId": "1698453",
       "operationStart": "26.07.24.",
@@ -505,7 +505,8 @@
       "district": "마포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
+        "2026-07-22T16:10:57.904712+09:00",
+        "2026-08-07T16:50:40.442340+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1475,13 +1476,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2071746450",
-      "place_name": "THE FIRST FAN",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1683009",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2053652128",
@@ -2874,6 +2868,13 @@
       "place_name": "발레클로젯 팝업 - 디아트레 메시아 포타 in더현대서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712096",
       "ts": "2026-08-07T15:57:10.911024+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071074882",
+      "place_name": "주술회전 사멸회유 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
+      "ts": "2026-08-07T16:50:40.442340+09:00"
     }
   ],
   "seen_place_ids": [
