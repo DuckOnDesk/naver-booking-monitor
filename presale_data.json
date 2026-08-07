@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T00:00:36.876079+09:00",
+  "updated_at": "2026-08-08T00:06:09.826364+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -493,7 +493,7 @@
     {
       "id": "2071074882",
       "name": "주술회전 사멸회유 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "bookingBusinessId": "1698453",
       "operationStart": "26.07.24.",
@@ -679,7 +679,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
@@ -701,7 +701,8 @@
         "2026-08-07T02:05:36.354746+09:00",
         "2026-08-07T11:54:01.402905+09:00",
         "2026-08-07T15:00:26.755096+09:00",
-        "2026-08-07T20:32:47.417435+09:00"
+        "2026-08-07T20:32:47.417435+09:00",
+        "2026-08-08T00:05:57.183694+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1483,13 +1484,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2015464753",
-      "place_name": "소담몰 (with 팝업스토어)",
-      "booking_url": "",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2071074882",
@@ -2882,6 +2876,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-07T22:53:45.109556+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2019923740",
+      "place_name": "IVE x MINIVE POP-UP in SEOUL",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "ts": "2026-08-08T00:05:57.183694+09:00"
     }
   ],
   "seen_place_ids": [
