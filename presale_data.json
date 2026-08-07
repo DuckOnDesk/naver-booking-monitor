@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-07T13:07:27.520025+09:00",
+  "updated_at": "2026-08-07T13:13:06.500186+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -982,7 +982,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -996,7 +996,8 @@
       "district": "용산구",
       "bookingOpenDatetime": "2026-08-07T11:00:00+09:00",
       "bookingOpenHistory": [
-        "2026-08-03T09:23:02.567385+09:00"
+        "2026-08-03T09:23:02.567385+09:00",
+        "2026-08-07T13:12:54.177964+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -2779,6 +2780,13 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-08-07T11:54:01.402905+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-07T13:12:54.177964+09:00"
     }
   ],
   "seen_place_ids": [
