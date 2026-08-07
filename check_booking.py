@@ -1102,6 +1102,11 @@ def _inline_try_book(item: dict, item_id: str, url: str, datekey: str,
     acct_no, cookie_str = accounts[0]
     print(f"  [자동예약] {name} {datekey} — 감지 즉시 계정{acct_no}로 선(先)시도 "
           f"(예산 {AUTO_BOOK_INLINE_BUDGET_SEC}초)", flush=True)
+    # 예약창 확인용으로 열어 둔 chromium을 먼저 닫는다. playwright sync API는 한
+    # 스레드에 세션이 살아 있으면 두 번째 세션을 거부한다 ("Sync API inside the
+    # asyncio loop"). auto_book.try_book은 자기 세션을 새로 열기 때문에, 세션을
+    # 물고 있으면 선시도가 0초 만에 예외로 죽는다. 다음 확인 때 알아서 다시 뜬다.
+    _browser_close()
     started = time.time()
     try:
         res = auto_book.try_book(url, datekey, times, count=cfg["count"],
