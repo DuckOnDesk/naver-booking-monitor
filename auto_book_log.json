@@ -1,5 +1,21 @@
 [
   {
+    "ts": "2026-08-07T21:38:33+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-08",
+    "times": [
+      "11:30"
+    ],
+    "account": 1,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 5.1,
+    "unbookable": true,
+    "inline": true,
+    "message": "시간대 ['11:30']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
+  },
+  {
     "ts": "2026-08-07T16:38:22+09:00",
     "item_id": "ms4qtfmh",
     "name": "TFT 스탬프투어",
