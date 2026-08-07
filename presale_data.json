@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-07T16:03:07.848308+09:00",
+  "updated_at": "2026-08-07T16:08:46.861244+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -12,6 +12,7 @@
     "2019832187",
     "2019923740",
     "2021119485",
+    "2021947047",
     "2027174717",
     "2043425985",
     "2043461454",
@@ -1444,6 +1445,32 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2021947047",
+      "name": "무민팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.07.",
+      "operationEnd": "26.08.17.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_269/1785286842844MVTrc_JPEG/edited-1785286842746-0.jpg",
+      "roadAddress": "신반포로 176 신세계 강남 센트럴 1층 오픈스테이지",
+      "commonAddress": "서울 서초구",
+      "district": "서초구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     }
   ],
