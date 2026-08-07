@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-07T17:42:34.436953+09:00",
+  "updated_at": "2026-08-07T17:48:18.800874+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -22,6 +22,7 @@
     "2062283789",
     "2066415670",
     "2067967922",
+    "2069912344",
     "2071913479",
     "2073241477",
     "2076235934",
@@ -1341,6 +1342,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2069912344",
+      "name": "사우나 불금 클럽",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 21,
+      "status": "D-21",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_62/17859979248524dx32_JPEG/edited-1785997924554-0.jpg",
+      "roadAddress": "뚝섬로 552 지하1층",
+      "commonAddress": "서울 광진구",
+      "district": "광진구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-07T17:48:04.334462+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2042771625",
       "name": "가상체험 XR 라이브",
       "hasBooking": false,
@@ -1450,13 +1477,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2051944825",
-      "place_name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
-      "booking_url": "",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2021908137",
@@ -2849,6 +2869,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-07T17:02:09.253362+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2069912344",
+      "place_name": "사우나 불금 클럽",
+      "booking_url": "",
+      "ts": "2026-08-07T17:48:04.334462+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2906,6 +2933,7 @@
     "2064927800",
     "2066415670",
     "2067967922",
+    "2069912344",
     "2070762822",
     "2071074882",
     "2071746450",
