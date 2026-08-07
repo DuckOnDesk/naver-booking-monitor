@@ -1,5 +1,21 @@
 [
   {
+    "ts": "2026-08-07T12:59:03+09:00",
+    "item_id": "ms4qwci3",
+    "name": "TFT 비트펠라하우스 공연",
+    "date": "2026-08-09",
+    "times": [
+      "19:30"
+    ],
+    "account": 1,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 0.0,
+    "unbookable": false,
+    "inline": true,
+    "message": "자동 예약 중 예외: It looks like you are using Playwright Sync API inside the asyncio loop.\nPlease use the Async API instead."
+  },
+  {
     "ts": "2026-08-06T23:33:47+09:00",
     "item_id": "ms4qwci3",
     "name": "TFT 비트펠라하우스 공연",
