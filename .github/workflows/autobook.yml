@@ -50,8 +50,10 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip                      # 매번 새로 받던 wheel을 캐시에서 (약 3초 절약)
+          # cache: pip은 requirements.txt(또는 pyproject.toml)가 있어야 동작한다.
+          # 없으면 이 액션이 통째로 실패해 예약이 시작조차 못 한다.
 
-      - run: pip install --quiet --disable-pip-version-check requests playwright
+      - run: pip install --quiet --disable-pip-version-check -r requirements.txt
 
       - name: Playwright 캐시
         id: pw-cache
@@ -115,9 +117,15 @@ jobs:
       - name: 실행 실패 기록
         # 워커가 결과를 못 남기고 죽은 경우(설치 실패·타임아웃 등)에도 종료 사실을
         # 남겨 모니터가 대기 없이 다음 시도로 넘어가게 한다.
+        #
+        # 이 단계가 가장 필요한 순간은 준비 단계가 깨졌을 때다. 그때는 위의
+        # pip install도 건너뛰어져 auto_book_worker.py의 import가 실패하고,
+        # 결국 아무 기록도 남지 않아 모니터가 15분을 헛기다린다. 그래서 여기서
+        # 의존성을 한 번 더 확보한다 (이미 있으면 즉시 끝난다).
         if: failure()
         run: |
-          python -u auto_book_worker.py \
+          python3 -m pip install --quiet --disable-pip-version-check -r requirements.txt || true
+          python3 -u auto_book_worker.py \
             --item-id "${{ inputs.item_id }}" \
             --date "${{ inputs.date }}" \
             --sig "${{ inputs.sig }}" \
