@@ -51,35 +51,55 @@ GITHUB_RAW_AUTOBOOK_STATE_URL = f"{GITHUB_RAW_BASE}/auto_book_state.json"
 # checked_at보다 나중이면 TTL과 무관하게 즉시 재탐색한다.
 REPROBE_REQUEST_FILE = Path(__file__).parent / ".schedule_reprobe_request.json"
 
+
+def _env_num(name: str, default, cast=int):
+    """설정하지 않은 저장소 변수를 안전하게 기본값으로 되돌린다.
+
+    워크플로가 `AUTO_BOOK_INLINE_BUDGET_SEC: ${{ vars.X }}` 처럼 값을 넘길 때,
+    저장소 변수가 없으면 환경변수가 '빈 문자열'로 들어온다. os.environ.get의
+    기본값은 키가 없을 때만 쓰이므로 int("")가 그대로 터져 모듈 임포트 단계에서
+    감시 전체가 죽는다 (실제로 그렇게 멈춘 적이 있다). 빈 값·잘못된 값은
+    모두 기본값으로 처리하고, 잘못된 값일 때만 경고를 남긴다.
+    """
+    raw = os.environ.get(name)
+    if raw is None or not raw.strip():
+        return default
+    try:
+        return cast(raw.strip())
+    except ValueError:
+        print(f"[경고] 환경변수 {name}={raw!r} 을(를) 숫자로 읽을 수 없어 기본값 {default} 사용", flush=True)
+        return default
+
+
 # 같은 슬롯 조합(signature)에 대한 자동 예약 최대 시도 횟수 (0 = 무제한:
 # 예약 성공 / 슬롯 소멸 / 설정 OFF 전까지 계속 시도)
-AUTO_BOOK_MAX_ATTEMPTS = int(os.environ.get("AUTO_BOOK_MAX_ATTEMPTS", "0"))
+AUTO_BOOK_MAX_ATTEMPTS = _env_num("AUTO_BOOK_MAX_ATTEMPTS", 0)
 
 # 실제 예약 시도는 별도 워크플로(autobook.yml → auto_book_worker.py)에서 돈다.
 # 모니터는 디스패치만 하고 바로 다음 감시 주기로 넘어가므로, 예약을 시도하는
 # 동안에도 감시가 멈추지 않는다.
 AUTO_BOOK_WORKFLOW = os.environ.get("AUTO_BOOK_WORKFLOW", "autobook.yml")
 # 디스패치한 실행이 이 시간(분) 안에 결과를 남기지 않으면 죽은 것으로 보고 재시도.
-AUTO_BOOK_DISPATCH_TIMEOUT_MIN = int(os.environ.get("AUTO_BOOK_DISPATCH_TIMEOUT_MIN", "15"))
+AUTO_BOOK_DISPATCH_TIMEOUT_MIN = _env_num("AUTO_BOOK_DISPATCH_TIMEOUT_MIN", 15)
 # 감지 즉시 모니터 러너에서 첫 계정으로 예약을 한 번 눌러 볼지 (1=켬).
 # 워크플로 디스패치는 큐 대기 + 러너 준비로 30~70초가 걸려 취소표를 놓치기 쉽다.
-AUTO_BOOK_INLINE = os.environ.get("AUTO_BOOK_INLINE", "1").strip() not in ("0", "false", "no")
+AUTO_BOOK_INLINE = (os.environ.get("AUTO_BOOK_INLINE") or "1").strip() not in ("0", "false", "no")
 # 선시도에 쓸 시간 예산(초). 이 시간을 넘기면 감시가 밀리므로 브라우저 단계별 대기를 줄인다.
-AUTO_BOOK_INLINE_BUDGET_SEC = int(os.environ.get("AUTO_BOOK_INLINE_BUDGET_SEC", "25"))
+AUTO_BOOK_INLINE_BUDGET_SEC = _env_num("AUTO_BOOK_INLINE_BUDGET_SEC", 25)
 # 예약 페이지가 "선택 불가"로 막은 슬롯을 다시 시도하기까지 쉬는 시간(분).
 # API는 자리가 있다고 답하는데 페이지에서는 못 누르는 경우가 있어, 그대로 두면
 # 같은 슬롯에 2분 간격으로 워크플로가 계속 뜬다 (실제로 15분에 14번 실행됐다).
-AUTO_BOOK_BLOCKED_BACKOFF_MIN = int(os.environ.get("AUTO_BOOK_BLOCKED_BACKOFF_MIN", "10"))
+AUTO_BOOK_BLOCKED_BACKOFF_MIN = _env_num("AUTO_BOOK_BLOCKED_BACKOFF_MIN", 10)
 # 자동예약 날짜 미지정 항목에서, 감시 대상 밖 날짜를 한 회차에 몇 개까지 추가 조회할지.
 # (예약 기간이 아주 긴 항목이 한 회차의 API 호출을 독차지하지 않도록 하는 상한)
-AUTO_BOOK_SWEEP_MAX = int(os.environ.get("AUTO_BOOK_SWEEP_MAX", "31"))
+AUTO_BOOK_SWEEP_MAX = _env_num("AUTO_BOOK_SWEEP_MAX", 31)
 
 # schedule_cache.json 항목의 유효 시간(분). 이 시간이 지난 항목은 루프 도중에도
 # 다시 조회해 운영 기간 변경을 반영한다 (0 = 재탐색 끔 = 종전 동작).
-SCHEDULE_CACHE_TTL_MIN = int(os.environ.get("SCHEDULE_CACHE_TTL_MIN", "60"))
+SCHEDULE_CACHE_TTL_MIN = _env_num("SCHEDULE_CACHE_TTL_MIN", 60)
 # 한 회차에 재탐색할 최대 항목 수. 캐시가 한꺼번에 만료돼도 루프가 멈추지 않도록
 # 회차당 1건씩만 갱신해 자연스럽게 분산시킨다.
-SCHEDULE_REPROBE_PER_ROUND = int(os.environ.get("SCHEDULE_REPROBE_PER_ROUND", "1"))
+SCHEDULE_REPROBE_PER_ROUND = _env_num("SCHEDULE_REPROBE_PER_ROUND", 1)
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
@@ -101,7 +121,7 @@ KAKAO_HEADERS = {
 # 오류·경고·전환 알림은 이 규칙을 타지 않고 항상 그대로 출력한다.
 # 알림(ntfy)·자동예약 판단은 이 규칙과 무관하다 — 출력만 줄인다.
 LOG_DEDUP = os.environ.get("LOG_DEDUP", "1") != "0"
-LOG_HEARTBEAT_MIN = float(os.environ.get("LOG_HEARTBEAT_MIN", "10"))
+LOG_HEARTBEAT_MIN = _env_num("LOG_HEARTBEAT_MIN", 10.0, float)
 
 _log_state: dict[str, tuple[str, float]] = {}  # key → (마지막 출력 상태 서명, 출력 시각)
 _log_skipped = 0                               # 이번 회차에 생략한 줄 수
@@ -2117,8 +2137,8 @@ def main():
 
     cfg = load_monitors()
     ntfy_topic = os.environ.get("NTFY_TOPIC") or cfg.get("ntfy_topic", "")
-    interval = int(os.environ.get("CHECK_INTERVAL_SEC", "30"))
-    loop_hours = float(os.environ.get("LOOP_HOURS", "5.5"))
+    interval = _env_num("CHECK_INTERVAL_SEC", 30)
+    loop_hours = _env_num("LOOP_HOURS", 5.5, float)
     monitors = cfg.get("monitors", [])
 
     active = [m for m in monitors if m.get("enabled", True)]
