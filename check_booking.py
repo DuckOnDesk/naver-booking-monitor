@@ -10,10 +10,14 @@ auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
 로그는 상태가 바뀔 때만 남긴다. 같은 자리 상황이 이어지는 회차는 줄을 생략하고
 회차 끝에 생략 건수만 한 줄로 요약한다 (log_state 참고).
 
+예약창 열림/닫힘 확인(chromium)은 알릴 자리를 찾은 항목에만 한다. 자리가 없으면
+🎉로도 🔒로도 알릴 게 없어 확인할 이유가 없다 (UrlGate 참고).
+
 환경변수: NTFY_TOPIC (선택, monitors.json 값 override)
           CHECK_INTERVAL_SEC, LOOP_HOURS
           LOG_DEDUP (0이면 종전처럼 매 회차 전부 출력)
           LOG_HEARTBEAT_MIN (변화가 없어도 이 간격마다 한 번은 출력, 기본 10분)
+          URL_RECHECK_SEC (열려 있는 항목의 예약창 재확인 간격, 기본 300초)
 
 monitors.json 항목 선택 필드:
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
@@ -159,6 +163,7 @@ def reset_log_state() -> None:
     global _log_skipped
     _log_state.clear()
     _log_skipped = 0
+    _url_checked_at.clear()   # 예약창 재확인 주기도 같이 리셋
 
 
 def log_round_summary() -> None:
@@ -1065,7 +1070,7 @@ def _inline_try_book(item: dict, item_id: str, url: str, datekey: str,
 
 def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
                     per_slot: list, ntfy_topic: str, alerted: dict,
-                    period: tuple | None = None) -> None:
+                    period: tuple | None = None, gate=None) -> None:
     """auto_book이 켜진 항목에서 예약 가능 슬롯 발견 시 자동예약 워크플로를 띄운다.
 
     실제 예약(Playwright, 계정별 재시도)은 autobook.yml → auto_book_worker.py가
@@ -1136,6 +1141,18 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     if AUTO_BOOK_MAX_ATTEMPTS and state["attempts"] >= AUTO_BOOK_MAX_ATTEMPTS:
         alerted[state_key] = state
         return
+
+    # 예약을 누르기 직전에는 예약창 상태를 반드시 최신으로 본다. 확인 주기를
+    # 5분으로 늘린 탓에 닫힌 페이지에 대고 예약을 시도하는 것이 가장 큰 손해다.
+    if gate is not None:
+        fresh = not gate.checked
+        if not gate.verify_open():
+            print(f"  [자동예약] {name} {datekey} — 예약 직전 예약창 재확인: 닫힘, 시도 생략", flush=True)
+            alerted[state_key] = state
+            return
+        if fresh:
+            print(f"  [자동예약] {name} — 예약 직전 예약창 재확인: 열림", flush=True)
+
     state["attempts"] += 1
 
     cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (성공/매진/OFF까지 계속)"
@@ -1181,7 +1198,7 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
 
 def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
                            all_summary: list, period: tuple, covered: set,
-                           cutoff_date, ntfy_topic: str, alerted: dict) -> None:
+                           cutoff_date, ntfy_topic: str, alerted: dict, gate=None) -> None:
     """자동예약 날짜를 지정하지 않은 항목의 남은 예약 기간을 마저 훑는다.
 
     자동예약에서 날짜를 비워 두면 "등록된 예약 기간 전체"가 대상이다. 그런데 감시
@@ -1232,7 +1249,7 @@ def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
         ]
         if not per_slot:
             continue
-        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic, alerted, period)
+        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic, alerted, period, gate)
 
 
 _CLOSED_URL_PATTERNS  = ["/error/"]
@@ -1245,50 +1262,240 @@ _CLOSED_TEXT_PATTERNS = [
     "더 이상 예약할 수 없습니다",
 ]
 
+_pw_handle = None    # sync_playwright() 핸들
+_pw_browser = None   # 재사용하는 chromium 인스턴스
+
+
+def _browser_get():
+    """살아 있는 chromium을 돌려준다 (없거나 죽었으면 새로 띄운다).
+
+    확인할 때마다 launch/close를 하면 그것만으로 2초가 나간다(실측). 이 프로세스는
+    5시간 넘게 살아 있으니 한 번 띄워 계속 쓰는 편이 훨씬 싸다. 다만 브라우저가
+    중간에 죽으면 이후 확인이 전부 예외로 떨어지고, 예외는 '열림 간주'로 처리되기
+    때문에 닫힘을 영영 감지하지 못한 채 조용히 흘러간다. 그래서 쓸 때마다 연결을
+    확인하고 끊겼으면 새로 띄운다.
+    """
+    global _pw_handle, _pw_browser
+    if _pw_browser is not None:
+        try:
+            if _pw_browser.is_connected():
+                return _pw_browser
+        except Exception:
+            pass
+        _browser_close()
+    from playwright.sync_api import sync_playwright
+    _pw_handle = sync_playwright().start()
+    _pw_browser = _pw_handle.chromium.launch(headless=True)
+    return _pw_browser
+
+
+def _browser_close() -> None:
+    """브라우저와 playwright 핸들을 정리한다 (실패해도 넘어간다)."""
+    global _pw_handle, _pw_browser
+    for obj, meth in ((_pw_browser, "close"), (_pw_handle, "stop")):
+        try:
+            if obj is not None:
+                getattr(obj, meth)()
+        except Exception:
+            pass
+    _pw_browser = _pw_handle = None
+
+
 def _playwright_check(url: str) -> tuple[bool, str]:
     """(is_closed, reason) 반환. URL/텍스트 기반으로 예약창 닫힘 감지."""
     item_match = re.search(r"/items/\d+", url)
     item_path = item_match.group(0) if item_match else None
+    context = None
     try:
-        from playwright.sync_api import sync_playwright
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            try:
-                context = browser.new_context()
-                cookie_str = os.environ.get("NAVER_COOKIES", "").strip()
-                if cookie_str:
-                    cookies = []
-                    for part in cookie_str.split(";"):
-                        part = part.strip()
-                        if "=" in part:
-                            name, _, value = part.partition("=")
-                            cookies.append({
-                                "name": name.strip(),
-                                "value": value.strip(),
-                                "domain": ".naver.com",
-                                "path": "/",
-                            })
-                    if cookies:
-                        context.add_cookies(cookies)
-                page = context.new_page()
-                page.goto(url, wait_until="load", timeout=15000)
-                page.wait_for_timeout(2000)
-                final_url = page.url
-                for pat in _CLOSED_URL_PATTERNS:
-                    if pat in final_url:
-                        return True, f"URL 리다이렉트: {pat}"
-                if item_path and item_path not in final_url:
-                    return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈"
-                visible_text = " ".join(page.inner_text("body").split())
-                for pat in _CLOSED_TEXT_PATTERNS:
-                    if pat in visible_text:
-                        return True, f"페이지 텍스트: {pat}"
-                return False, ""
-            finally:
-                browser.close()
+        browser = _browser_get()
+        # 컨텍스트는 매번 새로 만든다. 재사용하면 이전 페이지의 URL·쿠키가 남아
+        # 리다이렉트 판정이 오염된다.
+        context = browser.new_context()
+        cookie_str = os.environ.get("NAVER_COOKIES", "").strip()
+        if cookie_str:
+            cookies = []
+            for part in cookie_str.split(";"):
+                part = part.strip()
+                if "=" in part:
+                    name, _, value = part.partition("=")
+                    cookies.append({
+                        "name": name.strip(),
+                        "value": value.strip(),
+                        "domain": ".naver.com",
+                        "path": "/",
+                    })
+            if cookies:
+                context.add_cookies(cookies)
+        page = context.new_page()
+        page.goto(url, wait_until="load", timeout=15000)
+        page.wait_for_timeout(2000)
+        final_url = page.url
+        for pat in _CLOSED_URL_PATTERNS:
+            if pat in final_url:
+                return True, f"URL 리다이렉트: {pat}"
+        if item_path and item_path not in final_url:
+            return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈"
+        visible_text = " ".join(page.inner_text("body").split())
+        for pat in _CLOSED_TEXT_PATTERNS:
+            if pat in visible_text:
+                return True, f"페이지 텍스트: {pat}"
+        return False, ""
     except Exception as exc:
         print(f"  [경고] playwright 확인 실패 → 열림으로 간주: {exc}", flush=True)
+        # 페이지 하나가 느린 것과 브라우저가 죽은 것은 다르다. 연결이 끊겼을 때만
+        # 인스턴스를 버려서, 단발 타임아웃 때문에 매번 재기동하지 않도록 한다.
+        try:
+            if _pw_browser is not None and not _pw_browser.is_connected():
+                _browser_close()
+        except Exception:
+            _browser_close()
         return False, ""
+    finally:
+        try:
+            if context is not None:
+                context.close()
+        except Exception:
+            pass
+
+
+# ── 예약창 확인(브라우저) 정책 ──────────────────────────────────────────
+# 예약창 열림/닫힘 확인은 항목당 4초가 넘는다(고정비 실측 4.07초 + 페이지 로드).
+# 항목이 8개면 한 회차의 절반 이상을 여기에 쓴다. 그런데 이 값이 실제로 필요한
+# 순간은 "알릴 자리가 있을 때"뿐이다. 자리가 없으면 🎉로도 🔒로도 알릴 게 없다.
+# 그래서 자리를 찾기 전에는 브라우저를 켜지 않는다 (UrlGate).
+CLOSE_CONFIRM = 2   # 오탐 방지: 연속 이 횟수만큼 닫힘이어야 확정
+# 열려 있는 것으로 확인된 항목을 다시 확인하기까지의 간격(초).
+URL_RECHECK_SEC = _env_num("URL_RECHECK_SEC", 300)
+
+_url_checked_at: dict[str, float] = {}   # item_id → 마지막 확인 시각(monotonic)
+_url_checks_done = 0                     # 이번 회차에 실제로 브라우저를 켠 횟수
+_url_skips: dict[str, int] = {}          # 이번 회차에 건너뛴 사유별 건수
+
+
+def _note_url_skip(reason: str) -> None:
+    _url_skips[reason] = _url_skips.get(reason, 0) + 1
+
+
+class UrlGate:
+    """예약창 열림/닫힘을 '필요해질 때만' 확인하는 게이트.
+
+    자리 판정은 API로만 하고, 브라우저는 그 결과에 라벨을 붙이는 용도다.
+    따라서 자리를 찾기 전에는 켤 이유가 없다. 첫 자리를 만났을 때 한 번 확인해
+    그 회차 내내 재사용한다.
+
+      - 자리 없음         → 확인하지 않음 (예약창 상태는 '모름'으로 남는다)
+      - 자리 있고 닫힘    → 매 회차 확인 (열리는 순간을 놓치지 않기 위해)
+      - 자리 있고 열림    → URL_RECHECK_SEC(기본 5분)마다
+      - 닫힘 감지 진행 중 → 확정될 때까지 매 회차 (확정이 5분×2로 늘어나지 않도록)
+      - 자동예약 직전     → 주기와 무관하게 확인 (verify_open)
+
+    닫힘/열림 상태와 연속 카운트는 종전처럼 alerted에 남아 프로세스 재시작을 넘어간다.
+    """
+
+    def __init__(self, item: dict, item_id: str, url: str, name: str,
+                 alerted: dict, ntfy_topic: str, now_str: str):
+        self.item, self.item_id, self.url, self.name = item, item_id, url, name
+        self.alerted, self.ntfy_topic, self.now_str = alerted, ntfy_topic, now_str
+        self.closed_key = f"{item_id}:url_closed"
+        self.streak_key = f"{item_id}:url_close_streak"
+        self.checked = False          # 이번 회차에 브라우저를 켰는지
+        self.consulted = False        # 이번 회차에 상태를 물어보기는 했는지(=자리를 찾았는지)
+        self.just_reopened = False
+        self._closed = bool(alerted.get(self.closed_key))
+
+    @property
+    def known_closed(self) -> bool:
+        """마지막으로 알던 상태. 브라우저를 켜지 않는다 (스윕 게이트용)."""
+        return self._closed
+
+    @property
+    def closed(self) -> bool:
+        """지금 닫혀 있는가. 필요하면 여기서 브라우저를 켠다."""
+        self._ensure()
+        return self._closed
+
+    def verify_open(self) -> bool:
+        """자동예약 직전 확인. 이번 회차에 아직 안 봤으면 주기를 무시하고 지금 본다."""
+        if not self.checked:
+            self._run_check()
+        return not self._closed
+
+    def _ensure(self) -> None:
+        self.consulted = True
+        if self.checked:
+            return
+        # 닫혀 있거나 닫힘 확정을 기다리는 중이면 매 회차 본다. 열려 있는 항목만
+        # 주기를 둔다 — 열림→닫힘은 늦게 알아도 손해가 작지만, 닫힘→열림은
+        # 오픈 순간이라 늦으면 그대로 놓친다.
+        if self._closed or self.alerted.get(self.streak_key):
+            self._run_check()
+            return
+        last = _url_checked_at.get(self.item_id)
+        if last is not None and (time.monotonic() - last) < URL_RECHECK_SEC:
+            _note_url_skip("주기 대기")
+            return
+        self._run_check()
+
+    def _run_check(self) -> None:
+        global _url_checks_done
+        raw_closed, reason = _playwright_check(self.url)
+        self.checked = True
+        _url_checks_done += 1
+        _url_checked_at[self.item_id] = time.monotonic()
+
+        alerted, name, now_str = self.alerted, self.name, self.now_str
+        if raw_closed:
+            # 오탐(느린 로딩·리다이렉트)이 있어 연속 2회여야 확정한다. 값에 상한을
+            # 두지 않으면 닫힌 항목이 있는 한 booking_alerted.json이 매 회차 바뀌어
+            # 회차마다 git 커밋·푸시가 돈다.
+            streak = min(int(alerted.get(self.streak_key, 0)) + 1, CLOSE_CONFIRM)
+            alerted[self.streak_key] = streak
+            self._closed = streak >= CLOSE_CONFIRM
+            if not self._closed:
+                print(f"[{now_str}] ⚠️ {name} — 닫힘 감지 ({streak}/{CLOSE_CONFIRM}, "
+                      f"확정 전 대기): {reason}", flush=True)
+        else:
+            alerted.pop(self.streak_key, None)
+            self._closed = False
+
+        if self._closed:
+            item_prefix = f"{self.item_id}:"
+            for k in list(alerted.keys()):
+                if (k.startswith(item_prefix) and k != self.closed_key
+                        and k != self.streak_key and not k.endswith(":closed")):
+                    alerted.pop(k)
+            alerted[self.closed_key] = 1
+            log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})", now_str=now_str)
+        elif self.closed_key in alerted:
+            self.just_reopened = True
+            alerted.pop(self.closed_key)
+            item_prefix = f"{self.item_id}:"
+            for k in list(alerted.keys()):
+                if k.startswith(item_prefix) and k.endswith(":closed"):
+                    # :closed 항목을 삭제하지 않고 일반 키로 복사 → 이미 본 슬롯 재알림 방지
+                    base_key = k[: -len(":closed")]
+                    alerted[base_key] = alerted.pop(k)
+            print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
+            if self.ntfy_topic:
+                send_ntfy(self.ntfy_topic, f"✅ {name} 예약창 열림",
+                          "예약창이 열렸습니다. 직접 확인해보세요!", self.url)
+            _log_state[f"{self.item_id}:status"] = ("열림", time.monotonic())
+        elif not raw_closed:
+            # raw_closed인데 여기 오면 '닫힘 감지, 확정 전 대기' 상태다. 그 회차에
+            # "예약창 열림"까지 찍으면 로그가 서로 반대되는 말을 하게 되므로 ⚠️ 줄만 남긴다.
+            log_state(f"{self.item_id}:status", f"✅ {name} — 예약창 열림",
+                      sig="열림", now_str=now_str)
+
+
+def log_url_check_summary() -> None:
+    """이번 회차에 브라우저를 몇 번 켰고 몇 건을 건너뛰었는지 한 줄로."""
+    skipped = sum(_url_skips.values())
+    if not (_url_checks_done or skipped):
+        return
+    detail = ", ".join(f"{r} {n}" for r, n in sorted(_url_skips.items()))
+    log_state("round:urlcheck",
+              f"  → 예약창 확인 {_url_checks_done}건 / 생략 {skipped}건"
+              + (f" ({detail})" if detail else ""), stamp=False)
 
 
 def _playwright_final_url(url: str) -> str:
@@ -1314,8 +1521,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     except Exception:
         sched_cache = {}
 
-    global _log_skipped
+    global _log_skipped, _url_checks_done
     _log_skipped = 0
+    _url_checks_done = 0
+    _url_skips.clear()
 
     _pruned_dates: list[tuple[str, str]] = []
     _reprobed_this_round = 0  # 이번 회차에 TTL 만료로 재탐색한 항목 수
@@ -1494,56 +1703,14 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             cutoff_date = None
 
         item_id   = item.get("id", name)
-        closed_key = f"{item_id}:url_closed"
-        streak_key = f"{item_id}:url_close_streak"
-
-        raw_closed, closed_reason = _playwright_check(url)
-
-        # playwright 닫힘 감지는 간헐적으로 오탐(리다이렉트/느린 로딩 등)이 발생한다.
-        # 단발성 오탐으로 closed_key가 붙었다 떨어지면 "예약창 열림" 알림이 반복 발송되므로,
-        # 2회 연속 '닫힘'으로 확인된 경우에만 실제 닫힘으로 확정한다 (flapping 방지).
-        CLOSE_CONFIRM = 2
-        if raw_closed:
-            streak = int(alerted.get(streak_key, 0)) + 1
-            alerted[streak_key] = streak
-            is_url_closed = streak >= CLOSE_CONFIRM
-            if not is_url_closed:
-                print(f"[{now_str}] ⚠️ {name} — 닫힘 감지 ({streak}/{CLOSE_CONFIRM}, 확정 전 대기): {closed_reason}", flush=True)
-        else:
-            alerted.pop(streak_key, None)
-            is_url_closed = False
-
-        if is_url_closed:
-            item_prefix = f"{item_id}:"
-            for k in list(alerted.keys()):
-                if (k.startswith(item_prefix) and k != closed_key and k != streak_key
-                        and not k.endswith(":closed")):
-                    alerted.pop(k)
-            alerted[closed_key] = 1
-            log_state(f"{item_id}:status", f"🔒 {name} — 예약창 닫힘 ({closed_reason})", now_str=now_str)
-        else:
-            just_reopened = False
-            if closed_key in alerted:
-                just_reopened = True
-                alerted.pop(closed_key)
-                item_prefix = f"{item_id}:"
-                for k in list(alerted.keys()):
-                    if k.startswith(item_prefix) and k.endswith(":closed"):
-                        # :closed 항목을 삭제하지 않고 일반 키로 복사 → 이미 본 슬롯 재알림 방지
-                        base_key = k[: -len(":closed")]
-                        alerted[base_key] = alerted.pop(k)
-                print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
-                if ntfy_topic:
-                    send_ntfy(ntfy_topic, f"✅ {name} 예약창 열림", "예약창이 열렸습니다. 직접 확인해보세요!", url)
-                _log_state[f"{item_id}:status"] = ("열림", time.monotonic())
-            else:
-                just_reopened = False
-                log_state(f"{item_id}:status", f"✅ {name} — 예약창 열림",
-                          sig="열림", now_str=now_str)
+        # 예약창 확인은 여기서 하지 않는다. 알릴 자리를 실제로 찾은 뒤에야
+        # 게이트가 필요할 때 브라우저를 켠다 (UrlGate 참고).
+        gate = UrlGate(item, item_id, url, name, alerted, ntfy_topic, now_str)
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
         if result is None:
-            print(f"[{now_str}] {name} — API 실패", flush=True)
+            print(f"[{now_str}] {name} — API 실패 (자리 미확인, 예약창 확인 생략)", flush=True)
+            _note_url_skip("API 실패")
             continue
 
         days_map = {d["dateKey"]: d for d in result["days"]}
@@ -1681,7 +1848,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 ]
                 stock_info = f"재고:{r_stock} / 예약:{r_booking}"
 
-                if is_url_closed:
+                if gate.closed:
                     closed_alert_key = f"{alert_key}:closed"
                     prev_slots = alerted.get(closed_alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
@@ -1716,7 +1883,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     if not is_restricted:
                         cal_ok = True
                         if prev_slots is None or increased:
-                            if just_reopened:
+                            if gate.just_reopened:
                                 # 예약창 닫힘 → 열림 전환 직후: 이번 주기는 알림 생략, 상태만 기록
                                 print(f"  [전환 직후] 알림 생략 (다음 주기에 재확인)", flush=True)
                             else:
@@ -1738,7 +1905,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         if cal_ok is not False:
                             alerted[alert_key] = dict(per_slot)
                             maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
-                                            alerted, ab_period)
+                                            alerted, ab_period, gate)
                 else:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
@@ -1815,13 +1982,21 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
         # 자동예약 날짜 미지정 항목은 등록된 예약 기간 전체가 대상이다.
         # 감시 날짜를 좁게 잡아 위 루프가 그 날짜만 돌았다면, 기간 안의 나머지 날짜를 여기서 마저 본다.
-        if not is_url_closed and window_open:
+        if not gate.known_closed and window_open:
             sweep_auto_book_period(item, item_id, url, parsed, result.get("_all_summary") or [],
-                                   ab_period, set(effective_dates), cutoff_date, ntfy_topic, alerted)
+                                   ab_period, set(effective_dates), cutoff_date, ntfy_topic, alerted, gate)
+
+        # 여기까지 왔는데 게이트를 한 번도 안 건드렸다 = 알릴 자리가 없어서
+        # 예약창을 볼 이유가 없었다는 뜻. 이 회차의 절감이 어디서 났는지 남긴다.
+        if not gate.consulted:
+            _note_url_skip("자리 없음")
+            log_state(f"{item_id}:status", f"⏸ {name} — 자리 없음, 예약창 확인 생략",
+                      sig="확인생략", now_str=now_str)
 
     if _pruned_dates:
         prune_dead_dates(_pruned_dates)
 
+    log_url_check_summary()
     log_round_summary()
 
 

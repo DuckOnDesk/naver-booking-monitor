@@ -51,6 +51,7 @@ jobs:
         # - 시간대 선택: 렌더 전 판정 / 선택 불가 슬롯을 눌러 놓고 성공으로 보고하는 회귀
         # - 일 단위 상품: 시간대 슬롯이 없는 상품을 "예약불가"로 흘려보내는 회귀
         # - 상태 로그: 변화가 있을 때만 남기는지 (생략이 알림 판단을 건드리지 않는지)
+        # - 예약창 확인: 자리가 있을 때만 브라우저를 켜는지 (자동예약 직전 강제 확인 포함)
         # 실패해도 드라이런은 계속 진행하고, 로그로만 알린다.
         continue-on-error: true
         run: |
@@ -59,6 +60,7 @@ jobs:
           python -u auto_book_slot_test.py
           python -u check_booking_dayunit_test.py
           python -u check_booking_log_test.py
+          python -u check_booking_urlgate_test.py
 
       - name: 드라이런 실행 (실제 예약 안 함)
         env:

@@ -149,7 +149,7 @@ def main() -> int:
         for _ in range(2):
             logs, _ = run_round([unit("11:00", stock=4, booked=3)], alerted)
             check(len(date_lines(logs)) == 1, f"항상 출력 (실제: {date_lines(logs)})")
-        check(not any("생략" in l for l in logs), "생략 요약도 없음")
+        check(not any("줄 생략" in l for l in logs), "생략 요약도 없음")
     finally:
         cb.LOG_DEDUP = True
 
