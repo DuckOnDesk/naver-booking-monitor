@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T21:52:19.818491+09:00",
+  "updated_at": "2026-08-08T21:57:54.569321+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -494,7 +494,7 @@
     {
       "id": "2071074882",
       "name": "주술회전 사멸회유 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "bookingBusinessId": "1698453",
       "operationStart": "26.07.24.",
@@ -513,7 +513,8 @@
         "2026-08-07T22:20:24.882514+09:00",
         "2026-08-08T01:56:35.940533+09:00",
         "2026-08-08T09:26:45.135451+09:00",
-        "2026-08-08T16:34:59.076565+09:00"
+        "2026-08-08T16:34:59.076565+09:00",
+        "2026-08-08T21:57:41.927341+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -683,7 +684,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
@@ -1498,13 +1499,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2034762449",
-      "place_name": "샘케이크 롯데백화점 명동점 팝업",
-      "booking_url": "",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2050153907",
@@ -2897,6 +2891,13 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-08-08T20:11:21.629446+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071074882",
+      "place_name": "주술회전 사멸회유 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
+      "ts": "2026-08-08T21:57:41.927341+09:00"
     }
   ],
   "seen_place_ids": [
