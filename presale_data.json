@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T09:15:51.640771+09:00",
+  "updated_at": "2026-08-08T09:21:24.980285+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -681,7 +681,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
@@ -705,7 +705,8 @@
         "2026-08-07T15:00:26.755096+09:00",
         "2026-08-07T20:32:47.417435+09:00",
         "2026-08-08T00:05:57.183694+09:00",
-        "2026-08-08T03:24:56.971380+09:00"
+        "2026-08-08T03:24:56.971380+09:00",
+        "2026-08-08T09:21:12.286781+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1488,13 +1489,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2002918567",
-      "place_name": "엘모즈비스포크 청담 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1445445/search",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2002133748",
@@ -2887,6 +2881,13 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-08-08T03:24:56.971380+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2019923740",
+      "place_name": "IVE x MINIVE POP-UP in SEOUL",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "ts": "2026-08-08T09:21:12.286781+09:00"
     }
   ],
   "seen_place_ids": [
