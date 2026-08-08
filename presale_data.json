@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T15:44:00.320936+09:00",
+  "updated_at": "2026-08-08T15:49:41.838125+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1001,7 +1001,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1023,7 +1023,8 @@
         "2026-08-07T22:53:45.109556+09:00",
         "2026-08-08T00:55:46.181677+09:00",
         "2026-08-08T12:53:46.992805+09:00",
-        "2026-08-08T13:49:47.468509+09:00"
+        "2026-08-08T13:49:47.468509+09:00",
+        "2026-08-08T15:49:26.590528+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1494,13 +1495,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2030273456",
-      "place_name": "안경만두타운",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685086",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2006596949",
@@ -2893,6 +2887,13 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-08-08T14:46:59.214042+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-08T15:49:26.590528+09:00"
     }
   ],
   "seen_place_ids": [
