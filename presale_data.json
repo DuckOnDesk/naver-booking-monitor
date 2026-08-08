@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T11:46:37.231539+09:00",
+  "updated_at": "2026-08-08T11:52:14.584244+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -682,7 +682,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
@@ -707,7 +707,8 @@
         "2026-08-07T20:32:47.417435+09:00",
         "2026-08-08T00:05:57.183694+09:00",
         "2026-08-08T03:24:56.971380+09:00",
-        "2026-08-08T09:21:12.286781+09:00"
+        "2026-08-08T09:21:12.286781+09:00",
+        "2026-08-08T11:52:01.208899+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1490,13 +1491,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2023862125",
-      "place_name": "인사이드룸",
-      "booking_url": "",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2019923740",
@@ -2889,6 +2883,13 @@
       "place_name": "주술회전 사멸회유 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "ts": "2026-08-08T09:26:45.135451+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2019923740",
+      "place_name": "IVE x MINIVE POP-UP in SEOUL",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "ts": "2026-08-08T11:52:01.208899+09:00"
     }
   ],
   "seen_place_ids": [
