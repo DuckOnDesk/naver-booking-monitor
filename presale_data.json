@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T09:21:24.980285+09:00",
+  "updated_at": "2026-08-08T09:26:57.646435+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -494,7 +494,7 @@
     {
       "id": "2071074882",
       "name": "주술회전 사멸회유 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "bookingBusinessId": "1698453",
       "operationStart": "26.07.24.",
@@ -511,7 +511,8 @@
         "2026-07-22T16:10:57.904712+09:00",
         "2026-08-07T16:50:40.442340+09:00",
         "2026-08-07T22:20:24.882514+09:00",
-        "2026-08-08T01:56:35.940533+09:00"
+        "2026-08-08T01:56:35.940533+09:00",
+        "2026-08-08T09:26:45.135451+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1489,13 +1490,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2002133748",
-      "place_name": "<붕괴: 스타레일 - 별 사이를 걷는 회고록>",
-      "booking_url": "",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2023862125",
@@ -2888,6 +2882,13 @@
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "ts": "2026-08-08T09:21:12.286781+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071074882",
+      "place_name": "주술회전 사멸회유 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
+      "ts": "2026-08-08T09:26:45.135451+09:00"
     }
   ],
   "seen_place_ids": [
