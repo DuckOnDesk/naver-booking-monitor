@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T16:29:32.905649+09:00",
+  "updated_at": "2026-08-08T16:35:14.897504+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -494,7 +494,7 @@
     {
       "id": "2071074882",
       "name": "주술회전 사멸회유 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "bookingBusinessId": "1698453",
       "operationStart": "26.07.24.",
@@ -512,7 +512,8 @@
         "2026-08-07T16:50:40.442340+09:00",
         "2026-08-07T22:20:24.882514+09:00",
         "2026-08-08T01:56:35.940533+09:00",
-        "2026-08-08T09:26:45.135451+09:00"
+        "2026-08-08T09:26:45.135451+09:00",
+        "2026-08-08T16:34:59.076565+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1495,13 +1496,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2006596949",
-      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
-      "ts": "2026-07-22T16:10:57.904712+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2027303446",
@@ -2894,6 +2888,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-08T15:49:26.590528+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071074882",
+      "place_name": "주술회전 사멸회유 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
+      "ts": "2026-08-08T16:34:59.076565+09:00"
     }
   ],
   "seen_place_ids": [
