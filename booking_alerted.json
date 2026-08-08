@@ -405,8 +405,8 @@
   },
   "ms4qtfmh:auto_book_state": {
     "sig": "2026-08-08|11:30",
-    "attempts": 2,
-    "dispatched_at": "2026-08-08T06:01:42+09:00"
+    "attempts": 3,
+    "dispatched_at": "2026-08-08T09:59:20+09:00"
   },
   "ms4qwci3:auto_book_state": {
     "sig": "2026-08-09|19:30",
@@ -418,5 +418,8 @@
   },
   "ms4b3fl4:2026-08-09:closed": {
     "11:00": 1
+  },
+  "ms4qtfmh:2026-08-08": {
+    "11:30": 1
   }
 }
