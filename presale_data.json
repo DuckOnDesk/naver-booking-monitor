@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-09T18:52:39.344284+09:00",
+  "updated_at": "2026-08-09T18:58:12.772684+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -64,7 +64,7 @@
     {
       "id": "2098663430",
       "name": "OFFICIAL HIGE DANDISM POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "bookingBusinessId": "1705650",
       "operationStart": "26.08.01.",
@@ -114,7 +114,8 @@
         "2026-08-08T02:13:10.155328+09:00",
         "2026-08-09T03:49:33.734561+09:00",
         "2026-08-09T11:26:17.869953+09:00",
-        "2026-08-09T15:13:52.886435+09:00"
+        "2026-08-09T15:13:52.886435+09:00",
+        "2026-08-09T18:57:59.830085+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1487,13 +1488,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-23T21:28:33.935304+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2084130717",
@@ -2886,6 +2880,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-09T18:30:12.596434+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2098663430",
+      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
+      "ts": "2026-08-09T18:57:59.830085+09:00"
     }
   ],
   "seen_place_ids": [
