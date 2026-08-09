@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-09T12:54:23.016747+09:00",
+  "updated_at": "2026-08-09T12:59:58.053315+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -957,7 +957,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -983,7 +983,8 @@
         "2026-08-08T15:49:26.590528+09:00",
         "2026-08-08T18:40:17.132073+09:00",
         "2026-08-08T22:36:47.269865+09:00",
-        "2026-08-09T00:06:10.438782+09:00"
+        "2026-08-09T00:06:10.438782+09:00",
+        "2026-08-09T12:59:45.208748+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1480,13 +1481,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2052645378",
-      "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
-      "booking_url": "",
-      "ts": "2026-07-23T00:19:50.179987+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2092504039",
@@ -2879,6 +2873,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-09T11:26:17.869953+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-09T12:59:45.208748+09:00"
     }
   ],
   "seen_place_ids": [
