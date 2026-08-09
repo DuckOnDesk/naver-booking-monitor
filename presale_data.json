@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-09T21:17:08.346757+09:00",
+  "updated_at": "2026-08-09T21:22:42.539555+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -961,7 +961,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -991,7 +991,8 @@
         "2026-08-09T12:59:45.208748+09:00",
         "2026-08-09T13:44:25.862586+09:00",
         "2026-08-09T15:25:04.757547+09:00",
-        "2026-08-09T18:30:12.596434+09:00"
+        "2026-08-09T18:30:12.596434+09:00",
+        "2026-08-09T21:22:30.314905+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1488,13 +1489,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-23T21:39:09.632424+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2017875070",
@@ -2887,6 +2881,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-09T18:57:59.830085+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-09T21:22:30.314905+09:00"
     }
   ],
   "seen_place_ids": [
