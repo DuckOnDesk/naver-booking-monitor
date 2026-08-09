@@ -43,19 +43,27 @@
   "ms4qwci3": {
     "name": "TFT 비트펠라하우스 공연",
     "last_run": {
-      "at": "2026-08-06T23:33:47+09:00",
+      "at": "2026-08-09T15:11:17+09:00",
       "sig": "2026-08-09|19:30",
       "date": "2026-08-09",
       "times": [
         "19:30"
       ],
-      "attempt": 2,
-      "lag_sec": 36.4,
-      "elapsed": 4.3,
+      "attempt": 4,
+      "lag_sec": 33.4,
+      "elapsed": 4.6,
       "account": 1,
-      "success": false,
+      "success": true,
       "dry_run": false,
-      "message": "시간대 ['19:30'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
+      "unbookable": false,
+      "api_slots": null,
+      "message": "예약 완료 (2026-08-09 19:30)"
+    },
+    "booked": {
+      "date": "2026-08-09",
+      "time": "19:30",
+      "account": 1,
+      "at": "2026-08-09T15:11:17+09:00"
     }
   },
   "ms4b3fl4": {
