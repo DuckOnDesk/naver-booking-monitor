@@ -409,8 +409,8 @@
   },
   "ms4qwci3:auto_book_state": {
     "sig": "2026-08-09|19:30",
-    "attempts": 3,
-    "dispatched_at": "2026-08-07T12:59:03+09:00"
+    "attempts": 4,
+    "dispatched_at": "2026-08-09T15:10:40+09:00"
   },
   "ms4b3fl4:2026-08-17:closed": {
     "11:00": 1
@@ -419,5 +419,7 @@
     "11:00": 1
   },
   "ms4qrh5o:url_close_streak": 1,
-  "ms4qwci3:url_close_streak": 1
+  "ms4qwci3:2026-08-09": {
+    "19:30": 5
+  }
 }
