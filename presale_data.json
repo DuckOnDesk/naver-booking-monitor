@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-09T15:14:05.720333+09:00",
+  "updated_at": "2026-08-09T15:19:42.032347+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -637,7 +637,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
@@ -667,7 +667,8 @@
         "2026-08-08T14:46:59.214042+09:00",
         "2026-08-08T20:11:21.629446+09:00",
         "2026-08-08T23:43:50.075082+09:00",
-        "2026-08-09T01:58:26.684942+09:00"
+        "2026-08-09T01:58:26.684942+09:00",
+        "2026-08-09T15:19:29.691602+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -959,7 +960,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1484,13 +1485,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2019923740",
-      "place_name": "IVE x MINIVE POP-UP in SEOUL",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
-      "ts": "2026-07-23T17:32:48.761065+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2092504039",
@@ -2883,6 +2877,13 @@
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
       "ts": "2026-08-09T15:13:52.886435+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2019923740",
+      "place_name": "IVE x MINIVE POP-UP in SEOUL",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
+      "ts": "2026-08-09T15:19:29.691602+09:00"
     }
   ],
   "seen_place_ids": [
