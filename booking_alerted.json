@@ -403,10 +403,6 @@
     "19:00": 40,
     "19:30": 40
   },
-  "ms4qtfmh:auto_book_state": {
-    "sig": "2026-08-08|11:30",
-    "attempts": 3
-  },
   "ms4qwci3:auto_book_state": {
     "sig": "2026-08-09|19:30",
     "attempts": 4
@@ -423,5 +419,11 @@
     "time": "19:30",
     "account": 1,
     "at": "2026-08-09T15:11:17+09:00"
+  },
+  "ms4qtfmh:url_close_streak": 2,
+  "ms4qwci3:url_close_streak": 1,
+  "ms4qtfmh:url_closed": 1,
+  "ms4qtfmh:2026-08-14:closed": {
+    "18:00": 1
   }
 }
