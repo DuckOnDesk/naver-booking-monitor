@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-09T20:32:45.798338+09:00",
+  "updated_at": "2026-08-09T20:38:17.972300+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -497,7 +497,7 @@
     {
       "id": "2071074882",
       "name": "주술회전 사멸회유 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698453",
       "bookingBusinessId": "1698453",
       "operationStart": "26.07.24.",
@@ -638,7 +638,7 @@
     {
       "id": "2019923740",
       "name": "IVE x MINIVE POP-UP in SEOUL",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1698448",
       "bookingBusinessId": "1698448",
       "operationStart": "26.07.30.",
