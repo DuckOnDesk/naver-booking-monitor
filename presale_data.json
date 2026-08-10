@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-10T17:01:19.884136+09:00",
+  "updated_at": "2026-08-10T17:06:57.844352+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -10,6 +10,7 @@
     "2012113406",
     "2015464753",
     "2019832187",
+    "2021119485",
     "2021947047",
     "2027174717",
     "2043425985",
@@ -633,6 +634,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-06T22:51:31.699185+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2021119485",
+      "name": "랑콤 압솔뤼 롱제비티 MD 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.14.",
+      "operationEnd": "26.08.17.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260810_57/1786329795915G4cc2_JPEG/edited-1786329796855-0.jpg",
+      "roadAddress": "올림픽로 300 롯데 에비뉴엘 잠실점 지하1층",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
