@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-10T17:35:15.647967+09:00",
+  "updated_at": "2026-08-10T17:40:56.093211+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -611,7 +611,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -639,9 +639,9 @@
     {
       "id": "2021119485",
       "name": "랑콤 압솔뤼 롱제비티 MD 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1710791/search",
+      "bookingBusinessId": "1710791",
       "operationStart": "26.08.14.",
       "operationEnd": "26.08.19.",
       "remainingDays": 4,
@@ -652,14 +652,16 @@
       "commonAddress": "서울 송파구",
       "district": "송파구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-10T17:40:42.245705+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-10T17:40:54.747467+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1333,13 +1335,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-24T08:44:43.286029+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2084130717",
@@ -2732,6 +2727,13 @@
       "place_name": "사우나 불금 클럽",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1713888/search",
       "ts": "2026-08-10T14:44:06.219428+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2021119485",
+      "place_name": "랑콤 압솔뤼 롱제비티 MD 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1710791/search",
+      "ts": "2026-08-10T17:40:42.245705+09:00"
     }
   ],
   "seen_place_ids": [
