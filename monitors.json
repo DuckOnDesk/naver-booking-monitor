@@ -85,7 +85,20 @@
       "name": "토리든",
       "url": "https://m.booking.naver.com/booking/12/bizes/1711705/items/7936007?theme=place&lang=ko&area=ple&fbclid=PAcGRvZgJleHRuA2FlbQMxMDAAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnXzE4DC79QvNk5fl91UUIjnsKpujNN2jPRZux2ehYoE6vBD8THKLXDqFeb-c_aem_t2jP2u0m9YDd-xFb4DjXiQ",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-08-22",
+          "2026-08-23"
+        ],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-08-10T23:57:09.445Z"
+      }
     }
   ]
 }
