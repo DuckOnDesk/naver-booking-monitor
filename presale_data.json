@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-10T10:33:58.811986+09:00",
+  "updated_at": "2026-08-10T10:39:39.232584+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -174,7 +174,7 @@
     {
       "id": "1893291672",
       "name": "트루스오브뷰티 별별 문방구 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1707570",
       "bookingBusinessId": "1707570",
       "operationStart": "26.08.12.",
@@ -189,7 +189,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-08-04T17:32:28.556378+09:00",
-        "2026-08-05T11:41:00.587404+09:00"
+        "2026-08-05T11:41:00.587404+09:00",
+        "2026-08-10T10:39:25.424228+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1332,13 +1333,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2017875070",
-      "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
-      "ts": "2026-07-23T22:48:00.609626+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2051944825",
@@ -2731,6 +2725,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-09T21:22:30.314905+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "1893291672",
+      "place_name": "트루스오브뷰티 별별 문방구 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1707570",
+      "ts": "2026-08-10T10:39:25.424228+09:00"
     }
   ],
   "seen_place_ids": [
