@@ -79,6 +79,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1710955/items/7931952",
       "enabled": false,
       "target_dates": []
+    },
+    {
+      "id": "msnvs690",
+      "name": "토리든",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1711705/items/7936007?theme=place&lang=ko&area=ple&fbclid=PAcGRvZgJleHRuA2FlbQMxMDAAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnXzE4DC79QvNk5fl91UUIjnsKpujNN2jPRZux2ehYoE6vBD8THKLXDqFeb-c_aem_t2jP2u0m9YDd-xFb4DjXiQ",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
