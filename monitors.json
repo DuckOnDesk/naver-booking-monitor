@@ -55,23 +55,6 @@
       }
     },
     {
-      "id": "ms4qwci3",
-      "name": "TFT 비트펠라하우스 공연",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1693898/items/7874760",
-      "enabled": true,
-      "target_dates": [],
-      "auto_book": {
-        "enabled": true,
-        "dates": [],
-        "times": [],
-        "accounts": [],
-        "count": 2,
-        "mode": "scheduled",
-        "start_at": "2026-07-29T15:00:00+09:00",
-        "saved_at": "2026-07-29T05:55:27.663Z"
-      }
-    },
-    {
       "id": "msddyhkc",
       "name": "트루스 오브 뷰티",
       "url": "https://booking.naver.com/booking/13/bizes/1707570/items/7913541?startDate=2026-08-15",
