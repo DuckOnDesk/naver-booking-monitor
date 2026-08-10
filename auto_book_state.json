@@ -2,117 +2,27 @@
   "ms4qtfmh": {
     "name": "TFT 스탬프투어",
     "last_run": {
-      "at": "2026-08-11T05:14:55+09:00",
+      "at": "2026-08-11T07:21:15+09:00",
       "sig": "2026-08-16|12:30",
       "date": "2026-08-16",
       "times": [
         "12:30"
       ],
       "attempt": 1,
-      "lag_sec": 30.6,
-      "elapsed": 4.0,
-      "account": 5,
-      "success": false,
+      "lag_sec": 28.6,
+      "elapsed": 6.2,
+      "account": 1,
+      "success": true,
       "dry_run": false,
       "unbookable": false,
-      "api_slots": [
-        {
-          "t": "10:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "11:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "11:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "12:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "12:30",
-          "stock": 40,
-          "booked": 39
-        },
-        {
-          "t": "13:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "13:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "14:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "14:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "15:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "15:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "16:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "16:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "17:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "17:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "18:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "18:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "19:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "19:30",
-          "stock": 40,
-          "booked": 40
-        }
-      ],
-      "message": "예약 화면으로 진입하지 못함 (리다이렉트: https://m.booking.naver.com/booking/12/bizes/1693898?startDate=2026-08-16)"
+      "api_slots": null,
+      "message": "예약 완료 (2026-08-16 12:30)"
+    },
+    "booked": {
+      "date": "2026-08-16",
+      "time": "12:30",
+      "account": 1,
+      "at": "2026-08-11T07:21:15+09:00"
     }
   },
   "ms4qwci3": {
