@@ -431,15 +431,12 @@
     "account": 1,
     "at": "2026-08-11T07:21:15+09:00"
   },
-  "msnvs690:auto_book_state": {
-    "sig": "2026-08-23|11:00,12:00,13:00,18:00,19:00",
-    "attempts": 1
-  },
   "ms4b3fl4:2026-08-11:closed": {
     "11:00": 1
   },
-  "msnvs690:url_close_streak": 1,
-  "msnvs690:2026-08-15": {
+  "msnvs690:url_close_streak": 2,
+  "msnvs690:url_closed": 1,
+  "msnvs690:2026-08-15:closed": {
     "15:00": 2
   }
 }
