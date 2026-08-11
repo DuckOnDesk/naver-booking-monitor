@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-11T10:16:34.171975+09:00",
+  "updated_at": "2026-08-11T10:22:13.154200+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -821,7 +821,7 @@
       "status": "D-16",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260731_72/17854610386393e9fL_JPEG/edited-1785461033062-0.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 지하2층 센트럴",
+      "roadAddress": "여의대로 108 더현대 서울 지하2층 센트럴존",
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
       "bookingOpenDatetime": null,
