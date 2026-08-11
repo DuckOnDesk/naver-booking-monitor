@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-11T15:43:20.393233+09:00",
+  "updated_at": "2026-08-11T15:49:04.977364+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -25,7 +25,8 @@
     "2071913479",
     "2072326612",
     "2076235934",
-    "2093484387"
+    "2093484387",
+    "2093555347"
   ],
   "booking_open_datetimes": {
     "2066415670": "2026-08-07T11:00:00+09:00"
@@ -343,6 +344,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2093555347",
+      "name": "다크리스닝세션: 흉담",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.19.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260810_94/17863501235091AatQ_JPEG/edited-1786350123117-0.jpg",
+      "roadAddress": "성수이로16길 31 1층, 3층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-11T15:48:50.142911+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2017034437",
       "name": "명탐정 코난 추리게임 팝업",
       "hasBooking": true,
@@ -643,7 +670,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -660,7 +687,8 @@
         "2026-08-07T11:03:04.193176+09:00",
         "2026-08-10T19:27:19.878790+09:00",
         "2026-08-10T23:08:59.227499+09:00",
-        "2026-08-11T02:34:21.725758+09:00"
+        "2026-08-11T02:34:21.725758+09:00",
+        "2026-08-11T15:48:50.142911+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1370,20 +1398,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-24T23:24:54.198624+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2052645378",
-      "place_name": "쥬베룩 플래그십 스토어 오픈 이벤트",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1694989",
-      "ts": "2026-07-25T00:44:41.911883+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2092504039",
@@ -2769,6 +2783,20 @@
       "place_name": "'테이스트 오브 하모니' 히비키 팝업",
       "booking_url": "",
       "ts": "2026-08-11T14:23:20.109767+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2093555347",
+      "place_name": "다크리스닝세션: 흉담",
+      "booking_url": "",
+      "ts": "2026-08-11T15:48:50.142911+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-11T15:48:50.142911+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2841,6 +2869,7 @@
     "2091748507",
     "2092504039",
     "2093484387",
+    "2093555347",
     "2098663430"
   ]
 }
