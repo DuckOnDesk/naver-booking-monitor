@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-11T20:16:02.440508+09:00",
+  "updated_at": "2026-08-11T20:21:36.568992+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -899,7 +899,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
