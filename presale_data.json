@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-11T20:49:29.047997+09:00",
+  "updated_at": "2026-08-11T20:55:03.334079+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -671,7 +671,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
