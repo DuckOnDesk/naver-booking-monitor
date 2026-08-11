@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-11T18:28:47.471114+09:00",
+  "updated_at": "2026-08-11T18:34:32.535854+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -731,7 +731,7 @@
     {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "bookingBusinessId": "1693898",
       "operationStart": "26.08.07.",
@@ -745,7 +745,8 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-07-28T08:49:40.037511+09:00"
+        "2026-07-28T08:49:40.037511+09:00",
+        "2026-08-11T18:34:18.357703+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1399,13 +1400,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2017875070",
-      "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
-      "ts": "2026-07-25T02:20:43.676567+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2052645378",
@@ -2798,6 +2792,13 @@
       "place_name": "트루스오브뷰티 별별 문방구 팝업",
       "booking_url": "https://m.booking.naver.com/booking/13/bizes/1707570",
       "ts": "2026-08-11T16:40:27.742942+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2062024820",
+      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "ts": "2026-08-11T18:34:18.357703+09:00"
     }
   ],
   "seen_place_ids": [
