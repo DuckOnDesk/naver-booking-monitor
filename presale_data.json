@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-12T20:04:33.701505+09:00",
+  "updated_at": "2026-08-12T20:10:10.673664+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1143,27 +1143,29 @@
     {
       "id": "2019832187",
       "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711626",
+      "bookingBusinessId": "1711626",
       "operationStart": "26.08.24.",
       "operationEnd": null,
       "remainingDays": 12,
       "status": "D-12",
       "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260805_294/1785922103029gpYmH_JPEG/edited-1785922102727-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_62/17865325903270TNRL_JPEG/1786528820465.jpg",
       "roadAddress": "서소문로 127 지하 2층 두두두서울(dududo seoul)",
       "commonAddress": "서울 중구",
       "district": "중구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-12T20:09:56.497588+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-12T20:10:09.151092+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1572,13 +1574,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-26T17:36:23.269162+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2017875070",
@@ -2971,6 +2966,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-12T19:47:33.711939+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2019832187",
+      "place_name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711626",
+      "ts": "2026-08-12T20:09:56.497588+09:00"
     }
   ],
   "seen_place_ids": [
