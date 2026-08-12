@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-12T11:39:15.952060+09:00",
+  "updated_at": "2026-08-12T11:44:54.747243+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -15,6 +15,7 @@
     "2027174717",
     "2043425985",
     "2045247144",
+    "2049771421",
     "2050153907",
     "2053652128",
     "2062024820",
@@ -367,6 +368,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2049771421",
+      "name": "인스턴트펑크 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.21.",
+      "operationEnd": "26.08.22.",
+      "remainingDays": 9,
+      "status": "D-9",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_283/1786428220397yuizX_JPEG/edited-1786428220152-0.jpg",
+      "roadAddress": "아차산로7나길 14 AE 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T11:44:42.673229+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1406,13 +1433,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-25T12:22:42.286824+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2073241477",
@@ -2805,6 +2825,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-12T10:31:17.854008+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2049771421",
+      "place_name": "인스턴트펑크 팝업",
+      "booking_url": "",
+      "ts": "2026-08-12T11:44:42.673229+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2849,6 +2876,7 @@
     "2043425985",
     "2043461454",
     "2045247144",
+    "2049771421",
     "2049944406",
     "2050153907",
     "2050363685",
