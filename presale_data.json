@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-12T16:46:16.946860+09:00",
+  "updated_at": "2026-08-12T16:51:55.911401+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -26,6 +26,7 @@
     "2069912344",
     "2071913479",
     "2072326612",
+    "2075951781",
     "2076235934",
     "2093484387",
     "2093555347"
@@ -369,6 +370,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2075951781",
+      "name": "판도라 플레이그라운드 Pick & Play",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.25.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": 13,
+      "status": "D-13",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260803_36/1785749655371yDG3U_JPEG/edited-1785749658236-0.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1462,13 +1489,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2084130717",
-      "place_name": "토니모리 20주년 UNCOMMON FACTORY",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1685383",
-      "ts": "2026-07-25T17:57:42.799050+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2084130717",
@@ -2861,6 +2881,13 @@
       "place_name": "소머드 팝업",
       "booking_url": "",
       "ts": "2026-08-12T16:11:59.555801+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2075951781",
+      "place_name": "판도라 플레이그라운드 Pick & Play",
+      "booking_url": "",
+      "ts": "2026-08-12T16:51:43.178442+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2930,6 +2957,7 @@
     "2073241477",
     "2073328330",
     "2075560121",
+    "2075951781",
     "2076235934",
     "2084130717",
     "2091748507",
