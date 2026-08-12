@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-12T18:40:42.910223+09:00",
+  "updated_at": "2026-08-12T18:46:18.994636+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -15,6 +15,7 @@
     "2021947047",
     "2027174717",
     "2033849367",
+    "2040923737",
     "2043425985",
     "2045247144",
     "2049771421",
@@ -785,6 +786,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2040923737",
+      "name": "크레페허브 포켓몬 별빛낙원",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.16.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_134/1786520490691Tcm0X_JPEG/edited-1786520490378-0.jpg",
+      "roadAddress": "올림픽로 300 잠실 롯데월드몰 아레나 광장",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T18:46:07.364022+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
       "hasBooking": false,
@@ -1517,13 +1544,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2017875070",
-      "place_name": "승리의 여신: 니케 2026 여름 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1689014/search",
-      "ts": "2026-07-26T10:24:39.837880+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2073188735",
@@ -2916,6 +2936,13 @@
       "place_name": "집집 chapter 02 in 성수",
       "booking_url": "",
       "ts": "2026-08-12T18:12:25.888287+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2040923737",
+      "place_name": "크레페허브 포켓몬 별빛낙원",
+      "booking_url": "",
+      "ts": "2026-08-12T18:46:07.364022+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2956,6 +2983,7 @@
     "2036674429",
     "2038805228",
     "2039988652",
+    "2040923737",
     "2041689219",
     "2042771625",
     "2043213423",
