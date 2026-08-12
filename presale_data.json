@@ -1,8 +1,9 @@
 {
-  "updated_at": "2026-08-12T18:07:01.941313+09:00",
+  "updated_at": "2026-08-12T18:12:38.487066+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
+    "2000187386",
     "2002559489",
     "2006916982",
     "2007641747",
@@ -320,6 +321,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2000187386",
+      "name": "집집 chapter 02 in 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.24.",
+      "operationEnd": "26.10.25.",
+      "remainingDays": 73,
+      "status": "D-73",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_238/1786524585715lK4RO_JPEG/edited-1786524585508-0.jpg",
+      "roadAddress": "성수이로 50 SPACE S-50",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T18:12:25.888287+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "1646280504",
       "name": "틴더 패스포트 라운지",
       "hasBooking": true,
@@ -375,7 +402,7 @@
     },
     {
       "id": "2075951781",
-      "name": "판도라 플레이그라운드 Pick & Play",
+      "name": "판도라 플레이그라운드: Pick & Play",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
@@ -570,7 +597,7 @@
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260811_286/17864392085321MIOn_PNG/image.png",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260812_157/1786523809989lzqOD_PNG/image.png",
       "roadAddress": "도산대로 403 LG전자 플래그십 D5",
       "commonAddress": "서울 강남구",
       "district": "강남구",
@@ -1490,13 +1517,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-26T10:24:39.837880+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2017875070",
@@ -2889,11 +2909,19 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-12T16:57:22.184050+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2000187386",
+      "place_name": "집집 chapter 02 in 성수",
+      "booking_url": "",
+      "ts": "2026-08-12T18:12:25.888287+09:00"
     }
   ],
   "seen_place_ids": [
     "1646280504",
     "1893291672",
+    "2000187386",
     "2001371441",
     "2001855074",
     "2002133748",
