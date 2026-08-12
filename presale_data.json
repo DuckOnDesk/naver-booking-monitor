@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-12T16:06:33.143920+09:00",
+  "updated_at": "2026-08-12T16:12:12.698037+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -13,6 +13,7 @@
     "2021119485",
     "2021947047",
     "2027174717",
+    "2033849367",
     "2043425985",
     "2045247144",
     "2049771421",
@@ -1190,6 +1191,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2033849367",
+      "name": "소머드 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.10.29.",
+      "remainingDays": 16,
+      "status": "D-16",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20251013_270/1760321098578Hjg3h_JPEG/%B8%DE%C0%CE%C0%CC%B9%CC%C1%F6.jpg",
+      "roadAddress": "선릉로 704 10층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T16:11:59.555801+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2007641747",
       "name": "드래곤빌리지 팝업 SVIP, VIP 라운지",
       "hasBooking": true,
@@ -1435,13 +1462,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2092504039",
-      "place_name": "네스카페 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1699872",
-      "ts": "2026-07-25T17:52:24.373430+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2084130717",
@@ -2834,6 +2854,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-12T14:52:32.392581+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2033849367",
+      "place_name": "소머드 팝업",
+      "booking_url": "",
+      "ts": "2026-08-12T16:11:59.555801+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2868,6 +2895,7 @@
     "2027303446",
     "2030273456",
     "2033013073",
+    "2033849367",
     "2034762449",
     "2036674429",
     "2038805228",
