@@ -101,6 +101,10 @@ SCHEDULE_CACHE_TTL_MIN = _env_num("SCHEDULE_CACHE_TTL_MIN", 60)
 # 한 회차에 재탐색할 최대 항목 수. 캐시가 한꺼번에 만료돼도 루프가 멈추지 않도록
 # 회차당 1건씩만 갱신해 자연스럽게 분산시킨다.
 SCHEDULE_REPROBE_PER_ROUND = _env_num("SCHEDULE_REPROBE_PER_ROUND", 1)
+# 운영 기간이 바뀌었을 때 ntfy 알림까지 보낼지 (0 = 로그만 남김).
+# 업체가 기간을 수시로 손대는 팝업(예: TFT 스탬프투어)이 있으면 알림이 계속 울려
+# 정작 중요한 자리 알림이 묻힌다. 변경 내용은 로그에 그대로 남으므로 기본은 끔.
+PERIOD_CHANGE_NTFY = os.environ.get("PERIOD_CHANGE_NTFY", "0") != "0"
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
@@ -1628,14 +1632,19 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if is_first_probe or changed or forced:
                     commit_schedule_cache()
 
-                if changed and not is_first_probe and ntfy_topic:
+                if changed and not is_first_probe:
                     body = _describe_period_change(cache_entry_before, probed)
                     # 자동예약 날짜를 직접 지정해 둔 항목은 기간이 늘어나도 그 날짜만 시도한다.
-                    # 늘어난 날짜를 놓치기 쉬운 지점이라 알림에 같이 알려준다.
+                    # 늘어난 날짜를 놓치기 쉬운 지점이라 변경 내용에 같이 적어둔다.
                     _ab = _auto_book_cfg(item)
                     if _ab and _ab["dates"]:
                         body += "\n⚠️ 자동예약 날짜가 지정돼 있어 새로 늘어난 날짜는 대상이 아닙니다."
-                    send_ntfy(ntfy_topic, f"🔄 {name} 운영 기간 변경", body, url)
+                    if PERIOD_CHANGE_NTFY and ntfy_topic:
+                        send_ntfy(ntfy_topic, f"🔄 {name} 운영 기간 변경", body, url)
+                    else:
+                        # 알림은 끄고 로그에만 남긴다 (PERIOD_CHANGE_NTFY=1로 다시 켤 수 있다).
+                        for line in body.splitlines():
+                            print(f"[{now_str}]    {line}", flush=True)
             elif not is_first_probe:
                 _reprobed_this_round += 1
                 print(f"[{now_str}] [경고] {name} 운영 기간 재확인 실패 — 기존 캐시 유지", flush=True)
