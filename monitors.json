@@ -99,6 +99,13 @@
         "start_at": "2026-08-11T11:00:00+09:00",
         "saved_at": "2026-08-11T00:02:49.455Z"
       }
+    },
+    {
+      "id": "msr6oy7v",
+      "name": "QWER",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1693898/items/7874777?startDateTime=2026-08-13T00%3A00%3A00%2B09%3A00",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
