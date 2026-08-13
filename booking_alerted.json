@@ -435,12 +435,6 @@
   "ms4b3fl4:2026-08-12:closed": {
     "11:00": 1
   },
-  "ms4qtfmh:auto_booked": {
-    "date": "2026-08-16",
-    "time": "12:30",
-    "account": 1,
-    "at": "2026-08-11T07:21:15+09:00"
-  },
   "ms4b3fl4:2026-08-14:closed": {
     "11:00": 1
   },
@@ -448,8 +442,9 @@
     "18:00": 70,
     "20:30": 70
   },
-  "ms4qtfmh:url_close_streak": 1,
-  "ms4qtfmh:2026-08-17": {
+  "ms4qtfmh:url_close_streak": 2,
+  "ms4qtfmh:url_closed": 1,
+  "ms4qtfmh:2026-08-17:closed": {
     "11:30": 2
   }
 }
