@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T17:30:21.476215+09:00",
+  "updated_at": "2026-08-13T17:36:08.037627+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -12,6 +12,7 @@
     "2019832187",
     "2021119485",
     "2023497014",
+    "2024393757",
     "2027174717",
     "2032034855",
     "2033013073",
@@ -400,6 +401,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2024393757",
+      "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.02.",
+      "operationEnd": "26.09.06.",
+      "remainingDays": 20,
+      "status": "D-20",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260813_272/1786598109081EhdY3_JPEG/edited-1786598109193-0.jpg",
+      "roadAddress": "성수이로 50",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-13T17:35:52.124179+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2075951781",
       "name": "판도라 플레이그라운드: Pick & Play",
       "hasBooking": false,
@@ -452,35 +479,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2057128614",
-      "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "bookingBusinessId": "1716761",
-      "operationStart": "26.08.28.",
-      "operationEnd": "26.08.28.",
-      "remainingDays": 15,
-      "status": "D-15",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
-      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-13T15:32:07.555744+09:00",
-        "2026-08-13T16:32:32.622550+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
-      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
       "hasBooking": false,
@@ -530,6 +528,35 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2057128614",
+      "name": "스픽 2026 영어울렁증 퇴마식",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "bookingBusinessId": "1716761",
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 15,
+      "status": "D-15",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
+      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-13T15:32:07.555744+09:00",
+        "2026-08-13T16:32:32.622550+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
+      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
       "bookingIsOpened": false
     },
     {
@@ -859,7 +886,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -882,7 +909,8 @@
         "2026-08-11T22:40:44.439509+09:00",
         "2026-08-13T05:01:15.390359+09:00",
         "2026-08-13T10:15:24.885388+09:00",
-        "2026-08-13T14:18:30.824585+09:00"
+        "2026-08-13T14:18:30.824585+09:00",
+        "2026-08-13T17:35:52.124179+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1664,20 +1692,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2075560121",
-      "place_name": "2026 산리오 키즈 페스티벌",
-      "booking_url": "",
-      "ts": "2026-07-28T14:22:47.480213+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2001855074",
-      "place_name": "3WAAU 1st POP-UP Store",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1702396",
-      "ts": "2026-07-28T14:45:33.759370+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2067967922",
@@ -3063,6 +3077,20 @@
       "place_name": "구달 TXA 세럼 팝업",
       "booking_url": "",
       "ts": "2026-08-13T17:01:22.014846+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2024393757",
+      "place_name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
+      "booking_url": "",
+      "ts": "2026-08-13T17:35:52.124179+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-13T17:35:52.124179+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3094,6 +3122,7 @@
     "2021947047",
     "2023497014",
     "2023862125",
+    "2024393757",
     "2025764652",
     "2027174717",
     "2027303446",
