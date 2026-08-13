@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T19:53:28.992657+09:00",
+  "updated_at": "2026-08-13T19:59:09.732436+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -898,7 +898,7 @@
     {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "bookingBusinessId": "1693898",
       "operationStart": "26.08.07.",
@@ -928,7 +928,8 @@
         "2026-08-13T12:59:23.331466+09:00",
         "2026-08-13T14:35:29.236193+09:00",
         "2026-08-13T15:46:24.167923+09:00",
-        "2026-08-13T18:22:06.826458+09:00"
+        "2026-08-13T18:22:06.826458+09:00",
+        "2026-08-13T19:58:54.091356+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1639,13 +1640,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2049944406",
-      "place_name": "온그리디언츠 더마 VIP 라운지행사",
-      "booking_url": "",
-      "ts": "2026-07-28T18:19:32.098422+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2017875070",
@@ -3038,6 +3032,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-13T18:22:06.826458+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2062024820",
+      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "ts": "2026-08-13T19:58:54.091356+09:00"
     }
   ],
   "seen_place_ids": [
