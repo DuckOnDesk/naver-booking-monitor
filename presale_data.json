@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T12:53:57.349873+09:00",
+  "updated_at": "2026-08-13T12:59:36.863971+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -404,32 +404,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2057128614",
-      "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.28.",
-      "operationEnd": "26.08.28.",
-      "remainingDays": 15,
-      "status": "D-15",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
-      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "hasBooking": false,
@@ -504,6 +478,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-12T11:44:42.673229+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2057128614",
+      "name": "스픽 2026 영어울렁증 퇴마식",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 15,
+      "status": "D-15",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
+      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -834,7 +834,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -898,7 +898,7 @@
     {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "bookingBusinessId": "1693898",
       "operationStart": "26.08.07.",
@@ -924,7 +924,8 @@
         "2026-08-12T21:17:01.230272+09:00",
         "2026-08-12T23:58:44.483433+09:00",
         "2026-08-13T09:04:50.039610+09:00",
-        "2026-08-13T10:00:55.514883+09:00"
+        "2026-08-13T10:00:55.514883+09:00",
+        "2026-08-13T12:59:23.331466+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1609,13 +1610,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2004678306",
-      "place_name": "하우스 아카이브: 홈 디깅 페어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1666185",
-      "ts": "2026-07-28T14:22:47.480213+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2067967922",
@@ -3008,6 +3002,13 @@
       "place_name": "가상체험 XR 라이브",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1700991/search",
       "ts": "2026-08-13T12:14:18.381319+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2062024820",
+      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "ts": "2026-08-13T12:59:23.331466+09:00"
     }
   ],
   "seen_place_ids": [
