@@ -106,6 +106,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1693898/items/7874777?startDateTime=2026-08-13T00%3A00%3A00%2B09%3A00",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "msr8em7t",
+      "name": "스픽",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1716761/items/7960258?tab=book",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
