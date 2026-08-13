@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-13T16:27:04.240559+09:00",
+  "updated_at": "2026-08-13T16:32:48.589541+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -458,7 +458,7 @@
     {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "bookingBusinessId": "1716761",
       "operationStart": "26.08.28.",
@@ -472,7 +472,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-08-13T15:32:07.555744+09:00"
+        "2026-08-13T15:32:07.555744+09:00",
+        "2026-08-13T16:32:32.622550+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1615,13 +1616,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2050363685",
-      "place_name": "콜라보카페 세이브포인트",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
-      "ts": "2026-07-28T14:22:47.480213+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2042771625",
@@ -3014,6 +3008,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-13T15:46:24.167923+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057128614",
+      "place_name": "스픽 2026 영어울렁증 퇴마식",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "ts": "2026-08-13T16:32:32.622550+09:00"
     }
   ],
   "seen_place_ids": [
