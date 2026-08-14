@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T16:25:33.258118+09:00",
+  "updated_at": "2026-08-14T16:31:11.671384+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -427,32 +427,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2075951781",
-      "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.25.",
-      "operationEnd": "26.08.31.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
-      "roadAddress": "연무장길 99",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "hasBooking": false,
@@ -506,6 +480,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2075951781",
+      "name": "판도라 플레이그라운드: Pick & Play",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.25.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1517,7 +1517,7 @@
     {
       "id": "2069912344",
       "name": "사우나 불금 클럽",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1713888/search",
       "bookingBusinessId": "1713888",
       "operationStart": "26.08.28.",
@@ -1531,7 +1531,8 @@
       "district": "광진구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-08-10T14:44:06.219428+09:00"
+        "2026-08-10T14:44:06.219428+09:00",
+        "2026-08-14T16:30:59.563612+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1654,13 +1655,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2006596949",
-      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
-      "ts": "2026-07-31T01:23:39.610663+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2073241477",
@@ -3053,6 +3047,13 @@
       "place_name": "스픽 2026 영어울렁증 퇴마식",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "ts": "2026-08-14T16:02:48.854470+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2069912344",
+      "place_name": "사우나 불금 클럽",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1713888/search",
+      "ts": "2026-08-14T16:30:59.563612+09:00"
     }
   ],
   "seen_place_ids": [
