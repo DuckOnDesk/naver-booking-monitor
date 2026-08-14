@@ -446,8 +446,9 @@
     "attempts": 1,
     "dispatched_at": "2026-08-14T22:49:53+09:00"
   },
-  "ms4qtfmh:url_close_streak": 1,
-  "ms4qtfmh:2026-08-15": {
+  "ms4qtfmh:url_close_streak": 2,
+  "ms4qtfmh:url_closed": 1,
+  "ms4qtfmh:2026-08-15:closed": {
     "11:30": 2
   }
 }
