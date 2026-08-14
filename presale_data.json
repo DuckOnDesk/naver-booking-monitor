@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T10:16:47.569181+09:00",
+  "updated_at": "2026-08-14T10:22:32.287332+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -456,32 +456,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2075951781",
-      "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.25.",
-      "operationEnd": "26.08.31.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
-      "roadAddress": "연무장길 99",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "hasBooking": false,
@@ -504,6 +478,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2075951781",
+      "name": "판도라 플레이그라운드: Pick & Play",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.25.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -808,7 +808,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -835,7 +835,8 @@
         "2026-08-13T17:35:52.124179+09:00",
         "2026-08-13T21:21:52.207779+09:00",
         "2026-08-14T00:59:42.996893+09:00",
-        "2026-08-14T05:38:03.300191+09:00"
+        "2026-08-14T05:38:03.300191+09:00",
+        "2026-08-14T10:22:15.907454+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1678,13 +1679,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-07-30T17:05:44.321877+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2073241477",
@@ -3077,6 +3071,13 @@
       "place_name": "그랜드 민트 페스티벌 2026",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1702892",
       "ts": "2026-08-14T09:59:19.702182+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-14T10:22:15.907454+09:00"
     }
   ],
   "seen_place_ids": [
