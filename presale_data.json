@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T12:29:00.684617+09:00",
+  "updated_at": "2026-08-14T12:34:42.781732+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -175,6 +175,37 @@
       "bookingIsOpened": false
     },
     {
+      "id": "1893291672",
+      "name": "트루스오브뷰티 별별 문방구 팝업",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1707570",
+      "bookingBusinessId": "1707570",
+      "operationStart": "26.08.12.",
+      "operationEnd": "26.08.23.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260804_73/1785798586399p2MRp_JPEG/image.jpg",
+      "roadAddress": "연무장길 81 무신사 뷰티 스페이스 1",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-04T17:32:28.556378+09:00",
+        "2026-08-05T11:41:00.587404+09:00",
+        "2026-08-10T10:39:25.424228+09:00",
+        "2026-08-11T16:40:27.742942+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-04T17:32:28.556378+09:00",
+      "lastBookingNotifiedAt": "2026-08-04T17:38:18.421259+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": false,
@@ -232,37 +263,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-05T18:31:23.684050+09:00",
       "lastBookingNotifiedAt": "2026-08-06T19:29:30.990630+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "1893291672",
-      "name": "트루스오브뷰티 별별 문방구 팝업",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1707570",
-      "bookingBusinessId": "1707570",
-      "operationStart": "26.08.12.",
-      "operationEnd": "26.08.23.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260804_73/1785798586399p2MRp_JPEG/image.jpg",
-      "roadAddress": "연무장길 81 무신사 뷰티 스페이스 1",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-04T17:32:28.556378+09:00",
-        "2026-08-05T11:41:00.587404+09:00",
-        "2026-08-10T10:39:25.424228+09:00",
-        "2026-08-11T16:40:27.742942+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-04T17:32:28.556378+09:00",
-      "lastBookingNotifiedAt": "2026-08-04T17:38:18.421259+09:00",
       "bookingIsOpened": false
     },
     {
@@ -427,35 +427,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2057128614",
-      "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "bookingBusinessId": "1716761",
-      "operationStart": "26.08.28.",
-      "operationEnd": "26.08.28.",
-      "remainingDays": 14,
-      "status": "D-14",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
-      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-13T15:32:07.555744+09:00",
-        "2026-08-13T16:32:32.622550+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
-      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2075951781",
       "name": "판도라 플레이그라운드: Pick & Play",
       "hasBooking": false,
@@ -505,6 +476,35 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2057128614",
+      "name": "스픽 2026 영어울렁증 퇴마식",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "bookingBusinessId": "1716761",
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
+      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-13T15:32:07.555744+09:00",
+        "2026-08-13T16:32:32.622550+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
+      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
       "bookingIsOpened": false
     },
     {
