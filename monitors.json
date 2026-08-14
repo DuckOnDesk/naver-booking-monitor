@@ -113,6 +113,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1716761/items/7960258?tab=book",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mss6wcqi",
+      "name": "이글립스",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1357646/items/7950830?theme=place&lang=ko&area=pll&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAcGRvZgJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAaeJkIRdH3y7w8ox52soXzQGlsy56DDaj4-MKUoNR_g-NLr5gcrrM4jJamSkXA_aem_fYTpZiZZdTxF2fiZOUgBkA",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
