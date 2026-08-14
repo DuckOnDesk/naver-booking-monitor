@@ -431,7 +431,6 @@
   "msnvs690:2026-08-14:closed": {
     "18:00": 2
   },
-  "msr8em7t:url_close_streak": 2,
   "mss6wcqi:url_close_streak": 2,
   "mss6wcqi:url_closed": 1,
   "mss6wcqi:2026-08-21:closed": {
@@ -447,8 +446,7 @@
     "attempts": 1,
     "blocked_until": "2026-08-14T20:08:31+09:00"
   },
-  "msr8em7t:url_closed": 1,
-  "msr8em7t:2026-08-28:closed": {
+  "msr8em7t:2026-08-28": {
     "20:30": 1
   }
 }
