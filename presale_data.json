@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T16:59:25.529051+09:00",
+  "updated_at": "2026-08-14T17:05:04.789612+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -480,32 +480,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2033013073",
-      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 22,
-      "status": "D-22",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
-      "roadAddress": "아차산로 84 1-2 F",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
       "hasBooking": true,
@@ -533,6 +507,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2033013073",
+      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 22,
+      "status": "D-22",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
+      "roadAddress": "아차산로 84 1-2 F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -959,7 +959,7 @@
     {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "bookingBusinessId": "1693898",
       "operationStart": "26.08.07.",
@@ -996,7 +996,8 @@
         "2026-08-14T02:11:51.375756+09:00",
         "2026-08-14T06:44:30.129558+09:00",
         "2026-08-14T09:36:31.666226+09:00",
-        "2026-08-14T14:55:09.076358+09:00"
+        "2026-08-14T14:55:09.076358+09:00",
+        "2026-08-14T17:04:52.222113+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1682,13 +1683,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2073241477",
-      "place_name": "키핀터치X무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704774",
-      "ts": "2026-07-31T03:13:33.564234+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2098663430",
@@ -3081,6 +3075,13 @@
       "place_name": "사우나 불금 클럽",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1713888/search",
       "ts": "2026-08-14T16:30:59.563612+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2062024820",
+      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "ts": "2026-08-14T17:04:52.222113+09:00"
     }
   ],
   "seen_place_ids": [
