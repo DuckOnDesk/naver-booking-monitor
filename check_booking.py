@@ -851,6 +851,26 @@ def _match_time(t: str, patterns: list) -> bool:
     return False
 
 
+# 항목 상태를 통째로 비울 때도 남겨야 하는 키.
+# 자동예약 기록은 "지금 이 슬롯이 어떤 상태냐"가 아니라 "이미 잡았다/시도 중이다"라는
+# 사실이라, 예약창이 닫혔다고 같이 지우면 안 된다. 지우면 다음 회차에
+# sync_auto_book_state가 워커 기록을 다시 넣으면서 "예약 성공 확인" 로그가 매 회차
+# 반복되고(2026-08-11 TFT 스탬프투어), 워커 기록까지 사라진 상황에선 이미 잡은
+# 예약을 다시 잡으러 간다.
+AUTO_BOOK_KEY_SUFFIXES = (":auto_booked", ":auto_book_state")
+
+
+def purge_item_keys(alerted: dict, item_prefix: str, keep: tuple = (),
+                    keep_suffix: tuple = ()) -> None:
+    """{item_id}: 로 시작하는 상태 키를 비운다 (자동예약 기록은 보존)."""
+    for k in list(alerted.keys()):
+        if not k.startswith(item_prefix) or k in keep:
+            continue
+        if k.endswith(AUTO_BOOK_KEY_SUFFIXES) or (keep_suffix and k.endswith(keep_suffix)):
+            continue
+        alerted.pop(k)
+
+
 def load_auto_book_state(from_github: bool = True) -> dict:
     """자동예약 워커가 남긴 실행 결과(auto_book_state.json)를 읽는다.
 
@@ -907,8 +927,12 @@ def sync_auto_book_state(monitors: list, alerted: dict) -> None:
                 alerted.pop(booked_key, None)
             else:
                 if booked_key not in alerted:
+                    # 예약번호가 없으면 완료 화면을 문구/URL로만 확인했다는 뜻이라,
+                    # 실제로 잡혔는지 예약 내역에서 한 번 확인할 근거를 같이 남긴다.
+                    no = booked.get("confirm_no")
+                    proof = f"예약번호 {no}" if no else "예약번호 미확인 — 예약 내역 확인 권장"
                     print(f"  [자동예약] {name} 예약 성공 확인 ({booked.get('date')} "
-                          f"{booked.get('time') or ''}) — 이후 시도 중단", flush=True)
+                          f"{booked.get('time') or ''}, {proof}) — 이후 시도 중단", flush=True)
                 alerted[booked_key] = booked
 
         state_key = f"{item_id}:auto_book_state"
@@ -1412,10 +1436,8 @@ class UrlGate:
 
         if self._closed:
             item_prefix = f"{self.item_id}:"
-            for k in list(alerted.keys()):
-                if (k.startswith(item_prefix) and k != self.closed_key
-                        and k != self.streak_key and not k.endswith(":closed")):
-                    alerted.pop(k)
+            purge_item_keys(alerted, item_prefix,
+                            keep=(self.closed_key, self.streak_key), keep_suffix=(":closed",))
             alerted[self.closed_key] = 1
             log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})", now_str=now_str)
         elif self.closed_key in alerted:
@@ -1522,9 +1544,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             sale_dates = [d for d in all_kakao if d.get("available")]
             if not sale_dates:
                 log_state(f"{item_id}:status", f"🔒 {name} — 예약창 닫힘", now_str=now_str)
-                for k in list(alerted.keys()):
-                    if k.startswith(item_prefix) and k != closed_key:
-                        alerted.pop(k)
+                purge_item_keys(alerted, item_prefix, keep=(closed_key,))
                 alerted[closed_key] = 1
                 continue
 
@@ -1558,7 +1578,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     log_state(f"log:{ak}", f"❌ {name} {ds} 매진 (예약가능:0)", now_str=now_str)
 
             for k in list(alerted.keys()):
-                if k.startswith(item_prefix) and k != closed_key and k[len(item_prefix):] not in current_available_set:
+                if (k.startswith(item_prefix) and k != closed_key
+                        and not k.endswith(AUTO_BOOK_KEY_SUFFIXES)
+                        and k[len(item_prefix):] not in current_available_set):
                     alerted.pop(k)
 
             if new_date_details and ntfy_topic:

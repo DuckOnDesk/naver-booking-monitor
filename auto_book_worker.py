@@ -303,6 +303,8 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
         "elapsed": r.get("elapsed"),
         "unbookable": bool(r.get("unbookable")),
         "api_slots": api_slots if r is results[-1] else None,
+        # 성공으로 본 근거 — 오판이었는지 나중에 이 줄만 보고 가릴 수 있어야 한다
+        "evidence": r.get("evidence") or None,
         "message": r["message"],
     } for r in results]
 
@@ -322,6 +324,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
             # 페이지가 이 슬롯을 선택 불가로 막았다는 신호 — 모니터가 잠시 쉬는 근거
             "unbookable": unbookable,
             "api_slots": api_slots or None,
+            "evidence": res.get("evidence") or None,
             "message": res["message"],
         },
     }
@@ -331,15 +334,21 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
             "time": res.get("booked_time"),
             "account": res.get("account"),
             "at": finished_at,
+            # 예약번호가 없으면 완료 화면을 문구/URL로만 확인했다는 뜻 —
+            # 네이버 예약 내역에서 한 번 눈으로 확인하는 게 좋다
+            "confirm_no": res.get("confirm_no") or None,
+            "evidence": res.get("evidence") or None,
         }
 
     record_results(log_entries, item_id, state_entry)
 
     if res["success"] and not res.get("dry_run"):
         if ntfy_topic:
+            no = res.get("confirm_no")
             send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
                       f"{datekey} {res.get('booked_time') or ''} (계정{res.get('account')}) 예약 완료 "
-                      f"— 네이버 예약 내역에서 확인하세요", url)
+                      + (f"— 예약번호 {no}\n" if no else "")
+                      + "— 네이버 예약 내역에서 확인하세요", url)
     elif res["success"] and res.get("dry_run"):
         if attempt <= 1 and ntfy_topic:
             send_ntfy(ntfy_topic, f"🧪 {name} 자동예약 드라이런 성공",
