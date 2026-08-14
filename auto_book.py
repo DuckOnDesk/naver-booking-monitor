@@ -33,12 +33,33 @@ from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 SHOT_DIR = Path(__file__).parent / "auto_book_shots"
 
 # 예약 완료로 판정하는 텍스트/URL 패턴
-# (네이버 완료 페이지는 "예약 확정" + "예약번호 …"로 표시됨)
+# (네이버 완료 페이지는 "예약이 확정되었습니다" + "예약번호 …"로 표시됨)
+#
+# 여기가 헐거우면 피해가 크다. 완료로 오판하면 그 자리에서 확정 버튼을 안 누르고
+# 끝내는 데다, 성공 기록이 남아 이후 자동예약이 통째로 멈춘다.
+#   2026-08-11 TFT 스탬프투어: '다음'을 누르자 예약자 정보 입력 화면
+#   (…/items/7845950/confirmation)으로 넘어갔을 뿐인데 URL의 'confirmation'이
+#   아래 목록의 'confirm'에 부분일치해 "예약 완료"로 기록됐다.
+# 그래서 URL은 경로에서만, 그것도 경로 조각을 통째로 맞춰본다. 확인/동의 단계
+# (confirmation·agreement 등)는 완료가 아니므로 어떤 패턴에도 걸리면 안 된다.
+# 공백을 지운 뒤 비교한다 ("예약이 완료" → "예약이완료").
+# 문장형만 넣는다 — 단계 표시줄의 '예약완료'나 버튼의 '예약 확정' 같은 조각은
+# 확인 화면에도 그대로 떠 있어서 완료 신호가 될 수 없다.
 _SUCCESS_TEXT = [
-    "예약이 완료", "예약 완료", "신청이 완료", "예약이 확정", "예약 확정",
-    "결제가 완료", "예약이 접수", "예약 신청이 완료", "예약해 주셔서",
+    "예약이완료", "예약완료되었", "신청이완료", "예약신청이완료",
+    "예약이확정", "예약확정되었", "결제가완료", "예약이접수", "예약해주셔서",
 ]
-_SUCCESS_URL = ["bookings", "complete", "done", "confirm", "/receipt"]
+_SUCCESS_PATH_RE = re.compile(
+    r"/(?:bookings/\d+|booking-?complete|completed?|done|receipt)(?:/|$)"
+)
+# 완료 근거를 브라우저 안에서 한 번에 뽑는다 (문구 + 예약번호)
+_SUCCESS_JS = """(pats) => {
+    const raw = document.body ? document.body.textContent || '' : '';
+    // 번호는 원문에서 뽑는다 — 공백을 지운 뒤 찾으면 뒷줄 숫자까지 붙어 나온다
+    const m = raw.match(/예약\\s*번호\\s*[:.]?\\s*([0-9]{4,})/);
+    const t = raw.replace(/\\s+/g, '');
+    return {text: pats.find(p => t.includes(p)) || '', no: m ? m[1] : ''};
+}"""
 
 # 단계 진행 버튼 후보 (우선순위 순)
 _NEXT_BUTTON_TEXTS = ["동의하고 예약", "예약하기", "바로예약", "예약 신청", "신청하기", "다음", "확인"]
@@ -1010,27 +1031,32 @@ def _click_cta(page, texts: list) -> str | None:
     return None
 
 
-def _is_success(page) -> bool:
-    """완료 페이지 도달 여부. 확정 루프에서 반복 호출되므로 최대한 싸게 판정한다.
+def _success_evidence(page) -> tuple[str, str] | None:
+    """완료 페이지 도달 근거 (사람이 읽을 근거 문구, 예약번호). 완료가 아니면 None.
 
-    예전에는 page.inner_text("body")로 문서 전체를 렌더 기준으로 뽑았는데
-    (레이아웃 계산 강제 → 페이지가 클수록 느림), 판정에는 textContent면 충분해
-    브라우저 안에서 한 번에 매칭하고 불리언만 받아온다.
+    확정 루프에서 반복 호출되므로 최대한 싸게 판정한다. page.inner_text("body")는
+    문서 전체에 레이아웃 계산을 강제해 페이지가 클수록 느리므로, 판정에 충분한
+    textContent를 브라우저 안에서 한 번에 매칭하고 결과만 받아온다.
+
+    근거를 문자열로 돌려주는 건 진단용이다. "왜 완료라고 봤는지"가 로그·기록에
+    남아야 이번 같은 오판을 사후에 짚을 수 있다.
     """
-    url = page.url.lower()
-    if any(p in url for p in _SUCCESS_URL):
-        return True
     try:
-        return bool(page.evaluate(
-            """(pats) => {
-                const t = document.body ? document.body.textContent || '' : '';
-                if (/예약\\s*번호\\s*[:\\s]*\\d/.test(t)) return true;
-                return pats.some(p => t.includes(p));
-            }""",
-            _SUCCESS_TEXT,
-        ))
+        path = urlparse(page.url).path.lower()
     except Exception:
-        return False
+        return None
+    try:
+        hit = page.evaluate(_SUCCESS_JS, _SUCCESS_TEXT) or {}
+    except Exception:
+        hit = {}
+    text, no = hit.get("text") or "", hit.get("no") or ""
+    if text:
+        return f"완료 문구 '{text}'", no
+    if no:
+        return f"예약번호 {no}", no
+    if _SUCCESS_PATH_RE.search(path):
+        return f"완료 URL {path}", ""
+    return None
 
 
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
@@ -1051,14 +1077,24 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
 
     def result(success: bool, message: str, booked_time: str | None = None,
-               unbookable: bool = False) -> dict:
+               unbookable: bool = False, evidence: str = "", confirm_no: str = "") -> dict:
         # elapsed: 이 계정 시도에 걸린 초. 어디서 늦어지는지 로그로 추적하기 위한 값.
         # unbookable: 페이지가 그 슬롯을 "선택 불가"로 표시 — 계정을 바꿔도, 곧 다시
         #             시도해도 결과가 같다는 신호 (워커·모니터가 백오프에 쓴다).
+        # evidence/confirm_no: 완료로 판정한 근거와 예약번호. 성공 기록은 이후 시도를
+        #             멈추게 하므로 "무엇을 보고 성공이라 했는지"가 남아 있어야 한다.
         return {"success": success, "message": message, "booked_time": booked_time,
                 "dry_run": dry_run, "screenshots": shots, "account": account,
-                "unbookable": unbookable,
+                "unbookable": unbookable, "evidence": evidence, "confirm_no": confirm_no,
                 "elapsed": round(time_mod.time() - t0, 1)}
+
+    def done(ev: tuple[str, str] | None) -> dict:
+        """완료 판정 → 성공 결과. 근거와 예약번호를 메시지·기록에 함께 남긴다."""
+        why, no = ev or ("완료 화면", "")
+        _log(f"완료 화면 확인 — {why}")
+        tail = f", 예약번호 {no}" if no else ""
+        return result(True, f"예약 완료 ({datekey} {booked_time}{tail})", booked_time,
+                      evidence=why, confirm_no=no)
 
     if not cookie_str:
         # 드라이런은 비로그인으로도 날짜/시간 선택 검증까지 진행 가능
@@ -1166,7 +1202,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     return result(False, "예약 진행 버튼을 찾지 못함")
                 _log(f"진행 버튼 클릭: '{clicked}'")
                 # 다음 화면(완료 또는 확정 단계)이 뜨는 즉시 진행 — 최대 3초
-                _poll_until(page, lambda: _is_success(page) or _is_login_page(page)
+                _poll_until(page, lambda: _success_evidence(page) or _is_login_page(page)
                             or _has_any_button(page, _FINAL_BUTTON_TEXTS), 3000)
                 _shot(page, "04_after_next", shots)
 
@@ -1176,9 +1212,10 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     return result(False, f"예약 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
 
                 # 이미 완료됐는지 (1단계 예약인 경우)
-                if _is_success(page):
+                ev = _success_evidence(page)
+                if ev:
                     _shot(page, "05_done", shots, always=True)
-                    return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
+                    return done(ev)
 
                 # 2단계: 예약 확인/동의 페이지
                 # 확정 버튼을 누르기 전 마지막 안전장치 — 화면에 적힌 날짜가 요청과 다르면 멈춘다
@@ -1213,20 +1250,21 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                         final_clicks += 1
                         _log(f"확정 버튼 클릭: '{clicked}'")
                         # 완료 화면이 뜨면 즉시 성공 처리 — 최대 2.5초
-                        _poll_until(page, lambda: _is_success(page) or _is_login_page(page), 2500)
+                        _poll_until(page, lambda: _success_evidence(page) or _is_login_page(page), 2500)
                         _shot(page, f"06_after_final_{step}", shots)
-                        if _is_success(page):
+                        ev = _success_evidence(page)
+                        if ev:
                             _shot(page, "07_success", shots, always=True)
-                            return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
+                            return done(ev)
                         if _is_login_page(page):
                             if dry_run:
                                 return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
                             return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
                     else:
                         # 확정 버튼이 아직 없음 — 완료 화면이 뜨는지 보며 대기
-                        if _poll_until(page, lambda: _is_success(page), 1500, 250):
+                        if _poll_until(page, lambda: _success_evidence(page), 1500, 250):
                             _shot(page, "07_success", shots, always=True)
-                            return result(True, f"예약 완료 ({datekey} {booked_time})", booked_time)
+                            return done(_success_evidence(page))
 
                 # 확정 실패 — 다음 진단을 위해 확정 페이지 구조를 반드시 남긴다
                 _shot(page, "timeout", shots, always=True)
