@@ -2,19 +2,19 @@
   "ms4qtfmh": {
     "name": "TFT 스탬프투어",
     "last_run": {
-      "at": "2026-08-14T19:54:19+09:00",
-      "sig": "2026-08-15|11:00",
+      "at": "2026-08-14T22:50:25+09:00",
+      "sig": "2026-08-15|11:30",
       "date": "2026-08-15",
       "times": [
-        "11:00"
+        "11:30"
       ],
       "attempt": 1,
-      "lag_sec": 35.9,
-      "elapsed": 4.4,
+      "lag_sec": 30.3,
+      "elapsed": 2.3,
       "account": 1,
       "success": false,
       "dry_run": false,
-      "unbookable": true,
+      "unbookable": false,
       "api_slots": [
         {
           "t": "10:30",
@@ -29,7 +29,7 @@
         {
           "t": "11:30",
           "stock": 40,
-          "booked": 40
+          "booked": 38
         },
         {
           "t": "12:00",
@@ -38,7 +38,7 @@
         }
       ],
       "evidence": null,
-      "message": "시간대 ['11:00']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
+      "message": "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)"
     }
   },
   "ms4qwci3": {
