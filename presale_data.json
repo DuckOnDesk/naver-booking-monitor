@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T18:57:44.748273+09:00",
+  "updated_at": "2026-08-14T19:03:20.645382+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -483,36 +483,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2057128614",
-      "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "bookingBusinessId": "1716761",
-      "operationStart": "26.08.28.",
-      "operationEnd": "26.08.28.",
-      "remainingDays": 14,
-      "status": "D-14",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
-      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-13T15:32:07.555744+09:00",
-        "2026-08-13T16:32:32.622550+09:00",
-        "2026-08-14T16:02:48.854470+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
-      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2024393757",
       "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
       "hasBooking": false,
@@ -588,6 +558,36 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2057128614",
+      "name": "스픽 2026 영어울렁증 퇴마식",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "bookingBusinessId": "1716761",
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
+      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-13T15:32:07.555744+09:00",
+        "2026-08-13T16:32:32.622550+09:00",
+        "2026-08-14T16:02:48.854470+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
+      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1015,7 +1015,7 @@
     {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "bookingBusinessId": "1693898",
       "operationStart": "26.08.07.",
