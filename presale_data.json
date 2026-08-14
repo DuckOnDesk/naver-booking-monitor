@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T21:26:05.940790+09:00",
+  "updated_at": "2026-08-14T21:31:40.602337+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -894,7 +894,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -924,7 +924,8 @@
         "2026-08-14T05:38:03.300191+09:00",
         "2026-08-14T10:22:15.907454+09:00",
         "2026-08-14T14:10:05.163463+09:00",
-        "2026-08-14T17:55:47.175117+09:00"
+        "2026-08-14T17:55:47.175117+09:00",
+        "2026-08-14T21:31:27.480708+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1743,13 +1744,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2006596949",
-      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
-      "ts": "2026-07-31T16:19:25.689886+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2098663430",
@@ -3142,6 +3136,13 @@
       "place_name": "스픽 2026 영어울렁증 퇴마식",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "ts": "2026-08-14T21:20:19.869030+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-14T21:31:27.480708+09:00"
     }
   ],
   "seen_place_ids": [
