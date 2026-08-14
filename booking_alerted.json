@@ -445,6 +445,6 @@
   "ms4qtfmh:auto_book_state": {
     "sig": "2026-08-15|11:00",
     "attempts": 1,
-    "dispatched_at": "2026-08-14T19:53:39+09:00"
+    "blocked_until": "2026-08-14T20:08:31+09:00"
   }
 }
