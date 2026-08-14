@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-14T18:35:18.225479+09:00",
+  "updated_at": "2026-08-14T18:40:55.002794+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -18,6 +18,7 @@
     "2033013073",
     "2033849367",
     "2040923737",
+    "2040937553",
     "2043425985",
     "2045247144",
     "2049771421",
@@ -324,6 +325,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2040937553",
+      "name": "프리카 성수 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.21.",
+      "operationEnd": "26.09.06.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260814_75/1786699790511P74Fp_JPEG/edited-1786699790253-0.jpg",
+      "roadAddress": "연무장13길 4 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-14T18:40:42.181462+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "1646280504",
       "name": "틴더 패스포트 라운지",
       "hasBooking": true,
@@ -352,32 +379,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2032034855",
-      "name": "구달 TXA 세럼 팝업",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
-      "bookingBusinessId": "1715398",
-      "operationStart": "26.08.21.",
-      "operationEnd": "26.08.27.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260814_51/1786684971615ojAYC_JPEG/edited-1786684970836-0.jpg",
-      "roadAddress": "뚝섬로 273 서울국제정원박람회 클리오 K-뷰티가든",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-14T17:16:25.458437+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2049771421",
       "name": "인스턴트펑크 팝업",
       "hasBooking": false,
@@ -401,6 +402,32 @@
       "bookingNotified": false,
       "discoveredAt": "2026-08-12T11:44:42.673229+09:00",
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2032034855",
+      "name": "구달 TXA 세럼 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
+      "bookingBusinessId": "1715398",
+      "operationStart": "26.08.21.",
+      "operationEnd": "26.08.27.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260814_51/1786684971615ojAYC_JPEG/edited-1786684970836-0.jpg",
+      "roadAddress": "뚝섬로 273 서울국제정원박람회 클리오 K-뷰티가든",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-14T17:16:25.458437+09:00",
       "bookingIsOpened": false
     },
     {
@@ -456,36 +483,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2057128614",
-      "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "bookingBusinessId": "1716761",
-      "operationStart": "26.08.28.",
-      "operationEnd": "26.08.28.",
-      "remainingDays": 14,
-      "status": "D-14",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
-      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-13T15:32:07.555744+09:00",
-        "2026-08-13T16:32:32.622550+09:00",
-        "2026-08-14T16:02:48.854470+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
-      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2024393757",
       "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
       "hasBooking": false,
@@ -535,6 +532,36 @@
       "bookingNotified": false,
       "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2057128614",
+      "name": "스픽 2026 영어울렁증 퇴마식",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "bookingBusinessId": "1716761",
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
+      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-13T15:32:07.555744+09:00",
+        "2026-08-13T16:32:32.622550+09:00",
+        "2026-08-14T16:02:48.854470+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
+      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1712,13 +1739,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-07-31T09:34:50.856398+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2006596949",
@@ -3111,6 +3131,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-14T18:07:01.376834+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "",
+      "ts": "2026-08-14T18:40:42.181462+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3155,6 +3182,7 @@
     "2038805228",
     "2039988652",
     "2040923737",
+    "2040937553",
     "2041689219",
     "2042771625",
     "2043213423",
