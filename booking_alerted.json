@@ -441,5 +441,13 @@
   "mss6wcqi:2026-08-23:closed": {
     "14:00": 1
   },
-  "msr6oy7v:url_close_streak": 1
+  "msr6oy7v:url_close_streak": 1,
+  "ms4qtfmh:2026-08-15": {
+    "11:00": 2
+  },
+  "ms4qtfmh:auto_book_state": {
+    "sig": "2026-08-15|11:00",
+    "attempts": 1,
+    "dispatched_at": "2026-08-14T19:53:39+09:00"
+  }
 }
