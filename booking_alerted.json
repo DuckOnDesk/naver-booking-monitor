@@ -428,11 +428,6 @@
   "ms4b3fl4:2026-08-14:closed": {
     "11:00": 2
   },
-  "ms4qtfmh:url_close_streak": 2,
-  "ms4qtfmh:url_closed": 1,
-  "ms4qtfmh:2026-08-14:closed": {
-    "18:00": 2
-  },
   "msnvs690:2026-08-14:closed": {
     "18:00": 2
   },
@@ -446,5 +441,8 @@
   "mss6wcqi:2026-08-23:closed": {
     "14:00": 1
   },
-  "msr6oy7v:url_close_streak": 1
+  "msr6oy7v:url_close_streak": 1,
+  "ms4qtfmh:2026-08-14": {
+    "18:00": 1
+  }
 }
