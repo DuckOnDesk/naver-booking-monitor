@@ -435,9 +435,9 @@
   },
   "msr6oy7v:url_close_streak": 1,
   "ms4qtfmh:auto_book_state": {
-    "sig": "2026-08-16|10:30,14:00",
+    "sig": "2026-08-16|10:30",
     "attempts": 1,
-    "dispatched_at": "2026-08-15T16:36:32+09:00"
+    "dispatched_at": "2026-08-15T16:39:57+09:00"
   },
   "mss6wcqi:url_close_streak": 2,
   "mss6wcqi:url_closed": 1,
@@ -457,7 +457,6 @@
     "20:30": 1
   },
   "ms4qtfmh:2026-08-16": {
-    "10:30": 1,
-    "14:00": 2
+    "10:30": 1
   }
 }
