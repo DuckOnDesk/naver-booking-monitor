@@ -1,5 +1,118 @@
 [
   {
+    "ts": "2026-08-16T01:39:58+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-16",
+    "times": [
+      "11:30"
+    ],
+    "account": 1,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 3.6,
+    "unbookable": false,
+    "api_slots": [
+      {
+        "t": "10:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "11:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "11:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "12:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "12:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "13:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "13:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "14:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "14:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "15:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "15:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "16:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "16:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "17:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "17:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "18:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "18:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "19:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "19:30",
+        "stock": 40,
+        "booked": 40
+      }
+    ],
+    "evidence": null,
+    "message": "날짜를 선택하지 못함: 2026-08-16를 선택할 수 없음 — 달력에 없음 (표시 중: 2026.8)"
+  },
+  {
     "ts": "2026-08-16T01:38:27+09:00",
     "item_id": "ms4qtfmh",
     "name": "TFT 스탬프투어",
