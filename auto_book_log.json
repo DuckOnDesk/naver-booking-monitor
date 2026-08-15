@@ -1,5 +1,118 @@
 [
   {
+    "ts": "2026-08-15T20:07:56+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-16",
+    "times": [
+      "16:30"
+    ],
+    "account": 1,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 4.5,
+    "unbookable": true,
+    "api_slots": [
+      {
+        "t": "10:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "11:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "11:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "12:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "12:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "13:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "13:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "14:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "14:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "15:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "15:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "16:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "16:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "17:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "17:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "18:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "18:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "19:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "19:30",
+        "stock": 40,
+        "booked": 40
+      }
+    ],
+    "evidence": null,
+    "message": "시간대 ['16:30']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
+  },
+  {
     "ts": "2026-08-15T20:06:16+09:00",
     "item_id": "ms4qtfmh",
     "name": "TFT 스탬프투어",
