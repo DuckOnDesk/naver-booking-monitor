@@ -1,5 +1,161 @@
 [
   {
+    "ts": "2026-08-15T22:11:18+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-17",
+    "times": [
+      "17:00"
+    ],
+    "account": 1,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 7.3,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "확정 단계에서 로그인 요구 — 계정1 쿠키 만료됨"
+  },
+  {
+    "ts": "2026-08-15T22:11:18+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-17",
+    "times": [
+      "17:00"
+    ],
+    "account": 2,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.9,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "확정 단계에서 로그인 요구 — 계정2 쿠키 만료됨"
+  },
+  {
+    "ts": "2026-08-15T22:11:18+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-17",
+    "times": [
+      "17:00"
+    ],
+    "account": 3,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.6,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "확정 단계에서 로그인 요구 — 계정3 쿠키 만료됨"
+  },
+  {
+    "ts": "2026-08-15T22:11:18+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-17",
+    "times": [
+      "17:00"
+    ],
+    "account": 4,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.7,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "확정 단계에서 로그인 요구 — 계정4 쿠키 만료됨"
+  },
+  {
+    "ts": "2026-08-15T22:11:18+09:00",
+    "item_id": "ms4qtfmh",
+    "name": "TFT 스탬프투어",
+    "date": "2026-08-17",
+    "times": [
+      "17:00"
+    ],
+    "account": 5,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.3,
+    "unbookable": false,
+    "api_slots": [
+      {
+        "t": "10:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "11:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "11:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "12:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "12:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "13:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "13:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "14:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "14:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "15:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "15:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "16:00",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "16:30",
+        "stock": 40,
+        "booked": 40
+      },
+      {
+        "t": "17:00",
+        "stock": 40,
+        "booked": 39
+      }
+    ],
+    "evidence": null,
+    "message": "확정 단계에서 로그인 요구 — 계정5 쿠키 만료됨"
+  },
+  {
     "ts": "2026-08-15T22:07:56+09:00",
     "item_id": "ms4qtfmh",
     "name": "TFT 스탬프투어",
