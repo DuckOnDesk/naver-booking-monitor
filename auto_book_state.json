@@ -2,15 +2,15 @@
   "ms4qtfmh": {
     "name": "TFT 스탬프투어",
     "last_run": {
-      "at": "2026-08-16T01:35:14+09:00",
+      "at": "2026-08-16T01:38:27+09:00",
       "sig": "2026-08-16|11:30",
       "date": "2026-08-16",
       "times": [
         "11:30"
       ],
-      "attempt": 1,
-      "lag_sec": 36.3,
-      "elapsed": 5.4,
+      "attempt": 2,
+      "lag_sec": 40.4,
+      "elapsed": 6.5,
       "account": 1,
       "success": false,
       "dry_run": false,
