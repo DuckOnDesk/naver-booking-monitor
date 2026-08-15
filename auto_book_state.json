@@ -2,16 +2,16 @@
   "ms4qtfmh": {
     "name": "TFT 스탬프투어",
     "last_run": {
-      "at": "2026-08-15T22:05:45+09:00",
+      "at": "2026-08-15T22:07:56+09:00",
       "sig": "2026-08-17|17:00",
       "date": "2026-08-17",
       "times": [
         "17:00"
       ],
-      "attempt": 2,
-      "lag_sec": 32.6,
-      "elapsed": 2.4,
-      "account": 1,
+      "attempt": 3,
+      "lag_sec": 28.8,
+      "elapsed": 6.1,
+      "account": 5,
       "success": false,
       "dry_run": false,
       "unbookable": false,
@@ -88,7 +88,7 @@
         }
       ],
       "evidence": null,
-      "message": "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)"
+      "message": "확정 단계에서 로그인 요구 — 계정5 쿠키 만료됨"
     }
   },
   "ms4qwci3": {
