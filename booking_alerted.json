@@ -456,5 +456,9 @@
   "msr8em7t:2026-08-28:closed": {
     "20:30": 1
   },
-  "ms4qtfmh:url_close_streak": 1
+  "ms4qtfmh:url_close_streak": 2,
+  "ms4qtfmh:url_closed": 1,
+  "ms4qtfmh:2026-08-17:closed": {
+    "17:00": 2
+  }
 }
