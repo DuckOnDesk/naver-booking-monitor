@@ -2,19 +2,19 @@
   "ms4qtfmh": {
     "name": "TFT 스탬프투어",
     "last_run": {
-      "at": "2026-08-15T20:07:56+09:00",
-      "sig": "2026-08-16|16:30",
-      "date": "2026-08-16",
+      "at": "2026-08-15T22:03:01+09:00",
+      "sig": "2026-08-17|17:00",
+      "date": "2026-08-17",
       "times": [
-        "16:30"
+        "17:00"
       ],
-      "attempt": 5,
-      "lag_sec": 38.6,
-      "elapsed": 4.5,
-      "account": 1,
+      "attempt": 1,
+      "lag_sec": 31.9,
+      "elapsed": 6.8,
+      "account": 5,
       "success": false,
       "dry_run": false,
-      "unbookable": true,
+      "unbookable": false,
       "api_slots": [
         {
           "t": "10:30",
@@ -84,36 +84,11 @@
         {
           "t": "17:00",
           "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "17:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "18:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "18:30",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "19:00",
-          "stock": 40,
-          "booked": 40
-        },
-        {
-          "t": "19:30",
-          "stock": 40,
-          "booked": 40
+          "booked": 38
         }
       ],
       "evidence": null,
-      "message": "시간대 ['16:30']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
+      "message": "확정 단계에서 로그인 요구 — 계정5 쿠키 만료됨"
     }
   },
   "ms4qwci3": {
