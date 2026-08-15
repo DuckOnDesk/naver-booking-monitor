@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-15T10:09:50.227510+09:00",
+  "updated_at": "2026-08-15T10:15:31.460761+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -486,58 +486,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2024393757",
-      "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.02.",
-      "operationEnd": "26.09.06.",
-      "remainingDays": 18,
-      "status": "D-18",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260813_272/1786598109081EhdY3_JPEG/edited-1786598109193-0.jpg",
-      "roadAddress": "성수이로 50",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2075951781",
-      "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.25.",
-      "operationEnd": "26.08.31.",
-      "remainingDays": 10,
-      "status": "D-10",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
-      "roadAddress": "연무장길 99",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "hasBooking": false,
@@ -592,6 +540,58 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2024393757",
+      "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.02.",
+      "operationEnd": "26.09.06.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260813_272/1786598109081EhdY3_JPEG/edited-1786598109193-0.jpg",
+      "roadAddress": "성수이로 50",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2075951781",
+      "name": "판도라 플레이그라운드: Pick & Play",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.25.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -895,7 +895,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -928,7 +928,8 @@
         "2026-08-14T17:55:47.175117+09:00",
         "2026-08-14T21:31:27.480708+09:00",
         "2026-08-15T01:05:21.406845+09:00",
-        "2026-08-15T05:00:28.094259+09:00"
+        "2026-08-15T05:00:28.094259+09:00",
+        "2026-08-15T10:15:16.612522+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1752,13 +1753,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-08-01T13:51:22.884863+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2006596949",
@@ -3151,6 +3145,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-15T09:35:42.772908+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-15T10:15:16.612522+09:00"
     }
   ],
   "seen_place_ids": [
