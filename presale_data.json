@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-16T02:41:38.359279+09:00",
+  "updated_at": "2026-08-16T02:47:09.471942+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -273,7 +273,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -294,7 +294,8 @@
         "2026-08-15T16:49:06.051182+09:00",
         "2026-08-15T18:49:04.118537+09:00",
         "2026-08-15T21:23:55.228424+09:00",
-        "2026-08-15T23:34:18.438066+09:00"
+        "2026-08-15T23:34:18.438066+09:00",
+        "2026-08-16T02:46:58.207773+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -492,32 +493,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2033013073",
-      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 20,
-      "status": "D-20",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
-      "roadAddress": "아차산로 84 1-2 F",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2024393757",
       "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
       "hasBooking": false,
@@ -598,6 +573,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2033013073",
+      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 20,
+      "status": "D-20",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
+      "roadAddress": "아차산로 84 1-2 F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1768,13 +1769,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-08-02T22:18:49.881138+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2006596949",
@@ -3167,6 +3161,13 @@
       "place_name": "뷰오리 드림니트 @성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704534",
       "ts": "2026-08-16T01:57:27.660420+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2027174717",
+      "place_name": "조 말론 런던 팝업스토어 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
+      "ts": "2026-08-16T02:46:58.207773+09:00"
     }
   ],
   "seen_place_ids": [
