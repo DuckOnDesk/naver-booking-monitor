@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-16T11:37:24.653893+09:00",
+  "updated_at": "2026-08-16T11:42:59.815336+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -493,38 +493,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2057128614",
-      "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "bookingBusinessId": "1716761",
-      "operationStart": "26.08.28.",
-      "operationEnd": "26.08.28.",
-      "remainingDays": 12,
-      "status": "D-12",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
-      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-13T15:32:07.555744+09:00",
-        "2026-08-13T16:32:32.622550+09:00",
-        "2026-08-14T16:02:48.854470+09:00",
-        "2026-08-14T21:20:19.869030+09:00",
-        "2026-08-16T04:42:38.335553+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
-      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "hasBooking": false,
@@ -600,6 +568,38 @@
       "bookingNotified": false,
       "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2057128614",
+      "name": "스픽 2026 영어울렁증 퇴마식",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "bookingBusinessId": "1716761",
+      "operationStart": "26.08.28.",
+      "operationEnd": "26.08.28.",
+      "remainingDays": 12,
+      "status": "D-12",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_65/1786433091172BTUpE_JPEG/edited-1786433090681-0.jpg",
+      "roadAddress": "성수이로18길 6-1 성수 오레오벤츠",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-13T15:32:07.555744+09:00",
+        "2026-08-13T16:32:32.622550+09:00",
+        "2026-08-14T16:02:48.854470+09:00",
+        "2026-08-14T21:20:19.869030+09:00",
+        "2026-08-16T04:42:38.335553+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
+      "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
       "bookingIsOpened": false
     },
     {
