@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T05:37:12.664580+09:00",
+  "updated_at": "2026-08-17T05:42:47.081962+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -273,7 +273,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -295,7 +295,8 @@
         "2026-08-15T18:49:04.118537+09:00",
         "2026-08-15T21:23:55.228424+09:00",
         "2026-08-15T23:34:18.438066+09:00",
-        "2026-08-16T02:46:58.207773+09:00"
+        "2026-08-16T02:46:58.207773+09:00",
+        "2026-08-17T05:42:34.696950+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -497,6 +498,58 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2024393757",
+      "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.02.",
+      "operationEnd": "26.09.06.",
+      "remainingDays": 16,
+      "status": "D-16",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260813_272/1786598109081EhdY3_JPEG/edited-1786598109193-0.jpg",
+      "roadAddress": "성수이로 50",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2075951781",
+      "name": "판도라 플레이그라운드: Pick & Play",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.25.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "hasBooking": false,
@@ -552,58 +605,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2024393757",
-      "name": "발베니 팝업 : 한정판 컬렉션 x 다니엘 아샴",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.02.",
-      "operationEnd": "26.09.06.",
-      "remainingDays": 16,
-      "status": "D-16",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260813_272/1786598109081EhdY3_JPEG/edited-1786598109193-0.jpg",
-      "roadAddress": "성수이로 50",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2075951781",
-      "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.25.",
-      "operationEnd": "26.08.31.",
-      "remainingDays": 8,
-      "status": "D-8",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
-      "roadAddress": "연무장길 99",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1708,13 +1709,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2006916982",
-      "place_name": "발레클로젯 팝업 - 디아트레 메시아 포타 in더현대서울",
-      "booking_url": "",
-      "ts": "2026-08-04T18:11:43.743778+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2062283789",
@@ -3107,6 +3101,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-17T03:39:59.266107+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2027174717",
+      "place_name": "조 말론 런던 팝업스토어 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
+      "ts": "2026-08-17T05:42:34.696950+09:00"
     }
   ],
   "seen_place_ids": [
