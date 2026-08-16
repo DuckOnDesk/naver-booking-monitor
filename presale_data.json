@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-16T18:15:49.101437+09:00",
+  "updated_at": "2026-08-16T18:21:25.595310+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -443,9 +443,9 @@
     {
       "id": "2062283789",
       "name": "드래곤볼 전시 - 드래곤볼 히어로즈 라이즈 서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1713086",
+      "bookingBusinessId": "1713086",
       "operationStart": "26.08.22.",
       "operationEnd": "26.11.15.",
       "remainingDays": 6,
@@ -456,14 +456,16 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-16T18:21:13.226359+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-16T18:21:24.467418+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1780,13 +1782,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2006596949",
-      "place_name": "<스파이더맨: 브랜드 뉴 데이> 친절한 이웃 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1689846",
-      "ts": "2026-08-03T16:26:02.446459+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2039988652",
@@ -3179,6 +3174,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-16T18:15:37.130498+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2062283789",
+      "place_name": "드래곤볼 전시 - 드래곤볼 히어로즈 라이즈 서울",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1713086",
+      "ts": "2026-08-16T18:21:13.226359+09:00"
     }
   ],
   "seen_place_ids": [
