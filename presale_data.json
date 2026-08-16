@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T00:14:10.993681+09:00",
+  "updated_at": "2026-08-17T00:19:46.677930+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -692,7 +692,7 @@
       "operationStart": "26.08.17.",
       "operationEnd": "26.09.01.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260805_54/17859111468175DjCW_JPEG/edited-1785911146286-0.jpg",
       "roadAddress": "양화로 188 AK PLAZA 1층",
