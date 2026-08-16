@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T03:23:30.097515+09:00",
+  "updated_at": "2026-08-17T03:29:03.651449+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -417,7 +417,7 @@
     {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "bookingBusinessId": "1715398",
       "operationStart": "26.08.21.",
@@ -430,7 +430,9 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-17T03:28:51.758827+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
@@ -491,6 +493,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-12T18:12:25.888287+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2033013073",
+      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 19,
+      "status": "D-19",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
+      "roadAddress": "아차산로 84 1-2 F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -575,32 +603,6 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-12T16:51:43.178442+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2033013073",
-      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 19,
-      "status": "D-19",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
-      "roadAddress": "아차산로 84 1-2 F",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1705,13 +1707,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "1893291672",
-      "place_name": "트루스오브뷰티 별별 문방구 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1707570",
-      "ts": "2026-08-04T17:32:28.556378+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2009522804",
@@ -3104,6 +3099,13 @@
       "place_name": "PREQUEL EXHIBITION I COSMOS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "ts": "2026-08-17T02:55:30.984020+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2032034855",
+      "place_name": "구달 TXA 세럼 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
+      "ts": "2026-08-17T03:28:51.758827+09:00"
     }
   ],
   "seen_place_ids": [
