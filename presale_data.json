@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T17:38:24.044729+09:00",
+  "updated_at": "2026-08-17T17:44:03.606472+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -40,7 +40,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
