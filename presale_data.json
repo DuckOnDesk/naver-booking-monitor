@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T11:40:40.778782+09:00",
+  "updated_at": "2026-08-17T11:46:16.028394+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1172,7 +1172,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1211,7 +1211,8 @@
         "2026-08-16T08:40:07.310788+09:00",
         "2026-08-16T17:30:50.659559+09:00",
         "2026-08-16T23:12:12.324351+09:00",
-        "2026-08-17T10:50:06.679652+09:00"
+        "2026-08-17T10:50:06.679652+09:00",
+        "2026-08-17T11:46:04.616992+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1711,13 +1712,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2019832187",
-      "place_name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
-      "booking_url": "",
-      "ts": "2026-08-04T19:12:47.802868+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2098663430",
@@ -3110,6 +3104,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-17T10:50:06.679652+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-17T11:46:04.616992+09:00"
     }
   ],
   "seen_place_ids": [
