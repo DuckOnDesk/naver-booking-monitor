@@ -1339,9 +1339,10 @@ def _playwright_check(url: str) -> tuple[bool, str]:
 # 항목이 8개면 한 회차의 절반 이상을 여기에 쓴다. 그런데 이 값이 실제로 필요한
 # 순간은 "알릴 자리가 있을 때"뿐이다. 자리가 없으면 🎉로도 🔒로도 알릴 게 없다.
 # 그래서 자리를 찾기 전에는 브라우저를 켜지 않는다 (UrlGate).
-# 오탐 방지: 이 횟수만큼 닫힘이 나와야 확정. 회차를 나눠 세지 않고 같은 회차에서
-# 연달아 확인한다 (UrlGate._probe) — 확정을 미루면 그 사이가 '열림'으로 취급된다.
-CLOSE_CONFIRM = 2
+# 닫힘은 한 번 잡히면 그대로 확정한다. 예전에는 오탐을 걱정해 2회 연속이어야
+# 확정했는데, 확정 전 구간이 '열림'으로 취급되는 바람에 닫힌 예약창에 🎉 알림과
+# 자동예약이 나갔다 (2026-08-17 QWER: /error/ 리다이렉트를 잡고도 같은 초에
+# "예약 가능" 알림). 잘못 닫힘으로 본 항목은 다음 회차 확인에서 곧바로 풀린다.
 # 열려 있는 것으로 확인된 항목을 다시 확인하기까지의 간격(초).
 URL_RECHECK_SEC = _env_num("URL_RECHECK_SEC", 300)
 
@@ -1366,10 +1367,10 @@ class UrlGate:
       - 자리 있고 열림    → URL_RECHECK_SEC(기본 5분)마다
       - 자동예약 직전     → 주기와 무관하게 확인 (verify_open)
 
-    닫힘이 나오면 그 자리에서 CLOSE_CONFIRM회까지 다시 본다 (_probe). 판정을 다음
-    회차로 넘기지 않으므로, 알림을 보낼 때 열림/닫힘은 항상 확정된 값이다.
+    닫힘은 한 번 잡히면 그 회차에서 바로 확정한다. 판정을 다음 회차로 미루면 그
+    사이가 '열림'으로 취급돼, 닫힌 예약창에 🎉 알림과 자동예약이 나간다.
 
-    닫힘/열림 상태와 연속 카운트는 종전처럼 alerted에 남아 프로세스 재시작을 넘어간다.
+    닫힘/열림 상태는 종전처럼 alerted에 남아 프로세스 재시작을 넘어간다.
     """
 
     def __init__(self, item: dict, item_id: str, url: str, name: str,
@@ -1377,7 +1378,6 @@ class UrlGate:
         self.item, self.item_id, self.url, self.name = item, item_id, url, name
         self.alerted, self.ntfy_topic, self.now_str = alerted, ntfy_topic, now_str
         self.closed_key = f"{item_id}:url_closed"
-        self.streak_key = f"{item_id}:url_close_streak"
         self.checked = False          # 이번 회차에 브라우저를 켰는지
         self.consulted = False        # 이번 회차에 상태를 물어보기는 했는지(=자리를 찾았는지)
         self.just_reopened = False
@@ -1404,10 +1404,9 @@ class UrlGate:
         self.consulted = True
         if self.checked:
             return
-        # 닫혀 있거나 닫힘 확정을 기다리는 중이면 매 회차 본다. 열려 있는 항목만
-        # 주기를 둔다 — 열림→닫힘은 늦게 알아도 손해가 작지만, 닫힘→열림은
-        # 오픈 순간이라 늦으면 그대로 놓친다.
-        if self._closed or self.alerted.get(self.streak_key):
+        # 닫혀 있으면 매 회차 본다. 열려 있는 항목만 주기를 둔다 — 열림→닫힘은
+        # 늦게 알아도 손해가 작지만, 닫힘→열림은 오픈 순간이라 늦으면 그대로 놓친다.
+        if self._closed:
             self._run_check()
             return
         last = _url_checked_at.get(self.item_id)
@@ -1416,46 +1415,20 @@ class UrlGate:
             return
         self._run_check()
 
-    def _probe(self) -> tuple[bool, str]:
-        """예약창 상태를 확인한다. 닫힘이 나오면 같은 회차에서 다시 본다.
-
-        느린 로딩·일시 리다이렉트로 인한 닫힘 오탐이 있어 한 번으로는 확정하지
-        않는다. 그렇다고 확정을 다음 회차로 미루면, 미확정 구간이 그대로 '열림'
-        으로 취급돼 실제로는 닫힌 예약창에 🎉 알림과 자동예약이 나간다. 실제로
-        2026-08-17 QWER에서 `/error/` 리다이렉트를 잡고도 같은 초에 "예약 가능"
-        알림이 나갔다. 그래서 판정은 이 자리에서 끝낸다.
-        """
-        global _url_checks_done
-        closed, reason = False, ""
-        for attempt in range(1, CLOSE_CONFIRM + 1):
-            closed, reason = _playwright_check(self.url)
-            _url_checks_done += 1
-            if not closed:
-                return False, ""
-            if attempt < CLOSE_CONFIRM:
-                print(f"[{self.now_str}] ⚠️ {self.name} — 닫힘 감지 "
-                      f"({attempt}/{CLOSE_CONFIRM}, 즉시 재확인): {reason}", flush=True)
-        return True, reason
-
     def _run_check(self) -> None:
-        raw_closed, reason = self._probe()
+        global _url_checks_done
+        raw_closed, reason = _playwright_check(self.url)
         self.checked = True
+        _url_checks_done += 1
         _url_checked_at[self.item_id] = time.monotonic()
 
         alerted, name, now_str = self.alerted, self.name, self.now_str
-        if raw_closed:
-            # 확정된 값만 남긴다. 상한을 두지 않으면 닫힌 항목이 있는 한
-            # booking_alerted.json이 매 회차 바뀌어 회차마다 git 커밋·푸시가 돈다.
-            alerted[self.streak_key] = CLOSE_CONFIRM
-            self._closed = True
-        else:
-            alerted.pop(self.streak_key, None)
-            self._closed = False
+        self._closed = raw_closed
 
         if self._closed:
             item_prefix = f"{self.item_id}:"
             purge_item_keys(alerted, item_prefix,
-                            keep=(self.closed_key, self.streak_key), keep_suffix=(":closed",))
+                            keep=(self.closed_key,), keep_suffix=(":closed",))
             alerted[self.closed_key] = 1
             log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})", now_str=now_str)
         elif self.closed_key in alerted:
@@ -1473,7 +1446,6 @@ class UrlGate:
                           "예약창이 열렸습니다. 직접 확인해보세요!", self.url)
             _log_state[f"{self.item_id}:status"] = ("열림", time.monotonic())
         else:
-            # 여기까지 왔으면 _probe가 열림으로 확정한 상태다 (닫힘이면 위 분기).
             log_state(f"{self.item_id}:status", f"✅ {name} — 예약창 열림",
                       sig="열림", now_str=now_str)
 
@@ -2335,12 +2307,9 @@ def main():
     alerted = load_alerted()
     sync_auto_book_state(monitors, alerted)
 
-    for m in active:
-        if not check_booking_accessible(m.get("url", "")):
-            # 재시작 시점의 단발 체크는 오탐 가능성이 있으므로 바로 확정하지 않고
-            # streak만 1로 시드한다. 다음 주기에 한 번 더 닫힘이 확인돼야 확정된다.
-            mid = m.get("id", m.get("name", ""))
-            alerted.setdefault(f"{mid}:url_close_streak", 1)
+    # 재시작 시점에 항목마다 예약창을 미리 확인하던 단계가 있었지만, 그건 닫힘을
+    # 2회 연속으로 확정하던 시절 첫 회차를 시드하려던 것이었다. 이제 첫 회차의
+    # UrlGate가 한 번 확인으로 확정하므로, 브라우저를 항목 수만큼 미리 켤 이유가 없다.
     end_time = time.time() + loop_hours * 3600
     iteration = 0
 
