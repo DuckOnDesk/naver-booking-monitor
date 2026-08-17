@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T03:33:51.977656+09:00",
+  "updated_at": "2026-08-18T03:39:25.857577+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -199,7 +199,7 @@
     {
       "id": "2071913479",
       "name": "토리든 DEEP DIVE NEWS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711705",
       "bookingBusinessId": "1711705",
       "operationStart": "26.08.14.",
@@ -215,7 +215,8 @@
       "bookingOpenHistory": [
         "2026-08-10T17:57:38.717034+09:00",
         "2026-08-11T13:06:23.027225+09:00",
-        "2026-08-15T23:50:51.575274+09:00"
+        "2026-08-15T23:50:51.575274+09:00",
+        "2026-08-18T03:39:13.858403+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1622,13 +1623,6 @@
   ],
   "alerts": [
     {
-      "type": "booking_open",
-      "place_id": "2073328330",
-      "place_name": "원피스 무기와라스토어 한국 출장점",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705614",
-      "ts": "2026-08-05T15:18:05.595511+09:00"
-    },
-    {
       "type": "new_popup",
       "place_id": "2038805228",
       "place_name": "가정교사 히트맨 리본 20주년 기념",
@@ -3020,6 +3014,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-18T02:38:01.910329+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071913479",
+      "place_name": "토리든 DEEP DIVE NEWS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711705",
+      "ts": "2026-08-18T03:39:13.858403+09:00"
     }
   ],
   "seen_place_ids": [
