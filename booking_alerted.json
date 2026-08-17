@@ -420,7 +420,6 @@
   "ms4b3fl4:2026-08-14:closed": {
     "11:00": 2
   },
-  "msr6oy7v:url_close_streak": 1,
   "ms4qtfmh:auto_book_state": {
     "sig": "2026-08-16|11:00",
     "attempts": 1
@@ -446,5 +445,8 @@
   "msnvs690:2026-08-17:closed": {
     "17:00": 2,
     "18:00": 1
+  },
+  "msr6oy7v:2026-08-17": {
+    "19:30": 2
   }
 }
