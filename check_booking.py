@@ -1339,7 +1339,9 @@ def _playwright_check(url: str) -> tuple[bool, str]:
 # 항목이 8개면 한 회차의 절반 이상을 여기에 쓴다. 그런데 이 값이 실제로 필요한
 # 순간은 "알릴 자리가 있을 때"뿐이다. 자리가 없으면 🎉로도 🔒로도 알릴 게 없다.
 # 그래서 자리를 찾기 전에는 브라우저를 켜지 않는다 (UrlGate).
-CLOSE_CONFIRM = 2   # 오탐 방지: 연속 이 횟수만큼 닫힘이어야 확정
+# 오탐 방지: 이 횟수만큼 닫힘이 나와야 확정. 회차를 나눠 세지 않고 같은 회차에서
+# 연달아 확인한다 (UrlGate._probe) — 확정을 미루면 그 사이가 '열림'으로 취급된다.
+CLOSE_CONFIRM = 2
 # 열려 있는 것으로 확인된 항목을 다시 확인하기까지의 간격(초).
 URL_RECHECK_SEC = _env_num("URL_RECHECK_SEC", 300)
 
@@ -1362,8 +1364,10 @@ class UrlGate:
       - 자리 없음         → 확인하지 않음 (예약창 상태는 '모름'으로 남는다)
       - 자리 있고 닫힘    → 매 회차 확인 (열리는 순간을 놓치지 않기 위해)
       - 자리 있고 열림    → URL_RECHECK_SEC(기본 5분)마다
-      - 닫힘 감지 진행 중 → 확정될 때까지 매 회차 (확정이 5분×2로 늘어나지 않도록)
       - 자동예약 직전     → 주기와 무관하게 확인 (verify_open)
+
+    닫힘이 나오면 그 자리에서 CLOSE_CONFIRM회까지 다시 본다 (_probe). 판정을 다음
+    회차로 넘기지 않으므로, 알림을 보낼 때 열림/닫힘은 항상 확정된 값이다.
 
     닫힘/열림 상태와 연속 카운트는 종전처럼 alerted에 남아 프로세스 재시작을 넘어간다.
     """
@@ -1412,24 +1416,38 @@ class UrlGate:
             return
         self._run_check()
 
-    def _run_check(self) -> None:
+    def _probe(self) -> tuple[bool, str]:
+        """예약창 상태를 확인한다. 닫힘이 나오면 같은 회차에서 다시 본다.
+
+        느린 로딩·일시 리다이렉트로 인한 닫힘 오탐이 있어 한 번으로는 확정하지
+        않는다. 그렇다고 확정을 다음 회차로 미루면, 미확정 구간이 그대로 '열림'
+        으로 취급돼 실제로는 닫힌 예약창에 🎉 알림과 자동예약이 나간다. 실제로
+        2026-08-17 QWER에서 `/error/` 리다이렉트를 잡고도 같은 초에 "예약 가능"
+        알림이 나갔다. 그래서 판정은 이 자리에서 끝낸다.
+        """
         global _url_checks_done
-        raw_closed, reason = _playwright_check(self.url)
+        closed, reason = False, ""
+        for attempt in range(1, CLOSE_CONFIRM + 1):
+            closed, reason = _playwright_check(self.url)
+            _url_checks_done += 1
+            if not closed:
+                return False, ""
+            if attempt < CLOSE_CONFIRM:
+                print(f"[{self.now_str}] ⚠️ {self.name} — 닫힘 감지 "
+                      f"({attempt}/{CLOSE_CONFIRM}, 즉시 재확인): {reason}", flush=True)
+        return True, reason
+
+    def _run_check(self) -> None:
+        raw_closed, reason = self._probe()
         self.checked = True
-        _url_checks_done += 1
         _url_checked_at[self.item_id] = time.monotonic()
 
         alerted, name, now_str = self.alerted, self.name, self.now_str
         if raw_closed:
-            # 오탐(느린 로딩·리다이렉트)이 있어 연속 2회여야 확정한다. 값에 상한을
-            # 두지 않으면 닫힌 항목이 있는 한 booking_alerted.json이 매 회차 바뀌어
-            # 회차마다 git 커밋·푸시가 돈다.
-            streak = min(int(alerted.get(self.streak_key, 0)) + 1, CLOSE_CONFIRM)
-            alerted[self.streak_key] = streak
-            self._closed = streak >= CLOSE_CONFIRM
-            if not self._closed:
-                print(f"[{now_str}] ⚠️ {name} — 닫힘 감지 ({streak}/{CLOSE_CONFIRM}, "
-                      f"확정 전 대기): {reason}", flush=True)
+            # 확정된 값만 남긴다. 상한을 두지 않으면 닫힌 항목이 있는 한
+            # booking_alerted.json이 매 회차 바뀌어 회차마다 git 커밋·푸시가 돈다.
+            alerted[self.streak_key] = CLOSE_CONFIRM
+            self._closed = True
         else:
             alerted.pop(self.streak_key, None)
             self._closed = False
@@ -1454,9 +1472,8 @@ class UrlGate:
                 send_ntfy(self.ntfy_topic, f"✅ {name} 예약창 열림",
                           "예약창이 열렸습니다. 직접 확인해보세요!", self.url)
             _log_state[f"{self.item_id}:status"] = ("열림", time.monotonic())
-        elif not raw_closed:
-            # raw_closed인데 여기 오면 '닫힘 감지, 확정 전 대기' 상태다. 그 회차에
-            # "예약창 열림"까지 찍으면 로그가 서로 반대되는 말을 하게 되므로 ⚠️ 줄만 남긴다.
+        else:
+            # 여기까지 왔으면 _probe가 열림으로 확정한 상태다 (닫힘이면 위 분기).
             log_state(f"{self.item_id}:status", f"✅ {name} — 예약창 열림",
                       sig="열림", now_str=now_str)
 
