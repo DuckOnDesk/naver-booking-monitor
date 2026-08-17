@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T13:18:04.938171+09:00",
+  "updated_at": "2026-08-17T13:23:44.841717+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -938,7 +938,7 @@
     {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "bookingBusinessId": "1693898",
       "operationStart": "26.08.07.",
@@ -994,7 +994,8 @@
         "2026-08-16T18:15:37.130498+09:00",
         "2026-08-16T22:44:09.142595+09:00",
         "2026-08-17T03:39:59.266107+09:00",
-        "2026-08-17T09:26:40.014832+09:00"
+        "2026-08-17T09:26:40.014832+09:00",
+        "2026-08-17T13:23:31.281657+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1712,13 +1713,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-08-04T22:34:48.175720+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2073328330",
@@ -3111,6 +3105,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-17T11:46:04.616992+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2062024820",
+      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "ts": "2026-08-17T13:23:31.281657+09:00"
     }
   ],
   "seen_place_ids": [
