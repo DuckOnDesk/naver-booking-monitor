@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T09:21:19.144420+09:00",
+  "updated_at": "2026-08-17T09:26:51.311298+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -390,6 +390,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2049771421",
+      "name": "인스턴트펑크 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.21.",
+      "operationEnd": "26.08.22.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_283/1786428220397yuizX_JPEG/edited-1786428220152-0.jpg",
+      "roadAddress": "아차산로7나길 14 AE 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T11:44:42.673229+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
       "hasBooking": false,
@@ -415,32 +441,6 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-14T17:16:25.458437+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2049771421",
-      "name": "인스턴트펑크 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.21.",
-      "operationEnd": "26.08.22.",
-      "remainingDays": 4,
-      "status": "D-4",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_283/1786428220397yuizX_JPEG/edited-1786428220152-0.jpg",
-      "roadAddress": "아차산로7나길 14 AE 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-12T11:44:42.673229+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -498,6 +498,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2033013073",
+      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 19,
+      "status": "D-19",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
+      "roadAddress": "아차산로 84 1-2 F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
       "hasBooking": false,
@@ -527,32 +553,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2033013073",
-      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 19,
-      "status": "D-19",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
-      "roadAddress": "아차산로 84 1-2 F",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -964,7 +964,7 @@
     {
       "id": "2062024820",
       "name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "bookingBusinessId": "1693898",
       "operationStart": "26.08.07.",
@@ -1019,7 +1019,8 @@
         "2026-08-16T15:15:24.261142+09:00",
         "2026-08-16T18:15:37.130498+09:00",
         "2026-08-16T22:44:09.142595+09:00",
-        "2026-08-17T03:39:59.266107+09:00"
+        "2026-08-17T03:39:59.266107+09:00",
+        "2026-08-17T09:26:40.014832+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1709,13 +1710,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2062283789",
-      "place_name": "드래곤볼 전시",
-      "booking_url": "",
-      "ts": "2026-08-04T18:22:54.164398+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2043425985",
@@ -3108,6 +3102,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-17T05:42:34.696950+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2062024820",
+      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
+      "ts": "2026-08-17T09:26:40.014832+09:00"
     }
   ],
   "seen_place_ids": [
