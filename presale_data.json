@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T05:02:58.011582+09:00",
+  "updated_at": "2026-08-18T05:08:32.844582+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -773,7 +773,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -817,7 +817,8 @@
         "2026-08-16T15:55:25.347962+09:00",
         "2026-08-16T19:39:33.338064+09:00",
         "2026-08-16T23:29:03.489824+09:00",
-        "2026-08-17T02:55:30.984020+09:00"
+        "2026-08-17T02:55:30.984020+09:00",
+        "2026-08-18T05:08:19.839881+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1622,13 +1623,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2038805228",
-      "place_name": "가정교사 히트맨 리본 20주년 기념",
-      "booking_url": "",
-      "ts": "2026-08-05T18:20:04.892785+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2027174717",
@@ -3021,6 +3015,13 @@
       "place_name": "토리든 DEEP DIVE NEWS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711705",
       "ts": "2026-08-18T03:39:13.858403+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-18T05:08:19.839881+09:00"
     }
   ],
   "seen_place_ids": [
