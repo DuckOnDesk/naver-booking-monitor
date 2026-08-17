@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-17T10:44:43.063620+09:00",
+  "updated_at": "2026-08-17T10:50:18.241410+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1172,7 +1172,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1210,7 +1210,8 @@
         "2026-08-16T04:03:58.462877+09:00",
         "2026-08-16T08:40:07.310788+09:00",
         "2026-08-16T17:30:50.659559+09:00",
-        "2026-08-16T23:12:12.324351+09:00"
+        "2026-08-16T23:12:12.324351+09:00",
+        "2026-08-17T10:50:06.679652+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1710,13 +1711,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2043425985",
-      "place_name": "화이트샌즈 팝업",
-      "booking_url": "",
-      "ts": "2026-08-04T18:22:54.164398+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2019832187",
@@ -3109,6 +3103,13 @@
       "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
       "ts": "2026-08-17T09:26:40.014832+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-17T10:50:06.679652+09:00"
     }
   ],
   "seen_place_ids": [
