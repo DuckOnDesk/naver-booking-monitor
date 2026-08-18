@@ -60,6 +60,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1712461/items/7939323?startDateTime=2026-08-18T00%3A00%3A00%2B09%3A00",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "msyj9hhn",
+      "name": "뷰티쁠",
+      "url": "https://booking.naver.com/booking/12/bizes/666200/items/7972440",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
