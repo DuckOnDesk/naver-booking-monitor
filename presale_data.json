@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T09:08:00.686944+09:00",
+  "updated_at": "2026-08-18T09:13:34.235051+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -505,7 +505,7 @@
     {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "bookingBusinessId": "1716761",
       "operationStart": "26.08.28.",
@@ -523,7 +523,8 @@
         "2026-08-13T16:32:32.622550+09:00",
         "2026-08-14T16:02:48.854470+09:00",
         "2026-08-14T21:20:19.869030+09:00",
-        "2026-08-16T04:42:38.335553+09:00"
+        "2026-08-16T04:42:38.335553+09:00",
+        "2026-08-18T09:13:23.338308+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1623,13 +1624,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "",
-      "ts": "2026-08-05T18:31:23.684050+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2098663430",
@@ -3022,6 +3016,13 @@
       "place_name": "PREQUEL EXHIBITION I COSMOS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "ts": "2026-08-18T05:08:19.839881+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057128614",
+      "place_name": "스픽 2026 영어울렁증 퇴마식",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "ts": "2026-08-18T09:13:23.338308+09:00"
     }
   ],
   "seen_place_ids": [
