@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T16:50:26.529949+09:00",
+  "updated_at": "2026-08-18T16:56:08.751388+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -458,7 +458,7 @@
     {
       "id": "2075951781",
       "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "bookingBusinessId": "1712461",
       "operationStart": "26.08.25.",
@@ -473,7 +473,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-08-18T10:25:54.834286+09:00",
-        "2026-08-18T15:05:10.099488+09:00"
+        "2026-08-18T15:05:10.099488+09:00",
+        "2026-08-18T16:55:54.052711+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -611,32 +612,6 @@
       "roadAddress": "성수이로 50",
       "commonAddress": "서울 성동구",
       "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2036674429",
-      "name": "소녀전선2 망명 갤러리",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "25.12.25.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20251125_158/1764037278704wYjQn_JPEG/1_%C0%CC%B9%CC%C1%F6_2400x1500px_%281%29.jpg",
-      "roadAddress": "연희로11가길 32 소녀전선2 망명 갤러리",
-      "commonAddress": "서울 서대문구",
-      "district": "서대문구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": null,
@@ -1441,6 +1416,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2036674429",
+      "name": "소녀전선2 망명 갤러리",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "25.12.25.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20251125_158/1764037278704wYjQn_JPEG/1_%C0%CC%B9%CC%C1%F6_2400x1500px_%281%29.jpg",
+      "roadAddress": "연희로11가길 32 소녀전선2 망명 갤러리",
+      "commonAddress": "서울 서대문구",
+      "district": "서대문구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2033849367",
       "name": "소머드 팝업",
       "hasBooking": false,
@@ -1635,13 +1636,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "1646280504",
-      "place_name": "틴더 패스포트 라운지",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1710955",
-      "ts": "2026-08-06T22:40:05.606761+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2019923740",
@@ -3034,6 +3028,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-18T16:41:09.659979+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2075951781",
+      "place_name": "판도라 플레이그라운드: Pick & Play",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
+      "ts": "2026-08-18T16:55:54.052711+09:00"
     }
   ],
   "seen_place_ids": [
