@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-19T02:53:27.617743+09:00",
+  "updated_at": "2026-08-19T02:59:00.691493+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -39,7 +39,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -70,7 +70,8 @@
         "2026-08-18T10:37:08.487221+09:00",
         "2026-08-18T16:41:09.659979+09:00",
         "2026-08-18T19:44:44.741136+09:00",
-        "2026-08-18T23:22:07.436049+09:00"
+        "2026-08-18T23:22:07.436049+09:00",
+        "2026-08-19T02:58:49.249036+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1649,13 +1650,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2006916982",
-      "place_name": "발레클로젯 팝업 - 디아트레 메시아 포타 in더현대서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712096",
-      "ts": "2026-08-07T15:57:10.911024+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2071074882",
       "place_name": "주술회전 사멸회유 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
@@ -3046,6 +3040,13 @@
       "place_name": "스픽 2026 영어울렁증 퇴마식",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "ts": "2026-08-19T00:51:10.513610+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2027174717",
+      "place_name": "조 말론 런던 팝업스토어 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
+      "ts": "2026-08-19T02:58:49.249036+09:00"
     }
   ],
   "seen_place_ids": [
