@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-18T23:16:44.123564+09:00",
+  "updated_at": "2026-08-18T23:22:18.899828+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -39,7 +39,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -69,7 +69,8 @@
         "2026-08-18T02:38:01.910329+09:00",
         "2026-08-18T10:37:08.487221+09:00",
         "2026-08-18T16:41:09.659979+09:00",
-        "2026-08-18T19:44:44.741136+09:00"
+        "2026-08-18T19:44:44.741136+09:00",
+        "2026-08-18T23:22:07.436049+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1645,13 +1646,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-08-07T13:18:32.499752+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2019923740",
       "place_name": "IVE x MINIVE POP-UP in SEOUL",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
@@ -3042,6 +3036,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-18T19:44:44.741136+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2027174717",
+      "place_name": "조 말론 런던 팝업스토어 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
+      "ts": "2026-08-18T23:22:07.436049+09:00"
     }
   ],
   "seen_place_ids": [
