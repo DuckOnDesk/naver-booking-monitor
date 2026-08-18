@@ -14,6 +14,8 @@
   - 닫힘은 한 번 잡히면 그 회차에서 바로 확정한다 (확정을 미루면 그 구간이 '열림'으로
     취급된다 — 2026-08-17 QWER: /error/ 리다이렉트를 잡고도 "예약 가능" 알림이 나갔다)
   - 자리가 사라지면 다시 확인하지 않는다 (1번 상태로 복귀)
+  - 닫힘→열림으로 바뀐 그 회차에 바로 자리 알림이 나간다 (예전에는 "다음 주기에
+    재확인"이라며 건너뛰었는데, 상태는 저장돼 다음 주기에도 조건이 성립하지 않았다)
   - 자동예약 직전에는 주기와 무관하게 확인하고, 닫혀 있으면 시도하지 않는다
   - 닫힘이 이어지는 동안 alerted가 회차마다 바뀌지 않는다
     (바뀌면 회차마다 git 커밋·푸시가 돈다)
@@ -158,6 +160,19 @@ def main() -> int:
     print("8) 닫힌 상태에서 자리가 다시 생기면 즉시 확인한다")
     logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted)
     check(n == 1, f"브라우저 확인 1회 (실제 {n}회)")
+
+    print("8-1) 닫힘→열림으로 바뀐 그 회차에 바로 자리 알림이 나간다")
+    cb.reset_log_state()
+    closed_now = False
+    reopen_item = {"id": "t3", "name": "재오픈", "url": URL, "enabled": True,
+                   "target_dates": [D]}
+    # 닫혀 있었고, 그동안 알린 자리는 없는 상태 (열리면서 자리가 생긴 경우)
+    alerted3: dict = {"t3:url_closed": 1}
+    logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted3, item=reopen_item)
+    check(any("예약창 열림" in t for t in sent), f"예약창 열림 알림 (실제: {sent})")
+    check(any("예약 가능" in t for t in sent),
+          f"전환 회차에 바로 자리 알림 — 다음 주기로 미루지 않음 (실제: {sent})")
+    check(not any("전환 직후" in l for l in logs), f"알림 생략 로그 없음 (실제: {logs})")
 
     print("9) 자동예약 직전에는 주기와 무관하게 확인하고, 닫혀 있으면 시도하지 않는다")
     cb.reset_log_state()
