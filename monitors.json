@@ -2,27 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "ms4b3fl4",
-      "name": "라운즈2차",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1705528/items/7912644",
-      "enabled": true,
-      "target_dates": [],
-      "auto_book": {
-        "enabled": true,
-        "dates": [],
-        "times": [],
-        "accounts": [
-          3,
-          4,
-          5
-        ],
-        "count": 1,
-        "mode": "immediate",
-        "start_at": null,
-        "saved_at": "2026-07-29T01:34:38.331Z"
-      }
-    },
-    {
       "id": "msddyhkc",
       "name": "트루스 오브 뷰티",
       "url": "https://booking.naver.com/booking/13/bizes/1707570/items/7913541?startDate=2026-08-15",
