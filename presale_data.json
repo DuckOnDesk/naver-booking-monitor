@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-19T08:39:07.721834+09:00",
+  "updated_at": "2026-08-19T08:44:39.862968+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -39,7 +39,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -1054,9 +1054,9 @@
     {
       "id": "2039988652",
       "name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1714809",
+      "bookingBusinessId": "1714809",
       "operationStart": "26.08.27.",
       "operationEnd": "26.09.02.",
       "remainingDays": 8,
@@ -1067,7 +1067,9 @@
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-19T08:44:28.685090+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
@@ -1652,13 +1654,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2019923740",
-      "place_name": "IVE x MINIVE POP-UP in SEOUL",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
-      "ts": "2026-08-07T20:32:47.417435+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -3051,6 +3046,13 @@
       "place_name": "스픽 2026 영어울렁증 퇴마식",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "ts": "2026-08-19T08:27:51.419466+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2039988652",
+      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
+      "ts": "2026-08-19T08:44:28.685090+09:00"
     }
   ],
   "seen_place_ids": [
