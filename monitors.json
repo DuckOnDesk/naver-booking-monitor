@@ -67,6 +67,17 @@
       "url": "https://booking.naver.com/booking/12/bizes/666200/items/7972440",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mtlotteon1",
+      "type": "lotteon",
+      "name": "롯데온 전시샵 52978",
+      "url": "https://www.lotteon.com/m/display/shop/seltDpShop/52978?ch_no=100279&launcher_app_cd=LTON&mall_no=1&cid=2A2C4C2BADE84EE69672D07C4556AF83&ch_dtl_no=1044428",
+      "enabled": true,
+      "target_dates": [],
+      "lotteon": {
+        "alert_keywords": []
+      }
     }
   ]
 }

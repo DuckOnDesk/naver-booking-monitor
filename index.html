@@ -62,6 +62,7 @@
     .platform-badge { flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
     .platform-badge.naver { background: #03c75a; color: #fff; }
     .platform-badge.kakao { background: #fee500; color: #3c1e1e; }
+    .platform-badge.lotteon { background: #ed1c24; color: #fff; }
     .monitor-meta { font-size: 12px; color: var(--sub); margin-top: 3px; }
     .monitor-url  { font-size: 11px; color: #bbb; margin-top: 2px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     .monitor-actions { display: flex; gap: 8px; margin-top: 10px; }
@@ -211,9 +212,10 @@
       <input type="text" id="f-name" placeholder="예: 홍대 팝업스토어">
     </div>
     <div class="form-group">
-      <label>네이버 예약 URL</label>
+      <label>예약 / 상품 URL</label>
       <textarea id="f-url" rows="3" placeholder="https://m.booking.naver.com/booking/..."></textarea>
-      <div class="hint">네이버 예약 페이지에서 URL을 복사해 붙여넣으세요</div>
+      <div class="hint">네이버 예약 · 카카오 예약 · 롯데온 페이지의 URL을 복사해 붙여넣으세요<br>
+        롯데온은 날짜별 예약이 아니라 <b>품절 → 구매 가능</b> 전환을 감시하므로 아래 확인 기간은 쓰지 않습니다</div>
     </div>
     <div class="form-group">
       <label>확인 기간</label>
@@ -366,13 +368,16 @@ function render() {
     el.innerHTML = `<div class="empty"><div class="empty-icon">🔔</div><div>모니터링 항목이 없어요<br><span style="font-size:13px;margin-top:6px;display:block">아래 <b>+</b> 버튼으로 추가하세요</span></div></div>`;
     return;
   }
+  // 롯데온 항목은 날짜(target_dates)·운영 기간·자동예약을 쓰지 않는다. 날짜별 예약이
+  // 아니라 페이지의 구매 가능 여부를 보는 것이고, 자동예약은 네이버 예약 페이지의
+  // 흐름에 맞춰 만들어져 있어 그대로 붙지 않는다. 그래서 그 자리는 통째로 뺀다.
   el.innerHTML = cfg.monitors.map(m => `
     <div class="card">
       <div class="monitor-row">
         <div class="monitor-info">
-          <div class="monitor-name"><span class="platform-badge ${m.type==='kakao'?'kakao':'naver'}">${m.type==='kakao'?'K':'N'}</span>${esc(m.name)}</div>
-          <div class="monitor-meta">${fmtDates(m.target_dates)}</div>
-          ${fmtAvailableRange(m.url)}
+          <div class="monitor-name"><span class="platform-badge ${platformOf(m)}">${PLATFORM_MARK[platformOf(m)]}</span>${esc(m.name)}</div>
+          <div class="monitor-meta">${m.type==='lotteon' ? '롯데온 — 구매 가능 전환 감시' : fmtDates(m.target_dates)}</div>
+          ${m.type==='lotteon' ? '' : fmtAvailableRange(m.url)}
           <div class="monitor-url">${esc(m.url)}</div>
         </div>
         <label class="toggle">
@@ -383,10 +388,25 @@ function render() {
       <div class="monitor-actions">
         <button class="btn-sm btn-edit" onclick="openEdit('${m.id}')">수정</button>
         <button class="btn-sm btn-del"  onclick="del('${m.id}')">삭제</button>
-        <a class="btn-sm btn-link" href="${esc(m.url)}" target="_blank" rel="noopener">예약</a>
-        <a class="btn-sm btn-auto ${isAutoBookOn(m)?'on':''}" href="autobook.html?id=${m.id}">자동예약${isAutoBookOn(m)?' ON':''}</a>
+        <a class="btn-sm btn-link" href="${esc(m.url)}" target="_blank" rel="noopener">${m.type==='lotteon'?'바로가기':'예약'}</a>
+        ${m.type==='lotteon' ? '' : `<a class="btn-sm btn-auto ${isAutoBookOn(m)?'on':''}" href="autobook.html?id=${m.id}">자동예약${isAutoBookOn(m)?' ON':''}</a>`}
       </div>
     </div>`).join('');
+}
+
+const PLATFORM_MARK = { naver: 'N', kakao: 'K', lotteon: 'L' };
+
+function platformOf(m) {
+  if (m.type === 'kakao' || m.type === 'lotteon') return m.type;
+  return 'naver';
+}
+
+// URL만 보고 어느 플랫폼인지 정한다 (등록 폼에서 type을 자동으로 채우는 용도).
+function detectType(url) {
+  if (url.includes('lotteon.com')) return 'lotteon';
+  if (url.includes('booking.kakao.com')) return 'kakao';
+  if (url.includes('booking.naver.com')) return 'naver';
+  return null;
 }
 
 function isAutoBookOn(m) {
@@ -813,7 +833,15 @@ async function submitMonitor() {
   const url  = $('f-url').value.trim();
 
   if (!name) { alert('이름을 입력하세요'); return; }
-  if (!url || !url.includes('booking.naver.com')) { alert('네이버 예약 URL을 입력하세요'); return; }
+  const platform = detectType(url);
+  if (!platform) { alert('네이버 예약 / 카카오 예약 / 롯데온 URL을 입력하세요'); return; }
+
+  // 롯데온은 날짜별 예약이 아니라 페이지의 구매 가능 여부를 본다. 날짜 입력은 읽지 않는다.
+  if (platform === 'lotteon') {
+    upsertMonitor({ name, url, type: 'lotteon', target_dates: [] });
+    await commitMonitor(name);
+    return;
+  }
 
   // 입력 중인 기간이 있으면 자동 추가 (간편등록 체크박스가 켜져 있으면 해당 기간은 이미 추가됨)
   const quickActive = $('f-quick-weekend').checked || $('f-quick-weekday').checked;
@@ -843,13 +871,23 @@ async function submitMonitor() {
     }
   }
 
+  // 네이버는 type을 생략하는 것이 기본값이라 그대로 두고, 카카오만 표시한다.
+  upsertMonitor({ name, url, target_dates, ...(platform === 'kakao' ? { type: 'kakao' } : {}) });
+  await commitMonitor(name);
+}
+
+/** 수정 중이면 해당 항목에 덮어쓰고, 아니면 새 항목으로 추가한다. */
+function upsertMonitor(entry) {
   if (editId) {
     const m = cfg.monitors.find(x => x.id === editId);
-    if (m) Object.assign(m, { name, url, target_dates });
+    if (m) Object.assign(m, entry);
   } else {
-    cfg.monitors.push({ id: Date.now().toString(36), name, url, enabled: true, target_dates });
+    cfg.monitors.push({ id: Date.now().toString(36), enabled: true, ...entry });
   }
+}
 
+/** 저장하고 목록을 갱신한다. 저장이 끝날 때까지 등록 버튼을 잠가 중복 등록을 막는다. */
+async function commitMonitor(name) {
   const submitBtn = document.querySelector('.sheet-actions .btn-primary');
   if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '등록 중...'; }
   try {

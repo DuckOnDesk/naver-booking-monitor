@@ -19,13 +19,17 @@ auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
           LOG_HEARTBEAT_MIN (변화가 없어도 이 간격마다 상태 줄 전체 재출력, 기본 60분)
           LOG_TICK_MIN (무변동이 이어질 때 살아 있음을 알리는 간격, 기본 10분)
           URL_RECHECK_SEC (열려 있는 항목의 예약창 재확인 간격, 기본 300초)
+          LOTTEON_INTERVAL_SEC (롯데온 항목의 페이지 확인 간격, 기본 120초)
 
 monitors.json 항목 선택 필드:
+  type                   "kakao" | "lotteon" (생략하면 네이버 예약)
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
                          설정 시 해당 시각 이후 + 자리 있을 때만 알림 발송
+  lotteon                롯데온 항목 세부 설정 (_lotteon_cfg 참고)
 """
 
 import builtins
+import hashlib
 import json
 import os
 import re
@@ -114,6 +118,94 @@ KAKAO_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
     "Referer": "https://booking.kakao.com/",
 }
+
+# ── 롯데온(www.lotteon.com) ────────────────────────────────────────────
+# 롯데온에는 네이버·카카오처럼 공개된 예약 API가 없다. 전시샵
+# (/display/shop/seltDpShop/<번호>) 페이지는 상품 목록을 자바스크립트로 그리기
+# 때문에 requests로 받은 HTML에는 상품이 한 건도 들어 있지 않다. 그래서 이 유형만은
+# 매 회차 chromium으로 페이지를 직접 연다.
+#
+# 브라우저는 비싸다 (페이지 로드까지 항목당 5~10초). 네이버 항목은 UrlGate가
+# "알릴 자리를 찾았을 때"만 브라우저를 켜서 이 비용을 피하지만, 롯데온은 상태를
+# 읽을 다른 수단이 없어 그럴 수 없다. 대신 확인 간격을 따로 두어 60초 회차마다
+# 매번 켜지는 것을 막는다.
+LOTTEON_INTERVAL_SEC = _env_num("LOTTEON_INTERVAL_SEC", 120)
+LOTTEON_TIMEOUT_MS = _env_num("LOTTEON_TIMEOUT_MS", 30000)
+# 전시샵은 스크롤에 맞춰 상품을 나눠 붙인다. 끝까지 내려야 목록이 다 뜬다.
+LOTTEON_SCROLLS = _env_num("LOTTEON_SCROLLS", 6)
+LOTTEON_UA = ("Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 "
+              "(KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1")
+
+# 상품 카드 텍스트에 이 문구가 있으면 "지금은 못 산다"로 본다. 판정을 '구매 가능'
+# 쪽이 아니라 '불가' 쪽 문구로 하는 이유: 구매 버튼 문구는 상품마다 제각각인데
+# (구매하기/응모하기/예약하기/장바구니…) 막혔을 때 문구는 몇 가지로 수렴한다.
+# 항목별로 monitors.json의 lotteon.sold_out_texts로 덮어쓸 수 있다.
+LOTTEON_SOLD_OUT_TEXTS = (
+    "품절", "일시품절", "판매종료", "판매 종료", "판매중지", "판매 중지",
+    "구매불가", "구매 불가", "오픈예정", "오픈 예정", "판매대기", "마감",
+    "SOLD OUT", "SOLDOUT", "Sold Out",
+)
+
+# 페이지에서 상품 카드를 뽑는 스크립트. 롯데온은 화면 구조를 자주 손대므로
+# 클래스명에 기대지 않는다. 대신 "상품 상세로 가는 링크"를 기준으로 잡고,
+# 그 링크에서 위로 올라가며 이름·가격·상태 뱃지가 다 들어오는 크기의 조상을 카드로 쓴다.
+# 실제 페이지 구조가 이 가정과 어긋나면 scripts/probe_lotteon.py로 확인한다.
+_LOTTEON_EXTRACT_JS = """
+() => {
+  const idOf = (href) => {
+    let m = href.match(/\\/p\\/product\\/([A-Za-z0-9_-]+)/);
+    if (m) return m[1];
+    m = href.match(/[?&](?:pdNo|goodsNo|sitmNo|prdNo)=([A-Za-z0-9_-]+)/);
+    if (m) return m[1];
+    m = href.match(/\\/product\\/([A-Za-z0-9_-]+)/);
+    return m ? m[1] : null;
+  };
+  // 링크 자체는 보통 썸네일 하나뿐이라 텍스트가 없다. 이름·가격·상태가 모두
+  // 들어올 때까지(=텍스트가 15자를 넘을 때까지) 조상을 타고 올라간다.
+  const cardText = (el) => {
+    let cur = el;
+    for (let i = 0; i < 6 && cur; i++) {
+      const t = (cur.innerText || '').trim();
+      if (t.length >= 15) return t;
+      cur = cur.parentElement;
+    }
+    return ((el.innerText || '')).trim();
+  };
+  const out = new Map();
+  for (const a of document.querySelectorAll('a[href]')) {
+    const id = idOf(a.href);
+    if (!id) continue;
+    const text = cardText(a).replace(/\\s+/g, ' ').slice(0, 300);
+    // 이름은 링크 글자 > title > 썸네일 alt 순으로 믿는다. 전시샵은 상품 하나에
+    // 썸네일 링크와 이름 링크를 따로 두는데, 썸네일 쪽 alt에는 "OOO 썸네일"처럼
+    // 상품명이 아닌 문구가 들어오기도 한다.
+    const img = a.querySelector('img');
+    const inner = (a.innerText || '').trim();
+    const title = a.getAttribute('title');
+    const cand = inner ? { name: inner, rank: 2 }
+               : title ? { name: title, rank: 1 }
+               : (img && img.alt) ? { name: img.alt, rank: 0 }
+               : { name: '', rank: -1 };
+    cand.name = cand.name.replace(/\\s+/g, ' ').slice(0, 80);
+    const prev = out.get(id);
+    if (!prev) {
+      out.set(id, { id, name: cand.name, rank: cand.rank, text, url: a.href });
+      continue;
+    }
+    // 같은 상품을 가리키는 링크가 여러 개(썸네일·이름·버튼)면 가장 많이 담은 것을 쓴다.
+    if (text.length > prev.text.length) { prev.text = text; prev.url = a.href; }
+    if (cand.rank > prev.rank) { prev.name = cand.name; prev.rank = cand.rank; }
+  }
+  return {
+    products: Array.from(out.values()).map(
+      (p) => ({ id: p.id, name: p.name, text: p.text, url: p.url })),
+    text: (document.body ? document.body.innerText : '').replace(/\\s+/g, ' '),
+  };
+}
+"""
+
+# item_id → 마지막으로 페이지를 연 시각(monotonic). LOTTEON_INTERVAL_SEC 스로틀용.
+_lotteon_checked_at: dict[str, float] = {}
 
 
 # ── 상태 변화 기반 로그 ────────────────────────────────────────────────
@@ -605,6 +697,205 @@ def check_kakao_dates(ticket_id: str, target_dates: list, kakao_cookies: str) ->
     except Exception as e:
         print(f"  [오류] 카카오 API 실패: {e}", flush=True)
         return None
+
+
+def parse_lotteon_url(url: str) -> str | None:
+    """롯데온 전시샵 URL에서 전시샵 번호를 뽑는다 (감시 대상 식별·로그용)."""
+    m = re.search(r"/seltDpShop/(\d+)", url)
+    return m.group(1) if m else None
+
+
+def _lotteon_cfg(item: dict) -> dict:
+    """monitors.json 항목의 lotteon 설정을 기본값과 합쳐 돌려준다.
+
+    선택 필드 (전부 생략 가능):
+      sold_out_texts   구매 불가 판정 문구 목록 (기본 LOTTEON_SOLD_OUT_TEXTS 대체)
+      name_filter      이 문구가 든 상품만 감시 (비우면 페이지의 상품 전부)
+      alert_keywords   페이지 본문에 이 문구가 '새로 등장'하면 알림
+                       (상품 카드로 안 잡히는 예약/응모 버튼을 잡는 용도)
+      watch_page_text  본문 텍스트가 바뀔 때마다 알림. 상품·문구로 안 잡히는
+                       페이지의 마지막 수단이며, 배너·타이머·추천영역 때문에
+                       수시로 울릴 수 있어 기본은 꺼 둔다.
+    """
+    cfg = item.get("lotteon") or {}
+    return {
+        "sold_out_texts": tuple(cfg.get("sold_out_texts") or LOTTEON_SOLD_OUT_TEXTS),
+        "name_filter": [s for s in (cfg.get("name_filter") or []) if s],
+        "alert_keywords": [s for s in (cfg.get("alert_keywords") or []) if s],
+        "watch_page_text": bool(cfg.get("watch_page_text")),
+    }
+
+
+def lotteon_product_status(text: str, sold_out_texts) -> tuple[bool, str]:
+    """상품 카드 텍스트로 (구매 가능 여부, 불가 사유 문구)를 판정한다."""
+    for t in sold_out_texts:
+        if t in text:
+            return False, t
+    return True, ""
+
+
+def fetch_lotteon_page(url: str) -> dict | None:
+    """롯데온 페이지를 chromium으로 열어 상품 목록과 본문 텍스트를 뽑는다.
+
+    Returns {"products": [...], "text": str, "final_url": str} 또는 조회 실패 시 None.
+    '실패'와 '상품 0건'은 다르다 — 실패를 0건으로 흘리면 다음 회차에 상품이
+    돌아왔을 때 전부 '신규'로 잡혀 알림이 쏟아진다. 그래서 호출부가 구분할 수
+    있도록 실패는 None으로 돌린다.
+    """
+    context = None
+    try:
+        browser = _browser_get()
+        # 컨텍스트는 매번 새로 만든다 (_playwright_check와 같은 이유 — 이전 페이지의
+        # 쿠키·URL이 남으면 판정이 오염된다).
+        context = browser.new_context(
+            user_agent=LOTTEON_UA,
+            locale="ko-KR",
+            viewport={"width": 412, "height": 915},
+            is_mobile=True,
+            has_touch=True,
+        )
+        page = context.new_page()
+        page.goto(url, wait_until="domcontentloaded", timeout=LOTTEON_TIMEOUT_MS)
+        for _ in range(LOTTEON_SCROLLS):
+            page.mouse.wheel(0, 4000)
+            page.wait_for_timeout(700)
+        page.wait_for_timeout(1500)
+        state = page.evaluate(_LOTTEON_EXTRACT_JS)
+        return {
+            "products": state.get("products") or [],
+            # 본문 전체를 들고 있을 이유가 없다. 키워드 판정·해시에만 쓰므로 잘라 둔다.
+            "text": (state.get("text") or "")[:20000],
+            "final_url": page.url,
+        }
+    except Exception as exc:
+        print(f"  [경고] 롯데온 페이지 조회 실패: {exc}", flush=True)
+        # 페이지 하나가 느린 것과 브라우저가 죽은 것은 다르다 (_playwright_check와 동일).
+        try:
+            if _pw_browser is not None and not _pw_browser.is_connected():
+                _browser_close()
+        except Exception:
+            _browser_close()
+        return None
+    finally:
+        try:
+            if context is not None:
+                context.close()
+        except Exception:
+            pass
+
+
+def check_lotteon(item: dict, item_id: str, url: str, ntfy_topic: str,
+                  alerted: dict, now_str: str) -> None:
+    """롯데온 항목 한 건을 확인하고 상태가 바뀌었으면 알린다.
+
+    알리는 순간은 '전환'뿐이다.
+      - 품절/오픈예정이던 상품이 구매 가능으로 바뀜
+      - 구매 가능한 상품이 새로 올라옴
+      - alert_keywords 문구가 본문에 새로 등장함
+    처음 보는 항목은 그 회차를 기준 상태로만 기록하고 알리지 않는다. 전시샵에는
+    이미 살 수 있는 상품이 수십 개 있을 수 있어, 등록하자마자 그게 전부 알림으로
+    나가면 정작 열리는 순간이 묻힌다.
+    """
+    name = item.get("name", "?")
+    cfg = _lotteon_cfg(item)
+
+    last = _lotteon_checked_at.get(item_id, 0.0)
+    if last and time.monotonic() - last < LOTTEON_INTERVAL_SEC:
+        return
+
+    state = fetch_lotteon_page(url)
+    _lotteon_checked_at[item_id] = time.monotonic()
+    if state is None:
+        # 조회 실패는 '변화 없음'이 아니다. 상태 키를 하나도 손대지 않고 다음 회차에 다시 본다.
+        log_state(f"{item_id}:status", f"⚠️ {name} — 롯데온 페이지 조회 실패 (다음 회차 재시도)",
+                  sig="lo_fail", now_str=now_str)
+        return
+
+    seen_key = f"{item_id}:lo_seen"
+    first_run = seen_key not in alerted
+    products = state["products"]
+    if cfg["name_filter"]:
+        products = [p for p in products
+                    if any(kw in f"{p.get('name', '')} {p.get('text', '')}" for kw in cfg["name_filter"])]
+
+    newly: list[tuple[str, str, bool]] = []   # (표시 이름, 링크, 신규 등록 여부)
+    current: set[str] = set()
+    avail_count = 0
+    for p in products:
+        pid = p.get("id")
+        if not pid:
+            continue
+        current.add(pid)
+        avail, reason = lotteon_product_status(p.get("text", ""), cfg["sold_out_texts"])
+        label = (p.get("name") or pid)[:40]
+        key = f"{item_id}:lo:{pid}"
+        prev = alerted.get(key)
+        if avail:
+            avail_count += 1
+            if prev != "1" and not first_run:
+                newly.append((label, p.get("url") or url, prev is None))
+        log_state(f"log:{key}",
+                  f"{'🎉' if avail else '❌'} {name} — {label} "
+                  f"{'구매 가능' if avail else f'불가({reason})'}", now_str=now_str)
+        alerted[key] = "1" if avail else f"0:{reason}"
+
+    # 목록에서 사라진 상품의 상태 키는 지운다 (다시 올라오면 신규로 잡히도록).
+    prefix = f"{item_id}:lo:"
+    for k in list(alerted.keys()):
+        if k.startswith(prefix) and k[len(prefix):] not in current:
+            alerted.pop(k)
+
+    text = state["text"]
+    kw_hits: list[str] = []
+    for kw in cfg["alert_keywords"]:
+        key = f"{item_id}:lo_kw:{kw}"
+        if kw in text:
+            if key not in alerted and not first_run:
+                kw_hits.append(kw)
+            alerted[key] = 1
+        else:
+            alerted.pop(key, None)
+
+    text_changed = False
+    if cfg["watch_page_text"]:
+        key = f"{item_id}:lo_text"
+        digest = hashlib.sha1(text.encode("utf-8")).hexdigest()[:12]
+        prev_digest = alerted.get(key)
+        text_changed = bool(prev_digest) and prev_digest != digest and not first_run
+        alerted[key] = digest
+
+    if first_run:
+        alerted[seen_key] = 1
+        print(f"[{now_str}] 👀 {name} — 롯데온 기준 상태 기록 "
+              f"(상품 {len(products)}개, 구매 가능 {avail_count}개). 이 회차는 알리지 않는다.", flush=True)
+        if not products:
+            print(f"[{now_str}] [경고] {name} — 상품을 한 건도 못 찾았다. 페이지 구조가 바뀌었거나 "
+                  f"상품 목록이 없는 페이지다. `python scripts/probe_lotteon.py <URL>`로 확인하고, "
+                  f"필요하면 monitors.json의 lotteon.alert_keywords로 문구를 직접 지정하라.", flush=True)
+        return
+
+    if newly:
+        details = ", ".join(f"{lbl}{' (신규)' if is_new else ''}" for lbl, _, is_new in newly[:8])
+        if len(newly) > 8:
+            details += f" 외 {len(newly) - 8}건"
+        print(f"[{now_str}] 🎉 {name} — 구매 가능 전환: {details}", flush=True)
+        if ntfy_topic:
+            # 한 건이면 그 상품으로, 여러 건이면 전시샵으로 보낸다.
+            send_ntfy(ntfy_topic, f"🎉 {name} 구매 가능!", details,
+                      newly[0][1] if len(newly) == 1 else url)
+    if kw_hits:
+        body = ", ".join(kw_hits)
+        print(f"[{now_str}] 🔔 {name} — 페이지에 문구 등장: {body}", flush=True)
+        if ntfy_topic:
+            send_ntfy(ntfy_topic, f"🔔 {name} 페이지 변화", f"'{body}' 문구가 새로 나타났습니다.", url)
+    if text_changed:
+        print(f"[{now_str}] 🔔 {name} — 페이지 내용 변경 감지", flush=True)
+        if ntfy_topic:
+            send_ntfy(ntfy_topic, f"🔔 {name} 페이지 변경", "페이지 내용이 바뀌었습니다. 확인해보세요.", url)
+    if not (newly or kw_hits or text_changed):
+        log_state(f"{item_id}:status",
+                  f"👀 {name} — 롯데온 감시 중 (상품 {len(products)}개, 구매 가능 {avail_count}개)",
+                  sig=f"lo:{len(products)}:{avail_count}", now_str=now_str)
 
 
 def _parse_dt(dt_str: str | None) -> datetime | None:
@@ -1511,6 +1802,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                           sig=f"ab_wait:{ab_cfg['start_at']}", now_str=now_str)
                 continue
 
+        if item.get("type") == "lotteon":
+            check_lotteon(item, item.get("id", name), url, ntfy_topic, alerted, now_str)
+            continue
+
         if item.get("type") == "kakao":
             item_id = item.get("id", name)
             ticket_id = parse_kakao_url(url)
@@ -2030,6 +2325,13 @@ def print_startup_info(active: list) -> None:
         if m.get("type") == "kakao":
             ticket_id = parse_kakao_url(url)
             print(f"  • {name} | 카카오 예약 (ticketId={ticket_id})", flush=True)
+            continue
+        if m.get("type") == "lotteon":
+            # 페이지를 여기서 미리 열지 않는다. 항목당 5~10초가 드는데 첫 회차가
+            # 어차피 같은 일을 한다 (그때 기준 상태를 기록한다).
+            shop_id = parse_lotteon_url(url)
+            print(f"  • {name} | 롯데온 (전시샵 {shop_id or '번호 불명'}, "
+                  f"확인 주기 {LOTTEON_INTERVAL_SEC}초)", flush=True)
             continue
         parsed = parse_naver_url(url)
         if not parsed:
