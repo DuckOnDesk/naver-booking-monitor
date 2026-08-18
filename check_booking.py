@@ -1435,9 +1435,12 @@ class UrlGate:
             item_prefix = f"{self.item_id}:"
             for k in list(alerted.keys()):
                 if k.startswith(item_prefix) and k.endswith(":closed"):
-                    # :closed 항목을 삭제하지 않고 일반 키로 복사 → 이미 본 슬롯 재알림 방지
-                    base_key = k[: -len(":closed")]
-                    alerted[base_key] = alerted.pop(k)
+                    # 닫힌 동안 🔒로 알린 자리도 열리는 순간 다시 알린다. 예약창이
+                    # 열렸다는 건 그 자리를 이제 실제로 잡을 수 있다는 뜻이라,
+                    # "이미 본 자리"라는 이유로 넘기면 정작 잡을 수 있게 된 순간을
+                    # 알려 주지 않는 꼴이 된다. 상태를 지워 다음 판정이 처음 보는
+                    # 자리처럼 돌게 한다 (예전에는 일반 키로 옮겨 재알림을 막았다).
+                    alerted.pop(k)
             print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
             if self.ntfy_topic:
                 send_ntfy(self.ntfy_topic, f"✅ {name} 예약창 열림",
