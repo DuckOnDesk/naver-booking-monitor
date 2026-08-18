@@ -1380,7 +1380,6 @@ class UrlGate:
         self.closed_key = f"{item_id}:url_closed"
         self.checked = False          # 이번 회차에 브라우저를 켰는지
         self.consulted = False        # 이번 회차에 상태를 물어보기는 했는지(=자리를 찾았는지)
-        self.just_reopened = False
         self._closed = bool(alerted.get(self.closed_key))
 
     @property
@@ -1432,7 +1431,6 @@ class UrlGate:
             alerted[self.closed_key] = 1
             log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})", now_str=now_str)
         elif self.closed_key in alerted:
-            self.just_reopened = True
             alerted.pop(self.closed_key)
             item_prefix = f"{self.item_id}:"
             for k in list(alerted.keys()):
@@ -1855,25 +1853,27 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     if not is_restricted:
                         cal_ok = True
                         if prev_slots is None or increased:
-                            if gate.just_reopened:
-                                # 예약창 닫힘 → 열림 전환 직후: 이번 주기는 알림 생략, 상태만 기록
-                                print(f"  [전환 직후] 알림 생략 (다음 주기에 재확인)", flush=True)
+                            # 예약창이 방금 닫힘→열림으로 바뀐 회차도 그대로 알린다.
+                            # 예전에는 이 회차의 알림을 "다음 주기에 재확인"한다며
+                            # 건너뛰었는데, 아래에서 alerted[alert_key]가 채워지는 바람에
+                            # 다음 주기에는 prev_slots가 있어 알림 조건이 아예 성립하지
+                            # 않았다 — 한 회차 지연이 아니라 그 자리에 대한 영구 생략이었다.
+                            # 전환 직후 재고가 흔들리는 건 아래 캘린더 교차확인이 거른다.
+                            cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
+                            _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
+                                                   cal_ok, ba_code, ba_value, "오픈")
+                            if cal_ok is False:
+                                print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림·자동예약 생략 "
+                                      f"(재고 정보 지연 의심)", flush=True)
                             else:
-                                cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
-                                _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
-                                                       cal_ok, ba_code, ba_value, "오픈")
-                                if cal_ok is False:
-                                    print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림·자동예약 생략 "
-                                          f"(재고 정보 지연 의심)", flush=True)
+                                if prev_slots is None:
+                                    title = f"🎉 {name} 예약 가능!"
                                 else:
-                                    if prev_slots is None:
-                                        title = f"🎉 {name} 예약 가능!"
-                                    else:
-                                        inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
-                                        title = f"🎉 {name} 자리 추가됨 - {inc_str}"
-                                    body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
-                                    if ntfy_topic:
-                                        send_ntfy(ntfy_topic, title, body, url)
+                                    inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
+                                    title = f"🎉 {name} 자리 추가됨 - {inc_str}"
+                                body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                                if ntfy_topic:
+                                    send_ntfy(ntfy_topic, title, body, url)
                         if cal_ok is not False:
                             alerted[alert_key] = dict(per_slot)
                             maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
