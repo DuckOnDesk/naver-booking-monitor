@@ -1339,7 +1339,10 @@ def _playwright_check(url: str) -> tuple[bool, str]:
 # 항목이 8개면 한 회차의 절반 이상을 여기에 쓴다. 그런데 이 값이 실제로 필요한
 # 순간은 "알릴 자리가 있을 때"뿐이다. 자리가 없으면 🎉로도 🔒로도 알릴 게 없다.
 # 그래서 자리를 찾기 전에는 브라우저를 켜지 않는다 (UrlGate).
-CLOSE_CONFIRM = 2   # 오탐 방지: 연속 이 횟수만큼 닫힘이어야 확정
+# 닫힘은 한 번 잡히면 그대로 확정한다. 예전에는 오탐을 걱정해 2회 연속이어야
+# 확정했는데, 확정 전 구간이 '열림'으로 취급되는 바람에 닫힌 예약창에 🎉 알림과
+# 자동예약이 나갔다 (2026-08-17 QWER: /error/ 리다이렉트를 잡고도 같은 초에
+# "예약 가능" 알림). 잘못 닫힘으로 본 항목은 다음 회차 확인에서 곧바로 풀린다.
 # 열려 있는 것으로 확인된 항목을 다시 확인하기까지의 간격(초).
 URL_RECHECK_SEC = _env_num("URL_RECHECK_SEC", 300)
 
@@ -1362,10 +1365,12 @@ class UrlGate:
       - 자리 없음         → 확인하지 않음 (예약창 상태는 '모름'으로 남는다)
       - 자리 있고 닫힘    → 매 회차 확인 (열리는 순간을 놓치지 않기 위해)
       - 자리 있고 열림    → URL_RECHECK_SEC(기본 5분)마다
-      - 닫힘 감지 진행 중 → 확정될 때까지 매 회차 (확정이 5분×2로 늘어나지 않도록)
       - 자동예약 직전     → 주기와 무관하게 확인 (verify_open)
 
-    닫힘/열림 상태와 연속 카운트는 종전처럼 alerted에 남아 프로세스 재시작을 넘어간다.
+    닫힘은 한 번 잡히면 그 회차에서 바로 확정한다. 판정을 다음 회차로 미루면 그
+    사이가 '열림'으로 취급돼, 닫힌 예약창에 🎉 알림과 자동예약이 나간다.
+
+    닫힘/열림 상태는 종전처럼 alerted에 남아 프로세스 재시작을 넘어간다.
     """
 
     def __init__(self, item: dict, item_id: str, url: str, name: str,
@@ -1373,7 +1378,6 @@ class UrlGate:
         self.item, self.item_id, self.url, self.name = item, item_id, url, name
         self.alerted, self.ntfy_topic, self.now_str = alerted, ntfy_topic, now_str
         self.closed_key = f"{item_id}:url_closed"
-        self.streak_key = f"{item_id}:url_close_streak"
         self.checked = False          # 이번 회차에 브라우저를 켰는지
         self.consulted = False        # 이번 회차에 상태를 물어보기는 했는지(=자리를 찾았는지)
         self.just_reopened = False
@@ -1400,10 +1404,9 @@ class UrlGate:
         self.consulted = True
         if self.checked:
             return
-        # 닫혀 있거나 닫힘 확정을 기다리는 중이면 매 회차 본다. 열려 있는 항목만
-        # 주기를 둔다 — 열림→닫힘은 늦게 알아도 손해가 작지만, 닫힘→열림은
-        # 오픈 순간이라 늦으면 그대로 놓친다.
-        if self._closed or self.alerted.get(self.streak_key):
+        # 닫혀 있으면 매 회차 본다. 열려 있는 항목만 주기를 둔다 — 열림→닫힘은
+        # 늦게 알아도 손해가 작지만, 닫힘→열림은 오픈 순간이라 늦으면 그대로 놓친다.
+        if self._closed:
             self._run_check()
             return
         last = _url_checked_at.get(self.item_id)
@@ -1420,24 +1423,12 @@ class UrlGate:
         _url_checked_at[self.item_id] = time.monotonic()
 
         alerted, name, now_str = self.alerted, self.name, self.now_str
-        if raw_closed:
-            # 오탐(느린 로딩·리다이렉트)이 있어 연속 2회여야 확정한다. 값에 상한을
-            # 두지 않으면 닫힌 항목이 있는 한 booking_alerted.json이 매 회차 바뀌어
-            # 회차마다 git 커밋·푸시가 돈다.
-            streak = min(int(alerted.get(self.streak_key, 0)) + 1, CLOSE_CONFIRM)
-            alerted[self.streak_key] = streak
-            self._closed = streak >= CLOSE_CONFIRM
-            if not self._closed:
-                print(f"[{now_str}] ⚠️ {name} — 닫힘 감지 ({streak}/{CLOSE_CONFIRM}, "
-                      f"확정 전 대기): {reason}", flush=True)
-        else:
-            alerted.pop(self.streak_key, None)
-            self._closed = False
+        self._closed = raw_closed
 
         if self._closed:
             item_prefix = f"{self.item_id}:"
             purge_item_keys(alerted, item_prefix,
-                            keep=(self.closed_key, self.streak_key), keep_suffix=(":closed",))
+                            keep=(self.closed_key,), keep_suffix=(":closed",))
             alerted[self.closed_key] = 1
             log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})", now_str=now_str)
         elif self.closed_key in alerted:
@@ -1454,9 +1445,7 @@ class UrlGate:
                 send_ntfy(self.ntfy_topic, f"✅ {name} 예약창 열림",
                           "예약창이 열렸습니다. 직접 확인해보세요!", self.url)
             _log_state[f"{self.item_id}:status"] = ("열림", time.monotonic())
-        elif not raw_closed:
-            # raw_closed인데 여기 오면 '닫힘 감지, 확정 전 대기' 상태다. 그 회차에
-            # "예약창 열림"까지 찍으면 로그가 서로 반대되는 말을 하게 되므로 ⚠️ 줄만 남긴다.
+        else:
             log_state(f"{self.item_id}:status", f"✅ {name} — 예약창 열림",
                       sig="열림", now_str=now_str)
 
@@ -2137,8 +2126,24 @@ def probe_schedule_period(parsed: dict) -> dict | None:
 
 def build_schedule_cache(monitors: list) -> dict:
     """각 모니터(URL)별 팝업의 실제 판매기간/예약 가능 기간을 조회해 캐시 데이터로 정리.
-    웹앱이 raw.githubusercontent.com에서 이 파일을 읽어 등록 폼/목록에 활용한다."""
+    웹앱이 raw.githubusercontent.com에서 이 파일을 읽어 등록 폼/목록에 활용한다.
+
+    TTL(SCHEDULE_CACHE_TTL_MIN) 안에 조회된 항목은 다시 조회하지 않는다. 이 함수는
+    job이 시작할 때 첫 회차보다 먼저 도는데, 항목마다 12~15초가 걸려 8개면 그것만
+    90초가 넘는다. 그동안은 감시가 한 번도 돌지 않는다 — 2026-08-17 QWER은 런이
+    교체되는 3분 20초 사이에 예약창이 열렸다 자리가 다 나가 통째로 놓쳤고, 그중
+    94초가 25분 전에 조회해 둔 항목을 다시 보느라 쓴 시간이었다.
+    """
+    try:
+        old = json.loads(SCHEDULE_CACHE_FILE.read_text(encoding="utf-8")) \
+            if SCHEDULE_CACHE_FILE.exists() else {}
+    except Exception as exc:
+        print(f"[경고] schedule_cache.json 읽기 실패, 전부 다시 조회: {exc}", flush=True)
+        old = {}
+
+    now_kst = datetime.now(timezone(timedelta(hours=9)))
     cache: dict = {}
+    reused = 0
     for m in monitors:
         parsed = parse_naver_url(m.get("url", ""))
         if not parsed:
@@ -2146,10 +2151,22 @@ def build_schedule_cache(monitors: list) -> dict:
         key = f"{parsed['service_id']}_{parsed['biz_id']}_{parsed['item_id']}"
         if key in cache:
             continue
+        prev = old.get(key)
+        if prev and not _cache_entry_stale(prev, now_kst):
+            cache[key] = prev
+            reused += 1
+            continue
         probed = probe_schedule_period(parsed)
         if probed is None:
+            # 조회 실패로 항목을 잃으면 루프가 캐시 없음으로 보고 곧바로 다시 조회한다.
+            # 예전 값이 있으면 그대로 들고 간다 (TTL이 지났으니 루프가 알아서 갱신).
+            if prev:
+                cache[key] = prev
             continue
         cache[key] = probed
+    if reused:
+        print(f"  → 운영 기간 캐시 재사용 {reused}건 "
+              f"(TTL {SCHEDULE_CACHE_TTL_MIN}분 이내, 재조회 생략)", flush=True)
     return cache
 
 
@@ -2177,6 +2194,10 @@ def save_alerted(alerted: dict) -> bool:
         return False
 
 
+# 다른 워크플로와 푸시가 겹쳐 튕겼을 때 다시 시도하는 횟수.
+PUSH_RETRIES = 3
+
+
 def commit_files(paths: list, message: str, label: str = "") -> bool:
     """지정한 파일을 main에 커밋/푸시. 실패해도 예외를 올리지 않는다.
 
@@ -2199,9 +2220,21 @@ def commit_files(paths: list, message: str, label: str = "") -> bool:
         # (조용한 회차에 커밋 로그만 머리글 없이 뜨는 것을 막는다).
         flush_round_header()
         subprocess.run(["git", "commit", "-m", message], check=True)
-        subprocess.run(["git", "fetch", "origin"], check=True)
-        subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=True)
-        subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
+        # 다른 워크플로(프리세일·자동예약)가 같은 순간에 밀어 넣으면 push가
+        # "cannot lock ref"로 튕긴다. 한 번 실패하고 마는 구조라 그 회차의 알림
+        # 상태가 통째로 유실됐고(2026-08-17 16:58), 다음 job이 옛 상태로 시작해
+        # 이미 보낸 자리를 다시 알린다. 최신 main 위로 다시 얹어 재시도한다.
+        for attempt in range(1, PUSH_RETRIES + 1):
+            subprocess.run(["git", "fetch", "origin"], check=True)
+            subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=True)
+            if subprocess.run(["git", "push", "origin", "HEAD:main"]).returncode == 0:
+                break
+            if attempt == PUSH_RETRIES:
+                print(f"[경고] {label} 푸시 {PUSH_RETRIES}회 실패 — 이번 회차 상태는 저장되지 않음",
+                      flush=True)
+                return False
+            print(f"  [재시도] {label} 푸시 경합 ({attempt}/{PUSH_RETRIES})", flush=True)
+            time.sleep(2 * attempt)
         print(f"  → {label} 커밋/푸시 완료", flush=True)
         return True
     except Exception as exc:
@@ -2308,7 +2341,6 @@ def main():
         sys.exit(0)
 
     print(f"=== 모니터 시작 | 주기: {interval}초 | 최대: {loop_hours}시간 ===", flush=True)
-    print_startup_info(active)
 
     cache = build_schedule_cache(monitors)
     if save_schedule_cache(cache):
@@ -2318,12 +2350,9 @@ def main():
     alerted = load_alerted()
     sync_auto_book_state(monitors, alerted)
 
-    for m in active:
-        if not check_booking_accessible(m.get("url", "")):
-            # 재시작 시점의 단발 체크는 오탐 가능성이 있으므로 바로 확정하지 않고
-            # streak만 1로 시드한다. 다음 주기에 한 번 더 닫힘이 확인돼야 확정된다.
-            mid = m.get("id", m.get("name", ""))
-            alerted.setdefault(f"{mid}:url_close_streak", 1)
+    # 재시작 시점에 항목마다 예약창을 미리 확인하던 단계가 있었지만, 그건 닫힘을
+    # 2회 연속으로 확정하던 시절 첫 회차를 시드하려던 것이었다. 이제 첫 회차의
+    # UrlGate가 한 번 확인으로 확정하므로, 브라우저를 항목 수만큼 미리 켤 이유가 없다.
     end_time = time.time() + loop_hours * 3600
     iteration = 0
 
@@ -2350,6 +2379,11 @@ def main():
 
         if save_alerted(alerted):
             commit_alerted()
+
+        # 예약 오픈 정보는 감시에 쓰이지 않는 참고용 출력이라 첫 회차보다 뒤로 미룬다.
+        # 시작하자마자 찍으면 항목 수만큼(항목당 수 초) 첫 확인이 늦어진다.
+        if iteration == 1:
+            print_startup_info(active)
 
         # 여기까지 아무것도 안 찍혔으면 이 회차는 통째로 조용히 지나간다.
         # 다만 감시가 멈춘 것과 구분되도록 가끔 한 줄은 남긴다.

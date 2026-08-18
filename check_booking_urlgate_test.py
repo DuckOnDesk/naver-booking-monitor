@@ -11,10 +11,11 @@
   - 자리가 생기면 그 회차에 확인하고, 열림/닫힘에 따라 알림이 갈린다
   - 자리가 있는데 닫혀 있으면 매 회차 확인한다 (열리는 순간을 놓치지 않도록)
   - 자리가 있고 열려 있으면 URL_RECHECK_SEC 안에는 다시 확인하지 않는다
-  - 닫힘 감지가 진행 중(확정 전)이면 주기를 무시하고 매 회차 확인한다
+  - 닫힘은 한 번 잡히면 그 회차에서 바로 확정한다 (확정을 미루면 그 구간이 '열림'으로
+    취급된다 — 2026-08-17 QWER: /error/ 리다이렉트를 잡고도 "예약 가능" 알림이 나갔다)
   - 자리가 사라지면 다시 확인하지 않는다 (1번 상태로 복귀)
   - 자동예약 직전에는 주기와 무관하게 확인하고, 닫혀 있으면 시도하지 않는다
-  - 닫힘 연속 카운트에 상한이 있어 alerted가 회차마다 바뀌지 않는다
+  - 닫힘이 이어지는 동안 alerted가 회차마다 바뀌지 않는다
     (바뀌면 회차마다 git 커밋·푸시가 돈다)
   - 브라우저가 죽으면 다음 확인에서 새로 띄운다
 
@@ -129,29 +130,26 @@ def main() -> int:
     finally:
         cb.URL_RECHECK_SEC = 300
 
-    print("4) 닫힘이 잡히면 확정 전까지 주기를 무시하고 매 회차 확인한다")
+    print("4) 닫힘은 한 번 잡히면 그 회차에 확정한다 (🎉가 새어 나가지 않는다)")
     closed_now = True
     advance()                      # 재확인 주기가 지나 다시 들여다본 회차
     logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted)
-    check(n == 1, f"1회차 확인 (실제 {n}회)")
-    check(any("닫힘 감지 (1/2" in l for l in logs), f"확정 전 대기 표시 (실제: {logs})")
-    check(alerted.get("t1:url_close_streak") == 1, "연속 카운트 1")
-    logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted)
-    check(n == 1, f"주기(5분)를 무시하고 바로 재확인 (실제 {n}회)")
-    check(alerted.get("t1:url_closed") == 1, "닫힘 확정")
+    check(n == 1, f"브라우저 확인 1회 (실제 {n}회)")
+    check(alerted.get("t1:url_closed") == 1, "그 회차에 바로 닫힘 확정")
+    check(not any("예약 가능" in t for t in sent),
+          f"닫힌 예약창에 🎉 알림이 나가지 않음 (실제: {sent})")
     check(any("🔒" in t for t in sent), f"닫힘 상태 자리 알림 (실제: {sent})")
 
     print("5) 자리가 있고 닫혀 있으면 계속 매 회차 확인한다")
     logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted)
     check(n == 1, f"브라우저 확인 1회 (실제 {n}회)")
 
-    print("6) 닫힘 연속 카운트에 상한이 있어 alerted가 더는 안 바뀐다")
+    print("6) 닫힘이 이어지는 동안 alerted가 더는 바뀌지 않는다")
     snapshot = dict(alerted)
     run_round([unit("11:00", stock=4, booked=1)], alerted)
     check(alerted == snapshot,
           f"회차를 더 돌아도 저장 내용 동일 (커밋 낭비 없음) — 차이: "
           f"{ {k: (snapshot.get(k), v) for k, v in alerted.items() if snapshot.get(k) != v} }")
-    check(alerted.get("t1:url_close_streak") == cb.CLOSE_CONFIRM, "연속 카운트가 상한에서 멈춤")
 
     print("7) 자리가 사라지면 다시 확인하지 않는다 (1번 상태로 복귀)")
     logs, sent, n = run_round([unit("11:00", stock=4, booked=4)], alerted)
@@ -168,7 +166,7 @@ def main() -> int:
     cb.dispatch_auto_book = lambda *a, **kw: (dispatched.append(a) or (True, ""))
     ab_item = {"id": "t2", "name": "자동예약", "url": URL, "enabled": True,
                "target_dates": [D], "auto_book": {"enabled": True}}
-    alerted2: dict = {"t2:url_closed": 1, "t2:url_close_streak": cb.CLOSE_CONFIRM}
+    alerted2: dict = {"t2:url_closed": 1}
     logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted2, item=ab_item)
     check(dispatched == [], f"닫혀 있으면 자동예약을 걸지 않음 (실제 {len(dispatched)}건)")
 
