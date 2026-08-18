@@ -36,7 +36,12 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ runner.os }}
 
+      # --with-deps는 apt를 거치는데, 미러가 응답하지 않으면 그대로 매달린다.
+      # 실제로 2026-08-18 09:51 런이 이 스텝에서 1시간 넘게 멈춰 감시가 통째로
+      # 비었다. 매달리느니 실패시키는 편이 낫다 — 아래 트리거 스텝이 !cancelled()
+      # 라서 job이 실패해도 다음 런이 뜨고, 체인은 몇 분 안에 복구된다.
       - name: Chromium 설치
+        timeout-minutes: 5
         run: playwright install chromium --with-deps
 
       - name: 예약 자리 확인

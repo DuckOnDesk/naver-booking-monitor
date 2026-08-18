@@ -2126,8 +2126,24 @@ def probe_schedule_period(parsed: dict) -> dict | None:
 
 def build_schedule_cache(monitors: list) -> dict:
     """각 모니터(URL)별 팝업의 실제 판매기간/예약 가능 기간을 조회해 캐시 데이터로 정리.
-    웹앱이 raw.githubusercontent.com에서 이 파일을 읽어 등록 폼/목록에 활용한다."""
+    웹앱이 raw.githubusercontent.com에서 이 파일을 읽어 등록 폼/목록에 활용한다.
+
+    TTL(SCHEDULE_CACHE_TTL_MIN) 안에 조회된 항목은 다시 조회하지 않는다. 이 함수는
+    job이 시작할 때 첫 회차보다 먼저 도는데, 항목마다 12~15초가 걸려 8개면 그것만
+    90초가 넘는다. 그동안은 감시가 한 번도 돌지 않는다 — 2026-08-17 QWER은 런이
+    교체되는 3분 20초 사이에 예약창이 열렸다 자리가 다 나가 통째로 놓쳤고, 그중
+    94초가 25분 전에 조회해 둔 항목을 다시 보느라 쓴 시간이었다.
+    """
+    try:
+        old = json.loads(SCHEDULE_CACHE_FILE.read_text(encoding="utf-8")) \
+            if SCHEDULE_CACHE_FILE.exists() else {}
+    except Exception as exc:
+        print(f"[경고] schedule_cache.json 읽기 실패, 전부 다시 조회: {exc}", flush=True)
+        old = {}
+
+    now_kst = datetime.now(timezone(timedelta(hours=9)))
     cache: dict = {}
+    reused = 0
     for m in monitors:
         parsed = parse_naver_url(m.get("url", ""))
         if not parsed:
@@ -2135,10 +2151,22 @@ def build_schedule_cache(monitors: list) -> dict:
         key = f"{parsed['service_id']}_{parsed['biz_id']}_{parsed['item_id']}"
         if key in cache:
             continue
+        prev = old.get(key)
+        if prev and not _cache_entry_stale(prev, now_kst):
+            cache[key] = prev
+            reused += 1
+            continue
         probed = probe_schedule_period(parsed)
         if probed is None:
+            # 조회 실패로 항목을 잃으면 루프가 캐시 없음으로 보고 곧바로 다시 조회한다.
+            # 예전 값이 있으면 그대로 들고 간다 (TTL이 지났으니 루프가 알아서 갱신).
+            if prev:
+                cache[key] = prev
             continue
         cache[key] = probed
+    if reused:
+        print(f"  → 운영 기간 캐시 재사용 {reused}건 "
+              f"(TTL {SCHEDULE_CACHE_TTL_MIN}분 이내, 재조회 생략)", flush=True)
     return cache
 
 
@@ -2166,6 +2194,10 @@ def save_alerted(alerted: dict) -> bool:
         return False
 
 
+# 다른 워크플로와 푸시가 겹쳐 튕겼을 때 다시 시도하는 횟수.
+PUSH_RETRIES = 3
+
+
 def commit_files(paths: list, message: str, label: str = "") -> bool:
     """지정한 파일을 main에 커밋/푸시. 실패해도 예외를 올리지 않는다.
 
@@ -2188,9 +2220,21 @@ def commit_files(paths: list, message: str, label: str = "") -> bool:
         # (조용한 회차에 커밋 로그만 머리글 없이 뜨는 것을 막는다).
         flush_round_header()
         subprocess.run(["git", "commit", "-m", message], check=True)
-        subprocess.run(["git", "fetch", "origin"], check=True)
-        subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=True)
-        subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
+        # 다른 워크플로(프리세일·자동예약)가 같은 순간에 밀어 넣으면 push가
+        # "cannot lock ref"로 튕긴다. 한 번 실패하고 마는 구조라 그 회차의 알림
+        # 상태가 통째로 유실됐고(2026-08-17 16:58), 다음 job이 옛 상태로 시작해
+        # 이미 보낸 자리를 다시 알린다. 최신 main 위로 다시 얹어 재시도한다.
+        for attempt in range(1, PUSH_RETRIES + 1):
+            subprocess.run(["git", "fetch", "origin"], check=True)
+            subprocess.run(["git", "rebase", "--autostash", "origin/main"], check=True)
+            if subprocess.run(["git", "push", "origin", "HEAD:main"]).returncode == 0:
+                break
+            if attempt == PUSH_RETRIES:
+                print(f"[경고] {label} 푸시 {PUSH_RETRIES}회 실패 — 이번 회차 상태는 저장되지 않음",
+                      flush=True)
+                return False
+            print(f"  [재시도] {label} 푸시 경합 ({attempt}/{PUSH_RETRIES})", flush=True)
+            time.sleep(2 * attempt)
         print(f"  → {label} 커밋/푸시 완료", flush=True)
         return True
     except Exception as exc:
@@ -2297,7 +2341,6 @@ def main():
         sys.exit(0)
 
     print(f"=== 모니터 시작 | 주기: {interval}초 | 최대: {loop_hours}시간 ===", flush=True)
-    print_startup_info(active)
 
     cache = build_schedule_cache(monitors)
     if save_schedule_cache(cache):
@@ -2336,6 +2379,11 @@ def main():
 
         if save_alerted(alerted):
             commit_alerted()
+
+        # 예약 오픈 정보는 감시에 쓰이지 않는 참고용 출력이라 첫 회차보다 뒤로 미룬다.
+        # 시작하자마자 찍으면 항목 수만큼(항목당 수 초) 첫 확인이 늦어진다.
+        if iteration == 1:
+            print_startup_info(active)
 
         # 여기까지 아무것도 안 찍혔으면 이 회차는 통째로 조용히 지나간다.
         # 다만 감시가 멈춘 것과 구분되도록 가끔 한 줄은 남긴다.
