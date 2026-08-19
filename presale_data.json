@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-19T17:48:13.949310+09:00",
+  "updated_at": "2026-08-19T17:53:50.883984+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -23,6 +23,7 @@
     "2049771421",
     "2053652128",
     "2057128614",
+    "2062168566",
     "2062283789",
     "2067967922",
     "2071913479",
@@ -1498,6 +1499,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2062168566",
+      "name": "삼성스토어 청담",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.19.",
+      "operationEnd": "26.12.31.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_64/1786523742565EPNlk_JPEG/edited-1786523674092-0.jpg",
+      "roadAddress": "도산대로 336",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-19T17:53:38.338238+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2033849367",
       "name": "소머드 팝업",
       "hasBooking": false,
@@ -1692,13 +1719,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071074882",
-      "place_name": "주술회전 사멸회유 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
-      "ts": "2026-08-08T09:26:45.135451+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2019923740",
@@ -3091,6 +3111,13 @@
       "place_name": "PREQUEL EXHIBITION I COSMOS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "ts": "2026-08-19T17:42:22.177956+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2062168566",
+      "place_name": "삼성스토어 청담",
+      "booking_url": "",
+      "ts": "2026-08-19T17:53:38.338238+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3154,6 +3181,7 @@
     "2058248160",
     "2058940403",
     "2062024820",
+    "2062168566",
     "2062283789",
     "2064927800",
     "2066415670",
