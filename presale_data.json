@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-19T20:22:37.163899+09:00",
+  "updated_at": "2026-08-19T20:28:10.033778+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -350,7 +350,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -368,7 +368,8 @@
         "2026-08-18T10:59:44.121982+09:00",
         "2026-08-18T12:50:03.186101+09:00",
         "2026-08-18T16:29:48.421142+09:00",
-        "2026-08-18T18:15:07.108471+09:00"
+        "2026-08-18T18:15:07.108471+09:00",
+        "2026-08-19T20:27:57.595724+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1696,13 +1697,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2019923740",
-      "place_name": "IVE x MINIVE POP-UP in SEOUL",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698448",
-      "ts": "2026-08-08T14:46:59.214042+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -3095,6 +3089,13 @@
       "place_name": "스픽 2026 영어울렁증 퇴마식",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "ts": "2026-08-19T18:49:54.815211+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-08-19T20:27:57.595724+09:00"
     }
   ],
   "seen_place_ids": [
