@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-19T09:55:43.496938+09:00",
+  "updated_at": "2026-08-19T10:01:17.250782+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -547,7 +547,7 @@
     {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "bookingBusinessId": "1716761",
       "operationStart": "26.08.28.",
