@@ -16,6 +16,8 @@
   - 자리가 사라지면 다시 확인하지 않는다 (1번 상태로 복귀)
   - 닫힘→열림으로 바뀐 그 회차에 바로 자리 알림이 나간다 (예전에는 "다음 주기에
     재확인"이라며 건너뛰었는데, 상태는 저장돼 다음 주기에도 조건이 성립하지 않았다)
+  - 닫힌 동안 🔒로 알린 자리도 열리는 순간 다시 알린다 (그때가 실제로 잡을 수 있게
+    된 순간이다)
   - 자동예약 직전에는 주기와 무관하게 확인하고, 닫혀 있으면 시도하지 않는다
   - 닫힘이 이어지는 동안 alerted가 회차마다 바뀌지 않는다
     (바뀌면 회차마다 git 커밋·푸시가 돈다)
@@ -173,6 +175,20 @@ def main() -> int:
     check(any("예약 가능" in t for t in sent),
           f"전환 회차에 바로 자리 알림 — 다음 주기로 미루지 않음 (실제: {sent})")
     check(not any("전환 직후" in l for l in logs), f"알림 생략 로그 없음 (실제: {logs})")
+
+    print("8-2) 닫힌 동안 🔒로 알린 자리도 열리는 순간 다시 알린다")
+    cb.reset_log_state()
+    closed_now = False
+    seen_item = {"id": "t4", "name": "재알림", "url": URL, "enabled": True,
+                 "target_dates": [D]}
+    # 닫혀 있는 동안 같은 자리를 🔒로 이미 알린 상태
+    alerted4: dict = {"t4:url_closed": 1, f"t4:{D}:closed": {"11:00": 3}}
+    logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted4, item=seen_item)
+    check(any("예약 가능" in t for t in sent),
+          f"자리가 늘지 않았어도 열리면 다시 알림 (실제: {sent})")
+    check(f"t4:{D}:closed" not in alerted4,
+          f"닫힘 상태 키는 정리됨 (실제: {sorted(alerted4)})")
+    check(alerted4.get(f"t4:{D}") == {"11:00": 3}, "열림 상태로 다시 기록")
 
     print("9) 자동예약 직전에는 주기와 무관하게 확인하고, 닫혀 있으면 시도하지 않는다")
     cb.reset_log_state()
