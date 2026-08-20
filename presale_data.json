@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-20T19:38:20.226300+09:00",
+  "updated_at": "2026-08-20T19:43:58.361510+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -44,7 +44,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -82,7 +82,8 @@
         "2026-08-19T21:45:42.227065+09:00",
         "2026-08-20T05:41:56.859118+09:00",
         "2026-08-20T10:45:51.068603+09:00",
-        "2026-08-20T16:08:57.688656+09:00"
+        "2026-08-20T16:08:57.688656+09:00",
+        "2026-08-20T19:43:43.772607+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1768,13 +1769,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-09T18:30:12.596434+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2098663430",
       "place_name": "OFFICIAL HIGE DANDISM POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
@@ -3165,6 +3159,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-08-20T19:32:28.339261+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2027174717",
+      "place_name": "조 말론 런던 팝업스토어 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
+      "ts": "2026-08-20T19:43:43.772607+09:00"
     }
   ],
   "seen_place_ids": [
