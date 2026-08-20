@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-20T10:28:58.153653+09:00",
+  "updated_at": "2026-08-20T10:34:39.380863+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -19,6 +19,7 @@
     "2040937553",
     "2043425985",
     "2045247144",
+    "2047961560",
     "2049771421",
     "2053652128",
     "2057128614",
@@ -432,6 +433,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-19T15:14:47.885800+09:00",
       "lastBookingNotifiedAt": "2026-08-19T15:20:44.078026+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2047961560",
+      "name": "뷰티쁠 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.08.26.",
+      "operationEnd": "26.08.30.",
+      "remainingDays": 6,
+      "status": "D-6",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260819_18/1787108530311Qg6aT_JPEG/edited-1787108528383-0.jpg",
+      "roadAddress": "성수이로18길 43 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-20T10:34:25.422557+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1679,13 +1706,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071074882",
-      "place_name": "주술회전 사멸회유 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1698453",
-      "ts": "2026-08-09T09:27:22.029650+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2098663430",
@@ -3078,6 +3098,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-08-20T10:17:21.011668+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2047961560",
+      "place_name": "뷰티쁠 팝업",
+      "booking_url": "",
+      "ts": "2026-08-20T10:34:25.422557+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3130,6 +3157,7 @@
     "2043461454",
     "2045247144",
     "2046157118",
+    "2047961560",
     "2049771421",
     "2049944406",
     "2050153907",
