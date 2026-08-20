@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-20T10:40:21.891730+09:00",
+  "updated_at": "2026-08-20T10:46:05.850292+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -23,6 +23,7 @@
     "2049771421",
     "2053652128",
     "2057128614",
+    "2060436986",
     "2062283789",
     "2067967922",
     "2071913479",
@@ -40,7 +41,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -76,7 +77,8 @@
         "2026-08-19T10:34:43.478247+09:00",
         "2026-08-19T18:04:53.868558+09:00",
         "2026-08-19T21:45:42.227065+09:00",
-        "2026-08-20T05:41:56.859118+09:00"
+        "2026-08-20T05:41:56.859118+09:00",
+        "2026-08-20T10:45:51.068603+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -808,6 +810,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2060436986",
+      "name": "제 2회 가을의 향, 세계의 차",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 21,
+      "status": "D-21",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260820_189/1787160216261qL48w_JPEG/edited-1787160215951-0.jpg",
+      "roadAddress": "월드컵북로12안길 3 서보아트스페이스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-20T10:45:51.068603+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1706,20 +1734,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-08-09T11:26:17.869953+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-09T12:59:45.208748+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -3105,6 +3119,20 @@
       "place_name": "뷰티쁠 팝업",
       "booking_url": "",
       "ts": "2026-08-20T10:34:25.422557+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2027174717",
+      "place_name": "조 말론 런던 팝업스토어 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
+      "ts": "2026-08-20T10:45:51.068603+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2060436986",
+      "place_name": "제 2회 가을의 향, 세계의 차",
+      "booking_url": "",
+      "ts": "2026-08-20T10:45:51.068603+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3168,6 +3196,7 @@
     "2057128614",
     "2058248160",
     "2058940403",
+    "2060436986",
     "2062024820",
     "2062168566",
     "2062283789",
