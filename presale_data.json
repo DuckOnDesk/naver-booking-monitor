@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T08:06:21.863925+09:00",
+  "updated_at": "2026-08-21T08:11:56.553923+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1251,7 +1251,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1296,7 +1296,8 @@
         "2026-08-19T03:56:57.781995+09:00",
         "2026-08-19T21:45:42.227065+09:00",
         "2026-08-19T22:57:58.428105+09:00",
-        "2026-08-20T22:50:20.756266+09:00"
+        "2026-08-20T22:50:20.756266+09:00",
+        "2026-08-21T08:11:43.832727+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1743,13 +1744,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2021119485",
-      "place_name": "랑콤 압솔뤼 롱제비티 MD 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1710791/search",
-      "ts": "2026-08-10T17:40:42.245705+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071913479",
@@ -3142,6 +3136,13 @@
       "place_name": "PREQUEL EXHIBITION I COSMOS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "ts": "2026-08-21T05:04:59.507743+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-21T08:11:43.832727+09:00"
     }
   ],
   "seen_place_ids": [
