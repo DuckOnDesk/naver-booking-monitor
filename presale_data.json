@@ -1,10 +1,11 @@
 {
-  "updated_at": "2026-08-20T12:54:24.408543+09:00",
+  "updated_at": "2026-08-20T13:00:07.856272+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
     "2000187386",
     "2002559489",
+    "2005894077",
     "2006916982",
     "2009522804",
     "2015464753",
@@ -704,6 +705,34 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2005894077",
+      "name": "스토케 요요5 서울숲하우스",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1716284/search",
+      "bookingBusinessId": "1716284",
+      "operationStart": "26.09.04.",
+      "operationEnd": "26.09.06.",
+      "remainingDays": 15,
+      "status": "D-15",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260819_133/1787122968708bee8w_JPEG/edited-1787122966978-0.jpg",
+      "roadAddress": "서울숲2길 43 무신사스페이스 서울숲",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-20T12:59:52.019858+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-20T12:59:52.019858+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1734,13 +1763,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-09T13:44:25.862586+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071074882",
@@ -3133,6 +3155,13 @@
       "place_name": "제 2회 가을의 향, 세계의 차",
       "booking_url": "",
       "ts": "2026-08-20T10:45:51.068603+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2005894077",
+      "place_name": "스토케 요요5 서울숲하우스",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1716284/search",
+      "ts": "2026-08-20T12:59:52.019858+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3146,6 +3175,7 @@
     "2002918567",
     "2003471362",
     "2004678306",
+    "2005894077",
     "2006596949",
     "2006648175",
     "2006916982",
