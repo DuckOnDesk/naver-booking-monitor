@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-20T14:54:36.938090+09:00",
+  "updated_at": "2026-08-20T15:00:20.284623+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -720,7 +720,7 @@
       "remainingDays": 15,
       "status": "D-15",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260819_133/1787122968708bee8w_JPEG/edited-1787122966978-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260820_62/1787204768442ROSqg_JPEG/edited-1787204766298-0.jpg",
       "roadAddress": "서울숲2길 43 무신사스페이스 서울숲",
       "commonAddress": "서울 성동구",
       "district": "성동구",
@@ -1569,7 +1569,7 @@
     {
       "id": "2033849367",
       "name": "소머드 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -1584,7 +1584,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-08-19T18:21:47.459210+09:00",
-        "2026-08-20T09:49:03.728056+09:00"
+        "2026-08-20T09:49:03.728056+09:00",
+        "2026-08-20T15:00:05.131555+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1764,13 +1765,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098663430",
-      "place_name": "OFFICIAL HIGE DANDISM POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1705650",
-      "ts": "2026-08-09T15:13:52.886435+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2019923740",
@@ -3163,6 +3157,13 @@
       "place_name": "구달 TXA 세럼 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "ts": "2026-08-20T14:20:08.063820+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-08-20T15:00:05.131555+09:00"
     }
   ],
   "seen_place_ids": [
