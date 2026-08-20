@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T01:01:49.738293+09:00",
+  "updated_at": "2026-08-21T01:07:22.208445+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -43,7 +43,7 @@
     {
       "id": "2027174717",
       "name": "조 말론 런던 팝업스토어 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "bookingBusinessId": "1712600",
       "operationStart": "26.08.14.",
@@ -82,7 +82,8 @@
         "2026-08-20T05:41:56.859118+09:00",
         "2026-08-20T10:45:51.068603+09:00",
         "2026-08-20T16:08:57.688656+09:00",
-        "2026-08-20T19:43:43.772607+09:00"
+        "2026-08-20T19:43:43.772607+09:00",
+        "2026-08-21T01:07:10.925932+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1743,13 +1744,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2021119485",
-      "place_name": "랑콤 압솔뤼 롱제비티 MD 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1710791/search",
-      "ts": "2026-08-10T10:45:07.388288+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2069912344",
       "place_name": "사우나 불금 클럽",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1713888/search",
@@ -3140,6 +3134,13 @@
       "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "ts": "2026-08-21T00:56:04.476314+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2027174717",
+      "place_name": "조 말론 런던 팝업스토어 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
+      "ts": "2026-08-21T01:07:10.925932+09:00"
     }
   ],
   "seen_place_ids": [
