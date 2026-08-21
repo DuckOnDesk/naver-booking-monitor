@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T21:56:27.871964+09:00",
+  "updated_at": "2026-08-21T22:02:01.864938+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1174,7 +1174,7 @@
     {
       "id": "2045247144",
       "name": "온유 캐릭터 '찡냥이' 파자마 파티 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704525",
       "bookingBusinessId": "1704525",
       "operationStart": "26.08.15.",
