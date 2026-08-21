@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T18:53:59.997392+09:00",
+  "updated_at": "2026-08-21T18:59:39.666977+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1494,7 +1494,7 @@
       "status": "D-3",
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260812_62/17865325903270TNRL_JPEG/1786528820465.jpg",
-      "roadAddress": "서소문로 127 지하 2층 두두두서울(dududo seoul)",
+      "roadAddress": "을지로 42 두두두서울",
       "commonAddress": "서울 중구",
       "district": "중구",
       "bookingOpenDatetime": null,
