@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T00:26:45.521724+09:00",
+  "updated_at": "2026-08-22T00:32:17.976035+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -15,6 +15,7 @@
     "2023497014",
     "2024393757",
     "2027174717",
+    "2028239981",
     "2029718179",
     "2032034855",
     "2033013073",
@@ -1350,6 +1351,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2028239981",
+      "name": "조니워커 블루 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712064",
+      "bookingBusinessId": "1712064",
+      "operationStart": "26.08.22.",
+      "operationEnd": "26.09.05.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260807_69/1786095449251WX8Pn_JPEG/image.jpg",
+      "roadAddress": "이태원로49길 37 낫배드커피",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-22T00:32:05.620160+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-22T00:32:05.620160+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2058248160",
       "name": "맥스 시덴토프 개인전",
       "hasBooking": true,
@@ -1813,13 +1842,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-12T10:31:17.854008+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2049771421",
@@ -3212,6 +3234,13 @@
       "place_name": "스픽 2026 영어울렁증 퇴마식",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "ts": "2026-08-21T21:36:51.270142+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2028239981",
+      "place_name": "조니워커 블루 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712064",
+      "ts": "2026-08-22T00:32:05.620160+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3249,6 +3278,7 @@
     "2025764652",
     "2027174717",
     "2027303446",
+    "2028239981",
     "2029718179",
     "2030273456",
     "2032034855",
