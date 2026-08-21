@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T00:15:37.658410+09:00",
+  "updated_at": "2026-08-22T00:21:11.629043+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -334,6 +334,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2062283789",
+      "name": "드래곤볼 전시 - 드래곤볼 히어로즈 라이즈 서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1713086",
+      "bookingBusinessId": "1713086",
+      "operationStart": "26.08.22.",
+      "operationEnd": "26.11.15.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260821_203/1787294955203lGrkI_JPEG/edited-1787294954698-0.jpg",
+      "roadAddress": "뚝섬로 403",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-16T18:21:13.226359+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
+      "lastBookingNotifiedAt": "2026-08-16T18:21:24.467418+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
       "hasBooking": false,
@@ -618,34 +646,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2062283789",
-      "name": "드래곤볼 전시 - 드래곤볼 히어로즈 라이즈 서울",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1713086",
-      "bookingBusinessId": "1713086",
-      "operationStart": "26.08.22.",
-      "operationEnd": "26.11.15.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260821_203/1787294955203lGrkI_JPEG/edited-1787294954698-0.jpg",
-      "roadAddress": "뚝섬로 403",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-16T18:21:13.226359+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
-      "lastBookingNotifiedAt": "2026-08-16T18:21:24.467418+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2000187386",
       "name": "집집 chapter 02 in 성수",
       "hasBooking": false,
@@ -724,6 +724,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2005894077",
+      "name": "스토케 요요5 서울숲하우스",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1716284/search",
+      "bookingBusinessId": "1716284",
+      "operationStart": "26.09.04.",
+      "operationEnd": "26.09.06.",
+      "remainingDays": 13,
+      "status": "D-13",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260820_11/1787209240797JyamV_JPEG/image.jpg",
+      "roadAddress": "서울숲2길 43 무신사스페이스 서울숲",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-20T12:59:52.019858+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-20T12:59:52.019858+09:00",
+      "lastBookingNotifiedAt": "2026-08-20T13:05:51.749376+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "hasBooking": true,
@@ -775,34 +803,6 @@
       "bookingNotified": false,
       "discoveredAt": "2026-08-21T11:36:12.576624+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2005894077",
-      "name": "스토케 요요5 서울숲하우스",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1716284/search",
-      "bookingBusinessId": "1716284",
-      "operationStart": "26.09.04.",
-      "operationEnd": "26.09.06.",
-      "remainingDays": 13,
-      "status": "D-13",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260820_11/1787209240797JyamV_JPEG/image.jpg",
-      "roadAddress": "서울숲2길 43 무신사스페이스 서울숲",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-20T12:59:52.019858+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-20T12:59:52.019858+09:00",
-      "lastBookingNotifiedAt": "2026-08-20T13:05:51.749376+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1293,7 +1293,7 @@
       "operationStart": "26.08.22.",
       "operationEnd": "26.08.23.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260803_247/1785717311132C5VJa_JPEG/edited-1785717310837-0.jpg",
       "roadAddress": "이태원로 210 PVCS",
@@ -1378,6 +1378,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2019832187",
+      "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711626",
+      "bookingBusinessId": "1711626",
+      "operationStart": "26.08.24.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_62/17865325903270TNRL_JPEG/1786528820465.jpg",
+      "roadAddress": "을지로 42 두두두서울",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-12T20:09:56.497588+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-12T20:10:09.151092+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2043425985",
       "name": "화이트샌즈 롯데백화점 본점 팝업",
       "hasBooking": false,
@@ -1453,34 +1481,6 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2019832187",
-      "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711626",
-      "bookingBusinessId": "1711626",
-      "operationStart": "26.08.24.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": 2,
-      "status": "D-2",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_62/17865325903270TNRL_JPEG/1786528820465.jpg",
-      "roadAddress": "을지로 42 두두두서울",
-      "commonAddress": "서울 중구",
-      "district": "중구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-12T20:09:56.497588+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-12T20:10:09.151092+09:00",
       "bookingIsOpened": false
     },
     {
