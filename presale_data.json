@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T00:43:26.460989+09:00",
+  "updated_at": "2026-08-22T00:48:59.702972+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -993,7 +993,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -1050,7 +1050,8 @@
         "2026-08-19T21:23:28.596556+09:00",
         "2026-08-20T00:59:48.536420+09:00",
         "2026-08-21T05:04:59.507743+09:00",
-        "2026-08-21T17:34:11.156932+09:00"
+        "2026-08-21T17:34:11.156932+09:00",
+        "2026-08-22T00:48:47.314391+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1842,13 +1843,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2049771421",
-      "place_name": "인스턴트펑크 팝업",
-      "booking_url": "",
-      "ts": "2026-08-12T11:44:42.673229+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2062024820",
@@ -3241,6 +3235,13 @@
       "place_name": "조니워커 블루 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712064",
       "ts": "2026-08-22T00:32:05.620160+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-22T00:48:47.314391+09:00"
     }
   ],
   "seen_place_ids": [
