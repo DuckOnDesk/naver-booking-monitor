@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T11:07:36.820007+09:00",
+  "updated_at": "2026-08-21T11:13:23.221963+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -566,7 +566,7 @@
     {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "bookingBusinessId": "1716761",
       "operationStart": "26.08.28.",
@@ -599,7 +599,8 @@
         "2026-08-19T18:49:54.815211+09:00",
         "2026-08-19T21:23:28.596556+09:00",
         "2026-08-20T02:15:02.273187+09:00",
-        "2026-08-20T10:05:59.406547+09:00"
+        "2026-08-20T10:05:59.406547+09:00",
+        "2026-08-21T11:13:08.404246+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1774,13 +1775,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009522804",
-      "place_name": "PREQUEL EXHIBITION I COSMOS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
-      "ts": "2026-08-10T23:08:59.227499+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -3173,6 +3167,13 @@
       "place_name": "세미팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707776",
       "ts": "2026-08-21T10:15:08.163947+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057128614",
+      "place_name": "스픽 2026 영어울렁증 퇴마식",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "ts": "2026-08-21T11:13:08.404246+09:00"
     }
   ],
   "seen_place_ids": [
