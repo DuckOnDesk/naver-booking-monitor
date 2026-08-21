@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T10:15:21.187550+09:00",
+  "updated_at": "2026-08-21T10:21:02.315162+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1683,9 +1683,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-08-21T10:15:08.163947+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-21T10:21:01.284056+09:00",
       "bookingIsOpened": false
     },
     {
