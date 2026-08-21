@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21T14:38:43.986687+09:00",
+  "updated_at": "2026-08-21T14:44:28.271669+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -8,6 +8,7 @@
     "2005894077",
     "2006916982",
     "2009522804",
+    "2009756357",
     "2012113406",
     "2015464753",
     "2019832187",
@@ -567,7 +568,7 @@
     {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716761",
       "bookingBusinessId": "1716761",
       "operationStart": "26.08.28.",
@@ -601,7 +602,8 @@
         "2026-08-19T21:23:28.596556+09:00",
         "2026-08-20T02:15:02.273187+09:00",
         "2026-08-20T10:05:59.406547+09:00",
-        "2026-08-21T11:13:08.404246+09:00"
+        "2026-08-21T11:13:08.404246+09:00",
+        "2026-08-21T14:44:12.661132+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -741,6 +743,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-21T11:36:12.576624+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2009756357",
+      "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 15,
+      "status": "D-15",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260820_296/1787222364338CPxlV_JPEG/image.jpg",
+      "roadAddress": "연무장길 96 MM블루",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-21T14:44:12.661132+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1804,20 +1832,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071913479",
-      "place_name": "토리든 DEEP DIVE NEWS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711705",
-      "ts": "2026-08-11T13:06:23.027225+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2072326612",
-      "place_name": "'테이스트 오브 하모니' 히비키 팝업",
-      "booking_url": "",
-      "ts": "2026-08-11T14:23:20.109767+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2093555347",
@@ -3203,6 +3217,20 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-21T14:15:44.010446+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057128614",
+      "place_name": "스픽 2026 영어울렁증 퇴마식",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
+      "ts": "2026-08-21T14:44:12.661132+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "",
+      "ts": "2026-08-21T14:44:12.661132+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3222,6 +3250,7 @@
     "2006916982",
     "2007641747",
     "2009522804",
+    "2009756357",
     "2012113406",
     "2015464753",
     "2017034437",
