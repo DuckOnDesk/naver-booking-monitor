@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T01:44:37.132744+09:00",
+  "updated_at": "2026-08-22T01:50:10.493986+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -429,7 +429,7 @@
     {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "bookingBusinessId": "1715398",
       "operationStart": "26.08.21.",
