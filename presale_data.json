@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T21:00:10.441632+09:00",
+  "updated_at": "2026-08-22T21:05:48.095389+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1000,7 +1000,7 @@
     {
       "id": "2009522804",
       "name": "PREQUEL EXHIBITION I COSMOS",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712534",
       "bookingBusinessId": "1712534",
       "operationStart": "26.08.14.",
@@ -1060,7 +1060,8 @@
         "2026-08-21T17:34:11.156932+09:00",
         "2026-08-22T00:48:47.314391+09:00",
         "2026-08-22T05:01:08.853847+09:00",
-        "2026-08-22T10:11:19.035656+09:00"
+        "2026-08-22T10:11:19.035656+09:00",
+        "2026-08-22T21:05:33.070958+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1882,13 +1883,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-13T14:35:29.236193+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2057128614",
@@ -3281,6 +3275,13 @@
       "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "ts": "2026-08-22T19:30:40.708120+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009522804",
+      "place_name": "PREQUEL EXHIBITION I COSMOS",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
+      "ts": "2026-08-22T21:05:33.070958+09:00"
     }
   ],
   "seen_place_ids": [
