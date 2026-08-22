@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T09:14:50.159363+09:00",
+  "updated_at": "2026-08-22T09:20:31.182518+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1294,7 +1294,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1345,7 +1345,8 @@
         "2026-08-21T12:16:09.475535+09:00",
         "2026-08-21T14:15:44.010446+09:00",
         "2026-08-21T17:51:18.766495+09:00",
-        "2026-08-21T19:16:18.794683+09:00"
+        "2026-08-21T19:16:18.794683+09:00",
+        "2026-08-22T09:20:14.414082+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1848,13 +1849,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2000187386",
-      "place_name": "집집 chapter 02 in 성수",
-      "booking_url": "",
-      "ts": "2026-08-12T18:12:25.888287+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2040923737",
@@ -3247,6 +3241,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-22T05:45:38.410045+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-22T09:20:14.414082+09:00"
     }
   ],
   "seen_place_ids": [
