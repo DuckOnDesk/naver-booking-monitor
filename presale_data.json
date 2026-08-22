@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T17:59:42.918366+09:00",
+  "updated_at": "2026-08-22T18:05:28.341097+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -34,6 +34,7 @@
     "2072326612",
     "2075951781",
     "2076235934",
+    "2082644987",
     "2083897134",
     "2090850238",
     "2093555347"
@@ -219,6 +220,32 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2082644987",
+      "name": "신라면분식 더 팩토리",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.06.16.",
+      "operationEnd": "26.11.22.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260622_158/1782122374475U86WR_JPEG/KakaoTalk_20260622_175458187.jpg",
+      "roadAddress": "성수일로4길 52 신라면 분식 팝업",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-22T18:05:10.473391+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1862,13 +1889,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-13T12:59:23.331466+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2009522804",
       "place_name": "PREQUEL EXHIBITION I COSMOS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
@@ -3259,6 +3279,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-22T17:47:58.095687+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2082644987",
+      "place_name": "신라면분식 더 팩토리",
+      "booking_url": "",
+      "ts": "2026-08-22T18:05:10.473391+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3345,6 +3372,7 @@
     "2075560121",
     "2075951781",
     "2076235934",
+    "2082644987",
     "2083897134",
     "2084130717",
     "2090850238",
