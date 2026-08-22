@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T23:54:23.945983+09:00",
+  "updated_at": "2026-08-23T00:00:02.857222+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -21,7 +21,6 @@
     "2040937553",
     "2043425985",
     "2047961560",
-    "2049771421",
     "2053652128",
     "2057128614",
     "2060436986",
@@ -515,34 +514,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-06T22:40:05.606761+09:00",
       "lastBookingNotifiedAt": "2026-08-06T22:45:54.503834+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2049771421",
-      "name": "인스턴트펑크 팝업",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716211",
-      "bookingBusinessId": "1716211",
-      "operationStart": "26.08.21.",
-      "operationEnd": "26.08.22.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260811_283/1786428220397yuizX_JPEG/edited-1786428220152-0.jpg",
-      "roadAddress": "아차산로7나길 14 AE 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-18T17:01:35.513404+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-12T11:44:42.673229+09:00",
-      "lastBookingNotifiedAt": "2026-08-18T17:01:49.901328+09:00",
       "bookingIsOpened": false
     },
     {
