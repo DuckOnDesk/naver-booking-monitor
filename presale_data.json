@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-23T00:39:22.450267+09:00",
+  "updated_at": "2026-08-23T00:44:58.340121+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -391,7 +391,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -1214,7 +1214,7 @@
     {
       "id": "2039988652",
       "name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "bookingBusinessId": "1714809",
       "operationStart": "26.08.27.",
@@ -1231,7 +1231,8 @@
         "2026-08-19T08:44:28.685090+09:00",
         "2026-08-21T00:56:04.476314+09:00",
         "2026-08-21T17:45:35.270897+09:00",
-        "2026-08-22T19:30:40.708120+09:00"
+        "2026-08-22T19:30:40.708120+09:00",
+        "2026-08-23T00:44:44.544190+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1857,13 +1858,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2023497014",
-      "place_name": "데파도바 신세계백화점 본점 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-08-13T16:38:17.769581+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2032034855",
@@ -3256,6 +3250,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-23T00:22:16.093418+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2039988652",
+      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
+      "ts": "2026-08-23T00:44:44.544190+09:00"
     }
   ],
   "seen_place_ids": [
