@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T12:52:20.704226+09:00",
+  "updated_at": "2026-08-22T12:58:05.900175+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -404,7 +404,7 @@
     {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "bookingBusinessId": "1715398",
       "operationStart": "26.08.21.",
@@ -421,7 +421,8 @@
         "2026-08-17T03:28:51.758827+09:00",
         "2026-08-18T01:31:13.752236+09:00",
         "2026-08-20T14:20:08.063820+09:00",
-        "2026-08-22T03:32:17.646004+09:00"
+        "2026-08-22T03:32:17.646004+09:00",
+        "2026-08-22T12:57:47.906216+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1853,13 +1854,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-12T19:47:33.711939+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2019832187",
       "place_name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711626",
@@ -3250,6 +3244,13 @@
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
       "ts": "2026-08-22T10:28:25.693789+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2032034855",
+      "place_name": "구달 TXA 세럼 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
+      "ts": "2026-08-22T12:57:47.906216+09:00"
     }
   ],
   "seen_place_ids": [
