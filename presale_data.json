@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T11:49:11.988989+09:00",
+  "updated_at": "2026-08-22T11:54:57.515136+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -730,6 +730,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2009756357",
+      "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "bookingBusinessId": "1719529",
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260820_296/1787222364338CPxlV_JPEG/image.jpg",
+      "roadAddress": "연무장길 96 MM블루",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-21T15:07:06.078173+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-21T14:44:12.661132+09:00",
+      "lastBookingNotifiedAt": "2026-08-21T15:07:20.693685+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2005894077",
       "name": "스토케 요요5 서울숲하우스",
       "hasBooking": true,
@@ -781,34 +809,6 @@
       "bookingNotified": false,
       "discoveredAt": "2026-08-21T11:36:12.576624+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2009756357",
-      "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
-      "bookingBusinessId": "1719529",
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 14,
-      "status": "D-14",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260820_296/1787222364338CPxlV_JPEG/image.jpg",
-      "roadAddress": "연무장길 96 MM블루",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-21T15:07:06.078173+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-21T14:44:12.661132+09:00",
-      "lastBookingNotifiedAt": "2026-08-21T15:07:20.693685+09:00",
       "bookingIsOpened": false
     },
     {
