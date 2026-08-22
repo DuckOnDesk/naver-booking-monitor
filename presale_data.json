@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-23T00:16:53.666447+09:00",
+  "updated_at": "2026-08-23T00:22:31.005549+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -1273,7 +1273,7 @@
     {
       "id": "2066415670",
       "name": "PVCS 아카이브 세일",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "bookingBusinessId": "1708964",
       "operationStart": "26.08.22.",
@@ -1327,7 +1327,8 @@
         "2026-08-21T19:16:18.794683+09:00",
         "2026-08-22T09:20:14.414082+09:00",
         "2026-08-22T14:06:24.110827+09:00",
-        "2026-08-22T17:02:07.821464+09:00"
+        "2026-08-22T17:02:07.821464+09:00",
+        "2026-08-23T00:22:16.093418+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1392,34 +1393,6 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2019832187",
-      "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711626",
-      "bookingBusinessId": "1711626",
-      "operationStart": "26.08.24.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_62/17865325903270TNRL_JPEG/1786528820465.jpg",
-      "roadAddress": "을지로 42 두두두서울",
-      "commonAddress": "서울 중구",
-      "district": "중구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-12T20:09:56.497588+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-12T20:10:09.151092+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1498,6 +1471,34 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2019832187",
+      "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1711626",
+      "bookingBusinessId": "1711626",
+      "operationStart": "26.08.24.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_62/17865325903270TNRL_JPEG/1786528820465.jpg",
+      "roadAddress": "을지로 42 두두두서울",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-12T20:09:56.497588+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-12T20:10:09.151092+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1856,13 +1857,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-13T16:32:32.622550+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2023497014",
@@ -3255,6 +3249,13 @@
       "place_name": "구달 TXA 세럼 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "ts": "2026-08-22T23:48:32.619739+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066415670",
+      "place_name": "PVCS 아카이브 세일",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
+      "ts": "2026-08-23T00:22:16.093418+09:00"
     }
   ],
   "seen_place_ids": [
