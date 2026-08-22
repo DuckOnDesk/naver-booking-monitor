@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-22T17:48:15.301955+09:00",
+  "updated_at": "2026-08-22T17:53:58.431708+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -497,7 +497,7 @@
     {
       "id": "2049771421",
       "name": "인스턴트펑크 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716211",
       "bookingBusinessId": "1716211",
       "operationStart": "26.08.21.",
