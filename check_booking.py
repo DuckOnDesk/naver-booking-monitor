@@ -1174,7 +1174,7 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
 
 def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
                            all_summary: list, period: tuple, covered: set,
-                           cutoff_date, ntfy_topic: str, alerted: dict, gate=None) -> None:
+                           ntfy_topic: str, alerted: dict, gate=None) -> None:
     """자동예약 날짜를 지정하지 않은 항목의 남은 예약 기간을 마저 훑는다.
 
     자동예약에서 날짜를 비워 두면 "등록된 예약 기간 전체"가 대상이다. 그런데 감시
@@ -1201,7 +1201,6 @@ def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
         if (d.get("hasBookableSlots") or day_has_stock(d)) and d.get("dateKey") not in covered
         and d.get("dateKey", "") >= today_str
         and in_booking_period(d["dateKey"], period)
-        and not (cutoff_date and date.fromisoformat(d["dateKey"]) < cutoff_date)
     )
     if not extra:
         return
@@ -1666,10 +1665,16 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 자동예약에서 날짜를 지정하지 않았을 때의 탐색 범위 (= 등록된 예약 기간)
         ab_period = booking_period(cache_entry)
 
-        # 업체 설정 사전예약 제한 (RI02 = 일 단위 마감)
+        # 업체 설정 사전예약 제한 (RI02 = 일 단위 마감). 로그에 표시만 하고
+        # 알림·자동예약을 막는 데는 쓰지 않는다 — fetch_item_restrictions가 읽는 값은
+        # businessId 단위 기본값이라 상품별 설정을 반영하지 못한다. 실제로 귤메달
+        # (biz 1631459)은 업체 기본값이 RI02/1인데 상품은 당일 예약을 받고 있었고,
+        # 이 값으로 걸러낸 탓에 예약 가능한 날의 알림이 통째로 나가지 않았다.
+        # 오판의 대가가 비대칭이다 — 막으면 알림이 아예 없고, 안 막으면 못 잡는 날에
+        # 알림이 한 번 갈 뿐이다. 실제 가능 여부는 슬롯 API와 캘린더 교차확인이 본다.
         ba_code  = cache_entry.get("booking_available_code", "RI01")
         ba_value = int(cache_entry.get("booking_available_value") or 0)
-        # cutoff_date: 이 날짜 미만인 datekey는 예약 불가 (당일 포함)
+        # cutoff_date: 이 날짜 미만인 datekey에 "사전예약 제한" 표시를 붙인다
         if ba_code == "RI02" and ba_value > 0:
             cutoff_date = now_kst.date() + timedelta(days=ba_value)
         else:
@@ -1751,11 +1756,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
             if datekey < today_str:
                 continue
-            # 업체 사전예약 제한: cutoff_date 미만 날짜는 예약 불가 → 알림만 제외, 로그는 그대로 표시
+            # 업체 사전예약 제한: 로그 꼬리표로만 쓴다 (위 cutoff_date 주석 참고)
             is_restricted = bool(cutoff_date and date.fromisoformat(datekey) < cutoff_date)
-            if is_restricted:
-                alerted.pop(alert_key, None)
-                alerted.pop(f"{alert_key}:pre", None)
             restriction_note = f" — 사전예약 제한 ({ba_value}일 전 마감)" if is_restricted else ""
             if datekey == today_str and time_range is not None:
                 _, t_to = time_range
@@ -1830,7 +1832,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                               f"🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} "
                               f"({stock_info}) - 예약창 닫힘{restriction_note}", now_str=now_str)
 
-                    if not is_restricted and available > 0 and (prev_slots is None or increased):
+                    if available > 0 and (prev_slots is None or increased):
                         cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
                         _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
                                                cal_ok, ba_code, ba_value, "닫힘")
@@ -1853,34 +1855,33 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                               f"🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} "
                               f"({stock_info}){restriction_note}", now_str=now_str)
 
-                    if not is_restricted:
-                        cal_ok = True
-                        if prev_slots is None or increased:
-                            # 예약창이 방금 닫힘→열림으로 바뀐 회차도 그대로 알린다.
-                            # 예전에는 이 회차의 알림을 "다음 주기에 재확인"한다며
-                            # 건너뛰었는데, 아래에서 alerted[alert_key]가 채워지는 바람에
-                            # 다음 주기에는 prev_slots가 있어 알림 조건이 아예 성립하지
-                            # 않았다 — 한 회차 지연이 아니라 그 자리에 대한 영구 생략이었다.
-                            # 전환 직후 재고가 흔들리는 건 아래 캘린더 교차확인이 거른다.
-                            cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
-                            _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
-                                                   cal_ok, ba_code, ba_value, "오픈")
-                            if cal_ok is False:
-                                print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림·자동예약 생략 "
-                                      f"(재고 정보 지연 의심)", flush=True)
+                    cal_ok = True
+                    if prev_slots is None or increased:
+                        # 예약창이 방금 닫힘→열림으로 바뀐 회차도 그대로 알린다.
+                        # 예전에는 이 회차의 알림을 "다음 주기에 재확인"한다며
+                        # 건너뛰었는데, 아래에서 alerted[alert_key]가 채워지는 바람에
+                        # 다음 주기에는 prev_slots가 있어 알림 조건이 아예 성립하지
+                        # 않았다 — 한 회차 지연이 아니라 그 자리에 대한 영구 생략이었다.
+                        # 전환 직후 재고가 흔들리는 건 아래 캘린더 교차확인이 거른다.
+                        cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
+                        _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
+                                               cal_ok, ba_code, ba_value, "오픈")
+                        if cal_ok is False:
+                            print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림·자동예약 생략 "
+                                  f"(재고 정보 지연 의심)", flush=True)
+                        else:
+                            if prev_slots is None:
+                                title = f"🎉 {name} 예약 가능!"
                             else:
-                                if prev_slots is None:
-                                    title = f"🎉 {name} 예약 가능!"
-                                else:
-                                    inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
-                                    title = f"🎉 {name} 자리 추가됨 - {inc_str}"
-                                body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
-                                if ntfy_topic:
-                                    send_ntfy(ntfy_topic, title, body, url)
-                        if cal_ok is not False:
-                            alerted[alert_key] = dict(per_slot)
-                            maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
-                                            alerted, ab_period, gate)
+                                inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
+                                title = f"🎉 {name} 자리 추가됨 - {inc_str}"
+                            body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                            if ntfy_topic:
+                                send_ntfy(ntfy_topic, title, body, url)
+                    if cal_ok is not False:
+                        alerted[alert_key] = dict(per_slot)
+                        maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
+                                        alerted, ab_period, gate)
                 else:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
@@ -1888,7 +1889,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     log_state(log_key,
                               f"⏳ {name} {date_str}{time_hint} {', '.join(log_parts)} "
                               f"({stock_info}) · {window_reason}{restriction_note}", now_str=now_str)
-                    if not is_restricted and pre_key not in alerted:
+                    if pre_key not in alerted:
                         if item.get("booking_open_datetime"):
                             open_dt = _parse_dt(item["booking_open_datetime"])
                             open_str = open_dt.strftime("%m/%d %H:%M") if open_dt else "?"
@@ -1959,7 +1960,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 감시 날짜를 좁게 잡아 위 루프가 그 날짜만 돌았다면, 기간 안의 나머지 날짜를 여기서 마저 본다.
         if not gate.known_closed and window_open:
             sweep_auto_book_period(item, item_id, url, parsed, result.get("_all_summary") or [],
-                                   ab_period, set(effective_dates), cutoff_date, ntfy_topic, alerted, gate)
+                                   ab_period, set(effective_dates), ntfy_topic, alerted, gate)
 
         # 여기까지 왔는데 게이트를 한 번도 안 건드렸다 = 알릴 자리가 없어서
         # 예약창을 볼 이유가 없었다는 뜻. 이 회차의 절감이 어디서 났는지 남긴다.
