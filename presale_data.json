@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-24T03:23:17.787932+09:00",
+  "updated_at": "2026-08-24T03:28:49.871511+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -246,7 +246,7 @@
     {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "bookingBusinessId": "1715398",
       "operationStart": "26.08.21.",
@@ -266,7 +266,8 @@
         "2026-08-22T03:32:17.646004+09:00",
         "2026-08-22T12:57:47.906216+09:00",
         "2026-08-22T16:39:11.319281+09:00",
-        "2026-08-22T23:48:32.619739+09:00"
+        "2026-08-22T23:48:32.619739+09:00",
+        "2026-08-24T03:28:39.073592+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1505,13 +1506,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-14T06:05:43.608005+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2062024820",
@@ -2904,6 +2898,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-23T18:39:17.027009+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2032034855",
+      "place_name": "구달 TXA 세럼 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
+      "ts": "2026-08-24T03:28:39.073592+09:00"
     }
   ],
   "seen_place_ids": [
