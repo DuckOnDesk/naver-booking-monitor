@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-23T12:34:38.136438+09:00",
+  "updated_at": "2026-08-23T12:40:19.468407+09:00",
   "watched_places": [
     "1646280504",
     "1893291672",
@@ -249,7 +249,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -274,7 +274,8 @@
         "2026-08-22T05:17:47.866843+09:00",
         "2026-08-22T13:14:59.091514+09:00",
         "2026-08-22T14:56:09.000752+09:00",
-        "2026-08-22T16:50:39.221102+09:00"
+        "2026-08-22T16:50:39.221102+09:00",
+        "2026-08-23T12:40:05.047906+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -372,6 +373,40 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2032034855",
+      "name": "구달 TXA 세럼 팝업",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
+      "bookingBusinessId": "1715398",
+      "operationStart": "26.08.21.",
+      "operationEnd": "26.08.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260814_51/1786684971615ojAYC_JPEG/edited-1786684970836-0.jpg",
+      "roadAddress": "뚝섬로 273 서울국제정원박람회 클리오 K-뷰티가든",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-17T03:28:51.758827+09:00",
+        "2026-08-18T01:31:13.752236+09:00",
+        "2026-08-20T14:20:08.063820+09:00",
+        "2026-08-22T03:32:17.646004+09:00",
+        "2026-08-22T12:57:47.906216+09:00",
+        "2026-08-22T16:39:11.319281+09:00",
+        "2026-08-22T23:48:32.619739+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-14T17:16:25.458437+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": false,
@@ -455,40 +490,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
       "lastBookingNotifiedAt": "2026-08-16T18:21:24.467418+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2032034855",
-      "name": "구달 TXA 세럼 팝업",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
-      "bookingBusinessId": "1715398",
-      "operationStart": "26.08.21.",
-      "operationEnd": "26.08.27.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260814_51/1786684971615ojAYC_JPEG/edited-1786684970836-0.jpg",
-      "roadAddress": "뚝섬로 273 서울국제정원박람회 클리오 K-뷰티가든",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-17T03:28:51.758827+09:00",
-        "2026-08-18T01:31:13.752236+09:00",
-        "2026-08-20T14:20:08.063820+09:00",
-        "2026-08-22T03:32:17.646004+09:00",
-        "2026-08-22T12:57:47.906216+09:00",
-        "2026-08-22T16:39:11.319281+09:00",
-        "2026-08-22T23:48:32.619739+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-14T17:16:25.458437+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1863,13 +1864,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-13T21:01:17.027999+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -3262,6 +3256,13 @@
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-23T12:19:25.338336+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-08-23T12:40:05.047906+09:00"
     }
   ],
   "seen_place_ids": [
