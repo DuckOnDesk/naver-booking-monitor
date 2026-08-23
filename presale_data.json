@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-24T05:22:48.137205+09:00",
+  "updated_at": "2026-08-24T05:28:23.676010+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -985,7 +985,7 @@
     {
       "id": "2039988652",
       "name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "bookingBusinessId": "1714809",
       "operationStart": "26.08.27.",
@@ -1003,7 +1003,8 @@
         "2026-08-21T00:56:04.476314+09:00",
         "2026-08-21T17:45:35.270897+09:00",
         "2026-08-22T19:30:40.708120+09:00",
-        "2026-08-23T00:44:44.544190+09:00"
+        "2026-08-23T00:44:44.544190+09:00",
+        "2026-08-24T05:28:11.113120+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1506,13 +1507,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-14T06:44:30.129558+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2062024820",
@@ -2905,6 +2899,13 @@
       "place_name": "구달 TXA 세럼 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "ts": "2026-08-24T03:28:39.073592+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2039988652",
+      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
+      "ts": "2026-08-24T05:28:11.113120+09:00"
     }
   ],
   "seen_place_ids": [
