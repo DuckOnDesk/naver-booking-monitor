@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-24T10:59:20.540657+09:00",
+  "updated_at": "2026-08-24T11:05:02.606759+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1042,34 +1042,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2027303446",
-      "name": "성률 기획전 여름을 닮은 우리",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1596228",
-      "bookingBusinessId": "1596228",
-      "operationStart": "26.04.30.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_197/17760566869924uCnR_JPEG/%BC%BA%B7%FC_KV_poster_A4_01%28main%29.jpg",
-      "roadAddress": "한남대로 91 고메이494 한남 B층",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2028239981",
       "name": "조니워커 블루 팝업",
       "hasBooking": true,
@@ -1095,6 +1067,34 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-22T00:32:05.620160+09:00",
       "lastBookingNotifiedAt": "2026-08-22T00:37:51.383706+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2027303446",
+      "name": "성률 기획전 여름을 닮은 우리",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1596228",
+      "bookingBusinessId": "1596228",
+      "operationStart": "26.04.30.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_197/17760566869924uCnR_JPEG/%BC%BA%B7%FC_KV_poster_A4_01%28main%29.jpg",
+      "roadAddress": "한남대로 91 고메이494 한남 B층",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
       "bookingIsOpened": false
     },
     {
