@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-24T13:38:11.436876+09:00",
+  "updated_at": "2026-08-24T13:43:53.147756+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -612,9 +612,9 @@
     {
       "id": "2083897134",
       "name": "스포티파이 하우스 서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1721238",
+      "bookingBusinessId": "1721238",
       "operationStart": "26.09.10.",
       "operationEnd": "26.09.13.",
       "remainingDays": 17,
@@ -625,14 +625,16 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-24T13:43:39.568729+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-08-21T11:36:12.576624+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-24T13:43:52.007933+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1563,13 +1565,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009522804",
-      "place_name": "PREQUEL EXHIBITION I COSMOS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
-      "ts": "2026-08-14T10:22:15.907454+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -2962,6 +2957,13 @@
       "place_name": "하이퍼쉘 현대백화점 압구정 팝업",
       "booking_url": "",
       "ts": "2026-08-24T12:41:21.515427+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083897134",
+      "place_name": "스포티파이 하우스 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
+      "ts": "2026-08-24T13:43:39.568729+09:00"
     }
   ],
   "seen_place_ids": [
