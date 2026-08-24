@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-24T15:03:26.139019+09:00",
+  "updated_at": "2026-08-24T15:09:08.240393+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -250,7 +250,7 @@
     {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "bookingBusinessId": "1715398",
       "operationStart": "26.08.21.",
@@ -272,7 +272,8 @@
         "2026-08-22T16:39:11.319281+09:00",
         "2026-08-22T23:48:32.619739+09:00",
         "2026-08-24T03:28:39.073592+09:00",
-        "2026-08-24T11:16:15.804962+09:00"
+        "2026-08-24T11:16:15.804962+09:00",
+        "2026-08-24T15:08:53.214549+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -986,34 +987,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2039106013",
-      "name": "N:DVERSE GARDENING POP-UP",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "bookingBusinessId": "1718123",
-      "operationStart": "26.09.03.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 10,
-      "status": "D-10",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260820_176/1787217443639CPMvE_JPEG/edited-1787217443330-0.jpg",
-      "roadAddress": "올림픽로 300 잠실 롯데월드몰 1층 아트리움",
-      "commonAddress": "서울 송파구",
-      "district": "송파구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-24T15:03:12.515879+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-24T15:03:12.515879+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2046157118",
       "name": "그랜드 민트 페스티벌 2026",
       "hasBooking": true,
@@ -1037,6 +1010,34 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-24T11:22:12.250498+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2039106013",
+      "name": "N:DVERSE GARDENING POP-UP",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1718123",
+      "bookingBusinessId": "1718123",
+      "operationStart": "26.09.03.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260820_176/1787217443639CPMvE_JPEG/edited-1787217443330-0.jpg",
+      "roadAddress": "올림픽로 300 잠실 롯데월드몰 1층 아트리움",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-24T15:03:12.515879+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-24T15:03:12.515879+09:00",
+      "lastBookingNotifiedAt": "2026-08-24T15:09:07.059179+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1568,13 +1569,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-14T16:02:48.854470+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2069912344",
@@ -2967,6 +2961,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-08-24T15:03:12.515879+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2032034855",
+      "place_name": "구달 TXA 세럼 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
+      "ts": "2026-08-24T15:08:53.214549+09:00"
     }
   ],
   "seen_place_ids": [
