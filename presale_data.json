@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-25T11:38:23.927925+09:00",
+  "updated_at": "2026-08-25T11:44:09.638713+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1357,9 +1357,9 @@
     {
       "id": "2047143688",
       "name": "하이퍼쉘 현대백화점 압구정 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1723413",
+      "bookingBusinessId": "1723413",
       "operationStart": "26.08.24.",
       "operationEnd": "26.09.03.",
       "remainingDays": null,
@@ -1370,14 +1370,16 @@
       "commonAddress": "서울 강남구",
       "district": "강남구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-25T11:43:53.979311+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-08-24T12:41:21.515427+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-25T11:44:08.456187+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1577,13 +1579,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-14T21:20:19.869030+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -2976,6 +2971,13 @@
       "place_name": "소머드 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "ts": "2026-08-25T11:32:24.899904+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2047143688",
+      "place_name": "하이퍼쉘 현대백화점 압구정 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1723413",
+      "ts": "2026-08-25T11:43:53.979311+09:00"
     }
   ],
   "seen_place_ids": [
