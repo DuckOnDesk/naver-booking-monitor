@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-25T11:26:56.358169+09:00",
+  "updated_at": "2026-08-25T11:32:38.916829+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1383,7 +1383,7 @@
     {
       "id": "2033849367",
       "name": "소머드 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -1399,7 +1399,8 @@
       "bookingOpenHistory": [
         "2026-08-19T18:21:47.459210+09:00",
         "2026-08-20T09:49:03.728056+09:00",
-        "2026-08-20T15:00:05.131555+09:00"
+        "2026-08-20T15:00:05.131555+09:00",
+        "2026-08-25T11:32:24.899904+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1576,13 +1577,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-14T20:08:00.262167+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2057128614",
@@ -2975,6 +2969,13 @@
       "place_name": "발레클로젯 팝업 - 디아트레 메시아 포타 in더현대서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712096",
       "ts": "2026-08-25T11:03:40.629330+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-08-25T11:32:24.899904+09:00"
     }
   ],
   "seen_place_ids": [
