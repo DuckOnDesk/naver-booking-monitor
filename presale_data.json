@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-26T16:32:32.486749+09:00",
+  "updated_at": "2026-08-26T16:38:11.940561+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -23,7 +23,6 @@
     "2060436986",
     "2072326612",
     "2075951781",
-    "2080832507",
     "2083897134",
     "2090850238",
     "manual-1672804-7977719"
@@ -647,34 +646,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-20T12:59:52.019858+09:00",
       "lastBookingNotifiedAt": "2026-08-20T13:05:51.749376+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2080832507",
-      "name": "바이레도 FUTURE MEMORIES 서울",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717191",
-      "bookingBusinessId": "1717191",
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.09.20.",
-      "remainingDays": 16,
-      "status": "D-16",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260826_88/1787716636058kKGLN_JPEG/image.jpg",
-      "roadAddress": "연무장11길 7",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-26T14:33:58.004045+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-26T14:33:58.004045+09:00",
-      "lastBookingNotifiedAt": "2026-08-26T14:39:50.088665+09:00",
       "bookingIsOpened": false
     },
     {
