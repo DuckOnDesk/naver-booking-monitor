@@ -74,6 +74,13 @@
       "url": "https://m.booking.naver.com/booking/6/bizes/1631459/items/7971943?service-target=map-pc&startDate=2026-08-18",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mt9l2rq5",
+      "name": "노브랜드",
+      "url": "https://booking.naver.com/booking/12/bizes/1672804/items/7977719?fbclid=PAb21jcAT6xVVwZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4ufet4Z0ovNWgByq_ch1yc5KDoEJdRwfPe519xJC4aImOb0Zy2QNWbfY93V_aem_zWAWadHuIEsNYISLprBE6w&startDateTime=2026-08-28T00%3A00%3A00%2B09%3A00&tab=book&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
