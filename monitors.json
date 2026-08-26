@@ -2,18 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "msddyhkc",
-      "name": "트루스 오브 뷰티",
-      "url": "https://booking.naver.com/booking/13/bizes/1707570/items/7913541?startDate=2026-08-15",
-      "enabled": false,
-      "target_dates": [
-        "2026-08-12 11:00-13:00",
-        "2026-08-13 11:00-13:00",
-        "2026-08-14 11:00-13:00",
-        "2026-08-15 11:00-13:00"
-      ]
-    },
-    {
       "id": "mshdnloi",
       "name": "조말론",
       "url": "https://m.booking.naver.com/booking/12/bizes/1712600/items/7939991?startDateTime=2026-08-22T00%3A00%3A00%2B09%3A00",
