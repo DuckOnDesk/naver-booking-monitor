@@ -28,6 +28,13 @@
       "url": "https://booking.naver.com/booking/12/bizes/1672804/items/7977719?fbclid=PAb21jcAT6xVVwZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4ufet4Z0ovNWgByq_ch1yc5KDoEJdRwfPe519xJC4aImOb0Zy2QNWbfY93V_aem_zWAWadHuIEsNYISLprBE6w&startDateTime=2026-08-28T00%3A00%3A00%2B09%3A00&tab=book&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mt9y7a37",
+      "name": "쿠팡 온리 페스타",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1717462/items/7962977?startDateTime=2026-09-17T00%3A00%3A00%2B09%3A00",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
