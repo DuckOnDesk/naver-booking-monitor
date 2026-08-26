@@ -237,7 +237,17 @@
     "2072326612",
     "2075951781",
     "2083897134",
-    "2090850238"
+    "2090850238",
+    "manual-1672804-7977719"
   ],
-  "selection_page_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html"
+  "selection_page_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
+  "manual_places": [
+    {
+      "id": "manual-1672804-7977719",
+      "name": "",
+      "bookingUrl": "https://booking.naver.com/booking/12/bizes/1672804/items/7977719?fbclid=PAb21jcAT6xVVwZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4ufet4Z0ovNWgByq_ch1yc5KDoEJdRwfPe519xJC4aImOb0Zy2QNWbfY93V_aem_zWAWadHuIEsNYISLprBE6w&startDateTime=2026-08-28T00%3A00%3A00%2B09%3A00&tab=book&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
+      "district": "성동구",
+      "addedAt": "2026-08-26T04:19:44.647Z"
+    }
+  ]
 }
