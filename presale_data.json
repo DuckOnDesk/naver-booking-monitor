@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-26T22:55:00.256693+09:00",
+  "updated_at": "2026-08-26T23:00:39.862964+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -124,7 +124,7 @@
     {
       "id": "2032034855",
       "name": "구달 TXA 세럼 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1715398",
       "bookingBusinessId": "1715398",
       "operationStart": "26.08.21.",
@@ -150,7 +150,8 @@
         "2026-08-24T15:08:53.214549+09:00",
         "2026-08-24T20:47:57.262206+09:00",
         "2026-08-26T11:26:51.506277+09:00",
-        "2026-08-26T16:54:59.524021+09:00"
+        "2026-08-26T16:54:59.524021+09:00",
+        "2026-08-26T23:00:25.377985+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1679,13 +1680,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-15T23:34:18.438066+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2071913479",
       "place_name": "토리든 DEEP DIVE NEWS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711705",
@@ -3076,6 +3070,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-08-26T20:39:13.833208+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2032034855",
+      "place_name": "구달 TXA 세럼 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
+      "ts": "2026-08-26T23:00:25.377985+09:00"
     }
   ],
   "seen_place_ids": [
