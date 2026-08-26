@@ -2,26 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "msnvs690",
-      "name": "토리든",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1711705/items/7936007?theme=place&lang=ko&area=ple&fbclid=PAcGRvZgJleHRuA2FlbQMxMDAAc3J0YwZhcHBfaWQPNTY3MDY3MzQzMzUyNDI3AAGnXzE4DC79QvNk5fl91UUIjnsKpujNN2jPRZux2ehYoE6vBD8THKLXDqFeb-c_aem_t2jP2u0m9YDd-xFb4DjXiQ",
-      "enabled": true,
-      "target_dates": [],
-      "auto_book": {
-        "enabled": true,
-        "dates": [
-          "2026-08-22",
-          "2026-08-23"
-        ],
-        "times": [],
-        "accounts": [],
-        "count": 1,
-        "mode": "scheduled",
-        "start_at": "2026-08-11T11:00:00+09:00",
-        "saved_at": "2026-08-11T00:02:49.455Z"
-      }
-    },
-    {
       "id": "msy05hto",
       "name": "픽앤플레이",
       "url": "https://m.booking.naver.com/booking/12/bizes/1712461/items/7939323?startDateTime=2026-08-18T00%3A00%3A00%2B09%3A00",
