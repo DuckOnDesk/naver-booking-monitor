@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T02:48:26.335482+09:00",
+  "updated_at": "2026-08-27T02:54:04.091465+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -74,7 +74,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -386,7 +386,7 @@
     {
       "id": "2090850238",
       "name": "NCT 127 [BLINGY] POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "bookingBusinessId": "1707377",
       "operationStart": "26.08.25.",
@@ -401,7 +401,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-08-19T15:14:47.885800+09:00",
-        "2026-08-26T00:30:08.970442+09:00"
+        "2026-08-26T00:30:08.970442+09:00",
+        "2026-08-27T02:53:51.123128+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1680,13 +1681,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-16T01:40:56.520410+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2076235934",
@@ -3079,6 +3073,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-08-27T00:55:46.612781+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2090850238",
+      "place_name": "NCT 127 [BLINGY] POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
+      "ts": "2026-08-27T02:53:51.123128+09:00"
     }
   ],
   "seen_place_ids": [
