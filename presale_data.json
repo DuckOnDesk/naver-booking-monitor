@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-26T18:46:36.223373+09:00",
+  "updated_at": "2026-08-26T18:52:17.360333+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -23,6 +23,7 @@
     "2060436986",
     "2072326612",
     "2075951781",
+    "2078141397",
     "2083897134",
     "2090850238",
     "manual-1672804-7977719"
@@ -647,6 +648,34 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-20T12:59:52.019858+09:00",
       "lastBookingNotifiedAt": "2026-08-20T13:05:51.749376+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2078141397",
+      "name": "쿠팡 온리 페스타",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "bookingBusinessId": "1717462",
+      "operationStart": "26.09.17.",
+      "operationEnd": "26.09.20.",
+      "remainingDays": 22,
+      "status": "D-22",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260824_284/1787571281209cU1gc_JPEG/edited-1787571278455-0.jpg",
+      "roadAddress": "성수일로6길 36 앤더슨씨 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-26T18:52:02.230122+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-26T18:52:02.230122+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1647,13 +1676,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-15T21:23:55.228424+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2062024820",
@@ -3046,6 +3068,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-08-26T17:00:38.476588+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-08-26T18:52:02.230122+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3135,6 +3164,7 @@
     "2075560121",
     "2075951781",
     "2076235934",
+    "2078141397",
     "2080832507",
     "2082644987",
     "2083897134",
