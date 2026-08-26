@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-26T14:11:46.575554+09:00",
+  "updated_at": "2026-08-26T14:17:21.700014+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -755,7 +755,7 @@
     {
       "id": "2057558383",
       "name": "위아자 에코빌리지 '지구우체국' 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
       "operationStart": "26.10.23.",
@@ -769,7 +769,8 @@
       "district": "마포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-08-26T11:38:23.262083+09:00"
+        "2026-08-26T11:38:23.262083+09:00",
+        "2026-08-26T14:17:09.109605+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1642,13 +1643,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-15T16:49:06.051182+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2062024820",
@@ -3041,6 +3035,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-08-26T13:43:25.357919+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057558383",
+      "place_name": "위아자 에코빌리지 '지구우체국' 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
+      "ts": "2026-08-26T14:17:09.109605+09:00"
     }
   ],
   "seen_place_ids": [
