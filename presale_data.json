@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-26T14:28:33.938840+09:00",
+  "updated_at": "2026-08-26T14:34:11.041991+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -23,6 +23,7 @@
     "2060436986",
     "2072326612",
     "2075951781",
+    "2080832507",
     "2083897134",
     "2090850238",
     "manual-1672804-7977719"
@@ -644,6 +645,34 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-20T12:59:52.019858+09:00",
       "lastBookingNotifiedAt": "2026-08-20T13:05:51.749376+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2080832507",
+      "name": "바이레도 FUTURE MEMORIES 서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717191",
+      "bookingBusinessId": "1717191",
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.09.20.",
+      "remainingDays": 16,
+      "status": "D-16",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260826_88/1787716636058kKGLN_JPEG/image.jpg",
+      "roadAddress": "연무장11길 7",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-26T14:33:58.004045+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-26T14:33:58.004045+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1643,13 +1672,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-15T16:49:06.051182+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -3042,6 +3064,13 @@
       "place_name": "위아자 에코빌리지 '지구우체국' 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "ts": "2026-08-26T14:17:09.109605+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2080832507",
+      "place_name": "바이레도 FUTURE MEMORIES 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717191",
+      "ts": "2026-08-26T14:33:58.004045+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3131,6 +3160,7 @@
     "2075560121",
     "2075951781",
     "2076235934",
+    "2080832507",
     "2082644987",
     "2083897134",
     "2084130717",
