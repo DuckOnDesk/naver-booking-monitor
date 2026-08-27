@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T03:37:19.394158+09:00",
+  "updated_at": "2026-08-28T03:42:57.647535+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -901,7 +901,7 @@
     {
       "id": "2033849367",
       "name": "소머드 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -918,7 +918,8 @@
         "2026-08-19T18:21:47.459210+09:00",
         "2026-08-20T09:49:03.728056+09:00",
         "2026-08-20T15:00:05.131555+09:00",
-        "2026-08-25T11:32:24.899904+09:00"
+        "2026-08-25T11:32:24.899904+09:00",
+        "2026-08-28T03:42:43.655554+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1741,13 +1742,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-17T03:39:59.266107+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -3140,6 +3134,13 @@
       "place_name": "판도라 플레이그라운드: Pick & Play",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "ts": "2026-08-28T03:03:25.106563+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-08-28T03:42:43.655554+09:00"
     }
   ],
   "seen_place_ids": [
