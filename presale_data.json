@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T12:48:16.805472+09:00",
+  "updated_at": "2026-08-27T12:53:55.268067+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -360,34 +360,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2021908137",
-      "name": "메르세데스-벤츠 스튜디오 서울",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
-      "bookingBusinessId": "1643675",
-      "operationStart": "26.05.19.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
-      "roadAddress": "연무장길 73 XYZ SEOUL",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": false,
@@ -415,6 +387,34 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2021908137",
+      "name": "메르세데스-벤츠 스튜디오 서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1643675/search",
+      "bookingBusinessId": "1643675",
+      "operationStart": "26.05.19.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
+      "roadAddress": "연무장길 73 XYZ SEOUL",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
       "bookingIsOpened": false
     },
     {
@@ -550,6 +550,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2083897134",
+      "name": "스포티파이 하우스 서울",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1721238",
+      "bookingBusinessId": "1721238",
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260821_95/1787284922498fIADj_PNG/image.png",
+      "roadAddress": "성수일로6길 36 스포티파이하우스서울",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-24T13:43:39.568729+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-21T11:36:12.576624+09:00",
+      "lastBookingNotifiedAt": "2026-08-24T13:43:52.007933+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2057128614",
       "name": "스픽 2026 영어울렁증 퇴마식",
       "hasBooking": true,
@@ -599,34 +627,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-12T18:51:42.350458+09:00",
       "lastBookingNotifiedAt": "2026-08-13T15:32:21.024754+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2083897134",
-      "name": "스포티파이 하우스 서울",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1721238",
-      "bookingBusinessId": "1721238",
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 14,
-      "status": "D-14",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260821_95/1787284922498fIADj_PNG/image.png",
-      "roadAddress": "성수일로6길 36 스포티파이하우스서울",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-24T13:43:39.568729+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-21T11:36:12.576624+09:00",
-      "lastBookingNotifiedAt": "2026-08-24T13:43:52.007933+09:00",
       "bookingIsOpened": false
     },
     {
