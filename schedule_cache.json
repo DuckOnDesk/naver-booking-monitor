@@ -2,37 +2,28 @@
   "12_1712461_7939323": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-08-27",
+    "available_start": "2026-08-28",
     "available_end": "2026-08-31",
-    "checked_at": "2026-08-27T22:00:19.948996+09:00",
+    "checked_at": "2026-08-28T03:31:00.716717+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0
   },
   "12_666200_7972440": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-08-27",
+    "available_start": "2026-08-28",
     "available_end": "2026-08-30",
-    "checked_at": "2026-08-28T01:34:16.752796+09:00",
+    "checked_at": "2026-08-28T03:31:23.001205+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0
   },
   "6_1631459_7971943": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-08-28",
+    "available_start": "2026-08-29",
     "available_end": "2026-09-06",
-    "checked_at": "2026-08-28T01:39:44.768349+09:00",
+    "checked_at": "2026-08-28T03:31:43.386380+09:00",
     "booking_available_code": "RI01",
-    "booking_available_value": 0
-  },
-  "12_1672804_7977719": {
-    "sale_start_date": null,
-    "sale_end_date": null,
-    "available_start": "2026-08-27",
-    "available_end": "2026-08-28",
-    "checked_at": "2026-08-28T01:04:35.256228+09:00",
-    "booking_available_code": "RI03",
     "booking_available_value": 0
   },
   "12_1717462_7962977": {
@@ -40,7 +31,7 @@
     "sale_end_date": null,
     "available_start": "2026-09-17",
     "available_end": "2026-09-20",
-    "checked_at": "2026-08-28T01:31:00.076308+09:00",
+    "checked_at": "2026-08-28T03:32:05.260396+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 1
   },
@@ -49,7 +40,7 @@
     "sale_end_date": null,
     "available_start": "2026-09-05",
     "available_end": "2026-09-13",
-    "checked_at": "2026-08-28T02:26:13.861594+09:00",
+    "checked_at": "2026-08-28T03:32:11.538219+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0
   }
