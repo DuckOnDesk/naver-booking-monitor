@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T10:20:09.748941+09:00",
+  "updated_at": "2026-08-27T10:20:49.944054+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -679,6 +679,34 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-26T18:52:02.230122+09:00",
       "lastBookingNotifiedAt": "2026-08-26T18:57:56.620653+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2029718179",
+      "name": "명조 & 도미노피자 콜라보 특별 콘서트 피자 세미팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707776",
+      "bookingBusinessId": "1707776",
+      "operationStart": "26.08.29.",
+      "operationEnd": "26.08.29.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260819_260/1787150853248e4EU1_JPEG/edited-1787150852711-0.jpg",
+      "roadAddress": "안암로 145 화정체육관 지하주차장 입구",
+      "commonAddress": "서울 성북구",
+      "district": "성북구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-21T10:15:08.163947+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-21T10:15:08.163947+09:00",
+      "lastBookingNotifiedAt": "2026-08-21T10:21:01.284056+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1565,34 +1593,6 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-26T17:47:25.418629+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2029718179",
-      "name": "명조 & 도미노피자 콜라보 특별 콘서트 피자 세미팝업",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707776",
-      "bookingBusinessId": "1707776",
-      "operationStart": "26.08.29.",
-      "operationEnd": "26.08.29.",
-      "remainingDays": 2,
-      "status": "D-2",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260819_260/1787150853248e4EU1_JPEG/edited-1787150852711-0.jpg",
-      "roadAddress": "안암로 145 화정체육관 지하주차장 입구",
-      "commonAddress": "서울 성북구",
-      "district": "성북구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-21T10:15:08.163947+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-21T10:15:08.163947+09:00",
-      "lastBookingNotifiedAt": "2026-08-21T10:21:01.284056+09:00",
       "bookingIsOpened": false
     },
     {
