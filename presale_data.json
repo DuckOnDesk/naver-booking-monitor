@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T18:35:24.321177+09:00",
+  "updated_at": "2026-08-27T18:41:01.308373+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -22,7 +22,9 @@
     "2057128614",
     "2057558383",
     "2060436986",
+    "2067695542",
     "2072326612",
+    "2072608358",
     "2072857611",
     "2075951781",
     "2078141397",
@@ -446,6 +448,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2067695542",
+      "name": "오래오래 함께가게",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.01.",
+      "operationEnd": "26.10.31.",
+      "remainingDays": 5,
+      "status": "D-5",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260827_264/1787812733128Caxpc_JPEG/edited-1787812732862-0.jpg",
+      "roadAddress": "연무장3길 8-27 플레이스 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-27T18:40:47.905747+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1073,7 +1101,7 @@
     {
       "id": "2039106013",
       "name": "N:DVERSE GARDENING POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "bookingBusinessId": "1718123",
       "operationStart": "26.09.03.",
@@ -1092,7 +1120,8 @@
         "2026-08-26T17:00:38.476588+09:00",
         "2026-08-26T20:39:13.833208+09:00",
         "2026-08-27T00:16:23.178972+09:00",
-        "2026-08-27T14:12:57.074871+09:00"
+        "2026-08-27T14:12:57.074871+09:00",
+        "2026-08-27T18:40:47.905747+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1469,6 +1498,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2072608358",
+      "name": "[SHAREBOX] AI+XR 팝업스토어 신촌",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.16.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260826_168/1787717169381OYjQ2_JPEG/edited-1787717168961-0.jpg",
+      "roadAddress": "신촌로 83 현대백화점 신촌 U-PLEX 지하2층",
+      "commonAddress": "서울 서대문구",
+      "district": "서대문구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-27T18:40:47.905747+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2002918567",
       "name": "엘모즈 비스포크 청담 팝업스토어",
       "hasBooking": true,
@@ -1721,27 +1776,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-16T18:15:37.130498+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2062283789",
-      "place_name": "드래곤볼 전시 - 드래곤볼 히어로즈 라이즈 서울",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1713086",
-      "ts": "2026-08-16T18:21:13.226359+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2009522804",
-      "place_name": "PREQUEL EXHIBITION I COSMOS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
-      "ts": "2026-08-16T19:39:33.338064+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2062024820",
@@ -3120,6 +3154,27 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-08-27T18:23:59.406875+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2067695542",
+      "place_name": "오래오래 함께가게",
+      "booking_url": "",
+      "ts": "2026-08-27T18:40:47.905747+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2039106013",
+      "place_name": "N:DVERSE GARDENING POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
+      "ts": "2026-08-27T18:40:47.905747+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2072608358",
+      "place_name": "[SHAREBOX] AI+XR 팝업스토어 신촌",
+      "booking_url": "",
+      "ts": "2026-08-27T18:40:47.905747+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3196,6 +3251,7 @@
     "2062283789",
     "2064927800",
     "2066415670",
+    "2067695542",
     "2067967922",
     "2069912344",
     "2070762822",
@@ -3203,6 +3259,7 @@
     "2071746450",
     "2071913479",
     "2072326612",
+    "2072608358",
     "2072857611",
     "2073188735",
     "2073241477",
