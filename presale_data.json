@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T13:50:31.556887+09:00",
+  "updated_at": "2026-08-27T13:56:09.038263+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -23,6 +23,7 @@
     "2057558383",
     "2060436986",
     "2072326612",
+    "2072857611",
     "2075951781",
     "2078141397",
     "2083897134",
@@ -656,6 +657,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-20T12:59:52.019858+09:00",
       "lastBookingNotifiedAt": "2026-08-20T13:05:51.749376+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2072857611",
+      "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.15.",
+      "operationEnd": "26.09.23.",
+      "remainingDays": 19,
+      "status": "D-19",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260825_185/1787623893941Ear2l_JPEG/edited-1787623893732-0.jpg",
+      "roadAddress": "성수이로 72",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1688,13 +1715,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-16T08:40:07.310788+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -3087,6 +3107,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-08-27T13:04:58.418189+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2072857611",
+      "place_name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-08-27T13:55:55.735822+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3170,6 +3197,7 @@
     "2071746450",
     "2071913479",
     "2072326612",
+    "2072857611",
     "2073188735",
     "2073241477",
     "2073328330",
