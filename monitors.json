@@ -34,12 +34,7 @@
       "name": "하겐다즈",
       "url": "https://m.booking.naver.com/booking/12/bizes/1713524/items/7944346?area=ple&lang=ko&startDateTime=2026-09-09T00%3A00%3A00%2B09%3A00&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-05",
-        "2026-09-06",
-        "2026-09-12",
-        "2026-09-13"
-      ]
+      "target_dates": []
     }
   ]
 }
