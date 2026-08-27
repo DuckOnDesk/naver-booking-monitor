@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T11:06:13.171628+09:00",
+  "updated_at": "2026-08-27T11:11:55.017891+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -274,6 +274,37 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2090850238",
+      "name": "NCT 127 [BLINGY] POP-UP",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
+      "bookingBusinessId": "1707377",
+      "operationStart": "26.08.25.",
+      "operationEnd": "26.09.01.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_129/1785314053666h5v1H_JPEG/edited-1785314054441-0.jpg",
+      "roadAddress": "성수이로 97 무신사 엠프티 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-19T15:14:47.885800+09:00",
+        "2026-08-26T00:30:08.970442+09:00",
+        "2026-08-27T02:53:51.123128+09:00",
+        "2026-08-27T11:00:18.017969+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-19T15:14:47.885800+09:00",
+      "lastBookingNotifiedAt": "2026-08-19T15:20:44.078026+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2053652128",
       "name": "더얀 XYZ POP UP - 0℃",
       "hasBooking": false,
@@ -381,37 +412,6 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2090850238",
-      "name": "NCT 127 [BLINGY] POP-UP",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
-      "bookingBusinessId": "1707377",
-      "operationStart": "26.08.25.",
-      "operationEnd": "26.09.01.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260729_129/1785314053666h5v1H_JPEG/edited-1785314054441-0.jpg",
-      "roadAddress": "성수이로 97 무신사 엠프티 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-19T15:14:47.885800+09:00",
-        "2026-08-26T00:30:08.970442+09:00",
-        "2026-08-27T02:53:51.123128+09:00",
-        "2026-08-27T11:00:18.017969+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-19T15:14:47.885800+09:00",
-      "lastBookingNotifiedAt": "2026-08-19T15:20:44.078026+09:00",
       "bookingIsOpened": false
     },
     {
