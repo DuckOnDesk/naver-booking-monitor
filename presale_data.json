@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T07:44:35.272825+09:00",
+  "updated_at": "2026-08-28T07:50:12.170961+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -901,7 +901,7 @@
     {
       "id": "2033849367",
       "name": "소머드 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
