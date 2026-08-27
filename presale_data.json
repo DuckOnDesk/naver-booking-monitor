@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-27T13:39:13.114402+09:00",
+  "updated_at": "2026-08-27T13:44:51.288026+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1131,7 +1131,7 @@
     {
       "id": "2039988652",
       "name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "bookingBusinessId": "1714809",
       "operationStart": "26.08.27.",
