@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T09:40:25.740981+09:00",
+  "updated_at": "2026-08-28T09:46:03.512253+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -901,7 +901,7 @@
     {
       "id": "2033849367",
       "name": "소머드 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -909,7 +909,7 @@
       "remainingDays": null,
       "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260812_62/1786522064472mRnsb_JPEG/image.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20251013_270/1760321098578Hjg3h_JPEG/%B8%DE%C0%CE%C0%CC%B9%CC%C1%F6.jpg",
       "roadAddress": "선릉로 704 10층",
       "commonAddress": "서울 강남구",
       "district": "강남구",
@@ -920,7 +920,8 @@
         "2026-08-20T15:00:05.131555+09:00",
         "2026-08-25T11:32:24.899904+09:00",
         "2026-08-28T03:42:43.655554+09:00",
-        "2026-08-28T09:29:01.632234+09:00"
+        "2026-08-28T09:29:01.632234+09:00",
+        "2026-08-28T09:45:50.931015+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1743,13 +1744,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-17T09:26:40.014832+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -3142,6 +3136,13 @@
       "place_name": "소머드 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "ts": "2026-08-28T09:29:01.632234+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-08-28T09:45:50.931015+09:00"
     }
   ],
   "seen_place_ids": [
