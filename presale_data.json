@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T00:58:53.371708+09:00",
+  "updated_at": "2026-08-29T01:04:29.064588+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -46,7 +46,7 @@
     {
       "id": "2076235934",
       "name": "뷰오리 드림니트 @성수 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1704534",
       "bookingBusinessId": "1704534",
       "operationStart": "26.08.13.",
