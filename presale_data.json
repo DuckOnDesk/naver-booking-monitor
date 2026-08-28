@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T18:10:28.812801+09:00",
+  "updated_at": "2026-08-28T18:16:11.124162+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -80,7 +80,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -123,7 +123,8 @@
         "2026-08-27T18:23:59.406875+09:00",
         "2026-08-27T19:42:14.239226+09:00",
         "2026-08-28T11:15:57.326531+09:00",
-        "2026-08-28T17:35:57.303500+09:00"
+        "2026-08-28T17:35:57.303500+09:00",
+        "2026-08-28T18:15:56.333137+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -799,7 +800,7 @@
     {
       "id": "2017034437",
       "name": "명탐정 코난 추리게임 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1524551",
       "bookingBusinessId": "1524551",
       "operationStart": "26.07.17.",
@@ -1835,13 +1836,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071913479",
-      "place_name": "토리든 DEEP DIVE NEWS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711705",
-      "ts": "2026-08-18T03:39:13.858403+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -3234,6 +3228,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-08-28T17:35:57.303500+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-08-28T18:15:56.333137+09:00"
     }
   ],
   "seen_place_ids": [
