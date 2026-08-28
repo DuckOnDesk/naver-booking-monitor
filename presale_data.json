@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T14:27:06.391555+09:00",
+  "updated_at": "2026-08-28T14:32:49.664944+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -633,7 +633,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -648,7 +648,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-08-21T15:07:06.078173+09:00",
-        "2026-08-28T13:58:16.425244+09:00"
+        "2026-08-28T13:58:16.425244+09:00",
+        "2026-08-28T14:32:33.172420+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -716,32 +717,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2072857611",
-      "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.15.",
-      "operationEnd": "26.09.23.",
-      "remainingDays": 18,
-      "status": "D-18",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260825_185/1787623893941Ear2l_JPEG/edited-1787623893732-0.jpg",
-      "roadAddress": "성수이로 72",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2080832507",
       "name": "바이레도 FUTURE MEMORIES 서울 팝업",
       "hasBooking": true,
@@ -765,6 +740,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-28T14:15:40.834275+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2072857611",
+      "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.15.",
+      "operationEnd": "26.09.23.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260825_185/1787623893941Ear2l_JPEG/edited-1787623893732-0.jpg",
+      "roadAddress": "성수이로 72",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1830,13 +1831,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-17T19:27:23.335630+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -3229,6 +3223,13 @@
       "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "ts": "2026-08-28T13:58:16.425244+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-08-28T14:32:33.172420+09:00"
     }
   ],
   "seen_place_ids": [
