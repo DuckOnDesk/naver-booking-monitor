@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T20:30:36.108874+09:00",
+  "updated_at": "2026-08-28T20:36:14.747435+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -721,32 +721,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2072857611",
-      "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.15.",
-      "operationEnd": "26.09.23.",
-      "remainingDays": 18,
-      "status": "D-18",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260825_185/1787623893941Ear2l_JPEG/edited-1787623893732-0.jpg",
-      "roadAddress": "성수이로 72",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2080832507",
       "name": "바이레도 FUTURE MEMORIES 서울 팝업",
       "hasBooking": true,
@@ -770,6 +744,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-28T14:15:40.834275+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2072857611",
+      "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.15.",
+      "operationEnd": "26.09.23.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260825_185/1787623893941Ear2l_JPEG/edited-1787623893732-0.jpg",
+      "roadAddress": "성수이로 72",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -801,7 +801,7 @@
     {
       "id": "2017034437",
       "name": "명탐정 코난 추리게임 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1524551",
       "bookingBusinessId": "1524551",
       "operationStart": "26.07.17.",
@@ -816,7 +816,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-07-22T16:10:57.904712+09:00",
-        "2026-08-28T17:18:39.677563+09:00"
+        "2026-08-28T17:18:39.677563+09:00",
+        "2026-08-28T20:36:00.712185+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1837,13 +1838,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-18T09:13:23.338308+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2075951781",
@@ -3236,6 +3230,13 @@
       "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "ts": "2026-08-28T20:13:31.365957+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2017034437",
+      "place_name": "명탐정 코난 추리게임 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1524551",
+      "ts": "2026-08-28T20:36:00.712185+09:00"
     }
   ],
   "seen_place_ids": [
