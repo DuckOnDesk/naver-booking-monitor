@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T16:21:36.769354+09:00",
+  "updated_at": "2026-08-28T16:27:20.622671+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -797,7 +797,7 @@
     {
       "id": "2017034437",
       "name": "명탐정 코난 추리게임 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1524551",
       "bookingBusinessId": "1524551",
       "operationStart": "26.07.17.",
@@ -905,7 +905,7 @@
     {
       "id": "2057558383",
       "name": "위아자 에코빌리지 '지구우체국' 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
       "operationStart": "26.10.23.",
