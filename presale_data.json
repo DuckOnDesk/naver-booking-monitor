@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T02:50:20.173216+09:00",
+  "updated_at": "2026-08-29T02:55:53.915686+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -277,7 +277,7 @@
     {
       "id": "2090850238",
       "name": "NCT 127 [BLINGY] POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "bookingBusinessId": "1707377",
       "operationStart": "26.08.25.",
@@ -297,7 +297,8 @@
         "2026-08-27T11:00:18.017969+09:00",
         "2026-08-27T14:35:37.874674+09:00",
         "2026-08-27T18:18:24.607034+09:00",
-        "2026-08-28T01:32:59.277067+09:00"
+        "2026-08-28T01:32:59.277067+09:00",
+        "2026-08-29T02:55:42.958992+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -643,32 +644,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2080832507",
-      "name": "바이레도 FUTURE MEMORIES 서울 팝업",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717191",
-      "bookingBusinessId": "1717191",
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.09.20.",
-      "remainingDays": 13,
-      "status": "D-13",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260826_88/1787716636058kKGLN_JPEG/image.jpg",
-      "roadAddress": "연무장11길 7",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-28T14:15:40.834275+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2072857611",
       "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
       "hasBooking": false,
@@ -692,6 +667,32 @@
       "bookingNotified": false,
       "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2080832507",
+      "name": "바이레도 FUTURE MEMORIES 서울 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717191",
+      "bookingBusinessId": "1717191",
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.09.20.",
+      "remainingDays": 13,
+      "status": "D-13",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260826_88/1787716636058kKGLN_JPEG/image.jpg",
+      "roadAddress": "연무장11길 7",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-28T14:15:40.834275+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1735,13 +1736,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-18T12:50:03.186101+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2075951781",
@@ -3134,6 +3128,13 @@
       "place_name": "명탐정 코난 추리게임 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1524551",
       "ts": "2026-08-29T00:21:09.774416+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2090850238",
+      "place_name": "NCT 127 [BLINGY] POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
+      "ts": "2026-08-29T02:55:42.958992+09:00"
     }
   ],
   "seen_place_ids": [
