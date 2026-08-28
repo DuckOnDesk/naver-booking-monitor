@@ -94,16 +94,16 @@ def main() -> int:
                     "stock": 2, "bookingCount": 0} for d in D]
         dispatched.clear()
         cb.sweep_auto_book_period(item_with([]), "t1", URL, PARSED, summary, period,
-                                  {D[0]}, None, "", {})
+                                  {D[0]}, "", {})
         check(dispatched == [D[1], D[2], D[3], D[4]],
               f"이미 확인한 날짜만 빼고 기간 전체를 훑음 (시도: {len(dispatched)}일)")
         dispatched.clear()
         cb.sweep_auto_book_period(item_with([D[1]]), "t1", URL, PARSED, summary, period,
-                                  set(), None, "", {})
+                                  set(), "", {})
         check(not dispatched, "날짜를 지정한 항목은 스윕하지 않음")
         dispatched.clear()
         cb.sweep_auto_book_period(item_with([]), "t1", URL, PARSED, summary, (None, None),
-                                  set(), None, "", {})
+                                  set(), "", {})
         check(not dispatched, "예약 기간을 모르면 스윕하지 않음")
 
         print("6) check_all 한 회차 — 감시 날짜 1개 + 자동예약 날짜 미지정")
