@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T10:36:33.374392+09:00",
+  "updated_at": "2026-08-28T10:42:11.467224+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -27,6 +27,7 @@
     "2072857611",
     "2075951781",
     "2078141397",
+    "2080864780",
     "2083897134",
     "2090850238",
     "manual-1672804-7977719"
@@ -514,6 +515,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2080864780",
+      "name": "시몬스 갤러리 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.03.",
+      "operationEnd": "26.09.05.",
+      "remainingDays": 6,
+      "status": "D-6",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260827_193/17878300841003qrrX_JPEG/%BD%C3%B8%F3%BD%BA_%B0%B6%B7%AF%B8%AE_%BC%BA%BC%F6_%B0%A3%C6%C7.jpg",
+      "roadAddress": "아차산로9길 41 시몬스 갤러리 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-28T10:41:59.146656+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1744,13 +1771,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-17T10:50:06.679652+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -3143,6 +3163,13 @@
       "place_name": "소머드 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "ts": "2026-08-28T09:45:50.931015+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2080864780",
+      "place_name": "시몬스 갤러리 성수",
+      "booking_url": "",
+      "ts": "2026-08-28T10:41:59.146656+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3237,6 +3264,7 @@
     "2076235934",
     "2078141397",
     "2080832507",
+    "2080864780",
     "2082644987",
     "2083897134",
     "2084130717",
