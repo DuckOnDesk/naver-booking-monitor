@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T23:02:29.664593+09:00",
+  "updated_at": "2026-08-28T23:08:06.320678+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1697,7 +1697,7 @@
     {
       "id": "2029718179",
       "name": "명조 & 도미노피자 콜라보 특별 콘서트 피자 세미팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707776",
       "bookingBusinessId": "1707776",
       "operationStart": "26.08.29.",
