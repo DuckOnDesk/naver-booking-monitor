@@ -1,10 +1,11 @@
 {
-  "updated_at": "2026-08-28T11:27:29.168854+09:00",
+  "updated_at": "2026-08-28T11:33:08.568599+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
     "2006916982",
     "2009756357",
+    "2011407355",
     "2015464753",
     "2023497014",
     "2024393757",
@@ -840,6 +841,34 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": null,
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2011407355",
+      "name": "달빛천사 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1589880",
+      "bookingBusinessId": "1589880",
+      "operationStart": "26.02.26.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260220_239/1771546565707N5m6S_PNG/%B4%DE%C3%B5%C6%CB%BE%F7_%C1%A4%BA%B8%C7%D8%B1%DD.png",
+      "roadAddress": "양화로 188 4F LIMITION",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-28T11:32:55.050298+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-28T11:32:55.050298+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1772,13 +1801,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2062024820",
-      "place_name": "TFT 와일드 팬페스트 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1693898",
-      "ts": "2026-08-17T13:23:31.281657+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -3171,6 +3193,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-08-28T11:15:57.326531+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2011407355",
+      "place_name": "달빛천사 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1589880",
+      "ts": "2026-08-28T11:32:55.050298+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3191,6 +3220,7 @@
     "2007641747",
     "2009522804",
     "2009756357",
+    "2011407355",
     "2012113406",
     "2015464753",
     "2017034437",
