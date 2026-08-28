@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T00:51:51.761407+09:00",
+  "updated_at": "2026-08-29T00:52:20.652398+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1592,6 +1592,35 @@
       "bookingIsOpened": false
     },
     {
+      "id": "manual-1672804-7977719",
+      "name": "(이름 미확인)",
+      "hasBooking": true,
+      "bookingUrl": "https://booking.naver.com/booking/12/bizes/1672804/items/7977719?fbclid=PAb21jcAT6xVVwZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4ufet4Z0ovNWgByq_ch1yc5KDoEJdRwfPe519xJC4aImOb0Zy2QNWbfY93V_aem_zWAWadHuIEsNYISLprBE6w&startDateTime=2026-08-28T00%3A00%3A00%2B09%3A00&tab=book&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
+      "bookingBusinessId": "1672804",
+      "operationStart": null,
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": null,
+      "admissionCondition": null,
+      "imageUrl": null,
+      "roadAddress": null,
+      "commonAddress": null,
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-26T13:26:34.721633+09:00"
+      ],
+      "bookingOpenAuto": "2026-08-21T10:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-08-26T13:26:46.393779+09:00",
+      "bookingPaused": false,
+      "bookingIsOpened": true,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-26T13:26:34.721633+09:00",
+      "isManual": true,
+      "lastBookingNotifiedAt": "2026-08-26T13:26:47.004547+09:00"
+    },
+    {
       "id": "2029718179",
       "name": "명조 & 도미노피자 콜라보 특별 콘서트 피자 세미팝업",
       "hasBooking": false,
@@ -1703,35 +1732,6 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00",
       "bookingIsOpened": false
-    },
-    {
-      "id": "manual-1672804-7977719",
-      "name": "(이름 미확인)",
-      "hasBooking": true,
-      "bookingUrl": "https://booking.naver.com/booking/12/bizes/1672804/items/7977719?fbclid=PAb21jcAT6xVVwZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4ufet4Z0ovNWgByq_ch1yc5KDoEJdRwfPe519xJC4aImOb0Zy2QNWbfY93V_aem_zWAWadHuIEsNYISLprBE6w&startDateTime=2026-08-28T00%3A00%3A00%2B09%3A00&tab=book&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
-      "bookingBusinessId": "1672804",
-      "operationStart": null,
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": null,
-      "admissionCondition": null,
-      "imageUrl": null,
-      "roadAddress": null,
-      "commonAddress": null,
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-26T13:26:34.721633+09:00"
-      ],
-      "bookingOpenAuto": "2026-08-21T10:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-08-26T13:26:46.393779+09:00",
-      "bookingPaused": false,
-      "bookingIsOpened": true,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-26T13:26:34.721633+09:00",
-      "isManual": true,
-      "lastBookingNotifiedAt": "2026-08-26T13:26:47.004547+09:00"
     }
   ],
   "alerts": [
