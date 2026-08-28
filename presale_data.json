@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T00:15:40.733371+09:00",
+  "updated_at": "2026-08-29T00:21:22.998943+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -471,36 +471,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2033013073",
-      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
-      "bookingBusinessId": "1713524",
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
-      "roadAddress": "아차산로 84 1-2 F",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-28T00:31:26.144563+09:00",
-        "2026-08-28T20:13:31.365957+09:00",
-        "2026-08-28T23:19:07.923104+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-28T00:31:37.660224+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2005894077",
       "name": "스토케 요요5 서울숲하우스",
       "hasBooking": true,
@@ -529,29 +499,33 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2000187386",
-      "name": "집집 chapter 02 in 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.24.",
-      "operationEnd": "26.10.25.",
-      "remainingDays": 56,
-      "status": "D-56",
+      "id": "2033013073",
+      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
+      "bookingBusinessId": "1713524",
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 7,
+      "status": "D-7",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_238/1786524585715lK4RO_JPEG/edited-1786524585508-0.jpg",
-      "roadAddress": "성수이로 50 SPACE S50",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
+      "roadAddress": "아차산로 84 1-2 F",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-28T00:31:26.144563+09:00",
+        "2026-08-28T20:13:31.365957+09:00",
+        "2026-08-28T23:19:07.923104+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-12T18:12:25.888287+09:00",
-      "lastBookingNotifiedAt": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-28T00:31:37.660224+09:00",
       "bookingIsOpened": false
     },
     {
@@ -584,6 +558,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-21T14:44:12.661132+09:00",
       "lastBookingNotifiedAt": "2026-08-21T15:07:20.693685+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2000187386",
+      "name": "집집 chapter 02 in 성수",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.24.",
+      "operationEnd": "26.10.25.",
+      "remainingDays": 56,
+      "status": "D-56",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_238/1786524585715lK4RO_JPEG/edited-1786524585508-0.jpg",
+      "roadAddress": "성수이로 50 SPACE S50",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-12T18:12:25.888287+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -723,7 +723,7 @@
     {
       "id": "2017034437",
       "name": "명탐정 코난 추리게임 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1524551",
       "bookingBusinessId": "1524551",
       "operationStart": "26.07.17.",
@@ -739,7 +739,8 @@
       "bookingOpenHistory": [
         "2026-07-22T16:10:57.904712+09:00",
         "2026-08-28T17:18:39.677563+09:00",
-        "2026-08-28T20:36:00.712185+09:00"
+        "2026-08-28T20:36:00.712185+09:00",
+        "2026-08-29T00:21:09.774416+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1734,13 +1735,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009522804",
-      "place_name": "PREQUEL EXHIBITION I COSMOS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
-      "ts": "2026-08-18T12:10:45.694537+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -3133,6 +3127,13 @@
       "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "ts": "2026-08-28T23:58:28.488993+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2017034437",
+      "place_name": "명탐정 코난 추리게임 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1524551",
+      "ts": "2026-08-29T00:21:09.774416+09:00"
     }
   ],
   "seen_place_ids": [
