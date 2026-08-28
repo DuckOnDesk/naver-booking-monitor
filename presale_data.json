@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T00:09:59.012245+09:00",
+  "updated_at": "2026-08-29T00:15:40.733371+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -471,6 +471,36 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2033013073",
+      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
+      "bookingBusinessId": "1713524",
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
+      "roadAddress": "아차산로 84 1-2 F",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-28T00:31:26.144563+09:00",
+        "2026-08-28T20:13:31.365957+09:00",
+        "2026-08-28T23:19:07.923104+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-28T00:31:37.660224+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2005894077",
       "name": "스토케 요요5 서울숲하우스",
       "hasBooking": true,
@@ -522,36 +552,6 @@
       "bookingNotified": false,
       "discoveredAt": "2026-08-12T18:12:25.888287+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2033013073",
-      "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
-      "bookingBusinessId": "1713524",
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260806_196/1785990479288wf9We_JPEG/edited-1785990479184-0.jpg",
-      "roadAddress": "아차산로 84 1-2 F",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-28T00:31:26.144563+09:00",
-        "2026-08-28T20:13:31.365957+09:00",
-        "2026-08-28T23:19:07.923104+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-28T00:31:37.660224+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1599,7 +1599,7 @@
       "operationStart": "26.08.29.",
       "operationEnd": "26.08.29.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260819_260/1787150853248e4EU1_JPEG/edited-1787150852711-0.jpg",
       "roadAddress": "안암로 145 화정체육관 지하주차장 입구",
