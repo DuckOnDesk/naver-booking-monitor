@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T16:44:29.716890+09:00",
+  "updated_at": "2026-08-28T16:50:14.875938+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -633,7 +633,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -649,7 +649,8 @@
       "bookingOpenHistory": [
         "2026-08-21T15:07:06.078173+09:00",
         "2026-08-28T13:58:16.425244+09:00",
-        "2026-08-28T14:32:33.172420+09:00"
+        "2026-08-28T14:32:33.172420+09:00",
+        "2026-08-28T16:50:01.360641+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1832,13 +1833,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-17T23:09:57.321325+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2032034855",
@@ -3231,6 +3225,13 @@
       "place_name": "위아자 에코빌리지 '지구우체국' 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "ts": "2026-08-28T15:35:28.613419+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-08-28T16:50:01.360641+09:00"
     }
   ],
   "seen_place_ids": [
