@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T09:23:38.013357+09:00",
+  "updated_at": "2026-08-28T09:29:14.505086+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -901,7 +901,7 @@
     {
       "id": "2033849367",
       "name": "소머드 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -919,7 +919,8 @@
         "2026-08-20T09:49:03.728056+09:00",
         "2026-08-20T15:00:05.131555+09:00",
         "2026-08-25T11:32:24.899904+09:00",
-        "2026-08-28T03:42:43.655554+09:00"
+        "2026-08-28T03:42:43.655554+09:00",
+        "2026-08-28T09:29:01.632234+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1742,13 +1743,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-17T05:42:34.696950+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2062024820",
@@ -3141,6 +3135,13 @@
       "place_name": "소머드 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "ts": "2026-08-28T03:42:43.655554+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-08-28T09:29:01.632234+09:00"
     }
   ],
   "seen_place_ids": [
