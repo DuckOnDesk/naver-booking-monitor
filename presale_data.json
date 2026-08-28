@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-28T15:29:58.869951+09:00",
+  "updated_at": "2026-08-28T15:35:42.906757+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -717,32 +717,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2072857611",
-      "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.15.",
-      "operationEnd": "26.09.23.",
-      "remainingDays": 18,
-      "status": "D-18",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260825_185/1787623893941Ear2l_JPEG/edited-1787623893732-0.jpg",
-      "roadAddress": "성수이로 72",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2080832507",
       "name": "바이레도 FUTURE MEMORIES 서울 팝업",
       "hasBooking": true,
@@ -766,6 +740,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-28T14:15:40.834275+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2072857611",
+      "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.15.",
+      "operationEnd": "26.09.23.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260825_185/1787623893941Ear2l_JPEG/edited-1787623893732-0.jpg",
+      "roadAddress": "성수이로 72",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -905,7 +905,7 @@
     {
       "id": "2057558383",
       "name": "위아자 에코빌리지 '지구우체국' 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
       "operationStart": "26.10.23.",
@@ -920,7 +920,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-08-26T11:38:23.262083+09:00",
-        "2026-08-26T14:17:09.109605+09:00"
+        "2026-08-26T14:17:09.109605+09:00",
+        "2026-08-28T15:35:28.613419+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1831,13 +1832,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-17T21:57:43.072489+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -3230,6 +3224,13 @@
       "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "ts": "2026-08-28T14:32:33.172420+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057558383",
+      "place_name": "위아자 에코빌리지 '지구우체국' 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
+      "ts": "2026-08-28T15:35:28.613419+09:00"
     }
   ],
   "seen_place_ids": [
