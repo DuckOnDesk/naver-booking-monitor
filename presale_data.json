@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T19:00:51.548498+09:00",
+  "updated_at": "2026-08-29T19:06:30.959847+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1502,9 +1502,9 @@
     {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1547457",
+      "bookingBusinessId": "1547457",
       "operationStart": "25.12.25.",
       "operationEnd": null,
       "remainingDays": null,
@@ -1515,14 +1515,16 @@
       "commonAddress": "서울 서대문구",
       "district": "서대문구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-08-29T19:06:16.548776+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-08-29T19:06:29.766744+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1747,13 +1749,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-18T19:44:44.741136+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -3146,6 +3141,13 @@
       "place_name": "판도라 플레이그라운드: Pick & Play",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "ts": "2026-08-29T17:47:06.939529+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2036674429",
+      "place_name": "소녀전선2 망명 갤러리",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
+      "ts": "2026-08-29T19:06:16.548776+09:00"
     }
   ],
   "seen_place_ids": [
