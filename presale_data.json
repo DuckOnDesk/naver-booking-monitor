@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T17:41:39.704605+09:00",
+  "updated_at": "2026-08-29T17:47:19.669290+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -80,7 +80,7 @@
     {
       "id": "2075951781",
       "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "bookingBusinessId": "1712461",
       "operationStart": "26.08.25.",
@@ -99,7 +99,8 @@
         "2026-08-28T03:03:25.106563+09:00",
         "2026-08-29T05:43:01.516751+09:00",
         "2026-08-29T10:30:54.369251+09:00",
-        "2026-08-29T14:13:44.251394+09:00"
+        "2026-08-29T14:13:44.251394+09:00",
+        "2026-08-29T17:47:06.939529+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1748,13 +1749,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-18T19:39:09.263884+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2027174717",
       "place_name": "조 말론 런던 팝업스토어 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
@@ -3145,6 +3139,13 @@
       "place_name": "NCT 127 [BLINGY] POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "ts": "2026-08-29T16:21:48.789450+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2075951781",
+      "place_name": "판도라 플레이그라운드: Pick & Play",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
+      "ts": "2026-08-29T17:47:06.939529+09:00"
     }
   ],
   "seen_place_ids": [
