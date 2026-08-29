@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T07:18:39.574892+09:00",
+  "updated_at": "2026-08-30T07:24:14.870680+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -286,7 +286,7 @@
     {
       "id": "2090850238",
       "name": "NCT 127 [BLINGY] POP-UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "bookingBusinessId": "1707377",
       "operationStart": "26.08.25.",
