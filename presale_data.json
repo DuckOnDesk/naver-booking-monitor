@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T22:29:22.139481+09:00",
+  "updated_at": "2026-08-29T22:34:59.435471+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1505,7 +1505,7 @@
     {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1547457",
       "bookingBusinessId": "1547457",
       "operationStart": "25.12.25.",
@@ -1519,7 +1519,8 @@
       "district": "서대문구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-08-29T19:06:16.548776+09:00"
+        "2026-08-29T19:06:16.548776+09:00",
+        "2026-08-29T22:34:46.167394+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1752,13 +1753,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-19T00:51:10.513610+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -3151,6 +3145,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-08-29T22:12:18.249300+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2036674429",
+      "place_name": "소녀전선2 망명 갤러리",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
+      "ts": "2026-08-29T22:34:46.167394+09:00"
     }
   ],
   "seen_place_ids": [
