@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T19:34:41.153783+09:00",
+  "updated_at": "2026-08-29T19:40:19.298938+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -80,7 +80,7 @@
     {
       "id": "2075951781",
       "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "bookingBusinessId": "1712461",
       "operationStart": "26.08.25.",
