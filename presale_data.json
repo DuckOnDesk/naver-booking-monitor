@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T03:36:14.789019+09:00",
+  "updated_at": "2026-08-30T03:41:45.622117+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1341,7 +1341,7 @@
     {
       "id": "2033849367",
       "name": "소머드 롯데본점 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -1361,7 +1361,8 @@
         "2026-08-25T11:32:24.899904+09:00",
         "2026-08-28T03:42:43.655554+09:00",
         "2026-08-28T09:29:01.632234+09:00",
-        "2026-08-28T09:45:50.931015+09:00"
+        "2026-08-28T09:45:50.931015+09:00",
+        "2026-08-30T03:41:35.840086+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1727,13 +1728,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-19T03:56:57.781995+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -3126,6 +3120,13 @@
       "place_name": "NCT 127 [BLINGY] POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "ts": "2026-08-30T01:23:48.915245+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 롯데본점 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-08-30T03:41:35.840086+09:00"
     }
   ],
   "seen_place_ids": [
