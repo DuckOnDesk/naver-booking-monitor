@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-29T10:42:22.774887+09:00",
+  "updated_at": "2026-08-29T10:48:01.673338+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -74,6 +74,38 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-05T09:36:05.325450+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2075951781",
+      "name": "판도라 플레이그라운드: Pick & Play",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712461",
+      "bookingBusinessId": "1712461",
+      "operationStart": "26.08.25.",
+      "operationEnd": "26.08.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-27T11:57:16.326674+09:00",
+        "2026-08-27T21:32:37.748421+09:00",
+        "2026-08-28T03:03:25.106563+09:00",
+        "2026-08-29T05:43:01.516751+09:00",
+        "2026-08-29T10:30:54.369251+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-27T11:57:29.939190+09:00",
       "bookingIsOpened": false
     },
     {
@@ -160,38 +192,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-04T18:22:54.164398+09:00",
       "lastBookingNotifiedAt": "2026-08-16T18:21:24.467418+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2075951781",
-      "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712461",
-      "bookingBusinessId": "1712461",
-      "operationStart": "26.08.25.",
-      "operationEnd": "26.08.31.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260812_63/1786524381149vhpC7_JPEG/edited-1786524380110-0.jpg",
-      "roadAddress": "연무장길 99",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-27T11:57:16.326674+09:00",
-        "2026-08-27T21:32:37.748421+09:00",
-        "2026-08-28T03:03:25.106563+09:00",
-        "2026-08-29T05:43:01.516751+09:00",
-        "2026-08-29T10:30:54.369251+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-27T11:57:29.939190+09:00",
       "bookingIsOpened": false
     },
     {
