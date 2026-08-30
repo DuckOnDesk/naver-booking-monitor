@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T16:10:37.337538+09:00",
+  "updated_at": "2026-08-30T16:16:12.845798+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -549,7 +549,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -568,7 +568,8 @@
         "2026-08-28T14:32:33.172420+09:00",
         "2026-08-28T16:50:01.360641+09:00",
         "2026-08-28T23:58:28.488993+09:00",
-        "2026-08-29T03:29:08.071008+09:00"
+        "2026-08-29T03:29:08.071008+09:00",
+        "2026-08-30T16:16:01.645083+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1733,13 +1734,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-19T10:34:43.478247+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2057128614",
@@ -3132,6 +3126,13 @@
       "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "ts": "2026-08-30T16:10:25.264633+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-08-30T16:16:01.645083+09:00"
     }
   ],
   "seen_place_ids": [
