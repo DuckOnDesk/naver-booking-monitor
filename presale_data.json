@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T22:20:28.192348+09:00",
+  "updated_at": "2026-08-30T22:26:04.622032+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -288,7 +288,7 @@
     {
       "id": "2090850238",
       "name": "NCT 127 [BLINGY] POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "bookingBusinessId": "1707377",
       "operationStart": "26.08.25.",
@@ -315,7 +315,8 @@
         "2026-08-29T20:02:43.752586+09:00",
         "2026-08-30T01:23:48.915245+09:00",
         "2026-08-30T09:10:14.989317+09:00",
-        "2026-08-30T16:43:58.717548+09:00"
+        "2026-08-30T16:43:58.717548+09:00",
+        "2026-08-30T22:25:52.257715+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1738,13 +1739,6 @@
   ],
   "alerts": [
     {
-      "type": "booking_open",
-      "place_id": "2071913479",
-      "place_name": "토리든 DEEP DIVE NEWS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1711705",
-      "ts": "2026-08-19T14:57:47.215505+09:00"
-    },
-    {
       "type": "new_popup",
       "place_id": "2090850238",
       "place_name": "NCT 127 [BLINGY] POP-UP",
@@ -3136,6 +3130,13 @@
       "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "ts": "2026-08-30T21:24:09.541668+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2090850238",
+      "place_name": "NCT 127 [BLINGY] POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
+      "ts": "2026-08-30T22:25:52.257715+09:00"
     }
   ],
   "seen_place_ids": [
