@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T08:47:14.615674+09:00",
+  "updated_at": "2026-08-31T08:52:50.424644+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -850,32 +850,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-24T12:41:21.515427+09:00",
       "lastBookingNotifiedAt": "2026-08-25T11:44:08.456187+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2062168566",
-      "name": "삼성스토어 청담",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.08.25.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260828_156/1787880204464Ih0ep_JPEG/edited-1787880098808-0.jpg",
-      "roadAddress": "도산대로 336",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
