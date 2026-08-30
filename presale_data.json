@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T21:41:12.107828+09:00",
+  "updated_at": "2026-08-30T21:46:49.021223+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1652,7 +1652,7 @@
     {
       "id": "2001371441",
       "name": "SEGA 미니 뮤지엄 <세가 : 즐거움의 여정>",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1640758",
       "bookingBusinessId": "1640758",
       "operationStart": "26.05.01.",
