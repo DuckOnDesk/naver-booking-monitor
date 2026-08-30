@@ -21,6 +21,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1713524/items/7944346?area=ple&lang=ko&startDateTime=2026-09-09T00%3A00%3A00%2B09%3A00&theme=place",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mtfxudnp",
+      "name": "바이레도",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1717191/items/7962309",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
