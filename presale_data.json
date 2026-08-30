@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T07:38:04.267108+09:00",
+  "updated_at": "2026-08-31T07:43:37.846173+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1016,7 +1016,7 @@
     {
       "id": "2039106013",
       "name": "N:DVERSE GARDENING POP-UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "bookingBusinessId": "1718123",
       "operationStart": "26.09.03.",
