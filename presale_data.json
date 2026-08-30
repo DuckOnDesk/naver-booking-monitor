@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T16:38:34.781843+09:00",
+  "updated_at": "2026-08-30T16:44:09.944720+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -287,7 +287,7 @@
     {
       "id": "2090850238",
       "name": "NCT 127 [BLINGY] POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "bookingBusinessId": "1707377",
       "operationStart": "26.08.25.",
@@ -313,7 +313,8 @@
         "2026-08-29T16:21:48.789450+09:00",
         "2026-08-29T20:02:43.752586+09:00",
         "2026-08-30T01:23:48.915245+09:00",
-        "2026-08-30T09:10:14.989317+09:00"
+        "2026-08-30T09:10:14.989317+09:00",
+        "2026-08-30T16:43:58.717548+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1736,13 +1737,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-19T12:11:05.412263+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2009522804",
       "place_name": "PREQUEL EXHIBITION I COSMOS",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
@@ -3133,6 +3127,13 @@
       "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "ts": "2026-08-30T16:16:01.645083+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2090850238",
+      "place_name": "NCT 127 [BLINGY] POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
+      "ts": "2026-08-30T16:43:58.717548+09:00"
     }
   ],
   "seen_place_ids": [
