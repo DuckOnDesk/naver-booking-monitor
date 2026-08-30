@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T22:26:04.622032+09:00",
+  "updated_at": "2026-08-30T22:31:41.689372+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -108,7 +108,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -158,7 +158,8 @@
         "2026-08-29T19:28:49.951138+09:00",
         "2026-08-29T23:05:37.393339+09:00",
         "2026-08-30T11:08:57.095104+09:00",
-        "2026-08-30T17:56:39.502865+09:00"
+        "2026-08-30T17:56:39.502865+09:00",
+        "2026-08-30T22:31:29.328169+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1739,13 +1740,6 @@
   ],
   "alerts": [
     {
-      "type": "new_popup",
-      "place_id": "2090850238",
-      "place_name": "NCT 127 [BLINGY] POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
-      "ts": "2026-08-19T15:14:47.885800+09:00"
-    },
-    {
       "type": "booking_open",
       "place_id": "2057128614",
       "place_name": "스픽 2026 영어울렁증 퇴마식",
@@ -3137,6 +3131,13 @@
       "place_name": "NCT 127 [BLINGY] POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "ts": "2026-08-30T22:25:52.257715+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-08-30T22:31:29.328169+09:00"
     }
   ],
   "seen_place_ids": [
