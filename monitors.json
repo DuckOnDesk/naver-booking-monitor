@@ -2,13 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "msyj9hhn",
-      "name": "뷰티쁠",
-      "url": "https://booking.naver.com/booking/12/bizes/666200/items/7972440",
-      "enabled": true,
-      "target_dates": []
-    },
-    {
       "id": "mt187ihw",
       "name": "귤메달",
       "url": "https://m.booking.naver.com/booking/6/bizes/1631459/items/7971943?service-target=map-pc&startDate=2026-08-18",
