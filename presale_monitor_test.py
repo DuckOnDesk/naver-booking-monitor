@@ -14,6 +14,7 @@
 사용법: python presale_monitor_test.py
 """
 
+import json
 import sys
 from datetime import datetime, timedelta
 
@@ -50,6 +51,7 @@ def place(**kw):
 
 def main() -> int:
     real_fetch = pm.fetch_bookable_setting
+    real_fetch_places = pm.fetch_presale_places
 
     print("1) booking_open_from_setting — 오픈 예정 시각 추출")
     check(pm.booking_open_from_setting(
@@ -122,7 +124,7 @@ def main() -> int:
     check(m["district"] == "성동구" and m["hasBooking"] is False, "지역 유지, 초기 hasBooking=False")
 
     print("8) check_once — 지도 검색에 없어도 manual_places는 유지")
-    pm.fetch_presale_places = lambda area: []          # 검색 결과 없음
+    pm.fetch_presale_places = lambda area, stats=None: []   # 검색 결과 없음
     pm.fetch_bookable_setting = lambda u, b: {"isPaused": False, "isUseOpen": True,
                                               "openDateTime": FUTURE.isoformat(), "isOpened": True}
     pm.load_prev_alerts = lambda: []
@@ -132,8 +134,8 @@ def main() -> int:
     pm.send_ntfy = lambda *a, **k: None
     pm.send_toast = lambda *a, **k: None
     saved = {}
-    pm.save_data = lambda places, cfg, alerts=None, seen_ids=None: saved.update(
-        {"places": places, "config": cfg})
+    pm.save_data = lambda places, cfg, alerts=None, seen_ids=None, discovery_stats=None: \
+        saved.update({"places": places, "config": cfg, "stats": discovery_stats})
     pm.CONFIG_FILE = type("P", (), {"write_text": staticmethod(lambda *a, **k: None),
                                     "name": "presale_config.json"})()
 
@@ -148,7 +150,69 @@ def main() -> int:
     check("manual-1707570-7913541" in [str(x) for x in cfg.get("watched_places", [])],
           "watched_places에 자동 추가")
 
+    stats = saved.get("stats") or {}
+    check(stats.get("areas_total") == 1 and stats.get("new_places") == 1,
+          f"탐색 통계가 저장됨 ({stats.get('areas_ok')}/{stats.get('areas_total')} 성공, "
+          f"신규 {stats.get('new_places')}건)")
+
     pm.fetch_bookable_setting = real_fetch
+
+    print()
+    print("9) 탐색 상태 집계 — admissionCondition 분포와 실패 지역 수")
+    pm.fetch_presale_places = real_fetch_places
+    apollo = {
+        "a": {"id": "1", "name": "가", "admissionCondition": {"name": "사전예약"}},
+        "b": {"id": "2", "name": "나", "admissionCondition": {"name": "현장방문"}},
+        "c": {"id": "3", "name": "다", "admissionCondition": None},
+        "d": {"__typename": "Other"},                      # 팝업 항목 아님
+    }
+    real_session_get = pm.SESSION.get
+    pm.SESSION.get = lambda url, **kw: type("R", (), {
+        "text": "window.__APOLLO_STATE__ = " + json.dumps(apollo) + ";</script>",
+        "status_code": 200, "encoding": "utf-8"})()
+    fstats: dict = {}
+    got = pm.fetch_presale_places({"query": "성수 팝업", "x": "1", "y": "2"}, fstats)
+    check(got is not None and len(got) == 1, "사전예약 항목만 수집")
+    check(fstats.get("areas_ok") == 1 and fstats.get("candidate_items") == 3,
+          f"후보 수 집계 (candidate_items={fstats.get('candidate_items')})")
+    check(fstats.get("admission_names", {}).get("현장방문") == 1
+          and fstats.get("admission_names", {}).get("(없음)") == 1,
+          f"admissionCondition 분포 집계 ({fstats.get('admission_names')})")
+
+    def _boom(url, **kw):
+        raise RuntimeError("네트워크 끊김")
+    pm.SESSION.get = _boom
+    check(pm.fetch_presale_places({"query": "성수 팝업", "x": "1", "y": "2"}, fstats) is None,
+          "조회 실패는 None")
+    check(fstats.get("areas_failed") == 1, "실패 지역 수 집계")
+    pm.SESSION.get = real_session_get
+
+    print()
+    print("10) 신규 정체 경고 — 오래 신규가 없으면 한 번만 알림")
+    queued: list = []
+    real_queue = pm._queue_ntfy
+    pm._queue_ntfy = lambda title, body, url: queued.append(title)
+    cfg8 = {"areas": [], "discovery_stale_hours": 48}
+    fresh = {"areas_ok": 1, "areas_total": 1, "areas_failed": 0, "candidate_items": 3,
+             "presale_items": 1, "after_district_filter": 1, "tracked_places": 1,
+             "new_places": 0, "admission_names": {},
+             "last_new_place_at": (datetime.now(KST) - timedelta(hours=3)).isoformat(),
+             "stale_warned_at": None}
+    pm.report_discovery(dict(fresh), cfg8, "")
+    check(not queued, "3시간 전 신규가 있으면 경고 없음")
+
+    stale = dict(fresh, last_new_place_at=(datetime.now(KST) - timedelta(days=3)).isoformat())
+    pm.report_discovery(stale, cfg8, "")
+    check(len(queued) == 1, "3일째 신규 0건이면 경고 발송")
+    check(stale.get("stale_warned_at"), "경고 발송 시각 기록")
+
+    pm.report_discovery(dict(stale), cfg8, "")
+    check(len(queued) == 1, "24시간 안에는 같은 경고 재발송 안 함")
+
+    old_warn = dict(stale, stale_warned_at=(datetime.now(KST) - timedelta(days=2)).isoformat())
+    pm.report_discovery(old_warn, cfg8, "")
+    check(len(queued) == 2, "24시간이 지나면 다시 경고")
+    pm._queue_ntfy = real_queue
 
     print()
     if fails:
