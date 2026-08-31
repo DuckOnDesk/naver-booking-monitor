@@ -731,7 +731,14 @@ async function load() {
     const ts = data.updated_at
       ? new Date(data.updated_at).toLocaleString('ko-KR', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})
       : '-';
-    document.getElementById('hd-sub').textContent = `마지막 업데이트: ${ts}`;
+    // 탐색이 살아 있는지 한눈에 — 새 팝업이 며칠째 안 잡히면 ⚠️ 표시
+    const ds = data.discovery_stats || {};
+    let disc = '';
+    if (ds.last_new_place_at) {
+      const days = (Date.now() - new Date(ds.last_new_place_at)) / 86400000;
+      disc = ` · 마지막 새 팝업 ${relTimeAlert(ds.last_new_place_at)}${days >= 2 ? ' ⚠️' : ''}`;
+    }
+    document.getElementById('hd-sub').textContent = `마지막 업데이트: ${ts}${disc}`;
     document.getElementById('ft').textContent = `자동 새로고침 중 (5분마다) · ${ts}`;
   } catch (e) {
     document.getElementById('ft').textContent = '⚠️ 데이터 로드 실패';

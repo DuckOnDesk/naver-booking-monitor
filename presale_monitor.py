@@ -40,6 +40,11 @@ KST = timezone(timedelta(hours=9))
 LIST_URL = "https://pcmap.place.naver.com/popupstore/list"
 PRESALE_NAME_FILTER = "사전예약"  # admissionCondition.name에 포함되는 키워드로 필터
 
+# "요즘 알림이 없다"가 진짜 신규가 없어서인지, 탐색이 깨진 건지 구분하기 위한 기준.
+# 신규 발견은 보통 하루 2~3건 나온다 — 이 시간 동안 0건이면 탐색을 의심한다.
+DISCOVERY_STALE_HOURS = 48
+STALE_RENOTIFY_HOURS = 24   # 같은 경고를 다시 보내기까지의 최소 간격
+
 SESSION = requests.Session()
 SESSION.headers.update({
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
@@ -108,8 +113,39 @@ def load_config() -> dict:
     return cfg
 
 
-def fetch_presale_places(area: dict) -> list[dict] | None:
-    """지역 검색 결과의 사전예약 팝업 목록. 조회/파싱 실패 시 None (빈 결과 []와 구분)."""
+def admission_name(item: dict) -> str:
+    """항목의 admissionCondition.name (없거나 형태가 다르면 빈 문자열)."""
+    ac = item.get("admissionCondition")
+    return (ac.get("name") or "") if isinstance(ac, dict) else ""
+
+
+def admission_label(item: dict) -> str:
+    """admissionCondition 값 분포 집계용 라벨.
+
+    네이버가 필드 이름·형태를 바꾸면 사전예약 항목이 통째로 0건이 되는데,
+    그때 무엇으로 바뀌었는지 로그에 남기려고 별도 라벨을 붙인다.
+    """
+    ac = item.get("admissionCondition")
+    if ac is None:
+        return "(없음)"
+    if isinstance(ac, dict):
+        name = ac.get("name")
+        if name:
+            return str(name)
+        return "(__ref)" if "__ref" in ac else "(이름없음)"
+    return f"(비정상:{type(ac).__name__})"
+
+
+def fetch_presale_places(area: dict, stats: dict | None = None) -> list[dict] | None:
+    """지역 검색 결과의 사전예약 팝업 목록. 조회/파싱 실패 시 None (빈 결과 []와 구분).
+
+    stats를 넘기면 이번 주기의 탐색 상태(성공/실패 지역 수, 팝업 후보 수,
+    admissionCondition 값 분포)를 누적한다.
+    """
+    def bump(key: str, n: int = 1) -> None:
+        if stats is not None:
+            stats[key] = stats.get(key, 0) + n
+
     params = {
         "query": area["query"],
         "x": area["x"], "y": area["y"],
@@ -124,6 +160,7 @@ def fetch_presale_places(area: dict) -> list[dict] | None:
         resp.encoding = "utf-8"
     except Exception as e:
         print(f"  [요청 오류] {area['query']}: {e}")
+        bump("areas_failed")
         return None
 
     m = re.search(
@@ -132,20 +169,31 @@ def fetch_presale_places(area: dict) -> list[dict] | None:
     )
     if not m:
         print(f"  [파싱 오류] Apollo state 없음: {area['query']} (status={resp.status_code})")
+        bump("areas_failed")
         return None
 
     try:
         data = json.loads(m.group(1))
     except json.JSONDecodeError as e:
         print(f"  [JSON 오류] {e}")
+        bump("areas_failed")
         return None
 
+    bump("areas_ok")
+
+    # 팝업 항목 후보 = admissionCondition 필드를 가진 엔트리
+    candidates = [v for v in data.values()
+                  if isinstance(v, dict) and "admissionCondition" in v]
+    bump("candidate_items", len(candidates))
+    if stats is not None:
+        names = stats.setdefault("admission_names", {})
+        for v in candidates:
+            label = admission_label(v)
+            names[label] = names.get(label, 0) + 1
+
     # 타입 prefix 무관하게 admissionCondition.name에 "사전예약" 포함된 항목만 수집
-    presale = [
-        v for v in data.values()
-        if isinstance(v, dict)
-        and PRESALE_NAME_FILTER in ((v.get("admissionCondition") or {}).get("name") or "")
-    ]
+    presale = [v for v in candidates if PRESALE_NAME_FILTER in admission_name(v)]
+    bump("presale_items", len(presale))
 
     # address_filter 설정 시 commonAddress로 필터링 (예: "성동구")
     addr_filter = area.get("address_filter", "").strip()
@@ -156,6 +204,7 @@ def fetch_presale_places(area: dict) -> list[dict] | None:
         if filtered:
             print(f"  [필터] '{addr_filter}' 외 {filtered}개 제외")
 
+    bump("after_district_filter", len(presale))
     return presale
 
 
@@ -576,8 +625,100 @@ def load_seen_ids() -> set[str]:
     return set()
 
 
+def load_discovery_stats() -> dict:
+    """직전 주기의 탐색 상태 (마지막 신규 발견 시각·경고 발송 시각 유지용)."""
+    try:
+        if DATA_FILE.exists():
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+            return data.get("discovery_stats") or {}
+    except Exception:
+        pass
+    return {}
+
+
+def hours_since(iso: str | None) -> float | None:
+    if not iso:
+        return None
+    try:
+        dt = datetime.fromisoformat(iso)
+    except (TypeError, ValueError):
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=KST)
+    return (datetime.now(KST) - dt).total_seconds() / 3600
+
+
+def last_known_discovery(alerts: list[dict], places) -> str | None:
+    """discovery_stats가 아직 없을 때 쓰는 마지막 신규 발견 시각 추정치."""
+    cands = [a.get("ts") for a in alerts
+             if a.get("type") == "new_popup" and a.get("ts")]
+    cands += [p.get("discoveredAt") for p in places if p.get("discoveredAt")]
+    return max(cands) if cands else None
+
+
+def build_discovery_stats(fetch_stats: dict, areas_total: int, unique_ids: int,
+                          places, new_popups: list[dict], prev_alerts: list[dict],
+                          now_iso: str) -> dict:
+    """이번 주기의 탐색 상태 — "신규 0건"이 진짜인지 판단할 근거를 남긴다."""
+    prev_stats = load_discovery_stats()
+    places = list(places)
+    if new_popups:
+        last_new = now_iso
+    else:
+        last_new = (prev_stats.get("last_new_place_at")
+                    or last_known_discovery(prev_alerts, places))
+    names = fetch_stats.get("admission_names", {})
+    return {
+        "checked_at": now_iso,
+        "areas_total": areas_total,
+        "areas_ok": fetch_stats.get("areas_ok", 0),
+        "areas_failed": fetch_stats.get("areas_failed", 0),
+        "candidate_items": fetch_stats.get("candidate_items", 0),
+        "presale_items": fetch_stats.get("presale_items", 0),
+        "after_district_filter": fetch_stats.get("after_district_filter", 0),
+        "unique_place_ids": unique_ids,
+        "tracked_places": len(places),
+        "new_places": len(new_popups),
+        "last_new_place_at": last_new,
+        # 상위 8개만 — 네이버가 admissionCondition을 바꾸면 여기서 먼저 드러난다
+        "admission_names": dict(sorted(names.items(), key=lambda kv: -kv[1])[:8]),
+        "stale_warned_at": prev_stats.get("stale_warned_at"),
+    }
+
+
+def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
+    """주기마다 탐색 한 줄 요약. 신규가 오래 끊기면 경고 알림도 보낸다."""
+    age = hours_since(stats.get("last_new_place_at"))
+    age_txt = "기록 없음" if age is None else f"{age / 24:.1f}일 전"
+    print(f"  [탐색] 지역 {stats['areas_ok']}/{stats['areas_total']} 성공"
+          f" | 후보 {stats['candidate_items']}"
+          f" → 사전예약 {stats['presale_items']}"
+          f" → 지역필터 {stats['after_district_filter']}"
+          f" | 추적 {stats['tracked_places']}개"
+          f" | 이번 주기 신규 {stats['new_places']}건"
+          f" | 마지막 신규 {age_txt}")
+    if stats["areas_failed"]:
+        print(f"  [탐색] 조회 실패 지역 {stats['areas_failed']}개")
+    if stats["areas_ok"] and not stats["presale_items"]:
+        dist = ", ".join(f"{k}={v}" for k, v in stats["admission_names"].items())
+        print(f"  [탐색 경고] 사전예약 항목 0건 — admissionCondition 분포: {dist or '없음'}")
+
+    limit = config.get("discovery_stale_hours", DISCOVERY_STALE_HOURS)
+    if age is None or age < limit:
+        return
+    warned = hours_since(stats.get("stale_warned_at"))
+    if warned is not None and warned < STALE_RENOTIFY_HOURS:
+        return
+    body = (f"{age / 24:.1f}일째 새 팝업이 한 건도 안 잡혔어요. "
+            f"지역 {stats['areas_ok']}/{stats['areas_total']} 조회 성공, "
+            f"사전예약 {stats['presale_items']}개 인식 중.")
+    print(f"  [탐색 경고] {body}")
+    _queue_ntfy("⚠️ 사전예약 탐색 점검 필요", body, sel_url)
+    stats["stale_warned_at"] = datetime.now(KST).isoformat()
+
+
 def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None,
-              seen_ids: set | None = None) -> None:
+              seen_ids: set | None = None, discovery_stats: dict | None = None) -> None:
     data = {
         "updated_at": datetime.now(KST).isoformat(),
         "watched_places": config.get("watched_places", []),
@@ -586,6 +727,7 @@ def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None
         "places": places,
         "alerts": (alerts or [])[-200:],  # 최근 200건만 유지
         "seen_place_ids": sorted(seen_ids or set()),
+        "discovery_stats": discovery_stats if discovery_stats is not None else load_discovery_stats(),
     }
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -604,8 +746,9 @@ def check_once(config: dict, prev: dict) -> dict:
 
     raw: dict[str, dict] = {}
     fetch_failed = False
+    fetch_stats: dict = {}
     for area in config.get("areas", []):
-        result = fetch_presale_places(area)
+        result = fetch_presale_places(area, fetch_stats)
         if result is None:
             fetch_failed = True
             continue
@@ -806,8 +949,13 @@ def check_once(config: dict, prev: dict) -> dict:
             CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             print(f"  [만료 정리] {len(expired_pids)}개 제거됨")
 
+    stats = build_discovery_stats(
+        fetch_stats, len(config.get("areas", [])), len(raw), current.values(),
+        [a for a in new_alerts if a["type"] == "new_popup"], prev_alerts, now_iso)
+    report_discovery(stats, config, sel_url)
+
     seen_ids |= {str(pid) for pid in current}
-    save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids)
+    save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids, stats)
     return current
 
 
