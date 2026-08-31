@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T12:56:02.609905+09:00",
+  "updated_at": "2026-08-31T13:01:41.449171+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -71,7 +71,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -124,7 +124,8 @@
         "2026-08-30T17:56:39.502865+09:00",
         "2026-08-30T22:31:29.328169+09:00",
         "2026-08-31T01:24:53.361528+09:00",
-        "2026-08-31T10:22:49.813303+09:00"
+        "2026-08-31T10:22:49.813303+09:00",
+        "2026-08-31T13:01:29.153037+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1528,13 +1529,6 @@
       "place_id": "2066415670",
       "place_name": "PVCS 아카이브 세일",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-19T21:45:42.227065+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
       "ts": "2026-08-19T22:57:58.428105+09:00"
     },
     {
@@ -2922,6 +2916,13 @@
       "place_name": "판도라 플레이그라운드: Pick & Play",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "ts": "2026-08-31T12:27:38.634882+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-08-31T13:01:29.153037+09:00"
     }
   ],
   "seen_place_ids": [
