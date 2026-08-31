@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T05:32:26.919281+09:00",
+  "updated_at": "2026-09-01T05:37:59.227761+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -943,7 +943,7 @@
     {
       "id": "2039988652",
       "name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "bookingBusinessId": "1714809",
       "operationStart": "26.08.27.",
@@ -969,7 +969,8 @@
         "2026-08-27T10:37:32.217525+09:00",
         "2026-08-27T14:18:37.908404+09:00",
         "2026-08-30T16:10:25.264633+09:00",
-        "2026-08-31T03:10:52.577460+09:00"
+        "2026-08-31T03:10:52.577460+09:00",
+        "2026-09-01T05:37:48.655708+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1381,13 +1382,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-20T19:32:28.339261+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -2780,6 +2774,13 @@
       "place_name": "소녀전선2 망명 갤러리",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
       "ts": "2026-09-01T04:20:14.872060+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2039988652",
+      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
+      "ts": "2026-09-01T05:37:48.655708+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2888,7 +2889,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T05:32:16.595541+09:00",
+    "checked_at": "2026-09-01T05:37:48.655708+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
