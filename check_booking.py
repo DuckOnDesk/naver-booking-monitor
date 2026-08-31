@@ -885,6 +885,19 @@ def _match_time(t: str, patterns: list) -> bool:
 AUTO_BOOK_KEY_SUFFIXES = (":auto_booked", ":auto_book_state")
 
 
+def forget_slots(alerted: dict, alert_key: str) -> bool:
+    """그 날짜의 '자리 있음' 기록을 지우고, 지울 게 있었는지(=자리가 방금 사라졌는지) 알린다.
+
+    닫힘 상태에서 알린 자리(:closed)까지 같이 지운다. 종전에는 이 키를 남겨 둬서,
+    같은 자리가 팔렸다가 다시 나와도 "이미 알린 자리"로 취급돼 🔒 알림이 두 번 다시
+    나가지 않았다.
+    """
+    had = alerted.pop(alert_key, None) is not None
+    had = (alerted.pop(f"{alert_key}:closed", None) is not None) or had
+    alerted.pop(f"{alert_key}:pre", None)
+    return had
+
+
 def purge_item_keys(alerted: dict, item_prefix: str, keep: tuple = (),
                     keep_suffix: tuple = ()) -> None:
     """{item_id}: 로 시작하는 상태 키를 비운다 (자동예약 기록은 보존)."""
@@ -1424,6 +1437,18 @@ class UrlGate:
             self._run_check()
         return not self._closed
 
+    def probe(self) -> bool:
+        """자리가 없어도 상태를 봐야 할 때. 반환값은 '지금 닫혀 있는가'.
+
+        자리가 사라진 회차에서 쓴다. 매진 상태에서 예약창이 열리는 순간이 곧 취소표가
+        나오기 시작하는 순간인데, 그 전환이 자리 소멸과 같은 회차에 겹치면 종전 규칙
+        ("자리 없으면 확인 생략")으로는 통째로 놓쳤다 — 2026-08-31 하겐다즈: 13:25에
+        마지막 자리가 팔리며 확인이 멈춰, 13:35에 열린 예약창을 다음 자리가 난 13:48에야
+        알았다 (예약창 열림 알림이 13분 이상 늦었다).
+        """
+        self._ensure()
+        return self._closed
+
     def _ensure(self) -> None:
         self.consulted = True
         if self.checked:
@@ -1704,6 +1729,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 예약창 확인은 여기서 하지 않는다. 알릴 자리를 실제로 찾은 뒤에야
         # 게이트가 필요할 때 브라우저를 켠다 (UrlGate 참고).
         gate = UrlGate(item, item_id, url, name, alerted, ntfy_topic, now_str)
+        vanished_dates: list[str] = []   # 이번 회차에 자리가 있다가 0이 된 날짜
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
         if result is None:
@@ -1817,16 +1843,16 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 # 볼 수 있는 시간대가 하나도 없는 날. 일별 재고가 남아 있어도 살 수 있는
                 # 시간대가 없으면 자리가 아니다 (일별 재고에는 영업시간 밖 몫까지 들어 있다).
                 if slot_info["queried"] and slot_info["total"] == 0:
-                    alerted.pop(alert_key, None)
-                    alerted.pop(f"{alert_key}:pre", None)
+                    if forget_slots(alerted, alert_key):
+                        vanished_dates.append(datekey)
                     reason = "오늘 남은 시간대 없음 (모두 지남)" if datekey == today_str \
                         else "예약 가능한 시간대 없음"
                     log_state(log_key, f"⏭ {name} {date_str} {reason}", now_str=now_str)
                     continue
 
                 if slot_info["queried"] and slot_info["total"] > 0 and not slot_info["times"]:
-                    alerted.pop(alert_key, None)
-                    alerted.pop(f"{alert_key}:pre", None)
+                    if forget_slots(alerted, alert_key):
+                        vanished_dates.append(datekey)
                     r_stock   = slot_info.get("range_stock",   d["stock"])
                     r_booking = slot_info.get("range_booking", d["bookingCount"])
                     log_state(log_key,
@@ -1928,8 +1954,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         alerted[pre_key] = 1
 
             else:
-                alerted.pop(alert_key, None)
-                alerted.pop(f"{alert_key}:pre", None)
+                if forget_slots(alerted, alert_key):
+                    vanished_dates.append(datekey)
 
                 slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
                 all_slots = slot_info.get("all_slots", [])
@@ -1979,6 +2005,16 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                           now_str=now_str)
                 if has_target_dates and r_stock == 0:
                     _pruned_dates.append((item_id, datekey))
+
+        # 자리가 사라진 회차에도 예약창은 한 번 본다. 자리가 없어졌다는 건 방금 누군가
+        # 예약했다는 뜻이고, 매진 상태에서 그런 일이 일어나는 계기는 대개 예약창이 막
+        # 열린 것이다. 종전에는 이 회차부터 확인을 끊어서, 열림 전환을 다음 자리가 날
+        # 때까지 몰랐다 (UrlGate.probe 참고).
+        if vanished_dates and not gate.consulted:
+            log_state(f"{item_id}:vanish",
+                      f"  [예약창] {name} — 자리 소멸({', '.join(vanished_dates)}), 예약창 확인",
+                      sig=f"vanish:{','.join(vanished_dates)}", stamp=False)
+            gate.probe()
 
         # 자동예약 날짜 미지정 항목은 등록된 예약 기간 전체가 대상이다.
         # 감시 날짜를 좁게 잡아 위 루프가 그 날짜만 돌았다면, 기간 안의 나머지 날짜를 여기서 마저 본다.

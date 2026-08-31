@@ -13,7 +13,12 @@
   - 자리가 있고 열려 있으면 URL_RECHECK_SEC 안에는 다시 확인하지 않는다
   - 닫힘은 한 번 잡히면 그 회차에서 바로 확정한다 (확정을 미루면 그 구간이 '열림'으로
     취급된다 — 2026-08-17 QWER: /error/ 리다이렉트를 잡고도 "예약 가능" 알림이 나갔다)
-  - 자리가 사라지면 다시 확인하지 않는다 (1번 상태로 복귀)
+  - 자리가 '사라진 그 회차'에는 확인한다. 자리가 없어졌다는 건 방금 누군가 예약했다는
+    뜻이고, 매진 상태에서 그 계기는 대개 예약창이 막 열린 것이다 (2026-08-31 하겐다즈:
+    13:25에 마지막 자리가 팔리며 확인이 끊겨, 13:35에 열린 예약창을 다음 자리가 난
+    13:48에야 알았다). 그 다음 회차부터는 다시 확인하지 않는다 (1번 상태로 복귀)
+  - 자리가 사라지면 :closed 기록도 지운다. 남겨 두면 같은 자리가 다시 나와도
+    '이미 알린 자리'로 취급돼 🔒 알림이 두 번 다시 나가지 않았다
   - 닫힘→열림으로 바뀐 그 회차에 바로 자리 알림이 나간다 (예전에는 "다음 주기에
     재확인"이라며 건너뛰었는데, 상태는 저장돼 다음 주기에도 조건이 성립하지 않았다)
   - 닫힌 동안 🔒로 알린 자리도 열리는 순간 다시 알린다 (그때가 실제로 잡을 수 있게
@@ -155,9 +160,29 @@ def main() -> int:
           f"회차를 더 돌아도 저장 내용 동일 (커밋 낭비 없음) — 차이: "
           f"{ {k: (snapshot.get(k), v) for k, v in alerted.items() if snapshot.get(k) != v} }")
 
-    print("7) 자리가 사라지면 다시 확인하지 않는다 (1번 상태로 복귀)")
+    print("7) 자리가 사라진 그 회차에는 확인하고, 그 다음 회차부터 멈춘다")
+    had_closed_key = any(k.endswith(":closed") for k in alerted)
     logs, sent, n = run_round([unit("11:00", stock=4, booked=4)], alerted)
-    check(n == 0, f"브라우저 확인 0회 (실제 {n}회)")
+    check(had_closed_key, "직전까지 🔒로 알린 자리 기록이 있었다 (전제)")
+    check(n == 1, f"자리가 사라진 회차에는 확인 1회 (실제 {n}회)")
+    check(not any(k.endswith(":closed") for k in alerted),
+          f"사라진 자리의 :closed 기록은 지워진다 (남은 키: {sorted(alerted)})")
+    logs, sent, n = run_round([unit("11:00", stock=4, booked=4)], alerted)
+    check(n == 0, f"자리가 계속 없는 다음 회차엔 확인 0회 (실제 {n}회)")
+
+    print("7-1) 자리 소멸 회차에 예약창이 열려 있으면 그 자리에서 열림을 잡는다")
+    cb.reset_log_state()
+    vanish_alerted = {}
+    closed_now = True
+    run_round([unit("11:00", stock=4, booked=3)], vanish_alerted)      # 자리 1 + 닫힘 → 🔒
+    check(vanish_alerted.get(f"t1:{D}:closed") == {"11:00": 1},
+          f"닫힘 상태로 자리를 알렸다 (전제: {sorted(vanish_alerted)})")
+    closed_now = False                                                 # 예약창이 막 열림
+    advance()
+    logs, sent, n = run_round([unit("11:00", stock=4, booked=4)], vanish_alerted)  # 동시에 자리 소멸
+    check(n == 1, f"자리가 사라진 회차에 확인 1회 (실제 {n}회)")
+    check(any("예약창 열림" in t for t in sent),
+          f"열림 전환을 그 회차에 잡아 알린다 (실제: {sent})")
 
     print("8) 닫힌 상태에서 자리가 다시 생기면 즉시 확인한다")
     logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted)
