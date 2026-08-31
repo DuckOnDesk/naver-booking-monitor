@@ -253,6 +253,21 @@ def parse_kakao_url(url: str) -> str | None:
     return m.group(1) if m else None
 
 
+def _exc_label(exc: BaseException) -> str:
+    """예외를 로그 한 줄에 넣을 수 있는 짧은 문자열로. 메시지가 비면 타입만 남는다."""
+    msg = str(exc).strip()
+    return f"{type(exc).__name__}: {msg[:120]}" if msg else type(exc).__name__
+
+
+def _gql_error_summary(errors) -> str:
+    """GraphQL errors 배열에서 앞의 두 건의 message만 뽑는다."""
+    parts = []
+    for err in list(errors)[:2]:
+        msg = err.get("message") if isinstance(err, dict) else err
+        parts.append(str(msg)[:80])
+    return "; ".join(parts) or "메시지 없음"
+
+
 def check_availability(biz_id: str, item_id: str, service_id: int, target_dates: list) -> dict | None:
     today = datetime.now(timezone(timedelta(hours=9)))
     schedule_params = {
@@ -286,12 +301,19 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
         "    } __typename } __typename } __typename } }"
     )
 
+    # 실패 원인을 시도별로 모아 둔다. 예전에는 예외를 통째로 삼키고 "요청 실패" 한 줄만
+    # 남겨서, 타임아웃인지 GraphQL 오류인지 차단인지 사후에 구분할 수 없었다
+    # (2026-08-31 오전 하겐다즈·귤메달 연속 실패를 로그만으로는 진단 불가).
+    fail_reasons: list[str] = []
+
     for i, (query, has_window) in enumerate([(enhanced_query, True), (base_query, False)]):
+        label = "enhanced" if has_window else "base"
         try:
             resp = _post(query)
             resp.raise_for_status()
             data = resp.json()
             if data.get("errors"):
+                fail_reasons.append(f"{label}: GraphQL errors ({_gql_error_summary(data['errors'])})")
                 continue
             sched = data["data"]["schedule"]["bizItemSchedule"]
             summary = sched["daily"]["summary"]
@@ -310,16 +332,19 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
             status = e.response.status_code
             if status == 400 and i == 0:
                 # enhanced_query의 saleStartDate/saleEndDate 필드가 이 서비스 타입에서 미지원 → base_query로 재시도
+                fail_reasons.append(f"{label}: HTTP 400 (필드 미지원 추정)")
                 continue
             print(f"  [오류] schedule API HTTP {status}", flush=True)
             if status in (429, 403):
                 global _rate_limit_hits
                 _rate_limit_hits += 1
+            fail_reasons.append(f"{label}: HTTP {status}")
             continue
-        except Exception:
+        except Exception as exc:
+            fail_reasons.append(f"{label}: {_exc_label(exc)}")
             continue
 
-    print("  [오류] schedule API 요청 실패", flush=True)
+    print(f"  [오류] schedule API 요청 실패 — {' / '.join(fail_reasons) or '원인 불명'}", flush=True)
     return None
 
 
