@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T02:57:26.778093+09:00",
+  "updated_at": "2026-09-01T03:02:58.238364+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -60,7 +60,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -115,7 +115,8 @@
         "2026-08-31T01:24:53.361528+09:00",
         "2026-08-31T10:22:49.813303+09:00",
         "2026-08-31T13:01:29.153037+09:00",
-        "2026-08-31T19:14:23.033701+09:00"
+        "2026-08-31T19:14:23.033701+09:00",
+        "2026-09-01T03:02:48.627979+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1377,13 +1378,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2005894077",
-      "place_name": "스토케 요요5 서울숲하우스",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1716284/search",
-      "ts": "2026-08-20T12:59:52.019858+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2032034855",
@@ -2776,6 +2770,13 @@
       "place_name": "NCT 127 [BLINGY] POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "ts": "2026-08-31T23:50:53.637844+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-09-01T03:02:48.627979+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2884,7 +2885,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T02:57:18.246435+09:00",
+    "checked_at": "2026-09-01T03:02:48.627979+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
