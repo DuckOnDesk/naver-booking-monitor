@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T23:45:31.697538+09:00",
+  "updated_at": "2026-08-31T23:51:03.299296+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -250,7 +250,7 @@
     {
       "id": "2090850238",
       "name": "NCT 127 [BLINGY] POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "bookingBusinessId": "1707377",
       "operationStart": "26.08.25.",
@@ -281,7 +281,8 @@
         "2026-08-30T22:25:52.257715+09:00",
         "2026-08-31T01:52:43.025750+09:00",
         "2026-08-31T08:47:03.773706+09:00",
-        "2026-08-31T20:09:45.825034+09:00"
+        "2026-08-31T20:09:45.825034+09:00",
+        "2026-08-31T23:50:53.637844+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1495,13 +1496,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2060436986",
-      "place_name": "제 2회 가을의 향, 세계의 차",
-      "booking_url": "",
-      "ts": "2026-08-20T10:45:51.068603+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2005894077",
@@ -2894,6 +2888,13 @@
       "place_name": "스포티파이 하우스 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
       "ts": "2026-08-31T21:10:38.551703+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2090850238",
+      "place_name": "NCT 127 [BLINGY] POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
+      "ts": "2026-08-31T23:50:53.637844+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3002,7 +3003,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-08-31T23:45:23.150150+09:00",
+    "checked_at": "2026-08-31T23:50:53.637844+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3014,8 +3015,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-08-28T11:32:55.050298+09:00",
     "admission_names": {
-      "(없음)": 464,
-      "현장대기": 222,
+      "(없음)": 463,
+      "현장대기": 223,
       "사전예약&현장대기": 140,
       "사전예약": 28
     },
