@@ -2,11 +2,11 @@
   "6_1631459_7971943": {
     "sale_start_date": null,
     "sale_end_date": null,
-    "available_start": "2026-09-02",
-    "available_end": "2026-09-06",
-    "checked_at": "2026-09-01T04:47:58.673547+09:00",
-    "booking_available_code": "RI02",
-    "booking_available_value": 1
+    "available_start": null,
+    "available_end": null,
+    "checked_at": "2026-09-01T05:48:49.960679+09:00",
+    "booking_available_code": "RI01",
+    "booking_available_value": 0
   },
   "12_1717462_7962977": {
     "sale_start_date": null,
