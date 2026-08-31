@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T04:14:52.350994+09:00",
+  "updated_at": "2026-09-01T04:20:25.347423+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1215,7 +1215,7 @@
     {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1547457",
       "bookingBusinessId": "1547457",
       "operationStart": "25.12.25.",
@@ -1230,7 +1230,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-08-29T19:06:16.548776+09:00",
-        "2026-08-29T22:34:46.167394+09:00"
+        "2026-08-29T22:34:46.167394+09:00",
+        "2026-09-01T04:20:14.872060+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1380,13 +1381,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-20T16:08:57.688656+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2779,6 +2773,13 @@
       "place_name": "소머드 롯데본점 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "ts": "2026-09-01T03:52:34.529994+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2036674429",
+      "place_name": "소녀전선2 망명 갤러리",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
+      "ts": "2026-09-01T04:20:14.872060+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2887,7 +2888,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T04:14:42.524362+09:00",
+    "checked_at": "2026-09-01T04:20:14.872060+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
