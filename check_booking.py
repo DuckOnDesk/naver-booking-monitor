@@ -885,6 +885,27 @@ def _match_time(t: str, patterns: list) -> bool:
 AUTO_BOOK_KEY_SUFFIXES = (":auto_booked", ":auto_book_state")
 
 
+def slot_totals(ref_slots: list) -> tuple[int, int]:
+    """슬롯 목록의 (재고, 예약) 합계."""
+    return (sum(s.get("unitStock", 0) for s in ref_slots),
+            sum(s.get("unitBookingCount", 0) for s in ref_slots))
+
+
+def daily_note(slot_pair: tuple, daily_pair: tuple) -> str:
+    """슬롯 합계와 일별 요약이 어긋날 때만 일별 값을 덧붙인다.
+
+    두 값은 네이버의 서로 다른 엔드포인트에서 온다 — 슬롯은 hourlySchedule(하루치),
+    일별은 schedule(90일치)이다. 같은 재고를 따로 캐시해서, 예약이 막 들어간 직후에는
+    일별이 1분쯤 뒤처진다. 게다가 일별 합계에는 영업시간 밖·이미 지난 시간대 몫까지
+    들어 있어 구조적으로도 더 크다.
+
+    자리 판정은 언제나 슬롯 기준이므로 로그도 슬롯을 앞세우고, 일별은 어긋날 때만
+    참고로 붙인다. 종전에는 판정과 무관한 일별 숫자만 찍어서, 자리가 없다고 판정한
+    줄에 "재고:28 / 예약:27"이 붙어 나왔다 (2026-08-31 하겐다즈 09-10).
+    """
+    return "" if slot_pair == daily_pair else f" · 일별:{daily_pair[0]}/{daily_pair[1]}"
+
+
 def forget_slots(alerted: dict, alert_key: str) -> bool:
     """그 날짜의 '자리 있음' 기록을 지우고, 지울 게 있었는지(=자리가 방금 사라졌는지) 알린다.
 
@@ -1437,7 +1458,7 @@ class UrlGate:
             self._run_check()
         return not self._closed
 
-    def probe(self) -> bool:
+    def probe(self, note: str = "") -> bool:
         """자리가 없어도 상태를 봐야 할 때. 반환값은 '지금 닫혀 있는가'.
 
         자리가 사라진 회차에서 쓴다. 매진 상태에서 예약창이 열리는 순간이 곧 취소표가
@@ -1445,26 +1466,28 @@ class UrlGate:
         ("자리 없으면 확인 생략")으로는 통째로 놓쳤다 — 2026-08-31 하겐다즈: 13:25에
         마지막 자리가 팔리며 확인이 멈춰, 13:35에 열린 예약창을 다음 자리가 난 13:48에야
         알았다 (예약창 열림 알림이 13분 이상 늦었다).
+
+        note를 주면 닫힘→열림 전환 알림 제목에 그 사유가 붙는다.
         """
-        self._ensure()
+        self._ensure(note)
         return self._closed
 
-    def _ensure(self) -> None:
+    def _ensure(self, note: str = "") -> None:
         self.consulted = True
         if self.checked:
             return
         # 닫혀 있으면 매 회차 본다. 열려 있는 항목만 주기를 둔다 — 열림→닫힘은
         # 늦게 알아도 손해가 작지만, 닫힘→열림은 오픈 순간이라 늦으면 그대로 놓친다.
         if self._closed:
-            self._run_check()
+            self._run_check(note)
             return
         last = _url_checked_at.get(self.item_id)
         if last is not None and (time.monotonic() - last) < URL_RECHECK_SEC:
             _note_url_skip("주기 대기")
             return
-        self._run_check()
+        self._run_check(note)
 
-    def _run_check(self) -> None:
+    def _run_check(self, note: str = "") -> None:
         global _url_checks_done
         raw_closed, reason = _playwright_check(self.url)
         self.checked = True
@@ -1491,9 +1514,10 @@ class UrlGate:
                     # 알려 주지 않는 꼴이 된다. 상태를 지워 다음 판정이 처음 보는
                     # 자리처럼 돌게 한다 (예전에는 일반 키로 옮겨 재알림을 막았다).
                     alerted.pop(k)
-            print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨)", flush=True)
+            label = f" ({note})" if note else ""
+            print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨){label}", flush=True)
             if self.ntfy_topic:
-                send_ntfy(self.ntfy_topic, f"✅ {name} 예약창 열림",
+                send_ntfy(self.ntfy_topic, f"✅ {name} 예약창 열림{label}",
                           "예약창이 열렸습니다. 직접 확인해보세요!", self.url)
             _log_state[f"{self.item_id}:status"] = ("열림", time.monotonic())
         else:
@@ -1853,24 +1877,32 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if slot_info["queried"] and slot_info["total"] > 0 and not slot_info["times"]:
                     if forget_slots(alerted, alert_key):
                         vanished_dates.append(datekey)
-                    r_stock   = slot_info.get("range_stock",   d["stock"])
-                    r_booking = slot_info.get("range_booking", d["bookingCount"])
+                    ref_slots = slot_info.get("range_slots", slot_info.get("all_slots", []))
+                    s_stock, s_booking = slot_totals(ref_slots)
+                    d_stock   = slot_info.get("range_stock",   d["stock"])
+                    d_booking = slot_info.get("range_booking", d["bookingCount"])
                     log_state(log_key,
                               f"❌ {name} {date_str}{time_hint} 예약 가능 자리 없음 "
-                              f"(재고:{r_stock} / 예약:{r_booking})", now_str=now_str)
+                              f"(재고:{s_stock} / 예약:{s_booking})"
+                              f"{daily_note((s_stock, s_booking), (d_stock, d_booking))}",
+                              now_str=now_str)
                     continue
 
-                r_stock   = slot_info.get("range_stock",   d["stock"])
-                r_booking = slot_info.get("range_booking", d["bookingCount"])
+                # 재고 숫자는 판정에 쓴 슬롯 기준으로 낸다. 일별 요약은 갱신이 늦어
+                # 자리가 이미 팔린 뒤에도 남은 것처럼 보인다 (daily_note 참고).
+                d_stock   = slot_info.get("range_stock",   d["stock"])
+                d_booking = slot_info.get("range_booking", d["bookingCount"])
+                ref_slots = slot_info.get("range_slots", slot_info.get("all_slots", []))
+                r_stock, r_booking = slot_totals(ref_slots) if ref_slots else (d_stock, d_booking)
                 available = r_stock - r_booking
 
-                ref_slots = slot_info.get("range_slots", slot_info.get("all_slots", []))
                 per_slot = [
                     (s["unitStartTime"][11:16], s.get("unitStock", 0) - s.get("unitBookingCount", 0))
                     for s in ref_slots
                     if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
                 ]
-                stock_info = f"재고:{r_stock} / 예약:{r_booking}"
+                stock_info = (f"재고:{r_stock} / 예약:{r_booking}"
+                              + daily_note((r_stock, r_booking), (d_stock, d_booking)))
 
                 if gate.closed:
                     closed_alert_key = f"{alert_key}:closed"
@@ -2014,7 +2046,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             log_state(f"{item_id}:vanish",
                       f"  [예약창] {name} — 자리 소멸({', '.join(vanished_dates)}), 예약창 확인",
                       sig=f"vanish:{','.join(vanished_dates)}", stamp=False)
-            gate.probe()
+            gate.probe(note="방금 자리 없어짐")
 
         # 자동예약 날짜 미지정 항목은 등록된 예약 기간 전체가 대상이다.
         # 감시 날짜를 좁게 잡아 위 루프가 그 날짜만 돌았다면, 기간 안의 나머지 날짜를 여기서 마저 본다.

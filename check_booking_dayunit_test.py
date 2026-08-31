@@ -26,6 +26,9 @@
   - 캘린더 API가 "마감"이라고 하면 알림을 보내지 않는다 (오탐 방지 장치 유지)
   - 일 단위 보정은 API가 시간대를 하나도 안 준 상품에만 적용한다
   - 볼 수 있는 시간대가 없는 날은 일별 재고가 남아도 자리로 보지 않는다
+  - 로그의 재고 숫자는 판정에 쓴 슬롯 기준으로 낸다. 일별 요약과 어긋나면
+    일별 값을 참고로 덧붙인다 (2026-08-31 하겐다즈 09-10: 슬롯은 이미 28/28인데
+    일별이 28/27로 뒤처져, 자리 없다고 판정한 줄에 "재고:28 / 예약:27"이 붙었다)
 
 사용법: python check_booking_dayunit_test.py
 """
@@ -240,6 +243,27 @@ def main() -> int:
     logs, sent = run_check(summary(True, 641, 120), sold_out, [])
     check(not sent, "매진이면 알림 없음")
     check(cb.DAY_UNIT_TIME not in logs, "일별 재고가 남아도 [종일]로 대체하지 않는다")
+
+    print("8) 로그 재고는 슬롯 기준, 일별이 어긋나면 참고로 덧붙인다")
+    # 하겐다즈 09-10 재현: 15:00 마지막 1자리가 방금 팔려 슬롯은 28/28인데,
+    # 90일치를 캐시하는 일별 요약은 아직 28/27을 준다.
+    lagging = [unit(f"{h}:00", stock=4, booked=4) for h in range(12, 19)]
+    logs, sent = run_check(summary(True, 28, 27), lagging, [])
+    check("예약 가능 자리 없음 (재고:28 / 예약:28)" in logs,
+          f"판정에 쓴 슬롯 숫자를 찍는다 (실제: {logs})")
+    check("일별:28/27" in logs, f"어긋난 일별 값을 참고로 덧붙인다 (실제: {logs})")
+    check(not sent, "알림은 나가지 않는다")
+
+    print("8-1) 슬롯과 일별이 같으면 일별을 덧붙이지 않는다")
+    logs, sent = run_check(summary(True, 28, 28), lagging, [])
+    check("일별:" not in logs, f"군더더기 없음 (실제: {logs})")
+
+    print("8-2) 자리 있음 줄도 슬롯 기준으로 낸다")
+    one_left = [unit(f"{h}:00", stock=4, booked=4) for h in range(12, 18)] + [unit("18:00", stock=4, booked=3)]
+    logs, sent = run_check(summary(True, 28, 26), one_left, [])
+    check("(재고:28 / 예약:27 · 일별:28/26)" in logs,
+          f"슬롯 28/27을 앞세우고 일별 28/26을 덧붙인다 (실제: {logs})")
+    check(any("예약 가능" in t for t, _ in sent), f"자리 알림은 정상 발송 (실제: {sent})")
 
     print("7) 시간대 슬롯 + 감시 시간 범위 (범위 밖 슬롯 제외)")
     logs, sent = run_check(summary(True, 20, 18), hourly, [f"{D} 14:00-16:00"])
