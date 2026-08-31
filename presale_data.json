@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T19:36:47.149354+09:00",
+  "updated_at": "2026-08-31T19:42:18.633181+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -222,7 +222,7 @@
     {
       "id": "2071746450",
       "name": "THE FIRST FAN",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1683009",
       "bookingBusinessId": "1683009",
       "operationStart": "26.07.01.",
@@ -3000,7 +3000,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-08-31T19:36:36.783733+09:00",
+    "checked_at": "2026-08-31T19:42:09.580272+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
