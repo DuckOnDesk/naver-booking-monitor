@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T19:03:25.864786+09:00",
+  "updated_at": "2026-08-31T19:08:59.828764+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -26,19 +26,10 @@
     "2080832507",
     "2080864780",
     "2083897134",
-    "2090850238",
-    "manual-1672804-7977719"
+    "2090850238"
   ],
   "booking_open_datetimes": {},
-  "manual_places": [
-    {
-      "id": "manual-1672804-7977719",
-      "name": "",
-      "bookingUrl": "https://booking.naver.com/booking/12/bizes/1672804/items/7977719?fbclid=PAb21jcAT6xVVwZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4ufet4Z0ovNWgByq_ch1yc5KDoEJdRwfPe519xJC4aImOb0Zy2QNWbfY93V_aem_zWAWadHuIEsNYISLprBE6w&startDateTime=2026-08-28T00%3A00%3A00%2B09%3A00&tab=book&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
-      "district": "성동구",
-      "addedAt": "2026-08-26T04:19:44.647Z"
-    }
-  ],
+  "manual_places": [],
   "places": [
     {
       "id": "2062283789",
@@ -440,7 +431,7 @@
     {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "bookingBusinessId": "1713524",
       "operationStart": "26.09.05.",
@@ -460,7 +451,8 @@
         "2026-08-30T04:30:31.704639+09:00",
         "2026-08-30T15:36:59.080814+09:00",
         "2026-08-30T21:24:09.541668+09:00",
-        "2026-08-31T13:32:54.860194+09:00"
+        "2026-08-31T13:32:54.860194+09:00",
+        "2026-08-31T19:08:49.084394+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1497,45 +1489,9 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-07-28T14:22:47.480213+09:00",
       "bookingIsOpened": false
-    },
-    {
-      "id": "manual-1672804-7977719",
-      "name": "(이름 미확인)",
-      "hasBooking": true,
-      "bookingUrl": "https://booking.naver.com/booking/12/bizes/1672804/items/7977719?fbclid=PAb21jcAT6xVVwZG9mAmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4ufet4Z0ovNWgByq_ch1yc5KDoEJdRwfPe519xJC4aImOb0Zy2QNWbfY93V_aem_zWAWadHuIEsNYISLprBE6w&startDateTime=2026-08-28T00%3A00%3A00%2B09%3A00&tab=book&utm_content=link_in_bio&utm_medium=social&utm_source=ig",
-      "bookingBusinessId": "1672804",
-      "operationStart": null,
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": null,
-      "admissionCondition": null,
-      "imageUrl": null,
-      "roadAddress": null,
-      "commonAddress": null,
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-26T13:26:34.721633+09:00"
-      ],
-      "bookingOpenAuto": "2026-08-21T10:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-08-26T13:26:46.393779+09:00",
-      "bookingPaused": false,
-      "bookingIsOpened": true,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-26T13:26:34.721633+09:00",
-      "isManual": true,
-      "lastBookingNotifiedAt": "2026-08-26T13:26:47.004547+09:00"
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-20T10:05:59.406547+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2928,6 +2884,13 @@
       "place_name": "판도라 플레이그라운드: Pick & Play",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "ts": "2026-08-31T18:00:07.170435+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033013073",
+      "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
+      "ts": "2026-08-31T19:08:49.084394+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3036,7 +2999,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-08-31T19:03:15.061398+09:00",
+    "checked_at": "2026-08-31T19:08:49.084394+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3044,7 +3007,7 @@
     "presale_items": 168,
     "after_district_filter": 85,
     "unique_place_ids": 49,
-    "tracked_places": 50,
+    "tracked_places": 49,
     "new_places": 0,
     "last_new_place_at": "2026-08-28T11:32:55.050298+09:00",
     "admission_names": {
