@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T09:20:54.877393+09:00",
+  "updated_at": "2026-08-31T09:26:32.239918+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -991,7 +991,7 @@
     {
       "id": "2039106013",
       "name": "N:DVERSE GARDENING POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "bookingBusinessId": "1718123",
       "operationStart": "26.09.03.",
@@ -1015,7 +1015,8 @@
         "2026-08-28T00:09:09.699552+09:00",
         "2026-08-29T03:40:13.780802+09:00",
         "2026-08-29T22:12:18.249300+09:00",
-        "2026-08-31T03:44:12.747641+09:00"
+        "2026-08-31T03:44:12.747641+09:00",
+        "2026-08-31T09:26:20.331021+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1520,13 +1521,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-19T21:23:28.596556+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -2919,6 +2913,13 @@
       "place_name": "NCT 127 [BLINGY] POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
       "ts": "2026-08-31T08:47:03.773706+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2039106013",
+      "place_name": "N:DVERSE GARDENING POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
+      "ts": "2026-08-31T09:26:20.331021+09:00"
     }
   ],
   "seen_place_ids": [
