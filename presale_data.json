@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-31T19:42:18.633181+09:00",
+  "updated_at": "2026-08-31T19:47:49.172554+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -131,7 +131,7 @@
     {
       "id": "2075951781",
       "name": "판도라 플레이그라운드: Pick & Play",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712461",
       "bookingBusinessId": "1712461",
       "operationStart": "26.08.25.",
@@ -467,7 +467,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -3000,7 +3000,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-08-31T19:42:09.580272+09:00",
+    "checked_at": "2026-08-31T19:47:40.516213+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
