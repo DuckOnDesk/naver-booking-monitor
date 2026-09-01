@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T18:51:40.170391+09:00",
+  "updated_at": "2026-09-01T18:57:11.303456+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -373,7 +373,7 @@
     {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "bookingBusinessId": "1713524",
       "operationStart": "26.09.05.",
@@ -395,7 +395,8 @@
         "2026-08-30T21:24:09.541668+09:00",
         "2026-08-31T13:32:54.860194+09:00",
         "2026-08-31T19:08:49.084394+09:00",
-        "2026-09-01T14:58:10.449016+09:00"
+        "2026-09-01T14:58:10.449016+09:00",
+        "2026-09-01T18:57:01.670124+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1471,13 +1472,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-21T14:44:12.661132+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2009756357",
@@ -2870,6 +2864,13 @@
       "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "ts": "2026-09-01T18:18:08.683805+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033013073",
+      "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
+      "ts": "2026-09-01T18:57:01.670124+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2982,7 +2983,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T18:51:29.332368+09:00",
+    "checked_at": "2026-09-01T18:57:01.670124+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
