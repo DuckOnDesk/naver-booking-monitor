@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T17:16:30.936962+09:00",
+  "updated_at": "2026-09-01T17:22:10.647756+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -17,6 +17,7 @@
     "2040937553",
     "2046294128",
     "2047143688",
+    "2054914344",
     "2057558383",
     "2060436986",
     "2067695542",
@@ -1276,6 +1277,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2054914344",
+      "name": "사각사각 펜페스트",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.17.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 46,
+      "status": "D-46",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_108/1788245255749wMcQB_JPEG/edited-1788245254451-0.jpg",
+      "roadAddress": "명동11길 14 커뮤니티하우스 마실",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-01T17:22:00.148135+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
       "hasBooking": false,
@@ -1444,13 +1471,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057128614",
-      "place_name": "스픽 2026 영어울렁증 퇴마식",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716761",
-      "ts": "2026-08-21T11:13:08.404246+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2083897134",
@@ -2843,6 +2863,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-09-01T17:16:19.851230+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2054914344",
+      "place_name": "사각사각 펜페스트",
+      "booking_url": "",
+      "ts": "2026-09-01T17:22:00.148135+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2912,6 +2939,7 @@
     "2051944825",
     "2052645378",
     "2053652128",
+    "2054914344",
     "2057128614",
     "2057558383",
     "2058248160",
@@ -2953,21 +2981,21 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T17:16:19.851230+09:00",
+    "checked_at": "2026-09-01T17:22:00.148135+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
-    "candidate_items": 788,
-    "presale_items": 165,
-    "after_district_filter": 83,
-    "unique_place_ids": 47,
-    "tracked_places": 47,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-01T12:13:50.886365+09:00",
+    "candidate_items": 793,
+    "presale_items": 168,
+    "after_district_filter": 85,
+    "unique_place_ids": 48,
+    "tracked_places": 48,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-01T17:22:00.148135+09:00",
     "admission_names": {
       "(없음)": 413,
-      "현장대기": 210,
-      "사전예약&현장대기": 130,
+      "현장대기": 212,
+      "사전예약&현장대기": 133,
       "사전예약": 35
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
