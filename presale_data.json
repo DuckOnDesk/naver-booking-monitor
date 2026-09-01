@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T23:53:09.083666+09:00",
+  "updated_at": "2026-09-01T23:58:41.809485+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -637,6 +637,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2005264248",
+      "name": "GU 26FW POP UP",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.12.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_276/1788251104241s0dwv_JPEG/edited-1788251103898-0.jpg",
+      "roadAddress": "아차산로5길 24-14",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-01T17:44:32.359485+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2046294128",
       "name": "마녀공장 소이빈 방앗간 팝업스토어",
       "hasBooking": true,
@@ -662,32 +688,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-01T12:13:50.886365+09:00",
       "lastBookingNotifiedAt": "2026-09-01T12:25:17.106703+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2005264248",
-      "name": "GU 26FW POP UP",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.12.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_276/1788251104241s0dwv_JPEG/edited-1788251103898-0.jpg",
-      "roadAddress": "아차산로5길 24-14",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-01T17:44:32.359485+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -2988,22 +2988,22 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T23:52:57.945459+09:00",
+    "checked_at": "2026-09-01T23:58:31.390207+09:00",
     "areas_total": 34,
-    "areas_ok": 33,
-    "areas_failed": 1,
-    "candidate_items": 740,
-    "presale_items": 153,
-    "after_district_filter": 82,
+    "areas_ok": 34,
+    "areas_failed": 0,
+    "candidate_items": 793,
+    "presale_items": 168,
+    "after_district_filter": 85,
     "unique_place_ids": 48,
     "tracked_places": 48,
     "new_places": 0,
     "last_new_place_at": "2026-09-01T17:44:32.359485+09:00",
     "admission_names": {
-      "(없음)": 396,
-      "현장대기": 191,
-      "사전예약&현장대기": 121,
-      "사전예약": 32
+      "(없음)": 413,
+      "현장대기": 212,
+      "사전예약&현장대기": 133,
+      "사전예약": 35
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
   }
