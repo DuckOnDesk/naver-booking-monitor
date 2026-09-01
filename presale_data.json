@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T17:33:26.092477+09:00",
+  "updated_at": "2026-09-01T17:39:04.433450+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -1305,7 +1305,7 @@
     {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1547457",
       "bookingBusinessId": "1547457",
       "operationStart": "25.12.25.",
@@ -1321,7 +1321,8 @@
       "bookingOpenHistory": [
         "2026-08-29T19:06:16.548776+09:00",
         "2026-08-29T22:34:46.167394+09:00",
-        "2026-09-01T04:20:14.872060+09:00"
+        "2026-09-01T04:20:14.872060+09:00",
+        "2026-09-01T17:38:54.231903+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1471,13 +1472,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2083897134",
-      "place_name": "스포티파이 하우스 서울",
-      "booking_url": "",
-      "ts": "2026-08-21T11:36:12.576624+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -2870,6 +2864,13 @@
       "place_name": "사각사각 펜페스트",
       "booking_url": "",
       "ts": "2026-09-01T17:22:00.148135+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2036674429",
+      "place_name": "소녀전선2 망명 갤러리",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
+      "ts": "2026-09-01T17:38:54.231903+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2981,7 +2982,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T17:33:14.354805+09:00",
+    "checked_at": "2026-09-01T17:38:54.231903+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
