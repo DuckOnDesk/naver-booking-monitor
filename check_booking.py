@@ -1336,6 +1336,28 @@ def _browser_close() -> None:
     _pw_browser = _pw_handle = None
 
 
+# 사유 뒤에 페이지 본문을 덧붙일 때 쓰는 구분자. 로그 서명에서 본문을 떼어낼 때도 쓴다.
+_NOTE_SEP = " — "
+
+
+def _page_note(page, limit: int = 80) -> str:
+    """리다이렉트된 페이지의 본문 앞부분을 사유에 덧붙일 문자열로.
+
+    네이버는 예약창을 닫을 때 /error/로 보내면서 그 페이지에 이유를 적어 둔다
+    ("판매 기간이 아닙니다", "운영하지 않는 예매 페이지" 등). 종전에는 URL만 보고
+    바로 빠져나와 그 이유를 버렸다. 그래서 예약창이 왜 열리고 닫히는지 로그만으로는
+    알 수 없었다 (2026-08-31 하겐다즈: 72분 닫힘 → 열림, 이유 불명).
+
+    이미 로드된 페이지에서 텍스트만 읽으므로 브라우저를 새로 켜지 않는다 — 회차당
+    추가 비용이 없다. 읽기에 실패하면 사유만 비우고 판정은 그대로 둔다.
+    """
+    try:
+        text = " ".join(page.inner_text("body").split())
+    except Exception:
+        return ""
+    return f'{_NOTE_SEP}"{text[:limit]}"' if text else ""
+
+
 def _playwright_check(url: str) -> tuple[bool, str]:
     """(is_closed, reason) 반환. URL/텍스트 기반으로 예약창 닫힘 감지."""
     item_match = re.search(r"/items/\d+", url)
@@ -1367,9 +1389,9 @@ def _playwright_check(url: str) -> tuple[bool, str]:
         final_url = page.url
         for pat in _CLOSED_URL_PATTERNS:
             if pat in final_url:
-                return True, f"URL 리다이렉트: {pat}"
+                return True, f"URL 리다이렉트: {pat}{_page_note(page)}"
         if item_path and item_path not in final_url:
-            return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈"
+            return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈{_page_note(page)}"
         visible_text = " ".join(page.inner_text("body").split())
         for pat in _CLOSED_TEXT_PATTERNS:
             if pat in visible_text:
@@ -1502,7 +1524,11 @@ class UrlGate:
             purge_item_keys(alerted, item_prefix,
                             keep=(self.closed_key,), keep_suffix=(":closed",))
             alerted[self.closed_key] = 1
-            log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})", now_str=now_str)
+            # 서명에서는 페이지 본문을 뗀다. 본문이 회차마다 조금씩 달라지면
+            # (시각·세션값 등) 같은 '닫힘' 상태가 매 회차 새 상태로 잡혀,
+            # 60분 간격이어야 할 줄이 60초마다 찍힌다.
+            log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})",
+                      sig=f"닫힘:{reason.split(_NOTE_SEP, 1)[0]}", now_str=now_str)
         elif self.closed_key in alerted:
             alerted.pop(self.closed_key)
             item_prefix = f"{self.item_id}:"

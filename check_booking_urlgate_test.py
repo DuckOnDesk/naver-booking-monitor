@@ -28,6 +28,9 @@
   - 닫힘이 이어지는 동안 alerted가 회차마다 바뀌지 않는다
     (바뀌면 회차마다 git 커밋·푸시가 돈다)
   - 브라우저가 죽으면 다음 확인에서 새로 띄운다
+  - 닫힘 사유에 리다이렉트된 페이지의 본문을 덧붙인다 (네이버가 거기에 이유를 적는다)
+  - 그 본문은 로그 서명에서 뺀다. 본문이 회차마다 조금씩 달라지면 같은 '닫힘'이
+    매 회차 새 상태로 잡혀, 60분 간격이어야 할 줄이 60초마다 찍힌다
 
 사용법: python check_booking_urlgate_test.py
 """
@@ -107,7 +110,7 @@ def run_round(hourly, alerted, *, item=None):
 
 
 def main() -> int:
-    global closed_now
+    global closed_now, fake_check
     cb.LOG_DEDUP = False        # 로그 생략과 무관하게 정책만 본다
     cb.URL_RECHECK_SEC = 300
 
@@ -268,6 +271,48 @@ def main() -> int:
     finally:
         cb._browser_get = real_launch
         cb._pw_browser = cb._pw_handle = None
+
+    print("11) 닫힘 사유에 페이지 본문을 덧붙인다")
+
+    class FakePage:
+        def __init__(self, text=None, boom=False):
+            self._text, self._boom = text, boom
+
+        def inner_text(self, selector):
+            if self._boom:
+                raise RuntimeError("페이지가 이미 닫힘")
+            return self._text
+
+    note = cb._page_note(FakePage("판매 기간이  아닙니다\n\n확인"))
+    check(note == ' — "판매 기간이 아닙니다 확인"', f"본문을 공백 정리해 덧붙인다 (실제: {note!r})")
+    check(cb._page_note(FakePage("")) == "", "본문이 비면 덧붙이지 않는다")
+    check(cb._page_note(FakePage(boom=True)) == "", "본문을 못 읽어도 판정은 그대로 (사유만 빈다)")
+    check(len(cb._page_note(FakePage("가" * 500))) <= 90, "긴 본문은 잘라 낸다")
+
+    print("11-1) 본문이 달라져도 같은 닫힘은 회차마다 다시 찍지 않는다")
+    cb.reset_log_state()
+    cb.LOG_DEDUP = True
+    note_alerted: dict = {}
+    seq = iter(range(1, 99))
+
+    def varying_check(url):
+        calls.append(url)
+        # 같은 닫힘인데 본문 끝이 회차마다 달라지는 상황 (시각·세션값 등)
+        return True, f'URL 리다이렉트: /error/ — "예약이 마감되었습니다 {next(seq)}"'
+
+    # run_round가 매번 cb._playwright_check = fake_check로 덮으므로, 대체 함수 자체를 바꾼다
+    real_fake, fake_check = fake_check, varying_check
+    try:
+        logs1, _, _ = run_round([unit("11:00", stock=4, booked=3)], note_alerted)
+        logs2, _, _ = run_round([unit("11:00", stock=4, booked=3)], note_alerted)
+    finally:
+        fake_check = real_fake
+        cb.LOG_DEDUP = False
+
+    shown1 = [l for l in logs1 if "예약창 닫힘" in l]
+    shown2 = [l for l in logs2 if "예약창 닫힘" in l]
+    check(any("마감되었습니다 1" in l for l in shown1), f"첫 회차에는 본문까지 남긴다 (실제: {shown1})")
+    check(not shown2, f"본문만 달라진 다음 회차는 생략한다 (실제: {shown2})")
 
     print(f"\n=== 실패 {len(fails)}건 ===", flush=True)
     for f in fails:
