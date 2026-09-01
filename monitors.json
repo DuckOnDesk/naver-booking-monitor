@@ -33,6 +33,13 @@
         "2026-09-19",
         "2026-09-20"
       ]
+    },
+    {
+      "id": "mti3v8v5",
+      "name": "마녀공장",
+      "url": "https://m.booking.naver.com/my/bookings/1339393409",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
