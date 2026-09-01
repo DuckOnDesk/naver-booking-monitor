@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T12:25:18.242743+09:00",
+  "updated_at": "2026-09-01T12:30:59.082033+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -62,7 +62,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -118,7 +118,8 @@
         "2026-08-31T10:22:49.813303+09:00",
         "2026-08-31T13:01:29.153037+09:00",
         "2026-08-31T19:14:23.033701+09:00",
-        "2026-09-01T03:02:48.627979+09:00"
+        "2026-09-01T03:02:48.627979+09:00",
+        "2026-09-01T12:30:46.847541+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1439,13 +1440,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-21T01:07:10.925932+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -2838,6 +2832,13 @@
       "place_name": "마녀공장 소이빈 방앗간 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1716946",
       "ts": "2026-09-01T12:25:04.568274+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-09-01T12:30:46.847541+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2948,21 +2949,21 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T12:25:04.568274+09:00",
+    "checked_at": "2026-09-01T12:30:46.847541+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
-    "candidate_items": 765,
-    "presale_items": 167,
+    "candidate_items": 777,
+    "presale_items": 166,
     "after_district_filter": 83,
     "unique_place_ids": 47,
     "tracked_places": 47,
     "new_places": 0,
     "last_new_place_at": "2026-09-01T12:13:50.886365+09:00",
     "admission_names": {
-      "(없음)": 390,
+      "(없음)": 403,
       "현장대기": 208,
-      "사전예약&현장대기": 131,
+      "사전예약&현장대기": 130,
       "사전예약": 36
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
