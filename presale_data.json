@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T16:59:34.398357+09:00",
+  "updated_at": "2026-09-01T17:05:12.952520+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -300,7 +300,7 @@
       "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260827_264/1787812733128Caxpc_JPEG/edited-1787812732862-0.jpg",
-      "roadAddress": "연무장3길 8-27 플레이스 성수",
+      "roadAddress": "연무장3길 8-27 오래오래 함께가게",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -2952,11 +2952,11 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T16:59:23.833829+09:00",
+    "checked_at": "2026-09-01T17:05:01.943504+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
-    "candidate_items": 783,
+    "candidate_items": 785,
     "presale_items": 165,
     "after_district_filter": 83,
     "unique_place_ids": 47,
@@ -2965,7 +2965,7 @@
     "last_new_place_at": "2026-09-01T12:13:50.886365+09:00",
     "admission_names": {
       "(없음)": 413,
-      "현장대기": 205,
+      "현장대기": 207,
       "사전예약&현장대기": 130,
       "사전예약": 35
     },
