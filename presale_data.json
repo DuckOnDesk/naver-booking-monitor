@@ -1,11 +1,12 @@
 {
-  "updated_at": "2026-09-01T10:24:47.824297+09:00",
+  "updated_at": "2026-09-01T10:30:25.987253+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
     "2006916982",
     "2009756357",
     "2011407355",
+    "2015282909",
     "2015464753",
     "2023497014",
     "2024393757",
@@ -569,6 +570,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-08-28T14:15:40.834275+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2015282909",
+      "name": "방탈출 게임 <점프x컷>",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.24.",
+      "operationEnd": "26.11.08.",
+      "remainingDays": 53,
+      "status": "D-53",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_48/1788225345590Omhu2_JPEG/edited-1788225339564-0.jpg",
+      "roadAddress": "성수이로18길 5 2026 ME:LI WEEK",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-01T10:30:15.844733+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1382,13 +1409,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-20T19:43:43.772607+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2076235934",
@@ -2781,6 +2801,13 @@
       "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
       "ts": "2026-09-01T05:37:48.655708+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2015282909",
+      "place_name": "방탈출 게임 <점프x컷>",
+      "booking_url": "",
+      "ts": "2026-09-01T10:30:15.844733+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2803,6 +2830,7 @@
     "2009756357",
     "2011407355",
     "2012113406",
+    "2015282909",
     "2015464753",
     "2017034437",
     "2017875070",
@@ -2889,22 +2917,22 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T10:24:38.560591+09:00",
+    "checked_at": "2026-09-01T10:30:15.844733+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
-    "candidate_items": 754,
-    "presale_items": 160,
-    "after_district_filter": 80,
-    "unique_place_ids": 45,
-    "tracked_places": 45,
-    "new_places": 0,
-    "last_new_place_at": "2026-08-28T11:32:55.050298+09:00",
+    "candidate_items": 758,
+    "presale_items": 164,
+    "after_district_filter": 82,
+    "unique_place_ids": 46,
+    "tracked_places": 46,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-01T10:30:15.844733+09:00",
     "admission_names": {
       "(없음)": 391,
       "현장대기": 203,
       "사전예약&현장대기": 131,
-      "사전예약": 29
+      "사전예약": 33
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
   }
