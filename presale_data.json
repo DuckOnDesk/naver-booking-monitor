@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-01T12:08:24.531568+09:00",
+  "updated_at": "2026-09-01T12:14:03.013921+09:00",
   "watched_places": [
     "2000187386",
     "2005894077",
@@ -15,6 +15,7 @@
     "2036674429",
     "2039106013",
     "2040937553",
+    "2046294128",
     "2047143688",
     "2057558383",
     "2060436986",
@@ -622,6 +623,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-08-27T13:55:55.735822+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2046294128",
+      "name": "마녀공장 소이빈 방앗간 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.09.",
+      "operationEnd": "26.09.21.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260821_127/1787290352625llkci_JPEG/image.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-01T12:13:50.886365+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1410,13 +1437,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-20T22:50:20.756266+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039988652",
@@ -2809,6 +2829,13 @@
       "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "ts": "2026-09-01T11:51:22.055823+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2046294128",
+      "place_name": "마녀공장 소이빈 방앗간 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-09-01T12:13:50.886365+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2868,6 +2895,7 @@
     "2043461454",
     "2045247144",
     "2046157118",
+    "2046294128",
     "2047143688",
     "2047961560",
     "2049771421",
@@ -2918,22 +2946,22 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-01T12:08:12.845209+09:00",
+    "checked_at": "2026-09-01T12:13:50.886365+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
-    "candidate_items": 762,
-    "presale_items": 164,
-    "after_district_filter": 82,
-    "unique_place_ids": 46,
-    "tracked_places": 46,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-01T10:30:15.844733+09:00",
+    "candidate_items": 765,
+    "presale_items": 167,
+    "after_district_filter": 83,
+    "unique_place_ids": 47,
+    "tracked_places": 47,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-01T12:13:50.886365+09:00",
     "admission_names": {
       "(없음)": 390,
       "현장대기": 208,
       "사전예약&현장대기": 131,
-      "사전예약": 33
+      "사전예약": 36
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
   }
