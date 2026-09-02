@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T23:29:40.328681+09:00",
+  "updated_at": "2026-09-02T23:35:15.620064+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -60,7 +60,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -125,7 +125,8 @@
         "2026-09-02T10:32:42.429725+09:00",
         "2026-09-02T13:05:31.735769+09:00",
         "2026-09-02T14:52:53.561135+09:00",
-        "2026-09-02T16:20:23.049293+09:00"
+        "2026-09-02T16:20:23.049293+09:00",
+        "2026-09-02T23:35:03.436991+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1469,13 +1470,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-22T13:14:59.091514+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -2868,6 +2862,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-09-02T22:39:24.728869+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-09-02T23:35:03.436991+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2982,7 +2983,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T23:29:28.604636+09:00",
+    "checked_at": "2026-09-02T23:35:03.436991+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
