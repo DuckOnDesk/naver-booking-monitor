@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T03:53:10.051165+09:00",
+  "updated_at": "2026-09-03T03:58:42.667007+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -1059,7 +1059,7 @@
     {
       "id": "2033849367",
       "name": "소머드 롯데본점 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -1083,7 +1083,8 @@
         "2026-08-30T03:41:35.840086+09:00",
         "2026-08-31T00:34:48.600645+09:00",
         "2026-09-01T03:52:34.529994+09:00",
-        "2026-09-01T13:27:16.768175+09:00"
+        "2026-09-01T13:27:16.768175+09:00",
+        "2026-09-03T03:58:32.969181+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1398,13 +1399,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-22T14:56:09.000752+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2032034855",
@@ -2797,6 +2791,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-09-03T02:24:06.488582+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 롯데본점 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-09-03T03:58:32.969181+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2911,7 +2912,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T03:52:59.416123+09:00",
+    "checked_at": "2026-09-03T03:58:32.969181+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
