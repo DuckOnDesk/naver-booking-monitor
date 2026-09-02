@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T18:53:02.618821+09:00",
+  "updated_at": "2026-09-02T18:58:37.388811+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -873,7 +873,7 @@
     {
       "id": "2039106013",
       "name": "N:DVERSE GARDENING POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "bookingBusinessId": "1718123",
       "operationStart": "26.09.03.",
@@ -902,7 +902,8 @@
         "2026-08-31T13:12:46.245004+09:00",
         "2026-08-31T16:46:10.212575+09:00",
         "2026-09-02T03:44:16.785980+09:00",
-        "2026-09-02T15:06:33.411187+09:00"
+        "2026-09-02T15:06:33.411187+09:00",
+        "2026-09-02T18:58:26.570356+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1463,13 +1464,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-22T05:45:38.410045+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -2862,6 +2856,13 @@
       "place_name": "뷰티학당:코덕의 잼컨파티",
       "booking_url": "",
       "ts": "2026-09-02T18:41:42.282465+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2039106013",
+      "place_name": "N:DVERSE GARDENING POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
+      "ts": "2026-09-02T18:58:26.570356+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2976,7 +2977,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T18:52:52.224175+09:00",
+    "checked_at": "2026-09-02T18:58:26.570356+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
