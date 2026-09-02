@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T23:40:58.825013+09:00",
+  "updated_at": "2026-09-02T23:46:33.917628+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -371,7 +371,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -398,7 +398,8 @@
         "2026-09-01T13:32:59.483853+09:00",
         "2026-09-01T22:05:09.922224+09:00",
         "2026-09-02T15:06:33.411187+09:00",
-        "2026-09-02T19:59:46.896293+09:00"
+        "2026-09-02T19:59:46.896293+09:00",
+        "2026-09-02T23:46:22.125446+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1470,13 +1471,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2027174717",
-      "place_name": "조 말론 런던 팝업스토어 성수",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712600",
-      "ts": "2026-08-22T14:06:24.110827+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -2869,6 +2863,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-09-02T23:35:03.436991+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-09-02T23:46:22.125446+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2983,7 +2984,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T23:40:46.564822+09:00",
+    "checked_at": "2026-09-02T23:46:22.125446+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
