@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T09:30:46.345559+09:00",
+  "updated_at": "2026-09-02T09:36:23.166243+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -646,62 +646,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2028239981",
-      "name": "조니워커 블루 팝업",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712064",
-      "bookingBusinessId": "1712064",
-      "operationStart": "26.08.22.",
-      "operationEnd": "26.09.05.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260807_69/1786095449251WX8Pn_JPEG/image.jpg",
-      "roadAddress": "이태원로49길 37 낫배드커피",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-22T00:32:05.620160+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-22T00:32:05.620160+09:00",
-      "lastBookingNotifiedAt": "2026-08-22T00:37:51.383706+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2027303446",
-      "name": "성률 기획전 여름을 닮은 우리",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1596228",
-      "bookingBusinessId": "1596228",
-      "operationStart": "26.04.30.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_197/17760566869924uCnR_JPEG/%BC%BA%B7%FC_KV_poster_A4_01%28main%29.jpg",
-      "roadAddress": "한남대로 91 고메이494 한남 B층",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-07-22T16:10:57.904712+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2015464753",
       "name": "소담몰 (with 팝업스토어)",
       "hasBooking": false,
@@ -1062,6 +1006,62 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-04T18:11:43.743778+09:00",
       "lastBookingNotifiedAt": "2026-08-07T15:57:24.758241+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2028239981",
+      "name": "조니워커 블루 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1712064",
+      "bookingBusinessId": "1712064",
+      "operationStart": "26.08.22.",
+      "operationEnd": "26.09.05.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260807_69/1786095449251WX8Pn_JPEG/image.jpg",
+      "roadAddress": "이태원로49길 37 낫배드커피",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-22T00:32:05.620160+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-22T00:32:05.620160+09:00",
+      "lastBookingNotifiedAt": "2026-08-22T00:37:51.383706+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2027303446",
+      "name": "성률 기획전 여름을 닮은 우리",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1596228",
+      "bookingBusinessId": "1596228",
+      "operationStart": "26.04.30.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_197/17760566869924uCnR_JPEG/%BC%BA%B7%FC_KV_poster_A4_01%28main%29.jpg",
+      "roadAddress": "한남대로 91 고메이494 한남 B층",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-07-22T16:10:57.904712+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-07-22T16:10:57.904712+09:00",
       "bookingIsOpened": false
     },
     {
@@ -2918,22 +2918,22 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T09:30:36.145903+09:00",
+    "checked_at": "2026-09-02T09:36:11.846468+09:00",
     "areas_total": 34,
-    "areas_ok": 2,
-    "areas_failed": 32,
-    "candidate_items": 79,
-    "presale_items": 26,
-    "after_district_filter": 22,
-    "unique_place_ids": 22,
+    "areas_ok": 34,
+    "areas_failed": 0,
+    "candidate_items": 772,
+    "presale_items": 161,
+    "after_district_filter": 81,
+    "unique_place_ids": 46,
     "tracked_places": 46,
     "new_places": 0,
     "last_new_place_at": "2026-09-01T17:44:32.359485+09:00",
     "admission_names": {
-      "(없음)": 27,
-      "현장대기": 26,
-      "사전예약&현장대기": 18,
-      "사전예약": 8
+      "(없음)": 400,
+      "현장대기": 211,
+      "사전예약&현장대기": 124,
+      "사전예약": 37
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
   }
