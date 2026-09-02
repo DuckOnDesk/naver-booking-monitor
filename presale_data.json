@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T18:36:16.302745+09:00",
+  "updated_at": "2026-09-02T18:41:52.577040+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -8,6 +8,7 @@
     "2009756357",
     "2015282909",
     "2015464753",
+    "2018097846",
     "2023497014",
     "2024393757",
     "2033013073",
@@ -1068,6 +1069,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2018097846",
+      "name": "뷰티학당:코덕의 잼컨파티",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.20.",
+      "operationEnd": "26.09.20.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260902_70/1788315390882GVa2s_JPEG/edited-1788315390528-0.jpg",
+      "roadAddress": "우사단로 42 프로세스 1F, 3F",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-02T18:41:42.282465+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2019832187",
       "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
       "hasBooking": true,
@@ -1436,13 +1463,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-22T05:17:47.866843+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -2835,6 +2855,13 @@
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "ts": "2026-09-02T16:20:23.049293+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2018097846",
+      "place_name": "뷰티학당:코덕의 잼컨파티",
+      "booking_url": "",
+      "ts": "2026-09-02T18:41:42.282465+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2863,6 +2890,7 @@
     "2015464753",
     "2017034437",
     "2017875070",
+    "2018097846",
     "2019832187",
     "2019923740",
     "2020528155",
@@ -2948,21 +2976,21 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T18:36:05.994784+09:00",
+    "checked_at": "2026-09-02T18:41:42.282465+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
-    "candidate_items": 851,
-    "presale_items": 160,
-    "after_district_filter": 82,
-    "unique_place_ids": 47,
-    "tracked_places": 47,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-02T11:29:41.393629+09:00",
+    "candidate_items": 859,
+    "presale_items": 163,
+    "after_district_filter": 84,
+    "unique_place_ids": 48,
+    "tracked_places": 48,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-02T18:41:42.282465+09:00",
     "admission_names": {
       "(없음)": 475,
-      "현장대기": 216,
-      "사전예약&현장대기": 125,
+      "현장대기": 221,
+      "사전예약&현장대기": 128,
       "사전예약": 35
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
