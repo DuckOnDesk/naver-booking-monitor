@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T16:14:53.764012+09:00",
+  "updated_at": "2026-09-02T16:20:35.715114+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -59,7 +59,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -123,7 +123,8 @@
         "2026-09-02T03:22:18.566798+09:00",
         "2026-09-02T10:32:42.429725+09:00",
         "2026-09-02T13:05:31.735769+09:00",
-        "2026-09-02T14:52:53.561135+09:00"
+        "2026-09-02T14:52:53.561135+09:00",
+        "2026-09-02T16:20:23.049293+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -368,7 +369,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -1435,13 +1436,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009522804",
-      "place_name": "PREQUEL EXHIBITION I COSMOS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
-      "ts": "2026-08-22T05:01:08.853847+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2834,6 +2828,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-09-02T15:06:33.411187+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-09-02T16:20:23.049293+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2947,7 +2948,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T16:14:42.484946+09:00",
+    "checked_at": "2026-09-02T16:20:23.049293+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
