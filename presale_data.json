@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T01:21:11.950282+09:00",
+  "updated_at": "2026-09-03T01:26:44.305292+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -59,7 +59,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -2910,7 +2910,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T01:21:01.663310+09:00",
+    "checked_at": "2026-09-03T01:26:33.672686+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
