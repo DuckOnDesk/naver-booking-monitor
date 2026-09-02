@@ -54,7 +54,7 @@
       "id": "mtjwsknd",
       "name": "요즘청년 9/4",
       "url": "https://booking.naver.com/booking/12/bizes/1708531/items/7919014?startDateTime=2026-09-02T00%3A00%3A00%2B09%3A00",
-      "enabled": true,
+      "enabled": false,
       "target_dates": []
     }
   ]
