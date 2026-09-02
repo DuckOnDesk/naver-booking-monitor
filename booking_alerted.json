@@ -1019,12 +1019,11 @@
     "18:00": 48,
     "18:30": 43
   },
-  "mtbqh3ar:url_closed": 1,
-  "mtbqh3ar:2026-09-13:closed": {
-    "17:00": 1
-  },
   "mtjwsknd:url_closed": 1,
   "mtjwsknd:2026-09-04:closed": {
     "19:00": 1
+  },
+  "mtbqh3ar:2026-09-13": {
+    "17:00": 1
   }
 }
