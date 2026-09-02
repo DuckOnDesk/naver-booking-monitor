@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T19:54:23.664366+09:00",
+  "updated_at": "2026-09-02T19:59:59.103384+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -370,7 +370,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -396,7 +396,8 @@
         "2026-09-01T11:51:22.055823+09:00",
         "2026-09-01T13:32:59.483853+09:00",
         "2026-09-01T22:05:09.922224+09:00",
-        "2026-09-02T15:06:33.411187+09:00"
+        "2026-09-02T15:06:33.411187+09:00",
+        "2026-09-02T19:59:46.896293+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1466,13 +1467,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009522804",
-      "place_name": "PREQUEL EXHIBITION I COSMOS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
-      "ts": "2026-08-22T10:11:19.035656+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2027174717",
@@ -2865,6 +2859,13 @@
       "place_name": "시몬스 갤러리 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1720729",
       "ts": "2026-09-02T19:26:17.088484+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-09-02T19:59:46.896293+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2979,7 +2980,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T19:54:12.259941+09:00",
+    "checked_at": "2026-09-02T19:59:46.896293+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
