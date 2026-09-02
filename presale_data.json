@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T13:00:04.831970+09:00",
+  "updated_at": "2026-09-02T13:05:44.363125+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -59,7 +59,7 @@
     {
       "id": "2040937553",
       "name": "프리카 성수 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
       "bookingBusinessId": "1631459",
       "operationStart": "26.08.21.",
@@ -121,7 +121,8 @@
         "2026-09-01T19:30:14.359592+09:00",
         "2026-09-01T23:47:23.712586+09:00",
         "2026-09-02T03:22:18.566798+09:00",
-        "2026-09-02T10:32:42.429725+09:00"
+        "2026-09-02T10:32:42.429725+09:00",
+        "2026-09-02T13:05:31.735769+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1431,13 +1432,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2028239981",
-      "place_name": "조니워커 블루 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712064",
-      "ts": "2026-08-22T00:32:05.620160+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -2830,6 +2824,13 @@
       "place_name": "연리재 팝업스토어 현대백화점 신촌점",
       "booking_url": "",
       "ts": "2026-09-02T11:29:41.393629+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2040937553",
+      "place_name": "프리카 성수 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
+      "ts": "2026-09-02T13:05:31.735769+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2943,7 +2944,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T12:59:53.668307+09:00",
+    "checked_at": "2026-09-02T13:05:31.735769+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
