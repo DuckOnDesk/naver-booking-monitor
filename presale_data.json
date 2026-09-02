@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T07:43:23.511540+09:00",
+  "updated_at": "2026-09-03T07:48:55.694042+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -1060,7 +1060,7 @@
     {
       "id": "2033849367",
       "name": "소머드 롯데본점 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -2913,7 +2913,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T07:43:12.623237+09:00",
+    "checked_at": "2026-09-03T07:48:45.539360+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
