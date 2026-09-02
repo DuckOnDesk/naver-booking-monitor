@@ -1023,7 +1023,8 @@
   "mtbqh3ar:2026-09-13:closed": {
     "17:00": 1
   },
-  "mtjwsknd:2026-09-04": {
+  "mtjwsknd:url_closed": 1,
+  "mtjwsknd:2026-09-04:closed": {
     "19:00": 1
   }
 }
