@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T12:43:13.235171+09:00",
+  "updated_at": "2026-09-02T12:48:50.830306+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -670,6 +670,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2060436986",
+      "name": "제 2회 가을의 향, 세계의 차",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1720855",
+      "bookingBusinessId": "1720855",
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260824_112/1787567069547wBLfg_JPEG/image.jpg",
+      "roadAddress": "월드컵북로12안길 3 서보아트스페이스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-08-24T18:39:55.529783+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-08-20T10:45:51.068603+09:00",
+      "lastBookingNotifiedAt": "2026-08-24T18:40:07.455612+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2057558383",
       "name": "위아자 에코빌리지 '지구우체국' 팝업",
       "hasBooking": false,
@@ -697,34 +725,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-08-26T11:38:23.262083+09:00",
       "lastBookingNotifiedAt": "2026-08-26T11:44:24.014141+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2060436986",
-      "name": "제 2회 가을의 향, 세계의 차",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1720855",
-      "bookingBusinessId": "1720855",
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 8,
-      "status": "D-8",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260824_112/1787567069547wBLfg_JPEG/image.jpg",
-      "roadAddress": "월드컵북로12안길 3 서보아트스페이스",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-08-24T18:39:55.529783+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-08-20T10:45:51.068603+09:00",
-      "lastBookingNotifiedAt": "2026-08-24T18:40:07.455612+09:00",
       "bookingIsOpened": false
     },
     {
@@ -2943,7 +2943,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T12:43:01.461585+09:00",
+    "checked_at": "2026-09-02T12:48:40.076284+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
