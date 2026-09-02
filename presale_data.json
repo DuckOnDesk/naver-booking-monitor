@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T08:22:12.995309+09:00",
+  "updated_at": "2026-09-03T08:27:45.875101+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -331,7 +331,7 @@
     {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "bookingBusinessId": "1713524",
       "operationStart": "26.09.05.",
@@ -2913,7 +2913,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T08:22:02.976855+09:00",
+    "checked_at": "2026-09-03T08:27:35.772080+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
