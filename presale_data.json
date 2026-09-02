@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T20:59:13.533279+09:00",
+  "updated_at": "2026-09-02T21:04:48.734797+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -1273,7 +1273,7 @@
     {
       "id": "2036674429",
       "name": "소녀전선2 망명 갤러리",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1547457",
       "bookingBusinessId": "1547457",
       "operationStart": "25.12.25.",
@@ -2981,7 +2981,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T20:59:01.599572+09:00",
+    "checked_at": "2026-09-02T21:04:36.738779+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
