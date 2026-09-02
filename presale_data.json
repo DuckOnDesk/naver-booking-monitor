@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T01:26:44.305292+09:00",
+  "updated_at": "2026-09-03T01:32:15.872545+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -370,7 +370,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -2910,7 +2910,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T01:26:33.672686+09:00",
+    "checked_at": "2026-09-03T01:32:06.014744+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
