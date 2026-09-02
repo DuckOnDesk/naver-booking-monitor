@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-02T19:20:53.700338+09:00",
+  "updated_at": "2026-09-02T19:26:29.446096+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -625,9 +625,9 @@
     {
       "id": "2080864780",
       "name": "시몬스 갤러리 성수",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1720729",
+      "bookingBusinessId": "1720729",
       "operationStart": "26.09.03.",
       "operationEnd": "26.09.05.",
       "remainingDays": 1,
@@ -638,14 +638,16 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-02T19:26:17.088484+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-08-28T10:41:59.146656+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-02T19:26:28.299961+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1464,13 +1466,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-22T09:20:14.414082+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -2863,6 +2858,13 @@
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
       "ts": "2026-09-02T18:58:26.570356+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2080864780",
+      "place_name": "시몬스 갤러리 성수",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1720729",
+      "ts": "2026-09-02T19:26:17.088484+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2977,7 +2979,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-02T19:20:42.622956+09:00",
+    "checked_at": "2026-09-02T19:26:17.088484+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
