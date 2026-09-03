@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T14:27:02.294280+09:00",
+  "updated_at": "2026-09-03T14:32:38.060301+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -1272,7 +1272,7 @@
       "remainingDays": 1,
       "status": "D-1",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_208/1788255711005MafiJ_JPEG/edited-1788255708627-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260903_240/17884117628924wwJh_JPEG/edited-1788411758230-0.jpg",
       "roadAddress": "신촌로 83 현대백화점신촌점 9층",
       "commonAddress": "서울 서대문구",
       "district": "서대문구",
@@ -2913,11 +2913,11 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T14:26:51.947692+09:00",
+    "checked_at": "2026-09-03T14:32:27.990149+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
-    "candidate_items": 861,
+    "candidate_items": 831,
     "presale_items": 163,
     "after_district_filter": 82,
     "unique_place_ids": 46,
@@ -2925,7 +2925,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-02T18:41:42.282465+09:00",
     "admission_names": {
-      "(없음)": 477,
+      "(없음)": 447,
       "현장대기": 221,
       "사전예약&현장대기": 127,
       "사전예약": 36
