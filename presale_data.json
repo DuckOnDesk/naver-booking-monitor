@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T16:48:27.048659+09:00",
+  "updated_at": "2026-09-03T16:54:08.371349+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -1039,7 +1039,7 @@
       "operationEnd": "26.09.27.",
       "remainingDays": null,
       "status": "진행중",
-      "admissionCondition": "사전예약",
+      "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260812_62/17865325903270TNRL_JPEG/1786528820465.jpg",
       "roadAddress": "을지로 42 두두두서울",
       "commonAddress": "서울 중구",
@@ -2913,7 +2913,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T16:48:15.660798+09:00",
+    "checked_at": "2026-09-03T16:53:56.585973+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -2927,8 +2927,8 @@
     "admission_names": {
       "(없음)": 447,
       "현장대기": 225,
-      "사전예약&현장대기": 127,
-      "사전예약": 35
+      "사전예약&현장대기": 130,
+      "사전예약": 32
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
   }
