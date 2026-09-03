@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-03T13:00:08.960686+09:00",
+  "updated_at": "2026-09-03T13:00:34.301031+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -654,6 +654,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2012113406",
+      "name": "방추리 복숭아카페 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694470/search",
+      "bookingBusinessId": "1694470",
+      "operationStart": "26.07.15.",
+      "operationEnd": "26.09.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260721_169/1784592382492GyT5t_JPEG/edited-1784592379397-1.jpg",
+      "roadAddress": "능동로 172 B08호",
+      "commonAddress": "서울 광진구",
+      "district": "광진구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-08-26T17:47:24.206957+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2015464753",
       "name": "소담몰 (with 팝업스토어)",
       "hasBooking": false,
@@ -1285,32 +1311,6 @@
       "bookingNotified": false,
       "discoveredAt": "2026-09-02T11:29:41.393629+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2012113406",
-      "name": "방추리 복숭아카페 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694470/search",
-      "bookingBusinessId": "1694470",
-      "operationStart": "26.07.15.",
-      "operationEnd": "26.09.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260721_169/1784592382492GyT5t_JPEG/edited-1784592379397-1.jpg",
-      "roadAddress": "능동로 172 B08호",
-      "commonAddress": "서울 광진구",
-      "district": "광진구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-08-26T17:47:24.206957+09:00",
       "bookingIsOpened": false
     },
     {
@@ -2913,22 +2913,22 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-03T12:59:58.391628+09:00",
+    "checked_at": "2026-09-03T13:00:23.650881+09:00",
     "areas_total": 34,
-    "areas_ok": 1,
-    "areas_failed": 33,
-    "candidate_items": 79,
-    "presale_items": 24,
-    "after_district_filter": 20,
-    "unique_place_ids": 20,
+    "areas_ok": 2,
+    "areas_failed": 32,
+    "candidate_items": 136,
+    "presale_items": 43,
+    "after_district_filter": 21,
+    "unique_place_ids": 21,
     "tracked_places": 46,
     "new_places": 0,
     "last_new_place_at": "2026-09-02T18:41:42.282465+09:00",
     "admission_names": {
-      "(없음)": 29,
-      "현장대기": 26,
-      "사전예약&현장대기": 18,
-      "사전예약": 6
+      "(없음)": 49,
+      "현장대기": 44,
+      "사전예약&현장대기": 32,
+      "사전예약": 11
     },
     "stale_warned_at": "2026-08-31T16:12:10.448874+09:00"
   }
