@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-05T08:06:56.354788+09:00",
+  "updated_at": "2026-09-05T08:12:17.423986+09:00",
   "watched_places": [],
   "booking_open_datetimes": {},
   "manual_places": [],
@@ -1518,7 +1518,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-05T08:06:56.354278+09:00",
+    "checked_at": "2026-09-05T08:12:17.423476+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
