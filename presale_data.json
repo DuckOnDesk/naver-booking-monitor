@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-05T18:43:43.660582+09:00",
+  "updated_at": "2026-09-05T18:49:08.304168+09:00",
   "watched_places": [],
   "booking_open_datetimes": {},
   "manual_places": [],
@@ -1518,7 +1518,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-05T18:43:43.659986+09:00",
+    "checked_at": "2026-09-05T18:49:08.303328+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -1530,6 +1530,6 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-02T18:41:42.282465+09:00",
     "admission_names": {},
-    "stale_warned_at": "2026-09-04T18:45:40.934515+09:00"
+    "stale_warned_at": "2026-09-05T18:49:08.304152+09:00"
   }
 }
