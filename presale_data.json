@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-06T13:09:24.087516+09:00",
+  "updated_at": "2026-09-06T13:14:48.143993+09:00",
   "watched_places": [],
   "booking_open_datetimes": {},
   "manual_places": [],
@@ -1518,10 +1518,10 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-06T13:09:24.086938+09:00",
+    "checked_at": "2026-09-06T13:14:48.143422+09:00",
     "areas_total": 34,
-    "areas_ok": 34,
-    "areas_failed": 0,
+    "areas_ok": 27,
+    "areas_failed": 7,
     "candidate_items": 0,
     "presale_items": 0,
     "after_district_filter": 0,
