@@ -87,8 +87,12 @@ def run_round(hourly, alerted, *, stock=None, booked=None):
 
 
 def date_lines(logs):
-    """날짜 상태 줄만 추린다 (진단·요약 등 들여쓴 보조 줄 제외)."""
-    return [l for l in logs if D[5:] in l and l.startswith("[")]
+    """날짜 상태 줄만 추린다 (진단·요약 등 들여쓴 보조 줄과 재고 변경 줄 제외).
+
+    📊 재고 변경 줄은 상태 줄과 별개로 매 변화마다 한 번씩 나가므로, 상태 로그의
+    생략 규칙을 보는 이 테스트에서는 세지 않는다 (check_booking_stock_test.py 담당).
+    """
+    return [l for l in logs if D[5:] in l and l.startswith("[") and "📊" not in l]
 
 
 def main() -> int:

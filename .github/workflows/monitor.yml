@@ -56,6 +56,9 @@ jobs:
           CHECK_INTERVAL_SEC: "60"
           LOOP_HOURS: "5.5"
           SCHEDULE_CACHE_TTL_MIN: "60"   # 운영 기간 캐시 재탐색 주기(분), 0 = 끔
+          # 재고/예약 구성이 바뀔 때 보내는 📊 알림. 시끄러우면 저장소 변수
+          # STOCK_CHANGE_NTFY에 0을 넣는다 (변수가 없으면 켜진 상태가 기본).
+          STOCK_CHANGE_NTFY: ${{ vars.STOCK_CHANGE_NTFY }}
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}   # 예약창 열림/닫힘 확인용
           KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}
         run: python -u check_booking.py

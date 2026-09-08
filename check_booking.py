@@ -13,12 +13,18 @@ auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
 예약창 열림/닫힘 확인(chromium)은 알릴 자리를 찾은 항목에만 한다. 자리가 없으면
 🎉로도 🔒로도 알릴 게 없어 확인할 이유가 없다 (UrlGate 참고).
 
+날짜별 재고/예약 구성이 바뀌면 📊 줄과 알림을 변화마다 한 번씩 남긴다. 자리가
+사라졌을 때 그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소)인지 갈라 주므로,
+자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다 (note_stock_change 참고).
+
 환경변수: NTFY_TOPIC (선택, monitors.json 값 override)
           CHECK_INTERVAL_SEC, LOOP_HOURS
           LOG_DEDUP (0이면 종전처럼 매 회차 전부 출력)
           LOG_HEARTBEAT_MIN (변화가 없어도 이 간격마다 상태 줄 전체 재출력, 기본 60분)
           LOG_TICK_MIN (무변동이 이어질 때 살아 있음을 알리는 간격, 기본 10분)
           URL_RECHECK_SEC (열려 있는 항목의 예약창 재확인 간격, 기본 300초)
+          STOCK_CHANGE_NTFY (0이면 재고 변경을 로그로만 남기고 알림은 끔, 기본 켬)
+          STOCK_CHANGE_MAX_PARTS (재고 변경 본문에 적을 시간대 개수 상한, 기본 8)
 
 monitors.json 항목 선택 필드:
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
@@ -105,6 +111,12 @@ SCHEDULE_REPROBE_PER_ROUND = _env_num("SCHEDULE_REPROBE_PER_ROUND", 1)
 # 업체가 기간을 수시로 손대는 팝업(예: TFT 스탬프투어)이 있으면 알림이 계속 울려
 # 정작 중요한 자리 알림이 묻힌다. 변경 내용은 로그에 그대로 남으므로 기본은 끔.
 PERIOD_CHANGE_NTFY = os.environ.get("PERIOD_CHANGE_NTFY", "0") != "0"
+# 재고/예약 구성이 바뀌었을 때 ntfy 알림까지 보낼지 (0 = 로그만 남김).
+# 워크플로가 저장소 변수를 그대로 넘기므로, 변수를 안 만들었을 때 들어오는 빈
+# 문자열은 기본값(켬)으로 되돌린다 (_env_num 주석 참고).
+STOCK_CHANGE_NTFY = (os.environ.get("STOCK_CHANGE_NTFY") or "1").strip() != "0"
+# 알림 본문에 적을 시간대별 변경 내역의 최대 개수.
+STOCK_CHANGE_MAX_PARTS = _env_num("STOCK_CHANGE_MAX_PARTS", 8)
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
 
@@ -835,6 +847,129 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
     return log_parts, increased
 
 
+STOCK_KEY_SUFFIX = ":stock"
+
+
+def slot_stock_map(ref_slots: list) -> dict:
+    """슬롯 목록 → {HH:MM: [재고, 예약]}. 재고 변경 감지용 스냅샷."""
+    snap = {}
+    for s in ref_slots or []:
+        t = (s.get("unitStartTime") or "")[11:16]
+        if t:
+            snap[t] = [s.get("unitStock", 0), s.get("unitBookingCount", 0)]
+    return snap
+
+
+def _stock_change_label(booked_delta: int, removed: bool, added: bool,
+                        p_stock: int, c_stock: int) -> str:
+    """변화를 사람이 읽는 한 마디로. 자리가 왜 사라졌는지가 여기서 갈린다.
+
+    예약 증감은 양쪽 회차에 다 있는 시간대만 놓고 센다(booked_delta). 총합으로 세면
+    예약이 걸린 시간대가 통째로 내려간 것까지 "예약 취소"로 읽힌다 — 자리가 사라진
+    이유를 가리려고 만든 라벨이 정작 그 이유를 뒤집어 말하는 꼴이 된다.
+    """
+    if booked_delta > 0:
+        return "예약 발생"
+    if booked_delta < 0:
+        return "예약 취소"
+    if removed:
+        return "시간대 내려감"
+    if added:
+        return "시간대 추가"
+    if c_stock < p_stock:
+        return "업체 재고 회수"
+    if c_stock > p_stock:
+        return "재고 추가"
+    return "구성 변경"
+
+
+def note_stock_change(alerted: dict, ntfy_topic: str, item_id: str, datekey: str,
+                      name: str, date_str: str, url: str, ref_slots: list,
+                      now_str: str, is_today: bool, notify: bool = True) -> bool:
+    """재고/예약 구성이 직전 회차와 달라졌으면 로그 한 줄 + 알림 한 번. 보냈으면 True.
+
+    자리가 사라졌을 때 그게 "팔린 것"인지 "업체가 내린 것"인지는 예약 수를 봐야
+    갈리는데, 종전에는 그 숫자가 상태 줄에 스쳐 지나갈 뿐이라 로그를 나중에 훑어야
+    알 수 있었다 (2026-09-08 하겐다즈: 09:11→10:09 사이 09-08 15:00·17:00과
+    09-09 18:00이 사라졌는데 예약 수는 21 그대로였다 — 팔린 게 아니라 업체가 그
+    시간대를 내린 것이었다).
+    상태가 바뀐 그 순간에만 한 번 알려, 로그를 열어 볼 시점을 놓치지 않게 한다.
+
+    "한 번만"은 스냅샷을 매 회차 갱신해서 지킨다. 같은 상태가 이어지는 동안에는
+    prev == cur이라 아무것도 나가지 않고, 다음 변화 때 다시 한 번 나간다.
+
+    is_today: 오늘 날짜면 True. 시간이 지나 목록에서 빠진 시간대는 fetch_slots가
+    걸러낸 것뿐이므로 변경으로 치지 않는다. 기준 시각은 회차 머리의 now_str이 아니라
+    지금 이 순간을 쓴다 — 한 회차가 1분을 넘기면 회차가 시작된 뒤 지나간 슬롯이
+    "업체가 내렸다"로 잘못 잡힌다.
+    """
+    now_hhmm = (datetime.now(timezone(timedelta(hours=9))).strftime("%H:%M")
+                if is_today else None)
+    key = f"{item_id}:{datekey}{STOCK_KEY_SUFFIX}"
+    cur = slot_stock_map(ref_slots)
+    prev = alerted.get(key)
+    alerted[key] = cur
+    if not isinstance(prev, dict) or prev == cur:
+        return False
+
+    parts: list[str] = []
+    ignored: set = set()
+    removed = added = False
+    booked_delta = 0
+    for t in sorted(set(prev) | set(cur)):
+        a, b = prev.get(t), cur.get(t)
+        if a == b:
+            continue
+        if b is None:
+            if now_hhmm is not None and t <= now_hhmm:
+                ignored.add(t)          # 시간이 지나 빠진 슬롯 — 변경이 아니다
+                continue
+            removed = True
+            parts.append(f"{t} 내려감(재고 {a[0]}/예약 {a[1]})")
+        elif a is None:
+            added = True
+            parts.append(f"{t} 새로 열림(재고 {b[0]}/예약 {b[1]})")
+        else:
+            booked_delta += b[1] - a[1]
+            seg = []
+            if a[0] != b[0]:
+                seg.append(f"재고 {a[0]}→{b[0]}")
+            if a[1] != b[1]:
+                seg.append(f"예약 {a[1]}→{b[1]}")
+            parts.append(f"{t} " + ", ".join(seg))
+    if not parts:
+        return False
+
+    # 지나서 빠진 슬롯은 총합 비교에서도 뺀다 (그걸 남기면 오늘 날짜는 하루 종일
+    # "재고 줄어듦"으로 보인다).
+    p_stock   = sum(v[0] for t, v in prev.items() if t not in ignored)
+    p_booking = sum(v[1] for t, v in prev.items() if t not in ignored)
+    c_stock   = sum(v[0] for v in cur.values())
+    c_booking = sum(v[1] for v in cur.values())
+    label = _stock_change_label(booked_delta, removed, added, p_stock, c_stock)
+
+    shown = parts[:STOCK_CHANGE_MAX_PARTS]
+    detail = ", ".join(shown) + (f" 외 {len(parts) - len(shown)}건" if len(parts) > len(shown) else "")
+    summary = f"재고 {p_stock}→{c_stock} / 예약 {p_booking}→{c_booking} · {label}"
+
+    print(f"[{now_str}] 📊 {name} {date_str} {summary} — {detail}", flush=True)
+    if notify and ntfy_topic and STOCK_CHANGE_NTFY:
+        send_ntfy(ntfy_topic, f"📊 {name} 재고 변경 — {label}",
+                  f"{date_str} {summary}\n{detail}", url)
+        return True
+    return False
+
+
+def prune_stock_records(alerted: dict, today_str: str) -> None:
+    """지난 날짜의 재고 스냅샷을 지운다. 안 지우면 상태 파일이 계속 커진다."""
+    for k in list(alerted.keys()):
+        if not k.endswith(STOCK_KEY_SUFFIX):
+            continue
+        parts = k.split(":")
+        if len(parts) >= 3 and len(parts[-2]) == 10 and parts[-2] < today_str:
+            alerted.pop(k)
+
+
 def _auto_book_cfg(item: dict) -> dict | None:
     """monitors.json의 auto_book 설정 정규화. 비활성/미설정이면 None.
 
@@ -1521,8 +1656,12 @@ class UrlGate:
 
         if self._closed:
             item_prefix = f"{self.item_id}:"
+            # 재고 스냅샷(:stock)은 남긴다. 이 purge는 닫혀 있는 동안 매 회차 도는데,
+            # 같이 지우면 비교 대상이 매번 사라져 닫힌 상태에서는 재고 변경을 영영
+            # 못 잡는다 (2026-09-08 하겐다즈가 바로 그 구간이었다).
             purge_item_keys(alerted, item_prefix,
-                            keep=(self.closed_key,), keep_suffix=(":closed",))
+                            keep=(self.closed_key,),
+                            keep_suffix=(":closed", STOCK_KEY_SUFFIX))
             alerted[self.closed_key] = 1
             # 서명에서는 페이지 본문을 뗀다. 본문이 회차마다 조금씩 달라지면
             # (시각·세션값 등) 같은 '닫힘' 상태가 매 회차 새 상태로 잡혀,
@@ -1596,6 +1735,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
     _pruned_dates: list[tuple[str, str]] = []
     _reprobed_this_round = 0  # 이번 회차에 TTL 만료로 재탐색한 항목 수
+    prune_stock_records(alerted, today_str)
     reprobe_reqs = load_reprobe_requests()  # 웹앱의 "운영 기간 초기화" 요청
 
     for item in active:
@@ -1855,8 +1995,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
             # 업체 사전예약 제한: cutoff_date 미만 날짜는 예약 불가 → 알림만 제외, 로그는 그대로 표시
             is_restricted = bool(cutoff_date and date.fromisoformat(datekey) < cutoff_date)
             if is_restricted:
-                alerted.pop(alert_key, None)
-                alerted.pop(f"{alert_key}:pre", None)
+                # 제한이 풀리는 날 처음 보는 자리처럼 알리도록 기록을 비운다.
+                # :closed도 같이 비운다 — 안 그러면 제한이 풀린 뒤 '이미 알린 자리'로
+                # 잡혀 알림이 나가지 않는다.
+                forget_slots(alerted, alert_key)
             restriction_note = f" — 사전예약 제한 ({ba_value}일 전 마감)" if is_restricted else ""
             if datekey == today_str and time_range is not None:
                 _, t_to = time_range
@@ -1889,6 +2031,15 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             "range_slots":   range_slots,
                         }
                 time_hint = f" [{t_from}~{t_to}]" if (time_range is not None and not is_day_unit) else ""
+
+                # 재고 변경 감지는 아래 분기(자리 있음 / 시간대 없음 / 예약 가능 자리
+                # 없음)가 갈리기 전에 한 곳에서 한다. 어느 분기로 가든 같은 슬롯
+                # 목록을 기준으로 비교해야 분기 전환이 가짜 변경으로 잡히지 않는다.
+                if slot_info["queried"]:
+                    note_stock_change(
+                        alerted, ntfy_topic, item_id, datekey, name, date_str, url,
+                        slot_info.get("range_slots", slot_info.get("all_slots", [])),
+                        now_str, datekey == today_str, notify=not is_restricted)
 
                 # 볼 수 있는 시간대가 하나도 없는 날. 일별 재고가 남아 있어도 살 수 있는
                 # 시간대가 없으면 자리가 아니다 (일별 재고에는 영업시간 밖 몫까지 들어 있다).
@@ -1939,6 +2090,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                               f"🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} "
                               f"({stock_info}) - 예약창 닫힘{restriction_note}", now_str=now_str)
 
+                    cal_ok = True
                     if not is_restricted and available > 0 and (prev_slots is None or increased):
                         cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
                         _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
@@ -1953,7 +2105,19 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                             if ntfy_topic:
                                 send_ntfy(ntfy_topic, title, body, url)
+                    # 알림을 보냈든 안 보냈든 이번 회차의 자리 구성을 그대로 기록한다
+                    # (🎉 분기와 같은 규칙). 종전에는 알림이 나갈 때만 갱신해서, 자리가
+                    # 줄어든 뒤에도 기록은 옛 구성으로 남았다. 그 상태에서 같은 시간대에
+                    # 자리가 다시 나면 c - prev.get(t)가 0이라 '증가'로 안 잡혀 알림이
+                    # 영영 나가지 않았다 (2026-09-08 하겐다즈 09-08: 15:00·17:00이
+                    # 사라진 뒤에도 기록에는 세 자리가 그대로 남아 있었다).
+                    if is_restricted:
+                        alerted.pop(closed_alert_key, None)
+                    elif cal_ok is not False:
+                        if per_slot:
                             alerted[closed_alert_key] = dict(per_slot)
+                        else:
+                            alerted.pop(closed_alert_key, None)
                 elif window_open:
                     prev_slots = alerted.get(alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
@@ -2017,6 +2181,30 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                 slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
                 all_slots = slot_info.get("all_slots", [])
+                if time_range is not None:
+                    _t_from, _t_to = time_range
+                    range_slots = [s for s in all_slots
+                                   if _t_from <= s["unitStartTime"][11:16] <= _t_to]
+                else:
+                    range_slots = all_slots
+
+                # 일 단위 상품은 자리가 남아 있는 동안 위쪽 분기에서 fetch_day_slots가
+                # 만든 [종일] 슬롯으로 잡힌다. 매진돼 이 분기로 넘어올 때 스냅샷 기준이
+                # 슬롯→없음으로 바뀌면 매진이 "재고 회수"로 잘못 읽히므로, 여기서도
+                # 같은 모양으로 맞춰 준다.
+                track_slots = range_slots
+                if (not all_slots and d is not None and time_range is None
+                        and slot_info.get("api_slot_count") == 0):
+                    track_slots = [{
+                        "unitStartTime": f"{datekey} {DAY_UNIT_TIME}",
+                        "unitStock": d.get("stock") or 0,
+                        "unitBookingCount": d.get("bookingCount") or 0,
+                    }]
+                if slot_info["queried"]:
+                    note_stock_change(
+                        alerted, ntfy_topic, item_id, datekey, name, date_str, url,
+                        track_slots, now_str, datekey == today_str,
+                        notify=not is_restricted)
 
                 if datekey == today_str and slot_info["queried"] and not all_slots:
                     continue
@@ -2032,7 +2220,6 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if time_range is not None:
                     t_from, t_to = time_range
                     time_hint = f" [{t_from}~{t_to}]"
-                    range_slots = [s for s in all_slots if t_from <= s["unitStartTime"][11:16] <= t_to]
                     if range_slots:
                         r_stock   = sum(s.get("unitStock",        0) for s in range_slots)
                         r_booking = sum(s.get("unitBookingCount", 0) for s in range_slots)
