@@ -1,0 +1,37 @@
+name: 예약 시간 제한 진단
+
+# API 응답에 "이 회차는 지금 예약할 수 없다"는 근거가 담겨 있는지 확인하는 수동 실행
+# 워크플로. 작업 환경에서는 m.booking.naver.com 접근이 막혀 있어 여기서 돌린다.
+# 읽기만 하고 데이터 파일은 건드리지 않는다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 진단할 네이버 예약 상품 URL
+        required: true
+        default: "https://m.booking.naver.com/booking/12/bizes/1713524/items/7944346"
+      date:
+        description: 진단할 날짜 (YYYY-MM-DD, 비우면 오늘)
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - name: 진단 실행
+        run: python -u schedule_diagnose.py "${{ inputs.url }}" "${{ inputs.date }}"
