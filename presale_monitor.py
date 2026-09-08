@@ -39,6 +39,9 @@ if not sys.stderr:
 KST = timezone(timedelta(hours=9))
 LIST_URL = "https://pcmap.place.naver.com/popupstore/list"
 PRESALE_NAME_FILTER = "사전예약"  # admissionCondition.name에 포함되는 키워드로 필터
+# 표기가 바뀌어도 버티도록 언어 무관 키도 함께 본다.
+# popupstore_label_pre_book / popupstore_label_prebook_and_walkin → 밑줄 제거 후 매칭
+PRESALE_I18N_FILTER = "prebook"
 
 # "요즘 알림이 없다"가 진짜 신규가 없어서인지, 탐색이 깨진 건지 구분하기 위한 기준.
 # 신규 발견은 보통 하루 2~3건 나온다 — 이 시간 동안 0건이면 탐색을 의심한다.
@@ -118,10 +121,45 @@ def load_config() -> dict:
     return cfg
 
 
+def popup_info(item: dict) -> dict:
+    """팝업 운영 정보가 담긴 dict.
+
+    2026-09-03부터 네이버가 operationStartDateTime·status·admissionCondition을
+    항목 최상위에서 popupstoreInfo 안으로 옮겼다(__typename도
+    PopupStore → PlaceListBusinessesItem). 두 구조를 모두 읽는다.
+    """
+    info = item.get("popupstoreInfo")
+    return info if isinstance(info, dict) else item
+
+
+def admission_raw(item: dict):
+    """admissionCondition 값 — popupstoreInfo(신규) → 최상위(구버전) 순으로 찾는다."""
+    info = item.get("popupstoreInfo")
+    if isinstance(info, dict) and "admissionCondition" in info:
+        return info["admissionCondition"]
+    return item.get("admissionCondition")
+
+
+def has_admission(item: dict) -> bool:
+    """admissionCondition 필드가 (어느 위치로든) 남아 있는지."""
+    info = item.get("popupstoreInfo")
+    return (isinstance(info, dict) and "admissionCondition" in info) or "admissionCondition" in item
+
+
 def admission_name(item: dict) -> str:
     """항목의 admissionCondition.name (없거나 형태가 다르면 빈 문자열)."""
-    ac = item.get("admissionCondition")
+    ac = admission_raw(item)
     return (ac.get("name") or "") if isinstance(ac, dict) else ""
+
+
+def is_presale(item: dict) -> bool:
+    """사전예약 팝업인지 — 한글 표기와 언어 무관 키(i18nKey)를 함께 본다."""
+    ac = admission_raw(item)
+    if not isinstance(ac, dict):
+        return False
+    if PRESALE_NAME_FILTER in (ac.get("name") or ""):
+        return True
+    return PRESALE_I18N_FILTER in (ac.get("i18nKey") or "").replace("_", "")
 
 
 def admission_label(item: dict) -> str:
@@ -130,7 +168,7 @@ def admission_label(item: dict) -> str:
     네이버가 필드 이름·형태를 바꾸면 사전예약 항목이 통째로 0건이 되는데,
     그때 무엇으로 바뀌었는지 로그에 남기려고 별도 라벨을 붙인다.
     """
-    ac = item.get("admissionCondition")
+    ac = admission_raw(item)
     if ac is None:
         return "(없음)"
     if isinstance(ac, dict):
@@ -142,9 +180,9 @@ def admission_label(item: dict) -> str:
 
 
 # 팝업 장소 엔트리를 알아보는 표식 필드. 하나가 사라져도 나머지로 버틴다.
-PLACE_MARKER_FIELDS = ("admissionCondition", "operationStartDateTime",
-                       "operationEndDateTime", "bookingUrl", "hasBooking",
-                       "commonAddress", "roadAddress")
+PLACE_MARKER_FIELDS = ("popupstoreInfo", "admissionCondition",
+                       "operationStartDateTime", "operationEndDateTime",
+                       "bookingUrl", "hasBooking", "commonAddress", "roadAddress")
 
 
 def iter_dicts(node, depth: int = 0):
@@ -185,14 +223,18 @@ def presale_by_text(item: dict) -> bool:
     조용히 멈춘다. 그 경우에 한해 엔트리의 문자열 값에서 '사전예약'을 직접
     찾는다. 평소 경로(admissionCondition.name)에는 영향이 없다.
     """
-    for v in item.values():
-        if isinstance(v, str) and PRESALE_NAME_FILTER in v:
-            return True
-        if isinstance(v, dict):
-            for sv in v.values():
-                if isinstance(sv, str) and PRESALE_NAME_FILTER in sv:
-                    return True
-    return False
+    def scan(node, depth: int = 0) -> bool:
+        if depth > 4:
+            return False
+        if isinstance(node, str):
+            return PRESALE_NAME_FILTER in node
+        if isinstance(node, dict):
+            return any(scan(v, depth + 1) for v in node.values())
+        if isinstance(node, list):
+            return any(scan(v, depth + 1) for v in node)
+        return False
+
+    return scan(item)
 
 
 def fetch_presale_places(area: dict, stats: dict | None = None) -> list[dict] | None:
@@ -257,8 +299,8 @@ def fetch_presale_places(area: dict, stats: dict | None = None) -> list[dict] | 
             names[label] = names.get(label, 0) + 1
 
     # 타입 prefix 무관하게 admissionCondition.name에 "사전예약" 포함된 항목만 수집
-    presale = [v for v in candidates if PRESALE_NAME_FILTER in admission_name(v)]
-    if not presale and candidates and not any("admissionCondition" in v for v in candidates):
+    presale = [v for v in candidates if is_presale(v)]
+    if not presale and candidates and not any(has_admission(v) for v in candidates):
         # 입장 조건 필드가 통째로 사라진 경우에만 문자열 매칭으로 버틴다
         presale = [v for v in candidates if presale_by_text(v)]
         if presale:
@@ -291,18 +333,19 @@ def extract_district(common_address: str | None) -> str | None:
 
 
 def normalize(p: dict) -> dict:
-    status = p.get("status") or {}
-    admission = p.get("admissionCondition") or {}
+    info = popup_info(p)
+    status = info.get("status") or {}
+    admission = admission_raw(p) or {}
     status_name = status.get("name") if isinstance(status, dict) else None
-    remaining = p.get("remainingDays")
+    remaining = info.get("remainingDays")
     return {
         "id": p.get("id"),
         "name": p.get("name"),
         "hasBooking": p.get("hasBooking", False),
         "bookingUrl": p.get("bookingUrl"),
         "bookingBusinessId": p.get("bookingBusinessId"),
-        "operationStart": p.get("operationStartDateTime"),
-        "operationEnd": p.get("operationEndDateTime"),
+        "operationStart": info.get("operationStartDateTime"),
+        "operationEnd": info.get("operationEndDateTime"),
         "remainingDays": remaining,
         "status": status_name or (f"D-{remaining}" if remaining is not None else None),
         "admissionCondition": admission.get("name") if isinstance(admission, dict) else None,

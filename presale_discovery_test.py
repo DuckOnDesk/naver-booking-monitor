@@ -5,7 +5,8 @@
 엔트리를 최상위 값에서만 찾던 게 원인이다.
 
 확인 내용:
-  - 정규화 캐시(최상위 엔트리)에서 예전처럼 찾는다
+  - 현재 네이버 구조(PlaceListBusinessesItem.popupstoreInfo)에서 찾는다
+  - 예전 구조(최상위 admissionCondition)도 계속 읽는다
   - 비정규화 캐시(ROOT_QUERY 아래 중첩 배열)에서도 찾는다
   - 장소가 아닌 엔트리(카테고리 등)는 후보에 넣지 않는다
   - 같은 장소가 여러 위치에 나와도 한 번만 센다
@@ -34,6 +35,30 @@ def check(cond, msg):
 
 
 AREA = {"query": "성수 팝업", "x": "127.057", "y": "37.544"}
+
+
+def live_popup(pid, name, admission="사전예약", i18n="popupstore_label_pre_book"):
+    """2026-09-08 실제 응답에서 뜬 구조 (PlaceListBusinessesItem + popupstoreInfo)."""
+    return {
+        "__typename": "PlaceListBusinessesItem", "id": pid, "name": name,
+        "category": "팝업스토어", "hasBooking": True,
+        "bookingUrl": f"https://m.booking.naver.com/booking/12/bizes/{pid}",
+        "bookingBusinessId": pid, "commonAddress": "서울 성동구",
+        "roadAddress": "아차산로11길 7", "imageUrl": "https://example/i.jpg",
+        "popupstoreInfo": {
+            "__typename": "PlaceListBusinessesItemPopupstoreInfo",
+            "operationStartDateTime": "26.07.28.",
+            "operationEndDateTime": "26.10.18.",
+            "remainingDays": None,
+            "status": {"__typename": "PopupstoreSearchBusinessItemStatus",
+                       "name": "진행중", "value": "3",
+                       "i18nKey": "popupstore_status_ongoing"},
+            "admissionCondition": None if admission is None else {
+                "__typename": "PopupstoreSearchBusinessItemAdmissionCondition",
+                "name": admission, "i18nKey": i18n},
+            "mediaList": [],
+        },
+    }
 
 
 def popup(pid, name, admission="사전예약"):
@@ -74,7 +99,43 @@ def fetch(state, stats=None):
 
 
 def main() -> int:
-    print("1) 정규화 캐시 — 장소가 최상위 엔트리로 오는 (기존) 형태")
+    print("0) 현재 네이버 구조 — popupstoreInfo 안의 admissionCondition")
+    live = {
+        "ROOT_QUERY": {"__typename": "Query"},
+        "PlaceListBusinessesItem:2020855313":
+            live_popup("2020855313", "STORY A 성수", "사전예약",
+                       "popupstore_label_pre_book"),
+        "PlaceListBusinessesItem:2033013073":
+            live_popup("2033013073", "하겐다즈 팝업", "사전예약&현장대기",
+                       "popupstore_label_prebook_and_walkin"),
+        "PlaceListBusinessesItem:2049944406":
+            live_popup("2049944406", "온그리디언츠 라운지", "현장대기",
+                       "popupstore_label_walkin"),
+    }
+    stats = {}
+    got = fetch(live, stats)
+    check(sorted(p["id"] for p in got) == ["2020855313", "2033013073"],
+          f"사전예약·사전예약&현장대기만 뽑는다 (실제 {[p['id'] for p in got]})")
+    check(stats["candidate_items"] == 3, f"후보 3건 (실제 {stats.get('candidate_items')})")
+    check(not stats.get("fallback_matched"), "예비 매칭 없이 정식 경로로 인식")
+    check(sorted(stats["admission_names"]) == ["사전예약", "사전예약&현장대기", "현장대기"],
+          f"입장 조건 분포 집계 (실제 {stats['admission_names']})")
+
+    norm = pm.normalize(live["PlaceListBusinessesItem:2020855313"])
+    check(norm["operationStart"] == "26.07.28." and norm["operationEnd"] == "26.10.18.",
+          f"운영 기간을 popupstoreInfo에서 읽는다 (실제 {norm['operationStart']}~{norm['operationEnd']})")
+    check(norm["status"] == "진행중", f"상태를 popupstoreInfo에서 읽는다 (실제 {norm['status']})")
+    check(norm["admissionCondition"] == "사전예약", "입장 조건 정규화")
+    check(norm["district"] == "성동구", "구 추출")
+
+    # 한글 표기가 바뀌어도 i18nKey로 버틴다
+    stats = {}
+    renamed = {"ROOT_QUERY": {}, "a": live_popup("9", "표기변경 팝업", "선예약",
+                                                 "popupstore_label_pre_book")}
+    got = fetch(renamed, stats)
+    check([p["id"] for p in got] == ["9"], "표기가 '선예약'으로 바뀌어도 i18nKey로 인식")
+
+    print("\n1) 예전 구조 — 장소가 최상위 엔트리로 오는 형태도 계속 읽는다")
     normalized = {
         "ROOT_QUERY": {"__typename": "Query",
                        "popupStores": [{"__ref": "PopupStore:1"}, {"__ref": "PopupStore:2"}]},
