@@ -13,9 +13,11 @@ auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
 예약창 열림/닫힘 확인(chromium)은 알릴 자리를 찾은 항목에만 한다. 자리가 없으면
 🎉로도 🔒로도 알릴 게 없어 확인할 이유가 없다 (UrlGate 참고).
 
-날짜별 재고/예약 구성이 바뀌면 📊 줄과 알림을 변화마다 한 번씩 남긴다. 자리가
-사라졌을 때 그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소)인지 갈라 주므로,
-자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다 (note_stock_change 참고).
+날짜별 재고/예약 구성이 바뀌면 📊 줄을 변화마다 한 번씩 남긴다. 자리가 사라졌을 때
+그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소·시간대 삭제)인지 갈라 주므로,
+자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다. 알림(ntfy)은 같은 날짜에 자리
+알림이 나가지 않은 회차에만 보낸다 — 한 사건에 두 번 울리면 정작 급한 자리 알림이
+묻힌다 (note_stock_change 참고).
 
 환경변수: NTFY_TOPIC (선택, monitors.json 값 override)
           CHECK_INTERVAL_SEC, LOOP_HOURS
@@ -883,10 +885,15 @@ def _stock_change_label(booked_delta: int, removed: bool, added: bool,
     return "구성 변경"
 
 
-def note_stock_change(alerted: dict, ntfy_topic: str, item_id: str, datekey: str,
-                      name: str, date_str: str, url: str, ref_slots: list,
-                      now_str: str, is_today: bool, notify: bool = True) -> bool:
-    """재고/예약 구성이 직전 회차와 달라졌으면 로그 한 줄 + 알림 한 번. 보냈으면 True.
+def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
+                      date_str: str, url: str, ref_slots: list, now_str: str,
+                      is_today: bool, notify: bool = True) -> dict | None:
+    """재고/예약 구성이 직전 회차와 달라졌으면 로그 한 줄. 알릴 게 있으면 payload 반환.
+
+    발송은 호출자가 결정한다 — 같은 날짜에 자리 알림(🎉/🔒/⏳)이 나가는 회차에는
+    접는다 (send_stock_change / check_all의 flush 참고). 한 사건에 알림이 두 번
+    울리면 정작 잡아야 할 자리 알림이 묻힌다. 로그의 📊 줄은 접지 않는다 — 재고·예약
+    증감은 자리 알림 본문에 없는 정보다.
 
     자리가 사라졌을 때 그게 "팔린 것"인지 "업체가 내린 것"인지는 예약 수를 봐야
     갈리는데, 종전에는 그 숫자가 상태 줄에 스쳐 지나갈 뿐이라 로그를 나중에 훑어야
@@ -910,7 +917,7 @@ def note_stock_change(alerted: dict, ntfy_topic: str, item_id: str, datekey: str
     prev = alerted.get(key)
     alerted[key] = cur
     if not isinstance(prev, dict) or prev == cur:
-        return False
+        return None
 
     parts: list[str] = []
     ignored: set = set()
@@ -938,7 +945,7 @@ def note_stock_change(alerted: dict, ntfy_topic: str, item_id: str, datekey: str
                 seg.append(f"예약 {a[1]}→{b[1]}")
             parts.append(f"{t} " + ", ".join(seg))
     if not parts:
-        return False
+        return None
 
     # 지나서 빠진 슬롯은 총합 비교에서도 뺀다 (그걸 남기면 오늘 날짜는 하루 종일
     # "재고 줄어듦"으로 보인다).
@@ -953,11 +960,18 @@ def note_stock_change(alerted: dict, ntfy_topic: str, item_id: str, datekey: str
     summary = f"재고 {p_stock}→{c_stock} / 예약 {p_booking}→{c_booking} · {label}"
 
     print(f"[{now_str}] 📊 {name} {date_str} {summary} — {detail}", flush=True)
-    if notify and ntfy_topic and STOCK_CHANGE_NTFY:
-        send_ntfy(ntfy_topic, f"📊 {name} 재고 변경 — {label}",
-                  f"{date_str} {summary}\n{detail}", url)
-        return True
-    return False
+    if not notify:
+        return None
+    return {"title": f"📊 {name} 재고 변경 — {label}",
+            "body": f"{date_str} {summary}\n{detail}", "url": url}
+
+
+def send_stock_change(ntfy_topic: str, payload: dict) -> bool:
+    """note_stock_change가 만든 재고 변경 알림을 실제로 보낸다. 보냈으면 True."""
+    if not (ntfy_topic and STOCK_CHANGE_NTFY):
+        return False
+    send_ntfy(ntfy_topic, payload["title"], payload["body"], payload["url"])
+    return True
 
 
 def prune_stock_records(alerted: dict, today_str: str) -> None:
@@ -1920,6 +1934,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 게이트가 필요할 때 브라우저를 켠다 (UrlGate 참고).
         gate = UrlGate(item, item_id, url, name, alerted, ntfy_topic, now_str)
         vanished_dates: list[str] = []   # 이번 회차에 자리가 있다가 0이 된 날짜
+        # 재고 변경 알림은 날짜별 판정이 다 끝난 뒤에 보낸다. 자리 알림이 나간
+        # 날짜는 접어야 하는데, 그 여부는 아래 분기를 다 지나야 정해진다.
+        pending_stock: list[tuple[str, dict]] = []
+        slot_alerted: set = set()        # 이번 회차에 자리 알림이 나간 날짜
 
         result = check_availability(parsed["biz_id"], parsed["item_id"], parsed["service_id"], target_dates_only)
         if result is None:
@@ -2036,10 +2054,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 # 없음)가 갈리기 전에 한 곳에서 한다. 어느 분기로 가든 같은 슬롯
                 # 목록을 기준으로 비교해야 분기 전환이 가짜 변경으로 잡히지 않는다.
                 if slot_info["queried"]:
-                    note_stock_change(
-                        alerted, ntfy_topic, item_id, datekey, name, date_str, url,
+                    _sc = note_stock_change(
+                        alerted, item_id, datekey, name, date_str, url,
                         slot_info.get("range_slots", slot_info.get("all_slots", [])),
                         now_str, datekey == today_str, notify=not is_restricted)
+                    if _sc:
+                        pending_stock.append((datekey, _sc))
 
                 # 볼 수 있는 시간대가 하나도 없는 날. 일별 재고가 남아 있어도 살 수 있는
                 # 시간대가 없으면 자리가 아니다 (일별 재고에는 영업시간 밖 몫까지 들어 있다).
@@ -2103,6 +2123,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             else:
                                 title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                            slot_alerted.add(datekey)
                             if ntfy_topic:
                                 send_ntfy(ntfy_topic, title, body, url)
                     # 알림을 보냈든 안 보냈든 이번 회차의 자리 구성을 그대로 기록한다
@@ -2148,6 +2169,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                                     inc_str = ", ".join(f"{t}(+{d})" for t, d in increased)
                                     title = f"🎉 {name} 자리 추가됨 - {inc_str}"
                                 body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
+                                slot_alerted.add(datekey)
                                 if ntfy_topic:
                                     send_ntfy(ntfy_topic, title, body, url)
                         if cal_ok is not False:
@@ -2171,6 +2193,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             open_dt = _parse_dt(result.get("sale_start_date"))
                             title = f"⏳ {name} 자리 있음 ({_open_time_label(open_dt)})"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot) + f"\n{window_reason}"
+                        slot_alerted.add(datekey)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                         alerted[pre_key] = 1
@@ -2201,10 +2224,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         "unitBookingCount": d.get("bookingCount") or 0,
                     }]
                 if slot_info["queried"]:
-                    note_stock_change(
-                        alerted, ntfy_topic, item_id, datekey, name, date_str, url,
+                    _sc = note_stock_change(
+                        alerted, item_id, datekey, name, date_str, url,
                         track_slots, now_str, datekey == today_str,
                         notify=not is_restricted)
+                    if _sc:
+                        pending_stock.append((datekey, _sc))
 
                 if datekey == today_str and slot_info["queried"] and not all_slots:
                     continue
@@ -2250,6 +2275,13 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                           now_str=now_str)
                 if has_target_dates and r_stock == 0:
                     _pruned_dates.append((item_id, datekey))
+
+        # 자리 알림이 나가지 않은 날짜만 📊로 알린다. 자리 알림은 "지금 잡을 수 있다"를
+        # 알리고 📊는 "숫자가 이렇게 움직였다"를 알리는데, 같은 사건에 둘 다 울리면
+        # 정작 급한 쪽이 묻힌다. 접힌 회차도 로그의 📊 줄은 위에서 이미 남았다.
+        for _dk, _payload in pending_stock:
+            if _dk not in slot_alerted:
+                send_stock_change(ntfy_topic, _payload)
 
         # 자리가 사라진 회차에도 예약창은 한 번 본다. 자리가 없어졌다는 건 방금 누군가
         # 예약했다는 뜻이고, 매진 상태에서 그런 일이 일어나는 계기는 대개 예약창이 막

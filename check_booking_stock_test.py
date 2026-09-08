@@ -15,6 +15,7 @@
   - 예약이 늘면 "예약 발생", 같은 시간대에서 빠지면 "예약 취소"(취소표)로 알린다
   - 같은 상태가 이어지면 다시 알리지 않는다 (한 번만)
   - 예약창이 닫혀 있어도 재고 변경을 잡는다 (purge가 스냅샷을 지우지 않는다)
+  - 자리 알림이 나가는 회차에는 📊 알림을 접는다 (로그 줄은 그대로 남는다)
   - 🔒 상태에서 자리가 줄었다가 다시 나면 알림이 나간다 (누락 회귀)
   - STOCK_CHANGE_NTFY=0이면 로그만 남고 알림은 안 나간다
 
@@ -124,28 +125,37 @@ def main() -> int:
     check(len(sa) == 1 and "예약 발생" in sa[0][0], f"예약 발생 알림 (실제: {titles(sent)})")
     check("예약 0→1" in sa[0][1], f"예약 증가 표기 (실제: {sa and sa[0][1]})")
 
-    print("5) 시간대가 새로 열리면 '시간대 추가'로 알린다")
-    _, sent = run_round([unit("12:00", stock=2, booked=1), unit("15:00")], alerted)
-    sa = stock_alerts(sent)
-    check(len(sa) == 1 and "시간대 추가" in sa[0][0], f"시간대 추가 알림 (실제: {titles(sent)})")
-    check("15:00 새로 열림" in sa[0][1], f"새 시간대 표기 (실제: {sa and sa[0][1]})")
+    print("5) 라벨 판정 — note_stock_change 직접 호출")
+    #    자리가 새로 나는 순간에는 자리 알림이 같이 나가 📊가 접히므로(7번 참고),
+    #    라벨만 보는 확인은 run_round를 거치지 않는다.
+    def label_of(prev, cur_slots, *, datekey=D):
+        al = {f"t1:{datekey}:stock": prev}
+        import builtins
+        real_print = builtins.print
+        builtins.print = lambda *a, **kw: None
+        try:
+            payload = cb.note_stock_change(al, "t1", datekey, "테스트", "날짜", URL,
+                                           cur_slots, "00:00:00", False)
+        finally:
+            builtins.print = real_print
+        return payload and payload["title"]
 
-    print("5-1) 시간대는 그대로인데 재고 숫자만 줄면 '업체 재고 회수'다")
-    _, sent = run_round([unit("12:00", stock=1, booked=1), unit("15:00")], alerted)
-    sa = stock_alerts(sent)
-    check(len(sa) == 1 and "업체 재고 회수" in sa[0][0], f"재고 회수 알림 (실제: {titles(sent)})")
+    def raw(hhmm, stock, booked):
+        return {"unitStartTime": f"{D} {hhmm}:00", "unitStock": stock,
+                "unitBookingCount": booked}
 
-    print("5-2) 예약이 걸린 시간대가 통째로 내려가도 '예약 취소'로 읽지 않는다")
-    _, sent = run_round([unit("15:00")], alerted)
-    sa = stock_alerts(sent)
-    check(len(sa) == 1 and "시간대 내려감" in sa[0][0],
-          f"예약 총합은 줄지만 취소가 아니다 (실제: {titles(sent)})")
-
-    print("5-3) 같은 시간대에서 예약이 빠지면 '예약 취소'(취소표)다")
-    run_round([unit("15:00", stock=2, booked=2)], alerted)
-    _, sent = run_round([unit("15:00", stock=2, booked=1)], alerted)
-    sa = stock_alerts(sent)
-    check(len(sa) == 1 and "예약 취소" in sa[0][0], f"취소표 알림 (실제: {titles(sent)})")
+    check("시간대 추가" in label_of({"12:00": [1, 0]}, [raw("12:00", 1, 0), raw("15:00", 1, 0)]),
+          "새 시간대 → 시간대 추가")
+    check("업체 재고 회수" in label_of({"12:00": [2, 0]}, [raw("12:00", 1, 0)]),
+          "시간대는 그대로, 재고 숫자만 감소 → 업체 재고 회수")
+    check("시간대 내려감" in label_of({"12:00": [8, 7], "15:00": [8, 7]}, [raw("12:00", 8, 7)]),
+          "예약이 걸린 시간대가 통째로 내려가도 '예약 취소'로 읽지 않는다")
+    check("예약 취소" in label_of({"12:00": [2, 2]}, [raw("12:00", 2, 1)]),
+          "같은 시간대에서 예약이 빠짐 → 예약 취소 (취소표)")
+    check("예약 발생" in label_of({"12:00": [2, 1]}, [raw("12:00", 2, 2)]),
+          "같은 시간대에서 예약이 늘어남 → 예약 발생")
+    check(label_of({"12:00": [1, 0]}, [raw("12:00", 1, 0)]) is None,
+          "변화가 없으면 payload 없음")
 
     print("6) 예약창이 닫혀 있어도 재고 변경을 잡는다")
     cb.reset_log_state()
@@ -174,6 +184,15 @@ def main() -> int:
     check(any("자리 추가됨" in t and "예약창 닫힘" in t for t in titles(sent)),
           f"돌아온 자리에 다시 알림 (실제: {titles(sent)})")
 
+    print("7-1) 자리 알림이 나가는 회차에는 📊 알림을 접는다 (로그는 남는다)")
+    cb.reset_log_state()
+    alerted = {}
+    run_round([unit("12:00")], alerted, closed=True)          # 기준 회차
+    logs, sent = run_round([unit("12:00"), unit("15:00")], alerted, closed=True)
+    check(any("자리 추가됨" in t for t in titles(sent)), f"자리 알림은 나간다 (실제: {titles(sent)})")
+    check(stock_alerts(sent) == [], f"같은 회차 📊 알림은 접힘 (실제: {titles(sent)})")
+    check(any("📊" in l for l in logs), "접혀도 로그의 📊 줄은 남는다")
+
     print("8) STOCK_CHANGE_NTFY=0이면 로그만 남는다")
     cb.STOCK_CHANGE_NTFY = False
     try:
@@ -190,8 +209,6 @@ def main() -> int:
     if not (past < now_hhmm < future):
         print(f"    SKIP — 자정/23:59 경계({now_hhmm} KST)라 판정 시간대를 못 잡는다")
     else:
-        sent = []
-        cb.send_ntfy = lambda topic, title, body, u: sent.append((title, body))
         alerted = {f"t1:{today}:stock": {past: [1, 0], future: [1, 0]}}
 
         def slot(hhmm, stock=1, booked=0):
@@ -203,17 +220,18 @@ def main() -> int:
         builtins.print = lambda *a, **kw: None
         try:
             # 지난 시간대만 빠졌다 → 변경 아님
-            cb.note_stock_change(alerted, "topic", "t1", today, "테스트", "오늘", URL,
-                                 [slot(future)], now_hhmm + ":00", True)
+            passed_only = cb.note_stock_change(alerted, "t1", today, "테스트", "오늘", URL,
+                                               [slot(future)], now_hhmm + ":00", True)
             # 아직 안 지난 시간대가 사라졌다 → 변경
-            cb.note_stock_change(alerted, "topic", "t1", today, "테스트", "오늘", URL,
-                                 [], now_hhmm + ":00", True)
+            real = cb.note_stock_change(alerted, "t1", today, "테스트", "오늘", URL,
+                                        [], now_hhmm + ":00", True)
         finally:
             builtins.print = real_print
-        check(len(sent) == 1 and f"{future} 내려감" in sent[0][1],
-              f"지난 슬롯은 무시, 남은 슬롯 소멸만 알림 (실제: {sent})")
-        check("재고 1→0" in sent[0][1],
-              f"총합 비교에서도 지난 슬롯을 뺀다 (실제: {sent[0][1]})")
+        check(passed_only is None, f"지난 슬롯만 빠진 건 변경이 아니다 (실제: {passed_only})")
+        check(real is not None and f"{future} 내려감" in real["body"],
+              f"남은 슬롯 소멸은 변경이다 (실제: {real})")
+        check("재고 1→0" in real["body"],
+              f"총합 비교에서도 지난 슬롯을 뺀다 (실제: {real and real['body']})")
 
     print("10) 지난 날짜 스냅샷은 정리된다")
     alerted = {f"t1:2000-01-01:stock": {"12:00": [1, 0]}, "t1:url_closed": 1}
