@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08T11:49:23.309140+09:00",
+  "updated_at": "2026-09-08T11:55:00.855844+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -10,6 +10,7 @@
     "2033013073",
     "2033849367",
     "2046294128",
+    "2046629824",
     "2050153907",
     "2054914344",
     "2055941674",
@@ -650,6 +651,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2046629824",
+      "name": "하이퍼쉘 체험 팝업 현대백화점 무역센터점",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260904_227/1788490017143prLFR_JPEG/edited-1788490017448-0.jpg",
+      "roadAddress": "테헤란로 517 6층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-08T11:54:48.816631+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2039106013",
       "name": "N:DVERSE GARDENING POP-UP",
       "hasBooking": false,
@@ -1171,13 +1198,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039988652",
-      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
-      "ts": "2026-08-22T19:30:40.708120+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009522804",
@@ -2570,6 +2590,13 @@
       "place_name": "블루 록 2026 더 라스트 팝업",
       "booking_url": "",
       "ts": "2026-09-08T11:20:30.140278+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2046629824",
+      "place_name": "하이퍼쉘 체험 팝업 현대백화점 무역센터점",
+      "booking_url": "",
+      "ts": "2026-09-08T11:54:48.816631+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2634,6 +2661,7 @@
     "2045247144",
     "2046157118",
     "2046294128",
+    "2046629824",
     "2047143688",
     "2047961560",
     "2049771421",
@@ -2688,23 +2716,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-08T11:49:12.775358+09:00",
+    "checked_at": "2026-09-08T11:54:48.816631+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 758,
-    "presale_items": 159,
-    "after_district_filter": 77,
+    "candidate_items": 762,
+    "presale_items": 164,
+    "after_district_filter": 80,
     "fallback_matched": 0,
-    "unique_place_ids": 44,
-    "tracked_places": 44,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-08T11:20:30.140278+09:00",
+    "unique_place_ids": 45,
+    "tracked_places": 45,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-08T11:54:48.816631+09:00",
     "admission_names": {
-      "(없음)": 367,
+      "(없음)": 366,
       "현장대기": 232,
-      "사전예약&현장대기": 120,
+      "사전예약&현장대기": 125,
       "사전예약": 39
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
