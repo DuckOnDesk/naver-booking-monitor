@@ -46,6 +46,25 @@ def balanced_json(text: str, start: int) -> str | None:
     return None
 
 
+def find_key(node, target: str, path: str = "", depth: int = 0):
+    """중첩 구조 어디에 target 키가 들어 있는지 경로와 값을 찾는다."""
+    if depth > 8:
+        return None
+    if isinstance(node, dict):
+        if target in node:
+            return f"{path}.{target} = {json.dumps(node[target], ensure_ascii=False)[:300]}"
+        for k, v in node.items():
+            hit = find_key(v, target, f"{path}.{k}", depth + 1)
+            if hit:
+                return hit
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            hit = find_key(v, target, f"{path}[{i}]", depth + 1)
+            if hit:
+                return hit
+    return None
+
+
 def show(label: str, value) -> None:
     print(f"  {label}: {value}")
 
@@ -110,8 +129,10 @@ def diagnose(area: dict) -> None:
 
         dict_vals = [(k, v) for k, v in data.items() if isinstance(v, dict)]
         show("dict 엔트리 수", len(dict_vals))
-        show("admissionCondition 보유 엔트리",
+        show("admissionCondition 보유 엔트리(최상위)",
              sum(1 for _, v in dict_vals if "admissionCondition" in v))
+        show("admissionCondition 보유 엔트리(중첩 포함)",
+             sum(1 for _, v in dict_vals if find_key(v, "admissionCondition")))
 
         # 장소처럼 보이는 엔트리(이름+주소 계열 필드 보유)의 필드 이름을 노출
         placeish = [(k, v) for k, v in dict_vals
@@ -121,7 +142,12 @@ def diagnose(area: dict) -> None:
         show("장소성 엔트리 수", len(placeish))
         for k, v in placeish[:3]:
             print(f"    [{k}] fields={sorted(v.keys())}")
-            print(f"      sample={json.dumps(v, ensure_ascii=False)[:800]}")
+            print(f"      name={v.get('name')!r} category={v.get('category')!r}")
+            # admissionCondition이 최상위에서 사라졌다면 어느 하위 필드로 들어갔는지 본다
+            for field in ("popupstoreInfo", "options", "coupon", "businessHours"):
+                if field in v:
+                    print(f"      {field}={json.dumps(v[field], ensure_ascii=False)[:900]}")
+            print(f"      admission 경로={find_key(v, 'admissionCondition')}")
 
         # 어디에도 안 걸리면 ROOT_QUERY가 뭘 들고 있는지라도 본다
         if not placeish:
