@@ -31,7 +31,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - run: pip install requests
+      - run: pip install requests playwright
+
+      # 예약 페이지가 실제로 무엇을 요청하는지 캡처하는 단계(C)에 필요하다.
+      - name: Chromium 설치
+        timeout-minutes: 5
+        run: playwright install chromium
 
       - name: 진단 실행
         run: python -u schedule_diagnose.py "${{ inputs.url }}" "${{ inputs.date }}"
