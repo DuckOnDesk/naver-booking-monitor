@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08T16:41:03.876619+09:00",
+  "updated_at": "2026-09-08T16:46:44.791231+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -172,7 +172,7 @@
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260827_264/1787812733128Caxpc_JPEG/edited-1787812732862-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_207/1788852926311Uf29W_JPEG/edited-1788852926068-0.jpg",
       "roadAddress": "연무장3길 8-27 오래오래 함께가게",
       "commonAddress": "서울 성동구",
       "district": "성동구",
@@ -2756,7 +2756,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-08T16:40:52.192534+09:00",
+    "checked_at": "2026-09-08T16:46:34.092857+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
