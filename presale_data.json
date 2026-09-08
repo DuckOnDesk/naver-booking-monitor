@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08T22:43:18.801529+09:00",
+  "updated_at": "2026-09-08T22:48:50.871672+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -1238,7 +1238,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723408",
       "operationStart": "26.09.19.",
@@ -1253,7 +1253,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-09-08T14:03:23.301673+09:00",
-        "2026-09-08T17:13:10.304930+09:00"
+        "2026-09-08T17:13:10.304930+09:00",
+        "2026-09-08T22:48:41.469825+09:00"
       ],
       "bookingOpenAuto": "2026-09-01T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-08T14:03:35.025104+09:00",
@@ -1266,13 +1267,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009522804",
-      "place_name": "PREQUEL EXHIBITION I COSMOS",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712534",
-      "ts": "2026-08-23T10:11:23.247012+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -2665,6 +2659,13 @@
       "place_name": "NCT : NEO DIMENSION",
       "booking_url": "",
       "ts": "2026-09-08T18:31:37.352425+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2024677130",
+      "place_name": "2026 서리풀뮤직페스티벌",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
+      "ts": "2026-09-08T22:48:41.469825+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2786,7 +2787,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-08T22:43:09.794455+09:00",
+    "checked_at": "2026-09-08T22:48:41.469825+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
