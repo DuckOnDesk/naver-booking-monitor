@@ -13,6 +13,10 @@ auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
 예약창 열림/닫힘 확인(chromium)은 알릴 자리를 찾은 항목에만 한다. 자리가 없으면
 🎉로도 🔒로도 알릴 게 없어 확인할 이유가 없다 (UrlGate 참고).
 
+네이버가 속도 제한을 걸면 확인 주기를 단계적으로 늘렸다가(120→300초) 정상 회차가
+이어지면 한 칸씩 되돌린다. 제한은 상태 코드(429/403)뿐 아니라 HTTP 200 본문의
+errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_limited 참고).
+
 날짜별 재고/예약 구성이 바뀌면 📊 줄을 변화마다 한 번씩 남긴다. 자리가 사라졌을 때
 그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소·시간대 삭제)인지 갈라 주므로,
 자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다. 알림(ntfy)은 같은 날짜에 자리
@@ -27,6 +31,8 @@ auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
           URL_RECHECK_SEC (열려 있는 항목의 예약창 재확인 간격, 기본 300초)
           STOCK_CHANGE_NTFY (0이면 재고 변경을 로그로만 남기고 알림은 끔, 기본 켬)
           STOCK_CHANGE_MAX_PARTS (재고 변경 본문에 적을 시간대 개수 상한, 기본 8)
+          RATE_LIMIT_RECOVER_ROUNDS (속도 제한 백오프를 한 칸 되돌리는 데 필요한
+                                     연속 정상 회차 수, 기본 3)
 
 monitors.json 항목 선택 필드:
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
@@ -113,6 +119,12 @@ SCHEDULE_REPROBE_PER_ROUND = _env_num("SCHEDULE_REPROBE_PER_ROUND", 1)
 # 업체가 기간을 수시로 손대는 팝업(예: TFT 스탬프투어)이 있으면 알림이 계속 울려
 # 정작 중요한 자리 알림이 묻힌다. 변경 내용은 로그에 그대로 남으므로 기본은 끔.
 PERIOD_CHANGE_NTFY = os.environ.get("PERIOD_CHANGE_NTFY", "0") != "0"
+# 속도 제한이 잡혔을 때 확인 주기를 단계적으로 늘리는 값(초). 앞에서부터 한 칸씩
+# 올라가고, 정상 회차가 이어지면 같은 계단을 한 칸씩 내려와 원래 주기로 돌아온다.
+RATE_LIMIT_BACKOFF_SEC = (120, 300)
+# 몇 회차 연속으로 속도 제한이 없어야 주기를 한 칸 되돌릴지.
+RATE_LIMIT_RECOVER_ROUNDS = _env_num("RATE_LIMIT_RECOVER_ROUNDS", 3)
+
 # 재고/예약 구성이 바뀌었을 때 ntfy 알림까지 보낼지 (0 = 로그만 남김).
 # 워크플로가 저장소 변수를 그대로 넘기므로, 변수를 안 만들었을 때 들어오는 빈
 # 문자열은 기본값(켬)으로 되돌린다 (_env_num 주석 참고).
@@ -120,7 +132,18 @@ STOCK_CHANGE_NTFY = (os.environ.get("STOCK_CHANGE_NTFY") or "1").strip() != "0"
 # 알림 본문에 적을 시간대별 변경 내역의 최대 개수.
 STOCK_CHANGE_MAX_PARTS = _env_num("STOCK_CHANGE_MAX_PARTS", 8)
 
-_rate_limit_hits = 0  # 현재 루프 회차 중 429/403 발생 횟수
+_rate_limit_hits = 0  # 현재 루프 회차 중 속도 제한 발생 횟수 (상태 코드 + 본문 표식)
+
+
+def backoff_up(cur: int) -> int | None:
+    """지금 주기보다 한 칸 긴 백오프 값. 이미 상한이면 None."""
+    return next((s for s in RATE_LIMIT_BACKOFF_SEC if s > cur), None)
+
+
+def backoff_down(cur: int, base: int) -> int:
+    """지금 주기보다 한 칸 짧은 값. 더 내려갈 계단이 없으면 원래 주기."""
+    lower = [s for s in RATE_LIMIT_BACKOFF_SEC if base < s < cur]
+    return max(lower) if lower else base
 
 KAKAO_API_URL = "https://booking.kakao.com/api/product/public/ticket/tickets/availableDates"
 KAKAO_HEADERS = {
@@ -282,6 +305,65 @@ def _gql_error_summary(errors) -> str:
     return "; ".join(parts) or "메시지 없음"
 
 
+# 네이버가 속도 제한을 걸 때 응답 본문에 심는 표식. 소문자로 맞춰 부분 일치로 본다.
+# 숫자(429)는 넣지 않는다 — 본문에 우연히 섞인 식별자까지 걸린다. 상태 코드는
+# rate_limited_response가 따로 본다.
+RATE_LIMIT_MARKERS = ("toomanyrequests", "too many requests", "rate limit", "ratelimit")
+# 상태 코드만으로 속도 제한이 확실한 값 (403 = 반복 요청 차단으로 관측됨).
+RATE_LIMIT_STATUS = (429, 403)
+
+
+def looks_rate_limited(text: str) -> bool:
+    """이 문구가 속도 제한을 말하고 있는가.
+
+    네이버는 속도 제한을 HTTP 429가 아니라 200 응답 본문의 errors[]에 담아 보낸다
+    (BookingAPITooManyRequests). 상태 코드만 보던 종전 판정으로는 이게 잡히지 않아,
+    차단당한 채로 자동 백오프가 발동하지 않고 같은 주기로 계속 두드렸다
+    (2026-09-08 11:34~13:20 KST, 약 2시간 동안 전 항목 감시 공백).
+    """
+    low = (text or "").lower()
+    return any(m in low for m in RATE_LIMIT_MARKERS)
+
+
+def note_rate_limit(reason: str = "") -> None:
+    """속도 제한 1건을 센다. 회차 끝의 주기 자동 조정이 이 값을 본다."""
+    global _rate_limit_hits
+    _rate_limit_hits += 1
+
+
+def resp_error_hint(resp) -> str:
+    """응답 본문에서 사유를 짧게 뽑는다. 못 뽑으면 빈 문자열.
+
+    HTTP 400을 무조건 "필드 미지원"으로 단정하던 자리에 쓴다. 실제로는 속도 제한도
+    400으로 오는데, 단정해 버리면 로그가 원인을 가린다 (위 2026-09-08 사례에서
+    모든 항목이 동시에 "필드 미지원 추정"으로 찍혔다).
+    """
+    try:
+        data = resp.json()
+    except Exception:
+        return ((resp.text or "").strip())[:80]
+    if isinstance(data, dict) and data.get("errors"):
+        return _gql_error_summary(data["errors"])
+    if isinstance(data, dict):
+        for k in ("message", "error", "errorMessage", "code"):
+            if data.get(k):
+                return str(data[k])[:80]
+    return ""
+
+
+def rate_limited_response(resp) -> str | None:
+    """응답이 속도 제한이면 그 사유 문구를, 아니면 None. 잡히면 카운터도 올린다.
+
+    상태 코드(429/403)와 본문 표식을 모두 본다 — 네이버는 둘 다 쓴다.
+    """
+    status = getattr(resp, "status_code", None)
+    hint = resp_error_hint(resp)
+    if status in RATE_LIMIT_STATUS or looks_rate_limited(hint):
+        note_rate_limit(hint)
+        return hint or f"HTTP {status}"
+    return None
+
+
 def check_availability(biz_id: str, item_id: str, service_id: int, target_dates: list) -> dict | None:
     today = datetime.now(timezone(timedelta(hours=9)))
     schedule_params = {
@@ -327,7 +409,15 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
             resp.raise_for_status()
             data = resp.json()
             if data.get("errors"):
-                fail_reasons.append(f"{label}: GraphQL errors ({_gql_error_summary(data['errors'])})")
+                # 아래 sched["daily"]["summary"]와 이름이 겹치지 않게 err_msg를 쓴다.
+                err_msg = _gql_error_summary(data["errors"])
+                if looks_rate_limited(err_msg):
+                    # 속도 제한이면 다른 쿼리로 재시도하지 않는다. 막혀 있는데
+                    # 한 번 더 두드려 봐야 차단만 길어진다.
+                    note_rate_limit(err_msg)
+                    fail_reasons.append(f"{label}: 속도 제한 ({err_msg})")
+                    break
+                fail_reasons.append(f"{label}: GraphQL errors ({err_msg})")
                 continue
             sched = data["data"]["schedule"]["bizItemSchedule"]
             summary = sched["daily"]["summary"]
@@ -344,14 +434,21 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
             }
         except requests.HTTPError as e:
             status = e.response.status_code
+            # 상태 코드만으로 원인을 단정하지 않는다. 속도 제한은 429뿐 아니라
+            # 400 본문으로도 오는데, 종전에는 400을 무조건 "필드 미지원"으로 적어
+            # 로그가 진짜 원인을 가렸다 (resp_error_hint 참고).
+            limited = rate_limited_response(e.response)
+            if limited:
+                fail_reasons.append(f"{label}: HTTP {status} 속도 제한 ({limited})")
+                break
             if status == 400 and i == 0:
-                # enhanced_query의 saleStartDate/saleEndDate 필드가 이 서비스 타입에서 미지원 → base_query로 재시도
-                fail_reasons.append(f"{label}: HTTP 400 (필드 미지원 추정)")
+                # enhanced_query의 saleStartDate/saleEndDate가 이 서비스 타입에서
+                # 미지원일 때 나는 400 → base_query로 재시도
+                hint = resp_error_hint(e.response)
+                fail_reasons.append(
+                    f"{label}: HTTP 400 ({hint})" if hint else f"{label}: HTTP 400 (필드 미지원 추정)")
                 continue
             print(f"  [오류] schedule API HTTP {status}", flush=True)
-            if status in (429, 403):
-                global _rate_limit_hits
-                _rate_limit_hits += 1
             fail_reasons.append(f"{label}: HTTP {status}")
             continue
         except Exception as exc:
@@ -360,6 +457,11 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
 
     print(f"  [오류] schedule API 요청 실패 — {' / '.join(fail_reasons) or '원인 불명'}", flush=True)
     return None
+
+
+def slots_failed() -> dict:
+    """fetch_slots의 조회 실패 반환값. 호출자가 dict를 확장하므로 매번 새로 만든다."""
+    return {"times": [], "total": 0, "queried": False, "all_slots": [], "api_slot_count": 0}
 
 
 def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) -> dict:
@@ -413,17 +515,26 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
                 timeout=15,
             )
             if resp.status_code == 400 and i == 0:
+                limited = rate_limited_response(resp)
+                if limited:
+                    print(f"  [오류] hourlySchedule 속도 제한 ({limited})", flush=True)
+                    return slots_failed()
                 continue          # isUnitBusinessDay 미지원 스키마 → 종전 쿼리로
             resp.raise_for_status()
             data = resp.json()
             if data.get("errors"):
+                err_msg = _gql_error_summary(data["errors"])
+                if looks_rate_limited(err_msg):
+                    note_rate_limit(err_msg)
+                    print(f"  [오류] hourlySchedule 속도 제한 ({err_msg})", flush=True)
+                    return slots_failed()
                 if i == 0:
                     data = None
                     continue
-                return {"times": [], "total": 0, "queried": False, "all_slots": []}
+                return slots_failed()
             break
         if data is None:
-            return {"times": [], "total": 0, "queried": False, "all_slots": []}
+            return slots_failed()
 
         hourly = data["data"]["schedule"]["bizItemSchedule"].get("hourly") or []
 
@@ -456,13 +567,12 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
                 "all_slots": future_slots, "api_slot_count": len(hourly)}
 
     except requests.HTTPError as e:
-        print(f"  [오류] hourlySchedule API HTTP {e.response.status_code}", flush=True)
-        if e.response.status_code in (429, 403):
-            global _rate_limit_hits
-            _rate_limit_hits += 1
-        return {"times": [], "total": 0, "queried": False, "all_slots": [], "api_slot_count": 0}
+        limited = rate_limited_response(e.response)
+        print(f"  [오류] hourlySchedule API HTTP {e.response.status_code}"
+              + (f" — 속도 제한 ({limited})" if limited else ""), flush=True)
+        return slots_failed()
     except Exception:
-        return {"times": [], "total": 0, "queried": False, "all_slots": [], "api_slot_count": 0}
+        return slots_failed()
 
 
 # 시간대(hourly) 슬롯이 없는 일 단위 상품에서 "하루 전체"를 가리키는 슬롯 이름.
@@ -528,6 +638,9 @@ def fetch_calendar_day_status(service_id: int, biz_id: str, datekey: str) -> boo
         )
         resp.raise_for_status()
         data = resp.json()
+    except requests.HTTPError as e:
+        rate_limited_response(e.response)   # 알림 직전 교차확인도 속도 제한에 걸린다
+        return None
     except Exception:
         return None
 
@@ -599,6 +712,9 @@ def fetch_item_restrictions(biz_id: str) -> dict:
         resp.raise_for_status()
         data = resp.json()
         if data.get("errors"):
+            err_msg = _gql_error_summary(data["errors"])
+            if looks_rate_limited(err_msg):
+                note_rate_limit(err_msg)
             return {}
         biz = data["data"]["business"]
         return {
@@ -606,9 +722,7 @@ def fetch_item_restrictions(biz_id: str) -> dict:
             "booking_available_value": int(biz.get("bookingAvailableValue") or 0),
         }
     except requests.HTTPError as e:
-        if e.response.status_code in (429, 403):
-            global _rate_limit_hits
-            _rate_limit_hits += 1
+        rate_limited_response(e.response)
         return {}
     except Exception:
         return {}
@@ -2696,6 +2810,8 @@ def main():
     # UrlGate가 한 번 확인으로 확정하므로, 브라우저를 항목 수만큼 미리 켤 이유가 없다.
     end_time = time.time() + loop_hours * 3600
     iteration = 0
+    base_interval = interval    # 백오프에서 되돌아올 기준 주기
+    clean_rounds = 0            # 속도 제한 없이 연달아 지난 회차 수
 
     while time.time() < end_time:
         iteration += 1
@@ -2730,12 +2846,33 @@ def main():
         # 다만 감시가 멈춘 것과 구분되도록 가끔 한 줄은 남긴다.
         log_round_tick(iteration, remaining_min)
 
-        if _rate_limit_hits > 0 and interval < 120:
-            interval = 120
-            msg = f"[경고] API 속도 제한(429/403) 감지 → 확인 주기를 120초로 자동 조정"
-            print(msg, flush=True)
-            if ntfy_topic:
-                send_ntfy(ntfy_topic, "⚠️ 모니터 속도 제한 감지", msg, "")
+        # 속도 제한이 잡히면 주기를 한 칸 늘리고, 정상 회차가 이어지면 한 칸씩
+        # 되돌린다. 종전에는 120초로 한 번 올리고 끝이라, 그 뒤로 제한이 계속되든
+        # 풀리든 주기가 그대로였다.
+        if _rate_limit_hits > 0:
+            clean_rounds = 0
+            stepped = backoff_up(interval)
+            if stepped:
+                interval = stepped
+                msg = (f"[경고] API 속도 제한 {_rate_limit_hits}건 감지 "
+                       f"→ 확인 주기를 {interval}초로 늘립니다")
+                print(msg, flush=True)
+                if ntfy_topic:
+                    send_ntfy(ntfy_topic, "⚠️ 모니터 속도 제한 감지", msg, "")
+            else:
+                log_state("round:ratelimit",
+                          f"  [경고] API 속도 제한 {_rate_limit_hits}건 — 주기 {interval}초 유지 (상한)",
+                          sig="ratelimit-max", stamp=False)
+        elif interval > base_interval:
+            clean_rounds += 1
+            if clean_rounds >= RATE_LIMIT_RECOVER_ROUNDS:
+                interval = backoff_down(interval, base_interval)
+                clean_rounds = 0
+                msg = (f"[정보] {RATE_LIMIT_RECOVER_ROUNDS}회차 연속 정상 "
+                       f"→ 확인 주기를 {interval}초로 되돌립니다")
+                print(msg, flush=True)
+                if interval == base_interval and ntfy_topic:
+                    send_ntfy(ntfy_topic, "✅ 모니터 주기 복구", msg, "")
 
         remaining = end_time - time.time()
         if remaining > interval:
