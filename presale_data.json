@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T05:41:20.831134+09:00",
+  "updated_at": "2026-09-09T05:46:50.517383+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -139,7 +139,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -152,7 +152,9 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-09T05:46:41.346234+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
@@ -560,18 +562,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2080230495",
-      "name": "소란 Layer's room",
+      "id": "2095762499",
+      "name": "메이크프렘 연남 팝업스토어",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.20.",
-      "operationEnd": "26.09.24.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260904_31/1788508280860EVm8S_JPEG/edited-1788508280785-0.jpg",
-      "roadAddress": "서강로 78 2F",
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260907_133/1788759949567XiMC8_PNG/image.png",
+      "roadAddress": "동교로38길 29 1층",
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
@@ -586,18 +588,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2095762499",
-      "name": "메이크프렘 연남 팝업스토어",
+      "id": "2080230495",
+      "name": "소란 Layer's room",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260907_133/1788759949567XiMC8_PNG/image.png",
-      "roadAddress": "동교로38길 29 1층",
+      "operationStart": "26.09.20.",
+      "operationEnd": "26.09.24.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260904_31/1788508280860EVm8S_JPEG/edited-1788508280785-0.jpg",
+      "roadAddress": "서강로 78 2F",
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
@@ -1267,13 +1269,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-23T11:12:27.696695+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2066415670",
@@ -2666,6 +2661,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-08T22:48:41.469825+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-09-09T05:46:41.346234+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2787,7 +2789,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T05:41:12.444584+09:00",
+    "checked_at": "2026-09-09T05:46:41.346234+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
