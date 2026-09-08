@@ -306,6 +306,34 @@ function statusRank(p) {
   return 2;
 }
 
+// 감시 중(토글 ON)인 팝업을 항상 위로 — 끈 팝업은 통째로 아래 블록에 모인다.
+// 각 블록 안은 기존 순서: new(24h 이내 발견) → open → closed(history)
+// → waiting → expired, 그다음 잔여일순.
+function sortPlaces(list) {
+  return list.sort((a, b) => {
+    const wa = watchedIds.has(String(a.id)), wb = watchedIds.has(String(b.id));
+    if (wa !== wb) return wa ? -1 : 1;
+    const ea = isExpired(a), eb = isExpired(b);
+    if (ea !== eb) return ea ? 1 : -1;
+    const na = isNewPopup(a), nb = isNewPopup(b);
+    if (na !== nb) return na ? -1 : 1;
+    const ra = statusRank(a), rb = statusRank(b);
+    if (ra !== rb) return ra - rb;
+    return (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999);
+  });
+}
+
+// 토글을 끄면 그 자리에서 아래 블록으로 내린다. 5분 뒤 자동 새로고침까지
+// 기다리면 정렬이 안 되는 것처럼 보인다.
+// 스크롤 위치는 유지해서 목록이 통째로 튀지 않게 한다.
+function resortList() {
+  if (!allPlaces) return;
+  const y = window.scrollY;
+  sortPlaces(allPlaces);
+  renderList();
+  window.scrollTo(0, y);
+}
+
 async function doToggle(id, watching, toggleEl) {
   const isOn = !!watching;
   const card = toggleEl.closest('.card');
@@ -358,6 +386,7 @@ async function doToggle(id, watching, toggleEl) {
     // 저장 성공: CDN 캐시 window(~5분) 동안 로컬 상태 유지
     setRecentToggle(id, isOn);
     showSavedFeedback(toggleEl);
+    setTimeout(resortList, 400);   // "저장됨" 표시를 본 뒤 자리를 옮긴다
   } catch (e) {
     // Revert on error
     if (isOn) watchedIds.delete(String(id)); else watchedIds.add(String(id));
@@ -482,20 +511,7 @@ async function load() {
 
     const all  = (data.places || []).slice();
 
-    // 감시 중(토글 ON)인 팝업을 항상 위로 — 끈 팝업은 통째로 아래 블록에 모인다.
-    // 각 블록 안은 기존 순서 그대로: new(24h 이내 발견) → open → closed(history)
-    // → waiting → expired.
-    all.sort((a, b) => {
-      const wa = watchedIds.has(String(a.id)), wb = watchedIds.has(String(b.id));
-      if (wa !== wb) return wa ? -1 : 1;
-      const ea = isExpired(a), eb = isExpired(b);
-      if (ea !== eb) return ea ? 1 : -1;
-      const na = isNewPopup(a), nb = isNewPopup(b);
-      if (na !== nb) return na ? -1 : 1;
-      const ra = statusRank(a), rb = statusRank(b);
-      if (ra !== rb) return ra - rb;
-      return (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999);
-    });
+    sortPlaces(all);
 
     // 만료 배너
     const expiredPlaces = all.filter(p => isExpired(p));
