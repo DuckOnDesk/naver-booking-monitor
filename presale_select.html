@@ -482,16 +482,18 @@ async function load() {
 
     const all  = (data.places || []).slice();
 
-    // Sort: new(24h 이내 발견) → open → closed(history) → waiting → expired, watched first within each group
+    // 감시 중(토글 ON)인 팝업을 항상 위로 — 끈 팝업은 통째로 아래 블록에 모인다.
+    // 각 블록 안은 기존 순서 그대로: new(24h 이내 발견) → open → closed(history)
+    // → waiting → expired.
     all.sort((a, b) => {
+      const wa = watchedIds.has(String(a.id)), wb = watchedIds.has(String(b.id));
+      if (wa !== wb) return wa ? -1 : 1;
       const ea = isExpired(a), eb = isExpired(b);
       if (ea !== eb) return ea ? 1 : -1;
       const na = isNewPopup(a), nb = isNewPopup(b);
       if (na !== nb) return na ? -1 : 1;
       const ra = statusRank(a), rb = statusRank(b);
       if (ra !== rb) return ra - rb;
-      const wa = watchedIds.has(String(a.id)), wb = watchedIds.has(String(b.id));
-      if (wa !== wb) return wa ? -1 : 1;
       return (a.remainingDays ?? 9999) - (b.remainingDays ?? 9999);
     });
 
