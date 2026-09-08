@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08T22:32:17.032767+09:00",
+  "updated_at": "2026-09-08T22:37:47.878665+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -1238,7 +1238,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723408",
       "operationStart": "26.09.19.",
@@ -2786,7 +2786,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-08T22:32:07.554905+09:00",
+    "checked_at": "2026-09-08T22:37:38.444262+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
