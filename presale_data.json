@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08T11:55:00.855844+09:00",
+  "updated_at": "2026-09-08T12:00:37.328387+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -2716,7 +2716,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-08T11:54:48.816631+09:00",
+    "checked_at": "2026-09-08T12:00:26.635504+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -2727,7 +2727,7 @@
     "fallback_matched": 0,
     "unique_place_ids": 45,
     "tracked_places": 45,
-    "new_places": 1,
+    "new_places": 0,
     "last_new_place_at": "2026-09-08T11:54:48.816631+09:00",
     "admission_names": {
       "(없음)": 366,
