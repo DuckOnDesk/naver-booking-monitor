@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-08T16:07:18.280171+09:00",
+  "updated_at": "2026-09-08T16:12:55.768909+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -164,9 +164,9 @@
     {
       "id": "2067695542",
       "name": "오래오래 함께가게",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1732164",
+      "bookingBusinessId": "1732164",
       "operationStart": "26.09.01.",
       "operationEnd": "26.10.31.",
       "remainingDays": null,
@@ -177,14 +177,16 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-08T16:12:43.627009+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1235,13 +1237,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2066415670",
-      "place_name": "PVCS 아카이브 세일",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1708964",
-      "ts": "2026-08-23T00:22:16.093418+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039988652",
@@ -2634,6 +2629,13 @@
       "place_name": "GU 26FW POP UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "ts": "2026-09-08T14:48:21.072320+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2067695542",
+      "place_name": "오래오래 함께가게",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1732164",
+      "ts": "2026-09-08T16:12:43.627009+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2754,12 +2756,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-08T16:07:07.845057+09:00",
+    "checked_at": "2026-09-08T16:12:43.627009+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 785,
+    "candidate_items": 786,
     "presale_items": 165,
     "after_district_filter": 81,
     "fallback_matched": 0,
@@ -2768,7 +2770,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-08T14:03:23.301673+09:00",
     "admission_names": {
-      "(없음)": 389,
+      "(없음)": 390,
       "현장대기": 231,
       "사전예약&현장대기": 126,
       "사전예약": 39
