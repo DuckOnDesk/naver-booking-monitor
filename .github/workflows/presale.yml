@@ -32,6 +32,14 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+      - name: 회귀 테스트 (로컬 데이터, 네트워크 불필요)
+        # 탐색 파싱이 깨지면 팝업이 조용히 0건이 된다 — 루프 전에 한 번 확인만 하고,
+        # 실패해도 감시는 계속 돌린다 (로그로만 알림).
+        continue-on-error: true
+        run: |
+          python -u presale_discovery_test.py
+          python -u presale_monitor_test.py
+
       - name: 사전예약 오픈 체크 (5분 간격, 5.5시간 루프)
         run: |
           push_with_retry() {

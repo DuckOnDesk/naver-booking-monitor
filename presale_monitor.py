@@ -136,6 +136,60 @@ def admission_label(item: dict) -> str:
     return f"(비정상:{type(ac).__name__})"
 
 
+# 팝업 장소 엔트리를 알아보는 표식 필드. 하나가 사라져도 나머지로 버틴다.
+PLACE_MARKER_FIELDS = ("admissionCondition", "operationStartDateTime",
+                       "operationEndDateTime", "bookingUrl", "hasBooking",
+                       "commonAddress", "roadAddress")
+
+
+def iter_dicts(node, depth: int = 0):
+    """Apollo state 안의 모든 dict를 훑는다 (정규화 캐시든 중첩 캐시든).
+
+    예전에는 최상위 값만 봤다. 네이버가 캐시를 정규화하지 않고 ROOT_QUERY
+    아래 배열로 내려주기 시작하면 최상위에는 장소가 하나도 없어서 후보가
+    통째로 0건이 된다 — 어디에 들어 있든 찾도록 재귀로 훑는다.
+    """
+    if depth > 12:
+        return
+    if isinstance(node, dict):
+        yield node
+        for v in node.values():
+            yield from iter_dicts(v, depth + 1)
+    elif isinstance(node, list):
+        for v in node:
+            yield from iter_dicts(v, depth + 1)
+
+
+def place_entries(data: dict) -> list[dict]:
+    """Apollo state에서 팝업 장소로 보이는 엔트리를 id 기준 중복 없이 모은다."""
+    found: dict[str, dict] = {}
+    for v in iter_dicts(data):
+        pid = v.get("id")
+        if not pid or not v.get("name"):
+            continue
+        if not any(f in v for f in PLACE_MARKER_FIELDS):
+            continue
+        found.setdefault(str(pid), v)
+    return list(found.values())
+
+
+def presale_by_text(item: dict) -> bool:
+    """admissionCondition이 응답에서 통째로 사라졌을 때만 쓰는 예비 판별.
+
+    입장 조건을 담던 필드 이름이 바뀌면 사전예약 인식이 0건이 되어 모니터가
+    조용히 멈춘다. 그 경우에 한해 엔트리의 문자열 값에서 '사전예약'을 직접
+    찾는다. 평소 경로(admissionCondition.name)에는 영향이 없다.
+    """
+    for v in item.values():
+        if isinstance(v, str) and PRESALE_NAME_FILTER in v:
+            return True
+        if isinstance(v, dict):
+            for sv in v.values():
+                if isinstance(sv, str) and PRESALE_NAME_FILTER in sv:
+                    return True
+    return False
+
+
 def fetch_presale_places(area: dict, stats: dict | None = None) -> list[dict] | None:
     """지역 검색 결과의 사전예약 팝업 목록. 조회/파싱 실패 시 None (빈 결과 []와 구분).
 
@@ -181,9 +235,8 @@ def fetch_presale_places(area: dict, stats: dict | None = None) -> list[dict] | 
 
     bump("areas_ok")
 
-    # 팝업 항목 후보 = admissionCondition 필드를 가진 엔트리
-    candidates = [v for v in data.values()
-                  if isinstance(v, dict) and "admissionCondition" in v]
+    # 팝업 항목 후보 = id·이름과 장소 표식 필드를 가진 엔트리 (중첩 위치 무관)
+    candidates = place_entries(data)
     bump("candidate_items", len(candidates))
     if stats is not None:
         names = stats.setdefault("admission_names", {})
@@ -193,6 +246,13 @@ def fetch_presale_places(area: dict, stats: dict | None = None) -> list[dict] | 
 
     # 타입 prefix 무관하게 admissionCondition.name에 "사전예약" 포함된 항목만 수집
     presale = [v for v in candidates if PRESALE_NAME_FILTER in admission_name(v)]
+    if not presale and candidates and not any("admissionCondition" in v for v in candidates):
+        # 입장 조건 필드가 통째로 사라진 경우에만 문자열 매칭으로 버틴다
+        presale = [v for v in candidates if presale_by_text(v)]
+        if presale:
+            print(f"  [탐색 예비] {area['query']}: admissionCondition 없음"
+                  f" → 문자열 매칭으로 {len(presale)}건 인식")
+            bump("fallback_matched", len(presale))
     bump("presale_items", len(presale))
 
     # address_filter 설정 시 commonAddress로 필터링 (예: "성동구")
@@ -676,6 +736,7 @@ def build_discovery_stats(fetch_stats: dict, areas_total: int, unique_ids: int,
         "candidate_items": fetch_stats.get("candidate_items", 0),
         "presale_items": fetch_stats.get("presale_items", 0),
         "after_district_filter": fetch_stats.get("after_district_filter", 0),
+        "fallback_matched": fetch_stats.get("fallback_matched", 0),
         "unique_place_ids": unique_ids,
         "tracked_places": len(places),
         "new_places": len(new_popups),
@@ -683,7 +744,14 @@ def build_discovery_stats(fetch_stats: dict, areas_total: int, unique_ids: int,
         # 상위 8개만 — 네이버가 admissionCondition을 바꾸면 여기서 먼저 드러난다
         "admission_names": dict(sorted(names.items(), key=lambda kv: -kv[1])[:8]),
         "stale_warned_at": prev_stats.get("stale_warned_at"),
+        "structure_warned_at": prev_stats.get("structure_warned_at"),
     }
+
+
+def _renotify_ok(warned_at: str | None) -> bool:
+    """같은 경고를 STALE_RENOTIFY_HOURS 안에 다시 보내지 않도록."""
+    warned = hours_since(warned_at)
+    return warned is None or warned >= STALE_RENOTIFY_HOURS
 
 
 def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
@@ -702,12 +770,25 @@ def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
     if stats["areas_ok"] and not stats["presale_items"]:
         dist = ", ".join(f"{k}={v}" for k, v in stats["admission_names"].items())
         print(f"  [탐색 경고] 사전예약 항목 0건 — admissionCondition 분포: {dist or '없음'}")
+    if stats.get("fallback_matched"):
+        print(f"  [탐색 예비] admissionCondition 없이 문자열 매칭으로 "
+              f"{stats['fallback_matched']}건 인식 — 응답 구조 확인 필요")
+
+    # 응답은 오는데 팝업 항목이 한 건도 안 잡히면 네이버 구조가 바뀐 것.
+    # "신규 0건"과 달리 이건 정상일 수 없으므로 48시간을 기다리지 않는다.
+    if stats["areas_ok"] and not stats["candidate_items"]:
+        body = (f"지역 {stats['areas_ok']}/{stats['areas_total']} 조회는 되는데 "
+                f"팝업 항목이 0건이에요. 네이버 응답 구조가 바뀐 것 같습니다.")
+        print(f"  [탐색 중단] {body}")
+        if _renotify_ok(stats.get("structure_warned_at")):
+            _queue_ntfy("⚠️ 사전예약 탐색 중단", body, sel_url)
+            stats["structure_warned_at"] = datetime.now(KST).isoformat()
+        return
 
     limit = config.get("discovery_stale_hours", DISCOVERY_STALE_HOURS)
     if age is None or age < limit:
         return
-    warned = hours_since(stats.get("stale_warned_at"))
-    if warned is not None and warned < STALE_RENOTIFY_HOURS:
+    if not _renotify_ok(stats.get("stale_warned_at")):
         return
     body = (f"{age / 24:.1f}일째 새 팝업이 한 건도 안 잡혔어요. "
             f"지역 {stats['areas_ok']}/{stats['areas_total']} 조회 성공, "
