@@ -17,6 +17,12 @@ auto_book_state.json을 통해 되돌려 받는다 (sync_auto_book_state).
 이어지면 한 칸씩 되돌린다. 제한은 상태 코드(429/403)뿐 아니라 HTTP 200 본문의
 errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_limited 참고).
 
+업체 예약 마감 설정(bookingAvailableCode)은 일 단위(RI02)와 시간 단위(RI03)를 모두
+반영한다. RI03이면 지금부터 N시간 안에 시작하는 회차는 재고가 남아 있어도 예약이
+닫히므로 알림·자동예약에서 뺀다 — 예약 페이지도 그 회차의 버튼을 그리지 않는다.
+조회에 실패하면 "제한 없음"이 아니라 "모름"으로 보고 직전 값을 유지한다
+(booking_cutoffs / split_by_cutoff / _merge_restriction 참고).
+
 날짜별 재고/예약 구성이 바뀌면 📊 줄을 변화마다 한 번씩 남긴다. 자리가 사라졌을 때
 그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소·시간대 삭제)인지 갈라 주므로,
 자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다. 알림(ntfy)은 같은 날짜에 자리
@@ -694,7 +700,15 @@ def fetch_item_restrictions(biz_id: str) -> dict:
     네이버 예약 업체 설정의 bookingAvailableCode / bookingAvailableValue 필드를 읽는다.
       RI01 → 제한 없음 (실시간 예약)
       RI02 → 일(day) 단위 사전 마감 (value=1 이면 당일예약 불가)
-    조회 실패 시 빈 dict 반환."""
+      RI03 → 시간(hour) 단위 사전 마감 (value=3 이면 시작 3시간 전에 예약이 닫힌다)
+    조회 실패 시 빈 dict 반환 — 호출부는 이걸 "제한 없음"으로 바꾸지 말고 직전
+    값을 그대로 들고 가야 한다 (RESTRICTION_KEYS / _merge_probed_period 참고).
+
+    RI03은 2026-09-08 하겐다즈에서 확인했다. 예약 페이지가 부르는 같은 business
+    쿼리가 RI03/3을 돌려주고, 그 시각 기준 3시간 안에 시작하는 회차는 시간 선택창에
+    버튼이 아예 그려지지 않았다. 슬롯(hourly) 응답에는 그 신호가 없다 — 후보 필드를
+    하나씩 던져 본 결과 isUnitSaleDay/isUnitBusinessDay 말고는 아무것도 없었고,
+    막힌 회차도 둘 다 true로 왔다."""
     query = (
         "query business($businessId: String) {"
         "  business(input: { businessId: $businessId }) {"
@@ -822,6 +836,71 @@ def _reprobe_requested(cache_entry: dict, requested_at: str | None) -> bool:
     return checked_at is None or req_dt > checked_at
 
 
+# 캐시 항목에서 예약 제한을 나타내는 키.
+RESTRICTION_KEYS = ("booking_available_code", "booking_available_value")
+
+# 예약 마감 코드별 단위. RI01은 제한 없음이라 여기 없다.
+RESTRICTION_UNIT = {"RI02": "일", "RI03": "시간"}
+
+
+def restriction_unit(code: str) -> str:
+    return RESTRICTION_UNIT.get(code, "")
+
+
+def booking_cutoffs(code: str, value: int, now_kst: datetime) -> tuple:
+    """(cutoff_date, cutoff_dt) — 이 경계보다 이른 건 예약이 안 된다.
+
+    RI02는 날짜를 통째로 막고(cutoff_date 미만인 날), RI03은 회차 시작 시각을 막는다
+    (cutoff_dt 이전에 시작하는 회차). 둘 중 하나만 채워진다.
+    """
+    if code == "RI02" and value > 0:
+        return now_kst.date() + timedelta(days=value), None
+    if code == "RI03" and value > 0:
+        return None, now_kst + timedelta(hours=value)
+    return None, None
+
+
+def split_by_cutoff(per_slot: list, datekey: str, cutoff_dt) -> tuple[list, list]:
+    """(예약 가능한 회차, 마감에 걸린 회차)로 가른다.
+
+    RI03(시간 단위 마감)이 걸린 항목에서 쓴다. 종전에는 이 구분이 없어, 실제로는
+    버튼조차 안 그려지는 회차를 "예약 가능"으로 알렸다 (2026-09-08 하겐다즈 09-08
+    15:00 — 업체 설정이 RI03/3인데 13:34에 알림이 나갔다).
+
+    시각을 못 읽는 회차([종일] 같은 일 단위 슬롯 포함)는 거르지 않는다. 근거 없이
+    막으면 진짜 자리를 놓친다.
+    """
+    if cutoff_dt is None:
+        return list(per_slot), []
+    keep, blocked = [], []
+    for t, c in per_slot:
+        try:
+            start = datetime.strptime(f"{datekey} {t}", "%Y-%m-%d %H:%M").replace(
+                tzinfo=timezone(timedelta(hours=9)))
+        except ValueError:
+            keep.append((t, c))
+            continue
+        (keep if start >= cutoff_dt else blocked).append((t, c))
+    return keep, blocked
+
+
+def _merge_restriction(old: dict, new: dict) -> dict:
+    """예약 제한 조회에 실패한 재탐색 결과에는 직전 값을 그대로 물려준다.
+
+    종전에는 실패가 곧 RI01/0(제한 없음)이었다. 그래서 하겐다즈의 캐시가
+    RI03/3 ↔ RI01/0을 오갔고(2026-09-08 08:08 RI01 / 11:13 RI03 / 12:27 RI01 —
+    12:27은 속도 제한으로 감시가 비어 있던 구간이다), 하필 RI01로 떨어져 있을 때는
+    마감된 회차도 예약 가능으로 보였다. 조회 실패는 "제한 없음"이 아니라 "모름"이다.
+    """
+    if new.get("restriction_ok"):
+        return new
+    merged = dict(new)
+    for k in RESTRICTION_KEYS:
+        if old.get(k) is not None:
+            merged[k] = old[k]
+    return merged
+
+
 def _merge_probed_period(old: dict, new: dict) -> dict:
     """재탐색 결과(new)를 기존 캐시(old)와 병합하되, 이미 시작된 운영 기간의
     available_start는 유지한다.
@@ -841,8 +920,8 @@ def _merge_probed_period(old: dict, new: dict) -> dict:
     except ValueError:
         already_started = False
     if not already_started:
-        return new
-    merged = dict(new)
+        return _merge_restriction(old, new)
+    merged = _merge_restriction(old, dict(new))
     merged["available_start"] = old_start
     return merged
 
@@ -1496,7 +1575,8 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
 
 def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
                            all_summary: list, period: tuple, covered: set,
-                           cutoff_date, ntfy_topic: str, alerted: dict, gate=None) -> None:
+                           cutoff_date, ntfy_topic: str, alerted: dict, gate=None,
+                           cutoff_dt=None) -> None:
     """자동예약 날짜를 지정하지 않은 항목의 남은 예약 기간을 마저 훑는다.
 
     자동예약에서 날짜를 비워 두면 "등록된 예약 기간 전체"가 대상이다. 그런데 감시
@@ -1545,6 +1625,9 @@ def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
             for s in slot_info.get("all_slots", [])
             if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
         ]
+        # 메인 루프와 같은 마감 기준을 쓴다. 여기서 안 걸러 내면 예약이 닫힌 회차에
+        # 자동예약 워크플로가 뜨고, 워커는 페이지에서 못 고르는 슬롯을 붙들게 된다.
+        per_slot, _ = split_by_cutoff(per_slot, datekey, cutoff_dt)
         if not per_slot:
             continue
         maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic, alerted, period, gate)
@@ -2034,14 +2117,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 자동예약에서 날짜를 지정하지 않았을 때의 탐색 범위 (= 등록된 예약 기간)
         ab_period = booking_period(cache_entry)
 
-        # 업체 설정 사전예약 제한 (RI02 = 일 단위 마감)
+        # 업체 설정 사전예약 제한 (RI02 = 일 단위, RI03 = 시간 단위 마감)
         ba_code  = cache_entry.get("booking_available_code", "RI01")
         ba_value = int(cache_entry.get("booking_available_value") or 0)
         # cutoff_date: 이 날짜 미만인 datekey는 예약 불가 (당일 포함)
-        if ba_code == "RI02" and ba_value > 0:
-            cutoff_date = now_kst.date() + timedelta(days=ba_value)
-        else:
-            cutoff_date = None
+        # cutoff_dt  : 이 시각 이전에 시작하는 회차는 예약 불가
+        cutoff_date, cutoff_dt = booking_cutoffs(ba_code, ba_value, now_kst)
 
         item_id   = item.get("id", name)
         # 예약창 확인은 여기서 하지 않는다. 알릴 자리를 실제로 찾은 뒤에야
@@ -2131,7 +2212,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 # :closed도 같이 비운다 — 안 그러면 제한이 풀린 뒤 '이미 알린 자리'로
                 # 잡혀 알림이 나가지 않는다.
                 forget_slots(alerted, alert_key)
-            restriction_note = f" — 사전예약 제한 ({ba_value}일 전 마감)" if is_restricted else ""
+            restriction_note = (f" — 사전예약 제한 ({ba_value}{restriction_unit(ba_code)} 전 마감)"
+                                if is_restricted else "")
             if datekey == today_str and time_range is not None:
                 _, t_to = time_range
                 if now_kst.strftime("%H:%M") > t_to:
@@ -2212,8 +2294,28 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     for s in ref_slots
                     if s.get("unitStock", 0) - s.get("unitBookingCount", 0) > 0
                 ]
+                # RI03(시간 단위 마감): 곧 시작하는 회차는 재고가 남아 있어도 예약이
+                # 닫힌다. 예약 페이지는 그 회차의 버튼을 아예 그리지 않는다.
+                per_slot, blocked_slots = split_by_cutoff(per_slot, datekey, cutoff_dt)
+                # 자리 수는 알릴 수 있는 회차 기준으로 다시 센다. 재고/예약 총합은
+                # 마감된 회차까지 포함한 원본 그대로 두어 로그에서 대조가 되게 한다.
+                available = sum(c for _, c in per_slot)
+                blocked_note = (f" · 마감 제외 "
+                                + " ".join(f"{t}({c})" for t, c in blocked_slots)
+                                + f" ({ba_value}{restriction_unit(ba_code)} 전 마감)"
+                                if blocked_slots else "")
                 stock_info = (f"재고:{r_stock} / 예약:{r_booking}"
                               + daily_note((r_stock, r_booking), (d_stock, d_booking)))
+
+                # 남은 회차가 전부 마감에 걸렸다 = 지금 잡을 수 있는 자리가 없다.
+                # 알림 기록도 비워, 나중에 다시 잡을 수 있게 되면 처음 보는 자리처럼 알린다.
+                if not per_slot:
+                    if forget_slots(alerted, alert_key):
+                        vanished_dates.append(datekey)
+                    log_state(log_key,
+                              f"⏳ {name} {date_str}{time_hint} 예약 마감 시간 지남 "
+                              f"({stock_info}){blocked_note}", now_str=now_str)
+                    continue
 
                 if gate.closed:
                     closed_alert_key = f"{alert_key}:closed"
@@ -2222,7 +2324,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                     log_state(log_key,
                               f"🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} "
-                              f"({stock_info}) - 예약창 닫힘{restriction_note}", now_str=now_str)
+                              f"({stock_info}){blocked_note} - 예약창 닫힘{restriction_note}",
+                              now_str=now_str)
 
                     cal_ok = True
                     if not is_restricted and available > 0 and (prev_slots is None or increased):
@@ -2259,7 +2362,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
                     log_state(log_key,
                               f"🎉 {name} {date_str}{time_hint} {', '.join(log_parts)} "
-                              f"({stock_info}){restriction_note}", now_str=now_str)
+                              f"({stock_info}){blocked_note}{restriction_note}", now_str=now_str)
 
                     if not is_restricted:
                         cal_ok = True
@@ -2411,7 +2514,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 감시 날짜를 좁게 잡아 위 루프가 그 날짜만 돌았다면, 기간 안의 나머지 날짜를 여기서 마저 본다.
         if not gate.known_closed and window_open:
             sweep_auto_book_period(item, item_id, url, parsed, result.get("_all_summary") or [],
-                                   ab_period, set(effective_dates), cutoff_date, ntfy_topic, alerted, gate)
+                                   ab_period, set(effective_dates), cutoff_date, ntfy_topic,
+                                   alerted, gate, cutoff_dt)
 
         # 여기까지 왔는데 게이트를 한 번도 안 건드렸다 = 알릴 자리가 없어서
         # 예약창을 볼 이유가 없었다는 뜻. 이 회차의 절감이 어디서 났는지 남긴다.
@@ -2562,11 +2666,13 @@ def probe_schedule_period(parsed: dict) -> dict | None:
         discovered.sort()
 
     restriction = fetch_item_restrictions(parsed["biz_id"])
-    if restriction.get("booking_available_code") and restriction["booking_available_code"] != "RI01":
-        print(
-            f"  [예약 제한] {restriction['booking_available_code']} / {restriction['booking_available_value']}일 전 마감",
-            flush=True,
-        )
+    code = restriction.get("booking_available_code")
+    if code and code != "RI01":
+        print(f"  [예약 제한] {code} / {restriction['booking_available_value']}"
+              f"{restriction_unit(code)} 전 마감", flush=True)
+    elif not restriction:
+        print("  [예약 제한] 조회 실패 — 직전 값을 유지한다 (제한 없음으로 보지 않는다)",
+              flush=True)
 
     return {
         "sale_start_date": result.get("sale_start_date"),
@@ -2576,6 +2682,9 @@ def probe_schedule_period(parsed: dict) -> dict | None:
         "checked_at": now_kst,
         "booking_available_code":  restriction.get("booking_available_code", "RI01"),
         "booking_available_value": restriction.get("booking_available_value", 0),
+        # 위 두 값이 실제 조회 결과인지, 실패해서 채운 기본값인지 구분한다.
+        # _merge_restriction이 이 플래그를 보고 직전 값을 살릴지 정한다.
+        "restriction_ok": bool(restriction),
     }
 
 
