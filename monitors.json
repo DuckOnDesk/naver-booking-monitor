@@ -52,7 +52,7 @@
       "id": "mts7r0kg",
       "name": "서리풀 요가",
       "url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889?startDateTime=2026-09-08T00%3A00%3A00%2B09%3A00",
-      "enabled": true,
+      "enabled": false,
       "target_dates": []
     }
   ]
