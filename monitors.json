@@ -56,6 +56,13 @@
       "url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889?startDateTime=2026-09-08T00%3A00%3A00%2B09%3A00",
       "enabled": false,
       "target_dates": []
+    },
+    {
+      "id": "mtssyscp",
+      "name": "넷플 잔치",
+      "url": "https://m.booking.naver.com/booking/5/bizes/1733276/items/8035197?theme=place&service-target=map-pc&lang=ko&area=bmp",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
