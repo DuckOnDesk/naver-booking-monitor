@@ -39,6 +39,8 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
           STOCK_CHANGE_MAX_PARTS (재고 변경 본문에 적을 시간대 개수 상한, 기본 8)
           RATE_LIMIT_RECOVER_ROUNDS (속도 제한 백오프를 한 칸 되돌리는 데 필요한
                                      연속 정상 회차 수, 기본 3)
+          CALENDAR_CROSSCHECK (알림 직전 캘린더 교차확인, 기본 끔 — 엔드포인트가
+                               HTML을 돌려주게 바뀌어 걸러 내는 게 없다)
 
 monitors.json 항목 선택 필드:
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
@@ -130,6 +132,13 @@ PERIOD_CHANGE_NTFY = os.environ.get("PERIOD_CHANGE_NTFY", "0") != "0"
 RATE_LIMIT_BACKOFF_SEC = (120, 300)
 # 몇 회차 연속으로 속도 제한이 없어야 주기를 한 칸 되돌릴지.
 RATE_LIMIT_RECOVER_ROUNDS = _env_num("RATE_LIMIT_RECOVER_ROUNDS", 3)
+
+# 알림 직전 캘린더 교차확인을 켤지. 기본은 끔 — 지금 이 확인은 아무 일도 못 한다.
+# /calendars/{ym}가 JSON이 아니라 HTML 페이지를 돌려주게 바뀌어(2026-09-08 확인,
+# content-type text/html) fetch_calendar_day_status는 항상 None(판단 불가)이고,
+# 그 사이 알림만 요청 한 번(최대 10초)만큼 늦어진다. 하필 취소표가 났을 때라
+# 가장 급한 순간이다. 엔드포인트를 다시 찾으면 이 값을 1로 되돌린다.
+CALENDAR_CROSSCHECK = os.environ.get("CALENDAR_CROSSCHECK", "0") != "0"
 
 # 재고/예약 구성이 바뀌었을 때 ntfy 알림까지 보낼지 (0 = 로그만 남김).
 # 워크플로가 저장소 변수를 그대로 넘기므로, 변수를 안 만들었을 때 들어오는 빈
@@ -635,7 +644,17 @@ def fetch_calendar_day_status(service_id: int, biz_id: str, datekey: str) -> boo
     예약 페이지 캘린더에는 "마감"으로 뜨는데 우리 쪽은 계속 재고>0으로 판단하는
     사례 확인됨). 캘린더 API는 페이지가 실제로 쓰는 값을 그대로 반환하므로, 알림
     발송 직전 교차 확인용으로만 쓴다.
-    True=예약 가능 확인, False=마감 확인, None=조회 실패/판단 불가(알림 보류하지 않음)."""
+    True=예약 가능 확인, False=마감 확인, None=조회 실패/판단 불가(알림 보류하지 않음).
+
+    2026-09-08 현재 꺼 둔다 (CALENDAR_CROSSCHECK). 아래 URL이 JSON이 아니라 HTML
+    페이지를 돌려주게 바뀌어서, 이 함수는 예외를 삼키고 늘 None을 반환한다. 즉 걸러
+    내는 건 하나도 없으면서 알림 직전에 요청 한 번(최대 10초)을 더 쓴다 — 취소표가
+    막 났을 때라 가장 급한 순간이다. 오알림이 잦지 않아 되살리는 건 미뤄 두었고,
+    올바른 엔드포인트를 찾으면(예약 페이지에서 날짜를 고른 상태로 네트워크를 캡처하면
+    나온다) 아래 코드는 그대로 두고 플래그만 켜면 된다.
+    """
+    if not CALENDAR_CROSSCHECK:
+        return None
     ym = datekey[:7]
     try:
         resp = requests.get(
@@ -690,9 +709,11 @@ def _log_alert_diagnostics(name: str, date_str: str, day_summary: dict | None,
     print(f"  [진단:{tag}]   daily  = hasBookableSlots={d.get('hasBookableSlots')} "
           f"isSaleDay={d.get('isSaleDay')} stock={d.get('stock')} bookingCount={d.get('bookingCount')}", flush=True)
     print(f"  [진단:{tag}]   hourly = {slots}", flush=True)
-    print(f"  [진단:{tag}]   기타   = calendarAPI={cal_status}(True=가능/False=마감/None=판단불가) "
+    cal_label = (f"{cal_status}(True=가능/False=마감/None=판단불가)"
+                 if CALENDAR_CROSSCHECK else "꺼짐(CALENDAR_CROSSCHECK=0)")
+    print(f"  [진단:{tag}]   기타   = calendarAPI={cal_label} "
           f"queried={slot_info.get('queried')} total={slot_info.get('total')} "
-          f"예약제한={ba_code}/{ba_value}일", flush=True)
+          f"예약제한={ba_code}/{ba_value}{restriction_unit(ba_code)}", flush=True)
 
 
 def fetch_item_restrictions(biz_id: str) -> dict:
