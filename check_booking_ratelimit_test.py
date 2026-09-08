@@ -15,6 +15,7 @@
   - 400 본문이 속도 제한이면 "필드 미지원"으로 단정하지 않고, 두 번째 쿼리도 접는다
   - 진짜 필드 미지원 400은 종전처럼 두 번째 쿼리로 재시도한다
   - hourlySchedule/business/캘린더 교차확인도 같은 판정을 쓴다
+    (교차확인은 평소 꺼져 있어 요청 자체가 안 나간다 — CALENDAR_CROSSCHECK)
   - 백오프가 120 → 300으로 한 칸씩 올라가고, 정상 회차가 이어지면 되돌아온다
 
 사용법: python check_booking_ratelimit_test.py
@@ -126,9 +127,24 @@ def main() -> int:
         cb.fetch_slots("1", "2", 12, "2026-09-20")
         with_responses([Resp(200, TOO_MANY)])
         cb.fetch_item_restrictions("1")
-        with_responses([Resp(429, {})])
-        check(cb.fetch_calendar_day_status(12, "1", "2026-09-20") is None, "교차확인 판단 불가")
+        # 캘린더 교차확인은 기본으로 꺼져 있다(CALENDAR_CROSSCHECK). 되살렸을 때도
+        # 같은 판정을 쓰는지 봐야 하므로 이 확인 동안만 켠다.
+        was_on = cb.CALENDAR_CROSSCHECK
+        cb.CALENDAR_CROSSCHECK = True
+        try:
+            with_responses([Resp(429, {})])
+            check(cb.fetch_calendar_day_status(12, "1", "2026-09-20") is None, "교차확인 판단 불가")
+        finally:
+            cb.CALENDAR_CROSSCHECK = was_on
         check(cb._rate_limit_hits == 4, f"네 경로 모두 계상 (실제: {cb._rate_limit_hits})")
+
+        # 꺼져 있는 평소에는 요청 자체가 안 나가므로 계상도 없다.
+        before = cb._rate_limit_hits
+        with_responses([Resp(429, {})])
+        check(cb.fetch_calendar_day_status(12, "1", "2026-09-20") is None,
+              "꺼져 있으면 그대로 판단 불가")
+        check(cb._rate_limit_hits == before,
+              f"꺼져 있으면 요청도 계상도 없다 (실제: {cb._rate_limit_hits - before}건 증가)")
 
         print("7) 백오프 계단 — 올라갈 때와 내려올 때")
         check(cb.backoff_up(60) == 120, "60 → 120")

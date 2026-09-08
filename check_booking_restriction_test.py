@@ -18,6 +18,7 @@ isUnitSaleDay/isUnitBusinessDay 말고는 없었고, 막힌 회차도 둘 다 tr
   - 시각을 못 읽는 회차([종일] 등)는 근거 없이 막지 않는다
   - RI01/RI02/값 0은 시간 단위로 막지 않는다
   - 예약 제한 조회 실패는 직전 값을 유지한다 (RI01로 덮어쓰지 않는다)
+  - 캘린더 교차확인은 꺼져 있어 요청을 아예 안 보낸다
 
 사용법: python check_booking_restriction_test.py
 """
@@ -123,6 +124,20 @@ def main() -> int:
         cb.fetch_item_restrictions = real_fetch
         cb.check_availability = real_check
         cb.fetch_slots = real_slots
+
+    print("10) 캘린더 교차확인은 꺼져 있다 (요청을 아예 안 보낸다)")
+    #    엔드포인트가 HTML을 돌려주게 바뀌어 걸러 내는 건 없으면서, 알림 직전에
+    #    요청 한 번(최대 10초)만 더 쓰고 있었다. 되살릴 때를 대비해 코드는 남겼다.
+    real_get = cb.requests.get
+    hits = []
+    try:
+        cb.requests.get = lambda *a, **kw: hits.append(1)
+        out = cb.fetch_calendar_day_status(12, "1713524", "2026-09-08")
+    finally:
+        cb.requests.get = real_get
+    check(cb.CALENDAR_CROSSCHECK is False, "기본값은 꺼짐")
+    check(not hits, f"HTTP 요청 0건 (실제: {len(hits)}건)")
+    check(out is None, f"판단 불가로 반환 — 호출부는 종전대로 알림을 보낸다 (실제: {out})")
 
     print(f"\n=== 실패 {len(fails)}건 ===", flush=True)
     for f in fails:
