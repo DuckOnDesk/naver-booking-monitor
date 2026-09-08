@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T06:36:21.339200+09:00",
+  "updated_at": "2026-09-09T06:41:52.054001+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -563,18 +563,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2095762499",
-      "name": "메이크프렘 연남 팝업스토어",
+      "id": "2080230495",
+      "name": "소란 Layer's room",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260907_133/1788759949567XiMC8_PNG/image.png",
-      "roadAddress": "동교로38길 29 1층",
+      "operationStart": "26.09.20.",
+      "operationEnd": "26.09.24.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260904_31/1788508280860EVm8S_JPEG/edited-1788508280785-0.jpg",
+      "roadAddress": "서강로 78 2F",
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
@@ -589,18 +589,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2080230495",
-      "name": "소란 Layer's room",
+      "id": "2095762499",
+      "name": "메이크프렘 연남 팝업스토어",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.20.",
-      "operationEnd": "26.09.24.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260904_31/1788508280860EVm8S_JPEG/edited-1788508280785-0.jpg",
-      "roadAddress": "서강로 78 2F",
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260907_133/1788759949567XiMC8_PNG/image.png",
+      "roadAddress": "동교로38길 29 1층",
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
@@ -1241,7 +1241,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723408",
       "operationStart": "26.09.19.",
@@ -1257,7 +1257,8 @@
       "bookingOpenHistory": [
         "2026-09-08T14:03:23.301673+09:00",
         "2026-09-08T17:13:10.304930+09:00",
-        "2026-09-08T22:48:41.469825+09:00"
+        "2026-09-08T22:48:41.469825+09:00",
+        "2026-09-09T06:41:42.656027+09:00"
       ],
       "bookingOpenAuto": "2026-09-01T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-08T14:03:35.025104+09:00",
@@ -1270,13 +1271,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-23T12:40:05.047906+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2669,6 +2663,13 @@
       "place_name": "GU 26FW POP UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "ts": "2026-09-09T05:52:12.701217+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2024677130",
+      "place_name": "2026 서리풀뮤직페스티벌",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
+      "ts": "2026-09-09T06:41:42.656027+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2790,7 +2791,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T06:36:12.352424+09:00",
+    "checked_at": "2026-09-09T06:41:42.656027+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
