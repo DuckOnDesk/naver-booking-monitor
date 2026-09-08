@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T08:48:47.789163+09:00",
+  "updated_at": "2026-09-09T08:54:19.608603+09:00",
   "watched_places": [
     "2000187386",
     "2003293998",
@@ -325,7 +325,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -2791,7 +2791,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T08:48:37.637963+09:00",
+    "checked_at": "2026-09-09T08:54:10.373522+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
