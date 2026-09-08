@@ -734,9 +734,9 @@ async function load() {
     // 탐색이 살아 있는지 한눈에 — 새 팝업이 며칠째 안 잡히면 ⚠️ 표시
     const ds = data.discovery_stats || {};
     let disc = '';
-    if (ds.areas_ok && ds.candidate_items === 0) {
+    if ((ds.areas_empty || ds.areas_ok) && ds.candidate_items === 0) {
       // 조회는 되는데 팝업 항목이 0건 — 네이버 응답 구조가 바뀐 상태
-      disc = ' · ⚠️ 팝업 조회 중단 (응답 구조 변경 의심)';
+      disc = ' · ⚠️ 팝업 조회 중단 (응답 구조 변경 의심) · 기존 목록 유지 중';
     } else if (ds.last_new_place_at) {
       const days = (Date.now() - new Date(ds.last_new_place_at)) / 86400000;
       disc = ` · 마지막 새 팝업 ${relTimeAlert(ds.last_new_place_at)}${days >= 2 ? ' ⚠️' : ''}`;

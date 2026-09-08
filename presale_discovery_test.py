@@ -11,6 +11,9 @@
   - 같은 장소가 여러 위치에 나와도 한 번만 센다
   - admissionCondition이 통째로 사라지면 문자열 매칭으로 버틴다
   - 후보 0건이면 48시간을 기다리지 않고 바로 경고한다
+  - 후보 0건인 지역은 "빈 결과"가 아니라 조회 실패로 넘긴다
+  - 한 주기에 무더기로 빠지면 추적 장소를 지우지 않는다
+  - 탐색이 깨진 주기에는 watched_places를 정리하지 않는다
 
 사용법: python presale_discovery_test.py
 """
@@ -146,12 +149,63 @@ def main() -> int:
     check(got == [], "입장 조건이 멀쩡하면 설명글은 보지 않는다")
     check(not stats.get("fallback_matched"), "예비 매칭 미사용")
 
-    print("\n7) 후보 0건이면 48시간을 기다리지 않고 바로 경고")
+    print("\n7) 후보 0건인 지역은 빈 결과가 아니라 조회 실패로 넘긴다")
+    stats = {}
+    got = fetch({"ROOT_QUERY": {"__typename": "Query", "items": []}}, stats)
+    check(got is None, "빈 결과([])가 아니라 None — 기존 장소를 종료로 오판하지 않게")
+    check(stats.get("areas_empty") == 1, "팝업 0건 지역으로 집계")
+    check(not stats.get("areas_ok"), "성공으로 세지 않는다 — '34/34 성공'으로 가려지지 않게")
+
+    print("\n8) 한 주기에 무더기로 빠지면 추적 장소를 지우지 않는다")
+    prev = {str(i): pm.normalize(popup(str(i), f"팝업{i}", "사전예약"))
+            for i in range(1, 11)}
+    cfg = {"areas": [AREA], "watched_places": ["1", "2", "3"], "ntfy_topic": ""}
+
+    def run_check(state, config, prev_places):
+        real = pm.SESSION.get
+        real_save = pm.save_data
+        real_queue = pm._queue_ntfy
+        saved = {}
+        pm.SESSION.get = stub_get(state)
+        pm.save_data = lambda places, *a, **kw: saved.update({"places": places})
+        pm._queue_ntfy = lambda *a, **kw: None
+        try:
+            out = pm.check_once(config, prev_places)
+        finally:
+            pm.SESSION.get = real
+            pm.save_data = real_save
+            pm._queue_ntfy = real_queue
+        return out
+
+    # 구조가 바뀌어 팝업이 하나도 안 잡히는 응답
+    broken_state = {"ROOT_QUERY": {"__typename": "Query", "items": []}}
+    out = run_check(broken_state, dict(cfg), prev)
+    check(len(out) == 10, f"조회가 깨져도 10개 유지 (실제 {len(out)})")
+
+    # 팝업 1개만 검색에 남은 응답 — 9/10이 빠지므로 삭제 보류
+    one_left = {"ROOT_QUERY": {"items": [popup("1", "팝업1", "사전예약")]}}
+    out = run_check(one_left, dict(cfg), prev)
+    check(len(out) == 10, f"9/10이 빠지면 삭제 보류 (실제 {len(out)})")
+
+    # 1개만 끝난 정상적인 경우 — 지운다
+    nine_left = {"ROOT_QUERY": {"items": [popup(str(i), f"팝업{i}", "사전예약")
+                                          for i in range(1, 10)]}}
+    out = run_check(nine_left, dict(cfg), prev)
+    check(len(out) == 9 and "10" not in out,
+          f"1개만 빠지면 정상 제거 (실제 {len(out)}개)")
+
+    print("\n9) 탐색이 깨진 주기에는 watched_places를 건드리지 않는다")
+    cfg_w = dict(cfg, watched_places=["1", "2", "3"])
+    run_check(broken_state, cfg_w, prev)
+    check(cfg_w["watched_places"] == ["1", "2", "3"],
+          f"감시 목록 유지 (실제 {cfg_w['watched_places']})")
+
+    print("\n10) 후보 0건이면 48시간을 기다리지 않고 바로 경고")
     queued = []
     real_queue = pm._queue_ntfy
     pm._queue_ntfy = lambda t, b, u=None, **kw: queued.append((t, b))
     try:
-        broken = {"areas_total": 34, "areas_ok": 34, "areas_failed": 0,
+        broken = {"areas_total": 34, "areas_ok": 0, "areas_failed": 0, "areas_empty": 34,
                   "candidate_items": 0, "presale_items": 0, "after_district_filter": 0,
                   "tracked_places": 0, "new_places": 0, "admission_names": {},
                   "last_new_place_at": None, "stale_warned_at": None,

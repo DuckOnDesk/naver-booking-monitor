@@ -45,6 +45,11 @@ PRESALE_NAME_FILTER = "사전예약"  # admissionCondition.name에 포함되는 
 DISCOVERY_STALE_HOURS = 48
 STALE_RENOTIFY_HOURS = 24   # 같은 경고를 다시 보내기까지의 최소 간격
 
+# 팝업은 하나씩 끝난다. 한 주기에 무더기로 사라지는 건 탐색이 깨졌다는 뜻이므로
+# 종료로 오판해 지우지 않고 유지한다 (2026-09-03에 46개가 한 번에 지워졌다).
+REMOVAL_SAFETY_RATIO = 0.5   # 추적 중이던 장소의 이 비율 이상이 빠지면 삭제 보류
+REMOVAL_SAFETY_MIN = 4       # 이보다 적게 빠졌으면 비율을 따지지 않는다
+
 SESSION = requests.Session()
 SESSION.headers.update({
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
@@ -233,11 +238,18 @@ def fetch_presale_places(area: dict, stats: dict | None = None) -> list[dict] | 
         bump("areas_failed")
         return None
 
-    bump("areas_ok")
-
     # 팝업 항목 후보 = id·이름과 장소 표식 필드를 가진 엔트리 (중첩 위치 무관)
     candidates = place_entries(data)
     bump("candidate_items", len(candidates))
+    if not candidates:
+        # 팝업 검색인데 팝업 엔트리가 하나도 없다 = 응답 구조가 바뀐 것.
+        # 빈 결과([])로 넘기면 추적하던 장소를 "종료됐다"고 오판해 지운다.
+        # 여기서 성공으로 세면 이번처럼 "34/34 성공"만 뜬 채 조용히 멈춘다.
+        print(f"  [파싱 오류] 팝업 항목 0건: {area['query']} — 응답 구조 변경 의심")
+        bump("areas_empty")
+        return None
+
+    bump("areas_ok")
     if stats is not None:
         names = stats.setdefault("admission_names", {})
         for v in candidates:
@@ -733,6 +745,7 @@ def build_discovery_stats(fetch_stats: dict, areas_total: int, unique_ids: int,
         "areas_total": areas_total,
         "areas_ok": fetch_stats.get("areas_ok", 0),
         "areas_failed": fetch_stats.get("areas_failed", 0),
+        "areas_empty": fetch_stats.get("areas_empty", 0),
         "candidate_items": fetch_stats.get("candidate_items", 0),
         "presale_items": fetch_stats.get("presale_items", 0),
         "after_district_filter": fetch_stats.get("after_district_filter", 0),
@@ -767,6 +780,8 @@ def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
           f" | 마지막 신규 {age_txt}")
     if stats["areas_failed"]:
         print(f"  [탐색] 조회 실패 지역 {stats['areas_failed']}개")
+    if stats.get("areas_empty"):
+        print(f"  [탐색] 팝업 항목 0건 지역 {stats['areas_empty']}개 — 삭제 보류 중")
     if stats["areas_ok"] and not stats["presale_items"]:
         dist = ", ".join(f"{k}={v}" for k, v in stats["admission_names"].items())
         print(f"  [탐색 경고] 사전예약 항목 0건 — admissionCondition 분포: {dist or '없음'}")
@@ -776,9 +791,11 @@ def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
 
     # 응답은 오는데 팝업 항목이 한 건도 안 잡히면 네이버 구조가 바뀐 것.
     # "신규 0건"과 달리 이건 정상일 수 없으므로 48시간을 기다리지 않는다.
-    if stats["areas_ok"] and not stats["candidate_items"]:
-        body = (f"지역 {stats['areas_ok']}/{stats['areas_total']} 조회는 되는데 "
-                f"팝업 항목이 0건이에요. 네이버 응답 구조가 바뀐 것 같습니다.")
+    if (stats.get("areas_empty") or stats["areas_ok"]) and not stats["candidate_items"]:
+        reached = stats["areas_ok"] + stats.get("areas_empty", 0)
+        body = (f"지역 {reached}/{stats['areas_total']} 응답은 오는데 팝업 항목이 "
+                f"0건이에요. 네이버 응답 구조가 바뀐 것 같습니다. "
+                f"추적하던 팝업은 지우지 않고 유지 중입니다.")
         print(f"  [탐색 중단] {body}")
         if _renotify_ok(stats.get("structure_warned_at")):
             _queue_ntfy("⚠️ 사전예약 탐색 중단", body, sel_url)
@@ -857,13 +874,24 @@ def check_once(config: dict, prev: dict) -> dict:
         if carried:
             print(f"  [경고] 일부 지역 조회 실패 — 기존 장소 {carried}개 유지 (삭제 보류)")
 
-    # 지도 검색에 나오지 않는 장소는 종료된 팝업으로 간주하고 제거 (carryover 안 함)
+    # 한 주기에 무더기로 빠지면 팝업이 다 끝난 게 아니라 탐색이 깨진 것으로 본다
     removed = [pid for pid in prev if pid not in current]
+    if (len(removed) >= REMOVAL_SAFETY_MIN
+            and len(removed) >= len(prev) * REMOVAL_SAFETY_RATIO):
+        for pid in removed:
+            current[pid] = dict(prev[pid])
+        print(f"  [삭제 보류] 한 주기에 {len(removed)}/{len(prev)}개가 검색에서 빠짐"
+              f" — 탐색 이상으로 보고 유지")
+        fetch_failed = True   # 아래 config 정리도 함께 보류
+        removed = []
+
+    # 지도 검색에 나오지 않는 장소는 종료된 팝업으로 간주하고 제거 (carryover 안 함)
     for pid in removed:
         print(f"  [검색 제외] {prev[pid].get('name', pid)} ({pid}) — 검색 결과에 없어 제거")
 
-    # watched_places 등 config에서도 검색에 없는 장소 정리
-    stale_watched = [pid for pid in watched if pid not in current]
+    # watched_places 등 config에서도 검색에 없는 장소 정리 (탐색이 정상일 때만).
+    # 탐색이 깨진 주기에 정리하면 사용자가 직접 고른 감시 목록이 통째로 날아간다.
+    stale_watched = [] if fetch_failed else [pid for pid in watched if pid not in current]
     if stale_watched:
         config["watched_places"] = sorted(pid for pid in watched if pid in current)
         for pid in stale_watched:
