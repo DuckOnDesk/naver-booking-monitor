@@ -2,13 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "mt187ihw",
-      "name": "귤메달",
-      "url": "https://m.booking.naver.com/booking/6/bizes/1631459/items/7971943?service-target=map-pc&startDate=2026-08-18",
-      "enabled": true,
-      "target_dates": []
-    },
-    {
       "id": "mt9y7a37",
       "name": "쿠팡 온리 페스타",
       "url": "https://m.booking.naver.com/booking/12/bizes/1717462/items/7962977?startDateTime=2026-09-17T00%3A00%3A00%2B09%3A00",
@@ -51,10 +44,10 @@
       "target_dates": []
     },
     {
-      "id": "mtjwsknd",
-      "name": "요즘청년 9/4",
-      "url": "https://booking.naver.com/booking/12/bizes/1708531/items/7919014?startDateTime=2026-09-02T00%3A00%3A00%2B09%3A00",
-      "enabled": false,
+      "id": "mts1v2x6",
+      "name": "GU",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1729359/items/8019468?startDateTime=2026-09-13T00%3A00%3A00%2B09%3A00&tab=book",
+      "enabled": true,
       "target_dates": []
     }
   ]

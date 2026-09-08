@@ -1,0 +1,32 @@
+name: 사전예약 탐색 진단
+
+# 팝업 조회가 0건일 때 네이버 응답 구조를 로그로 확인하기 위한 수동 실행 워크플로.
+# 데이터 파일을 건드리지 않고 읽기만 한다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 진단할 지역 질의 (비우면 설정의 앞 2개 지역)
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install requests
+
+      - name: 진단 실행
+        run: python -u presale_diagnose.py "${{ inputs.query }}"
