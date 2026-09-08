@@ -55,9 +55,10 @@ jobs:
             python3 presale_monitor.py --flush-ntfy || true
             rm -f pending_ntfy.json
           }
+          # 탐색 경고는 git 상태와 무관하게 나가야 한다. 예전에는 커밋할 변경이
+          # 없거나 push가 실패하면 큐를 그냥 지워서 경고가 조용히 사라졌다.
           END_TIME=$(($(date +%s) + 19800))
           while [ $(date +%s) -lt $END_TIME ]; do
-            rm -f pending_ntfy.json
             python -u presale_monitor.py --once || true
             git add presale_data.json presale_config.json
             if ! git diff --staged --quiet; then
@@ -79,9 +80,7 @@ jobs:
                   git restore --staged presale_config.json presale_data.json 2>/dev/null || true
                 elif ! git diff --staged --quiet; then
                   git commit -m "data: presale update [skip ci]"
-                  if push_with_retry; then
-                    send_pending_ntfy
-                  fi
+                  push_with_retry || true
                 fi
               else
                 echo "[경고] rebase 충돌, 스테이지 초기화 후 계속"
@@ -90,10 +89,25 @@ jobs:
                 git restore --staged presale_data.json presale_config.json 2>/dev/null || true
               fi
             fi
-            rm -f pending_ntfy.json
+            send_pending_ntfy
             REMAINING=$((END_TIME - $(date +%s)))
-            [ $REMAINING -gt 300 ] && sleep 300
+            # if로 감싸지 않으면 마지막 주기에서 이 줄이 1을 돌려주고, 그게 스텝의
+            # 종료 코드가 되어 매 실행이 빨간 실패로 끝난다 (진짜 실패와 구분 불가).
+            if [ $REMAINING -gt 300 ]; then sleep 300; fi
           done
+
+      - name: 실패 알림
+        # 감시가 통째로 죽으면 팝업 알림도 같이 죽는다 — 그 사실을 푸시로 알린다
+        if: failure()
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          TOPIC=$(python3 -c "import json;print(json.load(open('presale_config.json')).get('ntfy_topic',''))")
+          [ -n "$TOPIC" ] || exit 0
+          curl -s -H "Title: $(printf '\xe2\x9a\xa0\xef\xb8\x8f') 사전예약 감시 중단" \
+               -H "Priority: urgent" -H "Tags: rotating_light" -H "Click: $RUN_URL" \
+               -d "감시 워크플로가 실패로 종료됐어요. 로그를 확인해주세요." \
+               "https://ntfy.sh/$TOPIC" || true
 
       - name: 다음 실행 즉시 트리거
         if: ${{ !cancelled() }}

@@ -14,6 +14,7 @@
   - 후보 0건인 지역은 "빈 결과"가 아니라 조회 실패로 넘긴다
   - 한 주기에 무더기로 빠지면 추적 장소를 지우지 않는다
   - 탐색이 깨진 주기에는 watched_places를 정리하지 않는다
+  - 탐색 경고가 관리 페이지 알림함(alerts)에도 남는다
 
 사용법: python presale_discovery_test.py
 """
@@ -211,9 +212,12 @@ def main() -> int:
                   "last_new_place_at": None, "stale_warned_at": None,
                   "structure_warned_at": None}
         st = dict(broken)
-        pm.report_discovery(st, {}, "")
+        panel = []
+        pm.report_discovery(st, {}, "", panel)
         check(len(queued) == 1, f"구조 변경 경고 발송 (실제 {len(queued)}건)")
         check(st.get("structure_warned_at"), "경고 발송 시각 기록")
+        check([a["type"] for a in panel] == ["discovery_broken"],
+              f"알림함에도 남는다 (실제 {[a.get('type') for a in panel]})")
 
         pm.report_discovery(dict(st), {}, "")
         check(len(queued) == 1, "24시간 안에는 같은 경고 재발송 안 함")

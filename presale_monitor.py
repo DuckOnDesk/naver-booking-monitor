@@ -767,8 +767,18 @@ def _renotify_ok(warned_at: str | None) -> bool:
     return warned is None or warned >= STALE_RENOTIFY_HOURS
 
 
-def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
-    """주기마다 탐색 한 줄 요약. 신규가 오래 끊기면 경고 알림도 보낸다."""
+def report_discovery(stats: dict, config: dict, sel_url: str,
+                     alerts: list | None = None) -> None:
+    """주기마다 탐색 한 줄 요약. 탐색이 깨지거나 신규가 끊기면 경고를 보낸다.
+
+    ntfy 푸시만으로는 놓칠 수 있어서 관리 페이지 알림함에도 같이 남긴다.
+    """
+    def warn(kind: str, title: str, body: str) -> None:
+        _queue_ntfy(title, body, sel_url)
+        if alerts is not None:
+            alerts.append({"type": kind, "place_name": title, "body": body,
+                           "booking_url": sel_url, "ts": datetime.now(KST).isoformat()})
+
     age = hours_since(stats.get("last_new_place_at"))
     age_txt = "기록 없음" if age is None else f"{age / 24:.1f}일 전"
     print(f"  [탐색] 지역 {stats['areas_ok']}/{stats['areas_total']} 성공"
@@ -798,7 +808,7 @@ def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
                 f"추적하던 팝업은 지우지 않고 유지 중입니다.")
         print(f"  [탐색 중단] {body}")
         if _renotify_ok(stats.get("structure_warned_at")):
-            _queue_ntfy("⚠️ 사전예약 탐색 중단", body, sel_url)
+            warn("discovery_broken", "⚠️ 사전예약 탐색 중단", body)
             stats["structure_warned_at"] = datetime.now(KST).isoformat()
         return
 
@@ -811,7 +821,7 @@ def report_discovery(stats: dict, config: dict, sel_url: str) -> None:
             f"지역 {stats['areas_ok']}/{stats['areas_total']} 조회 성공, "
             f"사전예약 {stats['presale_items']}개 인식 중.")
     print(f"  [탐색 경고] {body}")
-    _queue_ntfy("⚠️ 사전예약 탐색 점검 필요", body, sel_url)
+    warn("discovery_stale", "⚠️ 사전예약 탐색 점검 필요", body)
     stats["stale_warned_at"] = datetime.now(KST).isoformat()
 
 
@@ -1061,7 +1071,7 @@ def check_once(config: dict, prev: dict) -> dict:
     stats = build_discovery_stats(
         fetch_stats, len(config.get("areas", [])), len(raw), current.values(),
         [a for a in new_alerts if a["type"] == "new_popup"], prev_alerts, now_iso)
-    report_discovery(stats, config, sel_url)
+    report_discovery(stats, config, sel_url, new_alerts)
 
     seen_ids |= {str(pid) for pid in current}
     save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids, stats)
