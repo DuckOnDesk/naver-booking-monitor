@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T20:28:49.052046+09:00",
+  "updated_at": "2026-09-09T20:34:21.921933+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -21,6 +21,7 @@
     "2046629824",
     "2050153907",
     "2050363685",
+    "2052542419",
     "2054914344",
     "2055941674",
     "2057558383",
@@ -497,6 +498,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2052542419",
+      "name": "어반 웰니스 페어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1733418",
+      "bookingBusinessId": "1733418",
+      "operationStart": "26.10.18.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 39,
+      "status": "D-39",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260907_148/1788767720826OJ3TC_PNG/image.png",
+      "roadAddress": "성수이로 50",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-09T20:34:11.577739+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2015464753",
       "name": "소담몰 (with 팝업스토어)",
       "hasBooking": false,
@@ -865,32 +894,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2084168433",
-      "name": "블랙야크 더현대서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.08.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 29,
-      "status": "D-29",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
-      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2070822797",
       "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
       "hasBooking": false,
@@ -913,6 +916,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2084168433",
+      "name": "블랙야크 더현대서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.08.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 29,
+      "status": "D-29",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
+      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1367,13 +1396,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2032034855",
-      "place_name": "구달 TXA 세럼 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
-      "ts": "2026-08-24T15:08:53.214549+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2060436986",
@@ -2766,6 +2788,13 @@
       "place_name": "GU 26FW POP UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "ts": "2026-09-09T20:11:56.518111+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2052542419",
+      "place_name": "어반 웰니스 페어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1733418",
+      "ts": "2026-09-09T20:34:11.577739+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2841,6 +2870,7 @@
     "2050153907",
     "2050363685",
     "2051944825",
+    "2052542419",
     "2052645378",
     "2053652128",
     "2054914344",
@@ -2890,23 +2920,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T20:28:38.294516+09:00",
+    "checked_at": "2026-09-09T20:34:11.577739+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 847,
-    "presale_items": 167,
-    "after_district_filter": 85,
+    "candidate_items": 852,
+    "presale_items": 172,
+    "after_district_filter": 87,
     "fallback_matched": 0,
-    "unique_place_ids": 50,
-    "tracked_places": 50,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-09T18:43:18.244587+09:00",
+    "unique_place_ids": 51,
+    "tracked_places": 51,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-09T20:34:11.577739+09:00",
     "admission_names": {
       "(없음)": 437,
       "현장대기": 243,
-      "사전예약&현장대기": 131,
+      "사전예약&현장대기": 136,
       "사전예약": 36
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
