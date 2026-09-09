@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T18:37:54.847330+09:00",
+  "updated_at": "2026-09-09T18:43:28.397893+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -25,6 +25,7 @@
     "2055941674",
     "2057558383",
     "2067695542",
+    "2070822797",
     "2072857611",
     "2073328330",
     "2078141397",
@@ -888,6 +889,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2070822797",
+      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 22,
+      "status": "D-22",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2027303446",
       "name": "성률 기획전 여름을 닮은 우리",
       "hasBooking": true,
@@ -1337,13 +1364,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2047143688",
-      "place_name": "하이퍼쉘 현대백화점 압구정 팝업",
-      "booking_url": "",
-      "ts": "2026-08-24T12:41:21.515427+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2083897134",
@@ -2736,6 +2756,13 @@
       "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "ts": "2026-09-09T17:36:11.513315+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2070822797",
+      "place_name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "booking_url": "",
+      "ts": "2026-09-09T18:43:18.244587+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2829,6 +2856,7 @@
     "2067967922",
     "2069912344",
     "2070762822",
+    "2070822797",
     "2071074882",
     "2071746450",
     "2071913479",
@@ -2859,23 +2887,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T18:37:44.571930+09:00",
+    "checked_at": "2026-09-09T18:43:18.244587+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 841,
-    "presale_items": 167,
-    "after_district_filter": 84,
+    "candidate_items": 842,
+    "presale_items": 168,
+    "after_district_filter": 85,
     "fallback_matched": 0,
-    "unique_place_ids": 49,
-    "tracked_places": 49,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-09T16:51:03.034345+09:00",
+    "unique_place_ids": 50,
+    "tracked_places": 50,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-09T18:43:18.244587+09:00",
     "admission_names": {
       "(없음)": 437,
       "현장대기": 237,
-      "사전예약&현장대기": 130,
+      "사전예약&현장대기": 131,
       "사전예약": 37
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
