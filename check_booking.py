@@ -1228,7 +1228,7 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
         shown = scope_parts[:STOCK_CHANGE_MAX_PARTS]
         detail = (", ".join(shown)
                   + (f" 외 {len(scope_parts) - len(shown)}건" if len(scope_parts) > len(shown) else "")
-                  ) if scope_parts else "감시 중 시간대 변동 없음"
+                  ) if scope_parts else "시간대 별 재고 변동 없음"
         summary = (f"감시 {_scope_label(prev_scope)}→{_scope_label(scope)} · "
                    f"재고 {c_stock} / 잔여 {c_stock - c_booking}")
         print(f"[{now_str}] 📊 {name} {date_str} {summary} · {label} — {detail}", flush=True)

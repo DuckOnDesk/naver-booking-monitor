@@ -288,7 +288,7 @@ def main() -> int:
     alerted = {f"t1:{D}:stock": {**watched, "12:30": [45, 45]}, f"t1:{D}:scope": ""}
     payload = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 45),
                                    raw("12:00", 45, 45)], "11:00-12:00")
-    check(payload is not None and "감시 중 시간대 변동 없음" in payload["body"],
+    check(payload is not None and "시간대 별 재고 변동 없음" in payload["body"],
           f"변동 없음 표기 (실제: {payload and payload['body']})")
 
     print("11-4) 지난 날짜의 범위 기록도 정리된다")
