@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T00:21:46.224272+09:00",
+  "updated_at": "2026-09-10T00:27:17.541505+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1365,7 +1365,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723408",
       "operationStart": "26.09.19.",
@@ -1385,7 +1385,8 @@
         "2026-09-09T06:41:42.656027+09:00",
         "2026-09-09T15:09:47.478645+09:00",
         "2026-09-09T19:05:32.506622+09:00",
-        "2026-09-10T00:05:01.972915+09:00"
+        "2026-09-10T00:05:01.972915+09:00",
+        "2026-09-10T00:27:07.620305+09:00"
       ],
       "bookingOpenAuto": "2026-09-01T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-08T14:03:35.025104+09:00",
@@ -1398,13 +1399,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039988652",
-      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
-      "ts": "2026-08-24T23:39:55.723439+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2797,6 +2791,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-10T00:05:01.972915+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2024677130",
+      "place_name": "2026 서리풀뮤직페스티벌",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
+      "ts": "2026-09-10T00:27:07.620305+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2922,7 +2923,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-10T00:21:35.950873+09:00",
+    "checked_at": "2026-09-10T00:27:07.620305+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -2936,8 +2937,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-09T20:34:11.577739+09:00",
     "admission_names": {
-      "(없음)": 458,
-      "현장대기": 234,
+      "(없음)": 457,
+      "현장대기": 235,
       "사전예약&현장대기": 135,
       "사전예약": 36
     },
