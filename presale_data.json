@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T20:34:21.921933+09:00",
+  "updated_at": "2026-09-09T20:39:55.943740+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -520,9 +520,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
       "bookingIsOpened": false
     },
     {
@@ -894,32 +894,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2070822797",
-      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 22,
-      "status": "D-22",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2084168433",
       "name": "블랙야크 더현대서울",
       "hasBooking": false,
@@ -942,6 +916,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2070822797",
+      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 22,
+      "status": "D-22",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1364,7 +1364,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723408",
       "operationStart": "26.09.19.",
@@ -2920,7 +2920,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T20:34:11.577739+09:00",
+    "checked_at": "2026-09-09T20:39:44.674636+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -2931,7 +2931,7 @@
     "fallback_matched": 0,
     "unique_place_ids": 51,
     "tracked_places": 51,
-    "new_places": 1,
+    "new_places": 0,
     "last_new_place_at": "2026-09-09T20:34:11.577739+09:00",
     "admission_names": {
       "(없음)": 437,
