@@ -1,9 +1,10 @@
 {
-  "updated_at": "2026-09-09T15:32:24.230318+09:00",
+  "updated_at": "2026-09-09T15:38:00.641333+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
     "2003293998",
+    "2003769380",
     "2005264248",
     "2007085220",
     "2009756357",
@@ -620,6 +621,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-08T11:20:30.140278+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2003769380",
+      "name": "악월 10주년 기념 POP-UP STORE",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 23,
+      "status": "D-23",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_80/1788846283460dvw0O_JPEG/edited-1788846284299-0.jpg",
+      "roadAddress": "와우산로25길 26 1층",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T15:37:50.759282+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1281,13 +1308,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2032034855",
-      "place_name": "구달 TXA 세럼 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1715398",
-      "ts": "2026-08-24T03:28:39.073592+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039988652",
@@ -2680,6 +2700,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-09T15:09:47.478645+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2003769380",
+      "place_name": "악월 10주년 기념 POP-UP STORE",
+      "booking_url": "",
+      "ts": "2026-09-09T15:37:50.759282+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2693,6 +2720,7 @@
     "2002918567",
     "2003293998",
     "2003471362",
+    "2003769380",
     "2004678306",
     "2005264248",
     "2005894077",
@@ -2801,23 +2829,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T15:32:14.242536+09:00",
+    "checked_at": "2026-09-09T15:37:50.759282+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 836,
-    "presale_items": 163,
-    "after_district_filter": 81,
+    "candidate_items": 839,
+    "presale_items": 166,
+    "after_district_filter": 83,
     "fallback_matched": 0,
-    "unique_place_ids": 47,
-    "tracked_places": 47,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-08T18:31:37.352425+09:00",
+    "unique_place_ids": 48,
+    "tracked_places": 48,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-09T15:37:50.759282+09:00",
     "admission_names": {
       "(없음)": 435,
       "현장대기": 238,
-      "사전예약&현장대기": 126,
+      "사전예약&현장대기": 129,
       "사전예약": 37
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
