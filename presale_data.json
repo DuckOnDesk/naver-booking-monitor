@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T16:23:05.401137+09:00",
+  "updated_at": "2026-09-09T16:28:42.598305+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -332,7 +332,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -349,7 +349,8 @@
         "2026-09-08T14:48:21.072320+09:00",
         "2026-09-08T18:31:37.352425+09:00",
         "2026-09-09T05:52:12.701217+09:00",
-        "2026-09-09T10:41:24.720286+09:00"
+        "2026-09-09T10:41:24.720286+09:00",
+        "2026-09-09T16:28:32.380833+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1308,13 +1309,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039988652",
-      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
-      "ts": "2026-08-24T05:28:11.113120+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2032034855",
@@ -2707,6 +2701,13 @@
       "place_name": "악월 10주년 기념 POP-UP STORE",
       "booking_url": "",
       "ts": "2026-09-09T15:37:50.759282+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-09T16:28:32.380833+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2829,12 +2830,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T16:22:55.206378+09:00",
+    "checked_at": "2026-09-09T16:28:32.380833+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 842,
+    "candidate_items": 843,
     "presale_items": 166,
     "after_district_filter": 83,
     "fallback_matched": 0,
@@ -2844,7 +2845,7 @@
     "last_new_place_at": "2026-09-09T15:37:50.759282+09:00",
     "admission_names": {
       "(없음)": 438,
-      "현장대기": 238,
+      "현장대기": 239,
       "사전예약&현장대기": 129,
       "사전예약": 37
     },
