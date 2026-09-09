@@ -1064,6 +1064,44 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
 
 
 STOCK_KEY_SUFFIX = ":stock"
+SCOPE_KEY_SUFFIX = ":scope"
+
+# 감시 날짜/시간(target_dates)을 바꾼 회차에 붙는 라벨. 업체가 자리를 내린 것과
+# 우리가 감시 범위를 좁힌 것은 전혀 다른 사건인데, 스냅샷 비교만 보면 똑같이
+# "시간대 내려감"으로 보인다 (2026-09-09 마녀공장: 감시를 11:00-12:00으로 좁힌
+# 직후 회차에 12:30~18:00 15개 시간대가 통째로 내려간 것처럼 알림이 나갔다).
+SCOPE_CHANGE_LABEL = "감시 날짜/시간 변경"
+
+
+def watch_scope(time_range: tuple | None) -> str:
+    """감시 시간 범위를 스냅샷과 함께 저장할 문자열로. 하루 전체면 빈 문자열."""
+    return f"{time_range[0]}-{time_range[1]}" if time_range else ""
+
+
+def _scope_label(scope: str | None) -> str:
+    return scope or "하루 전체"
+
+
+def _scope_change_parts(prev: dict, cur: dict) -> list[str]:
+    """감시 범위가 바뀐 회차의 본문 — 계속 감시 중인 시간대의 재고·잔여 증감만.
+
+    감시에서 빠진 시간대는 적지 않는다. 그 숫자는 빠지기 직전 마지막으로 본 값
+    그대로라 "재고 45/예약 45"처럼 변한 게 없어 보이는데, 목록에 늘어놓으면
+    업체가 자리를 내린 것처럼 읽힌다.
+    """
+    parts = []
+    for t in sorted(set(prev) & set(cur)):
+        a, b = prev[t], cur[t]
+        if a == b:
+            continue
+        seg = []
+        if a[0] != b[0]:
+            seg.append(f"재고 {a[0]}→{b[0]}")
+        if a[0] - a[1] != b[0] - b[1]:
+            seg.append(f"잔여 {a[0] - a[1]}→{b[0] - b[1]}")
+        if seg:
+            parts.append(f"{t} " + ", ".join(seg))
+    return parts
 
 
 def slot_stock_map(ref_slots: list) -> dict:
@@ -1101,7 +1139,8 @@ def _stock_change_label(booked_delta: int, removed: bool, added: bool,
 
 def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                       date_str: str, url: str, ref_slots: list, now_str: str,
-                      is_today: bool, notify: bool = True) -> dict | None:
+                      is_today: bool, notify: bool = True,
+                      scope: str = "") -> dict | None:
     """재고/예약 구성이 직전 회차와 달라졌으면 로그 한 줄. 알릴 게 있으면 payload 반환.
 
     발송은 호출자가 결정한다 — 같은 날짜에 자리 알림(🎉/🔒/⏳)이 나가는 회차에는
@@ -1119,6 +1158,14 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     "한 번만"은 스냅샷을 매 회차 갱신해서 지킨다. 같은 상태가 이어지는 동안에는
     prev == cur이라 아무것도 나가지 않고, 다음 변화 때 다시 한 번 나간다.
 
+    scope: 이 스냅샷이 담는 감시 시간 범위("11:00-12:00", 하루 전체면 ""). 스냅샷은
+    감시 범위 안 슬롯만 담으므로, 범위가 바뀌면 직전 회차와 비교 대상 자체가 달라진다.
+    그 회차는 "감시 날짜/시간 변경"으로 알리고 본문에는 감시 중 시간대의 재고·잔여
+    증감만 적는다 — 범위 밖으로 나간 시간대까지 "내려감"으로 늘어놓으면 업체가 자리를
+    내린 것과 구별이 안 된다 (2026-09-09 마녀공장: 감시를 11:00-12:00으로 좁힌 직후
+    12:30~18:00 15개가 "내려감"으로 나갔는데, 괄호 안 숫자는 빠지기 직전 값 그대로라
+    정작 변한 게 없어 보였다).
+
     is_today: 오늘 날짜면 True. 시간이 지나 목록에서 빠진 시간대는 fetch_slots가
     걸러낸 것뿐이므로 변경으로 치지 않는다. 기준 시각은 회차 머리의 now_str이 아니라
     지금 이 순간을 쓴다 — 한 회차가 1분을 넘기면 회차가 시작된 뒤 지나간 슬롯이
@@ -1127,9 +1174,15 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     now_hhmm = (datetime.now(timezone(timedelta(hours=9))).strftime("%H:%M")
                 if is_today else None)
     key = f"{item_id}:{datekey}{STOCK_KEY_SUFFIX}"
+    scope_key = f"{item_id}:{datekey}{SCOPE_KEY_SUFFIX}"
     cur = slot_stock_map(ref_slots)
     prev = alerted.get(key)
+    # 스냅샷은 감시 범위 안 슬롯만 담는다 → 범위가 바뀌면 비교 대상 자체가 달라진다.
+    # 처음 보는 항목(범위 기록이 없는 스냅샷)은 '그대로'로 본다. 안 그러면 이 코드가
+    # 처음 도는 회차에 멀쩡한 감시가 전부 범위 변경으로 잡힌다.
+    prev_scope = alerted.get(scope_key, scope)
     alerted[key] = cur
+    alerted[scope_key] = scope
     if not isinstance(prev, dict) or prev == cur:
         return None
 
@@ -1167,6 +1220,23 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     p_booking = sum(v[1] for t, v in prev.items() if t not in ignored)
     c_stock   = sum(v[0] for v in cur.values())
     c_booking = sum(v[1] for v in cur.values())
+    if prev_scope != scope:
+        # 감시 날짜/시간을 바꾼 회차. 범위 밖으로 나간 시간대는 업체가 내린 게
+        # 아니라 우리가 안 보기로 한 것이므로, 지금 감시 중인 시간대의 증감만 적는다.
+        label = SCOPE_CHANGE_LABEL
+        scope_parts = _scope_change_parts(prev, cur)
+        shown = scope_parts[:STOCK_CHANGE_MAX_PARTS]
+        detail = (", ".join(shown)
+                  + (f" 외 {len(scope_parts) - len(shown)}건" if len(scope_parts) > len(shown) else "")
+                  ) if scope_parts else "감시 중 시간대 변동 없음"
+        summary = (f"감시 {_scope_label(prev_scope)}→{_scope_label(scope)} · "
+                   f"재고 {c_stock} / 잔여 {c_stock - c_booking}")
+        print(f"[{now_str}] 📊 {name} {date_str} {summary} · {label} — {detail}", flush=True)
+        if not notify:
+            return None
+        return {"title": f"📊 {name} {label}으로 재고 변경",
+                "body": f"{date_str} {summary}\n{detail}", "url": url}
+
     label = _stock_change_label(booked_delta, removed, added, p_stock, c_stock)
 
     shown = parts[:STOCK_CHANGE_MAX_PARTS]
@@ -1189,9 +1259,9 @@ def send_stock_change(ntfy_topic: str, payload: dict) -> bool:
 
 
 def prune_stock_records(alerted: dict, today_str: str) -> None:
-    """지난 날짜의 재고 스냅샷을 지운다. 안 지우면 상태 파일이 계속 커진다."""
+    """지난 날짜의 재고 스냅샷(감시 범위 기록 포함)을 지운다. 안 지우면 상태 파일이 계속 커진다."""
     for k in list(alerted.keys()):
-        if not k.endswith(STOCK_KEY_SUFFIX):
+        if not k.endswith((STOCK_KEY_SUFFIX, SCOPE_KEY_SUFFIX)):
             continue
         parts = k.split(":")
         if len(parts) >= 3 and len(parts[-2]) == 10 and parts[-2] < today_str:
@@ -1893,7 +1963,7 @@ class UrlGate:
             # 못 잡는다 (2026-09-08 하겐다즈가 바로 그 구간이었다).
             purge_item_keys(alerted, item_prefix,
                             keep=(self.closed_key,),
-                            keep_suffix=(":closed", STOCK_KEY_SUFFIX))
+                            keep_suffix=(":closed", STOCK_KEY_SUFFIX, SCOPE_KEY_SUFFIX))
             alerted[self.closed_key] = 1
             # 서명에서는 페이지 본문을 뗀다. 본문이 회차마다 조금씩 달라지면
             # (시각·세션값 등) 같은 '닫힘' 상태가 매 회차 새 상태로 잡혀,
@@ -2271,10 +2341,14 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 # 없음)가 갈리기 전에 한 곳에서 한다. 어느 분기로 가든 같은 슬롯
                 # 목록을 기준으로 비교해야 분기 전환이 가짜 변경으로 잡히지 않는다.
                 if slot_info["queried"]:
+                    # 시간 범위가 실제로 걸린 회차에만 range_slots가 있다 (일 단위
+                    # 상품은 고를 시간대가 없어 범위를 적용하지 않는다) → 스냅샷에
+                    # 같이 남기는 감시 범위도 그 기준에 맞춘다.
                     _sc = note_stock_change(
                         alerted, item_id, datekey, name, date_str, url,
                         slot_info.get("range_slots", slot_info.get("all_slots", [])),
-                        now_str, datekey == today_str, notify=not is_restricted)
+                        now_str, datekey == today_str, notify=not is_restricted,
+                        scope=watch_scope(time_range) if "range_slots" in slot_info else "")
                     if _sc:
                         pending_stock.append((datekey, _sc))
 
@@ -2465,7 +2539,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     _sc = note_stock_change(
                         alerted, item_id, datekey, name, date_str, url,
                         track_slots, now_str, datekey == today_str,
-                        notify=not is_restricted)
+                        notify=not is_restricted, scope=watch_scope(time_range))
                     if _sc:
                         pending_stock.append((datekey, _sc))
 
