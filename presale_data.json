@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T20:06:34.461251+09:00",
+  "updated_at": "2026-09-09T20:12:07.247736+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -122,7 +122,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -137,7 +137,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-09-09T05:46:41.346234+09:00",
-        "2026-09-09T12:35:28.228162+09:00"
+        "2026-09-09T12:35:28.228162+09:00",
+        "2026-09-09T20:11:56.518111+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -335,7 +336,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -353,7 +354,8 @@
         "2026-09-08T18:31:37.352425+09:00",
         "2026-09-09T05:52:12.701217+09:00",
         "2026-09-09T10:41:24.720286+09:00",
-        "2026-09-09T16:28:32.380833+09:00"
+        "2026-09-09T16:28:32.380833+09:00",
+        "2026-09-09T20:11:56.518111+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1365,20 +1367,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039988652",
-      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
-      "ts": "2026-08-24T14:17:45.997520+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-08-24T15:03:12.515879+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2032034855",
@@ -2764,6 +2752,20 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-09T19:05:32.506622+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-09-09T20:11:56.518111+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-09T20:11:56.518111+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2888,7 +2890,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T20:06:24.229978+09:00",
+    "checked_at": "2026-09-09T20:11:56.518111+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
