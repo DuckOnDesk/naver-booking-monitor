@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-09T17:30:43.802930+09:00",
+  "updated_at": "2026-09-09T17:36:21.469953+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -40,7 +40,7 @@
     {
       "id": "2033013073",
       "name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "bookingBusinessId": "1713524",
       "operationStart": "26.09.05.",
@@ -54,7 +54,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-09T11:04:13.469700+09:00"
+        "2026-09-09T11:04:13.469700+09:00",
+        "2026-09-09T17:36:11.513315+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1336,13 +1337,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2006916982",
-      "place_name": "발레클로젯 팝업 - 디아트레 메시아 포타 in더현대서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712096",
-      "ts": "2026-08-24T11:16:15.804962+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2047143688",
@@ -2735,6 +2729,13 @@
       "place_name": "블랙야크 더현대서울",
       "booking_url": "",
       "ts": "2026-09-09T16:51:03.034345+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033013073",
+      "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
+      "ts": "2026-09-09T17:36:11.513315+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2858,24 +2859,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-09T17:30:33.415640+09:00",
+    "checked_at": "2026-09-09T17:36:11.513315+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 846,
-    "presale_items": 166,
-    "after_district_filter": 84,
+    "candidate_items": 896,
+    "presale_items": 153,
+    "after_district_filter": 82,
     "fallback_matched": 0,
     "unique_place_ids": 49,
     "tracked_places": 49,
     "new_places": 0,
     "last_new_place_at": "2026-09-09T16:51:03.034345+09:00",
     "admission_names": {
-      "(없음)": 438,
-      "현장대기": 242,
-      "사전예약&현장대기": 130,
-      "사전예약": 36
+      "(없음)": 522,
+      "현장대기": 221,
+      "사전예약&현장대기": 121,
+      "사전예약": 32
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
     "structure_warned_at": null
