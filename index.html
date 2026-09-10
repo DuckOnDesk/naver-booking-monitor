@@ -53,8 +53,6 @@
     .btn-link { background: #e8f4fd; color: #1a73e8; text-decoration: none; }
     .btn-auto { background: #f3ebff; color: #7c3aed; text-decoration: none; }
     .btn-auto.on { background: #7c3aed; color: #fff; }
-    .btn-mute { background: #fff7e6; color: #b45309; }
-    .btn-mute.on { background: #b45309; color: #fff; }
     .btn-save-gh { background: #24292e; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; cursor: pointer; width: 100%; margin-top: 10px; }
 
     /* Monitor card */
@@ -68,13 +66,23 @@
     .monitor-url  { font-size: 11px; color: #bbb; margin-top: 2px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     .monitor-actions { display: flex; gap: 8px; margin-top: 10px; }
 
-    /* Toggle */
-    .toggle { position: relative; width: 46px; height: 27px; flex-shrink: 0; }
-    .toggle input { display: none; }
-    .toggle-slider { position: absolute; inset: 0; background: #ccc; border-radius: 14px; cursor: pointer; transition: .2s; }
-    .toggle-slider::after { content: ''; position: absolute; left: 3px; top: 3px; width: 21px; height: 21px; background: #fff; border-radius: 50%; transition: .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2); }
-    .toggle input:checked + .toggle-slider { background: var(--green); }
-    .toggle input:checked + .toggle-slider::after { transform: translateX(19px); }
+    /* 상태 버튼 (감시 / 알림) — 켜고 끄는 것 둘을 같은 모양으로 나란히 둔다.
+       종전에는 감시가 토글, 알림이 글자 버튼이라 같은 성격의 스위치 둘이
+       다르게 생겼었다. 상태는 글자 대신 색과 빨간 대각선으로 말한다. */
+    .state-btns { display: flex; gap: 6px; flex-shrink: 0; }
+    .state-btn { position: relative; width: 40px; height: 34px; padding: 0; font-size: 17px; line-height: 1;
+                 border: 1px solid var(--border); border-radius: 10px; cursor: pointer; overflow: hidden;
+                 display: flex; align-items: center; justify-content: center; transition: background .15s; }
+    .state-btn.watch  { background: #f0fbf4; }
+    .state-btn.notify { background: #fff7e6; }
+    .state-btn.off { background: #fafafa; border-color: #e4e4e4; }
+    .state-btn.off .ico { opacity: .3; filter: grayscale(1); }
+    /* 꺼진 버튼에는 박스를 가로지르는 빨간 대각선. to top right는 좌하단→우상단
+       코너를 잇는 축이라, 버튼 비율이 바뀌어도 선이 정확히 모서리에서 모서리로 간다. */
+    .state-btn.off::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+                            background: linear-gradient(to top right, transparent calc(50% - 1.6px),
+                                        var(--red) calc(50% - 1.6px), var(--red) calc(50% + 1.6px),
+                                        transparent calc(50% + 1.6px)); }
 
     /* FAB */
     .fab { position: fixed; bottom: 28px; right: 20px; width: 58px; height: 58px; background: var(--green); color: #fff; border: none; border-radius: 50%; font-size: 30px; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px rgba(3,199,90,.45); z-index: 100; display: flex; align-items: center; justify-content: center; }
@@ -377,17 +385,20 @@ function render() {
           ${fmtAvailableRange(m.url)}
           <div class="monitor-url">${esc(m.url)}</div>
         </div>
-        <label class="toggle">
-          <input type="checkbox" ${m.enabled?'checked':''} onchange="toggle('${m.id}',this.checked)">
-          <span class="toggle-slider"></span>
-        </label>
+        <div class="state-btns">
+          <button class="state-btn watch ${m.enabled?'':'off'}" aria-label="감시"
+                  title="감시 ${m.enabled?'켜짐':'꺼짐'} — 끄면 조회 자체가 멈춰 재고 변화가 기록되지 않습니다"
+                  onclick="toggle('${m.id}',${!m.enabled})"><span class="ico">📡</span></button>
+          <button class="state-btn notify ${m.mute?'off':''}" aria-label="알림"
+                  title="알림 ${m.mute?'꺼짐':'켜짐'} — 꺼도 감시·재고 추적은 그대로 돕니다"
+                  onclick="toggleMute('${m.id}')"><span class="ico">🔔</span></button>
+        </div>
       </div>
       <div class="monitor-actions">
         <button class="btn-sm btn-edit" onclick="openEdit('${m.id}')">수정</button>
         <button class="btn-sm btn-del"  onclick="del('${m.id}')">삭제</button>
         <a class="btn-sm btn-link" href="${esc(m.url)}" target="_blank" rel="noopener">예약</a>
         <a class="btn-sm btn-auto ${isAutoBookOn(m)?'on':''}" href="autobook.html?id=${m.id}">자동예약${isAutoBookOn(m)?' ON':''}</a>
-        <button class="btn-sm btn-mute ${m.mute?'on':''}" onclick="toggleMute('${m.id}')" title="감시는 그대로 두고 알림만 끕니다">${m.mute?'🔕 알림 꺼짐':'🔔 알림 켜짐'}</button>
       </div>
     </div>`).join('');
 }
@@ -609,12 +620,9 @@ function onDateRangeChange() {
   if ($('f-quick-weekend').checked) onQuickToggle('weekend', true);
   if ($('f-quick-weekday').checked) onQuickToggle('weekday', true);
 }
-// 활성 개수 옆에 🔕(감시는 하되 알림만 끈 항목) 수를 같이 적는다 — 조용한 항목을
-// 꺼 둔 항목으로 착각하지 않도록.
 function statusText() {
   const on = cfg.monitors.filter(m => m.enabled).length;
-  const muted = cfg.monitors.filter(m => m.enabled && m.mute).length;
-  return `${on}개 활성${muted ? ` (🔕 ${muted})` : ''} / 전체 ${cfg.monitors.length}개`;
+  return `${on}개 활성 / 전체 ${cfg.monitors.length}개`;
 }
 
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
@@ -879,6 +887,7 @@ async function toggle(id, enabled) {
   const m = cfg.monitors.find(x => x.id === id);
   if (!m) return;
   m.enabled = enabled;
+  render();
   try {
     await saveConfig(enabled ? `활성화: ${m.name}` : `비활성화: ${m.name}`);
     setStatus(statusText());
