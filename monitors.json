@@ -45,7 +45,10 @@
       "name": "스포티파이",
       "url": "https://m.booking.naver.com/booking/12/bizes/1721238/items/7980788?area=ple&lang=ko&tab=book&theme=place",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [
+        "2026-09-12",
+        "2026-09-13"
+      ]
     },
     {
       "id": "mts1v2x6",
