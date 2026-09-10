@@ -45,6 +45,11 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
 monitors.json 항목 선택 필드:
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
                          설정 시 해당 시각 이후 + 자리 있을 때만 알림 발송
+  mute                   true면 이 항목의 알림(ntfy)만 끈다. 감시는 그대로 돌아
+                         로그·재고 스냅샷·자동예약이 모두 살아 있다. 잠깐 조용히
+                         두고 싶을 때 enabled=false 대신 쓴다 — enabled=false는
+                         추적 자체를 멈춰서 그동안의 재고 변화가 통째로 빈다
+                         (check_all의 항목별 ntfy_topic 참고)
 """
 
 import builtins
@@ -2023,6 +2028,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     now_str = now_kst.strftime("%H:%M:%S")
     today_str = now_kst.strftime("%Y-%m-%d")
     active = [m for m in monitors if m.get("enabled", True)]
+    base_ntfy_topic = ntfy_topic    # 항목별 mute가 이 값을 갈아 끼운다 (아래 루프)
 
     try:
         sched_cache = json.loads(SCHEDULE_CACHE_FILE.read_text(encoding="utf-8")) if SCHEDULE_CACHE_FILE.exists() else {}
@@ -2043,6 +2049,12 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     for item in active:
         name = item.get("name", "?")
         url = item.get("url", "")
+        # mute 항목은 알림만 끈다. 이 아래 알림은 하나도 빠짐없이 ntfy_topic이
+        # 비었는지를 보고 나가므로(send_ntfy 호출부·UrlGate·send_stock_change),
+        # 회차마다 항목에 맞는 주제를 끼워 주면 감시·로그·재고 추적은 그대로 돌면서
+        # 알림만 멎는다. enabled=false와 달리 조회를 멈추지 않으므로 조용히 둔
+        # 동안의 재고 변화도 로그와 스냅샷에 그대로 쌓인다.
+        ntfy_topic = "" if item.get("mute") else base_ntfy_topic
 
         ab_cfg = _auto_book_cfg(item)
         if ab_cfg and ab_cfg["mode"] == "scheduled" and ab_cfg["start_at"]:
@@ -3000,6 +3012,11 @@ def main():
         sys.exit(0)
 
     print(f"=== 모니터 시작 | 주기: {interval}초 | 최대: {loop_hours}시간 ===", flush=True)
+
+    muted = [m.get("name", "?") for m in active if m.get("mute")]
+    if muted:
+        print(f"=== 알림 끔 🔕: {', '.join(muted)} — 감시·로그·재고 추적은 그대로 ===",
+              flush=True)
 
     cache = build_schedule_cache(monitors)
     if save_schedule_cache(cache):
