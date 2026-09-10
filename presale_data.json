@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T23:04:27.627656+09:00",
+  "updated_at": "2026-09-10T23:10:02.446380+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -119,7 +119,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -205,7 +205,7 @@
     {
       "id": "2083897134",
       "name": "스포티파이 하우스 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1721238",
       "bookingBusinessId": "1721238",
       "operationStart": "26.09.10.",
@@ -219,7 +219,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-10T20:05:22.305078+09:00"
+        "2026-09-10T20:05:22.305078+09:00",
+        "2026-09-10T23:09:50.349805+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1035,18 +1036,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2070822797",
-      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "id": "2084168433",
+      "name": "블랙야크 더현대서울",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 21,
-      "status": "D-21",
+      "operationStart": "26.10.08.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 28,
+      "status": "D-28",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
+      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
       "bookingOpenDatetime": null,
@@ -1056,7 +1057,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
+      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1087,18 +1088,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2084168433",
-      "name": "블랙야크 더현대서울",
+      "id": "2070822797",
+      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.10.08.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 28,
-      "status": "D-28",
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 21,
+      "status": "D-21",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
-      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
       "bookingOpenDatetime": null,
@@ -1108,7 +1109,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
+      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1578,13 +1579,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2050363685",
-      "place_name": "콜라보카페 세이브포인트",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
-      "ts": "2026-08-27T09:44:21.824475+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039988652",
@@ -2977,6 +2971,13 @@
       "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "ts": "2026-09-10T21:57:10.935064+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083897134",
+      "place_name": "스포티파이 하우스 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
+      "ts": "2026-09-10T23:09:50.349805+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3109,7 +3110,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-10T23:04:15.839613+09:00",
+    "checked_at": "2026-09-10T23:09:50.349805+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
