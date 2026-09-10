@@ -1076,7 +1076,7 @@ SCOPE_KEY_SUFFIX = ":scope"
 
 # 감시 날짜/시간(target_dates)을 바꾼 회차에 붙는 라벨. 업체가 자리를 내린 것과
 # 우리가 감시 범위를 좁힌 것은 전혀 다른 사건인데, 스냅샷 비교만 보면 똑같이
-# "시간대 내려감"으로 보인다 (2026-09-09 마녀공장: 감시를 11:00-12:00으로 좁힌
+# "시간대 사라짐"으로 보인다 (2026-09-09 마녀공장: 감시를 11:00-12:00으로 좁힌
 # 직후 회차에 12:30~18:00 15개 시간대가 통째로 내려간 것처럼 알림이 나갔다).
 SCOPE_CHANGE_LABEL = "감시 날짜/시간 변경"
 
@@ -1126,6 +1126,11 @@ def _stock_change_label(booked_delta: int, removed: bool, added: bool,
                         p_stock: int, c_stock: int) -> str:
     """변화를 사람이 읽는 한 마디로. 자리가 왜 사라졌는지가 여기서 갈린다.
 
+    "시간대 사라짐"은 그 회차가 목록에서 통째로 없어진 것이고(업체가 삭제했거나
+    판매일·영업일에서 뺐다), "재고만 줄어듦"은 회차는 그대로 있고 자리 수만 깎인
+    것이다. 종전 이름("시간대 내려감")은 숫자가 내려갔다는 뜻으로도 읽혀 둘이
+    헷갈렸다. 매진은 어느 쪽도 아니다 — 슬롯이 남아 있으니 "예약 발생"으로 잡힌다.
+
     예약 증감은 양쪽 회차에 다 있는 시간대만 놓고 센다(booked_delta). 총합으로 세면
     예약이 걸린 시간대가 통째로 내려간 것까지 "예약 취소"로 읽힌다 — 자리가 사라진
     이유를 가리려고 만든 라벨이 정작 그 이유를 뒤집어 말하는 꼴이 된다.
@@ -1135,13 +1140,13 @@ def _stock_change_label(booked_delta: int, removed: bool, added: bool,
     if booked_delta < 0:
         return "예약 취소"
     if removed:
-        return "시간대 내려감"
+        return "시간대 사라짐"
     if added:
         return "시간대 추가"
     if c_stock < p_stock:
-        return "업체 재고 회수"
+        return "재고만 줄어듦"
     if c_stock > p_stock:
-        return "재고 추가"
+        return "재고만 늘어남"
     return "구성 변경"
 
 
@@ -1189,9 +1194,9 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     scope: 이 스냅샷이 담는 감시 시간 범위("11:00-12:00", 하루 전체면 ""). 스냅샷은
     감시 범위 안 슬롯만 담으므로, 범위가 바뀌면 직전 회차와 비교 대상 자체가 달라진다.
     그 회차는 "감시 날짜/시간 변경"으로 알리고 본문에는 감시 중 시간대의 재고·잔여
-    증감만 적는다 — 범위 밖으로 나간 시간대까지 "내려감"으로 늘어놓으면 업체가 자리를
+    증감만 적는다 — 범위 밖으로 나간 시간대까지 "사라짐"으로 늘어놓으면 업체가 자리를
     내린 것과 구별이 안 된다 (2026-09-09 마녀공장: 감시를 11:00-12:00으로 좁힌 직후
-    12:30~18:00 15개가 "내려감"으로 나갔는데, 괄호 안 숫자는 빠지기 직전 값 그대로라
+    12:30~18:00 15개가 "사라짐"으로 나갔는데, 괄호 안 숫자는 빠지기 직전 값 그대로라
     정작 변한 게 없어 보였다).
 
     is_today: 오늘 날짜면 True. 시간이 지나 목록에서 빠진 시간대는 fetch_slots가
@@ -1228,7 +1233,7 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                 ignored.add(t)          # 시간이 지나 빠진 슬롯 — 변경이 아니다
                 continue
             removed = stock_moved = True
-            parts.append(f"{t} 내려감(재고 {a[0]}/예약 {a[1]})")
+            parts.append(f"{t} 사라짐(재고 {a[0]}/예약 {a[1]})")
         elif a is None:
             added = stock_moved = True
             parts.append(f"{t} 새로 열림(재고 {b[0]}/예약 {b[1]})")
