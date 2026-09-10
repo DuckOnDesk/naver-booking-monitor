@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T14:02:59.206105+09:00",
+  "updated_at": "2026-09-10T14:08:43.437913+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -494,6 +494,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2069285502",
+      "name": "더웍스 페스티벌",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 21,
+      "status": "D-21",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
+      "roadAddress": "연무장7길 16 한서빌딩 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2018920557",
       "name": "텐먼스 성수 팝업스토어",
       "hasBooking": false,
@@ -545,32 +571,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2069285502",
-      "name": "더웍스 페스티벌",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 21,
-      "status": "D-21",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
-      "roadAddress": "연무장7길 16 한서빌딩 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -973,32 +973,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2084168433",
-      "name": "블랙야크 더현대서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.08.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 28,
-      "status": "D-28",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
-      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2070822797",
       "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
       "hasBooking": false,
@@ -1047,6 +1021,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-10T11:36:38.614584+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2084168433",
+      "name": "블랙야크 더현대서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.08.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 28,
+      "status": "D-28",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
+      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1450,7 +1450,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723408",
       "operationStart": "26.09.19.",
@@ -1473,7 +1473,8 @@
         "2026-09-10T00:05:01.972915+09:00",
         "2026-09-10T00:27:07.620305+09:00",
         "2026-09-10T07:18:23.090710+09:00",
-        "2026-09-10T12:59:47.727211+09:00"
+        "2026-09-10T12:59:47.727211+09:00",
+        "2026-09-10T14:08:28.194856+09:00"
       ],
       "bookingOpenAuto": "2026-09-01T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-08T14:03:35.025104+09:00",
@@ -1486,13 +1487,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-08-26T13:43:25.357919+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2057558383",
@@ -2885,6 +2879,13 @@
       "place_name": "[SHAREBOX] AI+XR 팝업스토어 신촌",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1734674",
       "ts": "2026-09-10T13:28:23.748801+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2024677130",
+      "place_name": "2026 서리풀뮤직페스티벌",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
+      "ts": "2026-09-10T14:08:28.194856+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3014,7 +3015,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-10T14:02:44.844196+09:00",
+    "checked_at": "2026-09-10T14:08:28.194856+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
