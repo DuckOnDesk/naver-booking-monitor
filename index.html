@@ -53,6 +53,8 @@
     .btn-link { background: #e8f4fd; color: #1a73e8; text-decoration: none; }
     .btn-auto { background: #f3ebff; color: #7c3aed; text-decoration: none; }
     .btn-auto.on { background: #7c3aed; color: #fff; }
+    .btn-mute { background: #fff7e6; color: #b45309; }
+    .btn-mute.on { background: #b45309; color: #fff; }
     .btn-save-gh { background: #24292e; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; cursor: pointer; width: 100%; margin-top: 10px; }
 
     /* Monitor card */
@@ -326,7 +328,7 @@ async function loadConfig() {
     sha = data.sha;
     cfg = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g,'')))));
     render();
-    setStatus(`${cfg.monitors.filter(m=>m.enabled).length}개 활성 / 전체 ${cfg.monitors.length}개`);
+    setStatus(statusText());
     const topic = cfg.ntfy_topic || '';
     $('ntfy-topic').value = topic;
     if (topic) localStorage.setItem('ntfy_topic_cache', topic);
@@ -385,6 +387,7 @@ function render() {
         <button class="btn-sm btn-del"  onclick="del('${m.id}')">삭제</button>
         <a class="btn-sm btn-link" href="${esc(m.url)}" target="_blank" rel="noopener">예약</a>
         <a class="btn-sm btn-auto ${isAutoBookOn(m)?'on':''}" href="autobook.html?id=${m.id}">자동예약${isAutoBookOn(m)?' ON':''}</a>
+        <button class="btn-sm btn-mute ${m.mute?'on':''}" onclick="toggleMute('${m.id}')" title="감시는 그대로 두고 알림만 끕니다">${m.mute?'🔕 알림 꺼짐':'🔔 알림 켜짐'}</button>
       </div>
     </div>`).join('');
 }
@@ -606,6 +609,14 @@ function onDateRangeChange() {
   if ($('f-quick-weekend').checked) onQuickToggle('weekend', true);
   if ($('f-quick-weekday').checked) onQuickToggle('weekday', true);
 }
+// 활성 개수 옆에 🔕(감시는 하되 알림만 끈 항목) 수를 같이 적는다 — 조용한 항목을
+// 꺼 둔 항목으로 착각하지 않도록.
+function statusText() {
+  const on = cfg.monitors.filter(m => m.enabled).length;
+  const muted = cfg.monitors.filter(m => m.enabled && m.mute).length;
+  return `${on}개 활성${muted ? ` (🔕 ${muted})` : ''} / 전체 ${cfg.monitors.length}개`;
+}
+
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function setStatus(msg) { $('status').textContent = msg; }
 
@@ -635,7 +646,7 @@ async function saveSettings() {
     alert('저장됐습니다!');
     toggleSettings();
     render();
-    setStatus(`${cfg.monitors.filter(m=>m.enabled).length}개 활성 / 전체 ${cfg.monitors.length}개`);
+    setStatus(statusText());
   } catch(e) { alert(`저장 실패: ${e.message}`); }
   finally { btn.innerHTML = '저장'; btn.disabled = false; }
 }
@@ -856,7 +867,7 @@ async function submitMonitor() {
     await saveConfig(editId ? '수정' : '추가: ' + name);
     closeSheet();
     render();
-    setStatus(`${cfg.monitors.filter(m=>m.enabled).length}개 활성 / 전체 ${cfg.monitors.length}개`);
+    setStatus(statusText());
   } catch(e) { alert(`저장 실패: ${e.message}`); }
   finally {
     if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '등록'; }
@@ -870,8 +881,26 @@ async function toggle(id, enabled) {
   m.enabled = enabled;
   try {
     await saveConfig(enabled ? `활성화: ${m.name}` : `비활성화: ${m.name}`);
-    setStatus(`${cfg.monitors.filter(m=>m.enabled).length}개 활성 / 전체 ${cfg.monitors.length}개`);
+    setStatus(statusText());
   } catch(e) { m.enabled = !enabled; render(); alert(`저장 실패: ${e.message}`); }
+}
+
+// 감시(재고 추적·로그)는 그대로 두고 알림만 끈다. 항목을 끄면(enabled=false)
+// 조회 자체가 멈춰 그동안의 재고 변화가 통째로 비므로, 잠깐 조용히 두고 싶을 때는
+// 이쪽을 쓴다.
+async function toggleMute(id) {
+  const m = cfg.monitors.find(x => x.id === id);
+  if (!m) return;
+  const muted = !m.mute;
+  if (muted) m.mute = true; else delete m.mute;
+  render();
+  try {
+    await saveConfig(muted ? `알림 끔: ${m.name}` : `알림 켬: ${m.name}`);
+  } catch(e) {
+    if (muted) delete m.mute; else m.mute = true;
+    render();
+    alert(`저장 실패: ${e.message}`);
+  }
 }
 
 async function del(id) {
@@ -881,7 +910,7 @@ async function del(id) {
   try {
     await saveConfig(`삭제: ${m.name}`);
     render();
-    setStatus(`${cfg.monitors.filter(m=>m.enabled).length}개 활성 / 전체 ${cfg.monitors.length}개`);
+    setStatus(statusText());
   } catch(e) { alert(`삭제 실패: ${e.message}`); }
 }
 
