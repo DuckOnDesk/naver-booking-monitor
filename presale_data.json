@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-11T05:31:00.912319+09:00",
+  "updated_at": "2026-09-11T05:36:31.375510+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -146,7 +146,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -233,7 +233,7 @@
     {
       "id": "2083897134",
       "name": "스포티파이 하우스 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1721238",
       "bookingBusinessId": "1721238",
       "operationStart": "26.09.10.",
@@ -248,7 +248,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-09-10T20:05:22.305078+09:00",
-        "2026-09-10T23:09:50.349805+09:00"
+        "2026-09-10T23:09:50.349805+09:00",
+        "2026-09-11T05:36:21.119992+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -364,32 +365,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2018920557",
-      "name": "텐먼스 성수 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": null,
-      "status": "오늘오픈",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
-      "roadAddress": "연무장11길 11",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2074966018",
       "name": "Next AI Art POP-UP",
       "hasBooking": false,
@@ -412,6 +387,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2018920557",
+      "name": "텐먼스 성수 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
+      "roadAddress": "연무장11길 11",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -470,7 +471,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -493,7 +494,8 @@
         "2026-09-09T23:59:25.792109+09:00",
         "2026-09-10T10:28:15.894338+09:00",
         "2026-09-10T18:30:05.419613+09:00",
-        "2026-09-10T23:15:25.025810+09:00"
+        "2026-09-10T23:15:25.025810+09:00",
+        "2026-09-11T05:36:21.119992+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -557,6 +559,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2069285502",
+      "name": "더웍스 페스타",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 20,
+      "status": "D-20",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
+      "roadAddress": "연무장7길 16 한서빌딩 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2052542419",
       "name": "URBAN WELLNESS FAIR",
       "hasBooking": true,
@@ -582,32 +610,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2069285502",
-      "name": "더웍스 페스타",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 20,
-      "status": "D-20",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
-      "roadAddress": "연무장7길 16 한서빌딩 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1040,32 +1042,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2070822797",
-      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 20,
-      "status": "D-20",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2084168433",
       "name": "블랙야크 더현대서울",
       "hasBooking": false,
@@ -1114,6 +1090,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-10T11:36:38.614584+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2070822797",
+      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 20,
+      "status": "D-20",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1558,20 +1560,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-08-27T14:12:57.074871+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2039988652",
-      "place_name": "<이세계 착각 헌터> 팝업스토어 in 더현대 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1714809",
-      "ts": "2026-08-27T14:18:37.908404+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2090850238",
@@ -2957,6 +2945,20 @@
       "place_name": "메이크프렘 연남 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/13/bizes/1733217",
       "ts": "2026-09-11T00:45:56.392535+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2083897134",
+      "place_name": "스포티파이 하우스 서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
+      "ts": "2026-09-11T05:36:21.119992+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-11T05:36:21.119992+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3089,13 +3091,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-11T05:30:51.155823+09:00",
+    "checked_at": "2026-09-11T05:36:21.119992+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 889,
-    "presale_items": 186,
+    "presale_items": 187,
     "after_district_filter": 98,
     "fallback_matched": 0,
     "unique_place_ids": 56,
@@ -3104,8 +3106,8 @@
     "last_new_place_at": "2026-09-10T18:46:55.275768+09:00",
     "admission_names": {
       "(없음)": 458,
-      "현장대기": 245,
-      "사전예약&현장대기": 146,
+      "현장대기": 244,
+      "사전예약&현장대기": 147,
       "사전예약": 40
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
