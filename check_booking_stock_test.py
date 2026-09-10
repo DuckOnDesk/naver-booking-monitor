@@ -10,7 +10,8 @@
 나도 '증가'로 안 잡힘)도 함께 고쳤다.
 
 확인 내용:
-  - 시간대가 사라지면 "시간대 내려감", 재고 숫자만 줄면 "업체 재고 회수"로 알린다
+  - 시간대가 목록에서 없어지면 "시간대 사라짐", 회차는 그대로고 자리 수만 깎이면
+    "재고만 줄어듦"으로 갈라 알린다
   - 예약이 걸린 시간대가 통째로 내려간 것을 "예약 취소"로 읽지 않는다
   - 예약이 늘면 "예약 발생", 같은 시간대에서 빠지면 "예약 취소"(취소표)로 알린다
   - 업체가 자리를 넣고 뺀 회차는 📦 재고 변동, 예약이 들고 난 회차는 🎟️ 예약 변동으로
@@ -21,7 +22,7 @@
   - 🔒 상태에서 자리가 줄었다가 다시 나면 알림이 나간다 (누락 회귀)
   - STOCK_CHANGE_NTFY=0이면 로그만 남고 알림은 안 나간다
   - 감시 날짜/시간을 바꾼 회차는 "감시 날짜/시간 변경"으로 알리고, 감시 중 시간대의
-    재고·잔여 증감만 적는다 (범위 밖 시간대를 "내려감"으로 읽지 않는다)
+    재고·잔여 증감만 적는다 (범위 밖 시간대를 "사라짐"으로 읽지 않는다)
 
 사용법: python check_booking_stock_test.py
 """
@@ -111,12 +112,12 @@ def main() -> int:
     check(alerted.get(f"t1:{D}:stock") == {"12:00": [1, 0], "15:00": [1, 0], "17:00": [1, 0]},
           f"스냅샷 저장 (실제: {alerted.get(f't1:{D}:stock')})")
 
-    print("2) 예약은 그대로인데 시간대가 사라지면 '시간대 내려감'으로 알린다")
+    print("2) 예약은 그대로인데 시간대가 사라지면 '시간대 사라짐'으로 알린다")
     logs, sent = run_round([unit("12:00")], alerted)
     sa = stock_alerts(sent)
-    check(len(sa) == 1 and "시간대 내려감" in sa[0][0], f"내려감 알림 1건 (실제: {titles(sent)})")
+    check(len(sa) == 1 and "시간대 사라짐" in sa[0][0], f"사라짐 알림 1건 (실제: {titles(sent)})")
     check("재고 3→1" in sa[0][1] and "예약 0→0" in sa[0][1], f"총합 표기 (실제: {sa and sa[0][1]})")
-    check("15:00 내려감" in sa[0][1] and "17:00 내려감" in sa[0][1],
+    check("15:00 사라짐" in sa[0][1] and "17:00 사라짐" in sa[0][1],
           f"내려간 시간대 표기 (실제: {sa and sa[0][1]})")
     check(any("📊" in l for l in logs), "로그에도 📊 줄이 남는다")
 
@@ -164,9 +165,9 @@ def main() -> int:
 
     check("시간대 추가" in label_of({"12:00": [1, 0]}, [raw("12:00", 1, 0), raw("15:00", 1, 0)]),
           "새 시간대 → 시간대 추가")
-    check("업체 재고 회수" in label_of({"12:00": [2, 0]}, [raw("12:00", 1, 0)]),
-          "시간대는 그대로, 재고 숫자만 감소 → 업체 재고 회수")
-    check("시간대 내려감" in label_of({"12:00": [8, 7], "15:00": [8, 7]}, [raw("12:00", 8, 7)]),
+    check("재고만 줄어듦" in label_of({"12:00": [2, 0]}, [raw("12:00", 1, 0)]),
+          "시간대는 그대로, 재고 숫자만 감소 → 재고만 줄어듦")
+    check("시간대 사라짐" in label_of({"12:00": [8, 7], "15:00": [8, 7]}, [raw("12:00", 8, 7)]),
           "예약이 걸린 시간대가 통째로 내려가도 '예약 취소'로 읽지 않는다")
     check("예약 취소" in label_of({"12:00": [2, 2]}, [raw("12:00", 2, 1)]),
           "같은 시간대에서 예약이 빠짐 → 예약 취소 (취소표)")
@@ -183,7 +184,7 @@ def main() -> int:
     check(f"t1:{D}:stock" in alerted, "닫힘 purge가 스냅샷을 지우지 않는다")
     _, sent = run_round([unit("12:00")], alerted, closed=True)
     sa = stock_alerts(sent)
-    check(len(sa) == 1 and "시간대 내려감" in sa[0][0],
+    check(len(sa) == 1 and "시간대 사라짐" in sa[0][0],
           f"닫힘 상태에서도 재고 변경 알림 (실제: {titles(sent)})")
 
     print("7) 🔒 상태에서 자리가 줄었다가 다시 나면 알림이 나간다 (누락 회귀)")
@@ -246,7 +247,7 @@ def main() -> int:
         finally:
             builtins.print = real_print
         check(passed_only is None, f"지난 슬롯만 빠진 건 변경이 아니다 (실제: {passed_only})")
-        check(real is not None and f"{future} 내려감" in real["body"],
+        check(real is not None and f"{future} 사라짐" in real["body"],
               f"남은 슬롯 소멸은 변경이다 (실제: {real})")
         check("재고 1→0" in real["body"],
               f"총합 비교에서도 지난 슬롯을 뺀다 (실제: {real and real['body']})")
@@ -259,7 +260,7 @@ def main() -> int:
 
     print("11) 감시 날짜/시간을 바꾼 회차는 '감시 날짜/시간 변경'으로 알린다")
     #    2026-09-09 마녀공장: 감시를 11:00-12:00으로 좁힌 직후 회차에 12:30~18:00이
-    #    통째로 "시간대 내려감"으로 나갔다. 업체가 내린 게 아니라 우리가 안 보기로
+    #    통째로 "시간대 사라짐"으로 나갔다. 업체가 내린 게 아니라 우리가 안 보기로
     #    한 것이므로, 범위 밖 시간대는 본문에서 빼고 감시 중 시간대만 적는다.
     def scope_call(alerted, cur_slots, scope):
         import builtins
@@ -282,7 +283,7 @@ def main() -> int:
     check("감시 하루 전체→11:00-12:00" in body, f"바뀐 범위 표기 (실제: {body})")
     check("재고 135 · 잔여 2" in body, f"감시 중 전체 재고·잔여 (실제: {body})")
     check("11:30 잔여 0→2" in body, f"감시 중 시간대 증감 (실제: {body})")
-    check("12:30" not in body and "13:00" not in body and "내려감" not in body,
+    check("12:30" not in body and "13:00" not in body and "사라짐" not in body,
           f"감시에서 빠진 시간대는 안 적는다 (실제: {body})")
     check(alerted.get(f"t1:{D}:scope") == "11:00-12:00",
           f"바뀐 범위 저장 (실제: {alerted.get(f't1:{D}:scope')})")
@@ -290,14 +291,14 @@ def main() -> int:
     print("11-1) 범위가 그대로면 종전 라벨로 돌아온다")
     payload = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 43)],
                          "11:00-12:00")
-    check(payload is not None and "시간대 내려감" in payload["title"],
+    check(payload is not None and "시간대 사라짐" in payload["title"],
           f"같은 범위에서 사라진 시간대는 그대로 잡는다 (실제: {payload and payload['title']})")
-    check("12:00 내려감" in payload["body"], f"내려간 시간대 표기 (실제: {payload['body']})")
+    check("12:00 사라짐" in payload["body"], f"사라진 시간대 표기 (실제: {payload['body']})")
 
     print("11-2) 범위 기록이 없는 종전 스냅샷은 범위 변경으로 치지 않는다")
     alerted = {f"t1:{D}:stock": {"11:00": [45, 45], "11:30": [45, 45]}}
     payload = scope_call(alerted, [raw("11:00", 45, 45)], "11:00-12:00")
-    check(payload is not None and "시간대 내려감" in payload["title"],
+    check(payload is not None and "시간대 사라짐" in payload["title"],
           f"첫 회차는 종전대로 (실제: {payload and payload['title']})")
 
     print("11-3) 감시 중 시간대에 변동이 없으면 그렇게 적는다")
