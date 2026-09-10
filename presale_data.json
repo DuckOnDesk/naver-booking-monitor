@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T21:46:13.842595+09:00",
+  "updated_at": "2026-09-10T21:51:48.441541+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -500,6 +500,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2069285502",
+      "name": "더웍스 페스타",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 21,
+      "status": "D-21",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
+      "roadAddress": "연무장7길 16 한서빌딩 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2074966018",
       "name": "Next AI Art POP-UP",
       "hasBooking": false,
@@ -577,32 +603,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2069285502",
-      "name": "더웍스 페스타",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 21,
-      "status": "D-21",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
-      "roadAddress": "연무장7길 16 한서빌딩 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -3108,7 +3108,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-10T21:46:01.613308+09:00",
+    "checked_at": "2026-09-10T21:51:36.814430+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
