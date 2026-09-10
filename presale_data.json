@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T11:42:30.201468+09:00",
+  "updated_at": "2026-09-10T11:48:09.968980+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -9,7 +9,6 @@
     "2024677130",
     "2033013073",
     "2033849367",
-    "2036674429",
     "2039106013",
     "2046294128",
     "2046629824",
@@ -19,8 +18,8 @@
     "2067695542",
     "2070202228",
     "2070822797",
-    "2072608358",
     "2072857611",
+    "2073072850",
     "2078141397",
     "2080230495",
     "2080832507",
@@ -682,6 +681,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2073072850",
+      "name": "<양일우와 나> 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1731032/search",
+      "bookingBusinessId": "1731032",
+      "operationStart": "26.09.21.",
+      "operationEnd": "26.10.01.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260831_77/17881846607473rQMK_JPEG/edited-1788184660957-0.jpg",
+      "roadAddress": "양화로 188 AK플라자 1층 POP 매장",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-10T11:47:58.205531+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T11:47:58.205531+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2006648175",
       "name": "LG전자 플래그십 D5",
       "hasBooking": true,
@@ -942,32 +969,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2070202228",
-      "name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.26.",
-      "operationEnd": "26.10.05.",
-      "remainingDays": 16,
-      "status": "D-16",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_128/1788932511803Qzu8q_JPEG/edited-1788932511515-0.jpg",
-      "roadAddress": "여의대로 108 더현대서울 5층",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T11:36:38.614584+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2070822797",
       "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
       "hasBooking": false,
@@ -990,6 +991,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2070202228",
+      "name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.26.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 16,
+      "status": "D-16",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_128/1788932511803Qzu8q_JPEG/edited-1788932511515-0.jpg",
+      "roadAddress": "여의대로 108 더현대서울 5층",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T11:36:38.614584+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1425,13 +1452,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-25T21:57:38.369636+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2090850238",
@@ -2824,6 +2844,13 @@
       "place_name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
       "booking_url": "",
       "ts": "2026-09-10T11:36:38.614584+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2073072850",
+      "place_name": "<양일우와 나> 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1731032/search",
+      "ts": "2026-09-10T11:47:58.205531+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2926,6 +2953,7 @@
     "2072326612",
     "2072608358",
     "2072857611",
+    "2073072850",
     "2073188735",
     "2073241477",
     "2073328330",
@@ -2950,23 +2978,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-10T11:42:19.205161+09:00",
+    "checked_at": "2026-09-10T11:47:58.205531+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 874,
-    "presale_items": 172,
-    "after_district_filter": 89,
+    "candidate_items": 877,
+    "presale_items": 175,
+    "after_district_filter": 91,
     "fallback_matched": 0,
-    "unique_place_ids": 52,
-    "tracked_places": 52,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-10T11:36:38.614584+09:00",
+    "unique_place_ids": 53,
+    "tracked_places": 53,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-10T11:47:58.205531+09:00",
     "admission_names": {
       "(없음)": 464,
       "현장대기": 238,
-      "사전예약&현장대기": 135,
+      "사전예약&현장대기": 138,
       "사전예약": 37
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
