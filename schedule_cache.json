@@ -4,7 +4,7 @@
     "sale_end_date": null,
     "available_start": "2026-09-17",
     "available_end": "2026-09-20",
-    "checked_at": "2026-09-10T13:32:39.104734+09:00",
+    "checked_at": "2026-09-10T19:04:23.606747+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -14,17 +14,17 @@
     "sale_end_date": null,
     "available_start": "2026-09-10",
     "available_end": "2026-09-13",
-    "checked_at": "2026-09-10T13:19:49.984922+09:00",
-    "booking_available_code": "RI03",
-    "booking_available_value": 1,
-    "restriction_ok": true
+    "checked_at": "2026-09-10T19:04:36.307061+09:00",
+    "booking_available_code": "RI01",
+    "booking_available_value": 0,
+    "restriction_ok": false
   },
   "12_1717191_7962309": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-09-11",
     "available_end": "2026-09-20",
-    "checked_at": "2026-09-10T13:32:56.811048+09:00",
+    "checked_at": "2026-09-10T19:04:51.479381+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -34,7 +34,7 @@
     "sale_end_date": null,
     "available_start": "2026-09-10",
     "available_end": "2026-09-21",
-    "checked_at": "2026-09-10T13:33:12.495574+09:00",
+    "checked_at": "2026-09-10T19:05:03.051648+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -44,27 +44,27 @@
     "sale_end_date": null,
     "available_start": "2026-09-10",
     "available_end": "2026-09-13",
-    "checked_at": "2026-09-10T13:33:27.235144+09:00",
-    "booking_available_code": "RI03",
-    "booking_available_value": 1,
-    "restriction_ok": true
+    "checked_at": "2026-09-10T19:05:14.117098+09:00",
+    "booking_available_code": "RI01",
+    "booking_available_value": 0,
+    "restriction_ok": false
   },
   "12_1729359_8019468": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-09-12",
     "available_end": "2026-09-13",
-    "checked_at": "2026-09-10T13:33:46.998643+09:00",
+    "checked_at": "2026-09-10T19:05:29.132235+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
-    "restriction_ok": false
+    "restriction_ok": true
   },
   "5_1723408_8004889": {
     "sale_start_date": null,
     "sale_end_date": null,
     "available_start": "2026-09-20",
     "available_end": "2026-09-20",
-    "checked_at": "2026-09-10T13:34:05.824483+09:00",
+    "checked_at": "2026-09-10T19:05:44.000780+09:00",
     "booking_available_code": "RI02",
     "booking_available_value": 1,
     "restriction_ok": true
@@ -74,7 +74,7 @@
     "sale_end_date": null,
     "available_start": "2026-10-24",
     "available_end": "2026-10-25",
-    "checked_at": "2026-09-10T13:34:20.128596+09:00",
+    "checked_at": "2026-09-10T19:05:55.358434+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -84,7 +84,7 @@
     "sale_end_date": null,
     "available_start": "2026-09-10",
     "available_end": "2026-09-30",
-    "checked_at": "2026-09-10T13:34:22.000634+09:00",
+    "checked_at": "2026-09-10T19:05:56.785145+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
     "restriction_ok": false
