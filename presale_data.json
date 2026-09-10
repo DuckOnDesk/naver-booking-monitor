@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T10:51:12.779087+09:00",
+  "updated_at": "2026-09-10T10:56:53.965696+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -600,7 +600,7 @@
     {
       "id": "2057558383",
       "name": "위아자 에코빌리지 '지구우체국' 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
       "operationStart": "26.10.23.",
@@ -614,7 +614,8 @@
       "district": "마포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-08T14:14:38.409074+09:00"
+        "2026-09-08T14:14:38.409074+09:00",
+        "2026-09-10T10:56:41.850639+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -912,32 +913,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2070822797",
-      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 21,
-      "status": "D-21",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2084168433",
       "name": "블랙야크 더현대서울",
       "hasBooking": false,
@@ -960,6 +935,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2070822797",
+      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 21,
+      "status": "D-21",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_166/1788940511945wKqmt_JPEG/edited-1788940511778-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1395,13 +1396,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-25T12:06:49.912261+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2794,6 +2788,13 @@
       "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "ts": "2026-09-10T10:45:19.397624+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057558383",
+      "place_name": "위아자 에코빌리지 '지구우체국' 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
+      "ts": "2026-09-10T10:56:41.850639+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2919,7 +2920,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-10T10:51:01.476590+09:00",
+    "checked_at": "2026-09-10T10:56:41.850639+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
