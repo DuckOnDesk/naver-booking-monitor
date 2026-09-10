@@ -13,6 +13,8 @@
   - 시간대가 사라지면 "시간대 내려감", 재고 숫자만 줄면 "업체 재고 회수"로 알린다
   - 예약이 걸린 시간대가 통째로 내려간 것을 "예약 취소"로 읽지 않는다
   - 예약이 늘면 "예약 발생", 같은 시간대에서 빠지면 "예약 취소"(취소표)로 알린다
+  - 업체가 자리를 넣고 뺀 회차는 📦 재고 변동, 예약이 들고 난 회차는 🎟️ 예약 변동으로
+    제목을 갈라 쓰고, 본문에 잔여(= 재고 - 예약)를 적는다
   - 같은 상태가 이어지면 다시 알리지 않는다 (한 번만)
   - 예약창이 닫혀 있어도 재고 변경을 잡는다 (purge가 스냅샷을 지우지 않는다)
   - 자리 알림이 나가는 회차에는 📊 알림을 접는다 (로그 줄은 그대로 남는다)
@@ -92,7 +94,8 @@ def titles(sent):
 
 
 def stock_alerts(sent):
-    return [(t, b) for t, b in sent if "재고 변경" in t]
+    """📊 계열 알림만 추린다 (📦 재고 변동 · 🎟️ 예약 변동 · 📊 둘 다 · ⚙️ 범위 변경)."""
+    return [(t, b) for t, b in sent if t.startswith(("📦", "🎟️", "📊", "⚙️"))]
 
 
 def main() -> int:
@@ -117,6 +120,12 @@ def main() -> int:
           f"내려간 시간대 표기 (실제: {sa and sa[0][1]})")
     check(any("📊" in l for l in logs), "로그에도 📊 줄이 남는다")
 
+    print("2-1) 업체가 자리를 내린 회차는 📦 재고 변동, 잔여도 본문에 적는다")
+    check(sa[0][0].startswith("📦") and "재고 변동" in sa[0][0],
+          f"업체 쪽 변화는 📦 재고 변동 (실제: {sa[0][0]})")
+    check("예약 변동" not in sa[0][0], f"예약 변동으로 부르지 않는다 (실제: {sa[0][0]})")
+    check("잔여 3→1" in sa[0][1], f"잔여 표기 (실제: {sa[0][1]})")
+
     print("3) 같은 상태가 이어지면 다시 알리지 않는다 (한 번만)")
     _, sent = run_round([unit("12:00")], alerted)
     check(stock_alerts(sent) == [], f"재알림 없음 (실제: {titles(sent)})")
@@ -126,6 +135,13 @@ def main() -> int:
     sa = stock_alerts(sent)
     check(len(sa) == 1 and "예약 발생" in sa[0][0], f"예약 발생 알림 (실제: {titles(sent)})")
     check("예약 0→1" in sa[0][1], f"예약 증가 표기 (실제: {sa and sa[0][1]})")
+
+    print("4-1) 재고는 그대로고 예약만 들어온 회차는 🎟️ 예약 변동으로 부른다")
+    check(sa[0][0].startswith("🎟️") and "예약 변동" in sa[0][0],
+          f"예약 쪽 변화는 🎟️ 예약 변동 (실제: {sa[0][0]})")
+    check("재고 변동" not in sa[0][0], f"재고 변동으로 부르지 않는다 (실제: {sa[0][0]})")
+    check("재고 1→1" in sa[0][1] and "잔여 1→0" in sa[0][1],
+          f"재고는 그대로, 잔여만 줄었다고 적는다 (실제: {sa[0][1]})")
 
     print("5) 라벨 판정 — note_stock_change 직접 호출")
     #    자리가 새로 나는 순간에는 자리 알림이 같이 나가 📊가 접히므로(7번 참고),
@@ -260,11 +276,11 @@ def main() -> int:
                f"t1:{D}:scope": ""}
     payload = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 43),
                                    raw("12:00", 45, 45)], "11:00-12:00")
-    check(payload is not None and "감시 날짜/시간 변경으로 재고 변경" in payload["title"],
+    check(payload is not None and "감시 날짜/시간 변경" in payload["title"],
           f"라벨 (실제: {payload and payload['title']})")
     body = payload["body"] if payload else ""
     check("감시 하루 전체→11:00-12:00" in body, f"바뀐 범위 표기 (실제: {body})")
-    check("재고 135 / 잔여 2" in body, f"감시 중 전체 재고·잔여 (실제: {body})")
+    check("재고 135 · 잔여 2" in body, f"감시 중 전체 재고·잔여 (실제: {body})")
     check("11:30 잔여 0→2" in body, f"감시 중 시간대 증감 (실제: {body})")
     check("12:30" not in body and "13:00" not in body and "내려감" not in body,
           f"감시에서 빠진 시간대는 안 적는다 (실제: {body})")

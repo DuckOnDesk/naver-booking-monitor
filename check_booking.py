@@ -25,7 +25,10 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
 
 날짜별 재고/예약 구성이 바뀌면 📊 줄을 변화마다 한 번씩 남긴다. 자리가 사라졌을 때
 그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소·시간대 삭제)인지 갈라 주므로,
-자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다. 알림(ntfy)은 같은 날짜에 자리
+자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다. 알림 제목도 그 둘을 갈라 쓴다 —
+업체가 자리를 넣고 뺀 회차는 📦 재고 변동, 재고는 그대로인데 예약이 들고 난 회차는
+🎟️ 예약 변동, 둘 다면 📊 (_change_kind 참고). 본문에는 재고·예약과 함께 잔여
+(= 재고 - 예약, 지금 잡을 수 있는 자리 수)를 적는다. 알림(ntfy)은 같은 날짜에 자리
 알림이 나가지 않은 회차에만 보낸다 — 한 사건에 두 번 울리면 정작 급한 자리 알림이
 묻힌다 (note_stock_change 참고).
 
@@ -35,8 +38,8 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
           LOG_HEARTBEAT_MIN (변화가 없어도 이 간격마다 상태 줄 전체 재출력, 기본 60분)
           LOG_TICK_MIN (무변동이 이어질 때 살아 있음을 알리는 간격, 기본 10분)
           URL_RECHECK_SEC (열려 있는 항목의 예약창 재확인 간격, 기본 300초)
-          STOCK_CHANGE_NTFY (0이면 재고 변경을 로그로만 남기고 알림은 끔, 기본 켬)
-          STOCK_CHANGE_MAX_PARTS (재고 변경 본문에 적을 시간대 개수 상한, 기본 8)
+          STOCK_CHANGE_NTFY (0이면 재고·예약 변동을 로그로만 남기고 알림은 끔, 기본 켬)
+          STOCK_CHANGE_MAX_PARTS (재고·예약 변동 본문에 적을 시간대 개수 상한, 기본 8)
           RATE_LIMIT_RECOVER_ROUNDS (속도 제한 백오프를 한 칸 되돌리는 데 필요한
                                      연속 정상 회차 수, 기본 3)
           CALENDAR_CROSSCHECK (알림 직전 캘린더 교차확인, 기본 끔 — 엔드포인트가
@@ -1142,6 +1145,26 @@ def _stock_change_label(booked_delta: int, removed: bool, added: bool,
     return "구성 변경"
 
 
+# 📊 알림이 두 가지 사건을 한 이름("재고 변경")으로 불렀다. 재고는 업체가 열어 둔
+# 자리 수고, 그게 그대로인데 예약이 들고 나면 변하는 건 예약 가능한 자리(잔여)다.
+# 한 이름으로 알리면 "업체가 자리를 내렸다"와 "누가 예약을 잡았다"가 구별되지 않는다
+# — 앞은 기다려도 안 돌아오고 뒤는 취소표로 돌아올 수 있으니 뜻이 정반대다.
+STOCK_MOVED  = ("📦", "재고 변동")            # 업체가 자리를 넣거나 뺐다
+BOOKING_MOVED = ("🎟️", "예약 변동")           # 재고는 그대로, 예약이 들거나 빠졌다
+BOTH_MOVED   = ("📊", "재고·예약 함께 변동")
+
+
+def _change_kind(stock_moved: bool, booking_moved: bool) -> tuple[str, str]:
+    """이번 변화가 업체 쪽인지 예약 쪽인지 (아이콘, 분류 이름)로."""
+    if stock_moved and booking_moved:
+        return BOTH_MOVED
+    if stock_moved:
+        return STOCK_MOVED
+    if booking_moved:
+        return BOOKING_MOVED
+    return ("📊", "구성 변동")   # parts가 비면 위에서 돌아가므로 여기 올 일은 없다
+
+
 def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                       date_str: str, url: str, ref_slots: list, now_str: str,
                       is_today: bool, notify: bool = True,
@@ -1194,6 +1217,7 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     parts: list[str] = []
     ignored: set = set()
     removed = added = False
+    stock_moved = booking_moved = False
     booked_delta = 0
     for t in sorted(set(prev) | set(cur)):
         a, b = prev.get(t), cur.get(t)
@@ -1203,17 +1227,19 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
             if now_hhmm is not None and t <= now_hhmm:
                 ignored.add(t)          # 시간이 지나 빠진 슬롯 — 변경이 아니다
                 continue
-            removed = True
+            removed = stock_moved = True
             parts.append(f"{t} 내려감(재고 {a[0]}/예약 {a[1]})")
         elif a is None:
-            added = True
+            added = stock_moved = True
             parts.append(f"{t} 새로 열림(재고 {b[0]}/예약 {b[1]})")
         else:
             booked_delta += b[1] - a[1]
             seg = []
             if a[0] != b[0]:
+                stock_moved = True
                 seg.append(f"재고 {a[0]}→{b[0]}")
             if a[1] != b[1]:
+                booking_moved = True
                 seg.append(f"예약 {a[1]}→{b[1]}")
             parts.append(f"{t} " + ", ".join(seg))
     if not parts:
@@ -1235,23 +1261,28 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                   + (f" 외 {len(scope_parts) - len(shown)}건" if len(scope_parts) > len(shown) else "")
                   ) if scope_parts else "시간대 별 재고 변동 없음"
         summary = (f"감시 {_scope_label(prev_scope)}→{_scope_label(scope)} · "
-                   f"재고 {c_stock} / 잔여 {c_stock - c_booking}")
+                   f"재고 {c_stock} · 잔여 {c_stock - c_booking}")
         print(f"[{now_str}] 📊 {name} {date_str} {summary} · {label} — {detail}", flush=True)
         if not notify:
             return None
-        return {"title": f"📊 {name} {label}으로 재고 변경",
+        # 업체도 예약도 움직이지 않았다 — 우리가 비교 기준을 바꾼 회차다.
+        return {"title": f"⚙️ {name} {label} — 비교 기준 다시 잡음",
                 "body": f"{date_str} {summary}\n{detail}", "url": url}
 
     label = _stock_change_label(booked_delta, removed, added, p_stock, c_stock)
+    icon, kind = _change_kind(stock_moved, booking_moved)
 
     shown = parts[:STOCK_CHANGE_MAX_PARTS]
     detail = ", ".join(shown) + (f" 외 {len(parts) - len(shown)}건" if len(parts) > len(shown) else "")
-    summary = f"재고 {p_stock}→{c_stock} / 예약 {p_booking}→{c_booking} · {label}"
+    # 잔여(= 재고 - 예약)를 같이 적는다. 정작 궁금한 "지금 몇 자리 잡을 수 있나"는
+    # 재고도 예약도 아닌 이 숫자다.
+    summary = (f"재고 {p_stock}→{c_stock} · 예약 {p_booking}→{c_booking} · "
+               f"잔여 {p_stock - p_booking}→{c_stock - c_booking}")
 
-    print(f"[{now_str}] 📊 {name} {date_str} {summary} — {detail}", flush=True)
+    print(f"[{now_str}] 📊 {name} {date_str} {summary} · {kind}({label}) — {detail}", flush=True)
     if not notify:
         return None
-    return {"title": f"📊 {name} 재고 변경 — {label}",
+    return {"title": f"{icon} {name} {kind} — {label}",
             "body": f"{date_str} {summary}\n{detail}", "url": url}
 
 
