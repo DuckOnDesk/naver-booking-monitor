@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-10T12:05:12.320925+09:00",
+  "updated_at": "2026-09-10T12:10:48.415622+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -655,32 +655,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2003769380",
-      "name": "악월 10주년 기념 POP-UP STORE",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.02.",
-      "operationEnd": "26.10.05.",
-      "remainingDays": 22,
-      "status": "D-22",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_80/1788846283460dvw0O_JPEG/edited-1788846284299-0.jpg",
-      "roadAddress": "와우산로25길 26 1층",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-09T15:37:50.759282+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2073072850",
       "name": "<양일우와 나> 팝업스토어",
       "hasBooking": true,
@@ -706,6 +680,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-10T11:47:58.205531+09:00",
       "lastBookingNotifiedAt": "2026-09-10T11:53:50.504263+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2003769380",
+      "name": "악월 10주년 기념 POP-UP STORE",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 22,
+      "status": "D-22",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_80/1788846283460dvw0O_JPEG/edited-1788846284299-0.jpg",
+      "roadAddress": "와우산로25길 26 1층",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T15:37:50.759282+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -2978,12 +2978,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-10T12:05:01.232329+09:00",
+    "checked_at": "2026-09-10T12:10:37.426498+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 902,
+    "candidate_items": 877,
     "presale_items": 175,
     "after_district_filter": 91,
     "fallback_matched": 0,
@@ -2992,8 +2992,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-10T11:47:58.205531+09:00",
     "admission_names": {
-      "(없음)": 493,
-      "현장대기": 234,
+      "(없음)": 463,
+      "현장대기": 239,
       "사전예약&현장대기": 138,
       "사전예약": 37
     },
