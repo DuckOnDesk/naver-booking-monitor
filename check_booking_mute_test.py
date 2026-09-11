@@ -11,6 +11,8 @@
   - 그래도 로그 줄과 재고 스냅샷(:stock)·자리 기록은 그대로 쌓인다
   - 한 항목의 mute가 같은 회차의 다른 항목 알림까지 끄지 않는다
   - mute를 풀면 다시 알림이 나가고, 조용한 동안 이미 본 자리는 다시 울리지 않는다
+  - 자동예약은 mute를 타지 않는다 — 예약이 잡혔는지는 조용히 넘길 일이 아니라서
+    maybe_auto_book에는 원래 주제가 그대로 넘어간다
 
 사용법: python check_booking_mute_test.py
 """
@@ -63,7 +65,9 @@ def run_round(hourly, alerted, items):
     cb.load_reprobe_requests = lambda from_github=True: {}
     cb.send_ntfy = lambda topic, title, body, u: sent.append((title, body))
     cb.prune_dead_dates = lambda pruned: None
-    cb.maybe_auto_book = lambda *a, **kw: None
+    # 자동예약에 넘어간 ntfy 주제를 받아 둔다 (mute가 여기까지 번지면 안 된다).
+    ab_topics.clear()
+    cb.maybe_auto_book = lambda *a, **kw: ab_topics.append(a[5])
 
     monitors = [{"id": i["id"], "name": i["name"], "url": URL, "enabled": True,
                  "target_dates": [D], **({"mute": True} if i.get("mute") else {})}
@@ -82,6 +86,8 @@ def run_round(hourly, alerted, items):
 def titles(sent):
     return [t for t, _ in sent]
 
+
+ab_topics: list = []
 
 MUTED = [{"id": "t1", "name": "조용이", "mute": True}]
 LOUD = [{"id": "t1", "name": "조용이"}]
@@ -115,6 +121,13 @@ def main() -> int:
     _, sent = run_round([unit("12:00"), unit("15:00")], alerted, LOUD)
     check(any("자리 추가됨" in t for t in titles(sent)),
           f"새로 난 자리는 알린다 (실제: {titles(sent)})")
+
+    print("3-1) 자동예약은 mute를 타지 않는다 (원래 주제가 그대로 넘어간다)")
+    cb.reset_log_state()
+    alerted = {}
+    run_round([unit("12:00")], alerted, MUTED)
+    check(ab_topics == ["topic"],
+          f"mute 항목도 자동예약에는 주제가 살아 있다 (실제: {ab_topics})")
 
     print("4) 한 항목의 mute가 다른 항목 알림까지 끄지 않는다")
     cb.reset_log_state()
