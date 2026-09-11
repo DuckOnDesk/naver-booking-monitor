@@ -54,6 +54,7 @@ jobs:
         # - 예약창 확인: 자리가 있을 때만 브라우저를 켜는지 (자동예약 직전 강제 확인 포함)
         # - 항목별 mute: 알림만 끄고 감시·재고 추적은 그대로 도는지
         # - 운영 시간 탐색: 웹앱 시간 선택을 좁힐 hour_from/hour_to를 잡는지
+        # - 날짜 정리 커밋: git을 직접 부르지 않고 commit_files(--autostash)로 가는지
         # 실패해도 드라이런은 계속 진행하고, 로그로만 알린다.
         continue-on-error: true
         run: |
@@ -65,6 +66,7 @@ jobs:
           python -u check_booking_urlgate_test.py
           python -u check_booking_mute_test.py
           python -u check_booking_hours_test.py
+          python -u check_booking_commit_test.py
 
       - name: 드라이런 실행 (실제 예약 안 함)
         env:
