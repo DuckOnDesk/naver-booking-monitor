@@ -27,9 +27,11 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
 그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소·시간대 삭제)인지 갈라 주므로,
 자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다.
 
-이 중 알림(ntfy)이 나가는 건 업체가 자리를 넣고 뺀 회차뿐이다(📦 재고 변동, 예약도
-같이 움직였으면 📊). 예약이 들고 난 것만으로는 알리지 않는다 — 자리가 새로 난 건 🎉
-자리 알림이 이미 알리고, 예약이 차서 빠진 건 받아 봐야 할 게 없다. 그 회차도 📊 로그
+이 중 알림(ntfy)이 나가는 건 업체가 자리를 넣고 뺀 회차뿐이다(📦 재고 변동). 그
+회차에 예약까지 들어왔으면 한 알림에 섞지 않고 🎟️ 예약 발생을 따로 보낸다 — 섞으면
+업체가 연 자리인지 남이 잡아간 자리인지 숫자를 읽어 내야 한다. 예약이 들고 난 것만
+있는 회차는 알리지 않는다 — 자리가 새로 난 건 🎉 자리 알림이 이미 알리고, 예약이
+차서 빠진 건 받아 봐야 할 게 없다. 그 회차도 📊 로그
 줄은 그대로 남아, 자리가 언제 어떻게 없어졌는지 나중에 되짚을 수 있다
 (_change_kind / note_stock_change 참고). 본문에는 재고·예약과 함께 잔여
 (= 재고 - 예약, 지금 잡을 수 있는 자리 수)를 적는다. 알림(ntfy)은 같은 날짜에 자리
@@ -1164,6 +1166,8 @@ def _booking_change_label(booked_delta: int) -> str:
 # 자리 수고, 그게 그대로인데 예약이 들고 나면 변하는 건 예약 가능한 자리(잔여)다.
 # 한 이름으로 알리면 "업체가 자리를 내렸다"와 "누가 예약을 잡았다"가 구별되지 않는다
 # — 앞은 기다려도 안 돌아오고 뒤는 취소표로 돌아올 수 있으니 뜻이 정반대다.
+# 이 분류는 로그 줄에 붙는 이름이다. 알림 제목은 여기서 갈라 쓴다 — 업체 쪽은
+# 📦 재고 변동, 겹친 회차의 예약 쪽은 🎟️ 예약 발생으로 따로 나간다.
 STOCK_MOVED  = ("📦", "재고 변동")            # 업체가 자리를 넣거나 뺐다
 BOOKING_MOVED = ("🎟️", "예약 변동")           # 재고는 그대로, 예약이 들거나 빠졌다
 BOTH_MOVED   = ("📊", "재고·예약 함께 변동")
@@ -1183,8 +1187,8 @@ def _change_kind(stock_moved: bool, booking_moved: bool) -> tuple[str, str]:
 def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                       date_str: str, url: str, ref_slots: list, now_str: str,
                       is_today: bool, notify: bool = True,
-                      scope: str = "") -> dict | None:
-    """재고/예약 구성이 직전 회차와 달라졌으면 로그 한 줄. 알릴 게 있으면 payload 반환.
+                      scope: str = "") -> list[dict]:
+    """재고/예약 구성이 직전 회차와 달라졌으면 로그 한 줄. 알릴 게 있으면 payload 목록.
 
     발송은 호출자가 결정한다 — 같은 날짜에 자리 알림(🎉/🔒/⏳)이 나가는 회차에는
     접는다 (send_stock_change / check_all의 flush 참고). 한 사건에 알림이 두 번
@@ -1227,9 +1231,14 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     alerted[key] = cur
     alerted[scope_key] = scope
     if not isinstance(prev, dict) or prev == cur:
-        return None
+        return []
 
+    # parts는 로그 한 줄용(업체·예약 섞어서 한눈에), stock_parts/booking_parts는
+    # 알림용이다. 한 회차에 둘이 겹치면 알림을 나눠 보내는데, 그때 본문에 상대편
+    # 숫자까지 늘어놓으면 나눈 보람이 없다.
     parts: list[str] = []
+    stock_parts: list[str] = []
+    booking_parts: list[str] = []
     ignored: set = set()
     removed = added = False
     stock_moved = booking_moved = False
@@ -1244,21 +1253,25 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                 continue
             removed = stock_moved = True
             parts.append(f"{t} 사라짐(재고 {a[0]}/예약 {a[1]})")
+            stock_parts.append(f"{t} 사라짐(재고 {a[0]}/예약 {a[1]})")
         elif a is None:
             added = stock_moved = True
             parts.append(f"{t} 새로 열림(재고 {b[0]}/예약 {b[1]})")
+            stock_parts.append(f"{t} 새로 열림(재고 {b[0]}/예약 {b[1]})")
         else:
             booked_delta += b[1] - a[1]
             seg = []
             if a[0] != b[0]:
                 stock_moved = True
                 seg.append(f"재고 {a[0]}→{b[0]}")
+                stock_parts.append(f"{t} 재고 {a[0]}→{b[0]}")
             if a[1] != b[1]:
                 booking_moved = True
                 seg.append(f"예약 {a[1]}→{b[1]}")
+                booking_parts.append(f"{t} 예약 {a[1]}→{b[1]}")
             parts.append(f"{t} " + ", ".join(seg))
     if not parts:
-        return None
+        return []
 
     # 지나서 빠진 슬롯은 총합 비교에서도 뺀다 (그걸 남기면 오늘 날짜는 하루 종일
     # "재고 줄어듦"으로 보인다).
@@ -1279,10 +1292,10 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                    f"재고 {c_stock} · 잔여 {c_stock - c_booking}")
         print(f"[{now_str}] 📊 {name} {date_str} {summary} · {label} — {detail}", flush=True)
         if not notify:
-            return None
+            return []
         # 업체도 예약도 움직이지 않았다 — 우리가 비교 기준을 바꾼 회차다.
-        return {"title": f"⚙️ {name} {label} — 비교 기준 다시 잡음",
-                "body": f"{date_str} {summary}\n{detail}", "url": url}
+        return [{"title": f"⚙️ {name} {label} — 비교 기준 다시 잡음",
+                 "body": f"{date_str} {summary}\n{detail}", "url": url}]
 
     icon, kind = _change_kind(stock_moved, booking_moved)
     # 업체가 자리를 건드린 회차면 그쪽 라벨이 제목이 된다. 예약만 움직인 회차는
@@ -1290,8 +1303,11 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     label = (_stock_change_label(removed, added, p_stock, c_stock) if stock_moved
              else _booking_change_label(booked_delta))
 
-    shown = parts[:STOCK_CHANGE_MAX_PARTS]
-    detail = ", ".join(shown) + (f" 외 {len(parts) - len(shown)}건" if len(parts) > len(shown) else "")
+    def _detail(src: list[str]) -> str:
+        shown = src[:STOCK_CHANGE_MAX_PARTS]
+        return ", ".join(shown) + (f" 외 {len(src) - len(shown)}건" if len(src) > len(shown) else "")
+
+    detail = _detail(parts)
     # 잔여(= 재고 - 예약)를 같이 적는다. 정작 궁금한 "지금 몇 자리 잡을 수 있나"는
     # 재고도 예약도 아닌 이 숫자다.
     summary = (f"재고 {p_stock}→{c_stock} · 예약 {p_booking}→{c_booking} · "
@@ -1299,15 +1315,24 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
 
     print(f"[{now_str}] 📊 {name} {date_str} {summary} · {kind}({label}) — {detail}", flush=True)
     if not notify:
-        return None
+        return []
     # 알림은 업체가 자리를 넣고 뺀 회차에만 보낸다. 예약이 들고 난 것은 로그까지다 —
     # 자리가 새로 난 건 🎉 자리 알림이 이미 알리고(같은 사건에 두 번 울릴 뿐이다),
     # 예약이 차서 자리가 빠진 건 받아 봐야 할 게 없다. 언제 없어졌는지는 📊 로그 줄에
     # 그대로 남아 나중에 되짚을 수 있다.
     if not stock_moved:
-        return None
-    return {"title": f"{icon} {name} {kind} — {label}",
-            "body": f"{date_str} {summary}\n{detail}", "url": url}
+        return []
+
+    out = [{"title": f"📦 {name} 재고 변동 — {label}",
+            "body": f"{date_str} {summary}\n{_detail(stock_parts)}", "url": url}]
+    # 업체가 자리를 건드린 회차에 예약까지 들어왔으면 한 알림에 섞지 않고 따로 보낸다.
+    # 섞으면 재고 5→8·예약 1→4가 한 줄에 붙어, 업체가 연 자리인지 남이 잡아간 자리인지
+    # 읽어 내야 한다. 예약이 빠진 쪽(취소표)은 따로 보내지 않는다 — 그건 🎉 자리
+    # 알림이 이미 알린다.
+    if booked_delta > 0:
+        out.append({"title": f"🎟️ {name} 예약 발생",
+                    "body": f"{date_str} {summary}\n{_detail(booking_parts)}", "url": url})
+    return out
 
 
 def send_stock_change(ntfy_topic: str, payload: dict) -> bool:
@@ -2419,8 +2444,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         slot_info.get("range_slots", slot_info.get("all_slots", [])),
                         now_str, datekey == today_str, notify=not is_restricted,
                         scope=watch_scope(time_range) if "range_slots" in slot_info else "")
-                    if _sc:
-                        pending_stock.append((datekey, _sc))
+                    for _p in _sc:
+                        pending_stock.append((datekey, _p))
 
                 # 볼 수 있는 시간대가 하나도 없는 날. 일별 재고가 남아 있어도 살 수 있는
                 # 시간대가 없으면 자리가 아니다 (일별 재고에는 영업시간 밖 몫까지 들어 있다).
@@ -2610,8 +2635,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                         alerted, item_id, datekey, name, date_str, url,
                         track_slots, now_str, datekey == today_str,
                         notify=not is_restricted, scope=watch_scope(time_range))
-                    if _sc:
-                        pending_stock.append((datekey, _sc))
+                    for _p in _sc:
+                        pending_stock.append((datekey, _p))
 
                 if datekey == today_str and slot_info["queried"] and not all_slots:
                     continue
