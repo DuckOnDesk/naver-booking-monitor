@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T01:06:12.513331+09:00",
+  "updated_at": "2026-09-12T01:11:45.556606+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -412,18 +412,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2097484673",
-      "name": "Next Art Nexus",
+      "id": "2074966018",
+      "name": "Next AI Art POP-UP",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.16.",
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.09.13.",
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
-      "roadAddress": "왕십리로 107",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
+      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -433,7 +433,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
+      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -464,18 +464,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2074966018",
-      "name": "Next AI Art POP-UP",
+      "id": "2097484673",
+      "name": "Next Art Nexus",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.09.13.",
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.16.",
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
-      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
+      "roadAddress": "왕십리로 107",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -485,7 +485,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
+      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1499,7 +1499,7 @@
     {
       "id": "2050363685",
       "name": "콜라보카페 세이브포인트",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
       "bookingBusinessId": "1641637",
       "operationStart": "26.05.01.",
@@ -1518,7 +1518,8 @@
         "2026-09-10T21:29:13.895456+09:00",
         "2026-09-11T11:58:32.689912+09:00",
         "2026-09-11T15:20:46.018268+09:00",
-        "2026-09-11T20:23:55.855433+09:00"
+        "2026-09-11T20:23:55.855433+09:00",
+        "2026-09-12T01:11:34.508004+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1603,13 +1604,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-28T11:15:57.326531+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2011407355",
@@ -3002,6 +2996,13 @@
       "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
       "ts": "2026-09-12T00:43:51.686403+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2050363685",
+      "place_name": "콜라보카페 세이브포인트",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
+      "ts": "2026-09-12T01:11:34.508004+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3135,7 +3136,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T01:06:01.374326+09:00",
+    "checked_at": "2026-09-12T01:11:34.508004+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3149,8 +3150,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-11T10:19:25.181248+09:00",
     "admission_names": {
-      "(없음)": 450,
-      "현장대기": 245,
+      "(없음)": 451,
+      "현장대기": 244,
       "사전예약&현장대기": 151,
       "사전예약": 39
     },
