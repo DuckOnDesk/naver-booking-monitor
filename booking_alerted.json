@@ -1572,13 +1572,13 @@
   "mtssyscp:2026-10-24:stock": {
     "종일": [
       2000,
-      3012
+      3010
     ]
   },
   "mtssyscp:2026-10-25:stock": {
     "종일": [
       2200,
-      3116
+      3114
     ]
   },
   "mti3v8v5:2026-09-09": {
@@ -1987,5 +1987,7 @@
     ]
   },
   "mtuo5elj:2026-09-27:scope": "",
-  "mtuo5elj:url_closed": 1
+  "mtuo5elj:url_closed": 1,
+  "mtindetp:2026-09-12:stock": {},
+  "mtindetp:2026-09-12:scope": ""
 }
