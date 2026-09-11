@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-11T17:01:25.744029+09:00",
+  "updated_at": "2026-09-11T17:07:07.398649+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -261,7 +261,7 @@
     {
       "id": "2083897134",
       "name": "스포티파이 하우스 서울",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1721238",
       "bookingBusinessId": "1721238",
       "operationStart": "26.09.10.",
@@ -431,7 +431,7 @@
       "remainingDays": 4,
       "status": "D-4",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260906_189/1788662589063iOxnL_JPEG/edited-1788662588651-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260911_257/1789111168724oVrpk_JPEG/edited-1789111169144-0.jpg",
       "roadAddress": "성수이로 72",
       "commonAddress": "서울 성동구",
       "district": "성동구",
@@ -475,7 +475,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -3129,7 +3129,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-11T17:01:13.255130+09:00",
+    "checked_at": "2026-09-11T17:06:54.193972+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
