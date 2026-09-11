@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T01:22:51.702060+09:00",
+  "updated_at": "2026-09-12T01:28:24.556390+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -149,7 +149,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -177,7 +177,8 @@
         "2026-09-11T12:15:24.175904+09:00",
         "2026-09-11T15:20:46.018268+09:00",
         "2026-09-11T18:54:25.641267+09:00",
-        "2026-09-11T22:13:52.281059+09:00"
+        "2026-09-11T22:13:52.281059+09:00",
+        "2026-09-12T01:28:13.222705+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1605,13 +1606,6 @@
   ],
   "alerts": [
     {
-      "type": "new_popup",
-      "place_id": "2011407355",
-      "place_name": "달빛천사 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1589880",
-      "ts": "2026-08-28T11:32:55.050298+09:00"
-    },
-    {
       "type": "booking_open",
       "place_id": "2057128614",
       "place_name": "스픽 2026 영어울렁증 퇴마식",
@@ -3003,6 +2997,13 @@
       "place_name": "콜라보카페 세이브포인트",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
       "ts": "2026-09-12T01:11:34.508004+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-12T01:28:13.222705+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3136,7 +3137,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T01:22:40.240226+09:00",
+    "checked_at": "2026-09-12T01:28:13.222705+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
