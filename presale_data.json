@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T03:13:40.756539+09:00",
+  "updated_at": "2026-09-12T03:19:12.334520+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -413,18 +413,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2018920557",
-      "name": "텐먼스 성수 팝업스토어",
+      "id": "2074966018",
+      "name": "Next AI Art POP-UP",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.12.",
-      "operationEnd": "26.10.11.",
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.09.13.",
       "remainingDays": null,
-      "status": "오늘오픈",
+      "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
-      "roadAddress": "연무장11길 11",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
+      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -434,7 +434,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
+      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -465,18 +465,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2074966018",
-      "name": "Next AI Art POP-UP",
+      "id": "2018920557",
+      "name": "텐먼스 성수 팝업스토어",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.09.13.",
+      "operationStart": "26.09.12.",
+      "operationEnd": "26.10.11.",
       "remainingDays": null,
-      "status": "진행중",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
-      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
+      "roadAddress": "연무장11길 11",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -486,7 +486,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -3137,7 +3137,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T03:13:30.995818+09:00",
+    "checked_at": "2026-09-12T03:19:02.145997+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3151,8 +3151,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-11T10:19:25.181248+09:00",
     "admission_names": {
-      "(없음)": 451,
-      "현장대기": 243,
+      "(없음)": 449,
+      "현장대기": 245,
       "사전예약&현장대기": 152,
       "사전예약": 39
     },
