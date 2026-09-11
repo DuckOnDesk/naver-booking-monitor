@@ -2823,6 +2823,22 @@ def print_startup_info(active: list) -> None:
         print(f"  • {name} [{range_label}] | 예약창: {status}", flush=True)
 
 
+def _merge_hour_range(cur: tuple[str, str] | None, slots: list) -> tuple[str, str] | None:
+    """슬롯 목록에서 운영 시간(첫 회차~마지막 회차)을 뽑아 지금까지의 범위와 합친다.
+
+    날짜마다 운영 시간이 다른 팝업(평일 단축 운영 등)이 있으므로 합집합으로 넓힌다 —
+    좁게 잡으면 웹앱의 시간 선택에서 실제로 있는 회차를 못 고른다. 시간대 없는
+    일 단위 상품은 슬롯에 시각이 없어 None으로 남는다 (웹앱이 종전 목록을 쓴다).
+    """
+    times = sorted((s.get("unitStartTime") or "")[11:16] for s in slots or []
+                   if (s.get("unitStartTime") or "")[11:16])
+    if not times:
+        return cur
+    if cur is None:
+        return times[0], times[-1]
+    return min(cur[0], times[0]), max(cur[1], times[-1])
+
+
 def probe_schedule_period(parsed: dict) -> dict | None:
     """단일 팝업(URL 파싱 결과)의 실제 판매기간/예약 가능 기간을 조회해 캐시 항목으로 반환.
     조회에 실패하면 None을 반환한다."""
@@ -2832,6 +2848,7 @@ def probe_schedule_period(parsed: dict) -> dict | None:
         return None
     all_summary = result.get("_all_summary") or []
     discovered = sorted(d["dateKey"] for d in all_summary if d.get("isSaleDay"))
+    hours: tuple[str, str] | None = None   # 운영 시간 (웹앱 시간 선택 범위)
 
     scan_end_cache = datetime.now(timezone(timedelta(hours=9))).date() + timedelta(days=30)
     if not discovered:
@@ -2842,6 +2859,7 @@ def probe_schedule_period(parsed: dict) -> dict | None:
             si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
             if si["queried"] and si.get("all_slots"):
                 discovered.append(dk)
+                hours = _merge_hour_range(hours, si["all_slots"])
         discovered.sort()
     else:
         # API 슬라이딩 윈도우 너머 날짜 추가 스캔
@@ -2852,8 +2870,19 @@ def probe_schedule_period(parsed: dict) -> dict | None:
             si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
             if si["queried"] and si.get("all_slots"):
                 discovered.append(dk)
+                hours = _merge_hour_range(hours, si["all_slots"])
             cur += timedelta(days=1)
         discovered.sort()
+
+    # 위 스캔이 한 번도 슬롯을 못 본 경우(월별 API만으로 기간이 잡힌 흔한 경우)에만
+    # 한 번 더 조회한다. 오늘은 지난 회차가 빠져 나와 운영 시작 시각이 늦게 잡히므로
+    # 내일 이후 날짜를 고른다.
+    if hours is None and discovered:
+        today = datetime.now(timezone(timedelta(hours=9))).date().isoformat()
+        probe_day = next((d for d in discovered if d > today), discovered[-1])
+        si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], probe_day)
+        if si["queried"]:
+            hours = _merge_hour_range(hours, si.get("all_slots"))
 
     restriction = fetch_item_restrictions(parsed["biz_id"])
     code = restriction.get("booking_available_code")
@@ -2869,6 +2898,9 @@ def probe_schedule_period(parsed: dict) -> dict | None:
         "sale_end_date": result.get("sale_end_date"),
         "available_start": discovered[0] if discovered else None,
         "available_end": discovered[-1] if discovered else None,
+        # 웹앱이 감시 시간 선택 목록을 이 범위로 좁힌다. 못 잡으면 None (종전 목록).
+        "hour_from": hours[0] if hours else None,
+        "hour_to":   hours[1] if hours else None,
         "checked_at": now_kst,
         "booking_available_code":  restriction.get("booking_available_code", "RI01"),
         "booking_available_value": restriction.get("booking_available_value", 0),
