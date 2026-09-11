@@ -222,7 +222,7 @@
     </div>
     <div class="form-group">
       <label>네이버 예약 URL</label>
-      <textarea id="f-url" rows="3" placeholder="https://m.booking.naver.com/booking/..."></textarea>
+      <textarea id="f-url" rows="3" placeholder="https://m.booking.naver.com/booking/..." oninput="refreshTimeOptions()"></textarea>
       <div class="hint">네이버 예약 페이지에서 URL을 복사해 붙여넣으세요</div>
     </div>
     <div class="form-group">
@@ -426,13 +426,43 @@ function isWeekendOrHoliday(dateStr) {
 // 훑을 수 있게 한다 (심야 회차를 감시할 일이 생기면 FIRST_HOUR를 0으로 되돌린다).
 const FIRST_HOUR = 7;
 
-function makeTimeOptions() {
-  const opts = ['<option value="">시간 선택</option>'];
-  for (let h = FIRST_HOUR; h <= 24; h++) {
+// 운영 시간을 아는 팝업이면 그 안쪽만 띄운다. schedule_cache.json의 hour_from/
+// hour_to는 모니터가 실제로 받아 본 회차의 첫·마지막 시각이다 (probe_schedule_period).
+// 끝은 한 시간 더 준다 — 마지막 회차가 20:30이면 "20시"로는 감시 범위에 안 들어온다
+// (check_booking의 시간 범위 비교가 슬롯 시각 <= 끝 시각이라서).
+// 캐시에 없는 URL(새로 등록하는 팝업)이나 시간대 없는 일 단위 상품은 종전 목록을 쓴다.
+function hourRangeOf(url) {
+  const e = scheduleCache[cacheKeyOf(url)] || {};
+  if (!e.hour_from || !e.hour_to) return null;
+  const from = parseInt(e.hour_from.slice(0, 2), 10);
+  const to   = parseInt(e.hour_to.slice(0, 2), 10);
+  if (isNaN(from) || isNaN(to) || to < from) return null;
+  return { from, to: Math.min(to + 1, 24), label: `${e.hour_from}~${e.hour_to}` };
+}
+
+function makeTimeOptions(url) {
+  const r = hourRangeOf(url);
+  const first = r ? r.from : FIRST_HOUR;
+  const last  = r ? r.to : 24;
+  const opts = [`<option value="">시간 선택${r ? ` (운영 ${r.label})` : ''}</option>`];
+  for (let h = first; h <= last; h++) {
     const v = `${String(h).padStart(2,'0')}:00`;
     opts.push(`<option value="${v}">${String(h).padStart(2,'0')}시</option>`);
   }
   return opts.join('');
+}
+
+// URL이 바뀌면 그 팝업의 운영 시간으로 목록을 다시 만든다. 고르던 값은 새 목록에
+// 남아 있을 때만 지킨다 (없으면 빈 값 — 없는 시간을 고른 척하지 않는다).
+function refreshTimeOptions() {
+  const url = $('f-url').value.trim();
+  const opts = makeTimeOptions(url);
+  for (const id of ['f-time-from', 'f-time-to']) {
+    const el = $(id);
+    const keep = el.value;
+    el.innerHTML = opts;
+    el.value = [...el.options].some(o => o.value === keep) ? keep : '';
+  }
 }
 
 // target_dates가 주말/공휴일·평일저녁 간편등록 패턴과 정확히 일치하면 해당 종류 목록 반환 (아니면 null)
@@ -676,6 +706,7 @@ function openSheet() {
   periods = [];
   renderPeriodList();
   $('reprobe-box').style.display = 'none';   // 신규 등록 시에는 초기화할 캐시가 없다
+  refreshTimeOptions();
   $('overlay').classList.add('open');
 }
 
@@ -693,6 +724,7 @@ function openEdit(id) {
   periods = parsePeriods(m.target_dates || []);
   renderPeriodList();
   renderReprobeBox(m.url);
+  refreshTimeOptions();
   $('overlay').classList.add('open');
 }
 
@@ -776,6 +808,7 @@ async function resetPeriod() {
 
     // 3) 새 운영 기간을 확인 기간 입력란에 채워준다
     renderReprobeBox(url);
+    refreshTimeOptions();   // 운영 시간도 같이 갱신됐을 수 있다
     if (updated.available_start && updated.available_end) {
       $('f-from').value = updated.available_start;
       $('f-to').value   = updated.available_end;
@@ -1011,10 +1044,9 @@ window.onload = () => {
   if (pat) { $('pat').value = '••••••' + pat.slice(-4); patMasked = true; }
   const cachedTopic = localStorage.getItem('ntfy_topic_cache');
   if (cachedTopic) $('ntfy-topic').value = cachedTopic;
-  const opts = makeTimeOptions();
-  $('f-time-from').innerHTML = opts;
-  $('f-time-to').innerHTML = opts;
-  loadScheduleCache().then(() => loadConfig()).then(() => fetchNotifications());
+  loadScheduleCache()
+    .then(() => { refreshTimeOptions(); return loadConfig(); })
+    .then(() => fetchNotifications());
 };
 </script>
 </body>
