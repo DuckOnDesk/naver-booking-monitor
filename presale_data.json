@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-11T11:53:05.454016+09:00",
+  "updated_at": "2026-09-11T11:58:45.102335+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -1069,32 +1069,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2084168433",
-      "name": "블랙야크 더현대서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.08.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 27,
-      "status": "D-27",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
-      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2070822797",
       "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
       "hasBooking": false,
@@ -1117,6 +1091,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-09T18:43:18.244587+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2084168433",
+      "name": "블랙야크 더현대서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.08.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 27,
+      "status": "D-27",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260907_239/1788768057716OmkyB_JPEG/1788416009.7107348IMG_3108.jpg",
+      "roadAddress": "여의대로 108 B2층 아이코닉 POP-UP 스토어",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-09T16:51:03.034345+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1465,7 +1465,7 @@
     {
       "id": "2050363685",
       "name": "콜라보카페 세이브포인트",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
       "bookingBusinessId": "1641637",
       "operationStart": "26.05.01.",
@@ -1481,7 +1481,8 @@
       "bookingOpenHistory": [
         "2026-09-10T08:36:00.521796+09:00",
         "2026-09-10T12:16:14.429020+09:00",
-        "2026-09-10T21:29:13.895456+09:00"
+        "2026-09-10T21:29:13.895456+09:00",
+        "2026-09-11T11:58:32.689912+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1563,13 +1564,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2067695542",
-      "place_name": "오래오래 함께가게",
-      "booking_url": "",
-      "ts": "2026-08-27T18:40:47.905747+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039106013",
@@ -2962,6 +2956,13 @@
       "place_name": "스포티파이 하우스 서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
       "ts": "2026-09-11T10:25:01.865725+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2050363685",
+      "place_name": "콜라보카페 세이브포인트",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
+      "ts": "2026-09-11T11:58:32.689912+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3095,13 +3096,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-11T11:52:54.514272+09:00",
+    "checked_at": "2026-09-11T11:58:32.689912+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 894,
-    "presale_items": 187,
+    "presale_items": 188,
     "after_district_filter": 99,
     "fallback_matched": 0,
     "unique_place_ids": 56,
@@ -3109,9 +3110,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-11T10:19:25.181248+09:00",
     "admission_names": {
-      "(없음)": 458,
+      "(없음)": 457,
       "현장대기": 249,
-      "사전예약&현장대기": 148,
+      "사전예약&현장대기": 149,
       "사전예약": 39
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
