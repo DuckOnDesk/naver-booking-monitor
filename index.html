@@ -388,7 +388,7 @@ function render() {
         <div class="state-btns">
           <button class="state-btn watch ${m.enabled?'':'off'}" aria-label="감시"
                   title="감시 ${m.enabled?'켜짐':'꺼짐'} — 끄면 조회 자체가 멈춰 재고 변화가 기록되지 않습니다"
-                  onclick="toggle('${m.id}',${!m.enabled})"><span class="ico">📡</span></button>
+                  onclick="toggle('${m.id}',${!m.enabled})"><span class="ico">🔍</span></button>
           <button class="state-btn notify ${m.mute?'off':''}" aria-label="알림"
                   title="알림 ${m.mute?'꺼짐':'켜짐'} — 꺼도 감시·재고 추적은 그대로 돕니다"
                   onclick="toggleMute('${m.id}')"><span class="ico">🔔</span></button>
@@ -422,9 +422,13 @@ function isWeekendOrHoliday(dateStr) {
   return dow === 0 || dow === 6;
 }
 
+// 팝업 예약은 이른 새벽에 열리는 일이 없다. 00~06시를 빼서 목록을 스크롤 없이
+// 훑을 수 있게 한다 (심야 회차를 감시할 일이 생기면 FIRST_HOUR를 0으로 되돌린다).
+const FIRST_HOUR = 7;
+
 function makeTimeOptions() {
   const opts = ['<option value="">시간 선택</option>'];
-  for (let h = 0; h <= 24; h++) {
+  for (let h = FIRST_HOUR; h <= 24; h++) {
     const v = `${String(h).padStart(2,'0')}:00`;
     opts.push(`<option value="${v}">${String(h).padStart(2,'0')}시</option>`);
   }

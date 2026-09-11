@@ -25,9 +25,13 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
 
 날짜별 재고/예약 구성이 바뀌면 📊 줄을 변화마다 한 번씩 남긴다. 자리가 사라졌을 때
 그게 팔린 것(예약 증가)인지 업체가 내린 것(재고 감소·시간대 삭제)인지 갈라 주므로,
-자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다. 알림 제목도 그 둘을 갈라 쓴다 —
-업체가 자리를 넣고 뺀 회차는 📦 재고 변동, 재고는 그대로인데 예약이 들고 난 회차는
-🎟️ 예약 변동, 둘 다면 📊 (_change_kind 참고). 본문에는 재고·예약과 함께 잔여
+자리 알림이 왜 안 나갔는지를 로그로 되짚을 수 있다.
+
+이 중 알림(ntfy)이 나가는 건 업체가 자리를 넣고 뺀 회차뿐이다(📦 재고 변동, 예약도
+같이 움직였으면 📊). 예약이 들고 난 것만으로는 알리지 않는다 — 자리가 새로 난 건 🎉
+자리 알림이 이미 알리고, 예약이 차서 빠진 건 받아 봐야 할 게 없다. 그 회차도 📊 로그
+줄은 그대로 남아, 자리가 언제 어떻게 없어졌는지 나중에 되짚을 수 있다
+(_change_kind / note_stock_change 참고). 본문에는 재고·예약과 함께 잔여
 (= 재고 - 예약, 지금 잡을 수 있는 자리 수)를 적는다. 알림(ntfy)은 같은 날짜에 자리
 알림이 나가지 않은 회차에만 보낸다 — 한 사건에 두 번 울리면 정작 급한 자리 알림이
 묻힌다 (note_stock_change 참고).
@@ -48,7 +52,8 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
 monitors.json 항목 선택 필드:
   booking_open_datetime  예약 오픈 일시 (ISO 형식, 예: "2026-06-01T20:00:00+09:00")
                          설정 시 해당 시각 이후 + 자리 있을 때만 알림 발송
-  mute                   true면 이 항목의 알림(ntfy)만 끈다. 감시는 그대로 돌아
+  mute                   true면 이 항목의 알림(ntfy)만 끈다 (자동예약 알림은 예외 —
+                         예약이 잡혔는지는 조용히 넘길 일이 아니다). 감시는 그대로 돌아
                          로그·재고 스냅샷·자동예약이 모두 살아 있다. 잠깐 조용히
                          두고 싶을 때 enabled=false 대신 쓴다 — enabled=false는
                          추적 자체를 멈춰서 그동안의 재고 변화가 통째로 빈다
@@ -1122,23 +1127,14 @@ def slot_stock_map(ref_slots: list) -> dict:
     return snap
 
 
-def _stock_change_label(booked_delta: int, removed: bool, added: bool,
-                        p_stock: int, c_stock: int) -> str:
-    """변화를 사람이 읽는 한 마디로. 자리가 왜 사라졌는지가 여기서 갈린다.
+def _stock_change_label(removed: bool, added: bool, p_stock: int, c_stock: int) -> str:
+    """업체가 자리를 어떻게 건드렸는지 한 마디로. 📦 알림 제목에 붙는다.
 
     "시간대 사라짐"은 그 회차가 목록에서 통째로 없어진 것이고(업체가 삭제했거나
     판매일·영업일에서 뺐다), "재고만 줄어듦"은 회차는 그대로 있고 자리 수만 깎인
     것이다. 종전 이름("시간대 내려감")은 숫자가 내려갔다는 뜻으로도 읽혀 둘이
-    헷갈렸다. 매진은 어느 쪽도 아니다 — 슬롯이 남아 있으니 "예약 발생"으로 잡힌다.
-
-    예약 증감은 양쪽 회차에 다 있는 시간대만 놓고 센다(booked_delta). 총합으로 세면
-    예약이 걸린 시간대가 통째로 내려간 것까지 "예약 취소"로 읽힌다 — 자리가 사라진
-    이유를 가리려고 만든 라벨이 정작 그 이유를 뒤집어 말하는 꼴이 된다.
+    헷갈렸다. 매진은 어느 쪽도 아니다 — 슬롯이 남아 있으니 예약 쪽 변화다.
     """
-    if booked_delta > 0:
-        return "예약 발생"
-    if booked_delta < 0:
-        return "예약 취소"
     if removed:
         return "시간대 사라짐"
     if added:
@@ -1148,6 +1144,20 @@ def _stock_change_label(booked_delta: int, removed: bool, added: bool,
     if c_stock > p_stock:
         return "재고만 늘어남"
     return "구성 변경"
+
+
+def _booking_change_label(booked_delta: int) -> str:
+    """예약이 들고 난 것을 한 마디로. 로그 전용 — 이쪽만 움직인 회차는 알리지 않는다.
+
+    예약 증감은 양쪽 회차에 다 있는 시간대만 놓고 센다(booked_delta). 총합으로 세면
+    예약이 걸린 시간대가 통째로 내려간 것까지 "예약 취소"로 읽힌다 — 자리가 사라진
+    이유를 가리려고 만든 라벨이 정작 그 이유를 뒤집어 말하는 꼴이 된다.
+    """
+    if booked_delta > 0:
+        return "예약 발생"
+    if booked_delta < 0:
+        return "예약 취소"
+    return "예약 자리 이동"
 
 
 # 📊 알림이 두 가지 사건을 한 이름("재고 변경")으로 불렀다. 재고는 업체가 열어 둔
@@ -1274,8 +1284,11 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
         return {"title": f"⚙️ {name} {label} — 비교 기준 다시 잡음",
                 "body": f"{date_str} {summary}\n{detail}", "url": url}
 
-    label = _stock_change_label(booked_delta, removed, added, p_stock, c_stock)
     icon, kind = _change_kind(stock_moved, booking_moved)
+    # 업체가 자리를 건드린 회차면 그쪽 라벨이 제목이 된다. 예약만 움직인 회차는
+    # 로그에만 남으므로 라벨도 로그용이다.
+    label = (_stock_change_label(removed, added, p_stock, c_stock) if stock_moved
+             else _booking_change_label(booked_delta))
 
     shown = parts[:STOCK_CHANGE_MAX_PARTS]
     detail = ", ".join(shown) + (f" 외 {len(parts) - len(shown)}건" if len(parts) > len(shown) else "")
@@ -1286,6 +1299,12 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
 
     print(f"[{now_str}] 📊 {name} {date_str} {summary} · {kind}({label}) — {detail}", flush=True)
     if not notify:
+        return None
+    # 알림은 업체가 자리를 넣고 뺀 회차에만 보낸다. 예약이 들고 난 것은 로그까지다 —
+    # 자리가 새로 난 건 🎉 자리 알림이 이미 알리고(같은 사건에 두 번 울릴 뿐이다),
+    # 예약이 차서 자리가 빠진 건 받아 봐야 할 게 없다. 언제 없어졌는지는 📊 로그 줄에
+    # 그대로 남아 나중에 되짚을 수 있다.
+    if not stock_moved:
         return None
     return {"title": f"{icon} {name} {kind} — {label}",
             "body": f"{date_str} {summary}\n{detail}", "url": url}
@@ -2090,6 +2109,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 회차마다 항목에 맞는 주제를 끼워 주면 감시·로그·재고 추적은 그대로 돌면서
         # 알림만 멎는다. enabled=false와 달리 조회를 멈추지 않으므로 조용히 둔
         # 동안의 재고 변화도 로그와 스냅샷에 그대로 쌓인다.
+        # 자동예약만 예외다 — 예약이 잡혔는지 실패했는지는 조용히 넘길 일이 아니라서
+        # maybe_auto_book·sweep_auto_book_period에는 원래 주제를 그대로 넘긴다
+        # (별도 워크플로로 도는 auto_book_worker.py도 mute를 보지 않는다).
         ntfy_topic = "" if item.get("mute") else base_ntfy_topic
 
         ab_cfg = _auto_book_cfg(item)
@@ -2534,8 +2556,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                                     send_ntfy(ntfy_topic, title, body, url)
                         if cal_ok is not False:
                             alerted[alert_key] = dict(per_slot)
-                            maybe_auto_book(item, item_id, url, datekey, per_slot, ntfy_topic,
-                                            alerted, ab_period, gate)
+                            maybe_auto_book(item, item_id, url, datekey, per_slot,
+                                            base_ntfy_topic, alerted, ab_period, gate)
                 else:
                     alerted.pop(alert_key, None)
                     pre_key = f"{alert_key}:pre"
@@ -2657,7 +2679,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 감시 날짜를 좁게 잡아 위 루프가 그 날짜만 돌았다면, 기간 안의 나머지 날짜를 여기서 마저 본다.
         if not gate.known_closed and window_open:
             sweep_auto_book_period(item, item_id, url, parsed, result.get("_all_summary") or [],
-                                   ab_period, set(effective_dates), cutoff_date, ntfy_topic,
+                                   ab_period, set(effective_dates), cutoff_date, base_ntfy_topic,
                                    alerted, gate, cutoff_dt)
 
         # 여기까지 왔는데 게이트를 한 번도 안 건드렸다 = 알릴 자리가 없어서

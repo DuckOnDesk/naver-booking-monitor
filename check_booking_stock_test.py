@@ -13,9 +13,9 @@
   - 시간대가 목록에서 없어지면 "시간대 사라짐", 회차는 그대로고 자리 수만 깎이면
     "재고만 줄어듦"으로 갈라 알린다
   - 예약이 걸린 시간대가 통째로 내려간 것을 "예약 취소"로 읽지 않는다
-  - 예약이 늘면 "예약 발생", 같은 시간대에서 빠지면 "예약 취소"(취소표)로 알린다
-  - 업체가 자리를 넣고 뺀 회차는 📦 재고 변동, 예약이 들고 난 회차는 🎟️ 예약 변동으로
-    제목을 갈라 쓰고, 본문에 잔여(= 재고 - 예약)를 적는다
+  - 예약이 들고 난 것만으로는 알리지 않는다 — 로그에만 "예약 발생"/"예약 취소"로 남는다
+  - 업체가 자리를 넣고 뺀 회차만 📦 재고 변동으로 알리고, 본문에 잔여(= 재고 - 예약)를
+    적는다. 예약도 같이 움직인 회차는 📊, 제목의 라벨은 업체 쪽 변화를 말한다
   - 같은 상태가 이어지면 다시 알리지 않는다 (한 번만)
   - 예약창이 닫혀 있어도 재고 변경을 잡는다 (purge가 스냅샷을 지우지 않는다)
   - 자리 알림이 나가는 회차에는 📊 알림을 접는다 (로그 줄은 그대로 남는다)
@@ -131,50 +131,72 @@ def main() -> int:
     _, sent = run_round([unit("12:00")], alerted)
     check(stock_alerts(sent) == [], f"재알림 없음 (실제: {titles(sent)})")
 
-    print("4) 예약이 늘면 '예약 발생'으로 알린다")
-    _, sent = run_round([unit("12:00", stock=1, booked=1)], alerted)
-    sa = stock_alerts(sent)
-    check(len(sa) == 1 and "예약 발생" in sa[0][0], f"예약 발생 알림 (실제: {titles(sent)})")
-    check("예약 0→1" in sa[0][1], f"예약 증가 표기 (실제: {sa and sa[0][1]})")
+    print("4) 예약이 들어온 것만으로는 알리지 않는다 — 로그에만 남는다")
+    logs, sent = run_round([unit("12:00", stock=1, booked=1)], alerted)
+    check(stock_alerts(sent) == [], f"예약 증가에 📊 알림 없음 (실제: {titles(sent)})")
+    stock_logs = " / ".join(l for l in logs if "📊" in l)
+    check("예약 변동(예약 발생)" in stock_logs, f"로그에는 예약 발생으로 남는다 (실제: {stock_logs})")
+    check("예약 0→1" in stock_logs and "잔여 1→0" in stock_logs,
+          f"로그에 증감이 그대로 (실제: {stock_logs})")
 
-    print("4-1) 재고는 그대로고 예약만 들어온 회차는 🎟️ 예약 변동으로 부른다")
-    check(sa[0][0].startswith("🎟️") and "예약 변동" in sa[0][0],
-          f"예약 쪽 변화는 🎟️ 예약 변동 (실제: {sa[0][0]})")
-    check("재고 변동" not in sa[0][0], f"재고 변동으로 부르지 않는다 (실제: {sa[0][0]})")
-    check("재고 1→1" in sa[0][1] and "잔여 1→0" in sa[0][1],
-          f"재고는 그대로, 잔여만 줄었다고 적는다 (실제: {sa[0][1]})")
+    print("4-1) 예약이 빠져 자리가 나도 📊는 로그까지 — 그 자리는 🎉가 알린다")
+    logs, sent = run_round([unit("12:00", stock=1, booked=0)], alerted)
+    check(stock_alerts(sent) == [], f"📊 알림 없음 (실제: {titles(sent)})")
+    check(any("🎉" in t for t in titles(sent)), f"자리 알림은 나간다 (실제: {titles(sent)})")
+    stock_logs = " / ".join(l for l in logs if "📊" in l)
+    check("예약 변동(예약 취소)" in stock_logs, f"로그에는 예약 취소로 남는다 (실제: {stock_logs})")
 
     print("5) 라벨 판정 — note_stock_change 직접 호출")
     #    자리가 새로 나는 순간에는 자리 알림이 같이 나가 📊가 접히므로(7번 참고),
     #    라벨만 보는 확인은 run_round를 거치지 않는다.
-    def label_of(prev, cur_slots, *, datekey=D):
+    def call(prev, cur_slots, *, datekey=D):
+        """(알림 payload, 📊 로그 줄)을 돌려준다. 알릴 게 없으면 payload는 None."""
         al = {f"t1:{datekey}:stock": prev}
+        buf: list = []
         import builtins
         real_print = builtins.print
-        builtins.print = lambda *a, **kw: None
+        builtins.print = lambda *a, **kw: buf.append(" ".join(str(x) for x in a))
         try:
             payload = cb.note_stock_change(al, "t1", datekey, "테스트", "날짜", URL,
                                            cur_slots, "00:00:00", False)
         finally:
             builtins.print = real_print
-        return payload and payload["title"]
+        return payload, " ".join(buf)
 
     def raw(hhmm, stock, booked):
         return {"unitStartTime": f"{D} {hhmm}:00", "unitStock": stock,
                 "unitBookingCount": booked}
 
-    check("시간대 추가" in label_of({"12:00": [1, 0]}, [raw("12:00", 1, 0), raw("15:00", 1, 0)]),
+    def title_of(prev, cur_slots):
+        return (call(prev, cur_slots)[0] or {}).get("title", "")
+
+    check("시간대 추가" in title_of({"12:00": [1, 0]}, [raw("12:00", 1, 0), raw("15:00", 1, 0)]),
           "새 시간대 → 시간대 추가")
-    check("재고만 줄어듦" in label_of({"12:00": [2, 0]}, [raw("12:00", 1, 0)]),
+    check("재고만 줄어듦" in title_of({"12:00": [2, 0]}, [raw("12:00", 1, 0)]),
           "시간대는 그대로, 재고 숫자만 감소 → 재고만 줄어듦")
-    check("시간대 사라짐" in label_of({"12:00": [8, 7], "15:00": [8, 7]}, [raw("12:00", 8, 7)]),
+    check("재고만 늘어남" in title_of({"12:00": [1, 0]}, [raw("12:00", 2, 0)]),
+          "재고 숫자만 증가 → 재고만 늘어남")
+    check("시간대 사라짐" in title_of({"12:00": [8, 7], "15:00": [8, 7]}, [raw("12:00", 8, 7)]),
           "예약이 걸린 시간대가 통째로 내려가도 '예약 취소'로 읽지 않는다")
-    check("예약 취소" in label_of({"12:00": [2, 2]}, [raw("12:00", 2, 1)]),
-          "같은 시간대에서 예약이 빠짐 → 예약 취소 (취소표)")
-    check("예약 발생" in label_of({"12:00": [2, 1]}, [raw("12:00", 2, 2)]),
-          "같은 시간대에서 예약이 늘어남 → 예약 발생")
-    check(label_of({"12:00": [1, 0]}, [raw("12:00", 1, 0)]) is None,
-          "변화가 없으면 payload 없음")
+
+    print("5-1) 예약만 움직인 회차는 payload가 없고 로그에만 라벨이 남는다")
+    payload, log = call({"12:00": [2, 2]}, [raw("12:00", 2, 1)])
+    check(payload is None and "예약 변동(예약 취소)" in log,
+          f"예약이 빠짐 → 취소표, 로그까지 (실제: {payload}, {log})")
+    payload, log = call({"12:00": [2, 1]}, [raw("12:00", 2, 2)])
+    check(payload is None and "예약 변동(예약 발생)" in log,
+          f"예약이 늘어남 → 예약 발생, 로그까지 (실제: {payload}, {log})")
+    payload, log = call({"12:00": [1, 0]}, [raw("12:00", 1, 0)])
+    check(payload is None and log == "", "변화가 없으면 payload도 로그도 없음")
+
+    print("5-2) 업체 변경과 예약이 같은 회차에 겹치면 알리되, 제목은 업체 쪽을 말한다")
+    payload, log = call({"12:00": [2, 1]}, [raw("12:00", 4, 2)])
+    check(payload is not None and "재고·예약 함께 변동" in payload["title"],
+          f"둘 다 움직인 회차 (실제: {payload and payload['title']})")
+    check(payload is not None and "재고만 늘어남" in payload["title"],
+          f"제목 라벨은 업체 쪽 (실제: {payload and payload['title']})")
+    check(payload is not None and "예약 1→2" in payload["body"],
+          f"예약 증감은 본문에 (실제: {payload and payload['body']})")
 
     print("6) 예약창이 닫혀 있어도 재고 변경을 잡는다")
     cb.reset_log_state()
