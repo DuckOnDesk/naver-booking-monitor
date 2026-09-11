@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T05:44:48.668591+09:00",
+  "updated_at": "2026-09-12T05:50:18.925006+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -149,7 +149,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -178,7 +178,8 @@
         "2026-09-11T15:20:46.018268+09:00",
         "2026-09-11T18:54:25.641267+09:00",
         "2026-09-11T22:13:52.281059+09:00",
-        "2026-09-12T01:28:13.222705+09:00"
+        "2026-09-12T01:28:13.222705+09:00",
+        "2026-09-12T05:50:08.837611+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -678,7 +679,7 @@
     {
       "id": "2095762499",
       "name": "메이크프렘 연남 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1733217",
       "bookingBusinessId": "1733217",
       "operationStart": "26.09.10.",
@@ -694,7 +695,8 @@
       "bookingOpenHistory": [
         "2026-09-09T14:34:25.983689+09:00",
         "2026-09-10T20:05:22.305078+09:00",
-        "2026-09-11T00:45:56.392535+09:00"
+        "2026-09-11T00:45:56.392535+09:00",
+        "2026-09-12T05:50:08.837611+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1607,20 +1609,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009756357",
-      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
-      "ts": "2026-08-28T14:32:33.172420+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2057558383",
-      "place_name": "위아자 에코빌리지 '지구우체국' 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
-      "ts": "2026-08-28T15:35:28.613419+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009756357",
@@ -3006,6 +2994,20 @@
       "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "ts": "2026-09-12T05:44:38.558721+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-12T05:50:08.837611+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2095762499",
+      "place_name": "메이크프렘 연남 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1733217",
+      "ts": "2026-09-12T05:50:08.837611+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3139,13 +3141,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T05:44:38.558721+09:00",
+    "checked_at": "2026-09-12T05:50:08.837611+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 885,
-    "presale_items": 191,
+    "presale_items": 190,
     "after_district_filter": 100,
     "fallback_matched": 0,
     "unique_place_ids": 57,
@@ -3153,9 +3155,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-11T10:19:25.181248+09:00",
     "admission_names": {
-      "(없음)": 449,
+      "(없음)": 450,
       "현장대기": 245,
-      "사전예약&현장대기": 152,
+      "사전예약&현장대기": 151,
       "사전예약": 39
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
