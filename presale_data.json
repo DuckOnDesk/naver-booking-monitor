@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-11T12:09:59.177584+09:00",
+  "updated_at": "2026-09-11T12:15:35.437114+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -367,18 +367,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2018920557",
-      "name": "텐먼스 성수 팝업스토어",
+      "id": "2097484673",
+      "name": "Next Art Nexus",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.10.11.",
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.16.",
       "remainingDays": null,
-      "status": "오늘오픈",
+      "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
-      "roadAddress": "연무장11길 11",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
+      "roadAddress": "왕십리로 107",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -388,7 +388,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
+      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -419,18 +419,18 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2097484673",
-      "name": "Next Art Nexus",
+      "id": "2018920557",
+      "name": "텐먼스 성수 팝업스토어",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.16.",
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.10.11.",
       "remainingDays": null,
-      "status": "진행중",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
-      "roadAddress": "왕십리로 107",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
+      "roadAddress": "연무장11길 11",
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
@@ -440,7 +440,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -499,7 +499,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -523,7 +523,8 @@
         "2026-09-10T10:28:15.894338+09:00",
         "2026-09-10T18:30:05.419613+09:00",
         "2026-09-10T23:15:25.025810+09:00",
-        "2026-09-11T05:36:21.119992+09:00"
+        "2026-09-11T05:36:21.119992+09:00",
+        "2026-09-11T12:15:24.175904+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1591,13 +1592,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-08-27T18:40:47.905747+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2072608358",
@@ -2990,6 +2984,13 @@
       "place_name": "콜라보카페 세이브포인트",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
       "ts": "2026-09-11T11:58:32.689912+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-11T12:15:24.175904+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3123,13 +3124,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-11T12:09:47.742016+09:00",
+    "checked_at": "2026-09-11T12:15:24.175904+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 896,
-    "presale_items": 190,
+    "presale_items": 191,
     "after_district_filter": 100,
     "fallback_matched": 0,
     "unique_place_ids": 57,
@@ -3137,9 +3138,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-11T10:19:25.181248+09:00",
     "admission_names": {
-      "(없음)": 457,
+      "(없음)": 456,
       "현장대기": 249,
-      "사전예약&현장대기": 151,
+      "사전예약&현장대기": 152,
       "사전예약": 39
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
