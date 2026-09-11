@@ -86,6 +86,7 @@ GITHUB_RAW_URL = f"{GITHUB_RAW_BASE}/monitors.json"
 GITHUB_RAW_REPROBE_URL = f"{GITHUB_RAW_BASE}/.schedule_reprobe_request.json"
 SCHEDULE_CACHE_FILE = Path(__file__).parent / "schedule_cache.json"
 ALERTED_FILE = Path(__file__).parent / "booking_alerted.json"
+MONITORS_FILE = Path(__file__).parent / "monitors.json"
 # 자동예약 워커(auto_book_worker.py)가 남기는 실행 결과. 모니터는 읽기만 한다.
 AUTO_BOOK_STATE_FILE = Path(__file__).parent / "auto_book_state.json"
 GITHUB_RAW_AUTOBOOK_STATE_URL = f"{GITHUB_RAW_BASE}/auto_book_state.json"
@@ -304,8 +305,7 @@ def load_monitors(from_github: bool = False) -> dict:
             return resp.json()
         except Exception as exc:
             print(f"[경고] GitHub에서 monitors.json 읽기 실패, 로컬 파일 사용: {exc}", flush=True)
-    path = Path(__file__).parent / "monitors.json"
-    return json.loads(path.read_text(encoding="utf-8"))
+    return json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
 
 
 def parse_naver_url(url: str) -> dict | None:
@@ -2725,8 +2725,7 @@ def prune_dead_dates(pruned: list) -> None:
     """재고가 0이거나 재고 정보가 없는 날짜를 monitors.json의 target_dates에서 제거.
     매진(재고>0, 예약마감)은 취소표 발생 가능성이 있어 계속 추적 대상으로 남겨야 하므로 건드리지 않는다."""
     try:
-        path = Path(__file__).parent / "monitors.json"
-        cfg = json.loads(path.read_text(encoding="utf-8"))
+        cfg = json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
     except Exception as exc:
         print(f"[경고] monitors.json 읽기 실패, 날짜 정리 건너뜀: {exc}", flush=True)
         return
@@ -2753,21 +2752,20 @@ def prune_dead_dates(pruned: list) -> None:
         return
 
     try:
-        path.write_text(json.dumps(cfg, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(f"  → 재고 없는 날짜 정리: {'; '.join(removed_log)}", flush=True)
-        subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
-        subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
-        subprocess.run(["git", "add", "monitors.json"], check=True)
-        if subprocess.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
-            return
-        subprocess.run(["git", "commit", "-m", "chore: 재고 없는 추적 날짜 정리"], check=True)
-        subprocess.run(["git", "fetch", "origin"], check=True)
-        subprocess.run(["git", "rebase", "origin/main"], check=True)
-        subprocess.run(["git", "push", "origin", "HEAD:main"], check=True)
-        print("  → monitors.json 커밋/푸시 완료", flush=True)
+        MONITORS_FILE.write_text(json.dumps(cfg, ensure_ascii=False, indent=2) + "\n",
+                                 encoding="utf-8")
     except Exception as exc:
-        subprocess.run(["git", "rebase", "--abort"], check=False, capture_output=True)
-        print(f"[경고] monitors.json 커밋 실패: {exc}", flush=True)
+        print(f"[경고] monitors.json 쓰기 실패, 날짜 정리 건너뜀: {exc}", flush=True)
+        return
+
+    print(f"  → 재고 없는 날짜 정리: {'; '.join(removed_log)}", flush=True)
+    # 손으로 git을 부르던 자리였다. --autostash가 없어서, 같은 회차에 다른 데이터
+    # 파일(booking_alerted.json 등)이 이미 수정돼 있으면 rebase가 "You have unstaged
+    # changes"로 거부했다 (2026-09-11 16:43). 커밋은 로컬에 남고 푸시는 안 된 채
+    # 경고만 찍혔는데, 뒤이은 알림 상태 푸시가 그 커밋까지 얹어 가면서 겨우 살아났다 —
+    # 회차가 그 전에 끝났으면 컨테이너와 함께 사라졌을 것이다. commit_files는
+    # --autostash와 푸시 경합 재시도를 이미 갖췄으므로 그쪽으로 보낸다.
+    commit_files(["monitors.json"], "chore: 재고 없는 추적 날짜 정리", "monitors.json")
 
 
 def print_startup_info(active: list) -> None:
