@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-11T13:39:46.502729+09:00",
+  "updated_at": "2026-09-11T13:45:24.751078+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -367,32 +367,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2097484673",
-      "name": "Next Art Nexus",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.16.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
-      "roadAddress": "왕십리로 107",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2074966018",
       "name": "Next AI Art POP-UP",
       "hasBooking": false,
@@ -415,6 +389,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2097484673",
+      "name": "Next Art Nexus",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.16.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
+      "roadAddress": "왕십리로 107",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -3124,7 +3124,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-11T13:39:35.899949+09:00",
+    "checked_at": "2026-09-11T13:45:11.968587+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3138,8 +3138,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-11T10:19:25.181248+09:00",
     "admission_names": {
-      "(없음)": 468,
-      "현장대기": 243,
+      "(없음)": 467,
+      "현장대기": 244,
       "사전예약&현장대기": 151,
       "사전예약": 39
     },
