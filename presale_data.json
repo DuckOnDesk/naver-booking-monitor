@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-11T18:15:13.387131+09:00",
+  "updated_at": "2026-09-11T18:20:51.439500+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -629,7 +629,7 @@
       "remainingDays": 1,
       "status": "D-1",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260911_166/1789114870561rLLXp_JPEG/image.jpg",
       "roadAddress": "연무장11길 11",
       "commonAddress": "서울 성동구",
       "district": "성동구",
@@ -3129,7 +3129,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-11T18:15:01.448312+09:00",
+    "checked_at": "2026-09-11T18:20:39.638776+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
