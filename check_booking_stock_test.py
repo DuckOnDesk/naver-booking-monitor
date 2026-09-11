@@ -15,7 +15,8 @@
   - 예약이 걸린 시간대가 통째로 내려간 것을 "예약 취소"로 읽지 않는다
   - 예약이 들고 난 것만으로는 알리지 않는다 — 로그에만 "예약 발생"/"예약 취소"로 남는다
   - 업체가 자리를 넣고 뺀 회차만 📦 재고 변동으로 알리고, 본문에 잔여(= 재고 - 예약)를
-    적는다. 예약도 같이 움직인 회차는 📊, 제목의 라벨은 업체 쪽 변화를 말한다
+    적는다. 그 회차에 예약까지 들어왔으면 🎟️ 예약 발생을 따로 보낸다 (예약이 빠진
+    쪽은 🎉가 알리므로 보내지 않는다)
   - 같은 상태가 이어지면 다시 알리지 않는다 (한 번만)
   - 예약창이 닫혀 있어도 재고 변경을 잡는다 (purge가 스냅샷을 지우지 않는다)
   - 자리 알림이 나가는 회차에는 📊 알림을 접는다 (로그 줄은 그대로 남는다)
@@ -150,25 +151,26 @@ def main() -> int:
     #    자리가 새로 나는 순간에는 자리 알림이 같이 나가 📊가 접히므로(7번 참고),
     #    라벨만 보는 확인은 run_round를 거치지 않는다.
     def call(prev, cur_slots, *, datekey=D):
-        """(알림 payload, 📊 로그 줄)을 돌려준다. 알릴 게 없으면 payload는 None."""
+        """(알림 payload 목록, 📊 로그 줄)을 돌려준다. 알릴 게 없으면 목록이 빈다."""
         al = {f"t1:{datekey}:stock": prev}
         buf: list = []
         import builtins
         real_print = builtins.print
         builtins.print = lambda *a, **kw: buf.append(" ".join(str(x) for x in a))
         try:
-            payload = cb.note_stock_change(al, "t1", datekey, "테스트", "날짜", URL,
-                                           cur_slots, "00:00:00", False)
+            payloads = cb.note_stock_change(al, "t1", datekey, "테스트", "날짜", URL,
+                                            cur_slots, "00:00:00", False)
         finally:
             builtins.print = real_print
-        return payload, " ".join(buf)
+        return payloads, " ".join(buf)
 
     def raw(hhmm, stock, booked):
         return {"unitStartTime": f"{D} {hhmm}:00", "unitStock": stock,
                 "unitBookingCount": booked}
 
     def title_of(prev, cur_slots):
-        return (call(prev, cur_slots)[0] or {}).get("title", "")
+        payloads = call(prev, cur_slots)[0]
+        return payloads[0]["title"] if payloads else ""
 
     check("시간대 추가" in title_of({"12:00": [1, 0]}, [raw("12:00", 1, 0), raw("15:00", 1, 0)]),
           "새 시간대 → 시간대 추가")
@@ -179,24 +181,37 @@ def main() -> int:
     check("시간대 사라짐" in title_of({"12:00": [8, 7], "15:00": [8, 7]}, [raw("12:00", 8, 7)]),
           "예약이 걸린 시간대가 통째로 내려가도 '예약 취소'로 읽지 않는다")
 
-    print("5-1) 예약만 움직인 회차는 payload가 없고 로그에만 라벨이 남는다")
-    payload, log = call({"12:00": [2, 2]}, [raw("12:00", 2, 1)])
-    check(payload is None and "예약 변동(예약 취소)" in log,
-          f"예약이 빠짐 → 취소표, 로그까지 (실제: {payload}, {log})")
-    payload, log = call({"12:00": [2, 1]}, [raw("12:00", 2, 2)])
-    check(payload is None and "예약 변동(예약 발생)" in log,
-          f"예약이 늘어남 → 예약 발생, 로그까지 (실제: {payload}, {log})")
-    payload, log = call({"12:00": [1, 0]}, [raw("12:00", 1, 0)])
-    check(payload is None and log == "", "변화가 없으면 payload도 로그도 없음")
+    print("5-1) 예약만 움직인 회차는 알림이 없고 로그에만 라벨이 남는다")
+    payloads, log = call({"12:00": [2, 2]}, [raw("12:00", 2, 1)])
+    check(payloads == [] and "예약 변동(예약 취소)" in log,
+          f"예약이 빠짐 → 취소표, 로그까지 (실제: {payloads}, {log})")
+    payloads, log = call({"12:00": [2, 1]}, [raw("12:00", 2, 2)])
+    check(payloads == [] and "예약 변동(예약 발생)" in log,
+          f"예약이 늘어남 → 예약 발생, 로그까지 (실제: {payloads}, {log})")
+    payloads, log = call({"12:00": [1, 0]}, [raw("12:00", 1, 0)])
+    check(payloads == [] and log == "", "변화가 없으면 알림도 로그도 없음")
 
-    print("5-2) 업체 변경과 예약이 같은 회차에 겹치면 알리되, 제목은 업체 쪽을 말한다")
-    payload, log = call({"12:00": [2, 1]}, [raw("12:00", 4, 2)])
-    check(payload is not None and "재고·예약 함께 변동" in payload["title"],
-          f"둘 다 움직인 회차 (실제: {payload and payload['title']})")
-    check(payload is not None and "재고만 늘어남" in payload["title"],
-          f"제목 라벨은 업체 쪽 (실제: {payload and payload['title']})")
-    check(payload is not None and "예약 1→2" in payload["body"],
-          f"예약 증감은 본문에 (실제: {payload and payload['body']})")
+    print("5-2) 업체 변경과 예약 발생이 겹치면 알림을 둘로 나눠 보낸다")
+    payloads, log = call({"12:00": [2, 1]}, [raw("12:00", 4, 2)])
+    titles_ = [x["title"] for x in payloads]
+    check(len(payloads) == 2, f"알림 2건 (실제: {titles_})")
+    check(titles_ and titles_[0] == "📦 테스트 재고 변동 — 재고만 늘어남",
+          f"업체 쪽 알림 (실제: {titles_[:1]})")
+    check(len(titles_) > 1 and titles_[1] == "🎟️ 테스트 예약 발생",
+          f"예약 쪽 알림 (실제: {titles_[1:]})")
+    check(payloads and "12:00 재고 2→4" in payloads[0]["body"]
+          and "예약 1→2" not in payloads[0]["body"].split("\n")[1],
+          f"업체 알림 본문에는 재고 변화만 (실제: {payloads and payloads[0]['body']})")
+    check(len(payloads) > 1 and "12:00 예약 1→2" in payloads[1]["body"]
+          and "재고 2→4" not in payloads[1]["body"].split("\n")[1],
+          f"예약 알림 본문에는 예약 변화만 (실제: {len(payloads) > 1 and payloads[1]['body']})")
+    check("재고·예약 함께 변동(재고만 늘어남)" in log, f"로그는 한 줄에 둘 다 (실제: {log})")
+
+    print("5-3) 겹친 회차라도 예약이 빠진 쪽(취소표)은 따로 보내지 않는다")
+    payloads, _ = call({"12:00": [2, 2]}, [raw("12:00", 4, 1)])
+    titles_ = [x["title"] for x in payloads]
+    check(len(payloads) == 1 and titles_[0].startswith("📦"),
+          f"업체 쪽 알림만 (실제: {titles_})")
 
     print("6) 예약창이 닫혀 있어도 재고 변경을 잡는다")
     cb.reset_log_state()
@@ -268,11 +283,11 @@ def main() -> int:
                                         [], now_hhmm + ":00", True)
         finally:
             builtins.print = real_print
-        check(passed_only is None, f"지난 슬롯만 빠진 건 변경이 아니다 (실제: {passed_only})")
-        check(real is not None and f"{future} 사라짐" in real["body"],
+        check(passed_only == [], f"지난 슬롯만 빠진 건 변경이 아니다 (실제: {passed_only})")
+        check(real and f"{future} 사라짐" in real[0]["body"],
               f"남은 슬롯 소멸은 변경이다 (실제: {real})")
-        check("재고 1→0" in real["body"],
-              f"총합 비교에서도 지난 슬롯을 뺀다 (실제: {real and real['body']})")
+        check("재고 1→0" in real[0]["body"],
+              f"총합 비교에서도 지난 슬롯을 뺀다 (실제: {real and real[0]['body']})")
 
     print("10) 지난 날짜 스냅샷은 정리된다")
     alerted = {f"t1:2000-01-01:stock": {"12:00": [1, 0]}, "t1:url_closed": 1}
@@ -289,8 +304,9 @@ def main() -> int:
         real_print = builtins.print
         builtins.print = lambda *a, **kw: None
         try:
-            return cb.note_stock_change(alerted, "t1", D, "테스트", "09-12(토)", URL,
-                                        cur_slots, "00:00:00", False, scope=scope)
+            payloads = cb.note_stock_change(alerted, "t1", D, "테스트", "09-12(토)", URL,
+                                            cur_slots, "00:00:00", False, scope=scope)
+            return payloads[0] if payloads else None
         finally:
             builtins.print = real_print
 
