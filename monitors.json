@@ -38,7 +38,21 @@
       "target_dates": [
         "2026-09-12 11:00-12:00",
         "2026-09-13 11:00-12:00"
-      ]
+      ],
+      "auto_book": {
+        "enabled": true,
+        "dates": [],
+        "times": [
+          "11:00-11:30"
+        ],
+        "accounts": [
+          2
+        ],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-09-12T21:24:04.074Z"
+      }
     },
     {
       "id": "mtindetp",
