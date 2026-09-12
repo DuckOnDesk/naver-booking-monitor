@@ -6,7 +6,7 @@
     "available_end": "2026-09-20",
     "hour_from": "14:00",
     "hour_to": "20:00",
-    "checked_at": "2026-09-13T01:00:16.650955+09:00",
+    "checked_at": "2026-09-13T06:03:08.484459+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -18,7 +18,7 @@
     "available_end": "2026-09-13",
     "hour_from": "12:00",
     "hour_to": "18:00",
-    "checked_at": "2026-09-13T01:00:37.740396+09:00",
+    "checked_at": "2026-09-13T06:04:57.389687+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 1,
     "restriction_ok": true
@@ -42,7 +42,7 @@
     "available_end": "2026-09-21",
     "hour_from": "11:00",
     "hour_to": "19:30",
-    "checked_at": "2026-09-13T01:01:18.550879+09:00",
+    "checked_at": "2026-09-13T06:06:49.089153+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -54,10 +54,10 @@
     "available_end": "2026-09-13",
     "hour_from": "12:00",
     "hour_to": "18:30",
-    "checked_at": "2026-09-13T01:01:35.657509+09:00",
-    "booking_available_code": "RI01",
-    "booking_available_value": 0,
-    "restriction_ok": false
+    "checked_at": "2026-09-13T06:08:32.139044+09:00",
+    "booking_available_code": "RI03",
+    "booking_available_value": 1,
+    "restriction_ok": true
   },
   "12_1729359_8019468": {
     "sale_start_date": null,
@@ -90,7 +90,7 @@
     "available_end": "2026-10-25",
     "hour_from": null,
     "hour_to": null,
-    "checked_at": "2026-09-13T01:02:35.929680+09:00",
+    "checked_at": "2026-09-13T05:09:30.546127+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -102,7 +102,7 @@
     "available_end": "2026-09-30",
     "hour_from": "13:00",
     "hour_to": "17:00",
-    "checked_at": "2026-09-13T01:02:38.373435+09:00",
+    "checked_at": "2026-09-13T05:11:04.506037+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
     "restriction_ok": false
