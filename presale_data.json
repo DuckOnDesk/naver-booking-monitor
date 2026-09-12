@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T18:42:53.266405+09:00",
+  "updated_at": "2026-09-12T18:48:30.231080+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -446,32 +446,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2074966018",
-      "name": "Next AI Art POP-UP",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
-      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2097484673",
       "name": "Next Art Nexus",
       "hasBooking": false,
@@ -494,6 +468,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2074966018",
+      "name": "Next AI Art POP-UP",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
+      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1598,7 +1598,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723408",
       "operationStart": "26.09.19.",
@@ -1632,7 +1632,8 @@
         "2026-09-11T20:51:59.556776+09:00",
         "2026-09-11T22:41:41.012797+09:00",
         "2026-09-12T07:12:50.116737+09:00",
-        "2026-09-12T10:43:18.953228+09:00"
+        "2026-09-12T10:43:18.953228+09:00",
+        "2026-09-12T18:48:17.270214+09:00"
       ],
       "bookingOpenAuto": "2026-09-01T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-08T14:03:35.025104+09:00",
@@ -1645,13 +1646,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009756357",
-      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
-      "ts": "2026-08-28T23:58:28.488993+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2017034437",
@@ -3044,6 +3038,13 @@
       "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "ts": "2026-09-12T18:31:25.358177+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2024677130",
+      "place_name": "2026 서리풀뮤직페스티벌",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
+      "ts": "2026-09-12T18:48:17.270214+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3178,7 +3179,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T18:42:40.735347+09:00",
+    "checked_at": "2026-09-12T18:48:17.270214+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
