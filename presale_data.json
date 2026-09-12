@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T16:04:36.860643+09:00",
+  "updated_at": "2026-09-12T16:10:16.688223+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -19,6 +19,7 @@
     "2067695542",
     "2069285502",
     "2070822797",
+    "2071088201",
     "2072857611",
     "2073188735",
     "2078141397",
@@ -444,32 +445,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2097484673",
-      "name": "Next Art Nexus",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.16.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
-      "roadAddress": "왕십리로 107",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2074966018",
       "name": "Next AI Art POP-UP",
       "hasBooking": false,
@@ -492,6 +467,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2097484673",
+      "name": "Next Art Nexus",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.16.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
+      "roadAddress": "왕십리로 107",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1452,6 +1453,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2071088201",
+      "name": "클리오 풍년다방 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
+      "bookingBusinessId": "1735456",
+      "operationStart": "26.09.23.",
+      "operationEnd": "26.10.02.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_152/17888659399741CKfJ_JPEG/edited-1788865940268-0.jpg",
+      "roadAddress": "뚝섬로 273 서울국제정원박람회 클리오 K-뷰티가든",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-12T16:10:02.493255+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-12T16:10:02.493255+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2012113406",
       "name": "방추리 복숭아카페 팝업스토어",
       "hasBooking": true,
@@ -1615,13 +1644,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2076235934",
-      "place_name": "뷰오리 드림니트 @성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1704534",
-      "ts": "2026-08-28T23:13:30.275333+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -3014,6 +3036,13 @@
       "place_name": "GU 26FW POP UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "ts": "2026-09-12T15:19:17.067063+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2071088201",
+      "place_name": "클리오 풍년다방 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
+      "ts": "2026-09-12T16:10:02.493255+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3114,6 +3143,7 @@
     "2070762822",
     "2070822797",
     "2071074882",
+    "2071088201",
     "2071746450",
     "2071913479",
     "2072326612",
@@ -3147,23 +3177,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T16:04:23.782159+09:00",
+    "checked_at": "2026-09-12T16:10:02.493255+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 885,
-    "presale_items": 191,
-    "after_district_filter": 100,
+    "candidate_items": 887,
+    "presale_items": 193,
+    "after_district_filter": 101,
     "fallback_matched": 0,
-    "unique_place_ids": 57,
-    "tracked_places": 57,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-11T10:19:25.181248+09:00",
+    "unique_place_ids": 58,
+    "tracked_places": 58,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-12T16:10:02.493255+09:00",
     "admission_names": {
       "(없음)": 449,
       "현장대기": 245,
-      "사전예약&현장대기": 152,
+      "사전예약&현장대기": 154,
       "사전예약": 39
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
