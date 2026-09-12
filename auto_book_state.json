@@ -222,19 +222,19 @@
   "mti3v8v5": {
     "name": "마녀공장",
     "last_run": {
-      "at": "2026-09-13T08:48:58+09:00",
+      "at": "2026-09-13T08:52:24+09:00",
       "sig": "2026-09-20|11:30",
       "date": "2026-09-20",
       "times": [
         "11:30"
       ],
-      "attempt": 1,
-      "lag_sec": 37.2,
-      "elapsed": 6.6,
+      "attempt": 2,
+      "lag_sec": 73.8,
+      "elapsed": 4.6,
       "account": 2,
       "success": false,
       "dry_run": false,
-      "unbookable": false,
+      "unbookable": true,
       "api_slots": [
         {
           "t": "11:00",
@@ -244,7 +244,7 @@
         {
           "t": "11:30",
           "stock": 45,
-          "booked": 44
+          "booked": 45
         },
         {
           "t": "12:00",
@@ -284,7 +284,7 @@
         {
           "t": "15:30",
           "stock": 45,
-          "booked": 8
+          "booked": 9
         },
         {
           "t": "16:00",
@@ -328,7 +328,7 @@
         }
       ],
       "evidence": null,
-      "message": "확정 단계에서 로그인 요구 — 계정2 쿠키 만료됨"
+      "message": "시간대 ['11:30']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
     }
   }
 }
