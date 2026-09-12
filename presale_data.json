@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T20:10:16.416645+09:00",
+  "updated_at": "2026-09-12T20:15:51.943766+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -183,7 +183,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -214,7 +214,8 @@
         "2026-09-11T22:13:52.281059+09:00",
         "2026-09-12T01:28:13.222705+09:00",
         "2026-09-12T05:50:08.837611+09:00",
-        "2026-09-12T15:19:17.067063+09:00"
+        "2026-09-12T15:19:17.067063+09:00",
+        "2026-09-12T20:15:39.633773+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -254,7 +255,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -446,32 +447,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2097484673",
-      "name": "Next Art Nexus",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.16.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
-      "roadAddress": "왕십리로 107",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2074966018",
       "name": "Next AI Art POP-UP",
       "hasBooking": false,
@@ -494,6 +469,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2097484673",
+      "name": "Next Art Nexus",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.16.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
+      "roadAddress": "왕십리로 107",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1646,13 +1647,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2017034437",
-      "place_name": "명탐정 코난 추리게임 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1524551",
-      "ts": "2026-08-29T00:21:09.774416+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2090850238",
@@ -3045,6 +3039,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-12T18:48:17.270214+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-12T20:15:39.633773+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3179,7 +3180,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T20:10:03.228439+09:00",
+    "checked_at": "2026-09-12T20:15:39.633773+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
