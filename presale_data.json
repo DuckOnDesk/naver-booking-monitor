@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-12T23:15:30.755641+09:00",
+  "updated_at": "2026-09-12T23:21:08.377576+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -183,7 +183,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -255,7 +255,7 @@
     {
       "id": "2009756357",
       "name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719529",
       "bookingBusinessId": "1719529",
       "operationStart": "26.09.05.",
@@ -277,7 +277,8 @@
         "2026-09-11T00:40:18.967533+09:00",
         "2026-09-12T05:44:38.558721+09:00",
         "2026-09-12T13:36:42.600157+09:00",
-        "2026-09-12T18:31:25.358177+09:00"
+        "2026-09-12T18:31:25.358177+09:00",
+        "2026-09-12T23:20:54.149851+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -447,32 +448,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2074966018",
-      "name": "Next AI Art POP-UP",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.11.",
-      "operationEnd": "26.09.13.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
-      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2097484673",
       "name": "Next Art Nexus",
       "hasBooking": false,
@@ -495,6 +470,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2074966018",
+      "name": "Next AI Art POP-UP",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.11.",
+      "operationEnd": "26.09.13.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_79/1788907868353Olpki_JPEG/edited-1788907867457-0.jpg",
+      "roadAddress": "왕십리로 114 슈퍼스페이스 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T18:46:55.275768+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1649,13 +1650,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-08-29T03:40:13.780802+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2075951781",
@@ -3048,6 +3042,13 @@
       "place_name": "콜라보카페 세이브포인트",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
       "ts": "2026-09-12T21:34:09.561494+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2009756357",
+      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
+      "ts": "2026-09-12T23:20:54.149851+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3182,7 +3183,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-12T23:15:17.237616+09:00",
+    "checked_at": "2026-09-12T23:20:54.149851+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
