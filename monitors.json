@@ -80,6 +80,13 @@
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mtzotv6b",
+      "name": "클리오 T5",
+      "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048481?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
