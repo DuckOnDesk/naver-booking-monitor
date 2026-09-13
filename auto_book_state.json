@@ -222,29 +222,24 @@
   "mti3v8v5": {
     "name": "마녀공장",
     "last_run": {
-      "at": "2026-09-13T10:44:30+09:00",
-      "sig": "2026-09-17|11:30",
-      "date": "2026-09-17",
+      "at": "2026-09-13T11:06:13+09:00",
+      "sig": "2026-09-13|11:30",
+      "date": "2026-09-13",
       "times": [
         "11:30"
       ],
-      "attempt": 11,
-      "lag_sec": 35.4,
-      "elapsed": 7.1,
+      "attempt": 1,
+      "lag_sec": 32.3,
+      "elapsed": 4.9,
       "account": 2,
       "success": false,
       "dry_run": false,
-      "unbookable": false,
+      "unbookable": true,
       "api_slots": [
-        {
-          "t": "11:00",
-          "stock": 45,
-          "booked": 45
-        },
         {
           "t": "11:30",
           "stock": 45,
-          "booked": 44
+          "booked": 45
         },
         {
           "t": "12:00",
@@ -254,67 +249,67 @@
         {
           "t": "12:30",
           "stock": 45,
-          "booked": 20
+          "booked": 45
         },
         {
           "t": "13:00",
           "stock": 45,
-          "booked": 16
+          "booked": 45
         },
         {
           "t": "13:30",
           "stock": 45,
-          "booked": 9
+          "booked": 45
         },
         {
           "t": "14:00",
           "stock": 45,
-          "booked": 14
+          "booked": 45
         },
         {
           "t": "14:30",
           "stock": 45,
-          "booked": 16
+          "booked": 45
         },
         {
           "t": "15:00",
           "stock": 45,
-          "booked": 24
+          "booked": 45
         },
         {
           "t": "15:30",
           "stock": 45,
-          "booked": 12
+          "booked": 45
         },
         {
           "t": "16:00",
           "stock": 25,
-          "booked": 10
+          "booked": 25
         },
         {
           "t": "16:30",
           "stock": 25,
-          "booked": 6
+          "booked": 25
         },
         {
           "t": "17:00",
           "stock": 25,
-          "booked": 11
+          "booked": 25
         },
         {
           "t": "17:30",
           "stock": 25,
-          "booked": 1
+          "booked": 25
         },
         {
           "t": "18:00",
           "stock": 25,
-          "booked": 9
+          "booked": 25
         },
         {
           "t": "18:30",
           "stock": 25,
-          "booked": 9
+          "booked": 25
         },
         {
           "t": "19:00",
@@ -324,11 +319,11 @@
         {
           "t": "19:30",
           "stock": 25,
-          "booked": 14
+          "booked": 25
         }
       ],
       "evidence": null,
-      "message": "확정 단계에서 로그인 요구 — 계정2 쿠키 만료됨"
+      "message": "시간대 ['11:30']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
     }
   }
 }
