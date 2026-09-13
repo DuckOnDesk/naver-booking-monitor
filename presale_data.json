@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-13T15:13:58.721794+09:00",
+  "updated_at": "2026-09-13T15:19:35.480141+09:00",
   "watched_places": [
     "2000187386",
     "2005264248",
@@ -223,7 +223,7 @@
     {
       "id": "2005264248",
       "name": "GU 26FW POP UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1729359",
       "bookingBusinessId": "1729359",
       "operationStart": "26.09.12.",
@@ -256,7 +256,8 @@
         "2026-09-12T05:50:08.837611+09:00",
         "2026-09-12T15:19:17.067063+09:00",
         "2026-09-12T20:15:39.633773+09:00",
-        "2026-09-13T00:56:10.263348+09:00"
+        "2026-09-13T00:56:10.263348+09:00",
+        "2026-09-13T15:19:22.856767+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1661,13 +1662,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2036674429",
-      "place_name": "소녀전선2 망명 갤러리",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
-      "ts": "2026-08-29T19:06:16.548776+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2040937553",
       "place_name": "프리카 성수 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
@@ -3058,6 +3052,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-13T12:47:34.684092+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2005264248",
+      "place_name": "GU 26FW POP UP",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
+      "ts": "2026-09-13T15:19:22.856767+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3192,7 +3193,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-13T15:13:46.165660+09:00",
+    "checked_at": "2026-09-13T15:19:22.856767+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
