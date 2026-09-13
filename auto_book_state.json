@@ -222,15 +222,15 @@
   "mti3v8v5": {
     "name": "마녀공장",
     "last_run": {
-      "at": "2026-09-13T10:17:34+09:00",
+      "at": "2026-09-13T10:22:00+09:00",
       "sig": "2026-09-17|11:30",
       "date": "2026-09-17",
       "times": [
         "11:30"
       ],
-      "attempt": 4,
-      "lag_sec": 31.4,
-      "elapsed": 8.4,
+      "attempt": 5,
+      "lag_sec": 39.9,
+      "elapsed": 5.9,
       "account": 2,
       "success": false,
       "dry_run": false,
