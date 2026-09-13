@@ -1753,7 +1753,6 @@
   "mtuo5elj:2026-09-29:scope": "",
   "mti3v8v5:auto_book_state": {
     "sig": "2026-09-14|11:00",
-    "attempts": 2,
-    "dispatched_at": "2026-09-13T16:32:59+09:00"
+    "attempts": 2
   }
 }
