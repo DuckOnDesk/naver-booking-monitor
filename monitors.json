@@ -66,6 +66,13 @@
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048365?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mtzot4pp",
+      "name": "클리오 T3",
+      "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048463?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
