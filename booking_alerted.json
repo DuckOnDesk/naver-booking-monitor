@@ -1833,9 +1833,9 @@
   },
   "mtuo5elj:2026-09-29:scope": "",
   "mti3v8v5:auto_book_state": {
-    "sig": "2026-09-13|11:30",
+    "sig": "2026-09-14|11:00",
     "attempts": 1,
-    "blocked_until": "2026-09-13T11:18:28+09:00"
+    "dispatched_at": "2026-09-13T11:34:12+09:00"
   },
   "mtindetp:url_closed": 1,
   "mtindetp:2026-09-13:closed": {
