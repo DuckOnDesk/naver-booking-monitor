@@ -1,5 +1,113 @@
 [
   {
+    "ts": "2026-09-13T10:42:59+09:00",
+    "item_id": "mti3v8v5",
+    "name": "마녀공장",
+    "date": "2026-09-17",
+    "times": [
+      "11:30"
+    ],
+    "account": 2,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 7.5,
+    "unbookable": false,
+    "api_slots": [
+      {
+        "t": "11:00",
+        "stock": 45,
+        "booked": 45
+      },
+      {
+        "t": "11:30",
+        "stock": 45,
+        "booked": 44
+      },
+      {
+        "t": "12:00",
+        "stock": 45,
+        "booked": 45
+      },
+      {
+        "t": "12:30",
+        "stock": 45,
+        "booked": 20
+      },
+      {
+        "t": "13:00",
+        "stock": 45,
+        "booked": 16
+      },
+      {
+        "t": "13:30",
+        "stock": 45,
+        "booked": 9
+      },
+      {
+        "t": "14:00",
+        "stock": 45,
+        "booked": 14
+      },
+      {
+        "t": "14:30",
+        "stock": 45,
+        "booked": 16
+      },
+      {
+        "t": "15:00",
+        "stock": 45,
+        "booked": 24
+      },
+      {
+        "t": "15:30",
+        "stock": 45,
+        "booked": 12
+      },
+      {
+        "t": "16:00",
+        "stock": 25,
+        "booked": 10
+      },
+      {
+        "t": "16:30",
+        "stock": 25,
+        "booked": 6
+      },
+      {
+        "t": "17:00",
+        "stock": 25,
+        "booked": 11
+      },
+      {
+        "t": "17:30",
+        "stock": 25,
+        "booked": 1
+      },
+      {
+        "t": "18:00",
+        "stock": 25,
+        "booked": 9
+      },
+      {
+        "t": "18:30",
+        "stock": 25,
+        "booked": 9
+      },
+      {
+        "t": "19:00",
+        "stock": 25,
+        "booked": 25
+      },
+      {
+        "t": "19:30",
+        "stock": 25,
+        "booked": 14
+      }
+    ],
+    "evidence": null,
+    "message": "확정 단계에서 로그인 요구 — 계정2 쿠키 만료됨"
+  },
+  {
     "ts": "2026-09-13T10:36:56+09:00",
     "item_id": "mti3v8v5",
     "name": "마녀공장",
