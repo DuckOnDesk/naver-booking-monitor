@@ -101,6 +101,13 @@
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048424?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mtzovems",
+      "name": "클리오 T8 (3-4)",
+      "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048499?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
