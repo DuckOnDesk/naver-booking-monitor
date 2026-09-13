@@ -222,15 +222,15 @@
   "mti3v8v5": {
     "name": "마녀공장",
     "last_run": {
-      "at": "2026-09-13T14:31:45+09:00",
-      "sig": "2026-09-16|11:30",
-      "date": "2026-09-16",
+      "at": "2026-09-13T15:06:48+09:00",
+      "sig": "2026-09-18|11:30",
+      "date": "2026-09-18",
       "times": [
         "11:30"
       ],
-      "attempt": 14,
-      "lag_sec": 28.6,
-      "elapsed": 8.2,
+      "attempt": 1,
+      "lag_sec": 34.4,
+      "elapsed": 7.9,
       "account": 2,
       "success": false,
       "dry_run": false,
@@ -254,77 +254,77 @@
         {
           "t": "12:30",
           "stock": 45,
-          "booked": 34
+          "booked": 31
         },
         {
           "t": "13:00",
           "stock": 45,
-          "booked": 13
+          "booked": 32
         },
         {
           "t": "13:30",
           "stock": 45,
-          "booked": 11
+          "booked": 14
         },
         {
           "t": "14:00",
           "stock": 45,
-          "booked": 21
+          "booked": 17
         },
         {
           "t": "14:30",
           "stock": 45,
-          "booked": 3
+          "booked": 20
         },
         {
           "t": "15:00",
           "stock": 45,
-          "booked": 9
+          "booked": 30
         },
         {
           "t": "15:30",
           "stock": 45,
-          "booked": 3
-        },
-        {
-          "t": "16:00",
-          "stock": 45,
-          "booked": 5
-        },
-        {
-          "t": "16:30",
-          "stock": 45,
-          "booked": 5
-        },
-        {
-          "t": "17:00",
-          "stock": 35,
-          "booked": 6
-        },
-        {
-          "t": "17:30",
-          "stock": 35,
-          "booked": 9
-        },
-        {
-          "t": "18:00",
-          "stock": 35,
-          "booked": 4
-        },
-        {
-          "t": "18:30",
-          "stock": 35,
-          "booked": 6
-        },
-        {
-          "t": "19:00",
-          "stock": 35,
           "booked": 12
         },
         {
+          "t": "16:00",
+          "stock": 25,
+          "booked": 14
+        },
+        {
+          "t": "16:30",
+          "stock": 25,
+          "booked": 22
+        },
+        {
+          "t": "17:00",
+          "stock": 25,
+          "booked": 14
+        },
+        {
+          "t": "17:30",
+          "stock": 25,
+          "booked": 15
+        },
+        {
+          "t": "18:00",
+          "stock": 25,
+          "booked": 10
+        },
+        {
+          "t": "18:30",
+          "stock": 25,
+          "booked": 18
+        },
+        {
+          "t": "19:00",
+          "stock": 25,
+          "booked": 24
+        },
+        {
           "t": "19:30",
-          "stock": 35,
-          "booked": 6
+          "stock": 25,
+          "booked": 15
         }
       ],
       "evidence": null,
