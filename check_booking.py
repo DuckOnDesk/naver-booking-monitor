@@ -618,8 +618,13 @@ def day_has_stock(day: dict | None) -> bool:
     return (day.get("stock") or 0) - (day.get("bookingCount") or 0) > 0
 
 
-def fetch_day_slots(parsed: dict, datekey: str, day: dict | None) -> dict:
+def fetch_day_slots(parsed: dict, datekey: str, day: dict | None,
+                    prefetched: dict | None = None) -> dict:
     """해당 날짜의 시간대 슬롯 조회 (fetch_slots + 일 단위 상품 보정).
+
+    prefetched: 호출자가 이미 같은 날짜로 fetch_slots를 부른 결과. 요약이 없는 날은
+    경로를 고르기 전에 슬롯을 먼저 봐야 하는데(synth_day_summary 참고), 여기서 또
+    부르면 같은 회차에 같은 요청이 두 번 나간다.
 
     시간대(hourly)를 아예 안 쓰고 일별 재고만 파는 상품이 있다. 그런 상품은 시간대가
     없다는 이유로 흘려보내면 자리가 나도 알림이 안 가므로, 하루 전체를 슬롯 하나로
@@ -631,7 +636,8 @@ def fetch_day_slots(parsed: dict, datekey: str, day: dict | None) -> dict:
     오브 뷰티가 매진인데 "[종일] 521자리" 알림이 나갔다. 이 상품의 일별 재고는
     영업시간 밖 유령 슬롯까지 더한 값이라 실제 정원보다 훨씬 크다.
     """
-    info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+    info = prefetched if prefetched is not None else fetch_slots(
+        parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
     if info["queried"] and info.get("api_slot_count") == 0 and day_has_stock(day):
         stock = day.get("stock") or 0
         booked = day.get("bookingCount") or 0
@@ -649,6 +655,37 @@ def fetch_day_slots(parsed: dict, datekey: str, day: dict | None) -> dict:
             }],
         }
     return info
+
+
+def synth_day_summary(datekey: str, slot_info: dict) -> dict | None:
+    """일별 요약(daily summary)이 없는 날짜를 시간대(hourly) 합계로 대신 만든다.
+
+    schedule API의 daily.summary에 판매일을 한 줄도 안 내려주는 상품이 있다
+    (클리오 팝업, businessTypeId 6 — 90일치 요약이 통째로 비어서 매 회차 "전체 날짜
+    스캔"으로 날짜를 찾아냈다). 감시 루프는 이 요약이 있어야 예약 가능 경로로
+    들어가므로, hourlySchedule이 "재고 14 / 예약 0"이라고 답하는 날짜까지 매 회차
+    "예약불가 (재고:14 / 예약:0)"로만 적히고 알림이 한 번도 나가지 않았다.
+    실제 예약 페이지에서는 그 시간대가 멀쩡히 잡히는 상태였다.
+
+    hourlySchedule은 같은 상품에서도 정상 응답한다. 그래서 요약이 없는 날은 슬롯
+    합계로 같은 모양의 요약을 만들어 준다 — 자리 판정은 어차피 슬롯 기준이고
+    (daily_note 참고), 요약은 경로를 여는 열쇠 역할만 한다.
+
+    슬롯이 하나도 없으면 None. "자리가 없다"가 아니라 "이 날짜는 볼 게 없다"는
+    뜻이므로 종전 매진 경로로 그대로 흘려보낸다.
+    """
+    slots = slot_info.get("all_slots") or []
+    if not slot_info.get("queried") or not slots:
+        return None
+    stock, booking = slot_totals(slots)
+    return {
+        "dateKey": datekey,
+        "stock": stock,
+        "bookingCount": booking,
+        "hasBookableSlots": stock > booking,
+        "isSaleDay": True,
+        "_synthetic": True,
+    }
 
 
 def fetch_calendar_day_status(service_id: int, biz_id: str, datekey: str) -> bool | None:
@@ -721,8 +758,10 @@ def _log_alert_diagnostics(name: str, date_str: str, day_summary: dict | None,
         for s in (ref_slots or [])
     ) or "없음"
     print(f"  [진단:{tag}] {name} {date_str}", flush=True)
+    synth = " (일별 요약 없음 → 시간대 합계로 대신 만든 값)" if d.get("_synthetic") else ""
     print(f"  [진단:{tag}]   daily  = hasBookableSlots={d.get('hasBookableSlots')} "
-          f"isSaleDay={d.get('isSaleDay')} stock={d.get('stock')} bookingCount={d.get('bookingCount')}", flush=True)
+          f"isSaleDay={d.get('isSaleDay')} stock={d.get('stock')} "
+          f"bookingCount={d.get('bookingCount')}{synth}", flush=True)
     print(f"  [진단:{tag}]   hourly = {slots}", flush=True)
     cal_label = (f"{cal_status}(True=가능/False=마감/None=판단불가)"
                  if CALENDAR_CROSSCHECK else "꺼짐(CALENDAR_CROSSCHECK=0)")
@@ -2407,12 +2446,22 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
 
             d = days_map.get(datekey)
 
+            # 일별 요약에 이 날짜가 아예 없는 상품이 있다. 그대로 두면 슬롯이 멀쩡히
+            # 남아 있어도 아래 매진 경로로 떨어져 "예약불가"로만 적힌다 → 시간대
+            # 합계로 요약을 대신 만들어 준다 (synth_day_summary 참고). 여기서 받아 둔
+            # 슬롯은 어느 경로로 가든 그대로 재사용해, 같은 요청이 두 번 나가지 않게 한다.
+            day_slots = None
+            if d is None:
+                day_slots = fetch_slots(parsed["biz_id"], parsed["item_id"],
+                                        parsed["service_id"], datekey)
+                d = synth_day_summary(datekey, day_slots)
+
             # hasBookableSlots는 시간대 슬롯이 있는 상품 기준이라, 일 단위로만 재고를
             # 내려주는 상품에서는 판매 중인데도 false로 온다. 판매일이고 일별 재고가
             # 남아 있으면 슬롯을 한 번 더 확인한다 (실제 마감 여부는 알림 직전
             # 캘린더 API 교차 확인이 걸러 준다).
             if d is not None and (d["hasBookableSlots"] or day_has_stock(d)):
-                slot_info = fetch_day_slots(parsed, datekey, d)
+                slot_info = fetch_day_slots(parsed, datekey, d, day_slots)
                 # 일 단위 상품은 고를 시간대가 없다 → 시간 범위 필터는 적용하지 않는다
                 is_day_unit = bool(slot_info.get("day_unit"))
 
@@ -2609,7 +2658,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                 if forget_slots(alerted, alert_key):
                     vanished_dates.append(datekey)
 
-                slot_info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                slot_info = day_slots if day_slots is not None else fetch_slots(
+                    parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
                 all_slots = slot_info.get("all_slots", [])
                 if time_range is not None:
                     _t_from, _t_to = time_range
