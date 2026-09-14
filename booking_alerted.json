@@ -905,12 +905,7 @@
   "mti3v8v5:2026-09-20:scope": "11:00-12:00",
   "mtssyscp:2026-10-24:scope": "",
   "mtssyscp:2026-10-25:scope": "",
-  "mtuo5elj:2026-09-14:stock": {
-    "17:00": [
-      1,
-      1
-    ]
-  },
+  "mtuo5elj:2026-09-14:stock": {},
   "mtuo5elj:2026-09-14:scope": "",
   "mtuo5elj:2026-09-15:stock": {
     "13:00": [
