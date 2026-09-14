@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-14T11:24:19.037804+09:00",
+  "updated_at": "2026-09-14T11:29:54.950041+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -7,6 +7,7 @@
     "2022056721",
     "2024677130",
     "2033849367",
+    "2036044979",
     "2046294128",
     "2046629824",
     "2048261612",
@@ -472,6 +473,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2036044979",
+      "name": "컬렉터블 콘 서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.03.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260911_288/1789105548983IxqAE_JPEG/edited-1789105548810-0.jpg",
+      "roadAddress": "성수이로 72 스페이스X차봇 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-14T11:29:44.632328+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1388,13 +1415,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2036674429",
-      "place_name": "소녀전선2 망명 갤러리",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
-      "ts": "2026-08-29T22:34:46.167394+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2787,6 +2807,13 @@
       "place_name": "콜라보카페 세이브포인트",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
       "ts": "2026-09-14T11:07:13.610563+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2036044979",
+      "place_name": "컬렉터블 콘 서울",
+      "booking_url": "",
+      "ts": "2026-09-14T11:29:44.632328+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2842,6 +2869,7 @@
     "2033013073",
     "2033849367",
     "2034762449",
+    "2036044979",
     "2036674429",
     "2038805228",
     "2039106013",
@@ -2922,23 +2950,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-14T11:24:07.323627+09:00",
+    "checked_at": "2026-09-14T11:29:44.632328+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 767,
-    "presale_items": 168,
-    "after_district_filter": 87,
+    "candidate_items": 772,
+    "presale_items": 173,
+    "after_district_filter": 89,
     "fallback_matched": 0,
-    "unique_place_ids": 50,
-    "tracked_places": 50,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-14T10:55:55.617661+09:00",
+    "unique_place_ids": 51,
+    "tracked_places": 51,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-14T11:29:44.632328+09:00",
     "admission_names": {
       "(없음)": 374,
       "현장대기": 225,
-      "사전예약&현장대기": 127,
+      "사전예약&현장대기": 132,
       "사전예약": 41
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
