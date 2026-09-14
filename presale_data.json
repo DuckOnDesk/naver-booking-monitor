@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-14T12:09:04.198601+09:00",
+  "updated_at": "2026-09-14T12:14:37.047936+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -477,32 +477,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2036044979",
-      "name": "컬렉터블 콘 서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.02.",
-      "operationEnd": "26.10.03.",
-      "remainingDays": 18,
-      "status": "D-18",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260911_288/1789105548983IxqAE_JPEG/edited-1789105548810-0.jpg",
-      "roadAddress": "성수이로 72 스페이스X차봇 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-14T11:29:44.632328+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
       "hasBooking": true,
@@ -528,6 +502,32 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-12T16:10:02.493255+09:00",
       "lastBookingNotifiedAt": "2026-09-12T16:15:56.883529+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2036044979",
+      "name": "컬렉터블 콘 서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.03.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260911_288/1789105548983IxqAE_JPEG/edited-1789105548810-0.jpg",
+      "roadAddress": "성수이로 72 스페이스X차봇 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-14T11:29:44.632328+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1186,9 +1186,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-14T12:14:35.707549+09:00",
       "bookingIsOpened": false
     },
     {
@@ -2923,12 +2923,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-14T12:08:53.728244+09:00",
+    "checked_at": "2026-09-14T12:14:25.461001+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 772,
+    "candidate_items": 777,
     "presale_items": 172,
     "after_district_filter": 88,
     "fallback_matched": 0,
@@ -2937,7 +2937,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-14T11:29:44.632328+09:00",
     "admission_names": {
-      "(없음)": 376,
+      "(없음)": 381,
       "현장대기": 224,
       "사전예약&현장대기": 131,
       "사전예약": 41
