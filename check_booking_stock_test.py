@@ -22,7 +22,8 @@
   - 자리 알림이 나가는 회차에는 📊 알림을 접는다 (로그 줄은 그대로 남는다)
   - 🔒 상태에서 자리가 줄었다가 다시 나면 알림이 나간다 (누락 회귀)
   - STOCK_CHANGE_NTFY=0이면 로그만 남고 알림은 안 나간다
-  - 감시 날짜/시간을 바꾼 회차는 "감시 날짜/시간 변경"으로 알리고, 감시 중 시간대의
+  - 감시 날짜/시간을 바꾼 회차는 로그만 남긴다 (SCOPE_CHANGE_NTFY=1이면 알림도).
+    그 회차는 "감시 날짜/시간 변경"으로 적고, 감시 중 시간대의
     재고·잔여 증감만 적는다 (범위 밖 시간대를 "사라짐"으로 읽지 않는다)
 
 사용법: python check_booking_stock_test.py
@@ -295,26 +296,44 @@ def main() -> int:
     check("t1:2000-01-01:stock" not in alerted, "지난 날짜 스냅샷 삭제")
     check("t1:url_closed" in alerted, "다른 키는 건드리지 않음")
 
-    print("11) 감시 날짜/시간을 바꾼 회차는 '감시 날짜/시간 변경'으로 알린다")
+    print("11) 감시 날짜/시간을 바꾼 회차는 로그만 남긴다 (알림 없음)")
     #    2026-09-09 마녀공장: 감시를 11:00-12:00으로 좁힌 직후 회차에 12:30~18:00이
     #    통째로 "시간대 사라짐"으로 나갔다. 업체가 내린 게 아니라 우리가 안 보기로
     #    한 것이므로, 범위 밖 시간대는 본문에서 빼고 감시 중 시간대만 적는다.
-    def scope_call(alerted, cur_slots, scope):
+    #    알림 자체는 기본으로 안 보낸다 — 내가 바꾼 걸 되돌려 알릴 이유가 없다.
+    def scope_call(alerted, cur_slots, scope, notify_scope=False):
+        """(payload, 로그) 반환. notify_scope=True면 SCOPE_CHANGE_NTFY를 켠 셈."""
         import builtins
         real_print = builtins.print
-        builtins.print = lambda *a, **kw: None
+        logs: list = []
+        builtins.print = lambda *a, **kw: logs.append(" ".join(str(x) for x in a))
+        prev_flag = cb.SCOPE_CHANGE_NTFY
+        cb.SCOPE_CHANGE_NTFY = notify_scope
         try:
             payloads = cb.note_stock_change(alerted, "t1", D, "테스트", "09-12(토)", URL,
                                             cur_slots, "00:00:00", False, scope=scope)
-            return payloads[0] if payloads else None
+            return (payloads[0] if payloads else None), "\n".join(logs)
         finally:
+            cb.SCOPE_CHANGE_NTFY = prev_flag
             builtins.print = real_print
 
     watched = {"11:00": [45, 45], "11:30": [45, 45], "12:00": [45, 45]}
-    alerted = {f"t1:{D}:stock": {**watched, "12:30": [45, 45], "13:00": [45, 30]},
-               f"t1:{D}:scope": ""}
-    payload = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 43),
-                                   raw("12:00", 45, 45)], "11:00-12:00")
+    narrowed = {f"t1:{D}:stock": {**watched, "12:30": [45, 45], "13:00": [45, 30]},
+                f"t1:{D}:scope": ""}
+    cur = [raw("11:00", 45, 45), raw("11:30", 45, 43), raw("12:00", 45, 45)]
+
+    check(not cb.SCOPE_CHANGE_NTFY, "SCOPE_CHANGE_NTFY 기본값은 끔")
+    alerted = dict(narrowed)
+    payload, logs = scope_call(alerted, cur, "11:00-12:00")
+    check(payload is None, f"알림 없음 (실제: {payload})")
+    check("감시 날짜/시간 변경" in logs, f"로그에는 남는다 (실제: {logs})")
+    check("감시 하루 전체→11:00-12:00" in logs, f"바뀐 범위 표기 (실제: {logs})")
+    check(alerted.get(f"t1:{D}:scope") == "11:00-12:00",
+          f"바뀐 범위 저장 (실제: {alerted.get(f't1:{D}:scope')})")
+
+    print("11-0) SCOPE_CHANGE_NTFY=1이면 종전처럼 알린다")
+    alerted = dict(narrowed)
+    payload, _ = scope_call(alerted, cur, "11:00-12:00", notify_scope=True)
     check(payload is not None and "감시 날짜/시간 변경" in payload["title"],
           f"라벨 (실제: {payload and payload['title']})")
     body = payload["body"] if payload else ""
@@ -323,26 +342,25 @@ def main() -> int:
     check("11:30 잔여 0→2" in body, f"감시 중 시간대 증감 (실제: {body})")
     check("12:30" not in body and "13:00" not in body and "사라짐" not in body,
           f"감시에서 빠진 시간대는 안 적는다 (실제: {body})")
-    check(alerted.get(f"t1:{D}:scope") == "11:00-12:00",
-          f"바뀐 범위 저장 (실제: {alerted.get(f't1:{D}:scope')})")
 
     print("11-1) 범위가 그대로면 종전 라벨로 돌아온다")
-    payload = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 43)],
-                         "11:00-12:00")
+    payload, _ = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 43)],
+                            "11:00-12:00")
     check(payload is not None and "시간대 사라짐" in payload["title"],
           f"같은 범위에서 사라진 시간대는 그대로 잡는다 (실제: {payload and payload['title']})")
     check("12:00 사라짐" in payload["body"], f"사라진 시간대 표기 (실제: {payload['body']})")
 
     print("11-2) 범위 기록이 없는 종전 스냅샷은 범위 변경으로 치지 않는다")
     alerted = {f"t1:{D}:stock": {"11:00": [45, 45], "11:30": [45, 45]}}
-    payload = scope_call(alerted, [raw("11:00", 45, 45)], "11:00-12:00")
+    payload, _ = scope_call(alerted, [raw("11:00", 45, 45)], "11:00-12:00")
     check(payload is not None and "시간대 사라짐" in payload["title"],
           f"첫 회차는 종전대로 (실제: {payload and payload['title']})")
 
     print("11-3) 감시 중 시간대에 변동이 없으면 그렇게 적는다")
     alerted = {f"t1:{D}:stock": {**watched, "12:30": [45, 45]}, f"t1:{D}:scope": ""}
-    payload = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 45),
-                                   raw("12:00", 45, 45)], "11:00-12:00")
+    payload, _ = scope_call(alerted, [raw("11:00", 45, 45), raw("11:30", 45, 45),
+                                      raw("12:00", 45, 45)], "11:00-12:00",
+                            notify_scope=True)
     check(payload is not None and "시간대 별 재고 변동 없음" in payload["body"],
           f"변동 없음 표기 (실제: {payload and payload['body']})")
 

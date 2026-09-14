@@ -45,6 +45,8 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
           LOG_TICK_MIN (무변동이 이어질 때 살아 있음을 알리는 간격, 기본 10분)
           URL_RECHECK_SEC (열려 있는 항목의 예약창 재확인 간격, 기본 300초)
           STOCK_CHANGE_NTFY (0이면 재고·예약 변동을 로그로만 남기고 알림은 끔, 기본 켬)
+          SCOPE_CHANGE_NTFY (감시 날짜/시간을 바꾼 회차의 알림, 기본 끔 — 내가 바꾼
+                             것이라 알림받을 이유가 없다. 로그에는 그대로 남는다)
           STOCK_CHANGE_MAX_PARTS (재고·예약 변동 본문에 적을 시간대 개수 상한, 기본 8)
           RATE_LIMIT_RECOVER_ROUNDS (속도 제한 백오프를 한 칸 되돌리는 데 필요한
                                      연속 정상 회차 수, 기본 3)
@@ -160,6 +162,11 @@ CALENDAR_CROSSCHECK = os.environ.get("CALENDAR_CROSSCHECK", "0") != "0"
 # 워크플로가 저장소 변수를 그대로 넘기므로, 변수를 안 만들었을 때 들어오는 빈
 # 문자열은 기본값(켬)으로 되돌린다 (_env_num 주석 참고).
 STOCK_CHANGE_NTFY = (os.environ.get("STOCK_CHANGE_NTFY") or "1").strip() != "0"
+# 감시 날짜/시간(target_dates)을 바꾼 회차에 ntfy 알림까지 보낼지 (0 = 로그만 남김).
+# 이 회차는 업체가 자리를 건드린 게 아니라 내가 감시 범위를 바꾼 것이라, 알림을 받아
+# 봐야 이미 아는 이야기다. 바뀐 범위와 감시 중 시간대의 증감은 📊 로그 줄에 그대로
+# 남으므로 나중에 되짚을 수 있다. 기본은 끔.
+SCOPE_CHANGE_NTFY = os.environ.get("SCOPE_CHANGE_NTFY", "0") != "0"
 # 알림 본문에 적을 시간대별 변경 내역의 최대 개수.
 STOCK_CHANGE_MAX_PARTS = _env_num("STOCK_CHANGE_MAX_PARTS", 8)
 
@@ -1330,9 +1337,10 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
         summary = (f"감시 {_scope_label(prev_scope)}→{_scope_label(scope)} · "
                    f"재고 {c_stock} · 잔여 {c_stock - c_booking}")
         print(f"[{now_str}] 📊 {name} {date_str} {summary} · {label} — {detail}", flush=True)
-        if not notify:
+        # 업체도 예약도 움직이지 않았다 — 내가 비교 기준을 바꾼 회차다. 내가 한 일을
+        # 되돌려 알릴 이유가 없어 기본은 로그까지다 (SCOPE_CHANGE_NTFY=1로 다시 켠다).
+        if not (notify and SCOPE_CHANGE_NTFY):
             return []
-        # 업체도 예약도 움직이지 않았다 — 우리가 비교 기준을 바꾼 회차다.
         return [{"title": f"⚙️ {name} {label} — 비교 기준 다시 잡음",
                  "body": f"{date_str} {summary}\n{detail}", "url": url}]
 
