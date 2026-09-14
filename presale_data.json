@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-14T16:43:12.062371+09:00",
+  "updated_at": "2026-09-14T16:48:54.081779+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -1271,9 +1271,9 @@
     {
       "id": "2048261612",
       "name": "가누다 까르마 현대백화점 목동점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736378",
+      "bookingBusinessId": "1736378",
       "operationStart": "26.09.14.",
       "operationEnd": "26.09.30.",
       "remainingDays": null,
@@ -1284,14 +1284,16 @@
       "commonAddress": "서울 양천구",
       "district": "양천구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-14T16:48:40.692468+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-09-14T10:55:55.617661+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-14T16:48:53.002059+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1441,13 +1443,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-08-30T11:08:57.095104+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -2840,6 +2835,13 @@
       "place_name": "블랙야크 더현대서울",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735801/search",
       "ts": "2026-09-14T16:20:58.122171+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2048261612",
+      "place_name": "가누다 까르마 현대백화점 목동점 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1736378",
+      "ts": "2026-09-14T16:48:40.692468+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2978,7 +2980,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-14T16:43:00.729571+09:00",
+    "checked_at": "2026-09-14T16:48:40.692468+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
