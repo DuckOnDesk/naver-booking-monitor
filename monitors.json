@@ -60,103 +60,56 @@
       "name": "클리오 T2",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048365?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-23 18:00-24:00",
-        "2026-09-28 18:00-24:00",
-        "2026-09-29 18:00-24:00",
-        "2026-09-30 18:00-24:00",
-        "2026-10-01 18:00-24:00",
-        "2026-10-02 18:00-24:00"
-      ]
+      "target_dates": []
     },
     {
       "id": "mtzot4pp",
       "name": "클리오 T3",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048463?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-23 18:00-24:00",
-        "2026-09-28 18:00-24:00",
-        "2026-09-29 18:00-24:00",
-        "2026-09-30 18:00-24:00",
-        "2026-10-01 18:00-24:00",
-        "2026-10-02 18:00-24:00"
-      ]
+      "target_dates": []
     },
     {
       "id": "mtzotglu",
       "name": "클리오 T4",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-23 18:00-24:00",
-        "2026-09-28 18:00-24:00",
-        "2026-09-29 18:00-24:00",
-        "2026-09-30 18:00-24:00",
-        "2026-10-01 18:00-24:00",
-        "2026-10-02 18:00-24:00"
-      ]
+      "target_dates": []
     },
     {
       "id": "mtzotv6b",
       "name": "클리오 T5",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048481?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-23 18:00-24:00",
-        "2026-09-28 18:00-24:00",
-        "2026-09-29 18:00-24:00",
-        "2026-09-30 18:00-24:00",
-        "2026-10-01 18:00-24:00",
-        "2026-10-02 18:00-24:00"
-      ]
+      "target_dates": []
     },
     {
       "id": "mtzoul9a",
       "name": "클리오 T6",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048495?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-23 18:00-24:00",
-        "2026-09-28 18:00-24:00",
-        "2026-09-29 18:00-24:00",
-        "2026-09-30 18:00-24:00",
-        "2026-10-01 18:00-24:00",
-        "2026-10-02 18:00-24:00"
-      ]
+      "target_dates": []
     },
     {
       "id": "mtzov4lr",
       "name": "클리오 T7 (3-4)",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048424?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-24",
-        "2026-09-26",
-        "2026-09-27"
-      ]
+      "target_dates": []
     },
     {
       "id": "mtzovems",
       "name": "클리오 T8 (3-4)",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048499?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-24",
-        "2026-09-26",
-        "2026-09-27"
-      ]
+      "target_dates": []
     },
     {
       "id": "mtzovq2r",
       "name": "클리오 T9 (3-4)",
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048506?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
-      "target_dates": [
-        "2026-09-24",
-        "2026-09-26",
-        "2026-09-27"
-      ]
+      "target_dates": []
     }
   ]
 }
