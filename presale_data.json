@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-14T11:18:41.362757+09:00",
+  "updated_at": "2026-09-14T11:24:19.037804+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -1280,7 +1280,7 @@
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260828_86/1787884597733pryPi_JPEG/edited-1787884597350-0.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260914_258/1789352051135yW52a_JPEG/image.jpg",
       "roadAddress": "디지털로 185 마리오아울렛 1관 5층",
       "commonAddress": "서울 금천구",
       "district": "금천구",
@@ -2922,7 +2922,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-14T11:18:29.862095+09:00",
+    "checked_at": "2026-09-14T11:24:07.323627+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
