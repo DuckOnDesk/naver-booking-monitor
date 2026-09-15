@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T12:14:28.939173+09:00",
+  "updated_at": "2026-09-15T12:20:06.270515+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -370,7 +370,7 @@
     {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "bookingBusinessId": "1717462",
       "operationStart": "26.09.17.",
@@ -384,7 +384,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-15T09:53:15.063515+09:00"
+        "2026-09-15T09:53:15.063515+09:00",
+        "2026-09-15T12:19:54.058257+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1458,13 +1459,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2075951781",
-      "place_name": "판도라 플레이그라운드: Pick & Play",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
-      "ts": "2026-08-31T05:46:29.636729+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2090850238",
@@ -2857,6 +2851,13 @@
       "place_name": "블랙야크 더현대서울",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735801/search",
       "ts": "2026-09-15T11:23:34.937047+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-09-15T12:19:54.058257+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2995,7 +2996,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-15T12:14:18.288519+09:00",
+    "checked_at": "2026-09-15T12:19:54.058257+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
