@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T14:50:28.135488+09:00",
+  "updated_at": "2026-09-15T14:56:07.382228+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -218,9 +218,9 @@
     {
       "id": "2018920557",
       "name": "텐먼스 성수 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1737304",
+      "bookingBusinessId": "1737304",
       "operationStart": "26.09.12.",
       "operationEnd": "26.10.11.",
       "remainingDays": null,
@@ -231,7 +231,9 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-15T14:55:54.724684+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
@@ -539,32 +541,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2036044979",
-      "name": "컬렉터블 콘 서울",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.02.",
-      "operationEnd": "26.10.03.",
-      "remainingDays": 17,
-      "status": "D-17",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260911_288/1789105548983IxqAE_JPEG/edited-1789105548810-0.jpg",
-      "roadAddress": "성수이로 72 스페이스X차봇 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-14T11:29:44.632328+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2035313838",
       "name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
       "hasBooking": false,
@@ -587,6 +563,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-15T13:04:44.075208+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2036044979",
+      "name": "컬렉터블 콘 서울",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.03.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260911_288/1789105548983IxqAE_JPEG/edited-1789105548810-0.jpg",
+      "roadAddress": "성수이로 72 스페이스X차봇 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-14T11:29:44.632328+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1479,13 +1481,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2075951781",
-      "place_name": "판도라 플레이그라운드: Pick & Play",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
-      "ts": "2026-08-31T12:27:38.634882+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2878,6 +2873,13 @@
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "ts": "2026-09-15T14:18:05.642815+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2018920557",
+      "place_name": "텐먼스 성수 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1737304",
+      "ts": "2026-09-15T14:55:54.724684+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3017,12 +3019,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-15T14:50:16.007952+09:00",
+    "checked_at": "2026-09-15T14:55:54.724684+09:00",
     "areas_total": 34,
-    "areas_ok": 34,
+    "areas_ok": 33,
     "areas_failed": 0,
-    "areas_empty": 0,
-    "candidate_items": 850,
+    "areas_empty": 1,
+    "candidate_items": 846,
     "presale_items": 184,
     "after_district_filter": 93,
     "fallback_matched": 0,
@@ -3031,7 +3033,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-15T13:04:44.075208+09:00",
     "admission_names": {
-      "(없음)": 438,
+      "(없음)": 434,
       "현장대기": 228,
       "사전예약&현장대기": 143,
       "사전예약": 41
