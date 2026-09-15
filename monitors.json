@@ -39,7 +39,8 @@
         "mode": "immediate",
         "start_at": null,
         "saved_at": "2026-09-13T08:28:35.321Z"
-      }
+      },
+      "mute": true
     },
     {
       "id": "mtssyscp",
