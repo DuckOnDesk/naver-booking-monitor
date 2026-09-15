@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T13:10:36.565587+09:00",
+  "updated_at": "2026-09-15T13:16:12.954839+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -265,32 +265,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2097484673",
-      "name": "Next Art Nexus",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.16.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
-      "roadAddress": "왕십리로 107",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2055941674",
       "name": "안녕 : 안유진 X 장원영 미디어아트 전시",
       "hasBooking": false,
@@ -313,6 +287,32 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "discoveredAt": "2026-09-08T11:20:30.140278+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2097484673",
+      "name": "Next Art Nexus",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.10.",
+      "operationEnd": "26.09.16.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_250/1789043848794HM6CR_JPEG/edited-1789043848080-0.jpg",
+      "roadAddress": "왕십리로 107",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-11T10:19:25.181248+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -780,9 +780,9 @@
     {
       "id": "2090283048",
       "name": "세리안 청담",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736830",
+      "bookingBusinessId": "1736830",
       "operationStart": "26.09.14.",
       "operationEnd": "26.10.30.",
       "remainingDays": null,
@@ -793,7 +793,9 @@
       "commonAddress": "서울 강남구",
       "district": "강남구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-15T13:16:00.700133+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
@@ -1486,13 +1488,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-08-31T09:26:20.331021+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2885,6 +2880,13 @@
       "place_name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
       "booking_url": "",
       "ts": "2026-09-15T13:04:44.075208+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2090283048",
+      "place_name": "세리안 청담",
+      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1736830",
+      "ts": "2026-09-15T13:16:00.700133+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3024,12 +3026,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-15T13:10:24.356427+09:00",
+    "checked_at": "2026-09-15T13:16:00.700133+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 831,
+    "candidate_items": 835,
     "presale_items": 184,
     "after_district_filter": 93,
     "fallback_matched": 0,
@@ -3038,7 +3040,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-15T13:04:44.075208+09:00",
     "admission_names": {
-      "(없음)": 419,
+      "(없음)": 423,
       "현장대기": 228,
       "사전예약&현장대기": 143,
       "사전예약": 41
