@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T22:31:00.688528+09:00",
+  "updated_at": "2026-09-15T22:36:40.265927+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -953,7 +953,7 @@
       "remainingDays": 16,
       "status": "D-16",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_27/17890466455529tjUw_JPEG/edited-1789046643657-0.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260915_128/1789478898614Bz4PL_PNG/image.png",
       "roadAddress": "여의대로 108 지하2층 ATTAG",
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
@@ -2993,7 +2993,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-15T22:30:46.909818+09:00",
+    "checked_at": "2026-09-15T22:36:26.056815+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
