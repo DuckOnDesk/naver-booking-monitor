@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T12:59:17.588417+09:00",
+  "updated_at": "2026-09-15T13:04:55.805834+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -8,6 +8,7 @@
     "2024677130",
     "2033849367",
     "2034884894",
+    "2035313838",
     "2036044979",
     "2043213423",
     "2046294128",
@@ -560,6 +561,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2035313838",
+      "name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.19.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260914_133/1789382241817d1ShY_JPEG/edited-1789382241509-0.jpg",
+      "roadAddress": "연무장7길 16 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-15T13:04:44.075208+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2015464753",
       "name": "소담몰 (with 팝업스토어)",
       "hasBooking": false,
@@ -643,7 +670,7 @@
     },
     {
       "id": "2057558383",
-      "name": "위아자 에코빌리지 '지구우체국' 팝업",
+      "name": "위아자 나눔위크 '지구체육관'",
       "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
@@ -653,7 +680,7 @@
       "status": "D-38",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260821_125/1787280223485CSQi4_JPEG/edited-1787280222546-0.jpg",
-      "roadAddress": "동교로30길 21 스페이스비 연남",
+      "roadAddress": "양화로23길 22-7 에코빌리지",
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
@@ -1459,13 +1486,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2090850238",
-      "place_name": "NCT 127 [BLINGY] POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
-      "ts": "2026-08-31T08:47:03.773706+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039106013",
@@ -2858,6 +2878,13 @@
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "ts": "2026-09-15T12:19:54.058257+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2035313838",
+      "place_name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-09-15T13:04:44.075208+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2915,6 +2942,7 @@
     "2033849367",
     "2034762449",
     "2034884894",
+    "2035313838",
     "2036044979",
     "2036674429",
     "2038805228",
@@ -2996,23 +3024,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-15T12:59:05.321907+09:00",
+    "checked_at": "2026-09-15T13:04:44.075208+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 815,
-    "presale_items": 180,
-    "after_district_filter": 91,
+    "candidate_items": 830,
+    "presale_items": 184,
+    "after_district_filter": 93,
     "fallback_matched": 0,
-    "unique_place_ids": 52,
-    "tracked_places": 52,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-14T14:11:43.076476+09:00",
+    "unique_place_ids": 53,
+    "tracked_places": 53,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-15T13:04:44.075208+09:00",
     "admission_names": {
-      "(없음)": 414,
-      "현장대기": 221,
-      "사전예약&현장대기": 139,
+      "(없음)": 418,
+      "현장대기": 228,
+      "사전예약&현장대기": 143,
       "사전예약": 41
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
