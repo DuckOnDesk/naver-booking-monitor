@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-15T13:16:12.954839+09:00",
+  "updated_at": "2026-09-15T13:21:50.946423+09:00",
   "watched_places": [
     "2000187386",
     "2007085220",
@@ -1177,32 +1177,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2054914344",
-      "name": "사각사각 펜페스트",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1729407",
-      "bookingBusinessId": "1729407",
-      "operationStart": "26.10.17.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 32,
-      "status": "D-32",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_108/1788245255749wMcQB_JPEG/edited-1788245254451-0.jpg",
-      "roadAddress": "명동11길 14 커뮤니티하우스 마실",
-      "commonAddress": "서울 중구",
-      "district": "중구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-08T11:26:38.481917+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2050153907",
       "name": "패브릭 도쿄 [팝업 스토어]",
       "hasBooking": true,
@@ -1226,6 +1200,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:37.421114+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2054914344",
+      "name": "사각사각 펜페스트",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1729407",
+      "bookingBusinessId": "1729407",
+      "operationStart": "26.10.17.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 32,
+      "status": "D-32",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_108/1788245255749wMcQB_JPEG/edited-1788245254451-0.jpg",
+      "roadAddress": "명동11길 14 커뮤니티하우스 마실",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T11:26:38.481917+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3026,7 +3026,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-15T13:16:00.700133+09:00",
+    "checked_at": "2026-09-15T13:21:39.160630+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
