@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-16T13:20:32.744174+09:00",
+  "updated_at": "2026-09-16T13:26:10.957913+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -979,9 +979,9 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544",
+      "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
       "operationEnd": "26.10.07.",
       "remainingDays": 15,
@@ -992,7 +992,9 @@
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-16T13:25:58.352022+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
@@ -1517,13 +1519,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2090850238",
-      "place_name": "NCT 127 [BLINGY] POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1707377",
-      "ts": "2026-08-31T20:09:45.825034+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2083897134",
@@ -2916,6 +2911,13 @@
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "ts": "2026-09-16T12:29:45.799888+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015914479",
+      "place_name": "블루 록 2026 더 라스트 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544",
+      "ts": "2026-09-16T13:25:58.352022+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3057,7 +3059,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-16T13:20:20.325519+09:00",
+    "checked_at": "2026-09-16T13:25:58.352022+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
