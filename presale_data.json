@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-17T03:48:59.093045+09:00",
+  "updated_at": "2026-09-17T03:54:35.597827+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1114,7 +1114,7 @@
     {
       "id": "2033849367",
       "name": "소머드 롯데본점 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -1128,7 +1128,8 @@
       "district": "중구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-10T06:56:19.408642+09:00"
+        "2026-09-10T06:56:19.408642+09:00",
+        "2026-09-17T03:54:22.055125+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1517,13 +1518,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2083897134",
-      "place_name": "스포티파이 하우스 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
-      "ts": "2026-08-31T21:10:38.551703+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2090850238",
@@ -2916,6 +2910,13 @@
       "place_name": "블루 록 2026 더 라스트 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544",
       "ts": "2026-09-16T13:25:58.352022+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 롯데본점 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-09-17T03:54:22.055125+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3057,7 +3058,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-17T03:48:45.636044+09:00",
+    "checked_at": "2026-09-17T03:54:22.055125+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
