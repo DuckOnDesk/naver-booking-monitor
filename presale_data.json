@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-16T16:38:31.442083+09:00",
+  "updated_at": "2026-09-16T16:44:12.217301+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1275,12 +1275,12 @@
       "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1734674",
       "bookingBusinessId": "1734674",
-      "operationStart": "26.09.10.",
-      "operationEnd": "26.09.16.",
+      "operationStart": "26.09.16.",
+      "operationEnd": "26.09.30.",
       "remainingDays": null,
-      "status": "진행중",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_122/1788857366206V3vTd_JPEG/edited-1788857365750-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_42/1789543443940zbGvj_JPEG/edited-1789543443491-2.jpg",
       "roadAddress": "신촌로 83 현대백화점 신촌 U-PLEX 지하2층",
       "commonAddress": "서울 서대문구",
       "district": "서대문구",
@@ -3059,12 +3059,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-16T16:38:18.901449+09:00",
+    "checked_at": "2026-09-16T16:44:00.210984+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 909,
+    "candidate_items": 923,
     "presale_items": 185,
     "after_district_filter": 95,
     "fallback_matched": 0,
@@ -3073,8 +3073,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-16T11:16:56.254468+09:00",
     "admission_names": {
-      "(없음)": 484,
-      "현장대기": 240,
+      "(없음)": 500,
+      "현장대기": 238,
       "사전예약&현장대기": 145,
       "사전예약": 40
     },
