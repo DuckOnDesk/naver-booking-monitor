@@ -1,10 +1,11 @@
 {
-  "updated_at": "2026-09-16T11:11:28.171733+09:00",
+  "updated_at": "2026-09-16T11:17:08.221494+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
     "2007085220",
     "2008186282",
+    "2013115098",
     "2015282909",
     "2022056721",
     "2023862125",
@@ -895,32 +896,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2008186282",
-      "name": "DAYOUT",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.15.",
-      "operationEnd": "26.10.17.",
-      "remainingDays": 29,
-      "status": "D-29",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260910_144/1789021753255Q5jVp_PNG/image.png",
-      "roadAddress": "올림픽로 300 잠실 롯데월드타워 잔디광장",
-      "commonAddress": "서울 송파구",
-      "district": "송파구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-16T10:14:34.228908+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2034884894",
       "name": "라리가웹툰 팝업스토어",
       "hasBooking": true,
@@ -944,6 +919,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-16T02:08:30.595700+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2008186282",
+      "name": "DAYOUT",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.17.",
+      "remainingDays": 29,
+      "status": "D-29",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260910_144/1789021753255Q5jVp_PNG/image.png",
+      "roadAddress": "올림픽로 300 잠실 롯데월드타워 잔디광장",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-16T10:14:34.228908+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1290,6 +1291,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2013115098",
+      "name": "BOOUP WEB3 POP-UP",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.30.",
+      "operationEnd": "26.09.30.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260915_59/1789470920670l9d8F_JPEG/edited-1789470920647-0.jpg",
+      "roadAddress": "봉은사로68길 35-1",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-16T11:16:56.254468+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2012113406",
       "name": "방추리 복숭아카페 팝업스토어",
       "hasBooking": true,
@@ -1487,13 +1514,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033013073",
-      "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
-      "ts": "2026-08-31T19:08:49.084394+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -2886,6 +2906,13 @@
       "place_name": "DAYOUT",
       "booking_url": "",
       "ts": "2026-09-16T10:14:34.228908+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2013115098",
+      "place_name": "BOOUP WEB3 POP-UP",
+      "booking_url": "",
+      "ts": "2026-09-16T11:16:56.254468+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2913,6 +2940,7 @@
     "2009756357",
     "2011407355",
     "2012113406",
+    "2013115098",
     "2015282909",
     "2015464753",
     "2015914479",
@@ -3026,23 +3054,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-16T11:11:16.617552+09:00",
+    "checked_at": "2026-09-16T11:16:56.254468+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 854,
-    "presale_items": 181,
-    "after_district_filter": 92,
+    "candidate_items": 858,
+    "presale_items": 185,
+    "after_district_filter": 95,
     "fallback_matched": 0,
-    "unique_place_ids": 53,
-    "tracked_places": 53,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-16T10:14:34.228908+09:00",
+    "unique_place_ids": 54,
+    "tracked_places": 54,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-16T11:16:56.254468+09:00",
     "admission_names": {
       "(없음)": 438,
       "현장대기": 235,
-      "사전예약&현장대기": 141,
+      "사전예약&현장대기": 145,
       "사전예약": 40
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
