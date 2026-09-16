@@ -1,9 +1,10 @@
 {
-  "updated_at": "2026-09-16T10:09:07.636566+09:00",
+  "updated_at": "2026-09-16T10:14:47.258844+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
     "2007085220",
+    "2008186282",
     "2015282909",
     "2022056721",
     "2023862125",
@@ -920,6 +921,32 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2008186282",
+      "name": "DAYOUT",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.17.",
+      "remainingDays": 29,
+      "status": "D-29",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260910_144/1789021753255Q5jVp_PNG/image.png",
+      "roadAddress": "올림픽로 300 잠실 롯데월드타워 잔디광장",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-16T10:14:34.228908+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2022056721",
       "name": "Scent Archive 리센느 팝업스토어",
       "hasBooking": false,
@@ -1460,13 +1487,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2075951781",
-      "place_name": "판도라 플레이그라운드: Pick & Play",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1712461",
-      "ts": "2026-08-31T18:00:07.170435+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -2859,6 +2879,13 @@
       "place_name": "위아자 나눔위크 '지구체육관'",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "ts": "2026-09-16T09:23:53.550853+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2008186282",
+      "place_name": "DAYOUT",
+      "booking_url": "",
+      "ts": "2026-09-16T10:14:34.228908+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2881,6 +2908,7 @@
     "2006916982",
     "2007085220",
     "2007641747",
+    "2008186282",
     "2009522804",
     "2009756357",
     "2011407355",
@@ -2998,23 +3026,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-16T10:08:54.821219+09:00",
+    "checked_at": "2026-09-16T10:14:34.228908+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 846,
-    "presale_items": 179,
-    "after_district_filter": 91,
+    "candidate_items": 854,
+    "presale_items": 181,
+    "after_district_filter": 92,
     "fallback_matched": 0,
-    "unique_place_ids": 52,
-    "tracked_places": 52,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-15T13:04:44.075208+09:00",
+    "unique_place_ids": 53,
+    "tracked_places": 53,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-16T10:14:34.228908+09:00",
     "admission_names": {
-      "(없음)": 432,
+      "(없음)": 438,
       "현장대기": 235,
-      "사전예약&현장대기": 139,
+      "사전예약&현장대기": 141,
       "사전예약": 40
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
