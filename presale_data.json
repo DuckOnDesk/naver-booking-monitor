@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-16T09:18:28.526579+09:00",
+  "updated_at": "2026-09-16T09:24:07.024710+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -654,7 +654,7 @@
     {
       "id": "2057558383",
       "name": "위아자 나눔위크 '지구체육관'",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
       "operationStart": "26.10.23.",
@@ -662,14 +662,15 @@
       "remainingDays": 37,
       "status": "D-37",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260821_125/1787280223485CSQi4_JPEG/edited-1787280222546-0.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260916_43/1789517187887Kdx8R_PNG/image.png",
       "roadAddress": "양화로23길 22-7 에코빌리지",
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-09-08T14:14:38.409074+09:00",
-        "2026-09-10T10:56:41.850639+09:00"
+        "2026-09-10T10:56:41.850639+09:00",
+        "2026-09-16T09:23:53.550853+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1459,13 +1460,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-08-31T16:46:10.212575+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2075951781",
@@ -2858,6 +2852,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-16T02:42:00.577220+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057558383",
+      "place_name": "위아자 나눔위크 '지구체육관'",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
+      "ts": "2026-09-16T09:23:53.550853+09:00"
     }
   ],
   "seen_place_ids": [
@@ -2997,7 +2998,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-16T09:18:15.470373+09:00",
+    "checked_at": "2026-09-16T09:23:53.550853+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
