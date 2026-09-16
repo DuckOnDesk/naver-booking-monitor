@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-16T12:41:11.739748+09:00",
+  "updated_at": "2026-09-16T12:46:48.169883+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -38,32 +38,6 @@
   "manual_places": [],
   "places": [
     {
-      "id": "2046294128",
-      "name": "마녀공장 소이빈 방앗간 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716946",
-      "bookingBusinessId": "1716946",
-      "operationStart": "26.09.09.",
-      "operationEnd": "26.09.21.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260821_127/1787290352625llkci_JPEG/image.jpg",
-      "roadAddress": "연무장길 99",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-15T15:24:21.680309+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2080832507",
       "name": "바이레도 FUTURE MEMORIES 서울 팝업",
       "hasBooking": true,
@@ -87,6 +61,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:20:44.184375+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2046294128",
+      "name": "마녀공장 소이빈 방앗간 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1716946",
+      "bookingBusinessId": "1716946",
+      "operationStart": "26.09.09.",
+      "operationEnd": "26.09.21.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260821_127/1787290352625llkci_JPEG/image.jpg",
+      "roadAddress": "연무장길 99",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-15T15:24:21.680309+09:00",
       "bookingIsOpened": false
     },
     {
@@ -713,6 +713,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2090283048",
+      "name": "세리안 청담",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736830",
+      "bookingBusinessId": "1736830",
+      "operationStart": "26.09.14.",
+      "operationEnd": "26.10.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260911_300/1789093220699QsAvE_JPEG/image.jpg",
+      "roadAddress": "학동로 332 1층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-15T13:16:00.700133+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2046629824",
       "name": "하이퍼쉘 체험 팝업 현대백화점 무역센터점",
       "hasBooking": true,
@@ -764,34 +792,6 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:31.895660+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2090283048",
-      "name": "세리안 청담",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736830",
-      "bookingBusinessId": "1736830",
-      "operationStart": "26.09.14.",
-      "operationEnd": "26.10.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260911_300/1789093220699QsAvE_JPEG/image.jpg",
-      "roadAddress": "학동로 332 1층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-15T13:16:00.700133+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -3057,7 +3057,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-16T12:40:59.974623+09:00",
+    "checked_at": "2026-09-16T12:46:35.854012+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
