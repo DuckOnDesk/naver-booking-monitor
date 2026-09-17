@@ -111,6 +111,13 @@
       "url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048506?entry=pll&lang=ko&startDate=2026-09-13&theme=place",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mu5c05y9",
+      "name": "지수 클릭",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1739509/items/8065594?theme=place&lang=ko&area=ple",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
