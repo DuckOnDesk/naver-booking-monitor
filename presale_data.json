@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-17T16:08:06.038781+09:00",
+  "updated_at": "2026-09-17T16:13:54.947005+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -501,9 +501,9 @@
     {
       "id": "2069285502",
       "name": "더웍스 페스타",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1739360",
+      "bookingBusinessId": "1739360",
       "operationStart": "26.10.01.",
       "operationEnd": "26.10.11.",
       "remainingDays": 14,
@@ -514,14 +514,16 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-17T16:13:38.334772+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-17T16:13:53.679437+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1576,13 +1578,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2015282909",
-      "place_name": "방탈출 게임 <점프x컷>",
-      "booking_url": "",
-      "ts": "2026-09-01T10:30:15.844733+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009756357",
@@ -2975,6 +2970,13 @@
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "ts": "2026-09-17T15:47:19.415709+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2069285502",
+      "place_name": "더웍스 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1739360",
+      "ts": "2026-09-17T16:13:38.334772+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3118,24 +3120,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-17T16:07:51.159246+09:00",
+    "checked_at": "2026-09-17T16:13:38.334772+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 992,
-    "presale_items": 179,
-    "after_district_filter": 96,
+    "candidate_items": 953,
+    "presale_items": 197,
+    "after_district_filter": 100,
     "fallback_matched": 0,
     "unique_place_ids": 56,
     "tracked_places": 56,
     "new_places": 0,
     "last_new_place_at": "2026-09-17T10:59:56.391974+09:00",
     "admission_names": {
-      "(없음)": 586,
-      "현장대기": 227,
-      "사전예약&현장대기": 143,
-      "사전예약": 36
+      "(없음)": 509,
+      "현장대기": 247,
+      "사전예약&현장대기": 156,
+      "사전예약": 41
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
     "structure_warned_at": null
