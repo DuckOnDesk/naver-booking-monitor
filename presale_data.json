@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T02:51:10.256617+09:00",
+  "updated_at": "2026-09-18T02:56:43.386231+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -333,7 +333,7 @@
     {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "bookingBusinessId": "1717462",
       "operationStart": "26.09.17.",
@@ -353,7 +353,8 @@
         "2026-09-16T00:01:01.339711+09:00",
         "2026-09-16T12:29:45.799888+09:00",
         "2026-09-17T15:47:19.415709+09:00",
-        "2026-09-18T00:09:19.475373+09:00"
+        "2026-09-18T00:09:19.475373+09:00",
+        "2026-09-18T02:56:32.006169+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1611,13 +1612,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009756357",
-      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
-      "ts": "2026-09-01T13:32:59.483853+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -3010,6 +3004,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-18T00:31:41.524410+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-09-18T02:56:32.006169+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3154,7 +3155,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-18T02:50:58.864170+09:00",
+    "checked_at": "2026-09-18T02:56:32.006169+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3168,8 +3169,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-17T18:25:43.758456+09:00",
     "admission_names": {
-      "(없음)": 477,
-      "현장대기": 248,
+      "(없음)": 478,
+      "현장대기": 247,
       "사전예약&현장대기": 157,
       "사전예약": 41
     },
