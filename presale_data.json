@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-17T20:29:56.572240+09:00",
+  "updated_at": "2026-09-17T20:35:33.997725+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1067,7 +1067,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -3151,7 +3151,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-17T20:29:42.734235+09:00",
+    "checked_at": "2026-09-17T20:35:20.776836+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
