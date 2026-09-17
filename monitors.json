@@ -116,7 +116,7 @@
       "id": "mu5c05y9",
       "name": "지수 클릭",
       "url": "https://m.booking.naver.com/booking/12/bizes/1739509/items/8065594?theme=place&lang=ko&area=ple",
-      "enabled": true,
+      "enabled": false,
       "target_dates": []
     }
   ]
