@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-17T18:25:57.496152+09:00",
+  "updated_at": "2026-09-17T18:31:37.080638+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -875,9 +875,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-17T18:31:36.901775+09:00",
       "bookingIsOpened": false
     },
     {
@@ -927,9 +927,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-17T18:31:36.945872+09:00",
       "bookingIsOpened": false
     },
     {
@@ -979,9 +979,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-17T18:31:36.989578+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1059,9 +1059,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-09-17T18:25:43.758456+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-17T18:31:37.034936+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3150,7 +3150,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-17T18:25:43.758456+09:00",
+    "checked_at": "2026-09-17T18:31:23.068684+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3161,7 +3161,7 @@
     "fallback_matched": 0,
     "unique_place_ids": 57,
     "tracked_places": 57,
-    "new_places": 1,
+    "new_places": 0,
     "last_new_place_at": "2026-09-17T18:25:43.758456+09:00",
     "admission_names": {
       "(없음)": 509,
