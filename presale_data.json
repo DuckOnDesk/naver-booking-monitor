@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T13:05:34.434134+09:00",
+  "updated_at": "2026-09-18T13:11:13.731616+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -312,7 +312,7 @@
     {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "bookingBusinessId": "1717462",
       "operationStart": "26.09.17.",
@@ -334,7 +334,8 @@
         "2026-09-17T15:47:19.415709+09:00",
         "2026-09-18T00:09:19.475373+09:00",
         "2026-09-18T02:56:32.006169+09:00",
-        "2026-09-18T10:37:20.673273+09:00"
+        "2026-09-18T10:37:20.673273+09:00",
+        "2026-09-18T13:11:00.715288+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1691,13 +1692,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-09-01T19:30:14.359592+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -3090,6 +3084,13 @@
       "place_name": "우주이스케이프",
       "booking_url": "",
       "ts": "2026-09-18T12:59:40.407183+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-09-18T13:11:00.715288+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3236,7 +3237,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-18T13:05:21.567200+09:00",
+    "checked_at": "2026-09-18T13:11:00.715288+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
