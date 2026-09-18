@@ -1126,6 +1126,11 @@ def _format_slot_parts(per_slot: list[tuple[str, int]], prev_slots: dict | None)
 
 STOCK_KEY_SUFFIX = ":stock"
 SCOPE_KEY_SUFFIX = ":scope"
+# 재고 스냅샷을 기록한 시각("{item_id}:stock_at"). 날짜별이 아니라 항목 단위다.
+# 화면(stock.html)이 "언제 받아 둔 재고인지"를 이 값으로 찍는다. 이게 없으면 화면은
+# 페이지를 연 시각을 기준으로 적게 되는데, 그러면 모니터가 몇 시간째 멈춰 있어도
+# 늘 방금 받은 값처럼 보인다.
+STOCK_AT_SUFFIX = ":stock_at"
 
 # 감시 날짜/시간(target_dates)을 바꾼 회차에 붙는 라벨. 업체가 자리를 내린 것과
 # 우리가 감시 범위를 좁힌 것은 전혀 다른 사건인데, 스냅샷 비교만 보면 똑같이
@@ -1292,6 +1297,12 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
     prev_scope = alerted.get(scope_key, scope)
     alerted[key] = cur
     alerted[scope_key] = scope
+    # 스냅샷이 실제로 달라진 회차에만 시각을 남긴다. 매 회차 찍으면 파일 내용이 늘
+    # 바뀌어 booking_alerted.json이 회차마다 커밋된다 (save_alerted는 내용이 같으면
+    # 쓰지 않는다 - 그 성질이 커밋 수를 붙잡아 주고 있다).
+    if prev != cur:
+        alerted[f"{item_id}{STOCK_AT_SUFFIX}"] = (
+            datetime.now(timezone(timedelta(hours=9))).isoformat(timespec="seconds"))
     if not isinstance(prev, dict) or prev == cur:
         return []
 
@@ -2141,7 +2152,8 @@ class UrlGate:
             # 못 잡는다 (2026-09-08 하겐다즈가 바로 그 구간이었다).
             purge_item_keys(alerted, item_prefix,
                             keep=(self.closed_key,),
-                            keep_suffix=(":closed", STOCK_KEY_SUFFIX, SCOPE_KEY_SUFFIX))
+                            keep_suffix=(":closed", STOCK_KEY_SUFFIX, SCOPE_KEY_SUFFIX,
+                                         STOCK_AT_SUFFIX))
             alerted[self.closed_key] = 1
             # 서명에서는 페이지 본문을 뗀다. 본문이 회차마다 조금씩 달라지면
             # (시각·세션값 등) 같은 '닫힘' 상태가 매 회차 새 상태로 잡혀,
