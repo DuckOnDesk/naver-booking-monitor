@@ -39,4 +39,8 @@ jobs:
         run: playwright install chromium
 
       - name: 진단 실행
+        env:
+          # 모니터와 같은 조건으로 예약 페이지를 봐야 한다. 로그인 쿠키가 없으면
+          # 네이버가 로그인 화면으로 돌려보내 화면 내용이 통째로 사라진다.
+          NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
         run: python -u schedule_diagnose.py "${{ inputs.url }}" "${{ inputs.date }}"

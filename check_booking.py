@@ -1927,6 +1927,27 @@ def _page_note(page, limit: int = 80) -> str:
     return f'{_NOTE_SEP}"{text[:limit]}"' if text else ""
 
 
+def naver_cookies() -> list:
+    """NAVER_COOKIES 환경변수를 playwright 컨텍스트용 쿠키 목록으로.
+
+    로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려보낸다.
+    그 화면은 상품 페이지가 아니므로 닫힘으로 잡힌다 — 진단 스크립트가 같은
+    조건으로 보게 하려고 따로 뺐다.
+    """
+    cookies = []
+    for part in os.environ.get("NAVER_COOKIES", "").strip().split(";"):
+        part = part.strip()
+        if "=" in part:
+            name, _, value = part.partition("=")
+            cookies.append({
+                "name": name.strip(),
+                "value": value.strip(),
+                "domain": ".naver.com",
+                "path": "/",
+            })
+    return cookies
+
+
 def _playwright_check(url: str) -> tuple[bool, str]:
     """(is_closed, reason) 반환. URL/텍스트 기반으로 예약창 닫힘 감지."""
     item_match = re.search(r"/items/\d+", url)
@@ -1937,21 +1958,9 @@ def _playwright_check(url: str) -> tuple[bool, str]:
         # 컨텍스트는 매번 새로 만든다. 재사용하면 이전 페이지의 URL·쿠키가 남아
         # 리다이렉트 판정이 오염된다.
         context = browser.new_context()
-        cookie_str = os.environ.get("NAVER_COOKIES", "").strip()
-        if cookie_str:
-            cookies = []
-            for part in cookie_str.split(";"):
-                part = part.strip()
-                if "=" in part:
-                    name, _, value = part.partition("=")
-                    cookies.append({
-                        "name": name.strip(),
-                        "value": value.strip(),
-                        "domain": ".naver.com",
-                        "path": "/",
-                    })
-            if cookies:
-                context.add_cookies(cookies)
+        cookies = naver_cookies()
+        if cookies:
+            context.add_cookies(cookies)
         page = context.new_page()
         page.goto(url, wait_until="load", timeout=15000)
         page.wait_for_timeout(2000)
