@@ -369,6 +369,43 @@ def main() -> int:
     cb.prune_stock_records(alerted, date.today().isoformat())
     check("t1:2000-01-01:scope" not in alerted, "지난 날짜 범위 기록 삭제")
 
+    print("12) 재고를 받아 둔 시각을 항목 단위로 남긴다")
+
+    def stock_call(al, prev, cur_slots):
+        """note_stock_change를 조용히 한 번 돌리고 기록된 시각을 돌려준다."""
+        al[f"t1:{D}:stock"] = prev
+        import builtins
+        real_print = builtins.print
+        builtins.print = lambda *a, **kw: None
+        try:
+            cb.note_stock_change(al, "t1", D, "테스트", "날짜", URL,
+                                 cur_slots, "00:00:00", False)
+        finally:
+            builtins.print = real_print
+        return al.get(f"t1{cb.STOCK_AT_SUFFIX}")
+
+    al = {}
+    at1 = stock_call(al, {"12:00": [2, 0]}, [raw("12:00", 1, 0)])
+    check(isinstance(at1, str) and at1.endswith("+09:00"),
+          f"스냅샷이 바뀌면 한국 시간으로 기록 (실제: {at1})")
+
+    # 매 회차 찍으면 booking_alerted.json 내용이 늘 달라져 회차마다 커밋된다.
+    # save_alerted가 "내용이 같으면 안 쓴다"로 커밋 수를 잡고 있는데 그게 풀린다.
+    al[f"t1{cb.STOCK_AT_SUFFIX}"] = "2000-01-01T00:00:00+09:00"
+    at2 = stock_call(al, {"12:00": [1, 0]}, [raw("12:00", 1, 0)])
+    check(at2 == "2000-01-01T00:00:00+09:00",
+          f"변화가 없는 회차는 시각을 건드리지 않는다 (실제: {at2})")
+
+    at3 = stock_call(al, {"12:00": [1, 0]}, [raw("12:00", 3, 0)])
+    check(at3 != "2000-01-01T00:00:00+09:00", f"다시 바뀌면 갱신된다 (실제: {at3})")
+
+    print("12-1) 기록 시각은 날짜 정리에 딸려 지워지지 않는다")
+    al = {f"t1{cb.STOCK_AT_SUFFIX}": "2000-01-01T00:00:00+09:00",
+          "t1:2000-01-01:stock": {}}
+    cb.prune_stock_records(al, date.today().isoformat())
+    check("t1:2000-01-01:stock" not in al, "지난 날짜 스냅샷은 지운다")
+    check(f"t1{cb.STOCK_AT_SUFFIX}" in al, "항목 단위 기록 시각은 남는다")
+
     print(f"\n=== 실패 {len(fails)}건 ===", flush=True)
     for f in fails:
         print(f"  - {f}")

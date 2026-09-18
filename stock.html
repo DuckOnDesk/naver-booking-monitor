@@ -156,6 +156,46 @@ const dateLabel = d => {
   return `${d.slice(5).replace('-', '/')}(${WD[(t.getDay() + 6) % 7]})`;
 };
 
+// check_booking.STOCK_AT_SUFFIX 와 같은 키 - 재고 스냅샷을 기록한 시각이 들어 있다.
+const STOCK_AT_SUFFIX = ':stock_at';
+
+// 표시는 서울 시간으로 고정한다. 값 자체가 한국 시간 기준이라 브라우저 시간대를
+// 따라가면 다른 나라에서 열었을 때 회차 시각과 어긋나 보인다.
+const SEOUL = { timeZone: 'Asia/Seoul' };
+function seoulParts(d) {
+  const ymd = d.toLocaleDateString('en-CA', SEOUL);                       // YYYY-MM-DD
+  const [, m, day] = ymd.split('-');
+  return {
+    ymd,
+    md: `${+m}/${+day}`,
+    hm: d.toLocaleTimeString('en-GB', { ...SEOUL, hour: '2-digit', minute: '2-digit' }),
+  };
+}
+
+// 재고를 받아 둔 시각 → 오늘이면 "23:17", 다른 날이면 "9/18 23:17".
+// 날짜를 접는 건 오늘 값이 대부분이라서고, 하루라도 밀리면 바로 날짜가 뜬다.
+function stampLabel(iso) {
+  const d = new Date(iso || '');
+  if (isNaN(d)) return null;
+  const p = seoulParts(d), now = seoulParts(new Date());
+  return p.ymd === now.ymd ? p.hm : `${p.md} ${p.hm}`;
+}
+
+// 절대 시각만 적으면 얼마나 묵은 값인지 바로 안 온다. 지연을 보려고 여는 화면이다.
+function agoLabel(iso) {
+  const d = new Date(iso || '');
+  if (isNaN(d)) return '';
+  const min = Math.floor((Date.now() - d.getTime()) / 60000);
+  if (min < 1) return '방금';
+  if (min < 60) return `${min}분 전`;
+  const h = Math.floor(min / 60);
+  return h < 24 ? `${h}시간 전` : `${Math.floor(h / 24)}일 전`;
+}
+
+// 카드마다 그 항목의 재고를 언제 받아 뒀는지. 한 항목만 갱신이 밀릴 수 있어서
+// 머리글의 대표 시각 하나로는 안 보인다.
+const recordedAt = iso => { const s = stampLabel(iso); return s ? ` · ${s} 기록` : ''; };
+
 async function getJSON(path) {
   const r = await fetch(fresh(path), { cache: 'no-store' });
   if (!r.ok) throw new Error(`${path} ${r.status}`);
@@ -187,7 +227,8 @@ function monitorRows() {
       .map(k => k.split(':')[1])
       .sort();
     const days = dates.map(d => ({ date: d, ...dayData(m.id, d) }));
-    return { m, days, left: days.reduce((a, x) => a + x.left, 0) };
+    return { m, days, left: days.reduce((a, x) => a + x.left, 0),
+             stockAt: alerted[`${m.id}${STOCK_AT_SUFFIX}`] || '' };
   }).filter(r => r.days.length);
 }
 
@@ -195,7 +236,7 @@ function renderNow() {
   // 순서는 monitors.json 그대로 — 감시 목록과 같은 자리에 있어야 찾기 쉽다.
   const rows = monitorRows();
 
-  const out = rows.map(({ m, days, left }) => {
+  const out = rows.map(({ m, days, left, stockAt }) => {
     const open = closedCards.has(m.id) ? false : (openCards.has(m.id) || left > 0);
     // 예약창 열림/닫힘 배지는 뺐다. url_closed가 없다는 건 '열려 있다'가 아니라
     // '확인한 적 없다'일 수도 있는데(게이트는 자리를 찾았을 때만 브라우저를 켠다),
@@ -239,7 +280,7 @@ function renderNow() {
       <div class="m-head" onclick="toggleCard('${m.id}')">
         <span class="m-name"><span class="arrow">${open ? '▾' : '▸'}</span>${m.name}</span>
       </div>
-      <div class="m-meta">${span}${hours} · ${summary}</div>
+      <div class="m-meta">${span}${hours} · ${summary}${recordedAt(stockAt)}</div>
       <div class="m-body ${open ? '' : 'hide'}">${body}${
         hiddenDays ? `<div class="allsold">매진된 날짜 ${hiddenDays}개는 접었습니다 · 위 ‘전 시간대’로 펼칠 수 있어요</div>`
                    : ''}</div>
@@ -396,6 +437,21 @@ function showTab(which) {
   if (which === 'hist' && !history.length) loadMonth();
 }
 
+// 머리글에는 페이지를 연 시각이 아니라 재고를 실제로 받아 둔 시각을 적는다.
+// 여는 순간의 시계를 찍으면 모니터가 몇 시간째 멈춰 있어도 늘 방금 값처럼 보인다.
+// 항목마다 갱신 시점이 다르므로 그중 가장 최근 것 - "이 화면이 어디까지 반영됐나"다.
+function renderStatus() {
+  const n = monitors.filter(m => m.enabled !== false).length;
+  const newest = Object.keys(alerted)
+    .filter(k => k.endsWith(STOCK_AT_SUFFIX))
+    .map(k => alerted[k])
+    .sort()                       // 전부 같은 +09:00 오프셋이라 문자열 정렬로 충분
+    .pop();
+  $('status').textContent = newest
+    ? `${n}개 감시 중 · 재고 기록 ${stampLabel(newest)} · ${agoLabel(newest)}`
+    : `${n}개 감시 중 · 재고 기록 시각 없음 (다음 회차부터 표시됩니다)`;
+}
+
 async function init() {
   try {
     const [cfg, al, sc] = await Promise.all([
@@ -408,8 +464,10 @@ async function init() {
     monthOptions();
     setOnlyFree(onlyFree);     // 저장된 선택을 버튼에 반영하면서 첫 렌더까지 한다
 
-    const t = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
-    $('status').textContent = `${monitors.filter(m => m.enabled !== false).length}개 감시 중 · ${t} 기준`;
+    renderStatus();
+    // 열어 둔 채로 두면 데이터는 그대로인데 시간만 흐른다. 그만큼 더 묵은 값이라는
+    // 뜻이므로 "몇 분 전"을 1분마다 다시 적는다 (네트워크는 타지 않는다).
+    setInterval(renderStatus, 60000);
   } catch (e) {
     $('status').textContent = '불러오기 실패';
     $('view-now').innerHTML = `<div class="empty">데이터를 읽지 못했습니다.<br>${e.message}</div>`;
