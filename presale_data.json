@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T12:31:35.917351+09:00",
+  "updated_at": "2026-09-18T12:37:14.203301+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -307,32 +307,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2055941674",
-      "name": "안녕 : 안유진 X 장원영 미디어아트 전시",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260902_298/1788353401385nvQeT_JPEG/edited-1788353399893-0.jpg",
-      "roadAddress": "서울숲2길 32-14 더서울라이티움 제 3 전시장",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-08T11:20:30.140278+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
       "hasBooking": false,
@@ -366,6 +340,32 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:20:46.474821+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2055941674",
+      "name": "안녕 : 안유진 X 장원영 미디어아트 전시",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260902_298/1788353401385nvQeT_JPEG/edited-1788353399893-0.jpg",
+      "roadAddress": "서울숲2길 32-14 더서울라이티움 제 3 전시장",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-08T11:20:30.140278+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -3179,7 +3179,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-18T12:31:22.651829+09:00",
+    "checked_at": "2026-09-18T12:37:01.370108+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
