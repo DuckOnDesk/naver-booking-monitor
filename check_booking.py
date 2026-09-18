@@ -1175,6 +1175,22 @@ def slot_stock_map(ref_slots: list) -> dict:
     return snap
 
 
+def _slot_delta(prev: dict, cur: dict, ignored: set) -> dict:
+    """이력용 슬롯 변화 — {시간: {"from": [재고,예약]|None, "to": [재고,예약]|None}}.
+
+    로그 문자열(parts)과 달리 그대로 다시 읽을 수 있어야 해서 따로 만든다.
+    시간이 지나 빠진 슬롯(ignored)은 변화가 아니므로 넣지 않는다.
+    """
+    out = {}
+    for t in sorted(set(prev) | set(cur)):
+        if t in ignored:
+            continue
+        a, b = prev.get(t), cur.get(t)
+        if a != b:
+            out[t] = {"from": a, "to": b}
+    return out
+
+
 def _stock_change_label(removed: bool, added: bool, p_stock: int, c_stock: int) -> str:
     """업체가 자리를 어떻게 건드렸는지 한 마디로. 📦 알림 제목에 붙는다.
 
@@ -1337,6 +1353,9 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
         summary = (f"감시 {_scope_label(prev_scope)}→{_scope_label(scope)} · "
                    f"재고 {c_stock} · 잔여 {c_stock - c_booking}")
         print(f"[{now_str}] 📊 {name} {date_str} {summary} · {label} — {detail}", flush=True)
+        record_history("scope", item_id, name, date=datekey, change=label,
+                       scope=[prev_scope, scope], stock=c_stock, booked=c_booking,
+                       slots=_slot_delta(prev, cur, ignored))
         # 업체도 예약도 움직이지 않았다 — 내가 비교 기준을 바꾼 회차다. 내가 한 일을
         # 되돌려 알릴 이유가 없어 기본은 로그까지다 (SCOPE_CHANGE_NTFY=1로 다시 켠다).
         if not (notify and SCOPE_CHANGE_NTFY):
@@ -1361,6 +1380,11 @@ def note_stock_change(alerted: dict, item_id: str, datekey: str, name: str,
                f"잔여 {p_stock - p_booking}→{c_stock - c_booking}")
 
     print(f"[{now_str}] 📊 {name} {date_str} {summary} · {kind}({label}) — {detail}", flush=True)
+    # 로그 줄과 같은 사건을 구조화해 남긴다. 알림을 보내든 말든(notify) 기록은 한다 —
+    # 알림을 끈 항목의 재고 흐름을 보고 싶다는 게 이 파일을 만든 이유다.
+    record_history("stock", item_id, name, date=datekey, change=f"{kind}({label})",
+                   stock=[p_stock, c_stock], booked=[p_booking, c_booking],
+                   slots=_slot_delta(prev, cur, ignored), scope=scope)
     if not notify:
         return []
     # 알림은 업체가 자리를 넣고 뺀 회차에만 보낸다. 예약이 들고 난 것은 로그까지다 —
@@ -2102,7 +2126,13 @@ class UrlGate:
         _url_checked_at[self.item_id] = time.monotonic()
 
         alerted, name, now_str = self.alerted, self.name, self.now_str
+        was_closed = self._closed
         self._closed = raw_closed
+        if raw_closed != was_closed:
+            # 전환된 회차에만 남긴다. 닫힌 동안에는 매 회차 확인이 도는데,
+            # 그때마다 기록하면 이력이 같은 줄로 뒤덮인다.
+            record_history("gate", self.item_id, name,
+                           open=not raw_closed, reason=reason or "")
 
         if self._closed:
             item_prefix = f"{self.item_id}:"
@@ -2604,6 +2634,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                                 title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                             slot_alerted.add(datekey)
+                            record_history("alert", item_id, name, date=datekey,
+                                           level="closed", title=title, slots=dict(per_slot))
                             if ntfy_topic:
                                 send_ntfy(ntfy_topic, title, body, url)
                     # 알림을 보냈든 안 보냈든 이번 회차의 자리 구성을 그대로 기록한다
@@ -2650,6 +2682,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                                     title = f"🎉 {name} 자리 추가됨 - {inc_str}"
                                 body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                                 slot_alerted.add(datekey)
+                                record_history("alert", item_id, name, date=datekey,
+                                               level="open", title=title, slots=dict(per_slot))
                                 if ntfy_topic:
                                     send_ntfy(ntfy_topic, title, body, url)
                         if cal_ok is not False:
@@ -2674,6 +2708,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                             title = f"⏳ {name} 자리 있음 ({_open_time_label(open_dt)})"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot) + f"\n{window_reason}"
                         slot_alerted.add(datekey)
+                        record_history("alert", item_id, name, date=datekey,
+                                       level="pre", title=title, slots=dict(per_slot),
+                                       reason=window_reason)
                         if ntfy_topic:
                             send_ntfy(ntfy_topic, title, body, url)
                         alerted[pre_key] = 1
@@ -3028,6 +3065,80 @@ def build_schedule_cache(monitors: list) -> dict:
     return cache
 
 
+# ── 이력 기록 ────────────────────────────────────────────────────────
+# Actions 로그는 90일이면 사라지고, 자리 확인 로그와 기록용 로그가 한 줄기로 섞여
+# 있어 "언제 자리가 생기고 없어졌나"를 나중에 되짚기가 어렵다. 알림(ntfy)도 오래
+# 남지 않는다. 그래서 같은 사건을 기계가 읽을 수 있는 형태로 따로 쌓아 둔다 —
+# stock.html이 이 파일을 읽어 현황/이력 페이지를 그린다.
+#
+# 커밋은 늘지 않는다. booking_alerted.json이 이미 변화가 있는 회차마다 커밋되므로
+# 같은 커밋에 얹는다 (commit_alerted).
+HISTORY_DIR = Path(__file__).parent / "history"
+
+# 몇 달치를 남길지. 0이면 지우지 않는다 (저장소가 계속 커지므로 권하지 않는다).
+HISTORY_KEEP_MONTHS = _env_num("HISTORY_KEEP_MONTHS", 3)
+
+_history_buf: list[tuple[str, str]] = []   # (YYYY-MM, JSON 한 줄)
+
+
+def record_history(kind: str, item_id: str, name: str, **fields) -> None:
+    """이력 한 줄을 버퍼에 쌓는다. 파일로 내리는 건 회차 끝의 flush_history.
+
+    회차 도중에 파일을 열고 닫지 않는다 — 자리 확인이 급한 구간에서 디스크를
+    건드려 봐야 얻을 게 없고, 커밋도 어차피 회차 끝에 한 번이다.
+    """
+    now = datetime.now(timezone(timedelta(hours=9)))
+    try:
+        rec = {"ts": now.isoformat(timespec="seconds"), "kind": kind,
+               "item": item_id, "name": name, **fields}
+        _history_buf.append((now.strftime("%Y-%m"), json.dumps(rec, ensure_ascii=False)))
+    except Exception as exc:
+        # 이력은 참고용이다. 여기서 예외를 올려 감시를 멈추게 하지 않는다.
+        print(f"[경고] 이력 기록 실패 ({kind}/{name}): {exc}", flush=True)
+
+
+def flush_history() -> list[str]:
+    """쌓인 이력을 history/YYYY-MM.jsonl에 덧붙이고, 건드린 파일 경로를 돌려준다."""
+    if not _history_buf:
+        return []
+    by_month: dict[str, list[str]] = {}
+    for month, line in _history_buf:
+        by_month.setdefault(month, []).append(line)
+    _history_buf.clear()
+
+    written: list[str] = []
+    for month, lines in sorted(by_month.items()):
+        path = HISTORY_DIR / f"{month}.jsonl"
+        try:
+            HISTORY_DIR.mkdir(exist_ok=True)
+            with path.open("a", encoding="utf-8") as fp:
+                fp.write("\n".join(lines) + "\n")
+            written.append(f"history/{month}.jsonl")
+        except Exception as exc:
+            print(f"[경고] 이력 저장 실패 ({month}): {exc}", flush=True)
+    return written
+
+
+def prune_history() -> list[str]:
+    """보관 기간을 넘긴 월 파일을 지운다. 지운 경로를 돌려준다 (커밋에 태운다)."""
+    if HISTORY_KEEP_MONTHS <= 0 or not HISTORY_DIR.exists():
+        return []
+    now = datetime.now(timezone(timedelta(hours=9)))
+    # 이번 달을 포함해 HISTORY_KEEP_MONTHS개월을 남긴다.
+    months = now.year * 12 + (now.month - 1) - (HISTORY_KEEP_MONTHS - 1)
+    oldest = f"{months // 12:04d}-{months % 12 + 1:02d}"
+    removed: list[str] = []
+    for path in sorted(HISTORY_DIR.glob("*.jsonl")):
+        if path.stem >= oldest:
+            continue
+        try:
+            path.unlink()
+            removed.append(f"history/{path.name}")
+        except Exception as exc:
+            print(f"[경고] 옛 이력 삭제 실패 ({path.name}): {exc}", flush=True)
+    return removed
+
+
 def load_alerted() -> dict:
     """job 재시작 시 이전 알림 상태 복원 — alerted 딕셔너리를 파일에서 로드."""
     try:
@@ -3101,12 +3212,18 @@ def commit_files(paths: list, message: str, label: str = "") -> bool:
         return False
 
 
-def commit_alerted() -> None:
-    """booking_alerted.json을 저장소에 커밋/푸시 (실패해도 모니터링에는 영향 없음).
+def commit_alerted(extra_paths: list | tuple = ()) -> None:
+    """booking_alerted.json(+이력 파일)을 저장소에 커밋/푸시.
+    실패해도 모니터링에는 영향 없음.
+
+    이력은 같은 커밋에 태운다. 따로 커밋하면 회차마다 커밋이 두 배가 되는데,
+    두 파일 모두 같은 회차의 같은 사건을 적는 것이라 나눌 이유가 없다.
 
     auto_book_log.json은 자동예약 워커가 소유하므로 여기서 건드리지 않는다.
     """
-    commit_files(["booking_alerted.json"], "data: 알림 상태 저장 [skip ci]", "booking_alerted.json")
+    paths = ["booking_alerted.json", *extra_paths]
+    label = "booking_alerted.json" + (f" 외 {len(extra_paths)}건" if extra_paths else "")
+    commit_files(paths, "data: 알림 상태 저장 [skip ci]", label)
 
 
 def save_schedule_cache(cache: dict) -> bool:
@@ -3209,6 +3326,12 @@ def main():
     if save_schedule_cache(cache):
         commit_schedule_cache()
 
+    # 보관 기간을 넘긴 이력 정리. 달이 바뀐 첫 런에서만 실제로 지울 게 생긴다.
+    dropped = prune_history()
+    if dropped:
+        commit_files(dropped, f"chore: {HISTORY_KEEP_MONTHS}개월 지난 이력 정리",
+                     f"이력 {len(dropped)}건 정리")
+
     # job 재시작 시 이전 알림 상태 복원 (중복 알림 방지)
     alerted = load_alerted()
     sync_auto_book_state(monitors, alerted)
@@ -3242,8 +3365,11 @@ def main():
         except Exception as exc:
             print(f"[오류] check_all 예외: {exc}", flush=True)
 
-        if save_alerted(alerted):
-            commit_alerted()
+        # 이력은 상태 파일과 같은 커밋에 실어 보낸다. 상태가 그대로여도 이력이
+        # 쌓였으면 커밋한다 — 안 그러면 런이 끝날 때 그 줄이 통째로 사라진다.
+        hist_paths = flush_history()
+        if save_alerted(alerted) or hist_paths:
+            commit_alerted(hist_paths)
 
         # 예약 오픈 정보는 감시에 쓰이지 않는 참고용 출력이라 첫 회차보다 뒤로 미룬다.
         # 시작하자마자 찍으면 항목 수만큼(항목당 수 초) 첫 확인이 늦어진다.
