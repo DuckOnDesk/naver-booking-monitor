@@ -163,6 +163,27 @@ def capture_page(url: str, datekey: str) -> None:
                 ".map(e => (e.innerText||'').trim())"
                 ".filter(t => /^\\d{1,2}[:시]/.test(t)).slice(0, 40)")
             print(f"  화면의 시간 후보: {texts}")
+            # 버튼이 그려졌는지만 보면 "회색으로 막힌 회차"를 놓친다. 화면에 뜬
+            # 회차/날짜 후보마다 비활성 표시(disabled·aria-disabled·클래스)를 같이 남긴다.
+            states = page.evaluate(
+                "() => Array.from(document.querySelectorAll('button,li,a'))"
+                ".filter(e => /\\d{1,2}[:시]|\\d{1,2}일/.test((e.innerText||'').trim()))"
+                ".slice(0, 60).map(e => ({"
+                "  t: (e.innerText||'').trim().replace(/\\s+/g, ' ').slice(0, 24),"
+                "  disabled: e.disabled === true || e.getAttribute('aria-disabled') === 'true'"
+                "            || e.getAttribute('disabled') !== null,"
+                "  cls: (e.className || '').toString().slice(0, 80)"
+                "}))")
+            for st in states:
+                mark = "X" if st["disabled"] else "O"
+                print(f"    {mark} {st['t']!r} class={st['cls']!r}")
+            # 예약창이 왜 닫혀 있는지는 대개 본문에 문장으로 적혀 있다. 닫힘 판정
+            # 문구를 늘리려면 실제 문구를 봐야 하므로 통째로 남긴다.
+            try:
+                body_text = " ".join(page.inner_text("body").split())
+            except Exception:
+                body_text = ""
+            print(f"  본문({len(body_text)}자): {body_text[:1200]!r}")
         except Exception as exc:
             print(f"  페이지 로드 실패: {cb._exc_label(exc)}")
         finally:
