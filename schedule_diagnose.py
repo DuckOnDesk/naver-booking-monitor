@@ -152,6 +152,12 @@ def capture_page(url: str, datekey: str) -> None:
     with sync_playwright() as pw:
         browser = pw.chromium.launch()
         ctx = browser.new_context(locale="ko-KR")
+        # 모니터(UrlGate)와 같은 조건으로 본다. 로그인 쿠키가 없으면 네이버가
+        # 예약 페이지를 로그인 화면으로 돌려보내, 화면에 뭐가 있었는지 알 수 없다.
+        cookies = cb.naver_cookies()
+        print(f"  로그인 쿠키 {len(cookies)}개 적용" if cookies else "  로그인 쿠키 없음(비로그인 조회)")
+        if cookies:
+            ctx.add_cookies(cookies)
         page = ctx.new_page()
         page.on("response", on_response)
         try:
@@ -191,7 +197,7 @@ def capture_page(url: str, datekey: str) -> None:
             browser.close()
 
     print(f"\n  잡힌 응답 {len(seen)}건")
-    for head, body in seen[:12]:
+    for head, body in seen[:24]:
         print(f"\n  --- {head}")
         print(f"      {body[:1200]}")
 
@@ -223,6 +229,17 @@ def main() -> int:
 
     print("\n=== C) 예약 페이지 네트워크 캡처 ===")
     capture_page(url, datekey)
+
+    # 모니터가 🎉/🔒 라벨을 붙일 때 쓰는 바로 그 판정. API가 자리 있다고 하는데
+    # 실제 예약창은 닫혀 있는 경우, 이 줄이 어느 쪽을 틀리게 봤는지 가른다.
+    print("\n=== D) 모니터의 예약창 판정 (_playwright_check) ===")
+    try:
+        is_closed, reason = cb._playwright_check(url)
+        print(f"  닫힘={is_closed} 사유={reason or '(없음)'}")
+    except Exception as exc:
+        print(f"  실패: {cb._exc_label(exc)}")
+    finally:
+        cb._browser_close()
 
     print("\n=== 끝 ===")
     return 0
