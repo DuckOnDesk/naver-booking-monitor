@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T20:40:43.929057+09:00",
+  "updated_at": "2026-09-18T20:46:19.751141+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -312,7 +312,7 @@
     {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "bookingBusinessId": "1717462",
       "operationStart": "26.09.17.",
@@ -336,7 +336,8 @@
         "2026-09-18T02:56:32.006169+09:00",
         "2026-09-18T10:37:20.673273+09:00",
         "2026-09-18T13:11:00.715288+09:00",
-        "2026-09-18T15:40:43.114700+09:00"
+        "2026-09-18T15:40:43.114700+09:00",
+        "2026-09-18T20:46:07.495250+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1696,13 +1697,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033013073",
-      "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
-      "ts": "2026-09-02T01:04:51.799919+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2040937553",
@@ -3095,6 +3089,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-18T19:17:00.381190+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-09-18T20:46:07.495250+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3242,7 +3243,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-18T20:40:33.104960+09:00",
+    "checked_at": "2026-09-18T20:46:07.495250+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
