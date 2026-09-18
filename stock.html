@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>재고 현황 · 이력</title>
+  <style>
+    :root { --green: #03C75A; --green-dk: #018f42; --red: #ff4d4f; --amber: #d48806;
+            --bg: #f4f6f8; --card: #fff; --text: #1a1a1a; --sub: #8c8c8c; --border: #e8e8e8; }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+           background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 60px; }
+
+    header { background: var(--green); color: #fff; padding: 18px 16px 14px; position: sticky; top: 0; z-index: 50; }
+    .header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+                  max-width: 540px; margin: 0 auto; }
+    header h1 { font-size: 18px; font-weight: 700; }
+    header p { font-size: 12px; opacity: .85; margin-top: 3px; }
+    .btn-back { background: rgba(255,255,255,.2); color: rgba(255,255,255,.95); padding: 6px 11px;
+                border-radius: 20px; font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+
+    /* 탭 */
+    .tabs { max-width: 540px; margin: 0 auto; display: flex; gap: 6px; padding: 10px 14px 0; }
+    .tab { flex: 1; border: none; background: transparent; padding: 10px 0 9px; font-size: 14px;
+           font-weight: 700; color: var(--sub); cursor: pointer; border-bottom: 2.5px solid transparent;
+           font-family: inherit; }
+    .tab.on { color: var(--green-dk); border-bottom-color: var(--green); }
+
+    .content { max-width: 540px; margin: 0 auto; padding: 12px 14px 0; }
+    .card { background: var(--card); border-radius: 14px; padding: 14px; margin-bottom: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+
+    /* 모니터 카드 머리 — 통째로 누르면 접히고 펼쳐진다 */
+    .m-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; cursor: pointer; }
+    .m-name { font-weight: 700; font-size: 15px; }
+    .m-name .arrow { display: inline-block; width: 12px; color: var(--sub); font-size: 11px; }
+    .m-meta { font-size: 11px; color: var(--sub); margin-top: 4px; padding-left: 12px; }
+    .m-meta b { color: var(--green-dk); }
+    .m-body.hide { display: none; }
+
+    /* 현황 위 토글 — 자리만 볼지 전 시간대를 볼지 */
+    .toolbar { display: flex; gap: 6px; margin-bottom: 12px; }
+    .toolbar button { flex: 1; border: 1.5px solid var(--border); background: #fff; color: #666;
+      border-radius: 10px; padding: 9px 0; font-size: 13px; font-weight: 600; font-family: inherit;
+      cursor: pointer; }
+    .toolbar button.on { border-color: var(--green); background: #eafaf0; color: var(--green-dk); }
+    .allsold { font-size: 11px; color: var(--sub); margin-top: 7px; }
+    .badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+    .badge.open   { background: #eafaf0; color: var(--green-dk); }
+    .badge.closed { background: #fff1f0; color: var(--red); }
+    .badge.unknown{ background: #f3f3f3; color: var(--sub); }
+    .badge.scope  { background: #f0f5ff; color: #2f54eb; }
+
+    .day { margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--border); }
+    .day:first-of-type { border-top: none; padding-top: 2px; }
+    .day-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .day-date { font-size: 13px; font-weight: 700; }
+    .day-sum  { font-size: 11px; color: var(--sub); }
+    .day-sum b { color: var(--green-dk); }
+
+    .slots { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .slot { border-radius: 8px; padding: 5px 7px; font-size: 11px; line-height: 1.25; text-align: center;
+            min-width: 50px; border: 1px solid transparent; }
+    .slot .t { font-weight: 700; display: block; }
+    .slot .n { font-size: 10px; opacity: .85; }
+    .slot.free { background: #eafaf0; color: var(--green-dk); border-color: #bfe9d0; }
+    .slot.gone { background: #fafafa; color: #b0b0b0; border-color: #eee; }
+
+    /* 이력 */
+    .filters { display: flex; gap: 8px; margin-bottom: 12px; }
+    .filters select { flex: 1; min-width: 0; border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 9px 11px; font-size: 13px; font-family: inherit; background: #fff; outline: none;
+      -webkit-appearance: none; appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238c8c8c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+
+    .h-day { font-size: 12px; font-weight: 700; color: var(--sub); margin: 16px 0 8px 2px; }
+    .h-day:first-child { margin-top: 0; }
+    .ev { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); }
+    .ev:first-of-type { border-top: none; }
+    .ev-time { font-size: 11px; color: var(--sub); font-variant-numeric: tabular-nums;
+               flex-shrink: 0; width: 42px; padding-top: 1px; }
+    .ev-body { flex: 1; min-width: 0; }
+    .ev-title { font-size: 13px; font-weight: 600; }
+    .ev-sub { font-size: 11px; color: var(--sub); margin-top: 3px; word-break: break-word; }
+    .ev-slots { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .chip { font-size: 10px; padding: 2px 6px; border-radius: 6px; background: #f3f3f3; color: #666;
+            font-variant-numeric: tabular-nums; }
+    .chip.up   { background: #eafaf0; color: var(--green-dk); }
+    .chip.down { background: #fff1f0; color: var(--red); }
+
+    .empty { text-align: center; color: var(--sub); font-size: 13px; padding: 40px 0; line-height: 1.7; }
+    .more { width: 100%; background: #fff; color: #555; border: 1.5px solid var(--border);
+            border-radius: 12px; padding: 12px; font-size: 14px; font-family: inherit; cursor: pointer; }
+    .hide { display: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div>
+      <h1>재고 현황 · 이력</h1>
+      <p id="status">불러오는 중...</p>
+    </div>
+    <a class="btn-back" href="index.html">‹ 모니터</a>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab on" id="tab-now"  onclick="showTab('now')">현황</button>
+  <button class="tab"    id="tab-hist" onclick="showTab('hist')">이력</button>
+</div>
+
+<div class="content">
+  <div id="view-now">
+    <div class="toolbar">
+      <button id="btn-free" class="on" onclick="setOnlyFree(true)">자리 있는 것만</button>
+      <button id="btn-all"           onclick="setOnlyFree(false)">전 시간대</button>
+    </div>
+    <div id="now-list"></div>
+  </div>
+  <div id="view-hist" class="hide">
+    <div class="filters">
+      <select id="f-item"  onchange="renderHistory()"></select>
+      <select id="f-kind"  onchange="renderHistory()">
+        <option value="">전체</option>
+        <option value="alert">자리 알림</option>
+        <option value="stock">재고 변동</option>
+        <option value="gate">예약창</option>
+      </select>
+      <select id="f-month" onchange="loadMonth()"></select>
+    </div>
+    <div id="hist-list"></div>
+  </div>
+</div>
+
+<script>
+const OWNER = 'DuckOnDesk';
+const REPO  = 'naver-booking-monitor';
+const RAW   = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main`;
+
+// raw.githubusercontent는 몇 분간 캐시된다. 타임스탬프로 매번 새로 받는다.
+const fresh = p => `${RAW}/${p}?_=${Date.now()}`;
+
+const $ = id => document.getElementById(id);
+const WD = ['월','화','수','목','금','토','일'];
+
+let monitors = [], alerted = {}, cache = {}, history = [], shown = 60;
+
+// check_booking.parse_naver_url와 같은 규칙 — schedule_cache.json의 키를 맞춘다.
+function cacheKey(url) {
+  const m = (url || '').match(/\/booking\/(\d+)\/bizes\/(\d+)\/items\/(\d+)/);
+  return m ? `${m[1]}_${m[2]}_${m[3]}` : null;
+}
+
+const dateLabel = d => {
+  const t = new Date(d + 'T00:00:00+09:00');
+  return `${d.slice(5).replace('-', '/')}(${WD[(t.getDay() + 6) % 7]})`;
+};
+
+async function getJSON(path) {
+  const r = await fetch(fresh(path), { cache: 'no-store' });
+  if (!r.ok) throw new Error(`${path} ${r.status}`);
+  return r.json();
+}
+
+// ── 현황 ─────────────────────────────────────────────────────────────
+// booking_alerted.json이 들고 있는 "{id}:{날짜}:stock" 스냅샷을 그대로 읽는다.
+// 값은 {시각: [재고, 예약]} — 잔여는 재고 - 예약이다.
+//
+// 12개 모니터를 전부 펼치면 화면이 몇 만 픽셀이 된다. 그래서 기본은 접어 두고,
+// 지금 잡을 자리가 있는 모니터만 펼친 채로 연다 — 열어 보는 이유가 대개 그것이다.
+let onlyFree = localStorage.getItem('stock_only_free') !== '0';
+const openCards = new Set();     // 사용자가 직접 펼친 모니터
+const closedCards = new Set();   // 사용자가 직접 접은 모니터
+
+function dayData(id, d) {
+  const slots = alerted[`${id}:${d}:stock`] || {};
+  let stock = 0, booked = 0;
+  for (const [s, b] of Object.values(slots)) { stock += s; booked += b; }
+  return { slots, stock, booked, left: stock - booked,
+           scope: alerted[`${id}:${d}:scope`] || '' };
+}
+
+function monitorRows() {
+  return monitors.filter(m => m.enabled !== false).map(m => {
+    const dates = Object.keys(alerted)
+      .filter(k => k.startsWith(`${m.id}:`) && k.endsWith(':stock'))
+      .map(k => k.split(':')[1])
+      .sort();
+    const days = dates.map(d => ({ date: d, ...dayData(m.id, d) }));
+    return { m, days, left: days.reduce((a, x) => a + x.left, 0) };
+  }).filter(r => r.days.length);
+}
+
+function renderNow() {
+  // 자리가 있는 모니터를 위로. 같은 그룹 안에서는 등록 순서를 지킨다.
+  const rows = monitorRows().sort((a, b) => (b.left > 0) - (a.left > 0));
+
+  const out = rows.map(({ m, days, left }) => {
+    const open = closedCards.has(m.id) ? false : (openCards.has(m.id) || left > 0);
+    const gate = alerted[`${m.id}:url_closed`]
+      ? '<span class="badge closed">예약창 닫힘</span>'
+      : '<span class="badge open">예약창 열림</span>';
+
+    const c = cache[cacheKey(m.url)] || {};
+    const span = days.length === 1 ? dateLabel(days[0].date)
+      : `${days[0].date.slice(5)}~${days[days.length - 1].date.slice(5)}`;
+    const hours = (c.hour_from && c.hour_to) ? ` · ${c.hour_from}~${c.hour_to}` : '';
+    const summary = left > 0 ? `잔여 <b>${left}자리</b>` : '전 회차 매진';
+
+    // "자리 있는 것만"에서는 매진된 날짜를 통째로 접는다. 소머드처럼 날짜가 열 개
+    // 넘는 항목은 "전부 매진" 줄만으로도 화면이 한참 밀린다.
+    const visible = onlyFree ? days.filter(d => d.left > 0) : days;
+    const hiddenDays = days.length - visible.length;
+
+    const body = visible.map(({ date, slots, stock, booked, left: dleft, scope }) => {
+      const times = Object.keys(slots).sort()
+        .filter(t => !onlyFree || slots[t][0] - slots[t][1] > 0);
+      const chips = times.map(t => {
+        const l = slots[t][0] - slots[t][1];
+        return `<div class="slot ${l > 0 ? 'free' : 'gone'}">
+                  <span class="t">${t}</span>
+                  <span class="n">${l > 0 ? l + '자리' : '매진'}</span>
+                </div>`;
+      }).join('');
+      return `<div class="day">
+        <div class="day-head">
+          <span class="day-date">${dateLabel(date)}
+            ${scope ? `<span class="badge scope">${scope}</span>` : ''}</span>
+          <span class="day-sum">재고 ${stock} · 예약 ${booked} · 잔여 <b>${dleft}</b></span>
+        </div>
+        ${chips ? `<div class="slots">${chips}</div>`
+                : `<div class="allsold">${Object.keys(slots).length}개 회차 전부 매진</div>`}
+      </div>`;
+    }).join('');
+
+    return `<div class="card">
+      <div class="m-head" onclick="toggleCard('${m.id}')">
+        <span class="m-name"><span class="arrow">${open ? '▾' : '▸'}</span>${m.name}</span>${gate}
+      </div>
+      <div class="m-meta">${span}${hours} · ${summary}</div>
+      <div class="m-body ${open ? '' : 'hide'}">${body}${
+        hiddenDays ? `<div class="allsold">매진된 날짜 ${hiddenDays}개는 접었습니다 · 위 ‘전 시간대’로 펼칠 수 있어요</div>`
+                   : ''}</div>
+    </div>`;
+  }).join('');
+
+  $('now-list').innerHTML = out
+    || '<div class="empty">아직 잡힌 재고 스냅샷이 없습니다.<br>모니터가 한 바퀴 돌면 채워집니다.</div>';
+}
+
+function toggleCard(id) {
+  // 기본값(자리 있으면 펼침)을 사용자가 뒤집을 수 있게 양쪽 집합을 쓴다.
+  const nowOpen = closedCards.has(id) ? false
+    : (openCards.has(id) || (monitorRows().find(r => r.m.id === id) || {}).left > 0);
+  openCards.delete(id); closedCards.delete(id);
+  (nowOpen ? closedCards : openCards).add(id);
+  renderNow();
+}
+
+function setOnlyFree(v) {
+  onlyFree = v;
+  localStorage.setItem('stock_only_free', v ? '1' : '0');
+  $('btn-free').classList.toggle('on', v);
+  $('btn-all').classList.toggle('on', !v);
+  renderNow();
+}
+
+// ── 이력 ─────────────────────────────────────────────────────────────
+// history/YYYY-MM.jsonl — 모니터가 회차마다 덧붙인다 (한 줄 = 한 사건).
+function monthOptions() {
+  const now = new Date(Date.now() + 9 * 3600 * 1000);   // KST
+  const opts = [];
+  for (let i = 0; i < 3; i++) {
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+    const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+    opts.push(`<option value="${key}">${key}</option>`);
+  }
+  $('f-month').innerHTML = opts.join('');
+}
+
+async function loadMonth() {
+  const month = $('f-month').value;
+  shown = 60;
+  $('hist-list').innerHTML = '<div class="empty">불러오는 중...</div>';
+  try {
+    const r = await fetch(fresh(`history/${month}.jsonl`), { cache: 'no-store' });
+    // 그 달에 기록이 없으면 파일 자체가 없다 (404) — 오류가 아니다.
+    history = !r.ok ? [] : (await r.text()).split('\n')
+      .filter(l => l.trim())
+      .map(l => { try { return JSON.parse(l); } catch { return null; } })
+      .filter(Boolean);
+  } catch {
+    history = [];
+  }
+  // 파일은 시간순으로 덧붙지만, 그 순서에 기대지 않고 명시적으로 최신순으로 세운다.
+  history.sort((a, b) => (a.ts < b.ts ? 1 : a.ts > b.ts ? -1 : 0));
+  renderHistory();
+}
+
+// 잔여(재고-예약) 변화로 옮겨 적는다. 정작 궁금한 건 "몇 자리 잡을 수 있게 됐나"지
+// 재고나 예약 수 자체가 아니다.
+function slotChips(slots) {
+  return Object.entries(slots || {}).map(([t, v]) => {
+    if (typeof v === 'number') return `<span class="chip up">${t} ${v}자리</span>`;
+    const from = v.from ? v.from[0] - v.from[1] : null;
+    const to   = v.to   ? v.to[0]   - v.to[1]   : null;
+    if (from === null) return `<span class="chip up">${t} 시간대 생김 (${to}자리)</span>`;
+    if (to === null)   return `<span class="chip down">${t} 시간대 사라짐</span>`;
+    const cls = to > from ? 'up' : to < from ? 'down' : '';
+    return `<span class="chip ${cls}">${t} 잔여 ${from}→${to}</span>`;
+  }).join('');
+}
+
+function eventView(e) {
+  if (e.kind === 'gate') {
+    return { icon: e.open ? '✅' : '🔒',
+             title: `${e.name} — 예약창 ${e.open ? '열림' : '닫힘'}`,
+             sub: e.reason || '', slots: '' };
+  }
+  if (e.kind === 'alert') {
+    const icon = e.level === 'open' ? '🎉' : e.level === 'closed' ? '🔒' : '⏳';
+    // 저장된 제목은 알림에 나간 문구 그대로라 이미 같은 이모지로 시작한다.
+    // 아이콘 칸과 겹치지 않게 앞의 이모지를 떼고 쓴다.
+    let title = e.title || `${e.name} 자리 알림`;
+    if (title.startsWith(icon)) title = title.slice(icon.length).trim();
+    return { icon, title,
+             sub: [dateLabel(e.date), e.reason].filter(Boolean).join(' · '),
+             slots: slotChips(e.slots) };
+  }
+  // stock / scope
+  const [ps, cs] = Array.isArray(e.stock)  ? e.stock  : [e.stock, e.stock];
+  const [pb, cb] = Array.isArray(e.booked) ? e.booked : [e.booked, e.booked];
+  return {
+    icon: e.kind === 'scope' ? '⚙️' : '📊',
+    title: `${e.name} ${dateLabel(e.date)} — ${e.change}`,
+    sub: `재고 ${ps}→${cs} · 예약 ${pb}→${cb} · 잔여 ${ps - pb}→${cs - cb}`,
+    slots: slotChips(e.slots),
+  };
+}
+
+function renderHistory() {
+  const item = $('f-item').value, kind = $('f-kind').value;
+  const rows = history.filter(e =>
+    (!item || e.item === item) &&
+    (!kind || e.kind === kind || (kind === 'stock' && e.kind === 'scope')));
+
+  if (!rows.length) {
+    $('hist-list').innerHTML = '<div class="empty">이 조건에 해당하는 기록이 없습니다.</div>';
+    return;
+  }
+
+  let html = '', lastDay = '', card = [];
+  const flush = () => { if (card.length) html += `<div class="card">${card.join('')}</div>`; card = []; };
+
+  for (const e of rows.slice(0, shown)) {
+    const day = e.ts.slice(0, 10);
+    if (day !== lastDay) { flush(); html += `<div class="h-day">${dateLabel(day)}</div>`; lastDay = day; }
+    const v = eventView(e);
+    card.push(`<div class="ev">
+      <div class="ev-time">${e.ts.slice(11, 16)}</div>
+      <div class="ev-body">
+        <div class="ev-title">${v.icon} ${v.title}</div>
+        ${v.sub ? `<div class="ev-sub">${v.sub}</div>` : ''}
+        ${v.slots ? `<div class="ev-slots">${v.slots}</div>` : ''}
+      </div>
+    </div>`);
+  }
+  flush();
+
+  if (rows.length > shown) {
+    html += `<button class="more" onclick="shown += 120; renderHistory()">
+               더 보기 (${rows.length - shown}건 남음)</button>`;
+  }
+  $('hist-list').innerHTML = html;
+}
+
+function showTab(which) {
+  $('tab-now').classList.toggle('on', which === 'now');
+  $('tab-hist').classList.toggle('on', which === 'hist');
+  $('view-now').classList.toggle('hide', which !== 'now');
+  $('view-hist').classList.toggle('hide', which === 'now');
+  if (which === 'hist' && !history.length) loadMonth();
+}
+
+async function init() {
+  try {
+    const [cfg, al, sc] = await Promise.all([
+      getJSON('monitors.json'), getJSON('booking_alerted.json'), getJSON('schedule_cache.json'),
+    ]);
+    monitors = cfg.monitors || [];
+    alerted = al; cache = sc;
+
+    $('f-item').innerHTML = '<option value="">전체 모니터</option>' +
+      monitors.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
+    monthOptions();
+    setOnlyFree(onlyFree);     // 저장된 선택을 버튼에 반영하면서 첫 렌더까지 한다
+
+    const t = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+    $('status').textContent = `${monitors.filter(m => m.enabled !== false).length}개 감시 중 · ${t} 기준`;
+  } catch (e) {
+    $('status').textContent = '불러오기 실패';
+    $('view-now').innerHTML = `<div class="empty">데이터를 읽지 못했습니다.<br>${e.message}</div>`;
+  }
+}
+
+init();
+</script>
+</body>
+</html>
