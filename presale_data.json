@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T10:31:52.209147+09:00",
+  "updated_at": "2026-09-18T10:37:33.819687+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -333,7 +333,7 @@
     {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "bookingBusinessId": "1717462",
       "operationStart": "26.09.17.",
@@ -354,7 +354,8 @@
         "2026-09-16T12:29:45.799888+09:00",
         "2026-09-17T15:47:19.415709+09:00",
         "2026-09-18T00:09:19.475373+09:00",
-        "2026-09-18T02:56:32.006169+09:00"
+        "2026-09-18T02:56:32.006169+09:00",
+        "2026-09-18T10:37:20.673273+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -695,7 +696,7 @@
     {
       "id": "2057558383",
       "name": "위아자 나눔위크 '지구체육관'",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
       "operationStart": "26.10.23.",
@@ -1615,13 +1616,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2036674429",
-      "place_name": "소녀전선2 망명 갤러리",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
-      "ts": "2026-09-01T17:38:54.231903+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2005264248",
@@ -3014,6 +3008,13 @@
       "place_name": "위아자 나눔위크 '지구체육관'",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "ts": "2026-09-18T09:57:33.126706+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-09-18T10:37:20.673273+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3158,7 +3159,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-18T10:31:38.932982+09:00",
+    "checked_at": "2026-09-18T10:37:20.673273+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
