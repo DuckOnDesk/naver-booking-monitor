@@ -31,6 +31,10 @@
   - 닫힘 사유에 리다이렉트된 페이지의 본문을 덧붙인다 (네이버가 거기에 이유를 적는다)
   - 그 본문은 로그 서명에서 뺀다. 본문이 회차마다 조금씩 달라지면 같은 '닫힘'이
     매 회차 새 상태로 잡혀, 60분 간격이어야 할 줄이 60초마다 찍힌다
+  - 예약 페이지가 통째로 내려간 닫힘(/error/ type=InvalidBusiness, "운영하지 않는
+    예매 페이지")에는 자리 알림을 보내지 않는다. 스케줄 API는 그대로 응답해서
+    취소가 날 때마다 자리가 보이지만 잡을 수는 없다 (2026-09-18 쿠팡 온리 페스타).
+    대신 내려갔다는 사실을 한 번 알리고, 다시 열리면 종전대로 알린다
 
 사용법: python check_booking_urlgate_test.py
 """
@@ -313,6 +317,58 @@ def main() -> int:
     shown2 = [l for l in logs2 if "예약창 닫힘" in l]
     check(any("마감되었습니다 1" in l for l in shown1), f"첫 회차에는 본문까지 남긴다 (실제: {shown1})")
     check(not shown2, f"본문만 달라진 다음 회차는 생략한다 (실제: {shown2})")
+
+    print("12) 예약 페이지가 내려가면 자리 알림을 멈추고, 멈췄다는 것만 한 번 알린다")
+    cb.reset_log_state()
+    dead_alerted: dict = {}
+
+    def dead_check(url):
+        calls.append(url)
+        return True, ('URL 리다이렉트: /error/ type=InvalidBusiness'
+                      ' — "운영하지 않는 예매 페이지입니다."')
+
+    real_fake, fake_check = fake_check, dead_check
+    try:
+        logs1, sent1, _ = run_round([unit("11:00", stock=4, booked=3)], dead_alerted)
+        # 취소표가 하나 더 나도(자리 증가) 다시 울리지 않아야 한다
+        logs2, sent2, _ = run_round([unit("11:00", stock=4, booked=2)], dead_alerted)
+    finally:
+        fake_check = real_fake
+
+    check(sent1 == ["🚫 테스트 예약 페이지 내려감"],
+          f"내려간 것은 한 번 알린다 (실제: {sent1})")
+    check(sent2 == [], f"그 뒤 자리가 늘어도 알리지 않는다 (실제: {sent2})")
+    check(any("예약 페이지 내려감(알림 중단)" in l for l in logs2),
+          "로그에는 자리와 함께 중단 사유가 남는다")
+    check(dead_alerted.get("t1:url_dead") == 1, "내려감 상태는 회차를 넘겨 유지된다")
+
+    print("12-1) 페이지가 다시 열리면 종전대로 알린다")
+    cb.reset_log_state()
+    advance()
+    closed_now = False
+    _, sent3, _ = run_round([unit("11:00", stock=4, booked=3)], dead_alerted)
+    check("✅ 테스트 예약창 열림" in sent3 and "🎉 테스트 예약 가능!" in sent3,
+          f"열림 전환과 자리 알림이 모두 나간다 (실제: {sent3})")
+    check("t1:url_dead" not in dead_alerted, "내려감 기록은 지워진다")
+
+    print("12-2) 잠깐 닫힌 것(판매 기간 아님)은 종전대로 🔒 알림을 보낸다")
+    cb.reset_log_state()
+    advance()
+    temp_alerted: dict = {}
+    closed_now = True           # fake_check → "URL 리다이렉트: /error/"
+    _, sent4, _ = run_round([unit("11:00", stock=4, booked=3)], temp_alerted)
+    check(sent4 == ["🔒 테스트 자리 있음 (예약창 닫힘)"],
+          f"내려감이 아닌 닫힘은 그대로 알린다 (실제: {sent4})")
+    check("t1:url_dead" not in temp_alerted, "내려감으로 잡지 않는다")
+
+    print("12-3) closed_is_terminal은 사유 문구로만 가른다")
+    check(cb.closed_is_terminal("URL 리다이렉트: /error/ type=InvalidBusiness"),
+          "type=InvalidBusiness → 내려감")
+    check(cb.closed_is_terminal('URL 리다이렉트: /error/ — "운영하지 않는 예매 페이지입니다."'),
+          "본문 문구로도 잡는다")
+    check(not cb.closed_is_terminal('URL 리다이렉트: /error/ — "판매 기간이 아닙니다"'),
+          "판매 기간이 아닌 것은 내려감이 아니다")
+    check(not cb.closed_is_terminal(""), "사유가 없으면 내려감이 아니다")
 
     print(f"\n=== 실패 {len(fails)}건 ===", flush=True)
     for f in fails:

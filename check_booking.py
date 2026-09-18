@@ -1866,6 +1866,28 @@ _CLOSED_TEXT_PATTERNS = [
     "더 이상 예약할 수 없습니다",
 ]
 
+# 같은 닫힘이라도 "잠깐 닫힌 것"과 "페이지가 통째로 내려간 것"은 다르다. 뒤엣것은
+# 업체가 상품을 내린 것이라, 스케줄 API에 취소표가 계속 보여도 잡을 방법이 없다.
+# 2026-09-18 쿠팡 온리 페스타: 예약 페이지는 07:49~09:19 사이에
+# /error/ticket?type=InvalidBusiness("운영하지 않는 예매 페이지입니다")로 내려갔는데,
+# hourlySchedule은 09-18~09-20 17회차를 재고까지 그대로 돌려줬다. 그래서 취소가 날
+# 때마다 자리 알림이 계속 나갔다 — 눌러 봐야 열리지 않는 페이지로.
+_DEAD_PATTERNS = (
+    "type=InvalidBusiness",
+    "type=InvalidBizItem",
+    "운영하지 않는 예매 페이지",
+    "This Book page is not available",
+)
+
+
+def closed_is_terminal(reason: str) -> bool:
+    """닫힘 사유가 '예약 페이지가 내려갔다'인지.
+
+    True면 자리 알림을 보내지 않는다 (알려 봐야 잡을 수 없는 자리다).
+    페이지가 다시 열리면 UrlGate가 ✅ 알림을 보내므로 감시 자체는 계속한다.
+    """
+    return any(p in reason for p in _DEAD_PATTERNS)
+
 _pw_handle = None    # sync_playwright() 핸들
 _pw_browser = None   # 재사용하는 chromium 인스턴스
 
@@ -1957,7 +1979,9 @@ def _playwright_check(url: str) -> tuple[bool, str]:
         browser = _browser_get()
         # 컨텍스트는 매번 새로 만든다. 재사용하면 이전 페이지의 URL·쿠키가 남아
         # 리다이렉트 판정이 오염된다.
-        context = browser.new_context()
+        # 로캘을 안 주면 러너 기본값(영어) 페이지가 와서 _CLOSED_TEXT_PATTERNS가
+        # 하나도 안 맞는다 — 텍스트 기반 닫힘 판정이 통째로 죽어 있었다.
+        context = browser.new_context(locale="ko-KR")
         cookies = naver_cookies()
         if cookies:
             context.add_cookies(cookies)
@@ -1967,7 +1991,11 @@ def _playwright_check(url: str) -> tuple[bool, str]:
         final_url = page.url
         for pat in _CLOSED_URL_PATTERNS:
             if pat in final_url:
-                return True, f"URL 리다이렉트: {pat}{_page_note(page)}"
+                # type=... 을 사유에 함께 남긴다. 본문을 못 읽는 회차에도
+                # closed_is_terminal이 "내려감"을 가릴 수 있어야 한다.
+                m = re.search(r"[?&](type=[A-Za-z]+)", final_url)
+                label = f"{pat} {m.group(1)}" if m else pat
+                return True, f"URL 리다이렉트: {label}{_page_note(page)}"
         if item_path and item_path not in final_url:
             return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈{_page_note(page)}"
         visible_text = " ".join(page.inner_text("body").split())
@@ -2037,14 +2065,26 @@ class UrlGate:
         self.item, self.item_id, self.url, self.name = item, item_id, url, name
         self.alerted, self.ntfy_topic, self.now_str = alerted, ntfy_topic, now_str
         self.closed_key = f"{item_id}:url_closed"
+        self.dead_key = f"{item_id}:url_dead"
         self.checked = False          # 이번 회차에 브라우저를 켰는지
         self.consulted = False        # 이번 회차에 상태를 물어보기는 했는지(=자리를 찾았는지)
         self._closed = bool(alerted.get(self.closed_key))
+        self._dead = bool(alerted.get(self.dead_key))
 
     @property
     def known_closed(self) -> bool:
         """마지막으로 알던 상태. 브라우저를 켜지 않는다 (스윕 게이트용)."""
         return self._closed
+
+    @property
+    def dead(self) -> bool:
+        """예약 페이지가 내려가 있는가. 브라우저를 켜지 않는다.
+
+        이번 회차에 확인했으면 그 결과, 아니면 마지막으로 알던 상태다. dead면
+        자리 알림도 📊도 보내지 않는다 — 눌러도 열리지 않는 페이지라, 취소표가 날
+        때마다 울리기만 한다 (closed_is_terminal 참고).
+        """
+        return self._dead
 
     @property
     def closed(self) -> bool:
@@ -2096,6 +2136,8 @@ class UrlGate:
 
         alerted, name, now_str = self.alerted, self.name, self.now_str
         self._closed = raw_closed
+        was_dead = self._dead
+        self._dead = raw_closed and closed_is_terminal(reason)
 
         if self._closed:
             item_prefix = f"{self.item_id}:"
@@ -2103,7 +2145,7 @@ class UrlGate:
             # 같이 지우면 비교 대상이 매번 사라져 닫힌 상태에서는 재고 변경을 영영
             # 못 잡는다 (2026-09-08 하겐다즈가 바로 그 구간이었다).
             purge_item_keys(alerted, item_prefix,
-                            keep=(self.closed_key,),
+                            keep=(self.closed_key, self.dead_key),
                             keep_suffix=(":closed", STOCK_KEY_SUFFIX, SCOPE_KEY_SUFFIX))
             alerted[self.closed_key] = 1
             # 서명에서는 페이지 본문을 뗀다. 본문이 회차마다 조금씩 달라지면
@@ -2111,8 +2153,22 @@ class UrlGate:
             # 60분 간격이어야 할 줄이 60초마다 찍힌다.
             log_state(f"{self.item_id}:status", f"🔒 {name} — 예약창 닫힘 ({reason})",
                       sig=f"닫힘:{reason.split(_NOTE_SEP, 1)[0]}", now_str=now_str)
+            if self._dead:
+                # 자리 알림을 끊는 대신, 끊었다는 사실은 한 번 알린다. 안 그러면
+                # 조용해진 게 '자리가 없어서'인지 '페이지가 내려가서'인지 모른다.
+                if not was_dead:
+                    alerted[self.dead_key] = 1
+                    print(f"[{now_str}] 🚫 {name} — 예약 페이지 내려감, 자리 알림 중단 "
+                          f"({reason.split(_NOTE_SEP, 1)[0]})", flush=True)
+                    if self.ntfy_topic:
+                        send_ntfy(self.ntfy_topic, f"🚫 {name} 예약 페이지 내려감",
+                                  "예약 페이지가 내려가 자리 알림을 멈춥니다.\n"
+                                  "다시 열리면 알려 드립니다.", self.url)
+            else:
+                alerted.pop(self.dead_key, None)
         elif self.closed_key in alerted:
             alerted.pop(self.closed_key)
+            alerted.pop(self.dead_key, None)
             item_prefix = f"{self.item_id}:"
             for k in list(alerted.keys()):
                 if k.startswith(item_prefix) and k.endswith(":closed"):
@@ -2129,6 +2185,7 @@ class UrlGate:
                           "예약창이 열렸습니다. 직접 확인해보세요!", self.url)
             _log_state[f"{self.item_id}:status"] = ("열림", time.monotonic())
         else:
+            alerted.pop(self.dead_key, None)
             log_state(f"{self.item_id}:status", f"✅ {name} — 예약창 열림",
                       sig="열림", now_str=now_str)
 
@@ -2577,14 +2634,19 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
                     closed_alert_key = f"{alert_key}:closed"
                     prev_slots = alerted.get(closed_alert_key)
                     log_parts, increased = _format_slot_parts(per_slot, prev_slots)
+                    # 예약 페이지가 내려간 경우에는 알리지 않는다. 스케줄 API는 그대로
+                    # 응답해서 취소가 날 때마다 자리가 보이지만, 그 자리는 잡을 수 없다
+                    # (closed_is_terminal / 2026-09-18 쿠팡 온리 페스타).
+                    dead_note = " - 예약 페이지 내려감(알림 중단)" if gate.dead else ""
 
                     log_state(log_key,
                               f"🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} "
-                              f"({stock_info}){blocked_note} - 예약창 닫힘{restriction_note}",
+                              f"({stock_info}){blocked_note} - 예약창 닫힘{dead_note}{restriction_note}",
                               now_str=now_str)
 
                     cal_ok = True
-                    if not is_restricted and available > 0 and (prev_slots is None or increased):
+                    if (not is_restricted and not gate.dead and available > 0
+                            and (prev_slots is None or increased)):
                         cal_ok = fetch_calendar_day_status(parsed["service_id"], parsed["biz_id"], datekey)
                         _log_alert_diagnostics(name, date_str, d, slot_info, ref_slots,
                                                cal_ok, ba_code, ba_value, "닫힘")
@@ -2753,8 +2815,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
         # 자리 알림이 나가지 않은 날짜만 📊로 알린다. 자리 알림은 "지금 잡을 수 있다"를
         # 알리고 📊는 "숫자가 이렇게 움직였다"를 알리는데, 같은 사건에 둘 다 울리면
         # 정작 급한 쪽이 묻힌다. 접힌 회차도 로그의 📊 줄은 위에서 이미 남았다.
+        # 예약 페이지가 내려간 항목은 📊도 보내지 않는다 — 잡을 수 없는 자리의
+        # 숫자가 움직이는 것뿐이라, 자리 알림과 같은 이유로 소음이다.
         for _dk, _payload in pending_stock:
-            if _dk not in slot_alerted:
+            if _dk not in slot_alerted and not gate.dead:
                 send_stock_change(ntfy_topic, _payload)
 
         # 자리가 사라진 회차에도 예약창은 한 번 본다. 자리가 없어졌다는 건 방금 누군가
