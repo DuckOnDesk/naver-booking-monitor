@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T12:25:57.453620+09:00",
+  "updated_at": "2026-09-18T12:31:35.917351+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1569,7 +1569,7 @@
     {
       "id": "2024677130",
       "name": "2026 서리풀뮤직페스티벌",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "bookingBusinessId": "1723246",
       "operationStart": "26.09.19.",
@@ -1622,7 +1622,8 @@
         "2026-09-16T02:42:00.577220+09:00",
         "2026-09-17T22:56:37.641245+09:00",
         "2026-09-18T00:31:41.524410+09:00",
-        "2026-09-18T07:10:51.366281+09:00"
+        "2026-09-18T07:10:51.366281+09:00",
+        "2026-09-18T12:31:22.651829+09:00"
       ],
       "bookingOpenAuto": "2026-09-01T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-08T14:03:35.025104+09:00",
@@ -1635,13 +1636,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2005264248",
-      "place_name": "GU 26FW POP UP",
-      "booking_url": "",
-      "ts": "2026-09-01T17:44:32.359485+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039988652",
@@ -3034,6 +3028,13 @@
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "ts": "2026-09-18T10:37:20.673273+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2024677130",
+      "place_name": "2026 서리풀뮤직페스티벌",
+      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
+      "ts": "2026-09-18T12:31:22.651829+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3178,7 +3179,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-18T12:25:44.353904+09:00",
+    "checked_at": "2026-09-18T12:31:22.651829+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
