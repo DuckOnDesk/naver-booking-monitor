@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-19T00:02:09.974882+09:00",
+  "updated_at": "2026-09-19T00:07:44.240779+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -310,9 +310,35 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2055941674",
+      "name": "안녕 : 안유진 X 장원영 미디어아트 전시",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.05.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260902_298/1788353401385nvQeT_JPEG/edited-1788353399893-0.jpg",
+      "roadAddress": "서울숲2길 32-14 더서울라이티움 제 3 전시장",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-08T11:20:30.140278+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "bookingBusinessId": "1717462",
       "operationStart": "26.09.17.",
@@ -337,7 +363,8 @@
         "2026-09-18T10:37:20.673273+09:00",
         "2026-09-18T13:11:00.715288+09:00",
         "2026-09-18T15:40:43.114700+09:00",
-        "2026-09-18T20:46:07.495250+09:00"
+        "2026-09-18T20:46:07.495250+09:00",
+        "2026-09-19T00:07:33.563131+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -346,32 +373,6 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:20:46.474821+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2055941674",
-      "name": "안녕 : 안유진 X 장원영 미디어아트 전시",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.05.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260902_298/1788353401385nvQeT_JPEG/edited-1788353399893-0.jpg",
-      "roadAddress": "서울숲2길 32-14 더서울라이티움 제 3 전시장",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-08T11:20:30.140278+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1697,13 +1698,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2040937553",
-      "place_name": "프리카 성수 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1631459/search",
-      "ts": "2026-09-02T03:22:18.566798+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039106013",
@@ -3096,6 +3090,13 @@
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "ts": "2026-09-18T20:46:07.495250+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-09-19T00:07:33.563131+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3243,7 +3244,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-19T00:01:59.129985+09:00",
+    "checked_at": "2026-09-19T00:07:33.563131+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
