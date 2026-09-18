@@ -175,7 +175,27 @@ def main() -> int:
     finally:
         cb.HISTORY_KEEP_MONTHS = keep
 
-    print("8) 기록이 실패해도 감시를 멈추지 않는다")
+    print("8) 이력은 상태 파일과 같은 커밋에 실린다 (커밋이 두 배가 되지 않는다)")
+    seen: list = []
+    real_commit = cb.commit_files
+    cb.commit_files = lambda paths, msg, label="": seen.append(list(paths)) or True
+    try:
+        cb._history_buf.clear()
+        cb.record_history("stock", "t8", "커밋", date="2026-09-23", change="테스트")
+        paths = cb.flush_history()
+        cb.commit_alerted(paths)
+        check(seen == [["booking_alerted.json", "history/"
+                        + datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m") + ".jsonl"]],
+              f"한 번의 커밋에 상태 파일과 이력이 같이 실린다 (실제: {seen})")
+
+        seen.clear()
+        cb.commit_alerted()
+        check(seen == [["booking_alerted.json"]],
+              f"이력이 없으면 종전과 똑같다 (실제: {seen})")
+    finally:
+        cb.commit_files = real_commit
+
+    print("9) 기록이 실패해도 감시를 멈추지 않는다")
     cb._history_buf.clear()
     cb.record_history("stock", "t9", "직렬화불가", blob=object())
     check(cb._history_buf == [], "JSON으로 못 만드는 값은 버린다 (예외를 올리지 않는다)")
