@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-18T20:01:41.178878+09:00",
+  "updated_at": "2026-09-18T20:07:15.420784+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -40,7 +40,6 @@
     "2074820669",
     "2078141397",
     "2080832507",
-    "2082242364",
     "2084168433"
   ],
   "booking_open_datetimes": {},
@@ -701,32 +700,6 @@
       "bookingNotified": true,
       "discoveredAt": "2026-09-10T11:47:58.205531+09:00",
       "lastBookingNotifiedAt": "2026-09-10T11:53:50.504263+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2082242364",
-      "name": "<양일우와 나> 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.21.",
-      "operationEnd": "26.10.01.",
-      "remainingDays": 3,
-      "status": "D-3",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260918_55/1789708415178M8p1j_JPEG/edited-1789708415487-0.jpg",
-      "roadAddress": "양화로 188 AK플라자 1층 POP 매장",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "discoveredAt": "2026-09-18T14:32:07.830440+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -3269,23 +3242,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-18T20:01:30.352262+09:00",
+    "checked_at": "2026-09-18T20:07:04.541380+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 955,
-    "presale_items": 206,
-    "after_district_filter": 107,
+    "candidate_items": 952,
+    "presale_items": 203,
+    "after_district_filter": 105,
     "fallback_matched": 0,
-    "unique_place_ids": 61,
-    "tracked_places": 61,
+    "unique_place_ids": 60,
+    "tracked_places": 60,
     "new_places": 0,
     "last_new_place_at": "2026-09-18T14:32:07.830440+09:00",
     "admission_names": {
       "(없음)": 500,
       "현장대기": 249,
-      "사전예약&현장대기": 160,
+      "사전예약&현장대기": 157,
       "사전예약": 46
     },
     "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
