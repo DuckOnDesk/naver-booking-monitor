@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-19T22:09:00.809959+09:00",
+  "updated_at": "2026-09-19T22:14:35.182530+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -206,7 +206,7 @@
     {
       "id": "2078141397",
       "name": "쿠팡 온리 페스타",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "bookingBusinessId": "1717462",
       "operationStart": "26.09.17.",
@@ -234,7 +234,8 @@
         "2026-09-18T20:46:07.495250+09:00",
         "2026-09-19T00:07:33.563131+09:00",
         "2026-09-19T02:55:11.869448+09:00",
-        "2026-09-19T08:57:50.986818+09:00"
+        "2026-09-19T08:57:50.986818+09:00",
+        "2026-09-19T22:14:24.179891+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1710,13 +1711,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2039106013",
-      "place_name": "N:DVERSE GARDENING POP-UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
-      "ts": "2026-09-02T18:58:26.570356+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2080864780",
       "place_name": "시몬스 갤러리 성수",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1720729",
@@ -3107,6 +3101,13 @@
       "place_name": "2026 서리풀뮤직페스티벌",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
       "ts": "2026-09-19T15:41:56.167511+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2078141397",
+      "place_name": "쿠팡 온리 페스타",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
+      "ts": "2026-09-19T22:14:24.179891+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3254,7 +3255,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-19T22:08:49.755066+09:00",
+    "checked_at": "2026-09-19T22:14:24.179891+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
