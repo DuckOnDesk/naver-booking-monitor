@@ -1775,3 +1775,5 @@
 {"ts": "2026-09-20T03:22:01+09:00", "kind": "stock", "item": "mtuo5elj", "name": "소머드", "date": "2026-09-22", "change": "예약 변동(예약 취소)", "stock": [5, 5], "booked": [5, 4], "slots": {"15:00": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
 {"ts": "2026-09-20T03:22:05+09:00", "kind": "gate", "item": "mtuo5elj", "name": "소머드", "open": false, "reason": "URL 리다이렉트: /error/ type=InvalidBusiness — \"운영하지 않는 예매 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
 {"ts": "2026-09-20T03:22:05+09:00", "kind": "alert", "item": "mtuo5elj", "name": "소머드", "date": "2026-09-22", "level": "closed", "title": "🔒 소머드 자리 있음 (예약창 닫힘)", "slots": {"15:00": 1}}
+{"ts": "2026-09-20T03:38:33+09:00", "kind": "gate", "item": "mtuo5elj", "name": "소머드", "open": true, "reason": ""}
+{"ts": "2026-09-20T03:38:33+09:00", "kind": "alert", "item": "mtuo5elj", "name": "소머드", "date": "2026-09-22", "level": "open", "title": "🎉 소머드 예약 가능!", "slots": {"15:00": 1}}
