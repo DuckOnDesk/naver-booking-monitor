@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-20T05:48:18.068435+09:00",
+  "updated_at": "2026-09-20T05:53:53.502114+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -408,7 +408,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -428,7 +428,8 @@
         "2026-09-14T22:35:58.545075+09:00",
         "2026-09-17T05:57:06.307936+09:00",
         "2026-09-18T05:59:09.331830+09:00",
-        "2026-09-19T05:47:08.877650+09:00"
+        "2026-09-19T05:47:08.877650+09:00",
+        "2026-09-20T05:53:41.186044+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1711,13 +1712,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2036674429",
-      "place_name": "소녀전선2 망명 갤러리",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1547457",
-      "ts": "2026-09-02T20:42:17.354036+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2039106013",
@@ -3110,6 +3104,13 @@
       "place_name": "소머드 롯데본점 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "ts": "2026-09-20T03:47:08.565473+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071088201",
+      "place_name": "클리오 풍년다방 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
+      "ts": "2026-09-20T05:53:41.186044+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3257,7 +3258,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-20T05:48:07.090157+09:00",
+    "checked_at": "2026-09-20T05:53:41.186044+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
