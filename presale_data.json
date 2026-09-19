@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-19T16:09:49.733121+09:00",
+  "updated_at": "2026-09-19T16:15:23.361187+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1164,7 +1164,7 @@
     {
       "id": "2018097846",
       "name": "뷰티학당:코덕의 잼컨파티",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1730987",
       "bookingBusinessId": "1730987",
       "operationStart": "26.09.20.",
@@ -3254,7 +3254,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-19T16:09:40.334450+09:00",
+    "checked_at": "2026-09-19T16:15:13.149658+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
