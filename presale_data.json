@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-20T03:41:47.039824+09:00",
+  "updated_at": "2026-09-20T03:47:18.431566+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1218,7 +1218,7 @@
     {
       "id": "2033849367",
       "name": "소머드 롯데본점 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -1235,7 +1235,8 @@
         "2026-09-10T06:56:19.408642+09:00",
         "2026-09-17T03:54:22.055125+09:00",
         "2026-09-19T03:45:05.337544+09:00",
-        "2026-09-19T11:05:15.072257+09:00"
+        "2026-09-19T11:05:15.072257+09:00",
+        "2026-09-20T03:47:08.565473+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1710,13 +1711,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009756357",
-      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
-      "ts": "2026-09-02T19:59:46.896293+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2036674429",
@@ -3109,6 +3103,13 @@
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
       "ts": "2026-09-20T02:51:57.133401+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 롯데본점 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-09-20T03:47:08.565473+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3256,7 +3257,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-20T03:41:37.450680+09:00",
+    "checked_at": "2026-09-20T03:47:08.565473+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
