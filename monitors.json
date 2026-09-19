@@ -116,8 +116,7 @@
       "name": "스킨앤랩",
       "url": "https://m.booking.naver.com/booking/13/bizes/1739573/items/8067644?area=ple&lang=ko&startDate=2026-10-03&theme=place",
       "enabled": false,
-      "target_dates": [],
-      "mute": true
+      "target_dates": []
     }
   ]
 }
