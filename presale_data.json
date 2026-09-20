@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-20T14:28:09.716587+09:00",
+  "updated_at": "2026-09-20T14:33:42.259596+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1716,13 +1716,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2009756357",
-      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
-      "ts": "2026-09-02T23:46:22.125446+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2039106013",
       "place_name": "N:DVERSE GARDENING POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1718123",
@@ -3113,6 +3106,13 @@
       "place_name": "소머드 롯데본점 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "ts": "2026-09-20T11:01:52.868007+09:00"
+    },
+    {
+      "type": "discovery_stale",
+      "place_name": "⚠️ 사전예약 탐색 점검 필요",
+      "body": "2.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 202개 인식 중.",
+      "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
+      "ts": "2026-09-20T14:33:42.259552+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3260,7 +3260,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-20T14:27:59.477675+09:00",
+    "checked_at": "2026-09-20T14:33:32.057416+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3279,7 +3279,7 @@
       "사전예약&현장대기": 156,
       "사전예약": 46
     },
-    "stale_warned_at": "2026-09-07T18:53:19.958073+09:00",
+    "stale_warned_at": "2026-09-20T14:33:42.259566+09:00",
     "structure_warned_at": null
   }
 }
