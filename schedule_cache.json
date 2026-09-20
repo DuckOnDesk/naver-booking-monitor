@@ -102,10 +102,10 @@
     "available_end": null,
     "hour_from": null,
     "hour_to": null,
-    "checked_at": "2026-09-20T08:14:53.755534+09:00",
-    "booking_available_code": "RI03",
-    "booking_available_value": 1,
-    "restriction_ok": true
+    "checked_at": "2026-09-20T09:18:03.808706+09:00",
+    "booking_available_code": "RI01",
+    "booking_available_value": 0,
+    "restriction_ok": false
   },
   "6_1735456_8048424": {
     "sale_start_date": null,
