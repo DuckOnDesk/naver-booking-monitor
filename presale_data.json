@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-20T12:42:23.769231+09:00",
+  "updated_at": "2026-09-20T12:47:58.002273+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -143,32 +143,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2062283789",
-      "name": "드래곤볼 전시 - 드래곤볼 히어로즈 라이즈 서울",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1713086",
-      "bookingBusinessId": "1713086",
-      "operationStart": "26.08.22.",
-      "operationEnd": "26.11.15.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260821_203/1787294955203lGrkI_JPEG/edited-1787294954698-0.jpg",
-      "roadAddress": "뚝섬로 403",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-08T11:26:26.607684+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2072857611",
       "name": "<릴 X 토니노 람보르기니 그라운드> 팝업스토어",
       "hasBooking": false,
@@ -192,6 +166,32 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2062283789",
+      "name": "드래곤볼 전시 - 드래곤볼 히어로즈 라이즈 서울",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1713086",
+      "bookingBusinessId": "1713086",
+      "operationStart": "26.08.22.",
+      "operationEnd": "26.11.15.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260821_203/1787294955203lGrkI_JPEG/edited-1787294954698-0.jpg",
+      "roadAddress": "뚝섬로 403",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T11:26:26.607684+09:00",
       "bookingIsOpened": false
     },
     {
@@ -468,6 +468,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2069285502",
+      "name": "더웍스 페스타",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1739360",
+      "bookingBusinessId": "1739360",
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
+      "roadAddress": "연무장7길 16 한서빌딩 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-17T16:13:38.334772+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
+      "lastBookingNotifiedAt": "2026-09-17T16:13:53.679437+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2000187386",
       "name": "집집 chapter 02 in 성수",
       "hasBooking": false,
@@ -519,34 +547,6 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T16:55:09.771725+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2069285502",
-      "name": "더웍스 페스타",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1739360",
-      "bookingBusinessId": "1739360",
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_192/1789014740040FVosB_JPEG/edited-1789014739766-0.jpg",
-      "roadAddress": "연무장7길 16 한서빌딩 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-17T16:13:38.334772+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
-      "lastBookingNotifiedAt": "2026-09-17T16:13:53.679437+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3260,7 +3260,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-20T12:42:12.802764+09:00",
+    "checked_at": "2026-09-20T12:47:47.478330+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
