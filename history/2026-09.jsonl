@@ -1961,3 +1961,5 @@
 {"ts": "2026-09-20T21:58:51+09:00", "kind": "gate", "item": "mtzovems", "name": "클리오 T8 (3-4)", "open": true, "reason": ""}
 {"ts": "2026-09-20T21:58:52+09:00", "kind": "alert", "item": "mtzovems", "name": "클리오 T8 (3-4)", "date": "2026-09-24", "level": "open", "title": "🎉 클리오 T8 (3-4) 예약 가능!", "slots": {"13:00": 1}}
 {"ts": "2026-09-20T22:15:21+09:00", "kind": "stock", "item": "mtzovems", "name": "클리오 T8 (3-4)", "date": "2026-09-24", "change": "예약 변동(예약 발생)", "stock": [14, 14], "booked": [13, 14], "slots": {"13:00": {"from": [1, 0], "to": [1, 1]}}, "scope": ""}
+{"ts": "2026-09-21T05:46:13+09:00", "kind": "stock", "item": "mtzovq2r", "name": "클리오 T9 (3-4)", "date": "2026-09-28", "change": "예약 변동(예약 취소)", "stock": [14, 14], "booked": [14, 13], "slots": {"17:30": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
+{"ts": "2026-09-21T05:46:17+09:00", "kind": "alert", "item": "mtzovq2r", "name": "클리오 T9 (3-4)", "date": "2026-09-28", "level": "open", "title": "🎉 클리오 T9 (3-4) 예약 가능!", "slots": {"17:30": 1}}
