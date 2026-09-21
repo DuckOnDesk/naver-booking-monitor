@@ -110,6 +110,13 @@
       "enabled": false,
       "target_dates": [],
       "mute": true
+    },
+    {
+      "id": "muawwgys",
+      "name": "리베르",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856?startDateTime=2026-09-26T00%3A00%3A00%2B09%3A00&tab=book",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
