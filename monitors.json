@@ -85,6 +85,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856?startDateTime=2026-09-26T00%3A00%3A00%2B09%3A00&tab=book",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "muaydmed",
+      "name": "아이쁘",
+      "url": "https://booking.naver.com/booking/12/bizes/1357646/items/8074901",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
