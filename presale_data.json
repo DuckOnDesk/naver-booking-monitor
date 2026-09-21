@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21T15:20:20.076177+09:00",
+  "updated_at": "2026-09-21T15:25:59.349739+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -30,6 +30,7 @@
     "2055941674",
     "2056787959",
     "2057558383",
+    "2061527606",
     "2067695542",
     "2069285502",
     "2071088201",
@@ -676,6 +677,34 @@
       "bookingNotified": true,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T14:14:48.594736+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2061527606",
+      "name": "산리오 문방구",
+      "hasBooking": true,
+      "bookingUrl": null,
+      "bookingBusinessId": "1735851",
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260917_119/1789642853571stJr3_JPEG/image.jpg",
+      "roadAddress": "양화로 188 AK플라자 홍대 2층",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-21T15:25:47.420123+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1551,13 +1580,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-08T14:03:23.301673+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2057558383",
@@ -2950,6 +2972,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "",
       "ts": "2026-09-21T15:14:26.564367+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "",
+      "ts": "2026-09-21T15:25:47.420123+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3048,6 +3077,7 @@
     "2058248160",
     "2058940403",
     "2060436986",
+    "2061527606",
     "2062024820",
     "2062168566",
     "2062283789",
@@ -3097,23 +3127,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-21T15:20:08.052084+09:00",
+    "checked_at": "2026-09-21T15:25:47.420123+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 831,
-    "presale_items": 191,
-    "after_district_filter": 98,
+    "candidate_items": 834,
+    "presale_items": 194,
+    "after_district_filter": 100,
     "fallback_matched": 0,
-    "unique_place_ids": 56,
-    "tracked_places": 56,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-18T14:32:07.830440+09:00",
+    "unique_place_ids": 57,
+    "tracked_places": 57,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-21T15:25:47.420123+09:00",
     "admission_names": {
       "(없음)": 423,
       "현장대기": 217,
-      "사전예약&현장대기": 149,
+      "사전예약&현장대기": 152,
       "사전예약": 42
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
