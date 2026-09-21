@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21T10:59:38.125972+09:00",
+  "updated_at": "2026-09-21T11:05:12.182667+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1232,32 +1232,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2054914344",
-      "name": "사각사각 펜페스트",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1729407",
-      "bookingBusinessId": "1729407",
-      "operationStart": "26.10.17.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 26,
-      "status": "D-26",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_108/1788245255749wMcQB_JPEG/edited-1788245254451-0.jpg",
-      "roadAddress": "명동11길 14 커뮤니티하우스 마실",
-      "commonAddress": "서울 중구",
-      "district": "중구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-08T11:26:38.481917+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2015989932",
       "name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
       "hasBooking": false,
@@ -1281,6 +1255,32 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2054914344",
+      "name": "사각사각 펜페스트",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1729407",
+      "bookingBusinessId": "1729407",
+      "operationStart": "26.10.17.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 26,
+      "status": "D-26",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_108/1788245255749wMcQB_JPEG/edited-1788245254451-0.jpg",
+      "roadAddress": "명동11길 14 커뮤니티하우스 마실",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T11:26:38.481917+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3091,7 +3091,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-21T10:59:28.873254+09:00",
+    "checked_at": "2026-09-21T11:05:03.045055+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
