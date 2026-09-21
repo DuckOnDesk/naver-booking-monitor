@@ -144,6 +144,7 @@ def main() -> int:
     real = {name: getattr(pm, name) for name in
             ("fetch_presale_places", "fetch_bookable_setting", "fetch_sale_start_date",
              "load_prev_alerts", "load_seen_ids", "has_available_slots",
+             "load_place_memory", "load_auto_added_ids", "load_watch_missing",
              "_queue_ntfy", "send_ntfy", "send_toast", "save_data", "CONFIG_FILE")}
 
     item_url = f"https://m.booking.naver.com/booking/5/bizes/{BIZ}/items/8055123"
@@ -166,13 +167,17 @@ def main() -> int:
     pm.fetch_sale_start_date = lambda u, b: None
     pm.load_prev_alerts = lambda: []
     pm.load_seen_ids = lambda: {PID}
+    # 실제 presale_data.json을 읽지 않도록 영구 저장소도 비워 둔다
+    pm.load_place_memory = lambda: {}
+    pm.load_auto_added_ids = lambda: set()
+    pm.load_watch_missing = lambda: {}
     pm.has_available_slots = lambda u, b: True
     pm._queue_ntfy = lambda *a, **k: None
     sent: list = []
     pm.send_ntfy = lambda topic, title, body, url: sent.append({"title": title, "body": body, "url": url})
     pm.send_toast = lambda *a, **k: None
     saved: dict = {}
-    pm.save_data = lambda places, cfg, alerts=None, seen_ids=None, discovery_stats=None: \
+    pm.save_data = lambda places, cfg, alerts=None, seen_ids=None, discovery_stats=None, **kw: \
         saved.update({"places": places, "alerts": alerts})
     pm.CONFIG_FILE = type("P", (), {"write_text": staticmethod(lambda *a, **k: None),
                                     "name": "presale_config.json"})()

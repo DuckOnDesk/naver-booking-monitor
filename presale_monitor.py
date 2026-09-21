@@ -53,6 +53,19 @@ STALE_RENOTIFY_HOURS = 24   # 같은 경고를 다시 보내기까지의 최소 
 REMOVAL_SAFETY_RATIO = 0.5   # 추적 중이던 장소의 이 비율 이상이 빠지면 삭제 보류
 REMOVAL_SAFETY_MIN = 4       # 이보다 적게 빠졌으면 비율을 따지지 않는다
 
+# 검색에서 한 주기 빠졌다가 돌아오는 팝업이 흔하다. 그때 알림 발송 기록까지
+# 같이 날아가면 이미 보낸 알림이 다시 나간다 — 장소 기록과 별도로 남겨 둔다.
+PLACE_MEMORY_KEYS = ("hasBooking", "bookingNotified", "lastBookingNotifiedAt",
+                     "discoveredAt", "bookingOpenHistory", "bookingUrl",
+                     "bookingBusinessId", "saleStartDate", "bookingOpenAuto",
+                     "bookingPaused", "bookingIsOpened")
+PLACE_MEMORY_TTL = timedelta(days=30)   # 이 기간 지나면 기억에서 정리
+
+# 감시 목록(watched_places) 정리는 이만큼 계속 안 보일 때만 한다.
+# 한 주기 안 보인다고 지우면, 돌아올 때 "새 팝업"으로 보여 사용자가 끈 팝업이
+# 자동으로 다시 켜진다 (2026-09-21 03:56 → 04:01, 6개 팝업이 그렇게 되살아남).
+WATCH_CLEANUP_AFTER = timedelta(hours=24)
+
 SESSION = requests.Session()
 SESSION.headers.update({
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
@@ -872,6 +885,74 @@ def load_seen_ids() -> set[str]:
     return set()
 
 
+def load_place_memory() -> dict:
+    """검색에서 사라진 팝업의 알림 발송 기록 등을 남겨 두는 영구 저장소."""
+    try:
+        if DATA_FILE.exists():
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+            mem = data.get("place_memory")
+            return dict(mem) if isinstance(mem, dict) else {}
+    except Exception:
+        pass
+    return {}
+
+
+def load_auto_added_ids() -> set[str]:
+    """감시 목록에 자동으로 추가한 적이 있는 장소 ID.
+
+    한 번 자동 추가한 팝업은 다시 자동 추가하지 않는다 — 사용자가 알림을 끈
+    팝업이 검색에서 잠깐 빠졌다 돌아왔을 때 멋대로 다시 켜지는 걸 막는다.
+    """
+    try:
+        if DATA_FILE.exists():
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+            return set(str(x) for x in data.get("auto_added_place_ids", []))
+    except Exception:
+        pass
+    return set()
+
+
+def load_watch_missing() -> dict:
+    """감시 목록에 있는데 검색에 안 보이기 시작한 시각 {place_id: ISO}."""
+    try:
+        if DATA_FILE.exists():
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+            mem = data.get("watch_missing_since")
+            return dict(mem) if isinstance(mem, dict) else {}
+    except Exception:
+        pass
+    return {}
+
+
+def update_place_memory(memory: dict, prev: dict, current: dict, now_iso: str) -> dict:
+    """검색에서 빠진 팝업만 기억에 담는다.
+
+    목록에 남아 있는 팝업은 places에 그대로 있으니 중복 저장하지 않는다 —
+    데이터 파일이 5분마다 커밋되기 때문에 통째로 복사하면 저장소가 불어난다.
+    """
+    for pid, place in prev.items():
+        if pid in current:
+            continue                    # 아직 목록에 있음 — places가 곧 기록이다
+        entry = {k: place.get(k) for k in PLACE_MEMORY_KEYS}
+        entry["name"] = place.get("name")
+        entry["savedAt"] = now_iso
+        memory[str(pid)] = entry
+    for pid in current:
+        memory.pop(str(pid), None)      # 돌아왔으면 기억에서 꺼내 쓴 뒤 정리
+
+    now = datetime.now(KST)
+    for pid in list(memory):
+        saved_at = (memory[pid] or {}).get("savedAt")
+        if not saved_at:
+            continue
+        try:
+            if (now - datetime.fromisoformat(saved_at)) > PLACE_MEMORY_TTL:
+                del memory[pid]
+        except Exception:
+            pass
+    return memory
+
+
 def load_discovery_stats() -> dict:
     """직전 주기의 탐색 상태 (마지막 신규 발견 시각·경고 발송 시각 유지용)."""
     try:
@@ -1001,7 +1082,9 @@ def report_discovery(stats: dict, config: dict, sel_url: str,
 
 
 def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None,
-              seen_ids: set | None = None, discovery_stats: dict | None = None) -> None:
+              seen_ids: set | None = None, discovery_stats: dict | None = None,
+              place_memory: dict | None = None, auto_added_ids: set | None = None,
+              watch_missing: dict | None = None) -> None:
     data = {
         "updated_at": datetime.now(KST).isoformat(),
         "watched_places": config.get("watched_places", []),
@@ -1011,6 +1094,11 @@ def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None
         "alerts": (alerts or [])[-200:],  # 최근 200건만 유지
         "seen_place_ids": sorted(seen_ids or set()),
         "discovery_stats": discovery_stats if discovery_stats is not None else load_discovery_stats(),
+        # 검색에서 사라져도 알림 기록이 날아가지 않도록 하는 영구 저장소들
+        "place_memory": place_memory if place_memory is not None else load_place_memory(),
+        "auto_added_place_ids": sorted(auto_added_ids if auto_added_ids is not None
+                                       else load_auto_added_ids()),
+        "watch_missing_since": watch_missing if watch_missing is not None else load_watch_missing(),
     }
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -1026,6 +1114,12 @@ def check_once(config: dict, prev: dict) -> dict:
     # 이미 발견 알림을 보낸 팝업 ID (영구 저장) — 재등장해도 중복 알림 방지
     seen_ids = load_seen_ids()
     seen_ids |= {str(pid) for pid in prev}  # 마이그레이션: 기존 데이터의 장소는 이미 본 것으로 간주
+
+    # 검색에서 빠진 팝업의 알림 기록 (영구 저장) — 돌아와도 다시 알리지 않도록
+    memory = load_place_memory()
+    auto_added = load_auto_added_ids()
+    auto_added |= {str(pid) for pid in prev}   # 마이그레이션: 기존 장소는 이미 처리한 것으로 간주
+    watch_missing = load_watch_missing()
 
     raw: dict[str, dict] = {}
     fetch_failed = False
@@ -1076,36 +1170,64 @@ def check_once(config: dict, prev: dict) -> dict:
 
     # watched_places 등 config에서도 검색에 없는 장소 정리 (탐색이 정상일 때만).
     # 탐색이 깨진 주기에 정리하면 사용자가 직접 고른 감시 목록이 통째로 날아간다.
-    stale_watched = [] if fetch_failed else [pid for pid in watched if pid not in current]
+    stale_watched: list[str] = []
+    if not fetch_failed:
+        now_dt_clean = datetime.now(KST)
+        for pid in watched:
+            if pid in current:
+                watch_missing.pop(pid, None)
+                continue
+            first_missing = watch_missing.setdefault(pid, now_dt_clean.isoformat())
+            try:
+                gone_for = now_dt_clean - datetime.fromisoformat(first_missing)
+            except Exception:
+                gone_for = timedelta(0)
+            if gone_for >= WATCH_CLEANUP_AFTER:
+                stale_watched.append(pid)
+            else:
+                print(f"  [정리 보류] {pid} — 검색에서 빠진 지 "
+                      f"{gone_for.total_seconds() / 3600:.1f}시간 (24시간 지나면 정리)")
     if stale_watched:
         config["watched_places"] = sorted(pid for pid in watched if pid in current)
         for pid in stale_watched:
             for key in ("booking_direct_urls", "booking_open_datetimes"):
                 config.get(key, {}).pop(str(pid), None)
         CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(f"  [설정 정리] 검색에 없는 watched_places {stale_watched} 제거됨")
+        print(f"  [설정 정리] 24시간 넘게 검색에 없는 watched_places {stale_watched} 제거됨")
+        for pid in stale_watched:
+            watch_missing.pop(pid, None)
         watched = set(config["watched_places"])
 
     # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
     bod = config.get("booking_open_datetimes", {})
     direct_urls = config.get("booking_direct_urls", {})
     now_iso = datetime.now(KST).isoformat()
+
+    # 직전 주기 기록이 없으면(= 검색에서 잠깐 빠졌던 팝업) 영구 기억에서 복원한다.
+    # 예전에는 그냥 초기 상태로 돌아가서 이미 보낸 알림이 다시 나갔다.
+    base_of: dict[str, dict] = {}
+    for pid in current:
+        base_of[pid] = prev.get(pid) or memory.get(str(pid)) or {}
+        if pid not in prev and base_of[pid]:
+            print(f"  [기록 복원] {current[pid].get('name') or pid} — 이전 알림 기록 유지")
+
     for pid, place in current.items():
+        base = base_of[pid]
         place["bookingOpenDatetime"] = bod.get(str(pid))
-        place["bookingOpenHistory"] = list(prev.get(pid, {}).get("bookingOpenHistory", []))
-        place["lastBookingNotifiedAt"] = prev.get(pid, {}).get("lastBookingNotifiedAt")
-        place["saleStartDate"] = prev.get(pid, {}).get("saleStartDate")
-        place["bookingOpenAuto"] = prev.get(pid, {}).get("bookingOpenAuto")
-        place["bookingOpenAutoCheckedAt"] = prev.get(pid, {}).get("bookingOpenAutoCheckedAt")
-        place["bookingPaused"] = prev.get(pid, {}).get("bookingPaused", False)
-        place["bookingIsOpened"] = prev.get(pid, {}).get("bookingIsOpened", False)
-        place["bookingNotified"] = prev.get(pid, {}).get("bookingNotified", False)
-        place["bookingUrlCheckedAt"] = prev.get(pid, {}).get("bookingUrlCheckedAt")
-        place["bookingItemCheckedAt"] = prev.get(pid, {}).get("bookingItemCheckedAt")
-        place["discoveredAt"] = prev.get(pid, {}).get("discoveredAt")
+        place["bookingOpenHistory"] = list(base.get("bookingOpenHistory") or [])
+        place["lastBookingNotifiedAt"] = base.get("lastBookingNotifiedAt")
+        place["saleStartDate"] = base.get("saleStartDate")
+        place["bookingOpenAuto"] = base.get("bookingOpenAuto")
+        place["bookingOpenAutoCheckedAt"] = base.get("bookingOpenAutoCheckedAt")
+        place["bookingPaused"] = base.get("bookingPaused", False)
+        place["bookingIsOpened"] = base.get("bookingIsOpened", False)
+        place["bookingNotified"] = base.get("bookingNotified", False)
+        place["bookingUrlCheckedAt"] = base.get("bookingUrlCheckedAt")
+        place["bookingItemCheckedAt"] = base.get("bookingItemCheckedAt")
+        place["discoveredAt"] = base.get("discoveredAt")
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
-        prev_url = prev.get(pid, {}).get("bookingUrl") or ""
+        prev_url = base.get("bookingUrl") or ""
         curr_url = place.get("bookingUrl") or ""
         if str(pid) in direct_urls:
             place["bookingUrl"] = direct_urls[str(pid)]
@@ -1114,8 +1236,8 @@ def check_once(config: dict, prev: dict) -> dict:
         elif not curr_url and prev_url:
             place["bookingUrl"] = prev_url
 
-        if not place.get("bookingBusinessId") and prev.get(pid, {}).get("bookingBusinessId"):
-            place["bookingBusinessId"] = prev[pid]["bookingBusinessId"]
+        if not place.get("bookingBusinessId") and base.get("bookingBusinessId"):
+            place["bookingBusinessId"] = base["bookingBusinessId"]
 
     # bookingUrl 없이 bookingBusinessId만 온 팝업 → 예약 URL 복원.
     # 타입 후보를 훑느라 팝업당 최대 4회 요청이 나가므로 주기당 예산을 둔다.
@@ -1166,7 +1288,7 @@ def check_once(config: dict, prev: dict) -> dict:
     for pid, place in current.items():
         name = place["name"]
         is_open = place["hasBooking"]
-        was_open = prev.get(pid, {}).get("hasBooking", False)
+        was_open = base_of[pid].get("hasBooking", False)
         booking_url = place.get("bookingUrl") or ""
         dday = place.get("status") or ""
 
@@ -1235,16 +1357,24 @@ def check_once(config: dict, prev: dict) -> dict:
         place["lastBookingNotifiedAt"] = now_dt.isoformat()
         place["bookingNotified"] = True
 
-    # 새로 발견된 팝업 자동으로 watched_places에 추가
+    # 처음 보는 팝업만 watched_places에 자동 추가한다.
+    # 한 번 자동 추가한 팝업은 다시 추가하지 않는다 — 사용자가 알림을 끈 팝업이
+    # 검색에서 잠깐 빠졌다 돌아왔을 때 멋대로 다시 켜지는 걸 막는다.
     new_pids = [pid for pid in current if pid not in prev]
     if new_pids:
         watched_list = list(config.get("watched_places", []))
         watched_set = set(str(x) for x in watched_list)
-        to_add = [str(pid) for pid in new_pids if str(pid) not in watched_set]
+        to_add = [str(pid) for pid in new_pids
+                  if str(pid) not in watched_set and str(pid) not in auto_added]
+        skipped = [str(pid) for pid in new_pids
+                   if str(pid) not in watched_set and str(pid) in auto_added]
+        if skipped:
+            print(f"  [자동 추가 안 함] {skipped} — 전에 자동 추가했던 팝업 (사용자가 끈 것으로 봄)")
         if to_add:
             config["watched_places"] = sorted(watched_set | set(to_add))
             CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             print(f"  [자동 추가] watched_places에 {to_add} 추가됨")
+        auto_added |= {str(pid) for pid in new_pids}
 
     # 운영 기간이 지난 팝업 자동 정리 (YY.MM.DD. 형식 파싱)
     today = datetime.now(KST).date()
@@ -1283,7 +1413,11 @@ def check_once(config: dict, prev: dict) -> dict:
     report_discovery(stats, config, sel_url, new_alerts)
 
     seen_ids |= {str(pid) for pid in current}
-    save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids, stats)
+    memory = update_place_memory(memory, prev, current, now_iso)
+    # 감시 목록에서 빠진 장소의 "안 보이기 시작한 시각"은 더 둘 필요가 없다
+    watch_missing = {pid: ts for pid, ts in watch_missing.items() if pid in watched}
+    save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids, stats,
+              place_memory=memory, auto_added_ids=auto_added, watch_missing=watch_missing)
     return current
 
 

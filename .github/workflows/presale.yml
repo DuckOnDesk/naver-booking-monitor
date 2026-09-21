@@ -40,6 +40,7 @@ jobs:
           python -u presale_discovery_test.py
           python -u presale_monitor_test.py
           python -u presale_bookingurl_test.py
+          python -u presale_alertstate_test.py
 
       - name: 사전예약 오픈 체크 (5분 간격, 5.5시간 루프)
         run: |
