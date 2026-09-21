@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22T00:16:24.046345+09:00",
+  "updated_at": "2026-09-22T00:21:54.029812+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -347,35 +347,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2033835877",
-      "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": "1736126",
-      "operationStart": "26.09.23.",
-      "operationEnd": "26.10.05.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_143/1789018739837hC4S2_JPEG/edited-1789018737070-0.jpg",
-      "roadAddress": "연무장길 81 무신사 뷰티 스페이스1",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-21T15:14:26.564367+09:00",
-        "2026-09-21T20:42:15.831010+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": "2026-09-17T08:51:18.866886+09:00",
-      "lastBookingNotifiedAt": "2026-09-21T15:14:39.659945+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2035313838",
       "name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
       "hasBooking": true,
@@ -483,6 +454,35 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2033835877",
+      "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": "1736126",
+      "operationStart": "26.09.23.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_143/1789018739837hC4S2_JPEG/edited-1789018737070-0.jpg",
+      "roadAddress": "연무장길 81 무신사 뷰티 스페이스1",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-21T15:14:26.564367+09:00",
+        "2026-09-21T20:42:15.831010+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": "2026-09-17T08:51:18.866886+09:00",
+      "lastBookingNotifiedAt": "2026-09-21T15:14:39.659945+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3104,24 +3104,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-22T00:16:14.998896+09:00",
+    "checked_at": "2026-09-22T00:21:46.372762+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 839,
-    "presale_items": 194,
-    "after_district_filter": 100,
+    "candidate_items": 838,
+    "presale_items": 190,
+    "after_district_filter": 99,
     "fallback_matched": 0,
-    "unique_place_ids": 57,
+    "unique_place_ids": 56,
     "tracked_places": 56,
     "new_places": 0,
     "last_new_place_at": "2026-09-21T15:25:47.420123+09:00",
     "admission_names": {
-      "(없음)": 419,
-      "현장대기": 226,
+      "(없음)": 424,
+      "현장대기": 224,
       "사전예약&현장대기": 152,
-      "사전예약": 42
+      "사전예약": 38
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
     "structure_warned_at": null
