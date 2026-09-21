@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21T14:40:37.556904+09:00",
+  "updated_at": "2026-09-21T14:46:17.857624+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -646,7 +646,7 @@
     {
       "id": "2057558383",
       "name": "위아자 나눔위크 '지구체육관'",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "bookingBusinessId": "1495702",
       "operationStart": "26.10.23.",
@@ -664,7 +664,8 @@
         "2026-09-10T10:56:41.850639+09:00",
         "2026-09-16T09:23:53.550853+09:00",
         "2026-09-17T09:25:19.863847+09:00",
-        "2026-09-18T09:57:33.126706+09:00"
+        "2026-09-18T09:57:33.126706+09:00",
+        "2026-09-21T14:46:05.712261+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1548,13 +1549,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "",
-      "ts": "2026-09-08T11:20:30.140278+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2046629824",
@@ -2947,6 +2941,13 @@
       "body": "3.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 191개 인식 중.",
       "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
       "ts": "2026-09-21T14:34:57.865817+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057558383",
+      "place_name": "위아자 나눔위크 '지구체육관'",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
+      "ts": "2026-09-21T14:46:05.712261+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3094,24 +3095,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-21T14:40:27.109881+09:00",
+    "checked_at": "2026-09-21T14:46:05.712261+09:00",
     "areas_total": 34,
-    "areas_ok": 33,
-    "areas_failed": 1,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 781,
-    "presale_items": 185,
-    "after_district_filter": 94,
+    "candidate_items": 831,
+    "presale_items": 191,
+    "after_district_filter": 98,
     "fallback_matched": 0,
     "unique_place_ids": 56,
     "tracked_places": 56,
     "new_places": 0,
     "last_new_place_at": "2026-09-18T14:32:07.830440+09:00",
     "admission_names": {
-      "(없음)": 382,
-      "현장대기": 214,
-      "사전예약&현장대기": 144,
-      "사전예약": 41
+      "(없음)": 423,
+      "현장대기": 217,
+      "사전예약&현장대기": 149,
+      "사전예약": 42
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
     "structure_warned_at": null
