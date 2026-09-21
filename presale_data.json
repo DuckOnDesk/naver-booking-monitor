@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-21T13:07:26.330431+09:00",
+  "updated_at": "2026-09-21T13:12:58.391550+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -456,9 +456,9 @@
     {
       "id": "2000187386",
       "name": "집집 chapter 02 in 성수",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
-      "bookingBusinessId": null,
+      "bookingBusinessId": "1504253",
       "operationStart": "26.10.24.",
       "operationEnd": "26.10.25.",
       "remainingDays": 33,
@@ -469,14 +469,16 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-21T13:12:48.800592+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": null,
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-21T13:12:58.157767+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1546,13 +1548,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2095762499",
-      "place_name": "메이크프렘 연남 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-09-08T11:20:30.140278+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2080230495",
@@ -2945,6 +2940,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
       "ts": "2026-09-21T12:17:21.713473+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2000187386",
+      "place_name": "집집 chapter 02 in 성수",
+      "booking_url": "",
+      "ts": "2026-09-21T13:12:48.800592+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3092,7 +3094,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-21T13:07:16.154980+09:00",
+    "checked_at": "2026-09-21T13:12:48.800592+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
