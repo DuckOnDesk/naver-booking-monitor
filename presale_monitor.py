@@ -362,6 +362,8 @@ def normalize(p: dict) -> dict:
         "bookingPaused": False,
         "saleStartDate": None,  # 실제 판매 시작일 (네이버 API에서 자동 조회, ISO 문자열 또는 "" = 조회했지만 없음)
         "bookingNotified": False,  # 처음 오픈 알림을 보냈는지 (한 번 True가 되면 계속 유지 — 재오픈 알림은 안 보냄)
+        "bookingUrlCheckedAt": None,   # businessId로 예약 URL을 마지막으로 조회한 시각 (ISO)
+        "bookingItemCheckedAt": None,  # /items/ URL을 마지막으로 조회한 시각 (ISO) — 재조회 간격 제한용
         "discoveredAt": None,  # 새 팝업으로 처음 발견된 시각 (ISO) — 관리 페이지 NEW 표시용
     }
 
@@ -403,14 +405,144 @@ def normalize_manual(entry: dict) -> dict:
     }
 
 
+# 지도 API가 bookingUrl 없이 bookingBusinessId만 내려주는 팝업이 있다. 그때 쓸
+# 예약 서비스 타입(/booking/{type}/) 후보 — 실제 수집 데이터에 나타난 빈도 순.
+BOOKING_SERVICE_IDS = ("12", "5", "6", "13")
+
+# 한 주기에 예약 URL을 조회할 최대 팝업 수 (주기 5분을 넘기지 않도록).
+# 처리 못 한 팝업은 다음 주기에 이어서 조회된다.
+URL_RESTORE_BUDGET = 6      # businessId → 예약 URL 복원 (팝업당 최대 4회 요청)
+ITEM_RESOLVE_BUDGET = 12    # 예약 URL → /items/ URL (팝업당 최대 2회 요청)
+
+# 같은 팝업의 예약 URL 재조회 최소 간격.
+URL_RESOLVE_RETRY = timedelta(minutes=30)
+
+# 한 주기(프로세스) 안에서 같은 업체를 반복 조회하지 않도록 하는 캐시.
+# 성공한 URL은 place["bookingUrl"]에 저장돼 다음 주기에도 이어진다.
+_BIZ_URL_CACHE: dict[str, str] = {}
+
+
+def place_map_url(place_id: str) -> str:
+    """지도 장소 페이지 URL — 예약 URL을 못 찾았을 때 알림에 넣을 대체 링크.
+
+    지도 페이지에는 예약 버튼이 그대로 있어서, 링크 없는 알림보다 훨씬 빠르다.
+    """
+    return f"https://map.naver.com/p/entry/place/{place_id}" if place_id else ""
+
+
+def url_resolve_due(place: dict, field: str) -> bool:
+    """예약 URL 재조회 차례인지 — 실패하는 팝업이 주기 예산을 독차지하지 않도록 간격을 둔다."""
+    checked_at = place.get(field)
+    if not checked_at:
+        return True
+    try:
+        return (datetime.now(KST) - datetime.fromisoformat(checked_at)) >= URL_RESOLVE_RETRY
+    except Exception:
+        return True
+
+
+def resolve_business_booking_url(biz_id: str) -> str:
+    """bookingBusinessId만 있을 때 예약 URL을 복원한다.
+
+    지도 검색(popupstore/list)이 예약 중인 팝업을 bookingUrl=null로 주는 경우가
+    있다. 그러면 오픈 알림이 링크 없이 나가고(“지금 바로 예약하세요! → ”),
+    오픈 예정 시각 조회·잔여 확인도 전부 건너뛰어서 정작 예약을 못 한다
+    (리베르 X 무신사 팝업, 2026-09-21 15:14 알림).
+
+    서비스 타입은 응답에 없으므로 달력 API가 200 JSON을 주는 타입을 찾아
+    URL을 만든다. 못 찾으면 빈 문자열.
+    """
+    if not biz_id:
+        return ""
+    biz_id = str(biz_id)
+    if biz_id in _BIZ_URL_CACHE:
+        return _BIZ_URL_CACHE[biz_id]
+
+    ym = datetime.now(KST).strftime("%Y-%m")
+    found = ""
+    for service_id in BOOKING_SERVICE_IDS:
+        base = f"https://m.booking.naver.com/booking/{service_id}/bizes/{biz_id}"
+        try:
+            resp = SESSION.get(f"{base}/calendars/{ym}", timeout=8)
+            if resp.status_code != 200:
+                continue
+            if not isinstance(resp.json(), (dict, list)):
+                continue
+        except Exception:
+            continue
+        print(f"  [예약 URL 복원] biz {biz_id} → 타입 {service_id}")
+        found = base
+        break
+    if not found:
+        print(f"  [예약 URL 복원 실패] biz {biz_id} — 타입 후보 모두 응답 없음")
+    _BIZ_URL_CACHE[biz_id] = found
+    return found
+
+
+# 상품 id가 확실한 키 / 문맥에 따라 다른 것일 수도 있는 키.
+# 업체 id를 상품 id로 착각하면 404 URL을 만들어 알림이 더 나빠진다.
+ITEM_ID_KEYS = ("bizItemId", "itemId")
+ITEM_ID_WEAK_KEYS = ("id",)
+
+
+def _item_ids_from_json(node, strong: list, weak: list, biz_id: str = "",
+                        depth: int = 0) -> None:
+    """예약 상품 목록 응답에서 상품 id를 긁어모은다 (응답 구조가 바뀌어도 버티도록).
+
+    bizItemId/itemId는 확실한 값(strong), 그냥 id는 업체 id일 수도 있어 보조
+    값(weak)으로 나눠 담는다. 호출 측에서 strong을 먼저 쓴다.
+    """
+    if depth > 6 or len(strong) + len(weak) > 40:
+        return
+    if isinstance(node, dict):
+        for key in ITEM_ID_KEYS + ITEM_ID_WEAK_KEYS:
+            v = node.get(key)
+            if not isinstance(v, (int, str)) or not str(v).isdigit():
+                continue
+            if str(v) == str(biz_id):
+                continue        # 업체 id는 상품 id가 아니다
+            (strong if key in ITEM_ID_KEYS else weak).append(str(v))
+            break
+        for v in node.values():
+            _item_ids_from_json(v, strong, weak, biz_id, depth + 1)
+    elif isinstance(node, list):
+        for v in node:
+            _item_ids_from_json(v, strong, weak, biz_id, depth + 1)
+
+
 def resolve_booking_item_url(booking_url: str) -> str:
-    """/search URL에서 /items/{id} 직접 예약 URL 자동 조회"""
+    """예약 URL을 /items/{id} 형태로 끌어올린다.
+
+    /items/ 가 붙어야 오픈 예정 시각(bookableSettingJson)·판매 시작일 조회가 된다.
+    예전에는 예약 페이지 HTML만 긁었는데 그 페이지가 JS로 그려지면서 상품 id가
+    안 잡혔고, 그래서 오픈 예정 시각이 한 번도 채워진 적이 없다 — 오픈 전
+    미리 알림도 같이 죽어 있었다. 상품 목록 API를 먼저 보고, 실패하면 기존
+    HTML 방식으로 되돌아간다.
+    """
     if not booking_url or "/items/" in booking_url:
         return booking_url
     m = re.search(r"(https://m\.booking\.naver\.com/booking/(\d+)/bizes/(\d+))", booking_url)
     if not m:
         return booking_url
     base_url = m.group(1)
+    biz_id = m.group(3)
+
+    try:
+        resp = SESSION.get(f"{base_url}/items", timeout=10)
+        if resp.status_code == 200:
+            strong: list = []
+            weak: list = []
+            try:
+                _item_ids_from_json(resp.json(), strong, weak, biz_id)
+            except Exception:
+                strong = re.findall(r'''["'/]items/(\d+)''', resp.text)
+            ids = strong or weak
+            if ids:
+                print(f"  [아이템 URL 발견/API] /items/{ids[0]}")
+                return f"{base_url}/items/{ids[0]}"
+    except Exception as e:
+        print(f"  [아이템 목록 API 실패] {e}")
+
     try:
         resp = SESSION.get(booking_url, timeout=15, allow_redirects=True)
         ids = re.findall(r'''["'/]items/(\d+)''', resp.text)
@@ -968,6 +1100,8 @@ def check_once(config: dict, prev: dict) -> dict:
         place["bookingPaused"] = prev.get(pid, {}).get("bookingPaused", False)
         place["bookingIsOpened"] = prev.get(pid, {}).get("bookingIsOpened", False)
         place["bookingNotified"] = prev.get(pid, {}).get("bookingNotified", False)
+        place["bookingUrlCheckedAt"] = prev.get(pid, {}).get("bookingUrlCheckedAt")
+        place["bookingItemCheckedAt"] = prev.get(pid, {}).get("bookingItemCheckedAt")
         place["discoveredAt"] = prev.get(pid, {}).get("discoveredAt")
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
@@ -983,14 +1117,39 @@ def check_once(config: dict, prev: dict) -> dict:
         if not place.get("bookingBusinessId") and prev.get(pid, {}).get("bookingBusinessId"):
             place["bookingBusinessId"] = prev[pid]["bookingBusinessId"]
 
-    # 예약 중인 팝업의 /items/ URL 자동 조회 (수동 설정 없고 아직 /items/ 없는 경우)
-    for pid, place in current.items():
-        url = place.get("bookingUrl") or ""
-        if (place.get("hasBooking") and url and "/items/" not in url
-                and str(pid) not in direct_urls):
-            direct = resolve_booking_item_url(url)
-            if direct != url:
-                place["bookingUrl"] = direct
+    # bookingUrl 없이 bookingBusinessId만 온 팝업 → 예약 URL 복원.
+    # 타입 후보를 훑느라 팝업당 최대 4회 요청이 나가므로 주기당 예산을 둔다.
+    restore_targets = [
+        (pid, place) for pid, place in current.items()
+        if (not place.get("bookingUrl") and place.get("bookingBusinessId")
+            and (place.get("hasBooking") or str(pid) in watched)
+            and url_resolve_due(place, "bookingUrlCheckedAt"))
+    ]
+    restore_targets.sort(key=lambda kv: not kv[1].get("hasBooking"))
+    for pid, place in restore_targets[:URL_RESTORE_BUDGET]:
+        place["bookingUrlCheckedAt"] = now_iso
+        restored = resolve_business_booking_url(place["bookingBusinessId"])
+        if restored:
+            place["bookingUrl"] = restored
+
+    # /items/ URL 자동 조회 (수동 설정 없고 아직 /items/ 없는 경우).
+    # 예약이 열린 팝업뿐 아니라 감시 대상도 조회한다 — /items/가 있어야 오픈
+    # 예정 시각을 미리 읽어 "열리기 전에" 알릴 수 있기 때문이다.
+    # 한 주기에 다 돌면 주기(5분)를 넘길 수 있어 예약 중인 팝업부터 예산만큼만 처리한다.
+    resolve_targets = [
+        (pid, place) for pid, place in current.items()
+        if (place.get("bookingUrl") and "/items/" not in place["bookingUrl"]
+            and str(pid) not in direct_urls
+            and (place.get("hasBooking") or str(pid) in watched)
+            and url_resolve_due(place, "bookingItemCheckedAt"))
+    ]
+    resolve_targets.sort(key=lambda kv: not kv[1].get("hasBooking"))
+    for pid, place in resolve_targets[:ITEM_RESOLVE_BUDGET]:
+        url = place["bookingUrl"]
+        place["bookingItemCheckedAt"] = now_iso
+        direct = resolve_booking_item_url(url)
+        if direct != url:
+            place["bookingUrl"] = direct
 
     # 예약 오픈 예정 시각 자동 감지 (업체가 예약 관리에 지정한 bookableSettingJson).
     # 오픈 전 팝업도 "오픈 정보"에 시각이 떠야 하므로 hasBooking과 무관하게 갱신한다.
@@ -1031,7 +1190,8 @@ def check_once(config: dict, prev: dict) -> dict:
             # 예약창(페이지) 자체가 열림 — 실제 판매 시작 여부는 아래에서 별도 확인
             place["bookingOpenHistory"].append(now_iso)
             new_alerts.append({"type": "booking_open", "place_id": str(pid), "place_name": name,
-                                "booking_url": booking_url, "ts": now_iso})
+                                "booking_url": booking_url or place_map_url(str(pid)),
+                                "ts": now_iso})
 
         if not is_open:
             print(f"[{now_str}] ⏳ {name} ({dday}) — 대기중")
@@ -1062,10 +1222,16 @@ def check_once(config: dict, prev: dict) -> dict:
             print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (잔여 없음, 알림 생략)")
             continue
 
-        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {booking_url}")
-        msg = f"지금 바로 예약하세요! → {booking_url}"
-        send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, booking_url)
-        send_toast(name, msg, booking_url)
+        # 링크 없는 오픈 알림은 사실상 쓸모가 없다 — 예약 URL을 끝내 못 찾았으면
+        # 지도 장소 페이지(예약 버튼 있음)를 대신 넣는다.
+        link = booking_url or place_map_url(str(pid)) or sel_url
+        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {link}")
+        if booking_url:
+            msg = f"지금 바로 예약하세요! → {link}"
+        else:
+            msg = f"예약 링크를 못 찾았어요 — 지도에서 바로 예약하세요 → {link}"
+        send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, link)
+        send_toast(name, msg, link)
         place["lastBookingNotifiedAt"] = now_dt.isoformat()
         place["bookingNotified"] = True
 
