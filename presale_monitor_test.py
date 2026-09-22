@@ -134,7 +134,7 @@ def main() -> int:
     pm.send_ntfy = lambda *a, **k: None
     pm.send_toast = lambda *a, **k: None
     saved = {}
-    pm.save_data = lambda places, cfg, alerts=None, seen_ids=None, discovery_stats=None: \
+    pm.save_data = lambda places, cfg, alerts=None, seen_ids=None, discovery_stats=None, **kw: \
         saved.update({"places": places, "config": cfg, "stats": discovery_stats})
     pm.CONFIG_FILE = type("P", (), {"write_text": staticmethod(lambda *a, **k: None),
                                     "name": "presale_config.json"})()
