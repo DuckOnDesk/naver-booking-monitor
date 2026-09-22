@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22T12:19:47.357395+09:00",
+  "updated_at": "2026-09-22T12:25:24.327370+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -461,7 +461,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -477,7 +477,8 @@
       "bookingOpenHistory": [
         "2026-09-21T15:14:26.564367+09:00",
         "2026-09-21T20:42:15.831010+09:00",
-        "2026-09-22T09:23:02.554314+09:00"
+        "2026-09-22T09:23:02.554314+09:00",
+        "2026-09-22T12:25:13.183452+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -565,9 +566,9 @@
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "discoveredAt": "2026-09-22T12:19:36.394042+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-22T12:25:24.278183+09:00",
       "bookingIsOpened": false
     },
     {
@@ -689,7 +690,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1592,13 +1593,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2005264248",
-      "place_name": "GU 26FW POP UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
-      "ts": "2026-09-09T10:41:24.720286+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -2991,6 +2985,13 @@
       "place_name": "루나 클라우드 레이어 팝업스토어",
       "booking_url": "",
       "ts": "2026-09-22T12:19:36.394042+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "",
+      "ts": "2026-09-22T12:25:13.183452+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3140,7 +3141,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-22T12:19:36.394042+09:00",
+    "checked_at": "2026-09-22T12:25:13.183452+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3151,7 +3152,7 @@
     "fallback_matched": 0,
     "unique_place_ids": 57,
     "tracked_places": 57,
-    "new_places": 1,
+    "new_places": 0,
     "last_new_place_at": "2026-09-22T12:19:36.394042+09:00",
     "admission_names": {
       "(없음)": 425,
