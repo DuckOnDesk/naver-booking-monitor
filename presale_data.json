@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22T17:21:59.127755+09:00",
+  "updated_at": "2026-09-22T17:27:28.632354+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -735,6 +735,41 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2061527606",
+      "name": "산리오 문방구",
+      "hasBooking": true,
+      "bookingUrl": null,
+      "bookingBusinessId": "1735851",
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260917_119/1789642853571stJr3_JPEG/image.jpg",
+      "roadAddress": "양화로 188 AK플라자 홍대 2층",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-21T15:25:47.420123+09:00",
+        "2026-09-22T00:05:18.188362+09:00",
+        "2026-09-22T03:17:34.532928+09:00",
+        "2026-09-22T10:35:33.385254+09:00",
+        "2026-09-22T14:00:42.851570+09:00",
+        "2026-09-22T17:27:25.395655+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-22T17:21:36.320127+09:00",
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
+      "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2030290261",
       "name": "Cafe 1014: For Keria",
       "hasBooking": false,
@@ -760,40 +795,6 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2061527606",
-      "name": "산리오 문방구",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": "1735851",
-      "operationStart": "26.10.02.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 10,
-      "status": "D-10",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260917_119/1789642853571stJr3_JPEG/image.jpg",
-      "roadAddress": "양화로 188 AK플라자 홍대 2층",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-21T15:25:47.420123+09:00",
-        "2026-09-22T00:05:18.188362+09:00",
-        "2026-09-22T03:17:34.532928+09:00",
-        "2026-09-22T10:35:33.385254+09:00",
-        "2026-09-22T14:00:42.851570+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-22T17:21:36.320127+09:00",
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
-      "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1169,7 +1170,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -1183,14 +1184,15 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-19T00:40:54.935876+09:00"
+        "2026-09-19T00:40:54.935876+09:00",
+        "2026-09-22T17:27:25.395655+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-22T16:54:59.902561+09:00",
+      "bookingUrlCheckedAt": "2026-09-22T17:27:25.395655+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T11:11:53.128750+09:00",
@@ -1740,20 +1742,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2003769380",
-      "place_name": "악월 10주년 기념 POP-UP STORE",
-      "booking_url": "",
-      "ts": "2026-09-09T15:37:50.759282+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2005264248",
-      "place_name": "GU 26FW POP UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
-      "ts": "2026-09-09T16:28:32.380833+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2084168433",
@@ -3139,6 +3127,20 @@
       "place_name": "블랙야크 더현대서울",
       "booking_url": "https://map.naver.com/p/entry/place/2084168433",
       "ts": "2026-09-22T17:15:46.631711+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
+      "ts": "2026-09-22T17:27:25.395655+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015914479",
+      "place_name": "블루 록 2026 더 라스트 팝업",
+      "booking_url": "https://map.naver.com/p/entry/place/2015914479",
+      "ts": "2026-09-22T17:27:25.395655+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3289,7 +3291,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-22T17:21:36.320127+09:00",
+    "checked_at": "2026-09-22T17:27:25.395655+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3303,8 +3305,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-22T17:15:46.631711+09:00",
     "admission_names": {
-      "(없음)": 471,
-      "현장대기": 224,
+      "(없음)": 472,
+      "현장대기": 223,
       "사전예약&현장대기": 154,
       "사전예약": 43
     },
