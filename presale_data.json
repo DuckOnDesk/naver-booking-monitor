@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22T20:18:54.073308+09:00",
+  "updated_at": "2026-09-22T20:24:16.164214+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -736,34 +736,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2030290261",
-      "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.10.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 18,
-      "status": "D-18",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
-      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2061527606",
       "name": "산리오 문방구",
       "hasBooking": false,
@@ -796,6 +768,34 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2030290261",
+      "name": "Cafe 1014: For Keria",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.10.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 18,
+      "status": "D-18",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
+      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -3292,7 +3292,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-22T20:18:54.071483+09:00",
+    "checked_at": "2026-09-22T20:24:16.162876+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3306,8 +3306,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-22T17:15:46.631711+09:00",
     "admission_names": {
-      "(없음)": 472,
-      "현장대기": 223,
+      "(없음)": 471,
+      "현장대기": 224,
       "사전예약&현장대기": 154,
       "사전예약": 43
     },
