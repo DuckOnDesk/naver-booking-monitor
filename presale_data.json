@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T03:43:14.765025+09:00",
+  "updated_at": "2026-09-23T03:48:58.125345+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -185,7 +185,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -370,7 +370,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-17T08:51:18.866886+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:14:39.659945+09:00",
@@ -731,9 +731,37 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T14:14:48.594736+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2030290261",
+      "name": "Cafe 1014: For Keria",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.10.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
+      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -766,38 +794,10 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2030290261",
-      "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.10.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 17,
-      "status": "D-17",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
-      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1050,7 +1050,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-21T13:07:26.085449+09:00",
@@ -1108,7 +1108,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-22T10:13:17.354614+09:00",
@@ -1136,7 +1136,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T11:11:53.200925+09:00",
@@ -1283,7 +1283,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:36.311838+09:00",
       "bookingIsOpened": false
@@ -1291,7 +1291,7 @@
     {
       "id": "2033849367",
       "name": "소머드 롯데본점 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1514630",
       "bookingBusinessId": "1514630",
       "operationStart": "26.08.28.",
@@ -1310,7 +1310,8 @@
         "2026-09-19T03:45:05.337544+09:00",
         "2026-09-19T11:05:15.072257+09:00",
         "2026-09-20T03:47:08.565473+09:00",
-        "2026-09-20T11:01:52.868007+09:00"
+        "2026-09-20T11:01:52.868007+09:00",
+        "2026-09-23T03:48:36.637266+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1318,7 +1319,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1430,7 +1431,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:37.421114+09:00",
       "bookingIsOpened": false
@@ -1458,7 +1459,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:38.481917+09:00",
       "bookingIsOpened": false
@@ -1486,7 +1487,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-16T11:45:23.623190+09:00",
       "bookingIsOpened": false
@@ -1569,7 +1570,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T13:05:34.375380+09:00",
@@ -1626,7 +1627,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-16T22:36:03.056377+09:00",
       "bookingIsOpened": false
@@ -1654,7 +1655,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-15T22:53:36.442252+09:00",
       "bookingIsOpened": false
@@ -1682,7 +1683,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-15T22:53:37.553206+09:00",
       "bookingIsOpened": false
@@ -1710,7 +1711,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:15:38.533856+09:00",
+      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-15T22:53:38.574706+09:00",
       "bookingIsOpened": false
@@ -1745,13 +1746,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-09T19:05:32.506622+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009756357",
@@ -3144,6 +3138,13 @@
       "place_name": "위아자 나눔위크 '지구체육관'",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
       "ts": "2026-09-23T00:30:48.692884+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033849367",
+      "place_name": "소머드 롯데본점 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
+      "ts": "2026-09-23T03:48:36.637266+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3294,7 +3295,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T03:42:52.292982+09:00",
+    "checked_at": "2026-09-23T03:48:36.637266+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3308,8 +3309,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-22T17:15:46.631711+09:00",
     "admission_names": {
-      "(없음)": 470,
-      "현장대기": 208,
+      "(없음)": 469,
+      "현장대기": 209,
       "사전예약&현장대기": 156,
       "사전예약": 43
     },
