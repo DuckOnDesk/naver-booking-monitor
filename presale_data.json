@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22T22:39:22.057980+09:00",
+  "updated_at": "2026-09-22T22:39:31.387496+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -44,6 +44,34 @@
   "booking_open_datetimes": {},
   "manual_places": [],
   "places": [
+    {
+      "id": "2027303446",
+      "name": "성률 기획전 여름을 닮은 우리",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1596228",
+      "bookingBusinessId": "1596228",
+      "operationStart": "26.04.30.",
+      "operationEnd": "26.09.27.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_197/17760566869924uCnR_JPEG/%BC%BA%B7%FC_KV_poster_A4_01%28main%29.jpg",
+      "roadAddress": "한남대로 91 고메이494 한남 B층",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": "2026-09-22T22:14:14.206752+09:00",
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T11:26:35.215907+09:00",
+      "bookingIsOpened": false
+    },
     {
       "id": "2074820669",
       "name": "연리재 현대백화점 천호점 팝업스토어",
@@ -754,34 +782,6 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-22T16:43:38.753777+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2027303446",
-      "name": "성률 기획전 여름을 닮은 우리",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1596228",
-      "bookingBusinessId": "1596228",
-      "operationStart": "26.04.30.",
-      "operationEnd": "26.09.27.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260413_197/17760566869924uCnR_JPEG/%BC%BA%B7%FC_KV_poster_A4_01%28main%29.jpg",
-      "roadAddress": "한남대로 91 고메이494 한남 B층",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-22T22:14:14.206752+09:00",
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-08T11:26:35.215907+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3292,12 +3292,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-22T22:39:22.056076+09:00",
+    "checked_at": "2026-09-22T22:39:31.386290+09:00",
     "areas_total": 34,
-    "areas_ok": 1,
-    "areas_failed": 33,
+    "areas_ok": 2,
+    "areas_failed": 32,
     "areas_empty": 0,
-    "candidate_items": 15,
+    "candidate_items": 5,
     "presale_items": 1,
     "after_district_filter": 1,
     "fallback_matched": 0,
@@ -3306,8 +3306,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-22T17:15:46.631711+09:00",
     "admission_names": {
-      "(없음)": 14,
-      "사전예약": 1
+      "현장대기": 3,
+      "사전예약": 1,
+      "(없음)": 1
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
     "structure_warned_at": null
