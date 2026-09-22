@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-22T12:31:01.590591+09:00",
+  "updated_at": "2026-09-22T12:36:37.126435+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1254,32 +1254,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2050153907",
-      "name": "패브릭 도쿄 [팝업 스토어]",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1703810/search",
-      "bookingBusinessId": "1703810",
-      "operationStart": "26.10.03.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260804_75/1785821604684Sj1S1_JPEG/edited-1785821602546-0.jpg",
-      "roadAddress": "명동길 62 재원빌딩 2층, 7층",
-      "commonAddress": "서울 중구",
-      "district": "중구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-08T11:26:37.421114+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2015989932",
       "name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
       "hasBooking": false,
@@ -1303,6 +1277,32 @@
       "bookingNotified": false,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2050153907",
+      "name": "패브릭 도쿄 [팝업 스토어]",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1703810/search",
+      "bookingBusinessId": "1703810",
+      "operationStart": "26.10.03.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260804_75/1785821604684Sj1S1_JPEG/edited-1785821602546-0.jpg",
+      "roadAddress": "명동길 62 재원빌딩 2층, 7층",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T11:26:37.421114+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3141,12 +3141,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-22T12:30:50.564988+09:00",
+    "checked_at": "2026-09-22T12:36:26.744321+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 849,
+    "candidate_items": 851,
     "presale_items": 195,
     "after_district_filter": 101,
     "fallback_matched": 0,
@@ -3155,7 +3155,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-22T12:19:36.394042+09:00",
     "admission_names": {
-      "(없음)": 431,
+      "(없음)": 433,
       "현장대기": 223,
       "사전예약&현장대기": 152,
       "사전예약": 43
