@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T04:10:27.563700+09:00",
+  "updated_at": "2026-09-23T04:11:00.505817+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1602,34 +1602,6 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-18T12:59:40.407183+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2048261612",
-      "name": "가누다 까르마 현대백화점 목동점 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736378",
-      "bookingBusinessId": "1736378",
-      "operationStart": "26.09.14.",
-      "operationEnd": "26.09.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260910_54/1789009570259bf5Iz_JPEG/edited-1789009567946-0.jpg",
-      "roadAddress": "목동동로 257 현대백화점 목동점 지하1층",
-      "commonAddress": "서울 양천구",
-      "district": "양천구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-23T03:48:36.637266+09:00",
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-16T22:36:03.056377+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3295,29 +3267,45 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T04:10:27.562109+09:00",
+    "checked_at": "2026-09-23T04:11:00.504553+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 874,
-    "presale_items": 199,
-    "after_district_filter": 103,
+    "candidate_items": 898,
+    "presale_items": 198,
+    "after_district_filter": 102,
     "fallback_matched": 0,
-    "unique_place_ids": 58,
-    "tracked_places": 58,
+    "unique_place_ids": 57,
+    "tracked_places": 57,
     "new_places": 0,
     "last_new_place_at": "2026-09-22T17:15:46.631711+09:00",
     "admission_names": {
-      "(없음)": 467,
-      "현장대기": 208,
-      "사전예약&현장대기": 156,
+      "(없음)": 496,
+      "현장대기": 204,
+      "사전예약&현장대기": 155,
       "사전예약": 43
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
     "structure_warned_at": null
   },
-  "place_memory": {},
+  "place_memory": {
+    "2048261612": {
+      "hasBooking": true,
+      "bookingNotified": true,
+      "lastBookingNotifiedAt": "2026-09-16T22:36:03.056377+09:00",
+      "discoveredAt": null,
+      "bookingOpenHistory": [],
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736378",
+      "bookingBusinessId": "1736378",
+      "saleStartDate": null,
+      "bookingOpenAuto": null,
+      "bookingPaused": false,
+      "bookingIsOpened": false,
+      "name": "가누다 까르마 현대백화점 목동점 팝업스토어",
+      "savedAt": "2026-09-23T04:11:00.504553+09:00"
+    }
+  },
   "auto_added_place_ids": [
     "2000187386",
     "2001371441",
@@ -3378,5 +3366,7 @@
     "2084168433",
     "2090283048"
   ],
-  "watch_missing_since": {}
+  "watch_missing_since": {
+    "2048261612": "2026-09-23T04:11:00.504501+09:00"
+  }
 }
