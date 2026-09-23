@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T15:34:18.399240+09:00",
+  "updated_at": "2026-09-23T15:39:44.823920+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -41,7 +41,8 @@
     "2072857611",
     "2073328330",
     "2074820669",
-    "2084168433"
+    "2084168433",
+    "2088035530"
   ],
   "booking_open_datetimes": {},
   "manual_places": [],
@@ -1238,6 +1239,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2088035530",
+      "name": "에비스 : 더 라운지",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.26.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 3,
+      "status": "D-3",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260923_219/1790127177330nA9uy_JPEG/edited-1790127183389-0.jpg",
+      "roadAddress": "여의대로 108 B1 와인웍스 더현대서울점",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-23T15:39:44.821516+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
       "hasBooking": false,
@@ -1816,13 +1845,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057558383",
-      "place_name": "위아자 에코빌리지 '지구우체국' 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
-      "ts": "2026-09-10T10:56:41.850639+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2070202228",
@@ -3215,6 +3237,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://map.naver.com/p/entry/place/2038718464",
       "ts": "2026-09-23T13:45:33.462680+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2088035530",
+      "place_name": "에비스 : 더 라운지",
+      "booking_url": "",
+      "ts": "2026-09-23T15:39:44.821516+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3355,6 +3384,7 @@
     "2083897134",
     "2084130717",
     "2084168433",
+    "2088035530",
     "2090283048",
     "2090850238",
     "2091748507",
@@ -3367,23 +3397,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T15:34:15.087228+09:00",
+    "checked_at": "2026-09-23T15:39:44.821516+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 894,
-    "presale_items": 206,
-    "after_district_filter": 107,
+    "candidate_items": 895,
+    "presale_items": 207,
+    "after_district_filter": 108,
     "fallback_matched": 0,
-    "unique_place_ids": 60,
-    "tracked_places": 60,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-23T12:22:40.973942+09:00",
+    "unique_place_ids": 61,
+    "tracked_places": 61,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-23T15:39:44.821516+09:00",
     "admission_names": {
       "(없음)": 473,
       "현장대기": 215,
-      "사전예약&현장대기": 160,
+      "사전예약&현장대기": 161,
       "사전예약": 46
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
@@ -3450,6 +3480,7 @@
     "2080230495",
     "2082644987",
     "2084168433",
+    "2088035530",
     "2090283048"
   ],
   "watch_missing_since": {}
