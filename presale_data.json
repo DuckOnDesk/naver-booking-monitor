@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T12:17:18.809060+09:00",
+  "updated_at": "2026-09-23T12:22:40.976833+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -25,6 +25,7 @@
     "2038718464",
     "2042771625",
     "2043213423",
+    "2045660928",
     "2046157118",
     "2048261612",
     "2050363685",
@@ -615,6 +616,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2045660928",
+      "name": "오늘은 1004",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 9,
+      "status": "D-9",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260922_268/1790064011817lMDFB_JPEG/edited-1790064011947-0.jpg",
+      "roadAddress": "연무장13길 11 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2080230495",
       "name": "소란 Layer's room",
       "hasBooking": true,
@@ -735,7 +764,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1783,13 +1812,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-10T07:18:23.090710+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2050363685",
@@ -3182,6 +3204,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://map.naver.com/p/entry/place/2061527606",
       "ts": "2026-09-23T10:42:43.476010+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2045660928",
+      "place_name": "오늘은 1004",
+      "booking_url": "",
+      "ts": "2026-09-23T12:22:40.973942+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3261,6 +3290,7 @@
     "2043425985",
     "2043461454",
     "2045247144",
+    "2045660928",
     "2046157118",
     "2046294128",
     "2046629824",
@@ -3333,23 +3363,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T12:17:18.807458+09:00",
+    "checked_at": "2026-09-23T12:22:40.973942+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 883,
-    "presale_items": 202,
-    "after_district_filter": 105,
+    "candidate_items": 887,
+    "presale_items": 206,
+    "after_district_filter": 107,
     "fallback_matched": 0,
-    "unique_place_ids": 59,
-    "tracked_places": 59,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-23T09:07:40.184258+09:00",
+    "unique_place_ids": 60,
+    "tracked_places": 60,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-23T12:22:40.973942+09:00",
     "admission_names": {
       "(없음)": 466,
       "현장대기": 215,
-      "사전예약&현장대기": 156,
+      "사전예약&현장대기": 160,
       "사전예약": 46
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
@@ -3391,6 +3421,7 @@
     "2038718464",
     "2042771625",
     "2043213423",
+    "2045660928",
     "2046157118",
     "2046629824",
     "2048261612",
