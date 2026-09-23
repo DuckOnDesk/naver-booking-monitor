@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T18:22:06.291665+09:00",
+  "updated_at": "2026-09-23T18:27:34.731223+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -653,9 +653,9 @@
     {
       "id": "2045660928",
       "name": "오늘은 1004",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
-      "bookingBusinessId": null,
+      "bookingBusinessId": "1744636",
       "operationStart": "26.10.02.",
       "operationEnd": "26.10.05.",
       "remainingDays": 9,
@@ -666,16 +666,18 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-23T18:27:31.319787+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-23T18:27:31.319787+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1881,13 +1883,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2069285502",
-      "place_name": "더웍스 페스티벌",
-      "booking_url": "",
-      "ts": "2026-09-10T13:05:32.089744+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -3280,6 +3275,13 @@
       "place_name": "블랙야크 더현대서울",
       "booking_url": "https://map.naver.com/p/entry/place/2084168433",
       "ts": "2026-09-23T17:48:30.300386+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2045660928",
+      "place_name": "오늘은 1004",
+      "booking_url": "https://map.naver.com/p/entry/place/2045660928",
+      "ts": "2026-09-23T18:27:31.319787+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3434,7 +3436,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T18:22:03.219484+09:00",
+    "checked_at": "2026-09-23T18:27:31.319787+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
