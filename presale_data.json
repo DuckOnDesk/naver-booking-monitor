@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T12:22:40.976833+09:00",
+  "updated_at": "2026-09-23T12:28:06.278313+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -350,7 +350,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -368,7 +368,8 @@
         "2026-09-21T20:42:15.831010+09:00",
         "2026-09-22T09:23:02.554314+09:00",
         "2026-09-22T12:25:13.183452+09:00",
-        "2026-09-23T09:35:31.900684+09:00"
+        "2026-09-23T09:35:31.900684+09:00",
+        "2026-09-23T12:28:04.187186+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -734,7 +735,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -755,7 +756,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T11:54:53.886648+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T12:28:04.187186+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
@@ -1812,13 +1813,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2050363685",
-      "place_name": "콜라보카페 세이브포인트",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
-      "ts": "2026-09-10T08:36:00.521796+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2005264248",
@@ -3211,6 +3205,13 @@
       "place_name": "오늘은 1004",
       "booking_url": "",
       "ts": "2026-09-23T12:22:40.973942+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://map.naver.com/p/entry/place/2033835877",
+      "ts": "2026-09-23T12:28:04.187186+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3363,21 +3364,21 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T12:22:40.973942+09:00",
+    "checked_at": "2026-09-23T12:28:04.187186+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 887,
+    "candidate_items": 889,
     "presale_items": 206,
     "after_district_filter": 107,
     "fallback_matched": 0,
     "unique_place_ids": 60,
     "tracked_places": 60,
-    "new_places": 1,
+    "new_places": 0,
     "last_new_place_at": "2026-09-23T12:22:40.973942+09:00",
     "admission_names": {
-      "(없음)": 466,
+      "(없음)": 468,
       "현장대기": 215,
       "사전예약&현장대기": 160,
       "사전예약": 46
