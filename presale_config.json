@@ -207,7 +207,12 @@
       "address_filter": "강동구"
     }
   ],
-  "booking_direct_urls": {},
+  "booking_direct_urls": {
+    "2073328330": "https://m.booking.naver.com/booking/12/bizes/1705614",
+    "2034884894": "https://m.booking.naver.com/booking/12/bizes/1738783",
+    "2046157118": "https://m.booking.naver.com/booking/12/bizes/1702892",
+    "2012113406": "https://m.booking.naver.com/booking/6/bizes/1694470/search"
+  },
   "booking_open_datetimes": {},
   "watched_places": [
     "2000187386",

@@ -81,7 +81,7 @@ class Harness:
         pm.send_toast = lambda *a, **k: None
 
         def _save(places_, cfg, alerts=None, seen_ids=None, discovery_stats=None,
-                  place_memory=None, auto_added_ids=None, watch_missing=None):
+                  place_memory=None, auto_added_ids=None, watch_missing=None, url_history=None):
             self.saved = {"places": places_, "alerts": alerts}
             if place_memory is not None:
                 self.memory = place_memory
