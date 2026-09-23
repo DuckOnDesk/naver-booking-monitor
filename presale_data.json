@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T20:02:32.645377+09:00",
+  "updated_at": "2026-09-23T20:07:58.961963+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -644,7 +644,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T19:34:31.068287+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T20:07:55.825284+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
       "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
@@ -3439,7 +3439,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T20:02:29.717645+09:00",
+    "checked_at": "2026-09-23T20:07:55.825284+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3453,8 +3453,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-23T16:02:17.434378+09:00",
     "admission_names": {
-      "(없음)": 441,
-      "현장대기": 216,
+      "(없음)": 442,
+      "현장대기": 215,
       "사전예약&현장대기": 161,
       "사전예약": 50
     },
