@@ -105,7 +105,7 @@
       "id": "mudeg9zf",
       "name": "크록스",
       "url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027?area=ple&lang=ko&startDateTime=2026-10-04T00%3A00%3A00%2B09%3A00&theme=place",
-      "enabled": true,
+      "enabled": false,
       "target_dates": [],
       "mute": true
     },
