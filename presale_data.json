@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T20:59:08.196528+09:00",
+  "updated_at": "2026-09-23T21:04:35.248945+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -623,36 +623,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2045979104",
-      "name": "THE AGE20'S HOUSE",
-      "hasBooking": true,
-      "bookingUrl": null,
-      "bookingBusinessId": "1744181",
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 8,
-      "status": "D-8",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260921_185/1789991976352RB7P8_JPEG/edited-1789991975970-0.jpg",
-      "roadAddress": "연무장길 65 LECT성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-23T16:02:17.434378+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T20:30:21.201687+09:00",
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-23T16:02:17.434378+09:00",
-      "lastBookingNotifiedAt": "2026-09-23T16:07:52.414174+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2045660928",
       "name": "오늘은 1004",
       "hasBooking": true,
@@ -680,6 +650,36 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
       "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2045979104",
+      "name": "THE AGE20'S HOUSE",
+      "hasBooking": true,
+      "bookingUrl": null,
+      "bookingBusinessId": "1744181",
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260921_185/1789991976352RB7P8_JPEG/edited-1789991975970-0.jpg",
+      "roadAddress": "연무장길 65 LECT성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T16:02:17.434378+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-23T21:04:29.792142+09:00",
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-23T16:02:17.434378+09:00",
+      "lastBookingNotifiedAt": "2026-09-23T16:07:52.414174+09:00",
       "bookingIsOpened": false
     },
     {
@@ -836,7 +836,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T20:30:21.201687+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T21:04:29.792142+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
@@ -1334,7 +1334,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T20:30:21.201687+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T21:04:29.792142+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T11:11:53.128750+09:00",
@@ -3441,7 +3441,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T20:58:46.158079+09:00",
+    "checked_at": "2026-09-23T21:04:29.792142+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
