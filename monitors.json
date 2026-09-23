@@ -113,7 +113,8 @@
       "name": "에이지투웨니스",
       "url": "https://m.booking.naver.com/booking/12/bizes/1744181/items/8084231",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     }
   ]
 }
