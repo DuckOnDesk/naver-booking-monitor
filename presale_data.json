@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T09:30:08.357714+09:00",
+  "updated_at": "2026-09-23T09:35:31.902282+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -348,7 +348,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -365,7 +365,8 @@
         "2026-09-21T15:14:26.564367+09:00",
         "2026-09-21T20:42:15.831010+09:00",
         "2026-09-22T09:23:02.554314+09:00",
-        "2026-09-22T12:25:13.183452+09:00"
+        "2026-09-22T12:25:13.183452+09:00",
+        "2026-09-23T09:35:31.900684+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -769,6 +770,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2030290261",
+      "name": "Cafe 1014: For Keria",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.10.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
+      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2061527606",
       "name": "산리오 문방구",
       "hasBooking": false,
@@ -803,34 +832,6 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2030290261",
-      "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.10.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 17,
-      "status": "D-17",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
-      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1780,13 +1781,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-10T00:05:01.972915+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3179,6 +3173,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "",
       "ts": "2026-09-23T09:07:40.184258+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://map.naver.com/p/entry/place/2033835877",
+      "ts": "2026-09-23T09:35:31.900684+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3330,7 +3331,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T09:30:08.356449+09:00",
+    "checked_at": "2026-09-23T09:35:31.900684+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3344,8 +3345,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-23T09:07:40.184258+09:00",
     "admission_names": {
-      "(없음)": 465,
-      "현장대기": 210,
+      "(없음)": 466,
+      "현장대기": 209,
       "사전예약&현장대기": 156,
       "사전예약": 46
     },
