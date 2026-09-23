@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T09:02:15.343863+09:00",
+  "updated_at": "2026-09-23T09:07:43.515457+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -22,6 +22,7 @@
     "2036304624",
     "2036674429",
     "2037868948",
+    "2038718464",
     "2042771625",
     "2043213423",
     "2046157118",
@@ -700,6 +701,36 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2038718464",
+      "name": "크록스 팝업스토어 CROCS STUDIO",
+      "hasBooking": true,
+      "bookingUrl": null,
+      "bookingBusinessId": "1741852",
+      "operationStart": "26.09.30.",
+      "operationEnd": "26.10.04.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_174/1789530932985xfcQh_JPEG/edited-1789530934602-0.jpg",
+      "roadAddress": "양화로23길 22-7 레조네 홍대",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T09:07:40.184258+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": "2026-09-23T09:07:40.184258+09:00",
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2057558383",
       "name": "위아자 나눔위크 '지구체육관'",
       "hasBooking": true,
@@ -738,34 +769,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2030290261",
-      "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.10.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 17,
-      "status": "D-17",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
-      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2061527606",
       "name": "산리오 문방구",
       "hasBooking": false,
@@ -800,6 +803,34 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2030290261",
+      "name": "Cafe 1014: For Keria",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.10.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 17,
+      "status": "D-17",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
+      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1749,13 +1780,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2005264248",
-      "place_name": "GU 26FW POP UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
-      "ts": "2026-09-09T23:59:25.792109+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3148,6 +3172,13 @@
       "place_name": "블루 록 2026 더 라스트 팝업",
       "booking_url": "https://map.naver.com/p/entry/place/2015914479",
       "ts": "2026-09-23T05:55:02.505857+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "",
+      "ts": "2026-09-23T09:07:40.184258+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3215,6 +3246,7 @@
     "2036304624",
     "2036674429",
     "2037868948",
+    "2038718464",
     "2038805228",
     "2039106013",
     "2039988652",
@@ -3298,24 +3330,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T09:02:15.342550+09:00",
+    "checked_at": "2026-09-23T09:07:40.184258+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 874,
-    "presale_items": 199,
-    "after_district_filter": 103,
+    "candidate_items": 877,
+    "presale_items": 202,
+    "after_district_filter": 105,
     "fallback_matched": 0,
-    "unique_place_ids": 58,
-    "tracked_places": 58,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-22T17:15:46.631711+09:00",
+    "unique_place_ids": 59,
+    "tracked_places": 59,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-23T09:07:40.184258+09:00",
     "admission_names": {
-      "(없음)": 466,
-      "현장대기": 209,
+      "(없음)": 465,
+      "현장대기": 210,
       "사전예약&현장대기": 156,
-      "사전예약": 43
+      "사전예약": 46
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
     "structure_warned_at": null
@@ -3353,6 +3385,7 @@
     "2036304624",
     "2036674429",
     "2037868948",
+    "2038718464",
     "2042771625",
     "2043213423",
     "2046157118",
