@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-23T15:39:44.823920+09:00",
+  "updated_at": "2026-09-23T15:45:12.534533+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -758,7 +758,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-23T15:10:41.743378+09:00",
+      "bookingUrlCheckedAt": "2026-09-23T15:45:10.091637+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
@@ -767,7 +767,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -789,7 +789,8 @@
         "2026-09-22T17:27:25.395655+09:00",
         "2026-09-22T22:45:52.743993+09:00",
         "2026-09-23T05:55:02.505857+09:00",
-        "2026-09-23T10:42:43.476010+09:00"
+        "2026-09-23T10:42:43.476010+09:00",
+        "2026-09-23T15:45:10.091637+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1845,13 +1846,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2070202228",
-      "place_name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
-      "booking_url": "",
-      "ts": "2026-09-10T11:36:38.614584+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2073072850",
@@ -3244,6 +3238,13 @@
       "place_name": "에비스 : 더 라운지",
       "booking_url": "",
       "ts": "2026-09-23T15:39:44.821516+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
+      "ts": "2026-09-23T15:45:10.091637+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3397,7 +3398,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-23T15:39:44.821516+09:00",
+    "checked_at": "2026-09-23T15:45:10.091637+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3408,7 +3409,7 @@
     "fallback_matched": 0,
     "unique_place_ids": 61,
     "tracked_places": 61,
-    "new_places": 1,
+    "new_places": 0,
     "last_new_place_at": "2026-09-23T15:39:44.821516+09:00",
     "admission_names": {
       "(없음)": 473,
