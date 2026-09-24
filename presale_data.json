@@ -1,8 +1,9 @@
 {
-  "updated_at": "2026-09-25T06:55:26.275050+09:00",
+  "updated_at": "2026-09-25T07:00:47.322505+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
+    "2003577663",
     "2007085220",
     "2008186282",
     "2012113406",
@@ -1236,6 +1237,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2003577663",
+      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 6,
+      "status": "D-6",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260921_252/1789975600834vOpap_JPEG/edited-1789975600147-0.jpg",
+      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC POP-UP",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-25T07:00:47.319605+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2084168433",
       "name": "블랙야크 더현대서울",
       "hasBooking": true,
@@ -1813,13 +1842,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-10T23:43:20.833035+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033013073",
@@ -3212,6 +3234,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://map.naver.com/p/entry/place/2061527606",
       "ts": "2026-09-25T05:49:13.119922+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2003577663",
+      "place_name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "booking_url": "",
+      "ts": "2026-09-25T07:00:47.319605+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3225,6 +3254,7 @@
     "2002918567",
     "2003293998",
     "2003471362",
+    "2003577663",
     "2003769380",
     "2004678306",
     "2005264248",
@@ -3367,23 +3397,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-25T06:55:21.050929+09:00",
+    "checked_at": "2026-09-25T07:00:47.319605+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 803,
-    "presale_items": 204,
-    "after_district_filter": 106,
+    "candidate_items": 804,
+    "presale_items": 205,
+    "after_district_filter": 107,
     "fallback_matched": 0,
-    "unique_place_ids": 59,
-    "tracked_places": 59,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-24T00:34:01.224061+09:00",
+    "unique_place_ids": 60,
+    "tracked_places": 60,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-25T07:00:47.319605+09:00",
     "admission_names": {
       "(없음)": 384,
       "현장대기": 215,
-      "사전예약&현장대기": 157,
+      "사전예약&현장대기": 158,
       "사전예약": 47
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
@@ -3457,6 +3487,7 @@
     "2000187386",
     "2001371441",
     "2002918567",
+    "2003577663",
     "2006648175",
     "2007085220",
     "2008186282",
