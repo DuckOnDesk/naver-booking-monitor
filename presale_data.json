@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-25T00:19:02.670757+09:00",
+  "updated_at": "2026-09-25T00:24:24.577068+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -509,6 +509,36 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2045660928",
+      "name": "오늘은 1004",
+      "hasBooking": true,
+      "bookingUrl": null,
+      "bookingBusinessId": "1744636",
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260922_268/1790064011817lMDFB_JPEG/edited-1790064011947-0.jpg",
+      "roadAddress": "연무장13길 11 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T18:27:31.319787+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-25T00:18:57.634746+09:00",
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
+      "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2035313838",
       "name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
       "hasBooking": true,
@@ -624,36 +654,6 @@
       "bookingItemCheckedAt": "2026-09-25T00:02:33.941657+09:00",
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2045660928",
-      "name": "오늘은 1004",
-      "hasBooking": true,
-      "bookingUrl": null,
-      "bookingBusinessId": "1744636",
-      "operationStart": "26.10.02.",
-      "operationEnd": "26.10.05.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260922_268/1790064011817lMDFB_JPEG/edited-1790064011947-0.jpg",
-      "roadAddress": "연무장13길 11 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-23T18:27:31.319787+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-25T00:18:57.634746+09:00",
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
-      "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1201,36 +1201,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2088035530",
-      "name": "에비스 : 더 라운지",
-      "hasBooking": true,
-      "bookingUrl": null,
-      "bookingBusinessId": "1735031",
-      "operationStart": "26.09.26.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260921_148/1789982222630QEjuW_PNG/image.png",
-      "roadAddress": "여의대로 108 B1 와인웍스 더현대서울점",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-23T18:44:16.266211+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-25T00:08:16.419896+09:00",
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-23T15:39:44.821516+09:00",
-      "lastBookingNotifiedAt": "2026-09-23T18:44:40.196532+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
       "hasBooking": false,
@@ -1292,6 +1262,36 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-22T16:43:38.753777+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2088035530",
+      "name": "에비스 : 더 라운지",
+      "hasBooking": true,
+      "bookingUrl": null,
+      "bookingBusinessId": "1735031",
+      "operationStart": "26.09.26.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260921_148/1789982222630QEjuW_PNG/image.png",
+      "roadAddress": "여의대로 108 B1 와인웍스 더현대서울점",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T18:44:16.266211+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-25T00:08:16.419896+09:00",
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-23T15:39:44.821516+09:00",
+      "lastBookingNotifiedAt": "2026-09-23T18:44:40.196532+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3364,24 +3364,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-25T00:18:57.634746+09:00",
+    "checked_at": "2026-09-25T00:24:24.575151+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 811,
-    "presale_items": 207,
-    "after_district_filter": 108,
+    "candidate_items": 803,
+    "presale_items": 204,
+    "after_district_filter": 106,
     "fallback_matched": 0,
-    "unique_place_ids": 60,
+    "unique_place_ids": 59,
     "tracked_places": 59,
     "new_places": 0,
     "last_new_place_at": "2026-09-24T00:34:01.224061+09:00",
     "admission_names": {
       "(없음)": 384,
-      "현장대기": 220,
+      "현장대기": 215,
       "사전예약&현장대기": 157,
-      "사전예약": 50
+      "사전예약": 47
     },
     "stale_warned_at": "2026-09-21T14:34:57.865827+09:00",
     "structure_warned_at": null
