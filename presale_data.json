@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-24T17:06:55.321644+09:00",
+  "updated_at": "2026-09-24T17:12:19.249524+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -775,7 +775,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -792,7 +792,8 @@
         "2026-09-23T09:07:40.184258+09:00",
         "2026-09-23T13:45:33.462680+09:00",
         "2026-09-23T17:31:21.000811+09:00",
-        "2026-09-24T14:30:35.115796+09:00"
+        "2026-09-24T14:30:35.115796+09:00",
+        "2026-09-24T17:12:19.247491+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1836,13 +1837,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2083897134",
-      "place_name": "스포티파이 하우스 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
-      "ts": "2026-09-10T20:05:22.305078+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2095762499",
@@ -3235,6 +3229,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://map.naver.com/p/entry/place/2038718464",
       "ts": "2026-09-24T14:30:35.115796+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
+      "ts": "2026-09-24T17:12:19.247491+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3390,7 +3391,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-24T17:06:49.576243+09:00",
+    "checked_at": "2026-09-24T17:12:19.247491+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
