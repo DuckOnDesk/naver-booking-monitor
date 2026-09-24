@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-24T14:25:11.252469+09:00",
+  "updated_at": "2026-09-24T14:30:38.127188+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -775,7 +775,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -791,14 +791,15 @@
       "bookingOpenHistory": [
         "2026-09-23T09:07:40.184258+09:00",
         "2026-09-23T13:45:33.462680+09:00",
-        "2026-09-23T17:31:21.000811+09:00"
+        "2026-09-23T17:31:21.000811+09:00",
+        "2026-09-24T14:30:35.115796+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-24T13:57:10.345843+09:00",
+      "bookingUrlCheckedAt": "2026-09-24T14:30:35.115796+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
@@ -1835,13 +1836,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-10T18:52:31.676481+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2083897134",
@@ -3234,6 +3228,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
       "ts": "2026-09-24T14:02:38.213859+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
+      "ts": "2026-09-24T14:30:35.115796+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3389,7 +3390,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-24T14:25:11.250425+09:00",
+    "checked_at": "2026-09-24T14:30:35.115796+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
