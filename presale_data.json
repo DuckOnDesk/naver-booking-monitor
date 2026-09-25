@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-26T00:17:07.098841+09:00",
+  "updated_at": "2026-09-26T00:22:32.754025+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -780,7 +780,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-25T23:49:18.241605+09:00",
+      "bookingUrlCheckedAt": "2026-09-26T00:22:29.504380+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
@@ -1212,6 +1212,36 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2088035530",
+      "name": "에비스 : 더 라운지",
+      "hasBooking": true,
+      "bookingUrl": null,
+      "bookingBusinessId": "1735031",
+      "operationStart": "26.09.26.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260921_148/1789982222630QEjuW_PNG/image.png",
+      "roadAddress": "여의대로 108 B1 와인웍스 더현대서울점",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T18:44:16.266211+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-26T00:00:27.999891+09:00",
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-23T15:39:44.821516+09:00",
+      "lastBookingNotifiedAt": "2026-09-23T18:44:40.196532+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
       "hasBooking": false,
@@ -1301,36 +1331,6 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-22T16:43:38.753777+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2088035530",
-      "name": "에비스 : 더 라운지",
-      "hasBooking": true,
-      "bookingUrl": null,
-      "bookingBusinessId": "1735031",
-      "operationStart": "26.09.26.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260921_148/1789982222630QEjuW_PNG/image.png",
-      "roadAddress": "여의대로 108 B1 와인웍스 더현대서울점",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-23T18:44:16.266211+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-26T00:00:27.999891+09:00",
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-23T15:39:44.821516+09:00",
-      "lastBookingNotifiedAt": "2026-09-23T18:44:40.196532+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1688,7 +1688,7 @@
       "operationStart": "26.09.26.",
       "operationEnd": "27.03.25.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260916_275/1789563892407vnvFO_JPEG/edited-1789563888237-0.jpg",
       "roadAddress": "아차산로51길 74-1 지하1층",
@@ -3404,7 +3404,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-26T00:17:07.096528+09:00",
+    "checked_at": "2026-09-26T00:22:29.504380+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
