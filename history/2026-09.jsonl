@@ -4090,3 +4090,5 @@
 {"ts": "2026-09-25T09:32:12+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-25", "level": "closed", "title": "🔒 리베르 자리 있음 (예약창 닫힘)", "slots": {"14:00": 1}}
 {"ts": "2026-09-25T10:17:34+09:00", "kind": "gate", "item": "muawwgys", "name": "리베르", "open": true, "reason": ""}
 {"ts": "2026-09-25T10:17:34+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-25", "level": "open", "title": "🎉 리베르 예약 가능!", "slots": {"14:00": 1}}
+{"ts": "2026-09-25T10:21:52+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-25", "change": "예약 변동(예약 취소)", "stock": [54, 54], "booked": [53, 52], "slots": {"15:00": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
+{"ts": "2026-09-25T10:21:52+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-25", "level": "open", "title": "🎉 리베르 자리 추가됨 - 15:00(+1)", "slots": {"14:00": 1, "15:00": 1}}
