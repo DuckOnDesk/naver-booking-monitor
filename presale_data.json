@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-25T18:42:24.239374+09:00",
+  "updated_at": "2026-09-25T18:47:51.444089+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -78,7 +78,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -779,7 +779,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-25T18:14:13.098699+09:00",
+      "bookingUrlCheckedAt": "2026-09-25T18:47:48.186271+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
@@ -3401,7 +3401,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-25T18:42:24.236558+09:00",
+    "checked_at": "2026-09-25T18:47:48.186271+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
