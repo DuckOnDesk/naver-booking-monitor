@@ -66,10 +66,10 @@
     "available_end": "2026-10-02",
     "hour_from": "12:00",
     "hour_to": "18:30",
-    "checked_at": "2026-09-26T16:12:24.763818+09:00",
-    "booking_available_code": "RI03",
-    "booking_available_value": 1,
-    "restriction_ok": false
+    "checked_at": "2026-09-26T17:16:15.691830+09:00",
+    "booking_available_code": "RI01",
+    "booking_available_value": 0,
+    "restriction_ok": true
   },
   "6_1735456_8048495": {
     "sale_start_date": null,
