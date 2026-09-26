@@ -4454,3 +4454,6 @@
 {"ts": "2026-09-26T21:41:27+09:00", "kind": "alert", "item": "mtzotv6b", "name": "클리오 T5", "date": "2026-09-27", "level": "closed", "title": "🔒 클리오 T5 자리 있음 (예약창 닫힘)", "slots": {"16:00": 1}}
 {"ts": "2026-09-26T21:46:40+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-29", "change": "예약 변동(예약 취소)", "stock": [54, 54], "booked": [54, 53], "slots": {"11:00": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
 {"ts": "2026-09-26T21:46:40+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-29", "level": "closed", "title": "🔒 리베르 자리 있음 (예약창 닫힘)", "slots": {"11:00": 1}}
+{"ts": "2026-09-26T21:53:15+09:00", "kind": "stock", "item": "mtzotglu", "name": "클리오 T4", "date": "2026-10-02", "change": "예약 변동(예약 취소)", "stock": [14, 14], "booked": [14, 13], "slots": {"12:30": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
+{"ts": "2026-09-26T21:53:20+09:00", "kind": "gate", "item": "mtzotglu", "name": "클리오 T4", "open": false, "reason": "URL 리다이렉트: /error/ — \"운영하지 않는 예약 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
+{"ts": "2026-09-26T21:53:20+09:00", "kind": "alert", "item": "mtzotglu", "name": "클리오 T4", "date": "2026-10-02", "level": "closed", "title": "🔒 클리오 T4 자리 있음 (예약창 닫힘)", "slots": {"12:30": 1}}
