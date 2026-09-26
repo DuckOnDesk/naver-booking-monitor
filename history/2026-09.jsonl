@@ -4461,3 +4461,5 @@
 {"ts": "2026-09-26T21:57:42+09:00", "kind": "gate", "item": "mtzotv6b", "name": "클리오 T5", "open": true, "reason": ""}
 {"ts": "2026-09-26T22:01:08+09:00", "kind": "stock", "item": "mtzotglu", "name": "클리오 T4", "date": "2026-10-02", "change": "예약 변동(예약 발생)", "stock": [14, 14], "booked": [13, 14], "slots": {"12:30": {"from": [1, 0], "to": [1, 1]}}, "scope": ""}
 {"ts": "2026-09-26T22:01:13+09:00", "kind": "gate", "item": "mtzotglu", "name": "클리오 T4", "open": true, "reason": ""}
+{"ts": "2026-09-26T22:14:19+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-27", "change": "예약 변동(예약 취소)", "stock": [54, 54], "booked": [52, 51], "slots": {"11:00": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
+{"ts": "2026-09-26T22:14:24+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-27", "level": "closed", "title": "🔒 리베르 자리 추가됨 (예약창 닫힘)", "slots": {"11:00": 1, "12:30": 1, "13:30": 1}}
