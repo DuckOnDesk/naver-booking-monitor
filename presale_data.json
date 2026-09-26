@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-26T17:29:45.226826+09:00",
+  "updated_at": "2026-09-26T17:35:11.835700+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1249,7 +1249,7 @@
     {
       "id": "2070202228",
       "name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1736054",
       "operationStart": "26.09.26.",
@@ -1263,7 +1263,8 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-26T10:55:55.188206+09:00"
+        "2026-09-26T10:55:55.188206+09:00",
+        "2026-09-26T17:35:11.833628+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1885,13 +1886,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-11T15:09:30.709814+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2005264248",
@@ -3284,6 +3278,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
       "ts": "2026-09-26T17:12:40.985653+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2070202228",
+      "place_name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
+      "booking_url": "https://map.naver.com/p/entry/place/2070202228",
+      "ts": "2026-09-26T17:35:11.833628+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3440,7 +3441,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-26T17:29:41.721062+09:00",
+    "checked_at": "2026-09-26T17:35:11.833628+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
