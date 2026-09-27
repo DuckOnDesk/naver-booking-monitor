@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T10:34:37.870415+09:00",
+  "updated_at": "2026-09-27T10:40:00.007742+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -133,39 +133,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2018920557",
-      "name": "텐먼스 성수 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1737304",
-      "bookingBusinessId": "1737304",
-      "operationStart": "26.09.12.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
-      "roadAddress": "연무장11길 11",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-15T14:55:54.724684+09:00",
-        "2026-09-20T23:48:14.901042+09:00",
-        "2026-09-21T19:05:42.421610+09:00",
-        "2026-09-27T05:54:47.441682+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T10:18:00.669216+09:00",
-      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "hasBooking": true,
@@ -207,6 +174,39 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-17T08:51:18.866886+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:14:39.659945+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2018920557",
+      "name": "텐먼스 성수 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1737304",
+      "bookingBusinessId": "1737304",
+      "operationStart": "26.09.12.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260909_23/1788939570825kHwgY_JPEG/Image_%2822%29DDD.jpg",
+      "roadAddress": "연무장11길 11",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-15T14:55:54.724684+09:00",
+        "2026-09-20T23:48:14.901042+09:00",
+        "2026-09-21T19:05:42.421610+09:00",
+        "2026-09-27T05:54:47.441682+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": "2026-09-27T10:18:00.669216+09:00",
+      "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -3451,7 +3451,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-27T10:34:35.682619+09:00",
+    "checked_at": "2026-09-27T10:40:00.004948+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
