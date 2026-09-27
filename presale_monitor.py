@@ -418,21 +418,31 @@ def normalize_manual(entry: dict) -> dict:
     }
 
 
-# 지도 API가 bookingUrl 없이 bookingBusinessId만 내려주는 팝업이 있다. 그때 쓸
-# 예약 서비스 타입(/booking/{type}/) 후보 — 실제 수집 데이터에 나타난 빈도 순.
-BOOKING_SERVICE_IDS = ("12", "5", "6", "13")
+# 지도 검색(popupstore/list)은 같은 팝업이라도 bookingUrl을 줄 때와 안 줄 때가 있다.
+# 안 주는 주기에 장소 기록까지 사라지면 링크가 영구히 날아간다 (2026-09-17 09:20,
+# 6개 팝업이 사라졌다 돌아오면서 4개가 링크를 잃음). 그때는 장소 상세 페이지에서
+# 예약 링크를 다시 찾아온다 — 상세 페이지에는 예약 버튼이 그대로 있다.
+PLACE_PAGE_URLS = (
+    "https://pcmap.place.naver.com/place/{pid}/home",
+    "https://m.place.naver.com/place/{pid}/home",
+    "https://m.place.naver.com/place/{pid}/ticket",
+)
 
-# 한 주기에 예약 URL을 조회할 최대 팝업 수 (주기 5분을 넘기지 않도록).
+# 한 주기(프로세스) 안에서 같은 장소를 반복 조회하지 않도록 하는 캐시.
+# 찾은 URL은 booking_url_history에 영구 보관돼 다음 주기에도 이어진다.
+_PLACE_URL_CACHE: dict[str, str] = {}
+
+# 한 주기에 예약 URL을 조회할 최대 팝업 수 (5분 주기를 넘기지 않도록).
 # 처리 못 한 팝업은 다음 주기에 이어서 조회된다.
-URL_RESTORE_BUDGET = 6      # businessId → 예약 URL 복원 (팝업당 최대 4회 요청)
+URL_RESTORE_BUDGET = 6      # 장소 상세 페이지에서 예약 URL 찾기 (팝업당 최대 3회 요청)
 ITEM_RESOLVE_BUDGET = 12    # 예약 URL → /items/ URL (팝업당 최대 2회 요청)
 
 # 같은 팝업의 예약 URL 재조회 최소 간격.
 URL_RESOLVE_RETRY = timedelta(minutes=30)
 
-# 한 주기(프로세스) 안에서 같은 업체를 반복 조회하지 않도록 하는 캐시.
-# 성공한 URL은 place["bookingUrl"]에 저장돼 다음 주기에도 이어진다.
-_BIZ_URL_CACHE: dict[str, str] = {}
+BOOKING_URL_RE = re.compile(
+    r"https?://(?:m\.)?booking\.naver\.com/booking/(\d+)/bizes/(\d+)(?:/items/(\d+))?"
+)
 
 
 def place_map_url(place_id: str) -> str:
@@ -441,6 +451,48 @@ def place_map_url(place_id: str) -> str:
     지도 페이지에는 예약 버튼이 그대로 있어서, 링크 없는 알림보다 훨씬 빠르다.
     """
     return f"https://map.naver.com/p/entry/place/{place_id}" if place_id else ""
+
+
+def extract_booking_urls(text: str) -> list[tuple[str, str]]:
+    """HTML/JSON 텍스트에서 네이버 예약 URL을 모두 뽑는다 → [(biz_id, url), ...].
+
+    페이지 구조를 해석하지 않고 URL 형태만 본다. 네이버가 마크업을 바꿔도
+    예약 URL 형태가 그대로면 계속 동작한다. JSON 안에 "\/"로 이스케이프된
+    경우도 있어 먼저 되돌린다.
+    """
+    found: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for raw in (text, text.replace("\\/", "/")):
+        for m in BOOKING_URL_RE.finditer(raw):
+            service_id, biz_id, item_id = m.group(1), m.group(2), m.group(3)
+            url = f"https://m.booking.naver.com/booking/{service_id}/bizes/{biz_id}"
+            if item_id:
+                url += f"/items/{item_id}"
+            if url in seen:
+                continue
+            seen.add(url)
+            found.append((biz_id, url))
+        if found:
+            break
+    return found
+
+
+def pick_booking_url(candidates: list[tuple[str, str]], biz_id: str) -> str:
+    """후보 중 우리가 아는 businessId와 맞는 것을 고른다.
+
+    businessId가 맞으면 서비스 타입(/booking/{type}/)까지 확실한 URL이다 —
+    타입을 추측할 필요가 없어진다. businessId를 모르면 첫 후보를 쓴다.
+    """
+    if not candidates:
+        return ""
+    if biz_id:
+        exact = [url for b, url in candidates if b == str(biz_id)]
+        if exact:
+            # /items/까지 있는 게 있으면 그걸 우선 (오픈 예정 시각 조회까지 된다)
+            with_item = [u for u in exact if "/items/" in u]
+            return (with_item or exact)[0]
+        return ""        # businessId가 다르면 다른 업체 링크다 — 쓰지 않는다
+    return candidates[0][1]
 
 
 def url_resolve_due(place: dict, field: str) -> bool:
@@ -454,48 +506,35 @@ def url_resolve_due(place: dict, field: str) -> bool:
         return True
 
 
-def resolve_business_booking_url(biz_id: str) -> str:
-    """bookingBusinessId만 있을 때 예약 URL을 복원한다.
-
-    지도 검색(popupstore/list)이 예약 중인 팝업을 bookingUrl=null로 주는 경우가
-    있다. 그러면 오픈 알림이 링크 없이 나가고(“지금 바로 예약하세요! → ”),
-    오픈 예정 시각 조회·잔여 확인도 전부 건너뛰어서 정작 예약을 못 한다
-    (리베르 X 무신사 팝업, 2026-09-21 15:14 알림).
-
-    서비스 타입은 응답에 없으므로 달력 API가 200 JSON을 주는 타입을 찾아
-    URL을 만든다. 못 찾으면 빈 문자열.
-    """
-    if not biz_id:
+def fetch_place_booking_url(place_id: str, biz_id: str) -> str:
+    """장소 상세 페이지에서 예약 URL을 찾아온다. 못 찾으면 빈 문자열."""
+    if not place_id:
         return ""
-    biz_id = str(biz_id)
-    if biz_id in _BIZ_URL_CACHE:
-        return _BIZ_URL_CACHE[biz_id]
+    place_id = str(place_id)
+    if place_id in _PLACE_URL_CACHE:
+        return _PLACE_URL_CACHE[place_id]
 
-    ym = datetime.now(KST).strftime("%Y-%m")
     found = ""
-    for service_id in BOOKING_SERVICE_IDS:
-        base = f"https://m.booking.naver.com/booking/{service_id}/bizes/{biz_id}"
+    for template in PLACE_PAGE_URLS:
+        url = template.format(pid=place_id)
         try:
-            resp = SESSION.get(f"{base}/calendars/{ym}", timeout=8)
+            resp = SESSION.get(url, timeout=10, allow_redirects=True)
             if resp.status_code != 200:
                 continue
-            if not isinstance(resp.json(), (dict, list)):
-                continue
-        except Exception:
+            resp.encoding = resp.encoding or "utf-8"
+            picked = pick_booking_url(extract_booking_urls(resp.text), biz_id)
+        except Exception as e:
+            print(f"  [장소 페이지 조회 실패] {url} — {e}")
             continue
-        print(f"  [예약 URL 복원] biz {biz_id} → 타입 {service_id}")
-        found = base
-        break
+        if picked:
+            print(f"  [예약 URL 발견] 장소 {place_id} → {picked}")
+            found = picked
+            break
     if not found:
-        print(f"  [예약 URL 복원 실패] biz {biz_id} — 타입 후보 모두 응답 없음")
-    _BIZ_URL_CACHE[biz_id] = found
+        print(f"  [예약 URL 못 찾음] 장소 {place_id} (biz {biz_id or '?'})"
+              f" — 상세 페이지에 예약 링크 없음")
+    _PLACE_URL_CACHE[place_id] = found
     return found
-
-
-# 상품 id가 확실한 키 / 문맥에 따라 다른 것일 수도 있는 키.
-# 업체 id를 상품 id로 착각하면 404 URL을 만들어 알림이 더 나빠진다.
-ITEM_ID_KEYS = ("bizItemId", "itemId")
-ITEM_ID_WEAK_KEYS = ("id",)
 
 
 def _item_ids_from_json(node, strong: list, weak: list, biz_id: str = "",
@@ -912,6 +951,35 @@ def load_auto_added_ids() -> set[str]:
     return set()
 
 
+def load_booking_url_history() -> dict:
+    """한 번이라도 확인된 예약 URL을 장소별로 영구 보관한다 {place_id: url}.
+
+    지도 검색은 같은 팝업이라도 bookingUrl을 줬다 안 줬다 한다. 예약창이 닫히거나
+    팝업이 검색에서 빠져도 링크는 그대로 남아야 하므로, 장소 기록과 별개로 둔다.
+    빈 값으로는 절대 덮어쓰지 않는다.
+    """
+    try:
+        if DATA_FILE.exists():
+            data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+            hist = data.get("booking_url_history")
+            return {str(k): v for k, v in hist.items() if v} if isinstance(hist, dict) else {}
+    except Exception:
+        pass
+    return {}
+
+
+def remember_booking_url(history: dict, place_id: str, url: str) -> None:
+    """예약 URL을 영구 보관. 더 구체적인 URL(/items/ 포함)이면 갱신한다."""
+    if not place_id or not url:
+        return
+    prev = history.get(str(place_id)) or ""
+    if prev == url:
+        return
+    if prev and "/items/" in prev and "/items/" not in url:
+        return                      # 이미 더 구체적인 링크를 갖고 있다
+    history[str(place_id)] = url
+
+
 def load_watch_missing() -> dict:
     """감시 목록에 있는데 검색에 안 보이기 시작한 시각 {place_id: ISO}."""
     try:
@@ -1084,7 +1152,7 @@ def report_discovery(stats: dict, config: dict, sel_url: str,
 def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None,
               seen_ids: set | None = None, discovery_stats: dict | None = None,
               place_memory: dict | None = None, auto_added_ids: set | None = None,
-              watch_missing: dict | None = None) -> None:
+              watch_missing: dict | None = None, url_history: dict | None = None) -> None:
     data = {
         "updated_at": datetime.now(KST).isoformat(),
         "watched_places": config.get("watched_places", []),
@@ -1099,6 +1167,9 @@ def save_data(places: list[dict], config: dict, alerts: list[dict] | None = None
         "auto_added_place_ids": sorted(auto_added_ids if auto_added_ids is not None
                                        else load_auto_added_ids()),
         "watch_missing_since": watch_missing if watch_missing is not None else load_watch_missing(),
+        # 한 번이라도 확인된 예약 URL (예약창이 닫혀도, 검색에서 빠져도 유지)
+        "booking_url_history": (url_history if url_history is not None
+                                else load_booking_url_history()),
     }
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -1120,6 +1191,7 @@ def check_once(config: dict, prev: dict) -> dict:
     auto_added = load_auto_added_ids()
     auto_added |= {str(pid) for pid in prev}   # 마이그레이션: 기존 장소는 이미 처리한 것으로 간주
     watch_missing = load_watch_missing()
+    url_history = load_booking_url_history()
 
     raw: dict[str, dict] = {}
     fetch_failed = False
@@ -1235,24 +1307,28 @@ def check_once(config: dict, prev: dict) -> dict:
             place["bookingUrl"] = prev_url  # 이전에 발견한 더 구체적인 URL 유지
         elif not curr_url and prev_url:
             place["bookingUrl"] = prev_url
+        elif not curr_url and url_history.get(str(pid)):
+            # 예전에 확인해 둔 링크 — 예약창이 닫혔다 열려도 그대로 쓴다
+            place["bookingUrl"] = url_history[str(pid)]
 
         if not place.get("bookingBusinessId") and base.get("bookingBusinessId"):
             place["bookingBusinessId"] = base["bookingBusinessId"]
 
-    # bookingUrl 없이 bookingBusinessId만 온 팝업 → 예약 URL 복원.
-    # 타입 후보를 훑느라 팝업당 최대 4회 요청이 나가므로 주기당 예산을 둔다.
+    # 지도 검색이 bookingUrl을 안 준 팝업 → 장소 상세 페이지에서 예약 링크를 찾아온다.
+    # 팝업당 최대 3회 요청이 나가므로 주기당 예산을 둔다.
     restore_targets = [
         (pid, place) for pid, place in current.items()
-        if (not place.get("bookingUrl") and place.get("bookingBusinessId")
+        if (not place.get("bookingUrl") and not place.get("isManual")
             and (place.get("hasBooking") or str(pid) in watched)
             and url_resolve_due(place, "bookingUrlCheckedAt"))
     ]
     restore_targets.sort(key=lambda kv: not kv[1].get("hasBooking"))
     for pid, place in restore_targets[:URL_RESTORE_BUDGET]:
         place["bookingUrlCheckedAt"] = now_iso
-        restored = resolve_business_booking_url(place["bookingBusinessId"])
+        restored = fetch_place_booking_url(str(pid), place.get("bookingBusinessId") or "")
         if restored:
             place["bookingUrl"] = restored
+            remember_booking_url(url_history, str(pid), restored)
 
     # /items/ URL 자동 조회 (수동 설정 없고 아직 /items/ 없는 경우).
     # 예약이 열린 팝업뿐 아니라 감시 대상도 조회한다 — /items/가 있어야 오픈
@@ -1413,11 +1489,15 @@ def check_once(config: dict, prev: dict) -> dict:
     report_discovery(stats, config, sel_url, new_alerts)
 
     seen_ids |= {str(pid) for pid in current}
+    for pid, place in current.items():
+        remember_booking_url(url_history, str(pid), place.get("bookingUrl") or "")
+
     memory = update_place_memory(memory, prev, current, now_iso)
     # 감시 목록에서 빠진 장소의 "안 보이기 시작한 시각"은 더 둘 필요가 없다
     watch_missing = {pid: ts for pid, ts in watch_missing.items() if pid in watched}
     save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids, stats,
-              place_memory=memory, auto_added_ids=auto_added, watch_missing=watch_missing)
+              place_memory=memory, auto_added_ids=auto_added, watch_missing=watch_missing,
+              url_history=url_history)
     return current
 
 
