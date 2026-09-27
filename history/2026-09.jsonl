@@ -4548,3 +4548,6 @@
 {"ts": "2026-09-27T10:20:22+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-27", "level": "open", "title": "🎉 리베르 예약 가능!", "slots": {"12:00": 1}}
 {"ts": "2026-09-27T10:20:31+09:00", "kind": "stock", "item": "muc2ww5j", "name": "루나", "date": "2026-10-01", "change": "예약 변동(예약 발생)", "stock": [480, 480], "booked": [341, 342], "slots": {"16:00": {"from": [32, 25], "to": [32, 26]}}, "scope": ""}
 {"ts": "2026-09-27T10:27:40+09:00", "kind": "stock", "item": "muc2ww5j", "name": "루나", "date": "2026-10-01", "change": "예약 변동(예약 발생)", "stock": [480, 480], "booked": [342, 343], "slots": {"16:00": {"from": [32, 26], "to": [32, 27]}}, "scope": ""}
+{"ts": "2026-09-27T10:34:27+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-27", "change": "예약 변동(예약 발생)", "stock": [54, 54], "booked": [53, 54], "slots": {"12:00": {"from": [3, 2], "to": [3, 3]}}, "scope": ""}
+{"ts": "2026-09-27T10:34:30+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "change": "예약 변동(예약 취소)", "stock": [54, 54], "booked": [54, 53], "slots": {"13:30": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
+{"ts": "2026-09-27T10:34:35+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "level": "open", "title": "🎉 리베르 예약 가능!", "slots": {"13:30": 1}}
