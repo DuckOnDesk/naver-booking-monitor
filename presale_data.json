@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T21:30:25.290352+09:00",
+  "updated_at": "2026-09-27T21:35:46.466929+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -767,7 +767,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -795,7 +795,8 @@
         "2026-09-27T12:52:33.893785+09:00",
         "2026-09-27T14:04:42.746096+09:00",
         "2026-09-27T15:39:17.878580+09:00",
-        "2026-09-27T17:41:34.384285+09:00"
+        "2026-09-27T17:41:34.384285+09:00",
+        "2026-09-27T21:35:46.464146+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1936,13 +1937,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2005264248",
-      "place_name": "GU 26FW POP UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
-      "ts": "2026-09-12T20:15:39.633773+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2095762499",
@@ -3335,6 +3329,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://map.naver.com/p/entry/place/2061527606",
       "ts": "2026-09-27T18:55:52.657588+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
+      "ts": "2026-09-27T21:35:46.464146+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3492,7 +3493,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-27T21:30:18.153765+09:00",
+    "checked_at": "2026-09-27T21:35:46.464146+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
