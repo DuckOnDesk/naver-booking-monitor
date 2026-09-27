@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T08:38:25.935828+09:00",
+  "updated_at": "2026-09-28T08:44:02.899006+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1092,7 +1092,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T08:43:49.227639+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
@@ -1102,7 +1102,7 @@
       "id": "2023862125",
       "name": "인사이드룸",
       "hasBooking": false,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/514672/items/6257255",
       "bookingBusinessId": null,
       "operationStart": "25.03.01.",
       "operationEnd": null,
@@ -1120,7 +1120,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T08:43:49.227639+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
@@ -1269,7 +1269,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T08:43:49.227639+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-25T07:00:47.319605+09:00",
       "lastBookingNotifiedAt": null,
@@ -1568,7 +1568,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T08:43:49.227639+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
@@ -1624,7 +1624,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T08:43:49.227639+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-18T12:59:40.407183+09:00",
       "lastBookingNotifiedAt": null,
@@ -1652,7 +1652,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T08:43:49.227639+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-27T17:13:45.439769+09:00",
       "lastBookingNotifiedAt": null,
@@ -3356,7 +3356,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T08:38:10.356495+09:00",
+    "checked_at": "2026-09-28T08:43:49.227639+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3613,6 +3613,7 @@
     "2048261612": "https://m.booking.naver.com/booking/13/bizes/1736378",
     "2042771625": "https://m.booking.naver.com/booking/6/bizes/1700991/search",
     "2050363685": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
-    "2001371441": "https://m.booking.naver.com/booking/12/bizes/1640758"
+    "2001371441": "https://m.booking.naver.com/booking/12/bizes/1640758",
+    "2023862125": "https://m.booking.naver.com/booking/6/bizes/514672/items/6257255"
   }
 }
