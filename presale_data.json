@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T13:59:19.604689+09:00",
+  "updated_at": "2026-09-27T14:05:05.942795+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -128,7 +128,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:26.607684+09:00",
       "bookingIsOpened": false
@@ -264,7 +264,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:27.643658+09:00",
       "bookingIsOpened": false
@@ -404,7 +404,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:28.723515+09:00",
       "bookingIsOpened": false
@@ -433,7 +433,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-22T12:19:36.394042+09:00",
       "lastBookingNotifiedAt": "2026-09-22T12:25:24.278183+09:00",
@@ -494,7 +494,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
       "lastBookingNotifiedAt": "2026-09-17T16:13:53.679437+09:00",
       "bookingIsOpened": false
@@ -581,7 +581,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T16:55:09.771725+09:00",
@@ -611,7 +611,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-21T13:12:58.157767+09:00",
@@ -670,7 +670,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
       "bookingIsOpened": false
@@ -764,7 +764,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -789,7 +789,8 @@
         "2026-09-27T05:54:47.441682+09:00",
         "2026-09-27T10:06:56.586008+09:00",
         "2026-09-27T11:35:39.627660+09:00",
-        "2026-09-27T12:52:33.893785+09:00"
+        "2026-09-27T12:52:33.893785+09:00",
+        "2026-09-27T14:04:42.746096+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -937,7 +938,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:30.905885+09:00",
       "bookingIsOpened": false
@@ -967,7 +968,7 @@
       "saleStartDate": null,
       "bookingNotified": false,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
@@ -997,7 +998,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": "2026-09-08T11:54:48.816631+09:00",
       "lastBookingNotifiedAt": "2026-09-10T16:37:22.474046+09:00",
       "bookingIsOpened": false
@@ -1053,7 +1054,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:31.895660+09:00",
       "bookingIsOpened": false
@@ -1080,7 +1081,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-21T13:07:25.851805+09:00",
@@ -1108,7 +1109,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-21T13:07:25.369854+09:00",
@@ -1378,7 +1379,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-22T16:43:38.753777+09:00",
@@ -1407,7 +1408,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:35.215907+09:00",
       "bookingIsOpened": false
@@ -1781,7 +1782,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-27T13:31:19.932986+09:00",
+      "bookingItemCheckedAt": "2026-09-27T14:04:42.746096+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-16T22:36:03.056377+09:00",
       "bookingIsOpened": false
@@ -1900,13 +1901,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033013073",
-      "place_name": "The Haagen-Cruise, 하겐다즈 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1713524",
-      "ts": "2026-09-12T10:21:03.178541+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3299,6 +3293,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://map.naver.com/p/entry/place/2033835877",
       "ts": "2026-09-27T13:48:27.147012+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
+      "ts": "2026-09-27T14:04:42.746096+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3455,7 +3456,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-27T13:59:19.603041+09:00",
+    "checked_at": "2026-09-27T14:04:42.746096+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
