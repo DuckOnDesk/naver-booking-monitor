@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T12:03:36.048421+09:00",
+  "updated_at": "2026-09-27T12:09:04.319284+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -135,7 +135,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -549,7 +549,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T11:35:39.627660+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T12:08:58.956901+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
       "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
@@ -1553,7 +1553,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T11:35:39.627660+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T12:08:58.956901+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-23T13:23:34.067180+09:00",
@@ -3452,7 +3452,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-27T12:03:30.373336+09:00",
+    "checked_at": "2026-09-27T12:08:58.956901+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
