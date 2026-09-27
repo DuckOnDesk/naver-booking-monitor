@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T10:01:36.617562+09:00",
+  "updated_at": "2026-09-27T10:06:56.588050+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -761,7 +761,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -783,7 +783,8 @@
         "2026-09-24T20:38:28.348151+09:00",
         "2026-09-24T22:34:43.015098+09:00",
         "2026-09-25T00:18:57.634746+09:00",
-        "2026-09-27T05:54:47.441682+09:00"
+        "2026-09-27T05:54:47.441682+09:00",
+        "2026-09-27T10:06:56.586008+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1894,13 +1895,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2005264248",
-      "place_name": "GU 26FW POP UP",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1729359",
-      "ts": "2026-09-12T01:28:13.222705+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2050363685",
@@ -3293,6 +3287,13 @@
       "place_name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
       "booking_url": "https://map.naver.com/p/entry/place/2070202228",
       "ts": "2026-09-27T10:01:33.219096+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
+      "ts": "2026-09-27T10:06:56.586008+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3449,7 +3450,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-27T10:01:33.219096+09:00",
+    "checked_at": "2026-09-27T10:06:56.586008+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
