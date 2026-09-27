@@ -39,7 +39,7 @@ errors[](BookingAPITooManyRequests)로도 오므로 둘 다 본다 (looks_rate_l
 묻힌다 (note_stock_change 참고).
 
 환경변수: NTFY_TOPIC (선택, monitors.json 값 override)
-          CHECK_INTERVAL_SEC, LOOP_HOURS
+          CHECK_INTERVAL_SEC (회차 시작 간격의 최소값 — 한 회차가 더 걸리면 쉬지 않음), LOOP_HOURS
           LOG_DEDUP (0이면 종전처럼 매 회차 전부 출력)
           LOG_HEARTBEAT_MIN (변화가 없어도 이 간격마다 상태 줄 전체 재출력, 기본 60분)
           LOG_TICK_MIN (무변동이 이어질 때 살아 있음을 알리는 간격, 기본 10분)
@@ -182,6 +182,24 @@ def backoff_down(cur: int, base: int) -> int:
     """지금 주기보다 한 칸 짧은 값. 더 내려갈 계단이 없으면 원래 주기."""
     lower = [s for s in RATE_LIMIT_BACKOFF_SEC if base < s < cur]
     return max(lower) if lower else base
+
+
+def round_wait(interval: int, base_interval: int, elapsed: float) -> float:
+    """회차가 끝난 뒤 다음 회차까지 쉴 시간(초).
+
+    평소 주기(base_interval)는 "회차 시작부터 다음 회차 시작까지"의 최소 간격이다.
+    종전에는 회차가 끝난 뒤 주기를 통째로 쉬어서, 항목이 많아 한 회차가 4분쯤
+    걸리면 실제 간격이 5분이 됐다 (2026-09-27 로그: 회차 머리글이 약 5분 간격).
+    그 1분 동안 난 취소표를 다른 사람이 먼저 잡아 가면 감시가 아예 못 본다.
+    이미 주기보다 오래 걸린 회차는 쉬지 않고 바로 다음 회차로 간다.
+
+    속도 제한으로 주기를 늘린 동안(interval > base_interval)은 종전처럼 통째로 쉰다.
+    백오프 주기(120/300초)가 한 회차 시간보다 짧아 차감하면 사실상 안 쉬게 되는데,
+    백오프의 목적이 요청을 실제로 줄이는 것이기 때문이다.
+    """
+    if interval > base_interval:
+        return float(interval)
+    return max(0.0, interval - elapsed)
 
 KAKAO_API_URL = "https://booking.kakao.com/api/product/public/ticket/tickets/availableDates"
 KAKAO_HEADERS = {
@@ -3358,6 +3376,7 @@ def main():
 
     while time.time() < end_time:
         iteration += 1
+        round_start = time.time()
         try:
             cfg = load_monitors(from_github=True)
             monitors = cfg.get("monitors", [])
@@ -3420,9 +3439,11 @@ def main():
                 if interval == base_interval and ntfy_topic:
                     send_ntfy(ntfy_topic, "✅ 모니터 주기 복구", msg, "")
 
+        wait = round_wait(interval, base_interval, time.time() - round_start)
         remaining = end_time - time.time()
-        if remaining > interval:
-            time.sleep(interval)
+        if remaining > wait:
+            if wait > 0:
+                time.sleep(wait)
         else:
             break
 
