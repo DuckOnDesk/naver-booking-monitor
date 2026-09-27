@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T02:16:11.528031+09:00",
+  "updated_at": "2026-09-28T02:21:37.485577+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -712,7 +712,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -742,7 +742,8 @@
         "2026-09-27T15:39:17.878580+09:00",
         "2026-09-27T17:41:34.384285+09:00",
         "2026-09-27T21:35:46.464146+09:00",
-        "2026-09-27T22:58:13.953743+09:00"
+        "2026-09-27T22:58:13.953743+09:00",
+        "2026-09-28T02:21:31.988043+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -798,7 +799,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T01:48:37.542176+09:00",
+      "bookingUrlCheckedAt": "2026-09-28T02:21:31.988043+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
@@ -1239,7 +1240,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T01:48:37.542176+09:00",
+      "bookingUrlCheckedAt": "2026-09-28T02:21:31.988043+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-26T00:44:54.222233+09:00",
@@ -1300,7 +1301,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T01:48:37.542176+09:00",
+      "bookingUrlCheckedAt": "2026-09-28T02:21:31.988043+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T11:11:53.128750+09:00",
@@ -1798,13 +1799,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2009756357",
-      "place_name": "2026 대상그룹 지식존중 괴산 찰떡합격런",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719529",
-      "ts": "2026-09-13T02:41:55.097231+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2095762499",
@@ -3197,6 +3191,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://map.naver.com/p/entry/place/2033835877",
       "ts": "2026-09-28T01:37:17.813112+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
+      "ts": "2026-09-28T02:21:31.988043+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3354,7 +3355,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T02:15:50.646360+09:00",
+    "checked_at": "2026-09-28T02:21:31.988043+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
