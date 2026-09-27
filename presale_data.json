@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T15:28:30.332159+09:00",
+  "updated_at": "2026-09-27T15:33:53.673241+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -51,7 +51,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -136,7 +136,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -764,7 +764,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -806,7 +806,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": null,
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -836,7 +836,8 @@
         "2026-09-25T12:09:25.950045+09:00",
         "2026-09-25T20:33:52.642422+09:00",
         "2026-09-25T23:54:42.925820+09:00",
-        "2026-09-27T05:54:47.441682+09:00"
+        "2026-09-27T05:54:47.441682+09:00",
+        "2026-09-27T15:33:53.671488+09:00"
       ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
@@ -1901,13 +1902,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-12T10:43:18.953228+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2009756357",
@@ -3300,6 +3294,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://map.naver.com/p/entry/place/2038718464",
       "ts": "2026-09-27T14:04:42.746096+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
+      "ts": "2026-09-27T15:33:53.671488+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3456,7 +3457,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-27T15:28:24.067534+09:00",
+    "checked_at": "2026-09-27T15:33:53.671488+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
