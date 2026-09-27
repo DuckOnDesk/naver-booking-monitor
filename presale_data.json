@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-27T11:24:46.548515+09:00",
+  "updated_at": "2026-09-27T11:30:16.771319+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -838,7 +838,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T10:56:47.473991+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T11:30:10.692594+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
@@ -1281,7 +1281,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T10:56:47.473991+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T11:30:10.692594+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-26T00:44:54.222233+09:00",
@@ -1314,7 +1314,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-27T10:56:47.473991+09:00",
+      "bookingUrlCheckedAt": "2026-09-27T11:30:10.692594+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T11:11:53.128750+09:00",
@@ -3451,12 +3451,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-27T11:24:23.942036+09:00",
+    "checked_at": "2026-09-27T11:30:10.692594+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 848,
+    "candidate_items": 814,
     "presale_items": 206,
     "after_district_filter": 108,
     "fallback_matched": 0,
@@ -3465,8 +3465,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-25T07:00:47.319605+09:00",
     "admission_names": {
-      "(없음)": 430,
-      "현장대기": 212,
+      "(없음)": 394,
+      "현장대기": 214,
       "사전예약&현장대기": 158,
       "사전예약": 48
     },
