@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T18:41:14.709787+09:00",
+  "updated_at": "2026-09-28T18:46:44.660574+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -27,6 +27,7 @@
     "2052542419",
     "2057558383",
     "2061527606",
+    "2066913017",
     "2067695542",
     "2069285502",
     "2070202228",
@@ -347,7 +348,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:14:03.219913+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T18:46:41.905718+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -924,7 +925,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:14:04.028480+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T18:46:42.651050+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -952,7 +953,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:14:04.705996+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T18:46:43.234832+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1008,7 +1009,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:14:05.458082+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T18:46:44.088854+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1341,6 +1342,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2066913017",
+      "name": "에이레네 더현대 서울 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": 3,
+      "status": "D-3",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260920_255/17898703377041FLNR_JPEG/edited-1789870335789-0.jpg",
+      "roadAddress": "여의대로 108 3층 에이레네 팝업스토어",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-28T18:46:40.043419+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2084168433",
       "name": "블랙야크 더현대서울",
       "hasBooking": false,
@@ -1362,7 +1391,7 @@
         "2026-09-23T17:48:30.300386+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:14:01.199298+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T18:46:40.043633+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1708,7 +1737,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:14:02.300405+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T18:46:41.154952+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1834,13 +1863,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2015989932",
-      "place_name": "에이티즈 8주년 기념 전시팝업 : BLUE DRIFT",
-      "booking_url": "",
-      "ts": "2026-09-14T12:20:01.950362+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2034884894",
@@ -3233,6 +3255,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "ts": "2026-09-28T17:30:15.098481+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2066913017",
+      "place_name": "에이레네 더현대 서울 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-09-28T18:46:40.043419+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3344,6 +3373,7 @@
     "2062283789",
     "2064927800",
     "2066415670",
+    "2066913017",
     "2067695542",
     "2067967922",
     "2069285502",
@@ -3391,23 +3421,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T18:41:14.707623+09:00",
+    "checked_at": "2026-09-28T18:46:40.043419+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 762,
-    "presale_items": 198,
-    "after_district_filter": 100,
+    "candidate_items": 763,
+    "presale_items": 199,
+    "after_district_filter": 101,
     "fallback_matched": 0,
-    "unique_place_ids": 58,
-    "tracked_places": 58,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-28T14:10:47.830659+09:00",
+    "unique_place_ids": 59,
+    "tracked_places": 59,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-28T18:46:40.043419+09:00",
     "admission_names": {
       "(없음)": 359,
       "현장대기": 205,
-      "사전예약&현장대기": 155,
+      "사전예약&현장대기": 156,
       "사전예약": 43
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
@@ -3606,6 +3636,7 @@
     "2057558383",
     "2061527606",
     "2062283789",
+    "2066913017",
     "2067695542",
     "2069285502",
     "2070202228",
