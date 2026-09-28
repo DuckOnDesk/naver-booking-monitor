@@ -1,23 +1,31 @@
 """예약 링크 회귀 테스트 — 알림에 반드시 예약 링크가 걸리도록.
 
-배경 (2026-09-17 ~ 09-23에 확인된 실제 사고):
+배경 (2026-09-17 ~ 09-28에 실제로 확인된 것):
 지도 검색(popupstore/list)은 같은 팝업이라도 bookingUrl을 줄 때와 안 줄 때가 있다.
 2026-09-17 09:20에 팝업 6개가 검색에서 잠깐 빠졌고, 돌아왔을 때 4개가 링크를 잃었다.
-장소 기록이 통째로 지워졌다 다시 만들어지면서 "이전 URL 유지"가 끊겼기 때문이다.
-그 뒤 링크 보유율이 100% → 61%까지 내려갔고, 오픈 알림이 예약 페이지가 아니라
-지도 장소 페이지로 연결됐다 (루나·THE AGE20'S 등).
+장소 기록이 통째로 지워졌다 다시 만들어지면서 "이전 URL 유지"가 끊긴 탓이다.
+그 뒤 링크 보유율이 100% → 61%까지 내려가, 오픈 알림이 예약 페이지가 아니라 지도
+장소 페이지로 연결됐다 (루나·THE AGE20'S 등).
 
-예전에는 businessId로 예약 타입(/booking/{type}/)을 찍어 맞히려 했는데, 그 확인에
-쓰던 달력 API가 이미 죽어 있어서(2026-09-08부터 JSON 대신 HTML 반환) 37번 시도해
-37번 실패했다. 지금은 장소 상세 페이지에서 예약 링크를 그대로 찾아온다 —
-businessId가 일치하는 링크만 채택하므로 타입을 추측할 필요가 없다.
+실패했던 접근 두 가지 (같은 실수를 반복하지 않도록 남긴다):
+  1) 달력 API(/calendars/{ym})로 예약 타입을 찍어 맞히기 — 그 엔드포인트는
+     2026-09-08부터 JSON 대신 HTML을 반환한다. 실행 로그상 37번 시도해 37번 실패.
+  2) 장소 상세 페이지 HTML 긁기 — 2026-09-28 확인 결과 상세 페이지 소스와 네트워크
+     요청 어디에도 booking.naver.com 주소가 없다. 예약 버튼은 네이버 내부 페이지
+     (pcmap.place.naver.com/popupstore/{id}/booking)로 이동한다. 원리상 불가능.
+
+지금 방식: bookingBusinessId로 URL을 그냥 만든다. 네이버가 예약 서비스 타입을
+서버에서 정규화해 주기 때문이다 — biz 1737133에 타입 5·6·12·13을 각각 넣으면 전부
+.../booking/12/bizes/1737133 으로 리다이렉트된다 (2026-09-28 확인). 타입을 맞힐
+필요가 없다.
 
 네트워크 없이 돈다 (네이버 호출은 대체 함수로 교체).
 
 확인 내용:
-  - 장소 상세 페이지 HTML에서 예약 URL을 뽑는다 (JSON 이스케이프 포함)
-  - businessId가 맞는 링크만 쓴다 (남의 업체 링크를 잘못 걸지 않는다)
-  - /items/까지 있는 링크를 우선한다
+  - businessId로 만든 URL이 리다이렉트 최종 주소(= 올바른 타입)로 정리된다
+  - 404(예약 없는 업체)면 링크를 걸지 않는다
+  - 엉뚱한 곳으로 리다이렉트되면 쓰지 않는다
+  - 요청이 실패해도 만든 URL을 쓴다 (리다이렉트가 동작하므로 예약 페이지에 닿는다)
   - 한 번 확인한 링크는 영구 보관되고 빈 값으로 덮이지 않는다
   - 오픈 알림은 예약 링크를 달고 나간다. 끝내 못 찾을 때만 지도 링크로 떨어진다
 
@@ -42,13 +50,14 @@ KST = pm.KST
 PID = "2029141346"          # 루나 클라우드 레이어 팝업스토어
 BIZ = "1737133"
 NAME = "루나 클라우드 레이어 팝업스토어"
-BOOK_URL = f"https://m.booking.naver.com/booking/12/bizes/{BIZ}"
+BOOK_URL = f"https://m.booking.naver.com/booking/12/bizes/{BIZ}"   # 타입 12가 정규 주소
 
 
 class Resp:
-    def __init__(self, status_code=200, text=""):
+    def __init__(self, status_code=200, text="", url=""):
         self.status_code = status_code
         self.text = text
+        self.url = url
         self.encoding = "utf-8"
 
 
@@ -66,54 +75,45 @@ def stub_get(routes, calls=None):
 def main() -> int:
     real_get = pm.SESSION.get
 
-    print("1) extract_booking_urls — 페이지에서 예약 URL 뽑기")
-    html = f'<a href="https://m.booking.naver.com/booking/12/bizes/{BIZ}">예약</a>'
-    check(pm.extract_booking_urls(html) == [(BIZ, BOOK_URL)], "평범한 링크")
-
-    escaped = '{"bookingUrl":"https:\\/\\/m.booking.naver.com\\/booking\\/6\\/bizes\\/999\\/items\\/77"}'
-    got = pm.extract_booking_urls(escaped)
-    check(got == [("999", "https://m.booking.naver.com/booking/6/bizes/999/items/77")],
-          f"JSON 이스케이프(\\/)된 링크도 찾는다 ({got})")
-
-    dup = html + html + f'<a href="https://booking.naver.com/booking/13/bizes/555">x</a>'
-    got = pm.extract_booking_urls(dup)
-    check(len(got) == 2 and got[0][0] == BIZ, f"중복 제거, m. 없는 주소도 인식 ({got})")
-    check(pm.extract_booking_urls("예약 링크 없음") == [], "없으면 빈 목록")
-
-    print()
-    print("2) pick_booking_url — businessId가 맞는 것만")
-    cands = [("999", "https://m.booking.naver.com/booking/5/bizes/999"), (BIZ, BOOK_URL)]
-    check(pm.pick_booking_url(cands, BIZ) == BOOK_URL, "businessId 일치 항목 선택")
-    check(pm.pick_booking_url([("999", "https://m.booking.naver.com/booking/5/bizes/999")], BIZ) == "",
-          "businessId가 다르면 쓰지 않는다 (엉뚱한 업체 링크 방지)")
-    with_item = [(BIZ, BOOK_URL), (BIZ, BOOK_URL + "/items/8080")]
-    check(pm.pick_booking_url(with_item, BIZ) == BOOK_URL + "/items/8080",
-          "/items/까지 있는 링크를 우선")
-    check(pm.pick_booking_url(cands, "") == cands[0][1], "businessId를 모르면 첫 후보")
-    check(pm.pick_booking_url([], BIZ) == "", "후보가 없으면 빈 문자열")
-
-    print()
-    print("3) fetch_place_booking_url — 장소 상세 페이지 조회")
-    pm._PLACE_URL_CACHE.clear()
+    print("1) resolve_booking_url_from_biz — businessId로 예약 URL 만들기")
+    pm._BIZ_URL_CACHE.clear()
     calls: list = []
+    # 타입 12로 요청 → 네이버가 정규화한 최종 주소를 그대로 채택
     pm.SESSION.get = stub_get({
-        f"https://m.place.naver.com/place/{PID}/home": Resp(text=html),
+        BOOK_URL: Resp(text="예약", url=BOOK_URL),
     }, calls)
-    check(pm.fetch_place_booking_url(PID, BIZ) == BOOK_URL, "상세 페이지에서 예약 URL 발견")
-    check(any("pcmap.place.naver.com" in c for c in calls), "후보 주소를 순서대로 시도")
+    check(pm.resolve_booking_url_from_biz(BIZ) == BOOK_URL, "최종 주소 채택")
+    check(calls and calls[0] == BOOK_URL, f"타입 12로 요청 ({calls[0] if calls else None})")
 
     before = len(calls)
-    pm.fetch_place_booking_url(PID, BIZ)
-    check(len(calls) == before, "같은 주기에 같은 장소를 다시 조회하지 않는다 (캐시)")
+    pm.resolve_booking_url_from_biz(BIZ)
+    check(len(calls) == before, "같은 주기에 같은 업체를 다시 확인하지 않는다 (캐시)")
 
-    pm._PLACE_URL_CACHE.clear()
-    pm.SESSION.get = stub_get({})
-    check(pm.fetch_place_booking_url(PID, BIZ) == "", "페이지를 못 열면 빈 문자열")
-    pm._PLACE_URL_CACHE.clear()
-    pm.SESSION.get = stub_get({
-        f"https://pcmap.place.naver.com/place/{PID}/home": Resp(text="예약 링크 없음"),
-    })
-    check(pm.fetch_place_booking_url(PID, BIZ) == "", "페이지에 예약 링크가 없으면 빈 문자열")
+    # 다른 타입으로 리다이렉트되면 그 타입을 따른다
+    pm._BIZ_URL_CACHE.clear()
+    real_type = f"https://m.booking.naver.com/booking/6/bizes/{BIZ}"
+    pm.SESSION.get = stub_get({BOOK_URL: Resp(text="예약", url=real_type + "?x=1")})
+    check(pm.resolve_booking_url_from_biz(BIZ) == real_type,
+          f"리다이렉트된 타입을 따르고 쿼리스트링은 버린다 ({real_type})")
+
+    pm._BIZ_URL_CACHE.clear()
+    pm.SESSION.get = stub_get({BOOK_URL: Resp(status_code=404, url=BOOK_URL)})
+    check(pm.resolve_booking_url_from_biz(BIZ) == "", "404(예약 없는 업체)면 링크를 걸지 않는다")
+
+    pm._BIZ_URL_CACHE.clear()
+    pm.SESSION.get = stub_get({BOOK_URL: Resp(text="로그인",
+                                              url="https://nid.naver.com/login")})
+    check(pm.resolve_booking_url_from_biz(BIZ) == "",
+          "엉뚱한 곳으로 보내면 쓰지 않는다 (잘못된 링크 방지)")
+
+    def _boom(url, **kw):
+        raise RuntimeError("네트워크 끊김")
+    pm._BIZ_URL_CACHE.clear()
+    pm.SESSION.get = _boom
+    check(pm.resolve_booking_url_from_biz(BIZ) == BOOK_URL,
+          "요청이 실패해도 만든 URL을 쓴다 (리다이렉트로 예약 페이지에 닿는다)")
+    pm._BIZ_URL_CACHE.clear()
+    check(pm.resolve_booking_url_from_biz("") == "", "businessId가 없으면 빈 문자열")
 
     print()
     print("4) remember_booking_url — 한 번 확인한 링크는 영구 보관")
@@ -128,7 +128,7 @@ def main() -> int:
     check(hist[PID] == BOOK_URL + "/items/8080", "덜 구체적인 링크로는 되돌리지 않는다")
 
     print()
-    print("5) check_once — 루나 상황 재현 (지도 검색엔 링크 없음, 상세 페이지엔 있음)")
+    print("5) check_once — 루나 상황 재현 (지도 검색이 링크를 안 줌)")
     real = {name: getattr(pm, name) for name in (
         "fetch_presale_places", "fetch_bookable_setting", "fetch_sale_start_date",
         "load_prev_alerts", "load_seen_ids", "has_available_slots",
@@ -136,10 +136,8 @@ def main() -> int:
         "load_booking_url_history", "resolve_booking_item_url",
         "_queue_ntfy", "send_ntfy", "send_toast", "save_data", "CONFIG_FILE")}
 
-    pm._PLACE_URL_CACHE.clear()
-    pm.SESSION.get = stub_get({
-        f"https://pcmap.place.naver.com/place/{PID}/home": Resp(text=html),
-    })
+    pm._BIZ_URL_CACHE.clear()
+    pm.SESSION.get = stub_get({BOOK_URL: Resp(text="예약", url=BOOK_URL)})
     pm.fetch_presale_places = lambda area, stats=None: [{
         "id": PID, "name": NAME, "hasBooking": True,
         "bookingUrl": None, "bookingBusinessId": BIZ,          # ← 지도 검색이 링크를 안 줌
@@ -183,7 +181,7 @@ def main() -> int:
     result = pm.check_once(cfg, prev)
 
     check(result[PID].get("bookingUrl") == BOOK_URL,
-          f"상세 페이지에서 예약 URL을 채워 넣음 ({result[PID].get('bookingUrl')})")
+          f"businessId로 예약 URL을 채워 넣음 ({result[PID].get('bookingUrl')})")
     check(len(sent) == 1, f"오픈 알림 1건 (실제 {len(sent)}건)")
     if sent:
         check(sent[0]["url"] == BOOK_URL, f"알림 링크가 예약 페이지 ({sent[0]['url']})")
@@ -191,9 +189,9 @@ def main() -> int:
     check(saved_hist.get(PID) == BOOK_URL, "확인한 링크가 영구 보관됨")
 
     print()
-    print("6) check_once — 지도·상세 페이지 모두 링크가 없어도 보관본으로 복구")
-    pm._PLACE_URL_CACHE.clear()
-    pm.SESSION.get = stub_get({})              # 상세 페이지도 실패
+    print("6) check_once — 예약 URL을 못 만들어도 보관본으로 복구")
+    pm._BIZ_URL_CACHE.clear()
+    pm.SESSION.get = stub_get({BOOK_URL: Resp(status_code=404, url=BOOK_URL)})
     sent.clear()
     prev2 = {PID: dict(prev[PID], hasBooking=False, bookingUrl=None)}
     result2 = pm.check_once(cfg, prev2)
@@ -204,8 +202,8 @@ def main() -> int:
 
     print()
     print("7) check_once — 링크를 끝내 못 찾으면 지도 링크로 (링크 없는 알림 금지)")
-    pm._PLACE_URL_CACHE.clear()
-    pm.SESSION.get = stub_get({})
+    pm._BIZ_URL_CACHE.clear()
+    pm.SESSION.get = stub_get({BOOK_URL: Resp(status_code=404, url=BOOK_URL)})
     saved_hist.clear()
     sent.clear()
     prev3 = {PID: dict(prev[PID])}
