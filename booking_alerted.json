@@ -1820,7 +1820,7 @@
   "mtzovems:2026-09-28:stock": {
     "17:00": [
       1,
-      1
+      0
     ],
     "17:30": [
       1,
@@ -3725,7 +3725,7 @@
   },
   "mt9y7a37:stock_at": "2026-09-20T20:00:42+09:00",
   "mtuo5elj:stock_at": "2026-09-28T16:00:26+09:00",
-  "mtzovems:stock_at": "2026-09-28T16:32:51+09:00",
+  "mtzovems:stock_at": "2026-09-28T16:39:32+09:00",
   "mtzotglu:stock_at": "2026-09-28T16:31:25+09:00",
   "mti3v8v5:stock_at": "2026-09-20T12:00:28+09:00",
   "mtzovq2r:stock_at": "2026-09-22T12:18:53+09:00",
@@ -6988,5 +6988,9 @@
   "mtzotglu:url_closed": 1,
   "mtzotglu:2026-09-28:closed": {
     "17:30": 1
+  },
+  "mtzovems:url_closed": 1,
+  "mtzovems:2026-09-28:closed": {
+    "17:00": 1
   }
 }
