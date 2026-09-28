@@ -92,7 +92,20 @@
       "name": "아이쁘",
       "url": "https://booking.naver.com/booking/12/bizes/1357646/items/8074901",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [],
+        "times": [],
+        "accounts": [
+          1,
+          2
+        ],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-09-28T05:44:35.961Z"
+      }
     },
     {
       "id": "muc2ww5j",
