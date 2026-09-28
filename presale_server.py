@@ -8,6 +8,8 @@ presale_monitor.py 가 생성하는 presale_data.json 을 페이지로 서빙하
 """
 
 import json
+import re
+import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
@@ -18,6 +20,19 @@ DATA_FILE = BASE_DIR / "presale_data.json"
 CONFIG_FILE = BASE_DIR / "presale_config.json"
 HTML_FILE = BASE_DIR / "presale.html"
 SELECT_HTML_FILE = BASE_DIR / "presale_select.html"
+MONITORS_FILE = BASE_DIR / "monitors.json"
+
+
+def _b36(n: int) -> str:
+    """JS의 Number.toString(36)과 같은 형식 — 기존 monitors.json id와 맞춘다."""
+    digits = "0123456789abcdefghijklmnopqrstuvwxyz"
+    if n == 0:
+        return "0"
+    out = ""
+    while n:
+        n, r = divmod(n, 36)
+        out = digits[r] + out
+    return out
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -53,6 +68,13 @@ class Handler(BaseHTTPRequestHandler):
                 data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
             else:
                 data = {"places": [], "disabled_places": [], "updated_at": None}
+            # 재고 감시 목록 — 카드에 "재고 감시중" 표시를 하기 위해 같이 보낸다
+            if MONITORS_FILE.exists():
+                try:
+                    data["monitors"] = json.loads(
+                        MONITORS_FILE.read_text(encoding="utf-8")).get("monitors", [])
+                except Exception:
+                    data["monitors"] = []
             self._json(data)
 
         else:
@@ -93,6 +115,43 @@ class Handler(BaseHTTPRequestHandler):
                 )
 
             self._json({"ok": True, "watched_places": list(watched)})
+
+        elif path == "/api/add-monitor":
+            # 팝업 오픈 알림 페이지에서 재고 감시(monitors.json)로 바로 넘기기
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length).decode("utf-8"))
+            name = (body.get("name") or "").strip()
+            url = (body.get("url") or "").strip()
+            key = re.search(r"/bizes/(\d+)/items/(\d+)", url)
+            if not name or not key:
+                self._json({"error": "name과 /items/ URL이 필요합니다"}, 400)
+                return
+
+            if MONITORS_FILE.exists():
+                mon = json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
+            else:
+                mon = {"monitors": []}
+            mon.setdefault("monitors", [])
+
+            def _key(u):
+                m = re.search(r"/bizes/(\d+)/items/(\d+)", u or "")
+                return m.group(0) if m else None
+
+            if any(_key(m.get("url")) == key.group(0) for m in mon["monitors"]):
+                self._json({"ok": True, "already": True})
+                return
+
+            mon["monitors"].append({
+                "id": _b36(int(time.time() * 1000)),   # index.html과 같은 형식
+                "name": name,
+                "url": url,
+                "enabled": True,
+                "target_dates": [],
+            })
+            MONITORS_FILE.write_text(
+                json.dumps(mon, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+            self._json({"ok": True})
 
         elif path == "/api/set-open-time":
             length = int(self.headers.get("Content-Length", 0))
