@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T12:27:16.910679+09:00",
+  "updated_at": "2026-09-28T12:32:42.083273+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -708,7 +708,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -740,7 +740,8 @@
         "2026-09-27T21:35:46.464146+09:00",
         "2026-09-27T22:58:13.953743+09:00",
         "2026-09-28T02:21:31.988043+09:00",
-        "2026-09-28T10:37:31.582270+09:00"
+        "2026-09-28T10:37:31.582270+09:00",
+        "2026-09-28T12:32:41.082542+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -1786,7 +1787,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T12:00:02.837529+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T12:32:41.083325+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1798,13 +1799,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-13T12:47:34.684092+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2005264248",
@@ -3197,6 +3191,13 @@
       "place_name": "연리재 현대백화점 천호점 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
       "ts": "2026-09-28T12:00:01.081733+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-09-28T12:32:41.082542+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3354,12 +3355,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T12:27:16.908391+09:00",
+    "checked_at": "2026-09-28T12:32:41.082542+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 749,
+    "candidate_items": 752,
     "presale_items": 196,
     "after_district_filter": 99,
     "fallback_matched": 0,
@@ -3368,7 +3369,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-27T17:13:45.439769+09:00",
     "admission_names": {
-      "(없음)": 351,
+      "(없음)": 354,
       "현장대기": 202,
       "사전예약&현장대기": 151,
       "사전예약": 45
