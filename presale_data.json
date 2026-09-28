@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T20:51:40.023542+09:00",
+  "updated_at": "2026-09-28T20:57:08.842418+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -349,7 +349,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T20:24:28.156251+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T20:57:05.066415+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -744,7 +744,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -780,7 +780,8 @@
         "2026-09-28T12:32:41.082542+09:00",
         "2026-09-28T15:27:28.509044+09:00",
         "2026-09-28T18:57:33.879260+09:00",
-        "2026-09-28T19:30:08.523144+09:00"
+        "2026-09-28T19:30:08.523144+09:00",
+        "2026-09-28T20:57:03.184978+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -928,7 +929,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T20:24:25.270341+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T20:57:05.836356+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -956,7 +957,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T20:24:26.042679+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T20:57:06.574144+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1012,7 +1013,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T20:24:26.793286+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T20:57:07.329343+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1741,7 +1742,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T20:24:24.520799+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T20:57:04.298416+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1867,13 +1868,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2048261612",
-      "place_name": "가누다 까르마 현대백화점 목동점 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/13/bizes/1736378",
-      "ts": "2026-09-14T16:48:40.692468+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2050363685",
@@ -3266,6 +3260,13 @@
       "place_name": "블랙야크 더현대서울",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1744184/items/8084249",
       "ts": "2026-09-28T19:51:46.122993+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-09-28T20:57:03.184978+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3425,7 +3426,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T20:51:37.877929+09:00",
+    "checked_at": "2026-09-28T20:57:03.184978+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
