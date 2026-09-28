@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T10:44:24.953999+09:00",
+  "updated_at": "2026-09-28T10:44:54.371909+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -454,7 +454,7 @@
       "id": "2045660928",
       "name": "오늘은 1004",
       "hasBooking": true,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636",
       "bookingBusinessId": "1744636",
       "operationStart": "26.10.02.",
       "operationEnd": "26.10.05.",
@@ -474,8 +474,8 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:14:39.004368+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
+      "bookingItemCheckedAt": "2026-09-28T10:44:50.439114+09:00",
       "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
       "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
       "bookingIsOpened": false
@@ -716,7 +716,7 @@
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
       "hasBooking": true,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
       "operationEnd": "26.10.04.",
@@ -754,8 +754,8 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:14:39.004368+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
+      "bookingItemCheckedAt": "2026-09-28T10:44:50.439114+09:00",
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
       "bookingIsOpened": false
@@ -1460,7 +1460,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-09-28T09:06:31.751897+09:00",
-      "bookingItemCheckedAt": "2026-09-28T10:14:39.004368+09:00",
+      "bookingItemCheckedAt": "2026-09-28T10:44:50.439114+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-23T13:23:34.067180+09:00",
       "bookingIsOpened": false
@@ -3359,7 +3359,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T10:44:24.952074+09:00",
+    "checked_at": "2026-09-28T10:44:50.439114+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3619,6 +3619,8 @@
     "2001371441": "https://m.booking.naver.com/booking/12/bizes/1640758",
     "2023862125": "https://m.booking.naver.com/booking/6/bizes/514672/items/6257255",
     "2015989932": "https://m.booking.naver.com/booking/12/bizes/1738439",
-    "2029141346": "https://m.booking.naver.com/booking/12/bizes/1737133/items/8056468"
+    "2029141346": "https://m.booking.naver.com/booking/12/bizes/1737133/items/8056468",
+    "2045660928": "https://m.booking.naver.com/booking/12/bizes/1744636",
+    "2038718464": "https://m.booking.naver.com/booking/12/bizes/1741852"
   }
 }
