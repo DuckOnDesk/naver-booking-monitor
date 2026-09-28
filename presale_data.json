@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T19:24:45.283514+09:00",
+  "updated_at": "2026-09-28T19:30:12.348080+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -242,7 +242,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-28T18:57:33.879260+09:00",
+      "bookingItemCheckedAt": "2026-09-28T19:30:08.523144+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -499,7 +499,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:57:36.349835+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T19:30:11.183154+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -744,7 +744,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -779,7 +779,8 @@
         "2026-09-28T10:37:31.582270+09:00",
         "2026-09-28T12:32:41.082542+09:00",
         "2026-09-28T15:27:28.509044+09:00",
-        "2026-09-28T18:57:33.879260+09:00"
+        "2026-09-28T18:57:33.879260+09:00",
+        "2026-09-28T19:30:08.523144+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -836,7 +837,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-09-28T11:16:10.279484+09:00",
-      "bookingItemCheckedAt": "2026-09-28T18:57:33.879260+09:00",
+      "bookingItemCheckedAt": "2026-09-28T19:30:08.523144+09:00",
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
       "bookingIsOpened": false
@@ -890,7 +891,7 @@
       "remainingDays": 12,
       "status": "D-12",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_185/1789561047792fgVMq_JPEG/edited-1789561180320-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_119/1790590904812RyPyl_JPEG/edited-1790590907758-0.jpg",
       "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
       "commonAddress": "서울 마포구",
       "district": "마포구",
@@ -1333,7 +1334,7 @@
         "2026-09-26T05:46:52.001937+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T18:57:37.343131+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T19:30:11.768352+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -1434,7 +1435,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-28T18:57:33.879260+09:00",
+      "bookingItemCheckedAt": "2026-09-28T19:30:08.523144+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1865,13 +1866,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-14T16:09:41.384351+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2084168433",
@@ -3264,6 +3258,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-09-28T19:13:50.899942+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-09-28T19:30:08.523144+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3423,7 +3424,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T19:24:42.656226+09:00",
+    "checked_at": "2026-09-28T19:30:08.523144+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
