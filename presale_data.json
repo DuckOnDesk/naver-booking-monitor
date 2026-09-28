@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T21:13:28.432550+09:00",
+  "updated_at": "2026-09-28T21:18:54.186901+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1295,7 +1295,7 @@
       "remainingDays": 3,
       "status": "D-3",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260921_252/1789975600834vOpap_JPEG/edited-1789975600147-0.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260928_37/1790597352661Ulqt8_JPEG/image.jpg",
       "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC POP-UP",
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
@@ -1856,7 +1856,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T20:46:13.451427+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T21:18:53.420059+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3426,7 +3426,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T21:13:26.732253+09:00",
+    "checked_at": "2026-09-28T21:18:51.286410+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
