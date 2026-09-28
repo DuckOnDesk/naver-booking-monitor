@@ -5324,3 +5324,4 @@
 {"ts": "2026-09-29T01:40:32+09:00", "kind": "stock", "item": "muc2ww5j", "name": "루나", "date": "2026-10-04", "change": "예약 변동(예약 발생)", "stock": [576, 576], "booked": [340, 341], "slots": {"16:30": {"from": [32, 16], "to": [32, 17]}}, "scope": ""}
 {"ts": "2026-09-29T01:45:38+09:00", "kind": "gate", "item": "mtzovems", "name": "클리오 T8 (3-4)", "open": true, "reason": ""}
 {"ts": "2026-09-29T01:45:38+09:00", "kind": "alert", "item": "mtzovems", "name": "클리오 T8 (3-4)", "date": "2026-09-29", "level": "open", "title": "🎉 클리오 T8 (3-4) 예약 가능!", "slots": {"15:00": 1}}
+{"ts": "2026-09-29T01:54:49+09:00", "kind": "stock", "item": "muc2ww5j", "name": "루나", "date": "2026-10-06", "change": "예약 변동(예약 발생)", "stock": [576, 576], "booked": [174, 175], "slots": {"15:30": {"from": [32, 5], "to": [32, 6]}}, "scope": ""}
