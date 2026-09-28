@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T19:08:26.951565+09:00",
+  "updated_at": "2026-09-28T19:13:50.901984+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -78,7 +78,8 @@
         "2026-09-27T17:13:45.439769+09:00",
         "2026-09-28T01:37:17.813112+09:00",
         "2026-09-28T09:23:23.380749+09:00",
-        "2026-09-28T13:59:50.921634+09:00"
+        "2026-09-28T13:59:50.921634+09:00",
+        "2026-09-28T19:13:50.899942+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -94,7 +95,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -743,7 +744,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -1864,13 +1865,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-14T14:17:18.812302+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3263,6 +3257,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "ts": "2026-09-28T18:57:33.879260+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-09-28T19:13:50.899942+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3422,7 +3423,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T19:08:25.818942+09:00",
+    "checked_at": "2026-09-28T19:13:50.899942+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
