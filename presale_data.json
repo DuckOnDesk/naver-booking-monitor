@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T09:01:06.799281+09:00",
+  "updated_at": "2026-09-28T09:06:40.648226+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -472,7 +472,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T08:32:38.067657+09:00",
+      "bookingUrlCheckedAt": "2026-09-28T09:06:31.751897+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
       "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
@@ -751,7 +751,7 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T08:32:38.067657+09:00",
+      "bookingUrlCheckedAt": "2026-09-28T09:06:31.751897+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
@@ -1436,7 +1436,7 @@
       "id": "2015989932",
       "name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
       "hasBooking": true,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1738439",
       "bookingBusinessId": "1738439",
       "operationStart": "26.10.01.",
       "operationEnd": "26.10.11.",
@@ -1456,8 +1456,8 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T08:32:38.067657+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T09:06:31.751897+09:00",
+      "bookingItemCheckedAt": "2026-09-28T09:06:31.751897+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-23T13:23:34.067180+09:00",
       "bookingIsOpened": false
@@ -3356,7 +3356,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T09:00:58.553091+09:00",
+    "checked_at": "2026-09-28T09:06:31.751897+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3614,6 +3614,7 @@
     "2042771625": "https://m.booking.naver.com/booking/6/bizes/1700991/search",
     "2050363685": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
     "2001371441": "https://m.booking.naver.com/booking/12/bizes/1640758",
-    "2023862125": "https://m.booking.naver.com/booking/6/bizes/514672/items/6257255"
+    "2023862125": "https://m.booking.naver.com/booking/6/bizes/514672/items/6257255",
+    "2015989932": "https://m.booking.naver.com/booking/12/bizes/1738439"
   }
 }
