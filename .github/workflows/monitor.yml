@@ -53,6 +53,8 @@ jobs:
           # autobook.yml(auto_book_worker.py)을 디스패치해 그쪽에서 수행한다.
           # 여기서 직접 예약을 누르면 그동안 감시가 멈춘다.
           GITHUB_TOKEN: ${{ github.token }}   # autobook.yml 디스패치용
+          # 회차 "시작"부터 다음 회차 시작까지의 최소 간격. 한 회차가 이보다
+          # 오래 걸리면 쉬지 않고 바로 다음 회차를 돈다 (check_booking.round_wait).
           CHECK_INTERVAL_SEC: "60"
           LOOP_HOURS: "5.5"
           SCHEDULE_CACHE_TTL_MIN: "60"   # 운영 기간 캐시 재탐색 주기(분), 0 = 끔

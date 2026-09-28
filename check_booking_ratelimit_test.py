@@ -17,6 +17,7 @@
   - hourlySchedule/business/캘린더 교차확인도 같은 판정을 쓴다
     (교차확인은 평소 꺼져 있어 요청 자체가 안 나간다 — CALENDAR_CROSSCHECK)
   - 백오프가 120 → 300으로 한 칸씩 올라가고, 정상 회차가 이어지면 되돌아온다
+  - 평소엔 회차 소요 시간만큼 대기를 줄이고, 백오프 중엔 주기를 통째로 쉰다
 
 사용법: python check_booking_ratelimit_test.py
 """
@@ -167,6 +168,12 @@ def main() -> int:
                 if clean >= cb.RATE_LIMIT_RECOVER_ROUNDS:
                     interval, clean = cb.backoff_down(interval, base), 0
         check(interval == 60, f"제한 2회 → 300초, 정상 6회 → 60초 복귀 (실제: {interval})")
+
+        print("9) 회차 사이 대기 — 주기는 회차 시작 간격, 백오프 중엔 통째로 쉰다")
+        check(cb.round_wait(60, 60, 240) == 0, "4분 걸린 회차 뒤엔 바로 다음 회차")
+        check(cb.round_wait(60, 60, 20) == 40, "20초 걸린 회차 뒤엔 남은 40초만 쉰다")
+        check(cb.round_wait(120, 60, 240) == 120, "백오프 120초 중엔 회차 시간과 무관하게 120초")
+        check(cb.round_wait(300, 60, 10) == 300, "백오프 300초 중엔 300초")
     finally:
         cb.requests.post, cb.requests.get = real_post, real_get
         cb.print = quiet
