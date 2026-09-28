@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T14:05:20.560020+09:00",
+  "updated_at": "2026-09-28T14:10:51.189672+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -33,6 +33,7 @@
     "2071088201",
     "2072608358",
     "2073328330",
+    "2073808585",
     "2084168433",
     "2087335226",
     "2088035530"
@@ -384,6 +385,36 @@
       "discoveredAt": "2026-09-22T12:19:36.394042+09:00",
       "lastBookingNotifiedAt": "2026-09-22T12:25:24.278183+09:00",
       "bookingIsOpened": true
+    },
+    {
+      "id": "2073808585",
+      "name": "YUQI POP-UP [TODAY WITH GIGI]",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1719895/items/7975387",
+      "bookingBusinessId": "1719895",
+      "operationStart": "26.09.30.",
+      "operationEnd": "26.10.06.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260903_284/1788415547514MWErN_JPEG/edited-1788415548149-0.jpg",
+      "roadAddress": "뚝섬로17길 35 성수 플라츠2",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-28T14:10:47.830659+09:00"
+      ],
+      "bookingOpenAuto": "2026-09-28T15:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T14:10:49.811028+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": "2026-09-28T14:10:47.830659+09:00",
+      "bookingItemCheckedAt": "2026-09-28T14:10:47.830659+09:00",
+      "discoveredAt": "2026-09-28T14:10:47.830659+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
     },
     {
       "id": "2045979104",
@@ -1789,7 +1820,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T13:38:02.118899+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T14:10:50.546312+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1801,13 +1832,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2048261612",
-      "place_name": "가누다 까르마 현대백화점 목동점 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-09-14T10:55:55.617661+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2050363685",
@@ -3200,6 +3224,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "ts": "2026-09-28T13:59:50.921634+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2073808585",
+      "place_name": "YUQI POP-UP [TODAY WITH GIGI]",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719895/items/7975387",
+      "ts": "2026-09-28T14:10:47.830659+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3329,6 +3360,7 @@
     "2073188735",
     "2073241477",
     "2073328330",
+    "2073808585",
     "2074820669",
     "2074966018",
     "2075560121",
@@ -3357,24 +3389,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T14:05:20.557707+09:00",
+    "checked_at": "2026-09-28T14:10:47.830659+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 756,
-    "presale_items": 195,
-    "after_district_filter": 99,
+    "candidate_items": 759,
+    "presale_items": 198,
+    "after_district_filter": 100,
     "fallback_matched": 0,
-    "unique_place_ids": 57,
-    "tracked_places": 57,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-27T17:13:45.439769+09:00",
+    "unique_place_ids": 58,
+    "tracked_places": 58,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-28T14:10:47.830659+09:00",
     "admission_names": {
       "(없음)": 359,
       "현장대기": 202,
-      "사전예약&현장대기": 151,
-      "사전예약": 44
+      "사전예약&현장대기": 155,
+      "사전예약": 43
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
     "structure_warned_at": null
@@ -3580,6 +3612,7 @@
     "2072857611",
     "2073072850",
     "2073328330",
+    "2073808585",
     "2074820669",
     "2080230495",
     "2082644987",
@@ -3630,6 +3663,7 @@
     "2070202228": "https://m.booking.naver.com/booking/12/bizes/1736054/items/8052594",
     "2061527606": "https://m.booking.naver.com/booking/12/bizes/1735851",
     "2015914479": "https://m.booking.naver.com/booking/12/bizes/1736544",
-    "2074820669": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516"
+    "2074820669": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
+    "2073808585": "https://m.booking.naver.com/booking/12/bizes/1719895/items/7975387"
   }
 }
