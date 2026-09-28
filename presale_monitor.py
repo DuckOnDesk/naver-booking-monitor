@@ -420,79 +420,32 @@ def normalize_manual(entry: dict) -> dict:
 
 # 지도 검색(popupstore/list)은 같은 팝업이라도 bookingUrl을 줄 때와 안 줄 때가 있다.
 # 안 주는 주기에 장소 기록까지 사라지면 링크가 영구히 날아간다 (2026-09-17 09:20,
-# 6개 팝업이 사라졌다 돌아오면서 4개가 링크를 잃음). 그때는 장소 상세 페이지에서
-# 예약 링크를 다시 찾아온다 — 상세 페이지에는 예약 버튼이 그대로 있다.
-PLACE_PAGE_URLS = (
-    "https://pcmap.place.naver.com/place/{pid}/home",
-    "https://m.place.naver.com/place/{pid}/home",
-    "https://m.place.naver.com/place/{pid}/ticket",
-)
+# 6개 팝업이 사라졌다 돌아오면서 4개가 링크를 잃음).
+#
+# 다행히 bookingBusinessId만 있으면 URL을 만들 수 있다. 네이버가 예약 서비스 타입
+# (/booking/{type}/)을 서버에서 정규화해 주기 때문이다 — 2026-09-28 확인: 루나 팝업
+# (biz 1737133)에 타입 5·6·12·13을 각각 넣으면 전부 .../booking/12/bizes/1737133로
+# 리다이렉트된다. 그래서 타입을 맞힐 필요가 없다.
+#
+# (장소 상세 페이지를 긁는 방법은 쓰지 않는다. 같은 날 확인 결과 상세 페이지 HTML과
+#  네트워크 요청 어디에도 booking.naver.com 주소가 없다 — 예약 버튼은 네이버 내부
+#  페이지 pcmap.place.naver.com/popupstore/{id}/booking 으로 이동한다.)
+BOOKING_URL_TEMPLATE = "https://m.booking.naver.com/booking/12/bizes/{biz}"
 
-# 한 주기(프로세스) 안에서 같은 장소를 반복 조회하지 않도록 하는 캐시.
-# 찾은 URL은 booking_url_history에 영구 보관돼 다음 주기에도 이어진다.
-_PLACE_URL_CACHE: dict[str, str] = {}
+# 한 주기(프로세스) 안에서 같은 업체를 반복 확인하지 않도록 하는 캐시.
+_BIZ_URL_CACHE: dict[str, str] = {}
 
-# 한 주기에 예약 URL을 조회할 최대 팝업 수 (5분 주기를 넘기지 않도록).
-# 처리 못 한 팝업은 다음 주기에 이어서 조회된다.
-URL_RESTORE_BUDGET = 6      # 장소 상세 페이지에서 예약 URL 찾기 (팝업당 최대 3회 요청)
+# 한 주기에 예약 URL을 확인할 최대 팝업 수 (5분 주기를 넘기지 않도록).
+URL_RESTORE_BUDGET = 8      # businessId → 예약 URL (팝업당 요청 1회)
 ITEM_RESOLVE_BUDGET = 12    # 예약 URL → /items/ URL (팝업당 최대 2회 요청)
 
 # 같은 팝업의 예약 URL 재조회 최소 간격.
 URL_RESOLVE_RETRY = timedelta(minutes=30)
 
-BOOKING_URL_RE = re.compile(
-    r"https?://(?:m\.)?booking\.naver\.com/booking/(\d+)/bizes/(\d+)(?:/items/(\d+))?"
-)
-
 
 def place_map_url(place_id: str) -> str:
-    """지도 장소 페이지 URL — 예약 URL을 못 찾았을 때 알림에 넣을 대체 링크.
-
-    지도 페이지에는 예약 버튼이 그대로 있어서, 링크 없는 알림보다 훨씬 빠르다.
-    """
+    """지도 장소 페이지 URL — 예약 URL을 못 찾았을 때 알림에 넣을 대체 링크."""
     return f"https://map.naver.com/p/entry/place/{place_id}" if place_id else ""
-
-
-def extract_booking_urls(text: str) -> list[tuple[str, str]]:
-    """HTML/JSON 텍스트에서 네이버 예약 URL을 모두 뽑는다 → [(biz_id, url), ...].
-
-    페이지 구조를 해석하지 않고 URL 형태만 본다. 네이버가 마크업을 바꿔도
-    예약 URL 형태가 그대로면 계속 동작한다. JSON 안에 "\/"로 이스케이프된
-    경우도 있어 먼저 되돌린다.
-    """
-    found: list[tuple[str, str]] = []
-    seen: set[str] = set()
-    for raw in (text, text.replace("\\/", "/")):
-        for m in BOOKING_URL_RE.finditer(raw):
-            service_id, biz_id, item_id = m.group(1), m.group(2), m.group(3)
-            url = f"https://m.booking.naver.com/booking/{service_id}/bizes/{biz_id}"
-            if item_id:
-                url += f"/items/{item_id}"
-            if url in seen:
-                continue
-            seen.add(url)
-            found.append((biz_id, url))
-        if found:
-            break
-    return found
-
-
-def pick_booking_url(candidates: list[tuple[str, str]], biz_id: str) -> str:
-    """후보 중 우리가 아는 businessId와 맞는 것을 고른다.
-
-    businessId가 맞으면 서비스 타입(/booking/{type}/)까지 확실한 URL이다 —
-    타입을 추측할 필요가 없어진다. businessId를 모르면 첫 후보를 쓴다.
-    """
-    if not candidates:
-        return ""
-    if biz_id:
-        exact = [url for b, url in candidates if b == str(biz_id)]
-        if exact:
-            # /items/까지 있는 게 있으면 그걸 우선 (오픈 예정 시각 조회까지 된다)
-            with_item = [u for u in exact if "/items/" in u]
-            return (with_item or exact)[0]
-        return ""        # businessId가 다르면 다른 업체 링크다 — 쓰지 않는다
-    return candidates[0][1]
 
 
 def url_resolve_due(place: dict, field: str) -> bool:
@@ -506,34 +459,45 @@ def url_resolve_due(place: dict, field: str) -> bool:
         return True
 
 
-def fetch_place_booking_url(place_id: str, biz_id: str) -> str:
-    """장소 상세 페이지에서 예약 URL을 찾아온다. 못 찾으면 빈 문자열."""
-    if not place_id:
-        return ""
-    place_id = str(place_id)
-    if place_id in _PLACE_URL_CACHE:
-        return _PLACE_URL_CACHE[place_id]
+def resolve_booking_url_from_biz(biz_id: str) -> str:
+    """bookingBusinessId로 예약 URL을 만든다. 예약이 없는 업체면 빈 문자열.
 
-    found = ""
-    for template in PLACE_PAGE_URLS:
-        url = template.format(pid=place_id)
-        try:
-            resp = SESSION.get(url, timeout=10, allow_redirects=True)
-            if resp.status_code != 200:
-                continue
-            resp.encoding = resp.encoding or "utf-8"
-            picked = pick_booking_url(extract_booking_urls(resp.text), biz_id)
-        except Exception as e:
-            print(f"  [장소 페이지 조회 실패] {url} — {e}")
-            continue
-        if picked:
-            print(f"  [예약 URL 발견] 장소 {place_id} → {picked}")
-            found = picked
-            break
-    if not found:
-        print(f"  [예약 URL 못 찾음] 장소 {place_id} (biz {biz_id or '?'})"
-              f" — 상세 페이지에 예약 링크 없음")
-    _PLACE_URL_CACHE[place_id] = found
+    한 번 요청해서 리다이렉트를 따라가면 네이버가 정규화한 최종 주소(= 올바른
+    서비스 타입)를 그대로 얻는다. 404면 예약이 없는 업체이므로 쓰지 않는다.
+    요청 자체가 실패하면 만든 URL을 그대로 쓴다 — 리다이렉트가 동작하므로
+    타입이 12가 아니어도 예약 페이지에 닿는다.
+    """
+    if not biz_id:
+        return ""
+    biz_id = str(biz_id)
+    if biz_id in _BIZ_URL_CACHE:
+        return _BIZ_URL_CACHE[biz_id]
+
+    built = BOOKING_URL_TEMPLATE.format(biz=biz_id)
+    found = built
+    try:
+        resp = SESSION.get(built, timeout=10, allow_redirects=True)
+        final = str(getattr(resp, "url", "") or "")
+        if resp.status_code == 404:
+            print(f"  [예약 없음] biz {biz_id} — 예약 페이지가 404")
+            found = ""
+        elif resp.status_code != 200:
+            print(f"  [예약 URL 확인 불가] biz {biz_id} — status {resp.status_code},"
+                  f" 만든 URL을 그대로 사용")
+        elif f"/bizes/{biz_id}" in final:
+            if final != built:
+                print(f"  [예약 URL 확인] biz {biz_id} → {final} (리다이렉트)")
+            found = final.split("?")[0]
+        else:
+            # 엉뚱한 곳으로 보내면(로그인/에러 페이지 등) 잘못된 링크를 걸지 않는다
+            print(f"  [예약 URL 불일치] biz {biz_id} → {final or '(주소 없음)'}")
+            found = ""
+    except Exception as e:
+        print(f"  [예약 URL 확인 실패] biz {biz_id} — {e}, 만든 URL을 그대로 사용")
+
+    if found:
+        print(f"  [예약 URL 결정] biz {biz_id} → {found}")
+    _BIZ_URL_CACHE[biz_id] = found
     return found
 
 
@@ -1314,18 +1278,17 @@ def check_once(config: dict, prev: dict) -> dict:
         if not place.get("bookingBusinessId") and base.get("bookingBusinessId"):
             place["bookingBusinessId"] = base["bookingBusinessId"]
 
-    # 지도 검색이 bookingUrl을 안 준 팝업 → 장소 상세 페이지에서 예약 링크를 찾아온다.
-    # 팝업당 최대 3회 요청이 나가므로 주기당 예산을 둔다.
+    # 지도 검색이 bookingUrl을 안 준 팝업 → bookingBusinessId로 예약 URL을 만든다.
     restore_targets = [
         (pid, place) for pid, place in current.items()
-        if (not place.get("bookingUrl") and not place.get("isManual")
+        if (not place.get("bookingUrl") and place.get("bookingBusinessId")
             and (place.get("hasBooking") or str(pid) in watched)
             and url_resolve_due(place, "bookingUrlCheckedAt"))
     ]
     restore_targets.sort(key=lambda kv: not kv[1].get("hasBooking"))
     for pid, place in restore_targets[:URL_RESTORE_BUDGET]:
         place["bookingUrlCheckedAt"] = now_iso
-        restored = fetch_place_booking_url(str(pid), place.get("bookingBusinessId") or "")
+        restored = resolve_booking_url_from_biz(place.get("bookingBusinessId") or "")
         if restored:
             place["bookingUrl"] = restored
             remember_booking_url(url_history, str(pid), restored)
