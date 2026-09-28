@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T10:43:31.559659+09:00",
+  "updated_at": "2026-09-28T10:43:59.568379+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -364,7 +364,7 @@
       "id": "2029141346",
       "name": "루나 클라우드 레이어 팝업스토어",
       "hasBooking": true,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1737133/items/8056468",
       "bookingBusinessId": "1737133",
       "operationStart": "26.09.30.",
       "operationEnd": "26.10.14.",
@@ -379,8 +379,8 @@
       "bookingOpenHistory": [
         "2026-09-22T12:19:36.394042+09:00"
       ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenAuto": "2026-09-22T12:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T10:43:58.335552+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -388,7 +388,7 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-22T12:19:36.394042+09:00",
       "lastBookingNotifiedAt": "2026-09-22T12:25:24.278183+09:00",
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     },
     {
       "id": "2045979104",
@@ -3359,7 +3359,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T10:43:22.044434+09:00",
+    "checked_at": "2026-09-28T10:43:58.335373+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3618,6 +3618,7 @@
     "2050363685": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
     "2001371441": "https://m.booking.naver.com/booking/12/bizes/1640758",
     "2023862125": "https://m.booking.naver.com/booking/6/bizes/514672/items/6257255",
-    "2015989932": "https://m.booking.naver.com/booking/12/bizes/1738439"
+    "2015989932": "https://m.booking.naver.com/booking/12/bizes/1738439",
+    "2029141346": "https://m.booking.naver.com/booking/12/bizes/1737133/items/8056468"
   }
 }
