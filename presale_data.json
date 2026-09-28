@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T03:14:25.615266+09:00",
+  "updated_at": "2026-09-29T03:14:41.222511+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -42,6 +42,36 @@
   "booking_open_datetimes": {},
   "manual_places": [],
   "places": [
+    {
+      "id": "2074820669",
+      "name": "연리재 현대백화점 천호점 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
+      "bookingBusinessId": "1742203",
+      "operationStart": "26.09.21.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_153/17895571441052l1Lq_JPEG/edited-1789557141680-0.jpg",
+      "roadAddress": "천호대로 1005 현대백화점 천호점",
+      "commonAddress": "서울 강동구",
+      "district": "강동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-28T12:00:01.081733+09:00"
+      ],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-09-29T02:47:15.411760+09:00",
+      "bookingPaused": false,
+      "saleStartDate": "",
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": "2026-09-28T12:00:01.081733+09:00",
+      "bookingItemCheckedAt": "2026-09-28T12:00:01.081733+09:00",
+      "discoveredAt": "2026-09-18T12:53:59.950469+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": true
+    },
     {
       "id": "2090283048",
       "name": "세리안 청담",
@@ -1397,36 +1427,6 @@
       "bookingItemCheckedAt": "2026-09-28T11:10:25.856065+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-15T22:53:38.574706+09:00",
-      "bookingIsOpened": true
-    },
-    {
-      "id": "2074820669",
-      "name": "연리재 현대백화점 천호점 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
-      "bookingBusinessId": "1742203",
-      "operationStart": "26.09.21.",
-      "operationEnd": "26.10.05.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260916_153/17895571441052l1Lq_JPEG/edited-1789557141680-0.jpg",
-      "roadAddress": "천호대로 1005 현대백화점 천호점",
-      "commonAddress": "서울 강동구",
-      "district": "강동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-28T12:00:01.081733+09:00"
-      ],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T02:47:15.411760+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": "2026-09-28T12:00:01.081733+09:00",
-      "bookingItemCheckedAt": "2026-09-28T12:00:01.081733+09:00",
-      "discoveredAt": "2026-09-18T12:53:59.950469+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": true
     },
     {
@@ -3430,24 +3430,22 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T03:14:24.217188+09:00",
+    "checked_at": "2026-09-29T03:14:39.963486+09:00",
     "areas_total": 34,
-    "areas_ok": 22,
-    "areas_failed": 12,
+    "areas_ok": 1,
+    "areas_failed": 33,
     "areas_empty": 0,
-    "candidate_items": 396,
-    "presale_items": 106,
-    "after_district_filter": 50,
+    "candidate_items": 12,
+    "presale_items": 1,
+    "after_district_filter": 1,
     "fallback_matched": 0,
-    "unique_place_ids": 44,
+    "unique_place_ids": 1,
     "tracked_places": 59,
     "new_places": 0,
     "last_new_place_at": "2026-09-28T18:46:40.043419+09:00",
     "admission_names": {
-      "(없음)": 178,
-      "현장대기": 112,
-      "사전예약&현장대기": 83,
-      "사전예약": 23
+      "(없음)": 11,
+      "사전예약": 1
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
     "structure_warned_at": null
