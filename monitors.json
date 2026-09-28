@@ -130,13 +130,6 @@
       "enabled": false,
       "target_dates": [],
       "mute": true
-    },
-    {
-      "id": "muktwfmp",
-      "name": "아이들 우기",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1719895/items/7975387?tab=book",
-      "enabled": true,
-      "target_dates": []
     }
   ]
 }
