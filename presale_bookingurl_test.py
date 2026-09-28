@@ -116,6 +116,72 @@ def main() -> int:
     check(pm.resolve_booking_url_from_biz("") == "", "businessId가 없으면 빈 문자열")
 
     print()
+    print("2) fetch_biz_items / resolve_booking_item_url — 상품 목록 GraphQL")
+    posts: list = []
+
+    class PResp:
+        def __init__(self, payload, status=200):
+            self._p = payload
+            self.status_code = status
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise RuntimeError(f"HTTP {self.status_code}")
+        def json(self):
+            return self._p
+
+    # 2026-09-28 루나 팝업 실제 응답 형태
+    luna = {"data": {"bizItems": [
+        {"bizItemId": "8056468", "name": "루나 클라우드 레이어 팝업스토어",
+         "stock": 0, "isClosedBooking": False, "bookableSettingJson": {},
+         "__typename": "BizItem"},
+    ]}}
+    real_post = pm.requests.post
+    pm.requests.post = lambda url, **kw: (posts.append((url, kw.get("json"))), PResp(luna))[1]
+
+    items = pm.fetch_biz_items(BIZ)
+    check(len(items) == 1 and items[0]["bizItemId"] == "8056468",
+          f"상품 목록 파싱 ({[i.get('bizItemId') for i in items]})")
+    url, body = posts[0]
+    check(url == "https://m.booking.naver.com/graphql?opName=bizItems",
+          f"확인된 엔드포인트로 요청 ({url})")
+    check(body["operationName"] == "bizItems"
+          and body["variables"]["input"]["businessId"] == BIZ
+          and body["variables"]["input"]["lang"] == "ko",
+          f"확인된 요청 형태 (input={body['variables']['input']})")
+
+    check(pm.resolve_booking_item_url(BOOK_URL) == BOOK_URL + "/items/8056468",
+          "예약 URL이 /items/ 까지 올라간다")
+    check(pm.resolve_booking_item_url(BOOK_URL + "/items/1") == BOOK_URL + "/items/1",
+          "이미 /items/면 조회 생략")
+
+    # 닫힌 상품은 건너뛰고 열린 상품을 고른다
+    multi = {"data": {"bizItems": [
+        {"bizItemId": "111", "name": "마감", "isClosedBooking": True},
+        {"bizItemId": "222", "name": "예약 가능", "isClosedBooking": False},
+    ]}}
+    pm.requests.post = lambda url, **kw: PResp(multi)
+    check(pm.resolve_booking_item_url(BOOK_URL) == BOOK_URL + "/items/222",
+          "닫히지 않은 상품을 고른다")
+
+    allclosed = {"data": {"bizItems": [
+        {"bizItemId": "111", "name": "마감", "isClosedBooking": True},
+    ]}}
+    pm.requests.post = lambda url, **kw: PResp(allclosed)
+    check(pm.resolve_booking_item_url(BOOK_URL) == BOOK_URL + "/items/111",
+          "전부 닫혔으면 첫 상품이라도 쓴다")
+
+    pm.requests.post = lambda url, **kw: PResp({"errors": [{"message": "bad"}]})
+    check(pm.resolve_booking_item_url(BOOK_URL) == BOOK_URL,
+          "GraphQL 오류면 원래 URL 유지 (알림은 계속 나간다)")
+
+    def _boom_post(url, **kw):
+        raise RuntimeError("네트워크 끊김")
+    pm.requests.post = _boom_post
+    check(pm.resolve_booking_item_url(BOOK_URL) == BOOK_URL, "요청 실패해도 원래 URL 유지")
+    check(pm.fetch_biz_items("") == [], "businessId가 없으면 빈 목록")
+    pm.requests.post = real_post
+
+    print()
     print("4) remember_booking_url — 한 번 확인한 링크는 영구 보관")
     hist: dict = {}
     pm.remember_booking_url(hist, PID, BOOK_URL)
