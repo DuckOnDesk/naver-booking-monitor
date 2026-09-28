@@ -54,10 +54,13 @@ D = (date.today() + timedelta(days=5)).isoformat()
 
 calls: list = []      # _playwright_check 호출 기록
 closed_now = False    # 대체 _playwright_check가 돌려줄 상태
+fail_now = False      # True면 페이지를 못 읽은 경우(타임아웃)를 흉내 낸다
 
 
 def fake_check(url):
     calls.append(url)
+    if fail_now:
+        return None, "TimeoutError"
     return (True, "URL 리다이렉트: /error/") if closed_now else (False, "")
 
 
@@ -110,7 +113,7 @@ def run_round(hourly, alerted, *, item=None):
 
 
 def main() -> int:
-    global closed_now, fake_check
+    global closed_now, fail_now, fake_check
     cb.LOG_DEDUP = False        # 로그 생략과 무관하게 정책만 본다
     cb.URL_RECHECK_SEC = 300
 
@@ -163,6 +166,20 @@ def main() -> int:
     check(alerted == snapshot,
           f"회차를 더 돌아도 저장 내용 동일 (커밋 낭비 없음) — 차이: "
           f"{ {k: (snapshot.get(k), v) for k, v in alerted.items() if snapshot.get(k) != v} }")
+
+    print("6-1) 닫힌 상태에서 페이지 로딩이 실패해도 열림으로 바꾸지 않는다")
+    # 2026-09-28 아이쁘: Page.goto 15초 타임아웃을 '열림'으로 보고
+    # "✅ 예약창 열림 (방금 전환됨)"과 🎉 알림이 나갔다.
+    fail_now = True
+    try:
+        logs, sent, n = run_round([unit("11:00", stock=4, booked=1)], alerted)
+    finally:
+        fail_now = False
+    check(n == 1, f"브라우저 확인 1회 (실제 {n}회)")
+    check(alerted.get("t1:url_closed") == 1, "닫힘 상태 유지")
+    check(not any("예약창 열림" in t or "예약 가능" in t for t in sent),
+          f"열림/예약 가능 알림 없음 (실제: {sent})")
+    check(any("확인 실패" in l for l in logs), f"확인 실패를 로그로 남김 (실제: {logs})")
 
     print("7) 자리가 사라진 그 회차에는 확인하고, 그 다음 회차부터 멈춘다")
     had_closed_key = any(k.endswith(":closed") for k in alerted)

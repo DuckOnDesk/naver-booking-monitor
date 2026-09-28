@@ -2001,8 +2001,13 @@ def naver_cookies() -> list:
     return cookies
 
 
-def _playwright_check(url: str) -> tuple[bool, str]:
-    """(is_closed, reason) 반환. URL/텍스트 기반으로 예약창 닫힘 감지."""
+def _playwright_check(url: str) -> tuple[bool | None, str]:
+    """(is_closed, reason) 반환. URL/텍스트 기반으로 예약창 닫힘 감지.
+
+    페이지를 못 읽었으면(타임아웃 등) is_closed는 None(판단 불가)이다. 예전에는
+    '열림'으로 돌려줘서, 닫혀 있던 항목이 로딩 타임아웃 한 번에 "✅ 예약창 열림
+    (방금 전환됨)" 알림을 냈다 (2026-09-28 아이쁘: Page.goto 15초 타임아웃).
+    """
     item_match = re.search(r"/items/\d+", url)
     item_path = item_match.group(0) if item_match else None
     context = None
@@ -2036,7 +2041,7 @@ def _playwright_check(url: str) -> tuple[bool, str]:
                 return True, f"페이지 텍스트: {pat}"
         return False, ""
     except Exception as exc:
-        print(f"  [경고] playwright 확인 실패 → 열림으로 간주: {exc}", flush=True)
+        print(f"  [경고] playwright 확인 실패 → 판단 불가(직전 상태 유지): {exc}", flush=True)
         # 페이지 하나가 느린 것과 브라우저가 죽은 것은 다르다. 연결이 끊겼을 때만
         # 인스턴스를 버려서, 단발 타임아웃 때문에 매번 재기동하지 않도록 한다.
         try:
@@ -2044,7 +2049,7 @@ def _playwright_check(url: str) -> tuple[bool, str]:
                 _browser_close()
         except Exception:
             _browser_close()
-        return False, ""
+        return None, _exc_label(exc)
     finally:
         try:
             if context is not None:
@@ -2152,9 +2157,17 @@ class UrlGate:
         raw_closed, reason = _playwright_check(self.url)
         self.checked = True
         _url_checks_done += 1
+        alerted, name, now_str = self.alerted, self.name, self.now_str
+        if raw_closed is None:
+            # 페이지를 못 읽은 회차. 열림/닫힘 어느 쪽으로도 바꾸지 않고 직전 상태를
+            # 그대로 쓴다. 확인 시각도 남기지 않아 다음 회차에 곧바로 다시 본다.
+            log_state(f"{self.item_id}:status",
+                      f"❔ {name} — 예약창 확인 실패, 직전 상태"
+                      f"({'닫힘' if self._closed else '열림'}) 유지 ({reason})",
+                      sig="확인실패", now_str=now_str)
+            return
         _url_checked_at[self.item_id] = time.monotonic()
 
-        alerted, name, now_str = self.alerted, self.name, self.now_str
         was_closed = self._closed
         self._closed = raw_closed
         if raw_closed != was_closed:
