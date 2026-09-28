@@ -501,73 +501,82 @@ def resolve_booking_url_from_biz(biz_id: str) -> str:
     return found
 
 
-def _item_ids_from_json(node, strong: list, weak: list, biz_id: str = "",
-                        depth: int = 0) -> None:
-    """예약 상품 목록 응답에서 상품 id를 긁어모은다 (응답 구조가 바뀌어도 버티도록).
+# 예약 상품 목록 조회 (m.booking.naver.com/graphql?opName=bizItems).
+# 2026-09-28에 실제 예약 페이지가 보내는 요청을 그대로 확인해 옮긴 것이다.
+# 필요한 필드만 남겨 응답을 줄였고, input은 확인된 형태를 그대로 쓴다.
+BIZ_ITEMS_QUERY = (
+    "query bizItems($input: BizItemsParams) {"
+    "  bizItems(input: $input) {"
+    "    bizItemId name stock isClosedBooking bookableSettingJson __typename } }"
+)
 
-    bizItemId/itemId는 확실한 값(strong), 그냥 id는 업체 id일 수도 있어 보조
-    값(weak)으로 나눠 담는다. 호출 측에서 strong을 먼저 쓴다.
+
+def fetch_biz_items(biz_id: str) -> list[dict]:
+    """업체의 예약 상품 목록. 조회 실패 시 빈 목록.
+
+    예전에는 /items REST 주소를 추측해 불렀는데 그런 엔드포인트가 없어서
+    한 번도 성공한 적이 없다 (실행 로그상 '아이템 URL 발견' 0건).
     """
-    if depth > 6 or len(strong) + len(weak) > 40:
-        return
-    if isinstance(node, dict):
-        for key in ITEM_ID_KEYS + ITEM_ID_WEAK_KEYS:
-            v = node.get(key)
-            if not isinstance(v, (int, str)) or not str(v).isdigit():
-                continue
-            if str(v) == str(biz_id):
-                continue        # 업체 id는 상품 id가 아니다
-            (strong if key in ITEM_ID_KEYS else weak).append(str(v))
-            break
-        for v in node.values():
-            _item_ids_from_json(v, strong, weak, biz_id, depth + 1)
-    elif isinstance(node, list):
-        for v in node:
-            _item_ids_from_json(v, strong, weak, biz_id, depth + 1)
+    if not biz_id:
+        return []
+    body = {
+        "operationName": "bizItems",
+        "variables": {
+            "input": {"businessId": str(biz_id), "lang": "ko",
+                      "projections": "RESOURCE,MIN_MAX_PRICE"},
+        },
+        "query": BIZ_ITEMS_QUERY,
+    }
+    try:
+        resp = requests.post(
+            "https://m.booking.naver.com/graphql?opName=bizItems",
+            json=body,
+            headers={"Content-Type": "application/json",
+                     "User-Agent": SESSION.headers["User-Agent"],
+                     "Referer": "https://m.booking.naver.com/"},
+            timeout=10,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+        if data.get("errors"):
+            print(f"  [상품 목록 오류] biz {biz_id} — {data['errors']}")
+            return []
+        items = (data.get("data") or {}).get("bizItems")
+        return [i for i in items if isinstance(i, dict)] if isinstance(items, list) else []
+    except Exception as e:
+        print(f"  [상품 목록 조회 실패] biz {biz_id} — {e}")
+        return []
+
+
+def pick_biz_item(items: list[dict]) -> dict | None:
+    """예약할 상품 하나 고르기 — 닫히지 않은 상품 우선, 없으면 첫 번째."""
+    if not items:
+        return None
+    for item in items:
+        if not item.get("isClosedBooking") and item.get("bizItemId"):
+            return item
+    return next((i for i in items if i.get("bizItemId")), None)
 
 
 def resolve_booking_item_url(booking_url: str) -> str:
     """예약 URL을 /items/{id} 형태로 끌어올린다.
 
-    /items/ 가 붙어야 오픈 예정 시각(bookableSettingJson)·판매 시작일 조회가 된다.
-    예전에는 예약 페이지 HTML만 긁었는데 그 페이지가 JS로 그려지면서 상품 id가
-    안 잡혔고, 그래서 오픈 예정 시각이 한 번도 채워진 적이 없다 — 오픈 전
-    미리 알림도 같이 죽어 있었다. 상품 목록 API를 먼저 보고, 실패하면 기존
-    HTML 방식으로 되돌아간다.
+    /items/ 가 붙어야 오픈 예정 시각(bookableSettingJson)·판매 시작일 조회가 되고,
+    알림 링크도 목록이 아니라 예약 화면으로 바로 연결된다.
     """
     if not booking_url or "/items/" in booking_url:
         return booking_url
     m = re.search(r"(https://m\.booking\.naver\.com/booking/(\d+)/bizes/(\d+))", booking_url)
     if not m:
         return booking_url
-    base_url = m.group(1)
-    biz_id = m.group(3)
+    base_url, biz_id = m.group(1), m.group(3)
 
-    try:
-        resp = SESSION.get(f"{base_url}/items", timeout=10)
-        if resp.status_code == 200:
-            strong: list = []
-            weak: list = []
-            try:
-                _item_ids_from_json(resp.json(), strong, weak, biz_id)
-            except Exception:
-                strong = re.findall(r'''["'/]items/(\d+)''', resp.text)
-            ids = strong or weak
-            if ids:
-                print(f"  [아이템 URL 발견/API] /items/{ids[0]}")
-                return f"{base_url}/items/{ids[0]}"
-    except Exception as e:
-        print(f"  [아이템 목록 API 실패] {e}")
-
-    try:
-        resp = SESSION.get(booking_url, timeout=15, allow_redirects=True)
-        ids = re.findall(r'''["'/]items/(\d+)''', resp.text)
-        if ids:
-            print(f"  [아이템 URL 발견] /items/{ids[0]}")
-            return f"{base_url}/items/{ids[0]}"
-    except Exception as e:
-        print(f"  [아이템 URL 조회 실패] {e}")
-    return booking_url
+    item = pick_biz_item(fetch_biz_items(biz_id))
+    if not item:
+        return booking_url
+    item_id = str(item["bizItemId"])
+    print(f"  [상품 URL 발견] biz {biz_id} → /items/{item_id} ({item.get('name') or '이름 없음'})")
+    return f"{base_url}/items/{item_id}"
 
 
 def has_available_slots(booking_url: str, booking_business_id: str) -> bool:
