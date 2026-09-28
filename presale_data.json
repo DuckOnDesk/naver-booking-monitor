@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T05:46:18.189835+09:00",
+  "updated_at": "2026-09-29T05:51:48.446102+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -244,7 +244,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-29T05:18:58.347927+09:00",
+      "bookingItemCheckedAt": "2026-09-29T05:51:41.389441+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -441,7 +441,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T05:19:00.917378+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T05:51:44.349527+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -746,8 +746,8 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
       "operationEnd": "26.10.11.",
@@ -779,18 +779,19 @@
         "2026-09-27T05:54:47.441682+09:00",
         "2026-09-27T15:33:53.671488+09:00",
         "2026-09-27T18:55:52.657588+09:00",
-        "2026-09-27T22:19:31.258660+09:00"
+        "2026-09-27T22:19:31.258660+09:00",
+        "2026-09-29T05:51:41.389441+09:00"
       ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-09-28T11:16:10.279484+09:00",
-      "bookingItemCheckedAt": "2026-09-29T05:18:58.347927+09:00",
+      "bookingItemCheckedAt": "2026-09-29T05:51:41.389441+09:00",
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     },
     {
       "id": "2038718464",
@@ -1311,7 +1312,7 @@
         "2026-09-26T05:46:52.001937+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T05:19:01.714913+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T05:51:46.007548+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -1413,7 +1414,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-29T05:18:58.347927+09:00",
+      "bookingItemCheckedAt": "2026-09-29T05:51:41.389441+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1872,13 +1873,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-14T20:37:34.418710+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3271,6 +3265,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "ts": "2026-09-29T01:53:12.872250+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-09-29T05:51:41.389441+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3430,7 +3431,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T05:46:13.279142+09:00",
+    "checked_at": "2026-09-29T05:51:41.389441+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3703,7 +3704,7 @@
     "2008186282": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
     "2088035530": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
     "2070202228": "https://m.booking.naver.com/booking/12/bizes/1736054/items/8052594",
-    "2061527606": "https://m.booking.naver.com/booking/12/bizes/1735851",
+    "2061527606": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
     "2015914479": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
     "2074820669": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
     "2073808585": "https://m.booking.naver.com/booking/12/bizes/1719895/items/7975387"
