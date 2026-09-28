@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T11:54:35.695267+09:00",
+  "updated_at": "2026-09-28T12:00:04.023093+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1769,9 +1769,9 @@
     {
       "id": "2074820669",
       "name": "연리재 현대백화점 천호점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
+      "bookingBusinessId": "1742203",
       "operationStart": "26.09.21.",
       "operationEnd": "26.10.05.",
       "remainingDays": null,
@@ -1782,27 +1782,22 @@
       "commonAddress": "서울 강동구",
       "district": "강동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenHistory": [
+        "2026-09-28T12:00:01.081733+09:00"
+      ],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-09-28T12:00:02.837529+09:00",
       "bookingPaused": false,
-      "saleStartDate": null,
+      "saleStartDate": "",
       "bookingNotified": false,
-      "bookingUrlCheckedAt": "2026-09-28T10:31:40.287645+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T12:00:01.081733+09:00",
+      "bookingItemCheckedAt": "2026-09-28T12:00:01.081733+09:00",
       "discoveredAt": "2026-09-18T12:53:59.950469+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2083897134",
-      "place_name": "스포티파이 하우스 서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1721238",
-      "ts": "2026-09-13T11:57:47.685161+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3195,6 +3190,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://map.naver.com/p/entry/place/2038718464",
       "ts": "2026-09-28T10:37:31.582270+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2074820669",
+      "place_name": "연리재 현대백화점 천호점 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
+      "ts": "2026-09-28T12:00:01.081733+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3352,7 +3354,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T11:54:35.693082+09:00",
+    "checked_at": "2026-09-28T12:00:01.081733+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3624,6 +3626,7 @@
     "2088035530": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
     "2070202228": "https://m.booking.naver.com/booking/12/bizes/1736054/items/8052594",
     "2061527606": "https://m.booking.naver.com/booking/12/bizes/1735851",
-    "2015914479": "https://m.booking.naver.com/booking/12/bizes/1736544"
+    "2015914479": "https://m.booking.naver.com/booking/12/bizes/1736544",
+    "2074820669": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516"
   }
 }
