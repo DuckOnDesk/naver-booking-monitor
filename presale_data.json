@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T19:46:23.127691+09:00",
+  "updated_at": "2026-09-28T19:51:51.049268+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -349,7 +349,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T19:19:16.428462+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T19:51:47.782121+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -928,7 +928,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T19:19:17.221076+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T19:51:48.367554+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -956,7 +956,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T19:19:18.003798+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T19:51:48.945887+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1012,7 +1012,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T19:19:18.731084+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T19:51:49.698266+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1375,9 +1375,9 @@
     {
       "id": "2084168433",
       "name": "블랙야크 더현대서울",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744184/items/8084249",
-      "bookingBusinessId": "1744184",
+      "bookingBusinessId": "1735801",
       "operationStart": "26.10.08.",
       "operationEnd": "26.10.14.",
       "remainingDays": 10,
@@ -1391,7 +1391,8 @@
       "bookingOpenHistory": [
         "2026-09-22T16:43:09.635592+09:00",
         "2026-09-22T17:15:46.631711+09:00",
-        "2026-09-23T17:48:30.300386+09:00"
+        "2026-09-23T17:48:30.300386+09:00",
+        "2026-09-28T19:51:46.122993+09:00"
       ],
       "bookingOpenAuto": "",
       "bookingOpenAutoCheckedAt": "2026-09-28T19:19:14.468188+09:00",
@@ -1740,7 +1741,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T19:19:15.830083+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T19:51:47.197476+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1866,13 +1867,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2084168433",
-      "place_name": "블랙야크 더현대서울",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735801/search",
-      "ts": "2026-09-14T16:20:58.122171+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2048261612",
@@ -3265,6 +3259,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "ts": "2026-09-28T19:30:08.523144+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2084168433",
+      "place_name": "블랙야크 더현대서울",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1744184/items/8084249",
+      "ts": "2026-09-28T19:51:46.122993+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3424,7 +3425,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T19:46:23.125519+09:00",
+    "checked_at": "2026-09-28T19:51:46.122993+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
