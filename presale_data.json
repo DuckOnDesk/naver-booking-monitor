@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T14:54:39.217108+09:00",
+  "updated_at": "2026-09-28T15:00:10.024463+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -409,11 +409,11 @@
       "bookingOpenAutoCheckedAt": "2026-09-28T14:43:40.669961+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-09-28T14:10:47.830659+09:00",
       "bookingItemCheckedAt": "2026-09-28T14:10:47.830659+09:00",
       "discoveredAt": "2026-09-28T14:10:47.830659+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-09-28T15:00:07.871777+09:00",
       "bookingIsOpened": false
     },
     {
@@ -864,7 +864,7 @@
         "2026-09-23T00:30:48.692884+09:00"
       ],
       "bookingOpenAuto": "2026-10-01T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:27:14.508350+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:00:06.322106+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -1538,7 +1538,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:27:15.861469+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:00:09.409973+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1734,7 +1734,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:27:15.387346+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:00:07.247813+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3389,7 +3389,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T14:54:35.103942+09:00",
+    "checked_at": "2026-09-28T15:00:06.321696+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
