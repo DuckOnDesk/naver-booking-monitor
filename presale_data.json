@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T15:22:01.737823+09:00",
+  "updated_at": "2026-09-28T15:27:32.546451+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -346,7 +346,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:54:36.878084+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:27:30.003396+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -741,7 +741,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -774,7 +774,8 @@
         "2026-09-27T22:58:13.953743+09:00",
         "2026-09-28T02:21:31.988043+09:00",
         "2026-09-28T10:37:31.582270+09:00",
-        "2026-09-28T12:32:41.082542+09:00"
+        "2026-09-28T12:32:41.082542+09:00",
+        "2026-09-28T15:27:28.509044+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -922,7 +923,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:54:37.514025+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:27:30.639873+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -950,7 +951,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:54:38.138538+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:27:31.274198+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1006,7 +1007,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:54:38.748037+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:27:31.892099+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1360,7 +1361,7 @@
         "2026-09-23T17:48:30.300386+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:54:35.104154+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:27:28.509260+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1706,7 +1707,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-28T14:54:36.136451+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T15:27:29.403933+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1832,13 +1833,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2050363685",
-      "place_name": "콜라보카페 세이브포인트",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/search",
-      "ts": "2026-09-14T11:07:13.610563+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2036044979",
@@ -3231,6 +3225,13 @@
       "place_name": "YUQI POP-UP [TODAY WITH GIGI]",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1719895/items/7975387",
       "ts": "2026-09-28T14:10:47.830659+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-09-28T15:27:28.509044+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3389,7 +3390,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T15:22:01.734837+09:00",
+    "checked_at": "2026-09-28T15:27:28.509044+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
