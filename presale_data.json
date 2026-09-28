@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T07:46:08.974918+09:00",
+  "updated_at": "2026-09-29T07:51:38.700389+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -351,7 +351,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T07:18:51.391359+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T07:51:34.570567+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -934,7 +934,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T07:18:52.191272+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T07:51:35.363340+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -962,7 +962,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T07:18:52.822866+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T07:51:36.302282+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1018,7 +1018,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T07:18:53.637438+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T07:51:37.104107+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1747,7 +1747,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T07:18:50.597458+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T07:51:33.762231+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3431,7 +3431,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T07:46:07.011487+09:00",
+    "checked_at": "2026-09-29T07:51:32.607724+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
