@@ -4864,3 +4864,6 @@
 {"ts": "2026-09-28T12:26:07+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-29", "change": "예약 변동(예약 취소)", "stock": [54, 54], "booked": [54, 53], "slots": {"11:00": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
 {"ts": "2026-09-28T12:26:12+09:00", "kind": "gate", "item": "muawwgys", "name": "리베르", "open": false, "reason": "URL 리다이렉트: /error/ type=InvalidBusiness — \"운영하지 않는 예매 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
 {"ts": "2026-09-28T12:26:12+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-29", "level": "closed", "title": "🔒 리베르 자리 있음 (예약창 닫힘)", "slots": {"11:00": 1}}
+{"ts": "2026-09-28T12:28:04+09:00", "kind": "stock", "item": "mtzotv6b", "name": "클리오 T5", "date": "2026-09-28", "change": "예약 변동(예약 취소)", "stock": [13, 13], "booked": [13, 12], "slots": {"13:00": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
+{"ts": "2026-09-28T12:28:09+09:00", "kind": "gate", "item": "mtzotv6b", "name": "클리오 T5", "open": false, "reason": "URL 리다이렉트: /error/ — \"운영하지 않는 예약 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
+{"ts": "2026-09-28T12:28:09+09:00", "kind": "alert", "item": "mtzotv6b", "name": "클리오 T5", "date": "2026-09-28", "level": "closed", "title": "🔒 클리오 T5 자리 있음 (예약창 닫힘)", "slots": {"13:00": 1}}
