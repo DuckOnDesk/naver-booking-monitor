@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T01:47:50.866534+09:00",
+  "updated_at": "2026-09-29T01:53:17.923364+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -96,7 +96,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -144,7 +144,8 @@
         "2026-09-28T05:51:25.495614+09:00",
         "2026-09-28T10:31:40.287645+09:00",
         "2026-09-28T13:59:50.921634+09:00",
-        "2026-09-28T17:30:15.098481+09:00"
+        "2026-09-28T17:30:15.098481+09:00",
+        "2026-09-29T01:53:12.872250+09:00"
       ],
       "bookingOpenAuto": "2026-09-14T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:35.712443+09:00",
@@ -350,7 +351,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T01:20:44.162186+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T01:53:14.576302+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -932,7 +933,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T01:20:44.883630+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T01:53:15.272922+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -960,7 +961,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T01:20:45.615703+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T01:53:15.975774+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1016,7 +1017,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T01:20:46.316124+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T01:53:16.673948+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1745,7 +1746,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T01:20:43.623773+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T01:53:13.878360+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1871,13 +1872,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-14T19:19:56.162493+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3270,6 +3264,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "ts": "2026-09-29T01:26:09.894348+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071088201",
+      "place_name": "클리오 풍년다방 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
+      "ts": "2026-09-29T01:53:12.872250+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3429,7 +3430,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T01:47:48.986221+09:00",
+    "checked_at": "2026-09-29T01:53:12.872250+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
