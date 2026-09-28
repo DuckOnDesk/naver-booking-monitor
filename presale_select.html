@@ -89,6 +89,13 @@
     .t-presale { background: #fff4e0; color: #c45000; }
     .t-dday   { background: #fff4e0; color: #c45000; }
     .t-url    { background: #eef1ff; color: #3b53d6; }
+
+    /* 재고 감시 추가 버튼 — 감시 중인 팝업 카드에만 나온다 */
+    .c-add    { border: 0; font-family: inherit; cursor: pointer;
+                background: #f0ecff; color: #6b3bd6; }
+    .c-add:hover:not(:disabled) { background: #e4dcff; }
+    .c-add:disabled { cursor: default; opacity: .55; }
+    .t-mon    { background: #e6f9ee; color: #02a347; }
     .card.link { cursor: pointer; }
     .card.link:hover .c-name { text-decoration: underline; }
 
@@ -201,11 +208,22 @@ const REPO  = 'naver-booking-monitor';
 const DATA_URL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/presale_data.json`;
 const CFG_URL  = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/presale_config.json`;
 const CFG_PATH = 'presale_config.json';
+const MON_URL  = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/monitors.json`;
+const MON_PATH = 'monitors.json';
 const IS_LOCAL = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 let watchedIds = new Set();
+let monitorKeys = new Set();    // 이미 재고 감시 중인 팝업 (bizes/{biz}/items/{item} 기준)
 let allPlaces = [];             // 정렬된 전체 팝업 (지역 필터 적용 전)
 let selectedDistrict = '전체';   // 선택된 지역 칩
+
+// 재고 감시(monitors.json)는 /items/{상품id}까지 있는 URL이어야 한다 —
+// check_booking.py가 타입·업체·상품 세 값을 모두 파싱해 재고를 조회하기 때문이다.
+// 쿼리스트링은 무시하고 업체+상품 조합으로만 중복을 판정한다.
+function monitorKeyOf(url) {
+  const m = /\/bizes\/(\d+)\/items\/(\d+)/.exec(url || '');
+  return m ? `${m[1]}_${m[2]}` : null;
+}
 
 function getDistrict(p) {
   if (p.district) return p.district;
@@ -398,6 +416,80 @@ async function doToggle(id, watching, toggleEl) {
   }
 }
 
+let _addBusy = false;
+
+async function addToStock(placeId, btn) {
+  if (_addBusy) return;
+  const place = allPlaces.find(p => String(p.id) === String(placeId));
+  if (!place) return;
+
+  const key = monitorKeyOf(place.bookingUrl);
+  if (!key) { alert('예약 상품 링크를 아직 못 찾았어요. 몇 분 뒤 다시 시도해주세요.'); return; }
+  if (monitorKeys.has(key)) { btn.outerHTML = '<span class="tag t-mon">재고 감시중</span>'; return; }
+
+  const token = getPat();
+  if (!token && !IS_LOCAL) { openCfg(); return; }
+
+  _addBusy = true;
+  btn.disabled = true;
+  const label = btn.textContent;
+  btn.textContent = '추가 중...';
+
+  try {
+    if (IS_LOCAL) {
+      const res = await fetch('/api/add-monitor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: place.name, url: place.bookingUrl }),
+      });
+      if (!res.ok) throw new Error('서버 오류');
+    } else {
+      const base = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${MON_PATH}`;
+      const headers = { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' };
+      const r = await fetch(base + '?_=' + Date.now(), { headers });
+      if (!r.ok) throw new Error('토큰이 올바르지 않거나 권한이 없습니다.');
+      const file = await r.json();
+      const mon  = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
+      mon.monitors = mon.monitors || [];
+
+      // 사이에 누가 먼저 추가했을 수도 있다 — 저장 직전에 다시 확인
+      if (mon.monitors.some(m => monitorKeyOf(m.url) === key)) {
+        monitorKeys.add(key);
+        btn.outerHTML = '<span class="tag t-mon">재고 감시중</span>';
+        return;
+      }
+
+      mon.monitors.push({
+        id: Date.now().toString(36),     // index.html과 같은 방식
+        name: place.name,
+        url: place.bookingUrl,
+        enabled: true,
+        target_dates: [],                // 날짜·시간 조건은 예약 모니터 페이지에서 설정
+      });
+      const body = btoa(unescape(encodeURIComponent(JSON.stringify(mon, null, 2) + '\n')));
+      const pr = await fetch(base, {
+        method: 'PUT',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `monitor: add ${place.name} [skip ci]`,
+          content: body,
+          sha: file.sha,
+        }),
+      });
+      if (!pr.ok) throw new Error('저장에 실패했습니다.');
+    }
+
+    monitorKeys.add(key);
+    btn.outerHTML = '<span class="tag t-mon">재고 감시중</span>';
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = label;
+    alert(e.message || '저장에 실패했습니다.');
+  } finally {
+    _addBusy = false;
+  }
+}
+
 function makeCard(p) {
   const isWatching = watchedIds.has(String(p.id));
   const expired    = isExpired(p);
@@ -423,6 +515,20 @@ function makeCard(p) {
   const urlTag  = linkUrl
     ? `<span class="tag t-url">${p.bookingUrl ? '예약하기 →' : '장소보기 →'}</span>` : '';
 
+  // 재고 감시 버튼 — 감시 중인 팝업에만. 취소표를 노릴 팝업을 한 번에 넘긴다.
+  let addTag = '';
+  if (isWatching && !expired) {
+    const key = monitorKeyOf(p.bookingUrl);
+    if (!key) {
+      addTag = '<button class="tag c-add" disabled title="예약 상품 링크를 아직 못 찾았어요.'
+             + ' 몇 분 뒤 다시 확인해주세요.">재고 감시 (대기중)</button>';
+    } else if (monitorKeys.has(key)) {
+      addTag = '<span class="tag t-mon">재고 감시중</span>';
+    } else {
+      addTag = `<button class="tag c-add" onclick="addToStock('${p.id}', this)">재고 감시 +</button>`;
+    }
+  }
+
   const card = document.createElement('div');
   card.className = 'card' + (expired ? ' expired' : '') + (linkUrl ? ' link' : '');
   card.innerHTML = `
@@ -433,7 +539,7 @@ function makeCard(p) {
       <div class="c-name">${p.name}</div>
       ${p.roadAddress ? `<div class="c-addr">📍 ${p.roadAddress}</div>` : ''}
       ${p.operationStart ? `<div class="c-period">운영 ${period}</div>` : ''}
-      <div class="c-tags">${ddayTag}${stTag}${urlTag}</div>
+      <div class="c-tags">${ddayTag}${stTag}${urlTag}${addTag}</div>
     </div>
     <div class="c-right">
       <label class="tog">
@@ -444,8 +550,8 @@ function makeCard(p) {
     </div>`;
   if (linkUrl) {
     card.addEventListener('click', ev => {
-      // 토글(감시 ON/OFF) 클릭은 이동에서 제외
-      if (ev.target.closest('.tog')) return;
+      // 토글(감시 ON/OFF)·재고 감시 버튼 클릭은 이동에서 제외
+      if (ev.target.closest('.tog') || ev.target.closest('.c-add')) return;
       window.open(linkUrl, '_blank', 'noopener');
     });
   }
@@ -494,15 +600,20 @@ async function load() {
       data = await fetch('/api/data').then(r => r.json());
     } else {
       const ts = Date.now();
-      const [placeData, cfg] = await Promise.all([
+      const [placeData, cfg, mon] = await Promise.all([
         fetch(DATA_URL + '?_=' + ts).then(r => r.json()),
         fetch(CFG_URL  + '?_=' + ts).then(r => r.json()),
+        // 재고 감시 목록 — 실패해도 페이지는 그대로 뜨게 한다
+        fetch(MON_URL + '?_=' + ts).then(r => r.json()).catch(() => null),
       ]);
       data = placeData;
       if (cfg.watched_places) data.watched_places = cfg.watched_places;
+      data.monitors = mon && mon.monitors;
     }
 
     watchedIds = new Set((data.watched_places || []).map(String));
+    monitorKeys = new Set((data.monitors || [])
+      .map(m => monitorKeyOf(m && m.url)).filter(Boolean));
 
     // 최근 저장된 토글이 CDN 캐시로 덮이지 않도록 로컬 상태 우선 적용 (최대 6분)
     for (const [tid, entry] of Object.entries(getRecentToggles())) {
