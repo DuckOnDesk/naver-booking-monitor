@@ -330,5 +330,73 @@
       "evidence": null,
       "message": "확정 단계에서 로그인 요구 — 계정2 쿠키 만료됨"
     }
+  },
+  "muaydmed": {
+    "name": "아이쁘",
+    "last_run": {
+      "at": "2026-09-28T22:17:10+09:00",
+      "sig": "2026-09-29|14:00,15:00",
+      "date": "2026-09-29",
+      "times": [
+        "14:00",
+        "15:00"
+      ],
+      "attempt": 1,
+      "lag_sec": 35.8,
+      "elapsed": 2.1,
+      "account": 1,
+      "success": false,
+      "dry_run": false,
+      "unbookable": false,
+      "api_slots": [
+        {
+          "t": "11:00",
+          "stock": 15,
+          "booked": 15
+        },
+        {
+          "t": "12:00",
+          "stock": 15,
+          "booked": 15
+        },
+        {
+          "t": "13:00",
+          "stock": 15,
+          "booked": 15
+        },
+        {
+          "t": "14:00",
+          "stock": 15,
+          "booked": 14
+        },
+        {
+          "t": "15:00",
+          "stock": 15,
+          "booked": 13
+        },
+        {
+          "t": "16:00",
+          "stock": 15,
+          "booked": 15
+        },
+        {
+          "t": "17:00",
+          "stock": 15,
+          "booked": 15
+        },
+        {
+          "t": "18:00",
+          "stock": 15,
+          "booked": 15
+        },
+        {
+          "t": "19:00",
+          "stock": 15,
+          "booked": 15
+        }
+      ],
+      "evidence": null,
+      "message": "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)"
+    }
   }
 }
