@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T19:41:00.164452+09:00",
+  "updated_at": "2026-09-28T19:46:23.127691+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -342,7 +342,7 @@
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260507_2/1778130194243lXgOC_PNG/Mercedes-Benz-Studio.png",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260630_88/1782785377716gQaHF_JPEG/MB_Studio_001.jpg",
       "roadAddress": "연무장길 73 XYZ SEOUL",
       "commonAddress": "서울 성동구",
       "district": "성동구",
@@ -3424,7 +3424,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T19:40:58.895926+09:00",
+    "checked_at": "2026-09-28T19:46:23.125519+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
