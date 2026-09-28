@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T11:10:42.654254+09:00",
+  "updated_at": "2026-09-28T11:16:19.447305+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -243,7 +243,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-28T10:37:31.582270+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -454,7 +454,7 @@
       "id": "2045660928",
       "name": "오늘은 1004",
       "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636",
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
       "bookingBusinessId": "1744636",
       "operationStart": "26.10.02.",
       "operationEnd": "26.10.05.",
@@ -469,16 +469,16 @@
       "bookingOpenHistory": [
         "2026-09-23T18:27:31.319787+09:00"
       ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-09-28T11:16:16.905971+09:00",
       "bookingPaused": false,
-      "saleStartDate": null,
+      "saleStartDate": "",
       "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
-      "bookingItemCheckedAt": "2026-09-28T10:44:50.439114+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
       "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     },
     {
       "id": "2036044979",
@@ -716,7 +716,7 @@
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
       "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852",
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
       "operationEnd": "26.10.04.",
@@ -749,22 +749,22 @@
         "2026-09-28T02:21:31.988043+09:00",
         "2026-09-28T10:37:31.582270+09:00"
       ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
-      "bookingItemCheckedAt": "2026-09-28T10:44:50.439114+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": "2026-09-23T09:07:40.184258+09:00",
       "lastBookingNotifiedAt": "2026-09-23T09:13:31.898797+09:00",
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     },
     {
       "id": "2061527606",
       "name": "산리오 문방구",
       "hasBooking": false,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
       "operationEnd": "26.10.11.",
@@ -803,8 +803,8 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:43:22.044434+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T11:16:10.279484+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": "2026-09-21T15:25:47.420123+09:00",
       "lastBookingNotifiedAt": "2026-09-21T15:31:37.511035+09:00",
       "bookingIsOpened": false
@@ -1191,7 +1191,7 @@
       "id": "2070202228",
       "name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
       "hasBooking": true,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736054/items/8052594",
       "bookingBusinessId": "1736054",
       "operationStart": "26.09.26.",
       "operationEnd": "26.10.05.",
@@ -1209,16 +1209,16 @@
         "2026-09-26T22:34:42.151935+09:00",
         "2026-09-27T10:01:33.219096+09:00"
       ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenAuto": "2026-09-18T14:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.864055+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:43:22.044434+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T11:16:10.279484+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-26T00:44:54.222233+09:00",
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     },
     {
       "id": "2088035530",
@@ -1282,7 +1282,7 @@
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
       "hasBooking": false,
-      "bookingUrl": null,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
       "operationEnd": "26.10.07.",
@@ -1305,8 +1305,8 @@
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:43:22.044434+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-28T11:16:10.279484+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T11:11:53.128750+09:00",
       "bookingIsOpened": false
@@ -1374,7 +1374,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-28T10:37:31.582270+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1439,7 +1439,7 @@
       "id": "2015989932",
       "name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
       "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1738439",
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1738439/items/8061607",
       "bookingBusinessId": "1738439",
       "operationStart": "26.10.01.",
       "operationEnd": "26.10.11.",
@@ -1454,16 +1454,16 @@
       "bookingOpenHistory": [
         "2026-09-23T13:23:31.048752+09:00"
       ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenAuto": "2026-09-23T13:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T11:16:18.489297+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-09-28T09:06:31.751897+09:00",
-      "bookingItemCheckedAt": "2026-09-28T10:44:50.439114+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-23T13:23:34.067180+09:00",
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     },
     {
       "id": "2050153907",
@@ -3359,7 +3359,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-28T11:10:25.856065+09:00",
+    "checked_at": "2026-09-28T11:16:10.279484+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3618,16 +3618,19 @@
     "2050363685": "https://m.booking.naver.com/booking/6/bizes/1641637/items/8059668",
     "2001371441": "https://m.booking.naver.com/booking/12/bizes/1640758/items/7621288",
     "2023862125": "https://m.booking.naver.com/booking/6/bizes/514672/items/6257255",
-    "2015989932": "https://m.booking.naver.com/booking/12/bizes/1738439",
+    "2015989932": "https://m.booking.naver.com/booking/12/bizes/1738439/items/8061607",
     "2029141346": "https://m.booking.naver.com/booking/12/bizes/1737133/items/8056468",
-    "2045660928": "https://m.booking.naver.com/booking/12/bizes/1744636",
-    "2038718464": "https://m.booking.naver.com/booking/12/bizes/1741852",
+    "2045660928": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
+    "2038718464": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
     "2035313838": "https://m.booking.naver.com/booking/13/bizes/1739573/items/8067644",
     "2000187386": "https://m.booking.naver.com/booking/6/bizes/1504253/items/8079603",
     "2084168433": "https://m.booking.naver.com/booking/12/bizes/1744184/items/8084249",
     "2033835877": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
     "2045979104": "https://m.booking.naver.com/booking/12/bizes/1744181/items/8084231",
     "2008186282": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
-    "2088035530": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532"
+    "2088035530": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
+    "2070202228": "https://m.booking.naver.com/booking/12/bizes/1736054/items/8052594",
+    "2061527606": "https://m.booking.naver.com/booking/12/bizes/1735851",
+    "2015914479": "https://m.booking.naver.com/booking/12/bizes/1736544"
   }
 }
