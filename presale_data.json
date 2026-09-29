@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T14:45:08.030539+09:00",
+  "updated_at": "2026-09-29T14:50:37.088876+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -798,7 +798,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -838,7 +838,8 @@
         "2026-09-28T20:57:03.184978+09:00",
         "2026-09-29T00:04:40.058873+09:00",
         "2026-09-29T01:26:09.894348+09:00",
-        "2026-09-29T13:23:12.956247+09:00"
+        "2026-09-29T13:23:12.956247+09:00",
+        "2026-09-29T14:50:35.557545+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -1906,13 +1907,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-15T10:55:14.280118+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2034884894",
@@ -3305,6 +3299,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-09-29T13:55:57.252488+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-09-29T14:50:35.557545+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3465,12 +3466,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T14:45:06.588868+09:00",
+    "checked_at": "2026-09-29T14:50:35.557545+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 797,
+    "candidate_items": 796,
     "presale_items": 198,
     "after_district_filter": 102,
     "fallback_matched": 0,
@@ -3479,7 +3480,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-09-29T11:55:56.608857+09:00",
     "admission_names": {
-      "(없음)": 384,
+      "(없음)": 383,
       "현장대기": 215,
       "사전예약&현장대기": 156,
       "사전예약": 42
