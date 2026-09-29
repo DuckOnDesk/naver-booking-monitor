@@ -129,13 +129,6 @@
       "enabled": false,
       "target_dates": [],
       "mute": true
-    },
-    {
-      "id": "mulxuf8y",
-      "name": "오늘은 1004",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
-      "enabled": true,
-      "target_dates": []
     }
   ]
 }
