@@ -136,6 +136,13 @@
       "url": "https://booking.naver.com/booking/12/bizes/1738207/items/8060679?startDateTime=2026-10-11T00%3A00%3A00%2B09%3A00",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mum6jro3",
+      "name": "딥티크",
+      "url": "https://m.booking.naver.com/booking/6/bizes/654576/items/8047356?startDate=2026-09-29",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
