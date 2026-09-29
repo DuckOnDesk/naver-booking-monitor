@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T19:10:07.203660+09:00",
+  "updated_at": "2026-09-29T19:15:31.622790+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -37,8 +37,7 @@
     "2073808585",
     "2084168433",
     "2087335226",
-    "2088035530",
-    "2092452636"
+    "2088035530"
   ],
   "booking_open_datetimes": {},
   "manual_places": [],
@@ -1660,7 +1659,7 @@
     {
       "id": "2092452636",
       "name": "브라운더스트2 글루피스토어 IN 신촌 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1742078",
       "bookingBusinessId": "1742078",
       "operationStart": "26.10.09.",
@@ -3503,7 +3502,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T19:10:03.834678+09:00",
+    "checked_at": "2026-09-29T19:15:29.922174+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
