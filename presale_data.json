@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T20:36:54.090518+09:00",
+  "updated_at": "2026-09-29T20:42:26.981651+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -112,7 +112,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -249,7 +249,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-29T20:09:42.143431+09:00",
+      "bookingItemCheckedAt": "2026-09-29T20:42:16.559412+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -356,7 +356,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:47.869930+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:22.535184+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -446,7 +446,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:43.851411+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:18.313806+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -751,7 +751,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -787,7 +787,8 @@
         "2026-09-27T22:19:31.258660+09:00",
         "2026-09-29T05:51:41.389441+09:00",
         "2026-09-29T13:55:57.252488+09:00",
-        "2026-09-29T17:24:03.671330+09:00"
+        "2026-09-29T17:24:03.671330+09:00",
+        "2026-09-29T20:42:16.559412+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -885,7 +886,7 @@
         "2026-09-23T00:30:48.692884+09:00"
       ],
       "bookingOpenAuto": "2026-10-01T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:44.540935+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:19.051362+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -971,7 +972,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:48.413878+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:23.080160+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -999,7 +1000,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:48.964823+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:23.798042+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1055,7 +1056,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:49.656100+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:24.491664+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1351,7 +1352,7 @@
         "2026-09-26T05:46:52.001937+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:45.073745+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:19.873644+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -1453,7 +1454,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-29T20:09:42.143431+09:00",
+      "bookingItemCheckedAt": "2026-09-29T20:42:16.559412+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1590,7 +1591,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:50.730315+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:25.721359+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1786,7 +1787,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:46.466024+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:21.305199+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1814,7 +1815,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:47.162997+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:21.851461+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1900,7 +1901,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-09-29T20:09:51.443715+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-29T20:42:26.428994+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1912,13 +1913,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2018920557",
-      "place_name": "텐먼스 성수 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1737304",
-      "ts": "2026-09-15T14:55:54.724684+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3311,6 +3305,13 @@
       "place_name": "브라운더스트2 글루피스토어 IN 신촌 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1742078",
       "ts": "2026-09-29T19:04:28.558070+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-09-29T20:42:16.559412+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3472,7 +3473,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T20:36:52.271575+09:00",
+    "checked_at": "2026-09-29T20:42:16.559412+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
