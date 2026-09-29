@@ -5863,3 +5863,7 @@
 {"ts": "2026-09-29T17:05:16+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-14", "level": "open", "title": "🎉 센녹 예약 가능!", "slots": {"19:00": 1}}
 {"ts": "2026-09-29T17:09:27+09:00", "kind": "stock", "item": "mum8tziu", "name": "센녹", "date": "2026-10-14", "change": "예약 변동(예약 발생)", "stock": [150, 150], "booked": [149, 150], "slots": {"19:00": {"from": [7, 6], "to": [7, 7]}}, "scope": ""}
 {"ts": "2026-09-29T17:25:58+09:00", "kind": "stock", "item": "mum8tziu", "name": "센녹", "date": "2026-10-16", "change": "예약 변동(예약 취소)", "stock": [200, 200], "booked": [200, 199], "slots": {"18:30": {"from": [15, 15], "to": [15, 14]}}, "scope": ""}
+{"ts": "2026-09-29T17:29:25+09:00", "kind": "stock", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-05", "change": "예약 변동(예약 취소)", "stock": [10, 10], "booked": [10, 9], "slots": {"11:00": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
+{"ts": "2026-09-29T17:29:30+09:00", "kind": "alert", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-05", "level": "closed", "title": "🔒 딥티크 자리 있음 (예약창 닫힘)", "slots": {"11:00": 1}}
+{"ts": "2026-09-29T17:29:55+09:00", "kind": "gate", "item": "mum8tziu", "name": "센녹", "open": false, "reason": "URL 리다이렉트: /error/ type=InvalidBusiness — \"운영하지 않는 예매 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
+{"ts": "2026-09-29T17:29:55+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-16", "level": "closed", "title": "🔒 센녹 자리 있음 (예약창 닫힘)", "slots": {"18:30": 1}}
