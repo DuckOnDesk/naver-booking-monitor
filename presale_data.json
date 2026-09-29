@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T22:20:12.658495+09:00",
+  "updated_at": "2026-09-29T22:25:38.025750+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -112,7 +112,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -150,7 +150,8 @@
         "2026-09-28T22:32:11.714412+09:00",
         "2026-09-29T12:17:48.624002+09:00",
         "2026-09-29T15:39:48.440166+09:00",
-        "2026-09-29T19:04:28.558070+09:00"
+        "2026-09-29T19:04:28.558070+09:00",
+        "2026-09-29T22:25:36.310725+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -751,7 +752,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1913,13 +1914,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-15T17:57:04.372949+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2078141397",
@@ -3312,6 +3306,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-09-29T20:42:16.559412+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-09-29T22:25:36.310725+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3473,7 +3474,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T22:20:02.461146+09:00",
+    "checked_at": "2026-09-29T22:25:36.310725+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
