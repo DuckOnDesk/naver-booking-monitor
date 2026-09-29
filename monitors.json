@@ -152,7 +152,8 @@
       "name": "센녹",
       "url": "https://m.booking.naver.com/booking/12/bizes/1710697/items/7930934",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     }
   ]
 }
