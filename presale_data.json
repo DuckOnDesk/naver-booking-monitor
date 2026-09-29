@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T20:15:15.794464+09:00",
+  "updated_at": "2026-09-29T20:20:40.093879+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1654,36 +1654,6 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2092452636",
-      "name": "브라운더스트2 글루피스토어 IN 신촌 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1742078",
-      "bookingBusinessId": "1742078",
-      "operationStart": "26.10.09.",
-      "operationEnd": "26.10.15.",
-      "remainingDays": 10,
-      "status": "D-10",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260915_119/17894592172850o0RK_JPEG/edited-1789459216933-0.jpg",
-      "roadAddress": "신촌로 83 현대백화점 신촌 UPLEX 지하2층",
-      "commonAddress": "서울 서대문구",
-      "district": "서대문구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-29T19:04:28.558070+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-29T19:04:28.558070+09:00",
-      "bookingItemCheckedAt": "2026-09-29T19:04:28.558070+09:00",
-      "discoveredAt": "2026-09-29T19:04:28.558070+09:00",
-      "lastBookingNotifiedAt": "2026-09-29T19:10:05.540439+09:00",
       "bookingIsOpened": false
     },
     {
@@ -3502,23 +3472,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T20:15:14.223637+09:00",
+    "checked_at": "2026-09-29T20:20:38.525007+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 790,
-    "presale_items": 201,
-    "after_district_filter": 103,
+    "candidate_items": 787,
+    "presale_items": 198,
+    "after_district_filter": 102,
     "fallback_matched": 0,
-    "unique_place_ids": 61,
-    "tracked_places": 61,
+    "unique_place_ids": 60,
+    "tracked_places": 60,
     "new_places": 0,
     "last_new_place_at": "2026-09-29T19:04:28.558070+09:00",
     "admission_names": {
       "(없음)": 374,
       "현장대기": 215,
-      "사전예약&현장대기": 159,
+      "사전예약&현장대기": 156,
       "사전예약": 42
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
@@ -3663,6 +3633,23 @@
       "bookingIsOpened": false,
       "name": "코스모스 빅뱅 20주년 기념 미디어 전시회",
       "savedAt": "2026-09-28T00:04:07.139686+09:00"
+    },
+    "2092452636": {
+      "hasBooking": false,
+      "bookingNotified": true,
+      "lastBookingNotifiedAt": "2026-09-29T19:10:05.540439+09:00",
+      "discoveredAt": "2026-09-29T19:04:28.558070+09:00",
+      "bookingOpenHistory": [
+        "2026-09-29T19:04:28.558070+09:00"
+      ],
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1742078",
+      "bookingBusinessId": "1742078",
+      "saleStartDate": null,
+      "bookingOpenAuto": null,
+      "bookingPaused": false,
+      "bookingIsOpened": false,
+      "name": "브라운더스트2 글루피스토어 IN 신촌 팝업스토어",
+      "savedAt": "2026-09-29T20:20:38.525007+09:00"
     }
   },
   "auto_added_place_ids": [
