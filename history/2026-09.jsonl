@@ -5917,3 +5917,4 @@
 {"ts": "2026-09-30T05:42:45+09:00", "kind": "stock", "item": "mtzotglu", "name": "클리오 T4", "date": "2026-10-01", "change": "예약 변동(예약 발생)", "stock": [14, 14], "booked": [13, 14], "slots": {"18:00": {"from": [1, 0], "to": [1, 1]}}, "scope": ""}
 {"ts": "2026-09-30T06:02:26+09:00", "kind": "stock", "item": "mtzotv6b", "name": "클리오 T5", "date": "2026-09-30", "change": "예약 변동(예약 발생)", "stock": [10, 10], "booked": [9, 10], "slots": {"16:00": {"from": [1, 0], "to": [1, 1]}}, "scope": ""}
 {"ts": "2026-09-30T06:03:19+09:00", "kind": "stock", "item": "mtzovems", "name": "클리오 T8 (3-4)", "date": "2026-10-02", "change": "예약 변동(예약 발생)", "stock": [14, 14], "booked": [13, 14], "slots": {"12:30": {"from": [1, 0], "to": [1, 1]}}, "scope": ""}
+{"ts": "2026-09-30T06:07:41+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-30", "change": "예약 변동(예약 발생)", "stock": [54, 54], "booked": [53, 54], "slots": {"15:00": {"from": [3, 2], "to": [3, 3]}}, "scope": ""}
