@@ -324,8 +324,21 @@ def log_round_tick(iteration: int, remaining_min: float) -> None:
 
 def load_monitors(from_github: bool = False) -> dict:
     if from_github:
+        # raw.githubusercontent.com은 CDN이 최대 5분까지 옛 내용을 줄 수 있어
+        # 방금 추가한 항목이 한두 바퀴 늦게 반영된다. 토큰이 있으면 캐시 없는
+        # contents API로 읽고, 없으면 쿼리로 CDN 캐시를 우회한다.
+        token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or ""
+        repo = os.environ.get("GITHUB_REPOSITORY", "DuckOnDesk/naver-booking-monitor")
         try:
-            resp = requests.get(GITHUB_RAW_URL, timeout=10)
+            if token:
+                resp = requests.get(
+                    f"https://api.github.com/repos/{repo}/contents/monitors.json?ref=main",
+                    timeout=10, headers={
+                        "Authorization": f"Bearer {token}",
+                        "Accept": "application/vnd.github.raw+json",
+                    })
+            else:
+                resp = requests.get(f"{GITHUB_RAW_URL}?t={int(time.time())}", timeout=10)
             resp.raise_for_status()
             return resp.json()
         except Exception as exc:
