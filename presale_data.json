@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T15:34:22.394279+09:00",
+  "updated_at": "2026-09-29T15:39:49.823117+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -94,7 +94,8 @@
         "2026-09-28T10:31:40.287645+09:00",
         "2026-09-28T13:59:50.921634+09:00",
         "2026-09-28T17:30:15.098481+09:00",
-        "2026-09-29T01:53:12.872250+09:00"
+        "2026-09-29T01:53:12.872250+09:00",
+        "2026-09-29T15:39:48.440166+09:00"
       ],
       "bookingOpenAuto": "2026-09-14T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:35.712443+09:00",
@@ -110,7 +111,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -146,7 +147,8 @@
         "2026-09-28T13:59:50.921634+09:00",
         "2026-09-28T19:13:50.899942+09:00",
         "2026-09-28T22:32:11.714412+09:00",
-        "2026-09-29T12:17:48.624002+09:00"
+        "2026-09-29T12:17:48.624002+09:00",
+        "2026-09-29T15:39:48.440166+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -747,7 +749,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1907,20 +1909,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2034884894",
-      "place_name": "라리가웹툰 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1738783",
-      "ts": "2026-09-15T11:00:53.861465+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084168433",
-      "place_name": "블랙야크 더현대서울",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735801/search",
-      "ts": "2026-09-15T11:23:34.937047+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2078141397",
@@ -3306,6 +3294,20 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "ts": "2026-09-29T14:50:35.557545+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071088201",
+      "place_name": "클리오 풍년다방 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
+      "ts": "2026-09-29T15:39:48.440166+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-09-29T15:39:48.440166+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3466,7 +3468,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T15:34:20.891993+09:00",
+    "checked_at": "2026-09-29T15:39:48.440166+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
