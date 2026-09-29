@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T20:58:40.288268+09:00",
+  "updated_at": "2026-09-29T21:04:04.822102+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1688,7 +1688,7 @@
     {
       "id": "2012113406",
       "name": "방추리 복숭아카페 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694470/search",
       "bookingBusinessId": "1694470",
       "operationStart": "26.07.15.",
@@ -3473,7 +3473,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T20:58:38.534300+09:00",
+    "checked_at": "2026-09-29T21:04:03.123610+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
