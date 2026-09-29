@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-29T13:17:47.926147+09:00",
+  "updated_at": "2026-09-29T13:23:14.338368+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -798,7 +798,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -837,7 +837,8 @@
         "2026-09-28T19:30:08.523144+09:00",
         "2026-09-28T20:57:03.184978+09:00",
         "2026-09-29T00:04:40.058873+09:00",
-        "2026-09-29T01:26:09.894348+09:00"
+        "2026-09-29T01:26:09.894348+09:00",
+        "2026-09-29T13:23:12.956247+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -1905,13 +1906,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-15T09:08:34.581050+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2078141397",
@@ -3304,6 +3298,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-09-29T12:17:48.624002+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-09-29T13:23:12.956247+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3464,7 +3465,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-29T13:17:46.543513+09:00",
+    "checked_at": "2026-09-29T13:23:12.956247+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
