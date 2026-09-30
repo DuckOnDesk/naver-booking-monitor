@@ -1,11 +1,12 @@
 {
-  "updated_at": "2026-09-30T15:32:54.714568+09:00",
+  "updated_at": "2026-09-30T15:38:25.896116+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
     "2003577663",
     "2007085220",
     "2008186282",
+    "2012544467",
     "2013115098",
     "2015914479",
     "2015989932",
@@ -1340,6 +1341,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2012544467",
+      "name": "Millerknoll 고객 라운지",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.13.",
+      "operationEnd": "26.12.10.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_73/1790567999329YrH4F_JPEG/%BF%C0%B8%A7%BE%D8%C4%C4%C6%DB%B4%CF_09160493.jpg",
+      "roadAddress": "국제금융로 10 IFC몰 L3 튜브라운지",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2003577663",
       "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
       "hasBooking": true,
@@ -1899,13 +1928,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544",
-      "ts": "2026-09-17T14:05:44.471019+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2078141397",
@@ -3298,6 +3320,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "ts": "2026-09-30T14:02:54.556983+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2012544467",
+      "place_name": "Millerknoll 고객 라운지",
+      "booking_url": "",
+      "ts": "2026-09-30T15:38:23.730890+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3327,6 +3356,7 @@
     "2009756357",
     "2011407355",
     "2012113406",
+    "2012544467",
     "2013115098",
     "2015282909",
     "2015464753",
@@ -3459,24 +3489,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-30T15:32:52.651453+09:00",
+    "checked_at": "2026-09-30T15:38:23.730890+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 804,
-    "presale_items": 196,
-    "after_district_filter": 102,
+    "candidate_items": 805,
+    "presale_items": 197,
+    "after_district_filter": 103,
     "fallback_matched": 0,
-    "unique_place_ids": 59,
-    "tracked_places": 59,
-    "new_places": 0,
-    "last_new_place_at": "2026-09-29T19:04:28.558070+09:00",
+    "unique_place_ids": 60,
+    "tracked_places": 60,
+    "new_places": 1,
+    "last_new_place_at": "2026-09-30T15:38:23.730890+09:00",
     "admission_names": {
       "(없음)": 393,
       "현장대기": 215,
       "사전예약&현장대기": 154,
-      "사전예약": 42
+      "사전예약": 43
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
     "structure_warned_at": null
@@ -3664,6 +3694,7 @@
     "2008186282",
     "2008543472",
     "2012113406",
+    "2012544467",
     "2013115098",
     "2015282909",
     "2015464753",
