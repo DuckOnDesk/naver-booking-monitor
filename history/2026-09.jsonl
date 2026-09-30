@@ -5975,3 +5975,5 @@
 {"ts": "2026-09-30T15:55:40+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-09", "level": "closed", "title": "🔒 센녹 자리 있음 (예약창 닫힘)", "slots": {"18:00": 1}}
 {"ts": "2026-09-30T16:56:07+09:00", "kind": "stock", "item": "muaydmed", "name": "아이쁘", "date": "2026-09-30", "change": "예약 변동(예약 취소)", "stock": [45, 45], "booked": [45, 44], "slots": {"17:00": {"from": [15, 15], "to": [15, 14]}}, "scope": ""}
 {"ts": "2026-09-30T16:56:12+09:00", "kind": "alert", "item": "muaydmed", "name": "아이쁘", "date": "2026-09-30", "level": "closed", "title": "🔒 아이쁘 자리 있음 (예약창 닫힘)", "slots": {"17:00": 1}}
+{"ts": "2026-09-30T17:21:32+09:00", "kind": "gate", "item": "mum8tziu", "name": "센녹", "open": true, "reason": ""}
+{"ts": "2026-09-30T17:21:32+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-09", "level": "open", "title": "🎉 센녹 예약 가능!", "slots": {"18:00": 1}}
