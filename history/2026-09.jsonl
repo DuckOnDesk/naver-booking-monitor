@@ -5962,3 +5962,5 @@
 {"ts": "2026-09-30T13:37:50+09:00", "kind": "stock", "item": "mtzotglu", "name": "클리오 T4", "date": "2026-09-30", "change": "예약 변동(예약 취소)", "stock": [10, 10], "booked": [10, 9], "slots": {"15:30": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
 {"ts": "2026-09-30T13:37:55+09:00", "kind": "gate", "item": "mtzotglu", "name": "클리오 T4", "open": false, "reason": "URL 리다이렉트: /error/ — \"운영하지 않는 예약 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
 {"ts": "2026-09-30T13:37:55+09:00", "kind": "alert", "item": "mtzotglu", "name": "클리오 T4", "date": "2026-09-30", "level": "closed", "title": "🔒 클리오 T4 자리 있음 (예약창 닫힘)", "slots": {"15:30": 1}}
+{"ts": "2026-09-30T13:56:15+09:00", "kind": "stock", "item": "mtzotglu", "name": "클리오 T4", "date": "2026-09-30", "change": "예약 변동(예약 발생)", "stock": [10, 10], "booked": [9, 10], "slots": {"15:30": {"from": [1, 0], "to": [1, 1]}}, "scope": ""}
+{"ts": "2026-09-30T13:56:21+09:00", "kind": "gate", "item": "mtzotglu", "name": "클리오 T4", "open": true, "reason": ""}
