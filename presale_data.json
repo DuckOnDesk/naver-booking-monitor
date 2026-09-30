@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T12:19:27.259926+09:00",
+  "updated_at": "2026-09-30T12:24:52.520730+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -44,7 +44,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -113,7 +113,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -154,7 +154,8 @@
         "2026-09-29T19:04:28.558070+09:00",
         "2026-09-29T22:25:36.310725+09:00",
         "2026-09-30T05:48:51.470946+09:00",
-        "2026-09-30T09:05:28.389572+09:00"
+        "2026-09-30T09:05:28.389572+09:00",
+        "2026-09-30T12:24:50.878800+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -1895,13 +1896,6 @@
   ],
   "alerts": [
     {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-17T05:57:06.307936+09:00"
-    },
-    {
       "type": "new_popup",
       "place_id": "2033835877",
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
@@ -3293,6 +3287,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "ts": "2026-09-30T10:40:47.585873+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-09-30T12:24:50.878800+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3454,7 +3455,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-30T12:19:25.764723+09:00",
+    "checked_at": "2026-09-30T12:24:50.878800+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
