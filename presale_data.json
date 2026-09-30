@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T05:48:10.491567+09:00",
+  "updated_at": "2026-10-01T05:53:40.307872+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -116,7 +116,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -226,7 +226,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-01T05:21:03.646336+09:00",
+      "bookingItemCheckedAt": "2026-10-01T05:53:32.191685+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -396,7 +396,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:08.349419+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:36.762383+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -606,7 +606,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:05.350483+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:33.766446+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -763,7 +763,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -804,7 +804,8 @@
         "2026-09-29T00:04:40.058873+09:00",
         "2026-09-29T01:26:09.894348+09:00",
         "2026-09-29T13:23:12.956247+09:00",
-        "2026-09-29T14:50:35.557545+09:00"
+        "2026-09-29T14:50:35.557545+09:00",
+        "2026-10-01T05:53:32.191685+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -848,7 +849,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -933,7 +934,7 @@
         "2026-09-23T00:30:48.692884+09:00"
       ],
       "bookingOpenAuto": "2026-10-01T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:06.020837+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:34.285919+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -1017,7 +1018,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:08.845850+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:37.259564+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1047,7 +1048,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:09.357323+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:37.764857+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1103,7 +1104,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:09.880262+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:38.274260+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1379,7 +1380,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -1399,10 +1400,11 @@
         "2026-09-26T05:46:52.001937+09:00",
         "2026-09-30T05:48:51.470946+09:00",
         "2026-09-30T10:13:25.582525+09:00",
-        "2026-09-30T21:02:56.775274+09:00"
+        "2026-09-30T21:02:56.775274+09:00",
+        "2026-10-01T05:53:32.191685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:06.537386+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:34.916938+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1532,7 +1534,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-01T05:21:03.646336+09:00",
+      "bookingItemCheckedAt": "2026-10-01T05:53:32.191685+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1669,7 +1671,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:11.025820+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:39.288573+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1781,7 +1783,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:07.694288+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:36.267760+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1869,7 +1871,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T05:21:11.548276+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T05:53:39.786199+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1881,20 +1883,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2078141397",
-      "place_name": "쿠팡 온리 페스타",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
-      "ts": "2026-09-18T10:37:20.673273+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-18T12:31:22.651829+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2074820669",
@@ -3280,6 +3268,20 @@
       "place_name": "ZIGZAG EXPRESS 팝업스토어",
       "booking_url": "",
       "ts": "2026-10-01T02:33:26.602508+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-10-01T05:53:32.191685+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015914479",
+      "place_name": "블루 록 2026 더 라스트 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
+      "ts": "2026-10-01T05:53:32.191685+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3443,7 +3445,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T05:48:08.885981+09:00",
+    "checked_at": "2026-10-01T05:53:32.191685+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
