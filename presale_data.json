@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T13:03:02.957546+09:00",
+  "updated_at": "2026-09-30T13:08:30.094469+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -612,9 +612,9 @@
     {
       "id": "2015282909",
       "name": "방탈출 게임 <점프x컷>",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1515875",
+      "bookingBusinessId": "1515875",
       "operationStart": "26.10.24.",
       "operationEnd": "26.11.08.",
       "remainingDays": 24,
@@ -625,14 +625,16 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-30T13:08:27.572551+09:00"
+      ],
       "bookingOpenAuto": null,
       "bookingOpenAutoCheckedAt": null,
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": "2026-09-28T10:20:14.691666+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-09-30T13:08:27.572551+09:00",
+      "bookingItemCheckedAt": "2026-09-30T13:08:27.572551+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
@@ -1895,13 +1897,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "",
-      "ts": "2026-09-17T08:51:18.866886+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2057558383",
@@ -3294,6 +3289,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-09-30T12:24:50.878800+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015282909",
+      "place_name": "방탈출 게임 <점프x컷>",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1515875",
+      "ts": "2026-09-30T13:08:27.572551+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3455,7 +3457,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-30T13:02:53.819208+09:00",
+    "checked_at": "2026-09-30T13:08:27.572551+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3767,6 +3769,7 @@
     "2074820669": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
     "2073808585": "https://m.booking.naver.com/booking/12/bizes/1719895/items/7975387",
     "2003577663": "https://m.booking.naver.com/booking/5/bizes/1744266/items/8088598",
-    "2092452636": "https://m.booking.naver.com/booking/6/bizes/1742078"
+    "2092452636": "https://m.booking.naver.com/booking/6/bizes/1742078",
+    "2015282909": "https://m.booking.naver.com/booking/12/bizes/1515875"
   }
 }
