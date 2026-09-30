@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T12:41:14.729851+09:00",
+  "updated_at": "2026-09-30T12:46:39.608997+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -197,6 +197,36 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2067695542",
+      "name": "오래오래 함께가게",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1732164",
+      "bookingBusinessId": "1732164",
+      "operationStart": "26.09.01.",
+      "operationEnd": "26.10.31.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_207/1788852926311Uf29W_JPEG/edited-1788852926068-0.jpg",
+      "roadAddress": "연무장3길 8-27 오래오래 함께가게",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-08T16:12:43.627009+09:00"
+      ],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": "2026-09-30T12:30:15.883873+09:00",
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
+      "bookingIsOpened": false
+    },
+    {
       "id": "2018920557",
       "name": "텐먼스 성수 팝업스토어",
       "hasBooking": false,
@@ -227,36 +257,6 @@
       "bookingItemCheckedAt": "2026-09-28T10:03:14.726438+09:00",
       "discoveredAt": "2026-09-10T13:05:32.089744+09:00",
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2067695542",
-      "name": "오래오래 함께가게",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1732164",
-      "bookingBusinessId": "1732164",
-      "operationStart": "26.09.01.",
-      "operationEnd": "26.10.31.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260908_207/1788852926311Uf29W_JPEG/edited-1788852926068-0.jpg",
-      "roadAddress": "연무장3길 8-27 오래오래 함께가게",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-08T16:12:43.627009+09:00"
-      ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-30T12:30:15.883873+09:00",
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
     },
     {
@@ -316,6 +316,36 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2029141346",
+      "name": "루나 클라우드 레이어 팝업스토어",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1737133/items/8056468",
+      "bookingBusinessId": "1737133",
+      "operationStart": "26.09.30.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260922_200/179004417521215Cs3_PNG/image.png",
+      "roadAddress": "성수이로 62 무신사 메가스토어 1층 팝업 A구역",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-22T12:19:36.394042+09:00"
+      ],
+      "bookingOpenAuto": "2026-09-22T12:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T10:43:58.335552+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-28T10:31:40.287645+09:00",
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-22T12:19:36.394042+09:00",
+      "lastBookingNotifiedAt": "2026-09-22T12:25:24.278183+09:00",
+      "bookingIsOpened": true
+    },
+    {
       "id": "2051944825",
       "name": "[2026 서울국제정원박람회] 삼표정원 체험 프로그램",
       "hasBooking": false,
@@ -369,36 +399,6 @@
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:28.723515+09:00",
-      "bookingIsOpened": true
-    },
-    {
-      "id": "2029141346",
-      "name": "루나 클라우드 레이어 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1737133/items/8056468",
-      "bookingBusinessId": "1737133",
-      "operationStart": "26.09.30.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": null,
-      "status": "오늘오픈",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260922_200/179004417521215Cs3_PNG/image.png",
-      "roadAddress": "성수이로 62 무신사 메가스토어 1층 팝업 A구역",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-22T12:19:36.394042+09:00"
-      ],
-      "bookingOpenAuto": "2026-09-22T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-09-28T10:43:58.335552+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:31:40.287645+09:00",
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-22T12:19:36.394042+09:00",
-      "lastBookingNotifiedAt": "2026-09-22T12:25:24.278183+09:00",
       "bookingIsOpened": true
     },
     {
@@ -3455,7 +3455,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-30T12:41:13.028482+09:00",
+    "checked_at": "2026-09-30T12:46:38.124739+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
