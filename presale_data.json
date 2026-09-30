@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T22:02:30.895790+09:00",
+  "updated_at": "2026-09-30T22:07:54.543445+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1681,7 +1681,7 @@
     {
       "id": "2072608358",
       "name": "[SHAREBOX] XR 팝업스토어 신촌",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1734674/items/8056805",
       "bookingBusinessId": "1734674",
       "operationStart": "26.09.16.",
@@ -3497,7 +3497,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-30T22:02:29.402102+09:00",
+    "checked_at": "2026-09-30T22:07:53.187321+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
