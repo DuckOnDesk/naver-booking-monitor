@@ -7630,11 +7630,10 @@
   "mum6jro3:2026-10-13:closed": {
     "17:00": 1
   },
-  "muawwgys:url_closed": 1,
-  "muawwgys:2026-10-01:closed": {
-    "18:00": 1
-  },
-  "muawwgys:2026-09-30:closed": {
+  "muawwgys:2026-09-30": {
     "19:30": 1
+  },
+  "muawwgys:2026-10-01": {
+    "18:00": 1
   }
 }
