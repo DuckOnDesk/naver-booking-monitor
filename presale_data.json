@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T17:29:23.068833+09:00",
+  "updated_at": "2026-09-30T17:34:53.702169+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -99,7 +99,8 @@
         "2026-09-29T19:04:28.558070+09:00",
         "2026-09-30T05:48:51.470946+09:00",
         "2026-09-30T10:40:47.585873+09:00",
-        "2026-09-30T14:02:54.556983+09:00"
+        "2026-09-30T14:02:54.556983+09:00",
+        "2026-09-30T17:34:51.681408+09:00"
       ],
       "bookingOpenAuto": "2026-09-14T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:35.712443+09:00",
@@ -817,7 +818,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -858,7 +859,8 @@
         "2026-09-29T23:01:48.469018+09:00",
         "2026-09-30T01:44:12.433895+09:00",
         "2026-09-30T05:48:51.470946+09:00",
-        "2026-09-30T13:57:28.192666+09:00"
+        "2026-09-30T13:57:28.192666+09:00",
+        "2026-09-30T17:34:51.681408+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1930,20 +1932,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2069285502",
-      "place_name": "더웍스 페스타",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1739360",
-      "ts": "2026-09-17T16:13:38.334772+09:00"
-    },
-    {
-      "type": "new_popup",
-      "place_id": "2036304624",
-      "place_name": "JISOO : CLICK in SEOUL",
-      "booking_url": "",
-      "ts": "2026-09-17T18:25:43.758456+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2015914479",
@@ -3329,6 +3317,20 @@
       "place_name": "콜라보카페 세이브포인트",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/items/8059668",
       "ts": "2026-09-30T17:18:08.100594+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071088201",
+      "place_name": "클리오 풍년다방 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
+      "ts": "2026-09-30T17:34:51.681408+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-09-30T17:34:51.681408+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3491,7 +3493,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-30T17:29:21.097183+09:00",
+    "checked_at": "2026-09-30T17:34:51.681408+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
