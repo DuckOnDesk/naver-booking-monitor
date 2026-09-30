@@ -5992,3 +5992,5 @@
 {"ts": "2026-09-30T18:08:14+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-01", "level": "closed", "title": "🔒 리베르 자리 있음 (예약창 닫힘)", "slots": {"18:00": 1}}
 {"ts": "2026-09-30T18:22:33+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-30", "change": "예약 변동(예약 취소)", "stock": [9, 9], "booked": [8, 7], "slots": {"18:30": {"from": [3, 2], "to": [3, 1]}}, "scope": ""}
 {"ts": "2026-09-30T18:22:38+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-30", "level": "closed", "title": "🔒 리베르 자리 추가됨 (예약창 닫힘)", "slots": {"18:30": 2}}
+{"ts": "2026-09-30T18:41:41+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-30", "change": "예약 변동(예약 취소)", "stock": [6, 6], "booked": [6, 5], "slots": {"19:30": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
+{"ts": "2026-09-30T18:41:45+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-30", "level": "closed", "title": "🔒 리베르 자리 있음 (예약창 닫힘)", "slots": {"19:30": 1}}
