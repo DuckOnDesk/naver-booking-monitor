@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-30T17:12:39.384665+09:00",
+  "updated_at": "2026-09-30T17:18:10.110490+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1843,7 +1843,7 @@
     {
       "id": "2050363685",
       "name": "콜라보카페 세이브포인트",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1641637/items/8059668",
       "bookingBusinessId": "1641637",
       "operationStart": "26.05.01.",
@@ -1856,7 +1856,9 @@
       "commonAddress": "서울 금천구",
       "district": "금천구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
+      "bookingOpenHistory": [
+        "2026-09-30T17:18:08.100594+09:00"
+      ],
       "bookingOpenAuto": "2026-09-14T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:39.844778+09:00",
       "bookingPaused": false,
@@ -1928,13 +1930,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2078141397",
-      "place_name": "쿠팡 온리 페스타",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
-      "ts": "2026-09-17T15:47:19.415709+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2069285502",
@@ -3327,6 +3322,13 @@
       "place_name": "Millerknoll 고객 라운지",
       "booking_url": "",
       "ts": "2026-09-30T15:38:23.730890+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2050363685",
+      "place_name": "콜라보카페 세이브포인트",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/items/8059668",
+      "ts": "2026-09-30T17:18:08.100594+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3489,7 +3491,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-09-30T17:12:37.424965+09:00",
+    "checked_at": "2026-09-30T17:18:08.100594+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
