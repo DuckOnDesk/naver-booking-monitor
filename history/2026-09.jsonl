@@ -5956,3 +5956,5 @@
 {"ts": "2026-09-30T13:04:55+09:00", "kind": "alert", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-13", "level": "closed", "title": "🔒 딥티크 자리 있음 (예약창 닫힘)", "slots": {"17:00": 1}}
 {"ts": "2026-09-30T13:07:44+09:00", "kind": "stock", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-18", "change": "예약 변동(예약 취소)", "stock": [10, 10], "booked": [9, 8], "slots": {"18:00": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
 {"ts": "2026-09-30T13:07:44+09:00", "kind": "alert", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-18", "level": "closed", "title": "🔒 딥티크 자리 추가됨 (예약창 닫힘)", "slots": {"13:00": 1, "18:00": 1}}
+{"ts": "2026-09-30T13:30:27+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-09-30", "change": "예약 변동(예약 취소)", "stock": [36, 36], "booked": [36, 35], "slots": {"15:00": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
+{"ts": "2026-09-30T13:30:31+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-09-30", "level": "open", "title": "🎉 리베르 예약 가능!", "slots": {"15:00": 1}}
