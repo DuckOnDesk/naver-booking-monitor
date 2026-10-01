@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T19:04:49.103260+09:00",
+  "updated_at": "2026-10-01T19:10:15.164408+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -119,7 +119,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -165,7 +165,8 @@
         "2026-09-30T19:19:15.507043+09:00",
         "2026-10-01T00:23:14.656737+09:00",
         "2026-10-01T13:23:00.297415+09:00",
-        "2026-10-01T15:52:14.493609+09:00"
+        "2026-10-01T15:52:14.493609+09:00",
+        "2026-10-01T19:10:13.143474+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -1952,13 +1953,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-19T01:54:17.015640+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2078141397",
       "place_name": "쿠팡 온리 페스타",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
@@ -3349,6 +3343,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-01T15:52:14.493609+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-10-01T19:10:13.143474+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3515,7 +3516,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T19:04:38.289904+09:00",
+    "checked_at": "2026-10-01T19:10:13.143474+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
