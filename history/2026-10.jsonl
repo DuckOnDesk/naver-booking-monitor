@@ -64,3 +64,5 @@
 {"ts": "2026-10-01T16:00:07+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "change": "예약 변동(예약 취소)", "stock": [54, 54], "booked": [54, 53], "slots": {"11:00": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
 {"ts": "2026-10-01T16:00:07+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "level": "open", "title": "🎉 리베르 예약 가능!", "slots": {"11:00": 1}}
 {"ts": "2026-10-01T16:02:07+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "change": "예약 변동(예약 발생)", "stock": [54, 54], "booked": [53, 54], "slots": {"11:00": {"from": [3, 2], "to": [3, 3]}}, "scope": ""}
+{"ts": "2026-10-01T16:51:52+09:00", "kind": "stock", "item": "muaydmed", "name": "아이쁘", "date": "2026-10-01", "change": "예약 변동(예약 취소)", "stock": [45, 45], "booked": [43, 42], "slots": {"19:00": {"from": [15, 15], "to": [15, 14]}}, "scope": ""}
+{"ts": "2026-10-01T16:51:52+09:00", "kind": "alert", "item": "muaydmed", "name": "아이쁘", "date": "2026-10-01", "level": "closed", "title": "🔒 아이쁘 자리 추가됨 (예약창 닫힘)", "slots": {"18:00": 2, "19:00": 1}}
