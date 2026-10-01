@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T03:40:24.940618+09:00",
+  "updated_at": "2026-10-02T03:46:00.398955+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -211,7 +211,7 @@
       "id": "2067695542",
       "name": "오래오래 함께가게",
       "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1732164",
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1732164/items/8030545",
       "bookingBusinessId": "1732164",
       "operationStart": "26.09.01.",
       "operationEnd": "26.10.31.",
@@ -226,16 +226,16 @@
       "bookingOpenHistory": [
         "2026-09-08T16:12:43.627009+09:00"
       ],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenAuto": "2026-10-02T03:20:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:51.076044+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-02T03:13:07.094348+09:00",
+      "bookingItemCheckedAt": "2026-10-02T03:45:48.589656+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
-      "bookingIsOpened": false
+      "bookingIsOpened": true
     },
     {
       "id": "2018920557",
@@ -432,7 +432,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:12.160916+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:55.124150+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -492,7 +492,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:09.293611+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:51.898049+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -999,7 +999,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:12.994558+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:55.948741+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1029,7 +1029,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:13.840934+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:56.733091+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1057,7 +1057,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:14.640974+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:57.520033+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1391,7 +1391,7 @@
         "2026-10-02T01:46:01.820087+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:10.093413+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:52.693098+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1521,7 +1521,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-02T03:13:07.094348+09:00",
+      "bookingItemCheckedAt": "2026-10-02T03:45:48.589656+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1630,7 +1630,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:16.074484+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:58.768423+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1798,7 +1798,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:11.348522+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:54.309140+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1886,7 +1886,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T03:13:16.898461+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T03:45:59.585249+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3463,7 +3463,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T03:40:22.936102+09:00",
+    "checked_at": "2026-10-02T03:45:48.589656+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3477,8 +3477,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-01T14:18:35.921801+09:00",
     "admission_names": {
-      "(없음)": 378,
-      "현장대기": 202,
+      "(없음)": 379,
+      "현장대기": 201,
       "사전예약&현장대기": 144,
       "사전예약": 47
     },
@@ -3834,7 +3834,7 @@
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
     "2062283789": "https://m.booking.naver.com/booking/5/bizes/1713086/items/7942217",
     "2018920557": "https://m.booking.naver.com/booking/12/bizes/1737304",
-    "2067695542": "https://m.booking.naver.com/booking/12/bizes/1732164",
+    "2067695542": "https://m.booking.naver.com/booking/12/bizes/1732164/items/8030545",
     "2020855313": "https://m.booking.naver.com/booking/12/bizes/1696844/items/7856242",
     "2021908137": "https://m.booking.naver.com/booking/6/bizes/1643675/items/7627870",
     "2069285502": "https://m.booking.naver.com/booking/12/bizes/1739360/items/8065031",
