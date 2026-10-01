@@ -234,7 +234,10 @@ function monitorRows() {
 
 function renderNow() {
   // 순서는 monitors.json 그대로 — 감시 목록과 같은 자리에 있어야 찾기 쉽다.
-  const rows = monitorRows();
+  // "자리 있는 것만"에서는 전 회차 매진인 브랜드를 통째로 숨긴다. 전부 보려면 '전 시간대'.
+  const all = monitorRows();
+  const rows = onlyFree ? all.filter(r => r.left > 0) : all;
+  const hiddenBrands = all.length - rows.length;
 
   const out = rows.map(({ m, days, left, stockAt }) => {
     const open = closedCards.has(m.id) ? false : (openCards.has(m.id) || left > 0);
@@ -287,7 +290,9 @@ function renderNow() {
     </div>`;
   }).join('');
 
-  $('now-list').innerHTML = out
+  const soldNote = hiddenBrands
+    ? `<div class="allsold">전부 매진된 ${hiddenBrands}곳은 숨겼습니다 · 위 ‘전 시간대’로 볼 수 있어요</div>` : '';
+  $('now-list').innerHTML = (out + soldNote)
     || '<div class="empty">아직 잡힌 재고 스냅샷이 없습니다.<br>모니터가 한 바퀴 돌면 채워집니다.</div>';
 }
 
