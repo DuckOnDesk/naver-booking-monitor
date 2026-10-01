@@ -70,7 +70,9 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
+from collections import deque
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -392,14 +394,19 @@ class NewItemWatcher:
         self.known |= ids
         return fresh
 
-    def sleep(self, seconds: float) -> bool:
-        """seconds 동안 쉬되, 새 항목이 보이면 바로 깨어난다. 깨어났으면 True."""
+    def sleep(self, seconds: float, tick=None) -> bool:
+        """seconds 동안 쉬되, 새 항목이 보이면 바로 깨어난다. 깨어났으면 True.
+
+        tick은 1초마다 부르는 콜백. True를 돌려주면 바로 깨어난다 (예약창 열림 전환 등).
+        """
         end = time.monotonic() + seconds
         while True:
             left = end - time.monotonic()
             if left <= 0:
                 return False
-            time.sleep(min(left, max(0.1, self._next_poll - time.monotonic())))
+            time.sleep(min(left, 1.0, max(0.1, self._next_poll - time.monotonic())))
+            if tick is not None and tick():
+                return True
             if time.monotonic() >= self._next_poll:
                 fresh = self.poll()
                 if fresh:
@@ -2205,7 +2212,11 @@ class UrlGate:
         return self._closed
 
     def verify_open(self) -> bool:
-        """자동예약 직전 확인. 이번 회차에 아직 안 봤으면 주기를 무시하고 지금 본다."""
+        """자동예약 직전 확인. 이번 회차에 아직 안 봤으면 주기를 무시하고 지금 본다.
+
+        백그라운드 워커가 돌고 있어도 여기만은 기다려서라도 지금 상태를 본다.
+        닫힌 페이지에 대고 예약을 거는 게 가장 큰 손해라서다.
+        """
         if not self.checked:
             self._run_check()
         return not self._closed
@@ -2221,12 +2232,30 @@ class UrlGate:
 
         note를 주면 닫힘→열림 전환 알림 제목에 그 사유가 붙는다.
         """
+        if _gate_worker is not None:
+            # 결과는 기다리지 않는다. 워커가 확인하면 다음 항목 경계에서 반영되고,
+            # 열림 전환이면 그 항목을 곧바로 다시 확인한다.
+            self.consulted = True
+            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
+            _gate_worker.request(self.item_id, note)
+            return self._closed
         self._ensure(note)
         return self._closed
 
     def _ensure(self, note: str = "") -> None:
         self.consulted = True
         if self.checked:
+            return
+        if _gate_worker is not None:
+            # 상태 확인은 백그라운드 워커가 맡는다. 여기서는 관심만 등록하고 마지막
+            # 상태를 쓴다 — 닫힘은 GATE_CLOSED_RECHECK_SEC, 열림은 URL_RECHECK_SEC마다
+            # 워커가 다시 본다. 이 프로세스에서 한 번도 확인한 적 없고 닫힘 기록도 없는
+            # 항목만은 '열림'이라 단정할 근거가 없으니 기다려서 확인한다.
+            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
+            if self._closed or self.item_id in _url_checked_at:
+                _note_url_skip("백그라운드")
+                return
+            self._run_check(note)
             return
         # 닫혀 있으면 매 회차 본다. 열려 있는 항목만 주기를 둔다 — 열림→닫힘은
         # 늦게 알아도 손해가 작지만, 닫힘→열림은 오픈 순간이라 늦으면 그대로 놓친다.
@@ -2241,9 +2270,22 @@ class UrlGate:
 
     def _run_check(self, note: str = "") -> None:
         global _url_checks_done
-        raw_closed, reason = _playwright_check(self.url)
+        started = time.monotonic()
+        raw_closed, reason = browser_check(self.url)
         self.checked = True
         _url_checks_done += 1
+        self._apply(raw_closed, reason, note, started)
+
+    def _apply(self, raw_closed: bool | None, reason: str, note: str = "",
+               started: float | None = None) -> None:
+        """확인 결과를 상태·로그·알림에 반영한다. 반드시 메인 스레드에서 부른다.
+
+        started는 확인을 시작한 시각. 더 나중에 시작한 확인이 이미 반영돼 있으면
+        이 결과는 옛 것이므로 버린다 (워커 결과와 직접 확인이 엇갈릴 때).
+        """
+        last = _url_checked_at.get(self.item_id)
+        if started is not None and last is not None and started < last:
+            return
         alerted, name, now_str = self.alerted, self.name, self.now_str
         if raw_closed is None:
             # 페이지를 못 읽은 회차. 열림/닫힘 어느 쪽으로도 바꾸지 않고 직전 상태를
@@ -2253,7 +2295,7 @@ class UrlGate:
                       f"({'닫힘' if self._closed else '열림'}) 유지 ({reason})",
                       sig="확인실패", now_str=now_str)
             return
-        _url_checked_at[self.item_id] = time.monotonic()
+        _url_checked_at[self.item_id] = started if started is not None else time.monotonic()
 
         was_closed = self._closed
         self._closed = raw_closed
@@ -2300,6 +2342,174 @@ class UrlGate:
                       sig="열림", now_str=now_str)
 
 
+# ── 예약창 확인 백그라운드 워커 ────────────────────────────────────────
+# 자리 확인 루프(API)와 예약창 확인(브라우저)을 나눈다. 브라우저 확인은 한 번에
+# 4~17초라, 자리 있고 닫힌 항목이 여럿이면 회차가 4분 넘게 늘었다 (2026-09-29).
+# 워커 스레드가 브라우저를 혼자 쥐고 관심 항목을 회차와 무관하게 돌며 확인하고,
+# 결과는 큐로 넘긴다. 상태(alerted)·로그·알림 반영은 메인 스레드가 항목 사이와
+# 대기 중에 한다 — alerted를 두 스레드가 같이 만지면 저장·커밋 도중에 dict가 바뀐다.
+# 닫힌 항목을 다시 확인하기까지의 간격(초).
+GATE_CLOSED_RECHECK_SEC = _env_num("GATE_CLOSED_RECHECK_SEC", 30)
+# 이 시간 동안 관심(자리 발견)이 없던 항목은 워커가 그만 본다.
+GATE_WATCH_TTL_SEC = _env_num("GATE_WATCH_TTL_SEC", 600)
+# 자동예약 직전 확인 등 기다리는 요청의 최대 대기(초).
+GATE_SYNC_TIMEOUT_SEC = _env_num("GATE_SYNC_TIMEOUT_SEC", 60)
+
+
+class GateWorker(threading.Thread):
+    def __init__(self) -> None:
+        super().__init__(name="gate-worker", daemon=True)
+        self._cv = threading.Condition()
+        self._watches: dict[str, dict] = {}     # item_id → {item, url, topic, closed, last, seen}
+        self._urgent: deque = deque()           # (item_id|None, url, note, box|None)
+        self._results: list = []                # (item_id, raw_closed, reason, note, started)
+        self._stopping = False
+
+    # ── 메인 스레드에서 부르는 쪽 ──
+    def watch(self, item: dict, item_id: str, url: str, topic: str, closed: bool) -> None:
+        with self._cv:
+            w = self._watches.get(item_id)
+            if w is None:
+                w = self._watches[item_id] = {"last": _url_checked_at.get(item_id, 0.0),
+                                              "closed": closed}
+                self._cv.notify()
+            w.update(item=item, url=url, topic=topic, seen=time.monotonic())
+
+    def request(self, item_id: str, note: str = "") -> None:
+        """관심 항목을 차례를 당겨 한 번 확인한다 (기다리지 않는다)."""
+        with self._cv:
+            w = self._watches.get(item_id)
+            if w is not None:
+                self._urgent.append((item_id, w["url"], note, None))
+                self._cv.notify()
+
+    def check_now(self, url: str) -> tuple[bool | None, str]:
+        """지금 확인하고 결과를 기다린다."""
+        box: dict = {"ev": threading.Event()}
+        with self._cv:
+            self._urgent.appendleft((None, url, "", box))
+            self._cv.notify()
+        if not box["ev"].wait(GATE_SYNC_TIMEOUT_SEC):
+            return None, f"예약창 확인 대기 {GATE_SYNC_TIMEOUT_SEC}초 초과"
+        return box["res"]
+
+    def drain(self) -> list:
+        with self._cv:
+            out, self._results = self._results, []
+        return out
+
+    def watch_info(self, item_id: str) -> dict | None:
+        with self._cv:
+            w = self._watches.get(item_id)
+            return dict(w) if w else None
+
+    def stop(self) -> None:
+        with self._cv:
+            self._stopping = True
+            self._cv.notify()
+        self.join(timeout=30)
+
+    # ── 워커 스레드 ──
+    def _next_task(self):
+        """((item_id, url, note, box), 0) 또는 (None, 대기초). 락을 쥔 채로 부른다."""
+        now = time.monotonic()
+        if self._urgent:
+            return self._urgent.popleft(), 0.0
+        for iid in [i for i, w in self._watches.items() if now - w["seen"] > GATE_WATCH_TTL_SEC]:
+            del self._watches[iid]
+        best, best_due = None, None
+        for iid, w in self._watches.items():
+            due = w["last"] + (GATE_CLOSED_RECHECK_SEC if w["closed"] else URL_RECHECK_SEC)
+            if best_due is None or due < best_due:
+                best, best_due = iid, due
+        if best is None:
+            return None, 5.0
+        if best_due > now:
+            return None, min(best_due - now, 5.0)
+        return (best, self._watches[best]["url"], "", None), 0.0
+
+    def run(self) -> None:
+        try:
+            while True:
+                with self._cv:
+                    if self._stopping:
+                        return
+                    task, wait = self._next_task()
+                    if task is None:
+                        self._cv.wait(wait)
+                        continue
+                item_id, url, note, box = task
+                started = time.monotonic()
+                try:
+                    raw_closed, reason = _playwright_check(url)
+                except Exception as exc:     # 워커가 죽으면 예약창 확인이 통째로 멎는다
+                    raw_closed, reason = None, _exc_label(exc)
+                with self._cv:
+                    if box is not None:
+                        box["res"] = (raw_closed, reason)
+                        box["ev"].set()
+                        continue
+                    w = self._watches.get(item_id)
+                    if w is not None:
+                        # 못 읽었으면 주기를 다 기다리지 않고 10초 뒤 다시 본다
+                        if raw_closed is None:
+                            gap = GATE_CLOSED_RECHECK_SEC if w["closed"] else URL_RECHECK_SEC
+                            w["last"] = time.monotonic() - max(0, gap - 10)
+                        else:
+                            w["last"] = started
+                            w["closed"] = raw_closed
+                    self._results.append((item_id, raw_closed, reason, note, started))
+        finally:
+            _browser_close()
+
+
+_gate_worker: GateWorker | None = None
+
+
+def browser_check(url: str) -> tuple[bool | None, str]:
+    """예약창 확인. 워커가 돌고 있으면 브라우저를 쥔 워커에게 맡기고 기다린다.
+
+    playwright sync API는 만든 스레드에서만 써야 해서, 워커가 있는 동안 메인
+    스레드가 직접 브라우저를 켜면 안 된다.
+    """
+    if _gate_worker is not None:
+        return _gate_worker.check_now(url)
+    return _playwright_check(url)
+
+
+def drain_gate_results(alerted: dict) -> set[str]:
+    """워커 결과를 상태에 반영한다 (메인 스레드). 닫힘→열림으로 바뀐 항목 id를 돌려준다."""
+    if _gate_worker is None:
+        return set()
+    opened: set[str] = set()
+    now_str = datetime.now(timezone(timedelta(hours=9))).strftime("%H:%M:%S")
+    for item_id, raw_closed, reason, note, started in _gate_worker.drain():
+        info = _gate_worker.watch_info(item_id)
+        if info is None or "item" not in info:
+            continue
+        gate = UrlGate(info["item"], item_id, info["url"], info["item"].get("name", "?"),
+                       alerted, info["topic"], now_str)
+        was_closed = gate._closed
+        gate._apply(raw_closed, reason, note, started)
+        if was_closed and not gate._closed:
+            opened.add(item_id)
+    return opened
+
+
+def start_gate_worker() -> GateWorker:
+    global _gate_worker
+    _gate_worker = GateWorker()
+    _gate_worker.start()
+    return _gate_worker
+
+
+def stop_gate_worker() -> None:
+    global _gate_worker
+    w, _gate_worker = _gate_worker, None
+    if w is not None:
+        w.stop()
+
+
 def log_url_check_summary() -> None:
     """이번 회차에 브라우저를 몇 번 켰고 몇 건을 건너뛰었는지 한 줄로.
 
@@ -2316,13 +2526,13 @@ def log_url_check_summary() -> None:
 
 def _playwright_final_url(url: str) -> str:
     """하위 호환용. 예약창 닫힘이면 '/error/' 포함 문자열 반환."""
-    is_closed, _ = _playwright_check(url)
+    is_closed, _ = browser_check(url)
     return "/error/" if is_closed else url
 
 
 def check_booking_accessible(url: str) -> bool:
     """예약 URL 접근 가능 여부. True = 열림."""
-    is_closed, _ = _playwright_check(url)
+    is_closed, _ = browser_check(url)
     return not is_closed
 
 
@@ -2351,7 +2561,13 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
     reprobe_reqs = load_reprobe_requests()  # 웹앱의 "운영 기간 초기화" 요청
 
     pending = list(active)
+    by_id = {m.get("id", m.get("name", "")): m for m in active}
     while pending:
+        # 워커가 그새 확인한 예약창 상태를 반영한다. 닫힘→열림이면 그 항목을 바로
+        # 다음 차례로 다시 본다 — 열린 순간의 🎉 자리 알림을 회차 끝까지 미루지 않도록.
+        for oid in drain_gate_results(alerted):
+            if oid in by_id:
+                pending[:] = [by_id[oid]] + [m for m in pending if m is not by_id[oid]]
         # 회차 도중에 추가된 항목은 회차가 끝날 때까지 기다리지 않고 바로 다음 차례로 본다
         if watcher is not None:
             fresh = watcher.poll()
@@ -3485,6 +3701,16 @@ def main():
     base_interval = interval    # 백오프에서 되돌아올 기준 주기
     clean_rounds = 0            # 속도 제한 없이 연달아 지난 회차 수
     watcher = NewItemWatcher()
+    start_gate_worker()
+
+    def on_tick() -> bool:
+        # 대기 중에도 예약창 결과를 반영한다. 열림으로 바뀐 항목이 있으면 바로 다음
+        # 회차로 가서 그 항목부터 본다 (자리 알림까지 이어지게).
+        opened = drain_gate_results(alerted)
+        if opened:
+            watcher.known -= opened
+            return True
+        return False
 
     while time.time() < end_time:
         iteration += 1
@@ -3555,10 +3781,11 @@ def main():
         remaining = end_time - time.time()
         if remaining > wait:
             if wait > 0:
-                watcher.sleep(wait)     # 새 항목이 보이면 바로 다음 회차로
+                watcher.sleep(wait, on_tick)    # 새 항목·예약창 열림이면 바로 다음 회차로
         else:
             break
 
+    stop_gate_worker()
     print("=== 루프 종료 ===", flush=True)
 
 
