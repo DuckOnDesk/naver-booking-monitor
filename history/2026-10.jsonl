@@ -89,3 +89,6 @@
 {"ts": "2026-10-02T07:48:30+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "level": "closed", "title": "🔒 리베르 자리 추가됨 (예약창 닫힘)", "slots": {"13:30": 1, "15:30": 1}}
 {"ts": "2026-10-02T07:49:39+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "change": "예약 변동(예약 취소)", "stock": [54, 54], "booked": [52, 51], "slots": {"15:30": {"from": [3, 2], "to": [3, 1]}}, "scope": ""}
 {"ts": "2026-10-02T07:49:39+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "level": "closed", "title": "🔒 리베르 자리 추가됨 (예약창 닫힘)", "slots": {"13:30": 1, "15:30": 2}}
+{"ts": "2026-10-02T08:02:26+09:00", "kind": "stock", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-02", "change": "예약 변동(예약 취소)", "stock": [48, 48], "booked": [48, 46], "slots": {"18:00": {"from": [6, 6], "to": [6, 4]}}, "scope": ""}
+{"ts": "2026-10-02T08:02:34+09:00", "kind": "gate", "item": "mudeg9zf", "name": "크록스", "open": false, "reason": "URL 리다이렉트: /error/ type=InvalidBusiness — \"운영하지 않는 예매 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
+{"ts": "2026-10-02T08:02:34+09:00", "kind": "alert", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-02", "level": "closed", "title": "🔒 크록스 자리 있음 (예약창 닫힘)", "slots": {"18:00": 2}}
