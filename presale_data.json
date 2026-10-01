@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T13:01:09.744788+09:00",
+  "updated_at": "2026-10-01T13:06:38.134353+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -588,36 +588,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2045660928",
-      "name": "오늘은 1004",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
-      "bookingBusinessId": "1744636",
-      "operationStart": "26.10.02.",
-      "operationEnd": "26.10.05.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260922_268/1790064011817lMDFB_JPEG/edited-1790064011947-0.jpg",
-      "roadAddress": "연무장13길 11 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-23T18:27:31.319787+09:00"
-      ],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:00.643401+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
-      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
-      "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
-      "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
-      "bookingIsOpened": true
-    },
-    {
       "id": "2052542419",
       "name": "URBAN WELLNESS FAIR",
       "hasBooking": true,
@@ -645,6 +615,36 @@
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
+      "bookingIsOpened": true
+    },
+    {
+      "id": "2045660928",
+      "name": "오늘은 1004",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
+      "bookingBusinessId": "1744636",
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260922_268/1790064011817lMDFB_JPEG/edited-1790064011947-0.jpg",
+      "roadAddress": "연무장13길 11 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T18:27:31.319787+09:00"
+      ],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:00.643401+09:00",
+      "bookingPaused": false,
+      "saleStartDate": "",
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
+      "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
+      "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
       "bookingIsOpened": true
     },
     {
@@ -1412,7 +1412,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -3480,12 +3480,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T13:00:58.647865+09:00",
+    "checked_at": "2026-10-01T13:06:36.144306+09:00",
     "areas_total": 34,
-    "areas_ok": 34,
+    "areas_ok": 33,
     "areas_failed": 0,
-    "areas_empty": 0,
-    "candidate_items": 822,
+    "areas_empty": 1,
+    "candidate_items": 806,
     "presale_items": 196,
     "after_district_filter": 102,
     "fallback_matched": 0,
@@ -3494,7 +3494,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-01T11:21:46.768424+09:00",
     "admission_names": {
-      "(없음)": 419,
+      "(없음)": 403,
       "현장대기": 207,
       "사전예약&현장대기": 151,
       "사전예약": 45
