@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T05:34:51.277749+09:00",
+  "updated_at": "2026-10-02T05:40:16.465366+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -103,7 +103,8 @@
         "2026-09-30T17:34:51.681408+09:00",
         "2026-09-30T20:57:33.330391+09:00",
         "2026-10-01T00:23:14.656737+09:00",
-        "2026-10-01T13:12:03.824775+09:00"
+        "2026-10-01T13:12:03.824775+09:00",
+        "2026-10-02T05:40:14.386450+09:00"
       ],
       "bookingOpenAuto": "2026-09-14T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:35.712443+09:00",
@@ -711,7 +712,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1899,13 +1900,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-19T15:41:56.167511+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2078141397",
@@ -3298,6 +3292,13 @@
       "place_name": "콜라보카페 세이브포인트",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/items/8059668",
       "ts": "2026-10-02T05:18:24.960526+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071088201",
+      "place_name": "클리오 풍년다방 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
+      "ts": "2026-10-02T05:40:14.386450+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3464,7 +3465,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T05:34:49.170845+09:00",
+    "checked_at": "2026-10-02T05:40:14.386450+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
