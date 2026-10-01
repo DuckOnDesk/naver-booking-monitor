@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T12:55:33.395258+09:00",
+  "updated_at": "2026-10-01T13:01:09.744788+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -227,7 +227,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-01T12:28:04.851612+09:00",
+      "bookingItemCheckedAt": "2026-10-01T13:00:58.647865+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -427,7 +427,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:10.102919+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:04.210864+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -607,7 +607,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:06.857210+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:00.643401+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1020,7 +1020,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:10.895797+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:05.098777+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1050,7 +1050,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:11.708306+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:06.034290+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1106,7 +1106,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:12.345016+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:06.632597+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1437,7 +1437,7 @@
         "2026-10-01T11:16:14.727386+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:07.667654+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:01.456160+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1567,7 +1567,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-01T12:28:04.851612+09:00",
+      "bookingItemCheckedAt": "2026-10-01T13:00:58.647865+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1704,7 +1704,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:13.574219+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:08.284841+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1816,7 +1816,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:09.306252+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:03.104737+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1904,7 +1904,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T12:28:14.386985+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:08.916034+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3480,12 +3480,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T12:55:31.426056+09:00",
+    "checked_at": "2026-10-01T13:00:58.647865+09:00",
     "areas_total": 34,
-    "areas_ok": 33,
+    "areas_ok": 34,
     "areas_failed": 0,
-    "areas_empty": 1,
-    "candidate_items": 820,
+    "areas_empty": 0,
+    "candidate_items": 822,
     "presale_items": 196,
     "after_district_filter": 102,
     "fallback_matched": 0,
@@ -3494,7 +3494,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-01T11:21:46.768424+09:00",
     "admission_names": {
-      "(없음)": 417,
+      "(없음)": 419,
       "현장대기": 207,
       "사전예약&현장대기": 151,
       "사전예약": 45
