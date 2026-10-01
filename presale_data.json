@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T03:18:42.511738+09:00",
+  "updated_at": "2026-10-02T03:24:07.846382+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -711,7 +711,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -759,7 +759,8 @@
         "2026-10-01T10:15:18.263261+09:00",
         "2026-10-01T15:52:14.493609+09:00",
         "2026-10-01T19:15:39.126908+09:00",
-        "2026-10-02T00:10:22.188884+09:00"
+        "2026-10-02T00:10:22.188884+09:00",
+        "2026-10-02T03:24:05.899615+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1362,7 +1363,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -1897,13 +1898,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-19T10:48:33.408738+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033849367",
@@ -3296,6 +3290,13 @@
       "place_name": "블루 록 2026 더 라스트 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "ts": "2026-10-02T01:46:01.820087+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-02T03:24:05.899615+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3462,7 +3463,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T03:18:40.504487+09:00",
+    "checked_at": "2026-10-02T03:24:05.899615+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3476,8 +3477,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-01T14:18:35.921801+09:00",
     "admission_names": {
-      "(없음)": 378,
-      "현장대기": 202,
+      "(없음)": 379,
+      "현장대기": 201,
       "사전예약&현장대기": 144,
       "사전예약": 47
     },
