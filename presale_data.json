@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T10:09:51.835723+09:00",
+  "updated_at": "2026-10-01T10:15:29.556689+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -226,7 +226,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-01T09:42:18.305754+09:00",
+      "bookingItemCheckedAt": "2026-10-01T10:15:18.263261+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": false
@@ -396,7 +396,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:24.132809+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:24.399996+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -606,7 +606,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:20.181302+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:20.343172+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -849,7 +849,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -893,7 +893,8 @@
         "2026-09-30T13:57:28.192666+09:00",
         "2026-09-30T17:34:51.681408+09:00",
         "2026-09-30T20:57:11.265057+09:00",
-        "2026-10-01T00:23:14.656737+09:00"
+        "2026-10-01T00:23:14.656737+09:00",
+        "2026-10-01T10:15:18.263261+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -934,7 +935,7 @@
         "2026-09-23T00:30:48.692884+09:00"
       ],
       "bookingOpenAuto": "2026-10-01T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:21.022762+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:21.148519+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": true,
@@ -1018,7 +1019,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:24.936540+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:25.020824+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1048,7 +1049,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:25.757960+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:25.673876+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1104,7 +1105,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:26.573461+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:26.499797+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1404,7 +1405,7 @@
         "2026-10-01T05:53:32.191685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:21.626491+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:21.950125+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1413,34 +1414,6 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-18T11:11:53.128750+09:00",
       "bookingIsOpened": true
-    },
-    {
-      "id": "2012544467",
-      "name": "Millerknoll 고객 라운지",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.09.13.",
-      "operationEnd": "26.12.10.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_73/1790567999329YrH4F_JPEG/%BF%C0%B8%A7%BE%D8%C4%C4%C6%DB%B4%CF_09160493.jpg",
-      "roadAddress": "국제금융로 10 IFC몰 L3 튜브라운지",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
     },
     {
       "id": "2066913017",
@@ -1467,6 +1440,34 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-28T18:46:40.043419+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2012544467",
+      "name": "Millerknoll 고객 라운지",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.09.13.",
+      "operationEnd": "26.12.10.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_73/1790567999329YrH4F_JPEG/%BF%C0%B8%A7%BE%D8%C4%C4%C6%DB%B4%CF_09160493.jpg",
+      "roadAddress": "국제금융로 10 IFC몰 L3 튜브라운지",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1534,7 +1535,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-01T09:42:18.305754+09:00",
+      "bookingItemCheckedAt": "2026-10-01T10:15:18.263261+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1671,7 +1672,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:28.200761+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:28.146209+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1783,7 +1784,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:23.328855+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:23.595256+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1871,7 +1872,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T09:42:28.874648+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T10:15:28.947696+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1883,13 +1884,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2074820669",
-      "place_name": "연리재 팝업",
-      "booking_url": "",
-      "ts": "2026-09-18T12:53:59.950469+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2037868948",
@@ -3282,6 +3276,13 @@
       "place_name": "블루 록 2026 더 라스트 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "ts": "2026-10-01T05:53:32.191685+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-01T10:15:18.263261+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3445,12 +3446,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T10:09:49.812539+09:00",
+    "checked_at": "2026-10-01T10:15:18.263261+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 771,
+    "candidate_items": 786,
     "presale_items": 194,
     "after_district_filter": 99,
     "fallback_matched": 0,
@@ -3459,7 +3460,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-01T02:33:26.602508+09:00",
     "admission_names": {
-      "(없음)": 370,
+      "(없음)": 385,
       "현장대기": 207,
       "사전예약&현장대기": 147,
       "사전예약": 47
