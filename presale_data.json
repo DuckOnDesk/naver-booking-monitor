@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T07:32:27.264801+09:00",
+  "updated_at": "2026-10-02T07:37:52.970102+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1413,7 +1413,7 @@
       "remainingDays": null,
       "status": "진행중",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260920_255/17898703377041FLNR_JPEG/edited-1789870335789-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261002_294/1790893589829xvnXm_JPEG/edited-1790893589778-0.jpg",
       "roadAddress": "여의대로 108 3층 에이레네 팝업스토어",
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
@@ -3465,7 +3465,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T07:32:17.411789+09:00",
+    "checked_at": "2026-10-02T07:37:50.706435+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
