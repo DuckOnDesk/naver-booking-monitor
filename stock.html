@@ -310,15 +310,35 @@ function setOnlyFree(v) {
 
 // ── 이력 ─────────────────────────────────────────────────────────────
 // history/YYYY-MM.jsonl — 모니터가 회차마다 덧붙인다 (한 줄 = 한 사건).
-function monthOptions() {
+// 모니터가 보관하는 달 수(check_booking.py HISTORY_KEEP_MONTHS)와 맞춘다.
+const HISTORY_MONTHS = 3;
+
+function recentMonths() {
   const now = new Date(Date.now() + 9 * 3600 * 1000);   // KST
-  const opts = [];
-  for (let i = 0; i < 3; i++) {
+  const keys = [];
+  for (let i = 0; i < HISTORY_MONTHS; i++) {
     const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
-    const key = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
-    opts.push(`<option value="${key}">${key}</option>`);
+    keys.push(`${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`);
   }
-  $('f-month').innerHTML = opts.join('');
+  return keys;
+}
+
+function monthOptions() {
+  $('f-month').innerHTML = recentMonths().map(k => `<option value="${k}">${k}</option>`).join('')
+    + '<option value="all">전체 기간</option>';
+}
+
+// 한 달 치 이력. 그 달에 기록이 없으면 파일 자체가 없다 (404) — 오류가 아니다.
+async function fetchMonth(month) {
+  try {
+    const r = await fetch(fresh(`history/${month}.jsonl`), { cache: 'no-store' });
+    return !r.ok ? [] : (await r.text()).split('\n')
+      .filter(l => l.trim())
+      .map(l => { try { return JSON.parse(l); } catch { return null; } })
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
 }
 
 // 감시 목록에서 지운 항목도 이력에는 남는다. 현재 목록과 이력에 이름이 있는 항목을
@@ -336,16 +356,8 @@ async function loadMonth() {
   const month = $('f-month').value;
   shown = 60;
   $('hist-list').innerHTML = '<div class="empty">불러오는 중...</div>';
-  try {
-    const r = await fetch(fresh(`history/${month}.jsonl`), { cache: 'no-store' });
-    // 그 달에 기록이 없으면 파일 자체가 없다 (404) — 오류가 아니다.
-    history = !r.ok ? [] : (await r.text()).split('\n')
-      .filter(l => l.trim())
-      .map(l => { try { return JSON.parse(l); } catch { return null; } })
-      .filter(Boolean);
-  } catch {
-    history = [];
-  }
+  const months = month === 'all' ? recentMonths() : [month];
+  history = (await Promise.all(months.map(fetchMonth))).flat();
   // 파일은 시간순으로 덧붙지만, 그 순서에 기대지 않고 명시적으로 최신순으로 세운다.
   history.sort((a, b) => (a.ts < b.ts ? 1 : a.ts > b.ts ? -1 : 0));
   fillItemFilter();
