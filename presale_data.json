@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T13:17:33.730950+09:00",
+  "updated_at": "2026-10-01T13:23:02.304816+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -118,7 +118,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -162,7 +162,8 @@
         "2026-09-30T09:05:28.389572+09:00",
         "2026-09-30T12:24:50.878800+09:00",
         "2026-09-30T19:19:15.507043+09:00",
-        "2026-10-01T00:23:14.656737+09:00"
+        "2026-10-01T00:23:14.656737+09:00",
+        "2026-10-01T13:23:00.297415+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -559,6 +560,36 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2045660928",
+      "name": "오늘은 1004",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
+      "bookingBusinessId": "1744636",
+      "operationStart": "26.10.02.",
+      "operationEnd": "26.10.05.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260922_268/1790064011817lMDFB_JPEG/edited-1790064011947-0.jpg",
+      "roadAddress": "연무장13길 11 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T18:27:31.319787+09:00"
+      ],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:00.643401+09:00",
+      "bookingPaused": false,
+      "saleStartDate": "",
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
+      "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
+      "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
+      "bookingIsOpened": true
+    },
+    {
       "id": "2015282909",
       "name": "방탈출 게임 <점프x컷>",
       "hasBooking": false,
@@ -616,36 +647,6 @@
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
-      "bookingIsOpened": true
-    },
-    {
-      "id": "2045660928",
-      "name": "오늘은 1004",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
-      "bookingBusinessId": "1744636",
-      "operationStart": "26.10.02.",
-      "operationEnd": "26.10.05.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260922_268/1790064011817lMDFB_JPEG/edited-1790064011947-0.jpg",
-      "roadAddress": "연무장13길 11 1층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-23T18:27:31.319787+09:00"
-      ],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-01T13:01:00.643401+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T10:44:50.439114+09:00",
-      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
-      "discoveredAt": "2026-09-23T12:22:40.973942+09:00",
-      "lastBookingNotifiedAt": "2026-09-23T18:27:34.554515+09:00",
       "bookingIsOpened": true
     },
     {
@@ -1917,13 +1918,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2035313838",
-      "place_name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-09-18T16:54:56.639593+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2024677130",
@@ -3316,6 +3310,13 @@
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "ts": "2026-10-01T13:12:03.824775+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-10-01T13:23:00.297415+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3481,7 +3482,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T13:17:31.694723+09:00",
+    "checked_at": "2026-10-01T13:23:00.297415+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
