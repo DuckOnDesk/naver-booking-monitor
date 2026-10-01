@@ -15,6 +15,7 @@
   - 대기 중에 열림 전환이 잡히면 바로 깨어난다
   - 자동예약 직전 확인은 워커를 거쳐서라도 기다려서 본다 (닫혀 있으면 시도 안 함)
   - 자리가 사라진 회차의 확인은 기다리지 않고 워커에 맡긴다
+  - 자리 없이 예약창만 열리면 '지금은 자리 없음'으로 알린다
   - 관심이 끊긴 항목은 워커가 그만 본다
 
 사용법: python check_booking_gateworker_test.py
@@ -194,6 +195,38 @@ def main() -> int:
         print("7) 자리가 사라진 회차의 확인은 워커에 맡기고 기다리지 않는다")
         logs, got, main_calls, took = run_round([unit("11:00", stock=4, booked=4)], alerted, item)
         check(main_calls == 0, "메인 스레드 확인 없음")
+
+        print("7-1) 자리 없이 예약창만 열리면 문구가 다르다")
+        closed_now = True
+        alerted["w1:url_closed"] = 1
+        cb._gate_worker.watch(item, "w1", URL, "topic", True)
+        cb._gate_worker._watches["w1"]["closed"] = True
+        poke()
+        wait_for(lambda: False, 0.3)
+        cb.drain_gate_results(alerted)
+        before = len(sent)
+        closed_now = False
+        wait_for(lambda: cb._gate_worker.watch_info("w1")["closed"] is False)
+        cb.drain_gate_results(alerted)
+        got = sent[before:]
+        check(any("예약창 열림" in t and "지금은 자리 없음" in t for t in got),
+              f"자리 없음 문구 (실제: {got})")
+
+        print("7-2) 자리가 남아 있으면 기존 문구 그대로")
+        closed_now = True
+        alerted["w1:url_closed"] = 1
+        alerted[f"w1:{D}:stock"] = {"11:00": [4, 1]}
+        cb._gate_worker._watches["w1"]["closed"] = True
+        poke()
+        wait_for(lambda: False, 0.3)
+        cb.drain_gate_results(alerted)
+        before = len(sent)
+        closed_now = False
+        wait_for(lambda: cb._gate_worker.watch_info("w1")["closed"] is False)
+        cb.drain_gate_results(alerted)
+        got = sent[before:]
+        check(bool(got) and all("자리 없음" not in t for t in got)
+              and any("예약창 열림" in t for t in got), f"기존 문구 (실제: {got})")
 
         print("8) 관심이 끊긴 항목은 워커가 그만 본다")
         cb.GATE_WATCH_TTL_SEC = 0.3

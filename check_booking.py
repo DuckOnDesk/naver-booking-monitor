@@ -2208,8 +2208,29 @@ class UrlGate:
     @property
     def closed(self) -> bool:
         """지금 닫혀 있는가. 필요하면 여기서 브라우저를 켠다."""
-        self._ensure()
+        self._ensure(seats=True)        # 자리를 찾았을 때만 묻는다
         return self._closed
+
+    def _seats_left(self) -> int | None:
+        """자리 확인 루프의 마지막 재고 스냅샷 기준 남은 자리 수 (오늘 이후 날짜만).
+
+        스냅샷이 하나도 없으면 None (모름 — 자리 없음으로 단정하지 않는다).
+        """
+        today = datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d")
+        prefix, found, left = f"{self.item_id}:", False, 0
+        for k, v in self.alerted.items():
+            if not (k.startswith(prefix) and k.endswith(STOCK_KEY_SUFFIX)):
+                continue
+            datekey = k[len(prefix):-len(STOCK_KEY_SUFFIX)]
+            if datekey < today or not isinstance(v, dict):
+                continue
+            found = True
+            for pair in v.values():
+                try:
+                    left += max(0, int(pair[0]) - int(pair[1]))
+                except (TypeError, ValueError, IndexError):
+                    pass
+        return left if found else None
 
     def verify_open(self) -> bool:
         """자동예약 직전 확인. 이번 회차에 아직 안 봤으면 주기를 무시하고 지금 본다.
@@ -2218,7 +2239,7 @@ class UrlGate:
         닫힌 페이지에 대고 예약을 거는 게 가장 큰 손해라서다.
         """
         if not self.checked:
-            self._run_check()
+            self._run_check(seats=True)
         return not self._closed
 
     def probe(self, note: str = "") -> bool:
@@ -2239,10 +2260,10 @@ class UrlGate:
             _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
             _gate_worker.request(self.item_id, note)
             return self._closed
-        self._ensure(note)
+        self._ensure(note, seats=False)  # 자리가 사라진 회차에서만 부른다
         return self._closed
 
-    def _ensure(self, note: str = "") -> None:
+    def _ensure(self, note: str = "", seats: bool | None = None) -> None:
         self.consulted = True
         if self.checked:
             return
@@ -2255,30 +2276,33 @@ class UrlGate:
             if self._closed or self.item_id in _url_checked_at:
                 _note_url_skip("백그라운드")
                 return
-            self._run_check(note)
+            self._run_check(note, seats)
             return
         # 닫혀 있으면 매 회차 본다. 열려 있는 항목만 주기를 둔다 — 열림→닫힘은
         # 늦게 알아도 손해가 작지만, 닫힘→열림은 오픈 순간이라 늦으면 그대로 놓친다.
         if self._closed:
-            self._run_check(note)
+            self._run_check(note, seats)
             return
         last = _url_checked_at.get(self.item_id)
         if last is not None and (time.monotonic() - last) < URL_RECHECK_SEC:
             _note_url_skip("주기 대기")
             return
-        self._run_check(note)
+        self._run_check(note, seats)
 
-    def _run_check(self, note: str = "") -> None:
+    def _run_check(self, note: str = "", seats: bool | None = None) -> None:
         global _url_checks_done
         started = time.monotonic()
         raw_closed, reason = browser_check(self.url)
         self.checked = True
         _url_checks_done += 1
-        self._apply(raw_closed, reason, note, started)
+        self._apply(raw_closed, reason, note, started, seats)
 
     def _apply(self, raw_closed: bool | None, reason: str, note: str = "",
-               started: float | None = None) -> None:
+               started: float | None = None, seats: bool | None = None) -> None:
         """확인 결과를 상태·로그·알림에 반영한다. 반드시 메인 스레드에서 부른다.
+
+        seats는 지금 잡을 자리가 있는지 (열림 알림 문구용). None이면 자리 확인
+        루프가 남긴 마지막 재고 스냅샷으로 판단한다 (워커 결과).
 
         started는 확인을 시작한 시각. 더 나중에 시작한 확인이 이미 반영돼 있으면
         이 결과는 옛 것이므로 버린다 (워커 결과와 직접 확인이 엇갈릴 때).
@@ -2332,10 +2356,21 @@ class UrlGate:
                     # 자리처럼 돌게 한다 (예전에는 일반 키로 옮겨 재알림을 막았다).
                     alerted.pop(k)
             label = f" ({note})" if note else ""
-            print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨){label}", flush=True)
+            # 예약창만 열리고 자리는 없는 경우가 있다 (열리자마자 다 나갔거나 아직 안
+            # 풀린 경우). 같은 문구로 알리면 들어가 봐도 잡을 게 없으니 구분해 준다.
+            left = self._seats_left() if seats is None else None
+            no_seats = seats is False or (seats is None and left == 0)
+            if no_seats:
+                title = f"✅ {name} 예약창 열림{label} · 지금은 자리 없음"
+                body = "예약창은 열렸지만 지금 남은 자리가 없습니다. 자리가 나면 다시 알려드릴게요."
+            else:
+                title = f"✅ {name} 예약창 열림{label}"
+                body = ("예약창이 열렸습니다. 직접 확인해보세요!"
+                        + (f" (남은 자리 {left}개)" if left else ""))
+            print(f"[{now_str}] ✅ {name} — 예약창 열림 (방금 전환됨){label}"
+                  + (" · 자리 없음" if no_seats else ""), flush=True)
             if self.ntfy_topic:
-                send_ntfy(self.ntfy_topic, f"✅ {name} 예약창 열림{label}",
-                          "예약창이 열렸습니다. 직접 확인해보세요!", self.url)
+                send_ntfy(self.ntfy_topic, title, body, self.url)
             _log_state[f"{self.item_id}:status"] = ("열림", time.monotonic())
         else:
             log_state(f"{self.item_id}:status", f"✅ {name} — 예약창 열림",
