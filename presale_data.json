@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T14:13:09.700856+09:00",
+  "updated_at": "2026-10-01T14:18:37.991328+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -36,7 +36,8 @@
     "2073808585",
     "2084168433",
     "2087335226",
-    "2088035530"
+    "2088035530",
+    "2098025724"
   ],
   "booking_open_datetimes": {},
   "manual_places": [],
@@ -118,7 +119,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -852,7 +853,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1414,7 +1415,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -1436,7 +1437,8 @@
         "2026-09-30T10:13:25.582525+09:00",
         "2026-09-30T21:02:56.775274+09:00",
         "2026-10-01T05:53:32.191685+09:00",
-        "2026-10-01T11:16:14.727386+09:00"
+        "2026-10-01T11:16:14.727386+09:00",
+        "2026-10-01T14:18:35.921801+09:00"
       ],
       "bookingOpenAuto": "",
       "bookingOpenAutoCheckedAt": "2026-10-01T14:07:33.003236+09:00",
@@ -1745,6 +1747,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2098025724",
+      "name": "웰니스 크루즈 한남",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.21.",
+      "operationEnd": "26.10.25.",
+      "remainingDays": 20,
+      "status": "D-20",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260915_108/1789464289924SdLHI_JPEG/edited-1789464288695-0.jpg",
+      "roadAddress": "독서당로29길 5-6",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-01T14:18:35.921801+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2037868948",
       "name": "우주이스케이프",
       "hasBooking": false,
@@ -1918,20 +1948,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2024677130",
-      "place_name": "2026 서리풀뮤직페스티벌",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1723408/items/8004889",
-      "ts": "2026-09-18T19:17:00.381190+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2078141397",
-      "place_name": "쿠팡 온리 페스타",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
-      "ts": "2026-09-18T20:46:07.495250+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2078141397",
@@ -3317,6 +3333,20 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-10-01T13:23:00.297415+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015914479",
+      "place_name": "블루 록 2026 더 라스트 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
+      "ts": "2026-10-01T14:18:35.921801+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2098025724",
+      "place_name": "웰니스 크루즈 한남",
+      "booking_url": "",
+      "ts": "2026-10-01T14:18:35.921801+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3478,28 +3508,29 @@
     "2093555347",
     "2095762499",
     "2097484673",
+    "2098025724",
     "2098663430",
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T14:13:07.687585+09:00",
+    "checked_at": "2026-10-01T14:18:35.921801+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 807,
-    "presale_items": 196,
-    "after_district_filter": 102,
+    "candidate_items": 809,
+    "presale_items": 198,
+    "after_district_filter": 103,
     "fallback_matched": 0,
-    "unique_place_ids": 59,
-    "tracked_places": 59,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-01T11:21:46.768424+09:00",
+    "unique_place_ids": 60,
+    "tracked_places": 60,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-01T14:18:35.921801+09:00",
     "admission_names": {
       "(없음)": 404,
       "현장대기": 207,
       "사전예약&현장대기": 151,
-      "사전예약": 45
+      "사전예약": 47
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
     "structure_warned_at": null
@@ -3811,7 +3842,8 @@
     "2087335226",
     "2088035530",
     "2090283048",
-    "2092452636"
+    "2092452636",
+    "2098025724"
   ],
   "watch_missing_since": {
     "2007416311": "2026-10-01T11:49:34.256695+09:00"
