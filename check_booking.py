@@ -141,6 +141,10 @@ SCHEDULE_CACHE_TTL_MIN = _env_num("SCHEDULE_CACHE_TTL_MIN", 60)
 # 한 회차에 재탐색할 최대 항목 수. 캐시가 한꺼번에 만료돼도 루프가 멈추지 않도록
 # 회차당 1건씩만 갱신해 자연스럽게 분산시킨다.
 SCHEDULE_REPROBE_PER_ROUND = _env_num("SCHEDULE_REPROBE_PER_ROUND", 1)
+# 새로 추가된 항목을 찾으려고 monitors.json을 다시 읽는 간격(초). 회차 도중(항목 사이)과
+# 회차 사이 대기 중에 모두 본다. 종전에는 회차 머리에서만 읽어, 회차가 4분쯤 걸리면
+# 방금 추가한 항목이 다음 회차까지 기다렸다 (2026-09-29 센녹: 추가 10분 뒤 첫 알림).
+NEW_ITEM_POLL_SEC = _env_num("NEW_ITEM_POLL_SEC", 20)
 # 운영 기간이 바뀌었을 때 ntfy 알림까지 보낼지 (0 = 로그만 남김).
 # 업체가 기간을 수시로 손대는 팝업(예: TFT 스탬프투어)이 있으면 알림이 계속 울려
 # 정작 중요한 자리 알림이 묻힌다. 변경 내용은 로그에 그대로 남으므로 기본은 끔.
@@ -322,25 +326,95 @@ def log_round_tick(iteration: int, remaining_min: float) -> None:
     _round_header = None
 
 
-def load_monitors(from_github: bool = False) -> dict:
-    if from_github:
-        # raw.githubusercontent.com은 CDN이 최대 5분까지 옛 내용을 줄 수 있어
+def fetch_remote_monitors() -> dict:
+    """GitHub의 최신 monitors.json. 실패하면 예외."""
+    # raw.githubusercontent.com은 CDN이 최대 5분까지 옛 내용을 줄 수 있어
         # 방금 추가한 항목이 한두 바퀴 늦게 반영된다. 토큰이 있으면 캐시 없는
         # contents API로 읽고, 없으면 쿼리로 CDN 캐시를 우회한다.
-        token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or ""
-        repo = os.environ.get("GITHUB_REPOSITORY", "DuckOnDesk/naver-booking-monitor")
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN") or ""
+    repo = os.environ.get("GITHUB_REPOSITORY", "DuckOnDesk/naver-booking-monitor")
+    if token:
         try:
-            if token:
-                resp = requests.get(
-                    f"https://api.github.com/repos/{repo}/contents/monitors.json?ref=main",
-                    timeout=10, headers={
-                        "Authorization": f"Bearer {token}",
-                        "Accept": "application/vnd.github.raw+json",
-                    })
-            else:
-                resp = requests.get(f"{GITHUB_RAW_URL}?t={int(time.time())}", timeout=10)
+            resp = requests.get(
+                f"https://api.github.com/repos/{repo}/contents/monitors.json?ref=main",
+                timeout=10, headers={
+                    "Authorization": f"Bearer {token}",
+                    "Accept": "application/vnd.github.raw+json",
+                })
             resp.raise_for_status()
             return resp.json()
+        except Exception:
+            pass    # API 한도 초과 등 → 아래 raw로
+    resp = requests.get(f"{GITHUB_RAW_URL}?t={int(time.time())}", timeout=10)
+    resp.raise_for_status()
+    return resp.json()
+
+
+class NewItemWatcher:
+    """회차 중간·대기 중에 monitors.json을 다시 읽어 새로 켜진 항목을 찾는다.
+
+    known은 직전에 읽은 설정의 활성 항목 id. 끈 뒤 다시 켠 항목도 새 항목으로 본다.
+    읽기 실패는 조용히 넘긴다 — 다음 회차 머리의 정식 읽기가 경고를 남긴다.
+    """
+
+    def __init__(self) -> None:
+        self.known: set[str] = set()
+        self._next_poll = 0.0
+
+    @staticmethod
+    def _active_ids(monitors: list) -> set[str]:
+        return {m.get("id", m.get("name", "")) for m in monitors if m.get("enabled", True)}
+
+    def reset(self, monitors: list) -> list:
+        """회차 머리에서 호출. 새 항목이 앞에 오도록 정렬한 목록을 돌려준다."""
+        ids = self._active_ids(monitors)
+        fresh = ids - self.known if self.known else set()
+        self.known = ids
+        self._next_poll = time.monotonic() + NEW_ITEM_POLL_SEC
+        if not fresh:
+            return monitors
+        return ([m for m in monitors if m.get("id", m.get("name", "")) in fresh]
+                + [m for m in monitors if m.get("id", m.get("name", "")) not in fresh])
+
+    def poll(self, force: bool = False) -> list:
+        """주기가 됐으면 다시 읽어 새로 켜진 항목을 돌려준다 (없으면 빈 목록)."""
+        now = time.monotonic()
+        if not force and now < self._next_poll:
+            return []
+        self._next_poll = now + NEW_ITEM_POLL_SEC
+        try:
+            monitors = fetch_remote_monitors().get("monitors", [])
+        except Exception:
+            return []
+        ids = self._active_ids(monitors)
+        fresh = [m for m in monitors
+                 if m.get("enabled", True) and m.get("id", m.get("name", "")) not in self.known]
+        self.known |= ids
+        return fresh
+
+    def sleep(self, seconds: float) -> bool:
+        """seconds 동안 쉬되, 새 항목이 보이면 바로 깨어난다. 깨어났으면 True."""
+        end = time.monotonic() + seconds
+        while True:
+            left = end - time.monotonic()
+            if left <= 0:
+                return False
+            time.sleep(min(left, max(0.1, self._next_poll - time.monotonic())))
+            if time.monotonic() >= self._next_poll:
+                fresh = self.poll()
+                if fresh:
+                    # 회차 머리에서 앞으로 당겨지도록 known에서 다시 뺀다
+                    self.known -= self._active_ids(fresh)
+                    names = ", ".join(m.get("name", "?") for m in fresh)
+                    print(f"[{datetime.now(timezone(timedelta(hours=9))).strftime('%H:%M:%S')}] "
+                          f"➕ 새 항목 감지: {names} — 바로 확인", flush=True)
+                    return True
+
+
+def load_monitors(from_github: bool = False) -> dict:
+    if from_github:
+        try:
+            return fetch_remote_monitors()
         except Exception as exc:
             print(f"[경고] GitHub에서 monitors.json 읽기 실패, 로컬 파일 사용: {exc}", flush=True)
     return json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
@@ -2252,7 +2326,8 @@ def check_booking_accessible(url: str) -> bool:
     return not is_closed
 
 
-def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
+def check_all(monitors: list, ntfy_topic: str, alerted: dict,
+              watcher: "NewItemWatcher | None" = None) -> None:
     now_kst = datetime.now(timezone(timedelta(hours=9)))
     now_str = now_kst.strftime("%H:%M:%S")
     today_str = now_kst.strftime("%Y-%m-%d")
@@ -2275,7 +2350,17 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict) -> None:
     prune_stock_records(alerted, today_str)
     reprobe_reqs = load_reprobe_requests()  # 웹앱의 "운영 기간 초기화" 요청
 
-    for item in active:
+    pending = list(active)
+    while pending:
+        # 회차 도중에 추가된 항목은 회차가 끝날 때까지 기다리지 않고 바로 다음 차례로 본다
+        if watcher is not None:
+            fresh = watcher.poll()
+            if fresh:
+                names = ", ".join(m.get("name", "?") for m in fresh)
+                print(f"[{datetime.now(timezone(timedelta(hours=9))).strftime('%H:%M:%S')}] "
+                      f"➕ 새 항목 감지: {names} — 바로 확인", flush=True)
+                pending[:0] = fresh
+        item = pending.pop(0)
         name = item.get("name", "?")
         url = item.get("url", "")
         # mute 항목은 알림만 끈다. 이 아래 알림은 하나도 빠짐없이 ntfy_topic이
@@ -3399,6 +3484,7 @@ def main():
     iteration = 0
     base_interval = interval    # 백오프에서 되돌아올 기준 주기
     clean_rounds = 0            # 속도 제한 없이 연달아 지난 회차 수
+    watcher = NewItemWatcher()
 
     while time.time() < end_time:
         iteration += 1
@@ -3418,7 +3504,7 @@ def main():
         global _rate_limit_hits
         _rate_limit_hits = 0
         try:
-            check_all(monitors, ntfy_topic, alerted)
+            check_all(watcher.reset(monitors), ntfy_topic, alerted, watcher)
         except Exception as exc:
             print(f"[오류] check_all 예외: {exc}", flush=True)
 
@@ -3469,7 +3555,7 @@ def main():
         remaining = end_time - time.time()
         if remaining > wait:
             if wait > 0:
-                time.sleep(wait)
+                watcher.sleep(wait)     # 새 항목이 보이면 바로 다음 회차로
         else:
             break
 
