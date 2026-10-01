@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T19:10:15.164408+09:00",
+  "updated_at": "2026-10-01T19:15:40.779207+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -855,7 +855,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -901,7 +901,8 @@
         "2026-09-30T20:57:11.265057+09:00",
         "2026-10-01T00:23:14.656737+09:00",
         "2026-10-01T10:15:18.263261+09:00",
-        "2026-10-01T15:52:14.493609+09:00"
+        "2026-10-01T15:52:14.493609+09:00",
+        "2026-10-01T19:15:39.126908+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1951,13 +1952,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2078141397",
-      "place_name": "쿠팡 온리 페스타",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
-      "ts": "2026-09-19T02:55:11.869448+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033849367",
@@ -3350,6 +3344,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-10-01T19:10:13.143474+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-01T19:15:39.126908+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3516,7 +3517,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-01T19:10:13.143474+09:00",
+    "checked_at": "2026-10-01T19:15:39.126908+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
