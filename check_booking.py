@@ -2270,10 +2270,15 @@ class UrlGate:
         if _gate_worker is not None:
             # 상태 확인은 백그라운드 워커가 맡는다. 여기서는 관심만 등록하고 마지막
             # 상태를 쓴다 — 닫힘은 GATE_CLOSED_RECHECK_SEC, 열림은 URL_RECHECK_SEC마다
-            # 워커가 다시 본다. 이 프로세스에서 한 번도 확인한 적 없고 닫힘 기록도 없는
-            # 항목만은 '열림'이라 단정할 근거가 없으니 기다려서 확인한다.
+            # 워커가 다시 본다. 다만 '열림'은 URL_RECHECK_SEC 안에 확인한 것만 믿는다.
+            # 워커는 자리가 있는 동안만 항목을 보므로, 자리가 없던 사이의 열림 기록은
+            # 몇 시간 묵었을 수 있다 — 2026-10-01 리베르: 16:07에 본 '열림'을 믿고
+            # 18:19에 🎉를 보냈는데 7초 뒤 워커가 닫힘을 잡았다. 그런 항목은
+            # 종전처럼 기다려서 확인한다.
             _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
-            if self._closed or self.item_id in _url_checked_at:
+            last = _url_checked_at.get(self.item_id)
+            fresh_open = last is not None and (time.monotonic() - last) < URL_RECHECK_SEC
+            if self._closed or fresh_open:
                 _note_url_skip("백그라운드")
                 return
             self._run_check(note, seats)

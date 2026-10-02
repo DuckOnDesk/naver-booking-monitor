@@ -9,7 +9,7 @@
 확인 내용:
   - 브라우저는 워커 스레드에서만 켠다 (playwright sync API는 만든 스레드 전용)
   - 처음 보는 항목(닫힘 기록 없음)은 기다려서 확인하고 그 회차에 알린다
-  - 이미 상태를 아는 항목은 회차에서 기다리지 않는다
+  - 이미 상태를 아는 항목은 회차에서 기다리지 않는다 (단 열림은 URL_RECHECK_SEC 안의 것만)
   - 자리 있고 닫힌 항목은 회차와 무관하게 워커가 계속 다시 본다
   - 워커가 열림 전환을 잡으면 ✅ 알림과 함께 그 항목의 🎉 자리 알림까지 이어진다
   - 대기 중에 열림 전환이 잡히면 바로 깨어난다
@@ -132,6 +132,19 @@ def main() -> int:
         n_before = len(calls)
         logs, got, main_calls, took = run_round([unit("11:00", stock=4, booked=1)], alerted, item)
         check(len(calls) == n_before, f"열림이고 주기 전이면 확인 없음 (실제 {len(calls) - n_before}회)")
+
+        print("2-1) 오래된 '열림'은 믿지 않고 기다려서 다시 본다 (2026-10-01 리베르)")
+        # 16:07에 열림으로 본 뒤 자리가 없어 워커가 손을 뗐고, 18:19에 자리가 나자 묵은
+        # 열림을 믿고 🎉를 보냈다. 실제로는 그사이 닫혀 7초 뒤 🔒가 이어졌다.
+        stale = {"id": "w3", "name": "묵은열림", "url": URL, "enabled": True, "target_dates": [D]}
+        stale_alerted: dict = {}
+        cb._url_checked_at["w3"] = time.monotonic() - cb.URL_RECHECK_SEC - 1
+        closed_now = True
+        n_before = len(calls)
+        logs, got, main_calls, _ = run_round([unit("11:00", stock=4, booked=1)], stale_alerted, stale)
+        check(len(calls) - n_before >= 1, f"그 회차에 다시 확인 (실제 {len(calls) - n_before}회)")
+        check(not any("예약 가능" in t for t in got), f"닫힌 예약창에 🎉 없음 (실제: {got})")
+        check(any("🔒" in t for t in got), f"바로 🔒 알림 (실제: {got})")
 
         print("3) 자리 있고 닫힌 항목은 회차와 무관하게 워커가 계속 본다")
         closed_now = True
