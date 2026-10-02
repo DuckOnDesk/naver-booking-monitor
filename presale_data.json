@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T14:47:35.644962+09:00",
+  "updated_at": "2026-10-02T14:53:03.628772+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -635,7 +635,7 @@
       "remainingDays": 22,
       "status": "D-22",
       "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260901_48/1788225345590Omhu2_JPEG/edited-1788225339564-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261002_49/1790919516788vFoRS_JPEG/edited-1790919514971-0.jpg",
       "roadAddress": "성수이로18길 5 2026 ME:LI WEEK",
       "commonAddress": "서울 성동구",
       "district": "성동구",
@@ -1457,7 +1457,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T14:20:11.743568+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T14:53:02.339092+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3474,7 +3474,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T14:47:34.179704+09:00",
+    "checked_at": "2026-10-02T14:53:01.382997+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
