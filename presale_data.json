@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T10:22:00.732862+09:00",
+  "updated_at": "2026-10-02T10:27:30.364758+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -104,7 +104,8 @@
         "2026-09-30T20:57:33.330391+09:00",
         "2026-10-01T00:23:14.656737+09:00",
         "2026-10-01T13:12:03.824775+09:00",
-        "2026-10-02T05:40:14.386450+09:00"
+        "2026-10-02T05:40:14.386450+09:00",
+        "2026-10-02T10:27:28.243699+09:00"
       ],
       "bookingOpenAuto": "2026-09-14T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:35.712443+09:00",
@@ -120,7 +121,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -1365,7 +1366,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -1390,7 +1391,8 @@
         "2026-10-01T11:16:14.727386+09:00",
         "2026-10-01T14:18:35.921801+09:00",
         "2026-10-01T22:26:43.179960+09:00",
-        "2026-10-02T01:46:01.820087+09:00"
+        "2026-10-02T01:46:01.820087+09:00",
+        "2026-10-02T10:27:28.243699+09:00"
       ],
       "bookingOpenAuto": "",
       "bookingOpenAutoCheckedAt": "2026-10-02T10:16:23.728559+09:00",
@@ -1901,20 +1903,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2078141397",
-      "place_name": "쿠팡 온리 페스타",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1717462",
-      "ts": "2026-09-20T02:51:57.133401+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2033849367",
-      "place_name": "소머드 롯데본점 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
-      "ts": "2026-09-20T03:47:08.565473+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3300,6 +3288,20 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-10-02T08:43:16.294775+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2071088201",
+      "place_name": "클리오 풍년다방 팝업스토어",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
+      "ts": "2026-10-02T10:27:28.243699+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015914479",
+      "place_name": "블루 록 2026 더 라스트 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
+      "ts": "2026-10-02T10:27:28.243699+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3466,7 +3468,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T10:21:58.910408+09:00",
+    "checked_at": "2026-10-02T10:27:28.243699+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
