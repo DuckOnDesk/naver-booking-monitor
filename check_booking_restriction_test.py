@@ -125,6 +125,48 @@ def main() -> int:
         cb.check_availability = real_check
         cb.fetch_slots = real_slots
 
+    print("9-1) 런 시작 때의 운영 기간 조회도 실패한 제한 조회로 직전 값을 지우지 않는다")
+    # 2026-10-02 리베르: 런이 시작할 때마다 RI03/1이 RI01로 떨어져, 1시간 전 마감이라
+    # 못 잡는 14:00 회차에 🎉가 계속 나갔다 (build_schedule_cache가 병합 없이 덮어씀).
+    import json, tempfile
+    from pathlib import Path as _P
+    real_file, real_probe = cb.SCHEDULE_CACHE_FILE, cb.probe_schedule_period
+    try:
+        cb.SCHEDULE_CACHE_FILE = _P(tempfile.mkdtemp()) / "schedule_cache.json"
+        url = "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856"
+        key = "12_1736126_8052856"
+        cb.SCHEDULE_CACHE_FILE.write_text(json.dumps({key: {
+            "available_start": "2026-10-02", "available_end": "2026-10-05",
+            "booking_available_code": "RI03", "booking_available_value": 1,
+            "restriction_ok": True, "checked_at": "2026-01-01T00:00:00+09:00"}}), encoding="utf-8")
+        cb.probe_schedule_period = lambda p: {
+            "available_start": "2026-10-02", "available_end": "2026-10-05",
+            "booking_available_code": "RI01", "booking_available_value": 0,
+            "restriction_ok": False, "checked_at": "2026-10-02T14:00:00+09:00"}
+        built = cb.build_schedule_cache([{"name": "리베르", "url": url}])
+        check(built[key]["booking_available_code"] == "RI03"
+              and built[key]["booking_available_value"] == 1,
+              f"RI03/1 유지 (실제: {built[key]['booking_available_code']}/{built[key]['booking_available_value']})")
+    finally:
+        cb.SCHEDULE_CACHE_FILE, cb.probe_schedule_period = real_file, real_probe
+
+    print("9-2) 예약 제한 조회는 실패하면 다시 시도한다")
+    tries = []
+    real_once, real_sleep = cb._fetch_item_restrictions_once, cb.time.sleep
+    try:
+        cb.time.sleep = lambda s: None
+        seq = iter([{}, {}, {"booking_available_code": "RI03", "booking_available_value": 1}])
+        cb._fetch_item_restrictions_once = lambda b, q: (tries.append(1), next(seq))[1]
+        got = cb.fetch_item_restrictions("1736126")
+        check(got.get("booking_available_code") == "RI03" and len(tries) == 3,
+              f"세 번째에 성공 (시도 {len(tries)}회, 결과 {got})")
+        tries.clear()
+        cb._fetch_item_restrictions_once = lambda b, q: (tries.append(1), {})[1]
+        check(cb.fetch_item_restrictions("1") == {} and len(tries) == cb.RESTRICTION_FETCH_TRIES,
+              f"끝내 실패하면 빈 값 (시도 {len(tries)}회)")
+    finally:
+        cb._fetch_item_restrictions_once, cb.time.sleep = real_once, real_sleep
+
     print("10) 캘린더 교차확인은 꺼져 있다 (요청을 아예 안 보낸다)")
     #    엔드포인트가 HTML을 돌려주게 바뀌어 걸러 내는 건 없으면서, 알림 직전에
     #    요청 한 번(최대 10초)만 더 쓰고 있었다. 되살릴 때를 대비해 코드는 남겼다.

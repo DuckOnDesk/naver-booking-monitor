@@ -960,12 +960,27 @@ def fetch_item_restrictions(biz_id: str) -> dict:
         "  }"
         "}"
     )
+    # GitHub Actions(미국)에서는 이 요청이 자주 시간 초과로 떨어진다 (2026-10-01~02
+    # 로그: 조회 약 165건 중 131건 실패). 짧은 타임아웃으로 몇 번 다시 시도한다.
+    for attempt in range(RESTRICTION_FETCH_TRIES):
+        got = _fetch_item_restrictions_once(biz_id, query)
+        if got:
+            return got
+        if attempt + 1 < RESTRICTION_FETCH_TRIES:
+            time.sleep(1)
+    return {}
+
+
+RESTRICTION_FETCH_TRIES = _env_num("RESTRICTION_FETCH_TRIES", 3)
+
+
+def _fetch_item_restrictions_once(biz_id: str, query: str) -> dict:
     try:
         resp = requests.post(
             "https://m.booking.naver.com/graphql?opName=business",
             json={"operationName": "business", "variables": {"businessId": biz_id}, "query": query},
             headers=HEADERS,
-            timeout=15,
+            timeout=8,
         )
         resp.raise_for_status()
         data = resp.json()
@@ -3568,7 +3583,10 @@ def build_schedule_cache(monitors: list) -> dict:
             if prev:
                 cache[key] = prev
             continue
-        cache[key] = probed
+        # 루프의 재탐색과 같은 규칙으로 병합한다. 그냥 덮어쓰면 예약 제한 조회가 실패한
+        # 결과(RI01/0)가 직전 값을 지운다 — 2026-10-02 리베르: 런 시작 때마다 RI03/1이
+        # RI01로 떨어져, 1시간 전 마감이라 못 잡는 14:00 회차에 🎉가 계속 나갔다.
+        cache[key] = _merge_probed_period(prev, probed) if prev else probed
     if reused:
         print(f"  → 운영 기간 캐시 재사용 {reused}건 "
               f"(TTL {SCHEDULE_CACHE_TTL_MIN}분 이내, 재조회 생략)", flush=True)
