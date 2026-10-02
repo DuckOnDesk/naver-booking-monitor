@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-03T05:43:48.816229+09:00",
+  "updated_at": "2026-10-03T05:49:10.221131+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -741,7 +741,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -3532,7 +3532,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-03T05:43:47.464330+09:00",
+    "checked_at": "2026-10-03T05:49:08.732474+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3546,8 +3546,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 394,
-      "현장대기": 203,
+      "(없음)": 393,
+      "현장대기": 204,
       "사전예약&현장대기": 150,
       "사전예약": 49
     },
