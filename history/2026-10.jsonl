@@ -147,3 +147,5 @@
 {"ts": "2026-10-02T12:18:31+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "level": "closed", "title": "🔒 리베르 자리 있음 (예약창 닫힘)", "slots": {"17:00": 1}}
 {"ts": "2026-10-02T12:30:27+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "change": "예약 변동(예약 취소)", "stock": [42, 42], "booked": [41, 40], "slots": {"14:00": {"from": [3, 3], "to": [3, 2]}}, "scope": ""}
 {"ts": "2026-10-02T12:30:27+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-02", "level": "closed", "title": "🔒 리베르 자리 추가됨 (예약창 닫힘)", "slots": {"14:00": 1, "17:00": 1}}
+{"ts": "2026-10-02T12:43:28+09:00", "kind": "stock", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-02", "change": "예약 변동(예약 취소)", "stock": [48, 48], "booked": [44, 43], "slots": {"18:00": {"from": [6, 4], "to": [6, 3]}}, "scope": ""}
+{"ts": "2026-10-02T12:43:28+09:00", "kind": "alert", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-02", "level": "closed", "title": "🔒 크록스 자리 추가됨 (예약창 닫힘)", "slots": {"17:00": 2, "18:00": 3}}
