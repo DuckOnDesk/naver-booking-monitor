@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-03T05:38:27.980873+09:00",
+  "updated_at": "2026-10-03T05:43:48.816229+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -46,7 +46,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -643,7 +643,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -696,7 +696,8 @@
         "2026-10-02T12:19:46.943357+09:00",
         "2026-10-02T15:36:53.967059+09:00",
         "2026-10-02T21:16:16.463311+09:00",
-        "2026-10-03T00:35:34.196096+09:00"
+        "2026-10-03T00:35:34.196096+09:00",
+        "2026-10-03T05:43:47.464330+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1274,7 +1275,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -1303,7 +1304,8 @@
         "2026-10-02T10:27:28.243699+09:00",
         "2026-10-02T13:52:37.481434+09:00",
         "2026-10-02T17:17:37.370203+09:00",
-        "2026-10-02T21:16:16.463311+09:00"
+        "2026-10-02T21:16:16.463311+09:00",
+        "2026-10-03T05:43:47.464330+09:00"
       ],
       "bookingOpenAuto": "",
       "bookingOpenAutoCheckedAt": "2026-10-03T05:22:19.072668+09:00",
@@ -1962,20 +1964,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2029141346",
-      "place_name": "루나 클라우드 레이어 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-09-22T12:19:36.394042+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "",
-      "ts": "2026-09-22T12:25:13.183452+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3361,6 +3349,20 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "ts": "2026-10-03T02:18:04.275717+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-03T05:43:47.464330+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015914479",
+      "place_name": "블루 록 2026 더 라스트 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
+      "ts": "2026-10-03T05:43:47.464330+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3530,7 +3532,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-03T05:38:26.544926+09:00",
+    "checked_at": "2026-10-03T05:43:47.464330+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3544,8 +3546,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 392,
-      "현장대기": 205,
+      "(없음)": 394,
+      "현장대기": 203,
       "사전예약&현장대기": 150,
       "사전예약": 49
     },
