@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T16:26:22.681816+09:00",
+  "updated_at": "2026-10-02T16:31:51.898200+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1460,7 +1460,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:58:54.507031+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T16:31:50.569905+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1747,7 +1747,7 @@
       "operationEnd": "26.10.24.",
       "remainingDays": 20,
       "status": "D-20",
-      "admissionCondition": "사전예약&현장대기",
+      "admissionCondition": "사전예약",
       "imageUrl": "https://ldb-phinf.pstatic.net/20261002_230/1790924761779JoGS4_JPEG/edited-1790924761151-0.jpg",
       "roadAddress": "선릉로 733 울루루하우스",
       "commonAddress": "서울 강남구",
@@ -3506,7 +3506,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T16:26:21.225897+09:00",
+    "checked_at": "2026-10-02T16:31:49.659318+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3522,8 +3522,8 @@
     "admission_names": {
       "(없음)": 396,
       "현장대기": 204,
-      "사전예약&현장대기": 150,
-      "사전예약": 45
+      "사전예약&현장대기": 146,
+      "사전예약": 49
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
     "structure_warned_at": null
