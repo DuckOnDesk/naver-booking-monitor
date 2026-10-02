@@ -2460,7 +2460,7 @@
   "mtzotglu:stock_at": "2026-09-30T18:01:46+09:00",
   "mti3v8v5:stock_at": "2026-09-20T12:00:28+09:00",
   "mtzovq2r:stock_at": "2026-09-29T14:44:56+09:00",
-  "muawwgys:stock_at": "2026-10-02T19:30:23+09:00",
+  "muawwgys:stock_at": "2026-10-02T21:07:24+09:00",
   "muawwgys:2026-10-02:stock": {},
   "muawwgys:2026-10-02:scope": "",
   "muawwgys:2026-10-03:stock": {
@@ -2478,7 +2478,7 @@
     ],
     "12:30": [
       3,
-      3
+      2
     ],
     "13:00": [
       3,
@@ -6669,5 +6669,8 @@
     ]
   },
   "mum8tziu:2026-10-16:scope": "",
-  "muawwgys:url_closed": 1
+  "muawwgys:url_closed": 1,
+  "muawwgys:2026-10-03:closed": {
+    "12:30": 1
+  }
 }
