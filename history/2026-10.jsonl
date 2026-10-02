@@ -209,3 +209,5 @@
 {"ts": "2026-10-02T23:53:46+09:00", "kind": "stock", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-06", "change": "예약 변동(예약 취소)", "stock": [10, 10], "booked": [10, 9], "slots": {"13:00": {"from": [1, 1], "to": [1, 0]}}, "scope": ""}
 {"ts": "2026-10-02T23:53:51+09:00", "kind": "gate", "item": "mum6jro3", "name": "딥티크", "open": false, "reason": "URL 리다이렉트: /error/ — \"운영하지 않는 예약 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
 {"ts": "2026-10-02T23:53:51+09:00", "kind": "alert", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-06", "level": "closed", "title": "🔒 딥티크 자리 있음 (예약창 닫힘)", "slots": {"13:00": 1}}
+{"ts": "2026-10-03T00:18:56+09:00", "kind": "gate", "item": "mum6jro3", "name": "딥티크", "open": true, "reason": ""}
+{"ts": "2026-10-03T00:19:02+09:00", "kind": "alert", "item": "mum6jro3", "name": "딥티크", "date": "2026-10-06", "level": "open", "title": "🎉 딥티크 예약 가능!", "slots": {"13:00": 1}}
