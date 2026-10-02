@@ -131,10 +131,10 @@ def main() -> int:
     check(any("예약 가능" in t for t, _ in sent), f"🎉 알림 발송 (실제: {sent})")
     check("재고:14 / 예약:0" in logs, f"슬롯 합계 그대로 (실제: {logs})")
     check("일별:" not in logs, "일별 참고값은 붙지 않는다 (요약 = 슬롯 합계)")
-    # 요약이 비면 감시 루프는 종전부터 "전체 날짜 스캔"으로 날짜를 먼저 찾는다.
-    # 그 스캔 1회 + 판정 1회 = 2회가 원래 비용이고, 요약을 대신 만드느라 여기서
-    # 한 번 더 부르지는 않는다 (fetch_day_slots에 prefetched로 그대로 넘긴다).
-    check(fetched.count(D) == 2, f"판정 경로의 조회는 한 번 (실제: 스캔 포함 {fetched.count(D)}회)")
+    # 요약이 비면 감시 루프는 "전체 날짜 스캔"으로 날짜를 먼저 찾는다. 스캔에서 받은
+    # 슬롯을 판정에 그대로 쓰므로 날짜당 조회는 한 번이다 (종전에는 스캔 1회 + 판정
+    # 1회 = 2회). 요약을 대신 만드느라 한 번 더 부르지도 않는다.
+    check(fetched.count(D) == 1, f"스캔 포함 날짜당 조회는 한 번 (실제: {fetched.count(D)}회)")
 
     print("3) 요약이 비고 슬롯도 전부 매진이면 종전대로 매진")
     logs, sent, _ = run_check([], {D: sold_out})

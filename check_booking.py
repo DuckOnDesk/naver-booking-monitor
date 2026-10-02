@@ -73,6 +73,7 @@ import sys
 import threading
 import time
 from collections import deque
+from concurrent.futures import Future, ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -474,10 +475,17 @@ def looks_rate_limited(text: str) -> bool:
     return any(m in low for m in RATE_LIMIT_MARKERS)
 
 
+_rate_limit_lock = threading.Lock()
+
+
 def note_rate_limit(reason: str = "") -> None:
-    """속도 제한 1건을 센다. 회차 끝의 주기 자동 조정이 이 값을 본다."""
+    """속도 제한 1건을 센다. 회차 끝의 주기 자동 조정이 이 값을 본다.
+
+    날짜별 조회·운영 기간 재확인이 여러 스레드에서 돌므로 락을 건다.
+    """
     global _rate_limit_hits
-    _rate_limit_hits += 1
+    with _rate_limit_lock:
+        _rate_limit_hits += 1
 
 
 def resp_error_hint(resp) -> str:
@@ -724,6 +732,47 @@ def fetch_slots(biz_id: str, item_id: str, service_id: int, target_date: str) ->
         return slots_failed()
 
 
+# ── 날짜별 슬롯 동시 조회 ─────────────────────────────────────────────
+# 날짜 하나 조회에 0.7초쯤 걸리는데 종전에는 한 날짜씩 차례로 불렀다. 날짜가 많은
+# 항목(딥티크 등)은 그것만 10초가 넘었고, 월별 API가 비어 30일을 훑는 항목은 20초씩
+# 걸렸다 (2026-10-02 로그). 한 항목의 날짜들을 미리 동시에 받아 두고, 아래 판정
+# 루프는 받아 둔 결과를 꺼내 쓴다 — 판정 로직은 그대로, 요청 수도 그대로다.
+# 동시 요청 수. 너무 올리면 네이버 속도 제한(429)에 걸린다. 1이면 종전처럼 차례로.
+SLOT_FETCH_WORKERS = _env_num("SLOT_FETCH_WORKERS", 4)
+_slot_cache: dict[tuple[str, str], dict] = {}   # (item_id, datekey) → fetch_slots 결과
+
+
+def fetch_slots_many(parsed: dict, datekeys: list[str]) -> dict[str, dict]:
+    """여러 날짜의 fetch_slots를 동시에 부른다. {datekey: 결과}."""
+    keys = list(dict.fromkeys(datekeys))
+
+    def one(dk: str) -> dict:
+        try:
+            return fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
+        except Exception:
+            return slots_failed()
+
+    if SLOT_FETCH_WORKERS <= 1 or len(keys) < 2:
+        return {dk: one(dk) for dk in keys}
+    with ThreadPoolExecutor(max_workers=min(SLOT_FETCH_WORKERS, len(keys))) as ex:
+        return dict(zip(keys, ex.map(one, keys)))
+
+
+def prefetch_slots(parsed: dict, datekeys: list[str]) -> None:
+    """이 항목에서 곧 볼 날짜들을 미리 동시에 받아 둔다 (get_slots가 꺼내 쓴다)."""
+    _slot_cache.clear()
+    for dk, si in fetch_slots_many(parsed, datekeys).items():
+        _slot_cache[(parsed["item_id"], dk)] = si
+
+
+def get_slots(parsed: dict, datekey: str) -> dict:
+    """받아 둔 결과가 있으면 그걸(한 번만), 없으면 지금 조회한다."""
+    si = _slot_cache.pop((parsed["item_id"], datekey), None)
+    if si is not None:
+        return si
+    return fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+
+
 # 시간대(hourly) 슬롯이 없는 일 단위 상품에서 "하루 전체"를 가리키는 슬롯 이름.
 # unitStartTime[11:16] 슬라이스가 그대로 이 값이 되도록 슬롯을 만들어,
 # 시간대 상품과 같은 코드 경로로 잔여 좌석·알림·상태 저장이 돌게 한다.
@@ -755,8 +804,7 @@ def fetch_day_slots(parsed: dict, datekey: str, day: dict | None,
     오브 뷰티가 매진인데 "[종일] 521자리" 알림이 나갔다. 이 상품의 일별 재고는
     영업시간 밖 유령 슬롯까지 더한 값이라 실제 정원보다 훨씬 크다.
     """
-    info = prefetched if prefetched is not None else fetch_slots(
-        parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+    info = prefetched if prefetched is not None else get_slots(parsed, datekey)
     if info["queried"] and info.get("api_slot_count") == 0 and day_has_stock(day):
         stock = day.get("stock") or 0
         booked = day.get("bookingCount") or 0
@@ -2594,6 +2642,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
     _url_checks_done = 0
     _round_printed = False      # 이 회차에 뭐라도 찍혔는지 (조용한 회차 판정용)
     _url_skips.clear()
+    _slot_cache.clear()     # 지난 회차에 받아 두고 안 쓴 슬롯은 묵은 값이다
 
     _pruned_dates: list[tuple[str, str]] = []
     _reprobed_this_round = 0  # 이번 회차에 TTL 만료로 재탐색한 항목 수
@@ -2734,18 +2783,23 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
         # 웹앱에서 "운영 기간 초기화"를 누른 항목은 사용자가 결과를 기다리고 있으므로
         # TTL·회차당 건수 제한을 모두 무시하고 이번 회차에 바로 재탐색한다.
         forced = _reprobe_requested(cache_entry, reprobe_reqs.get(cache_key))
-        # 캐시가 없으면 즉시, 있으면 TTL 경과 시 재탐색 (회차당 최대 SCHEDULE_REPROBE_PER_ROUND건)
-        need_probe = is_first_probe or forced or (
-            _reprobed_this_round < SCHEDULE_REPROBE_PER_ROUND
-            and _cache_entry_stale(cache_entry, now_kst)
-        )
+        # 캐시가 없거나 초기화 요청이면 즉시(기다림), TTL 경과면 백그라운드로
+        # (회차당 최대 SCHEDULE_REPROBE_PER_ROUND건 걸고, 끝난 결과는 다음 차례에 반영)
+        need_probe = is_first_probe or forced
         if forced and not is_first_probe:
             print(f"[{now_str}] ↻ {name} 운영 기간 초기화 요청 감지 — 즉시 재탐색", flush=True)
         if need_probe:
+            _probe_futures.pop(cache_key, None)     # 진행 중인 백그라운드 결과는 버린다
             probed = probe_schedule_period(parsed)
+        else:
+            need_probe, probed = take_reprobe(cache_key)
+            if (not need_probe and cache_key not in _probe_futures
+                    and _reprobed_this_round < SCHEDULE_REPROBE_PER_ROUND
+                    and _cache_entry_stale(cache_entry, now_kst)):
+                submit_reprobe(cache_key, parsed)
+                _reprobed_this_round += 1
+        if need_probe:
             if probed:
-                if not is_first_probe:
-                    _reprobed_this_round += 1
                 cache_entry_before = cache_entry
                 probed = _merge_probed_period(cache_entry_before, probed)
                 changed = _period_changed(cache_entry_before, probed)
@@ -2785,7 +2839,6 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                         for line in body.splitlines():
                             print(f"[{now_str}]    {line}", flush=True)
             elif not is_first_probe:
-                _reprobed_this_round += 1
                 print(f"[{now_str}] [경고] {name} 운영 기간 재확인 실패 — 기존 캐시 유지", flush=True)
 
         avail_start = cache_entry.get("available_start")
@@ -2831,25 +2884,24 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
 
             if not discovered:
                 log_state(f"{item_id}:scan", f"— {name} 전체 날짜 스캔 중...", now_str=now_str)
-                cur = scan_start
-                while cur <= scan_end:
-                    dk = cur.isoformat()
-                    si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
-                    if si["queried"] and si.get("all_slots"):
-                        discovered.append(dk)
-                    cur += timedelta(days=1)
+                scan_keys = [(scan_start + timedelta(days=i)).isoformat()
+                             for i in range((scan_end - scan_start).days + 1)]
+                scanned = fetch_slots_many(parsed, scan_keys)
+                discovered.extend(dk for dk in scan_keys
+                                  if scanned[dk]["queried"] and scanned[dk].get("all_slots"))
+                # 스캔에서 받은 결과를 아래 판정 루프가 그대로 쓴다 (같은 요청 두 번 X)
+                _slot_cache.clear()
+                _slot_cache.update({(parsed["item_id"], dk): scanned[dk] for dk in discovered})
             elif not avail_end:
                 last_known = date.fromisoformat(max(discovered))
                 ext_start = last_known + timedelta(days=1)
                 if ext_start <= scan_end:
                     print(f"[{now_str}] — {name} API 윈도우 너머 스캔 중 ({ext_start}~{scan_end})...", flush=True)
-                    cur = ext_start
-                    while cur <= scan_end:
-                        dk = cur.isoformat()
-                        si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
-                        if si["queried"] and si.get("all_slots"):
-                            discovered.append(dk)
-                        cur += timedelta(days=1)
+                    ext_keys = [(ext_start + timedelta(days=i)).isoformat()
+                                for i in range((scan_end - ext_start).days + 1)]
+                    scanned = fetch_slots_many(parsed, ext_keys)
+                    discovered.extend(dk for dk in ext_keys
+                                      if scanned[dk]["queried"] and scanned[dk].get("all_slots"))
 
             if not discovered:
                 log_state(f"{item_id}:nosale", f"— {name} 판매 중인 날짜 없음 (캐시 기간 내)", now_str=now_str)
@@ -2869,6 +2921,17 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                           f"— {name} 운영 기간({avail_start}~{avail_end}) 외 날짜 "
                           f"{len(effective_dates)-len(trimmed)}개 제외", now_str=now_str)
             effective_dates = trimmed
+
+        # 아래 루프가 날짜마다 슬롯을 하나씩 부른다 → 미리 동시에 받아 둔다.
+        # 루프가 건너뛸 날짜(지난 날짜, 오늘인데 감시 시간대가 이미 지남)는 뺀다.
+        _now_hm = now_kst.strftime("%H:%M")
+        need = [dk for dk in effective_dates
+                if dk >= today_str and (parsed["item_id"], dk) not in _slot_cache
+                and not (dk == today_str and target_time_map.get(dk) is not None
+                         and _now_hm > target_time_map[dk][1])]
+        if need:
+            for dk, si in fetch_slots_many(parsed, need).items():
+                _slot_cache[(parsed["item_id"], dk)] = si
 
         for datekey in effective_dates:
             dow       = weekdays[date.fromisoformat(datekey).weekday()]
@@ -2903,8 +2966,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
             # 슬롯은 어느 경로로 가든 그대로 재사용해, 같은 요청이 두 번 나가지 않게 한다.
             day_slots = None
             if d is None:
-                day_slots = fetch_slots(parsed["biz_id"], parsed["item_id"],
-                                        parsed["service_id"], datekey)
+                day_slots = get_slots(parsed, datekey)
                 d = synth_day_summary(datekey, day_slots)
 
             # hasBookableSlots는 시간대 슬롯이 있는 상품 기준이라, 일 단위로만 재고를
@@ -3116,8 +3178,7 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                 if forget_slots(alerted, alert_key):
                     vanished_dates.append(datekey)
 
-                slot_info = day_slots if day_slots is not None else fetch_slots(
-                    parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
+                slot_info = day_slots if day_slots is not None else get_slots(parsed, datekey)
                 all_slots = slot_info.get("all_slots", [])
                 if time_range is not None:
                     _t_from, _t_to = time_range
@@ -3345,6 +3406,39 @@ def _merge_hour_range(cur: tuple[str, str] | None, slots: list) -> tuple[str, st
     return min(cur[0], times[0]), max(cur[1], times[-1])
 
 
+# 운영 기간 재확인(TTL 만료분)은 자리 확인 회차를 붙잡지 않도록 백그라운드에서 돈다.
+# 30일 스캔·예약 제한 조회가 겹치면 한 건에 30~40초라, 매시간 그 회차가 100초를
+# 넘겼다 (2026-10-02 로그). 결과 반영(캐시 저장·커밋·알림)은 메인 스레드가 다음
+# 회차에 그 항목 차례에서 한다. 처음 보는 항목과 웹앱의 "운영 기간 초기화" 요청은
+# 결과가 바로 필요하므로 종전처럼 그 자리에서 기다린다.
+_probe_pool: ThreadPoolExecutor | None = None
+_probe_futures: dict[str, Future] = {}      # cache_key → 진행 중인 재확인
+
+
+def submit_reprobe(cache_key: str, parsed: dict) -> bool:
+    """백그라운드 재확인을 건다. 이미 진행 중이면 False."""
+    global _probe_pool
+    if cache_key in _probe_futures:
+        return False
+    if _probe_pool is None:
+        _probe_pool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="reprobe")
+    _probe_futures[cache_key] = _probe_pool.submit(probe_schedule_period, parsed)
+    return True
+
+
+def take_reprobe(cache_key: str) -> tuple[bool, dict | None]:
+    """끝난 재확인 결과를 꺼낸다. (끝났는지, 결과)."""
+    fut = _probe_futures.get(cache_key)
+    if fut is None or not fut.done():
+        return False, None
+    del _probe_futures[cache_key]
+    try:
+        return True, fut.result()
+    except Exception as exc:
+        print(f"  [경고] 운영 기간 재확인 예외: {_exc_label(exc)}", flush=True)
+        return True, None
+
+
 def probe_schedule_period(parsed: dict) -> dict | None:
     """단일 팝업(URL 파싱 결과)의 실제 판매기간/예약 가능 기간을 조회해 캐시 항목으로 반환.
     조회에 실패하면 None을 반환한다."""
@@ -3360,9 +3454,8 @@ def probe_schedule_period(parsed: dict) -> dict | None:
     if not discovered:
         # 월별 스케줄 API가 비어있는 경우 (예: 일부 팝업) — 날짜별 개별 조회로 운영 기간 추정
         scan_start = datetime.now(timezone(timedelta(hours=9))).date()
-        for i in range(30):
-            dk = (scan_start + timedelta(days=i)).isoformat()
-            si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
+        scan_keys = [(scan_start + timedelta(days=i)).isoformat() for i in range(30)]
+        for dk, si in fetch_slots_many(parsed, scan_keys).items():
             if si["queried"] and si.get("all_slots"):
                 discovered.append(dk)
                 hours = _merge_hour_range(hours, si["all_slots"])
@@ -3370,14 +3463,13 @@ def probe_schedule_period(parsed: dict) -> dict | None:
     else:
         # API 슬라이딩 윈도우 너머 날짜 추가 스캔
         last_known = date.fromisoformat(max(discovered))
-        cur = last_known + timedelta(days=1)
-        while cur <= scan_end_cache:
-            dk = cur.isoformat()
-            si = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], dk)
+        ext_start = last_known + timedelta(days=1)
+        ext_keys = [(ext_start + timedelta(days=i)).isoformat()
+                    for i in range((scan_end_cache - ext_start).days + 1)]
+        for dk, si in fetch_slots_many(parsed, ext_keys).items():
             if si["queried"] and si.get("all_slots"):
                 discovered.append(dk)
                 hours = _merge_hour_range(hours, si["all_slots"])
-            cur += timedelta(days=1)
         discovered.sort()
 
     # 위 스캔이 한 번도 슬롯을 못 본 경우(월별 API만으로 기간이 잡힌 흔한 경우)에만
