@@ -13,6 +13,8 @@
   - 30일 스캔 결과를 판정에 그대로 써서 같은 날짜를 두 번 부르지 않는다
   - 운영 기간 재확인(TTL 만료)은 회차를 붙잡지 않고, 결과는 다음 회차에 반영한다
   - 처음 보는 항목의 운영 기간 확인은 종전처럼 그 자리에서 기다린다
+  - 운영 기간을 못 찾은 항목은 회차에서 30일을 훑지 않고 10분마다 재확인한다
+  - 월별 요약이 비어도 운영 기간을 알면 그 기간만 훑는다
   - 속도 제한 카운터는 여러 스레드가 동시에 세도 빠지지 않는다
 
 사용법: python check_booking_parallel_test.py
@@ -167,6 +169,30 @@ def main() -> int:
     run_round(item, DATES)
     saved = json.loads(cb.SCHEDULE_CACHE_FILE.read_text(encoding="utf-8"))
     check(len(first_calls) == 1 and CACHE_KEY in saved, "그 회차에 확인하고 캐시 저장")
+
+    print("7) 운영 기간을 못 찾은 항목은 회차에서 30일을 훑지 않는다 (2026-10-02 아이쁘)")
+    now = datetime.now(timezone(timedelta(hours=9)))
+    no_period = {"available_start": None, "available_end": None, "checked_at": now.isoformat()}
+    cb.SCHEDULE_CACHE_FILE.write_text(json.dumps({CACHE_KEY: no_period}), encoding="utf-8")
+    cb.probe_schedule_period = lambda p: (_ for _ in ()).throw(AssertionError("probe 안 불려야 함"))
+    cb._probe_futures.clear()
+    fetched.clear()
+    logs, took = run_round(item, [])
+    check(fetched == [], f"슬롯 조회 없음 (실제 {len(fetched)}회)")
+    check(any("운영 기간 없음" in l for l in logs), f"건너뛴 이유를 로그로 (실제: {logs})")
+
+    print("7-1) 그런 항목은 NO_PERIOD_REPROBE_MIN마다 재확인한다")
+    old = dict(no_period, checked_at=(now - timedelta(minutes=cb.NO_PERIOD_REPROBE_MIN + 1)).isoformat())
+    check(cb._cache_entry_stale(old, now), f"{cb.NO_PERIOD_REPROBE_MIN}분 지나면 재확인 대상")
+    check(not cb._cache_entry_stale(no_period, now), "그 전에는 아님")
+    known = dict(fresh_entry, checked_at=(now - timedelta(minutes=cb.NO_PERIOD_REPROBE_MIN + 1)).isoformat())
+    check(not cb._cache_entry_stale(known, now), "기간을 아는 항목은 종전 TTL 그대로")
+
+    print("7-2) 월별 요약이 비어도 운영 기간을 알면 그 기간만 훑는다 (딥티크)")
+    cb.SCHEDULE_CACHE_FILE.write_text(json.dumps({CACHE_KEY: fresh_entry}), encoding="utf-8")
+    fetched.clear()
+    run_round(item, [])
+    check(sorted(set(fetched)) == sorted(DATES), f"운영 기간 {len(DATES)}일만 조회 (실제 {len(set(fetched))}일)")
 
     print("6) 속도 제한 카운터는 여러 스레드가 세도 빠지지 않는다")
     cb._rate_limit_hits = 0

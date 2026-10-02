@@ -144,6 +144,8 @@ SCHEDULE_CACHE_TTL_MIN = _env_num("SCHEDULE_CACHE_TTL_MIN", 60)
 # 한 회차에 재탐색할 최대 항목 수. 캐시가 한꺼번에 만료돼도 루프가 멈추지 않도록
 # 회차당 1건씩만 갱신해 자연스럽게 분산시킨다.
 SCHEDULE_REPROBE_PER_ROUND = _env_num("SCHEDULE_REPROBE_PER_ROUND", 1)
+# 운영 기간을 못 찾은 항목(종료됐거나 아직 날짜가 안 열린 팝업)의 재확인 주기(분).
+NO_PERIOD_REPROBE_MIN = _env_num("NO_PERIOD_REPROBE_MIN", 10)
 # 새로 추가된 항목을 찾으려고 monitors.json을 다시 읽는 간격(초). 회차 도중(항목 사이)과
 # 회차 사이 대기 중에 모두 본다. 종전에는 회차 머리에서만 읽어, 회차가 4분쯤 걸리면
 # 방금 추가한 항목이 다음 회차까지 기다렸다 (2026-09-29 센녹: 추가 10분 뒤 첫 알림).
@@ -1040,7 +1042,13 @@ def _cache_entry_stale(cache_entry: dict, now_kst: datetime) -> bool:
     checked_at = _parse_dt(cache_entry.get("checked_at"))
     if checked_at is None:
         return True
-    return (now_kst - checked_at) >= timedelta(minutes=SCHEDULE_CACHE_TTL_MIN)
+    # 운영 기간을 못 찾은 항목은 회차마다 30일을 훑는 대신 재확인으로 기간을 찾는다.
+    # 새로 열리는 날짜를 늦게 알지 않도록 이런 항목은 더 자주 재확인한다
+    # (재확인은 백그라운드라 회차를 붙잡지 않는다).
+    ttl = SCHEDULE_CACHE_TTL_MIN
+    if not (cache_entry.get("available_start") or cache_entry.get("available_end")):
+        ttl = min(ttl, NO_PERIOD_REPROBE_MIN)
+    return (now_kst - checked_at) >= timedelta(minutes=ttl)
 
 
 def load_reprobe_requests(from_github: bool = True) -> dict:
@@ -2882,7 +2890,20 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                 scan_start = date.fromisoformat(avail_start)
             scan_end = date.fromisoformat(avail_end) if avail_end else scan_start + timedelta(days=30)
 
+            if not discovered and cache_entry and not (avail_start or avail_end):
+                # 월별 요약도 비고 운영 기간도 못 찾은 항목(2026-10-02 아이쁘: 10-01 종료 후).
+                # 종전에는 회차마다 30일을 훑었지만 운영 기간 확인이 이미 같은 스캔을 하고
+                # 아무것도 못 찾았다는 뜻이다. 회차에서는 건너뛰고, 날짜가 열리면
+                # 운영 기간 재확인(NO_PERIOD_REPROBE_MIN마다)이 찾아 다음 회차부터 본다.
+                # 운영 기간 확인 자체가 실패해 캐시가 비었으면(cache_entry 없음) 판단
+                # 근거가 없으므로 종전처럼 훑는다.
+                log_state(f"{item_id}:nosale",
+                          f"— {name} 운영 기간 없음 (종료 또는 미오픈) — "
+                          f"{NO_PERIOD_REPROBE_MIN}분마다 재확인", now_str=now_str)
+                continue
             if not discovered:
+                # 월별 요약은 비어도 운영 기간은 알면 그 기간만 훑는다 (딥티크 등).
+                # 받은 슬롯은 아래 판정에 그대로 쓰므로 추가 비용이 없다.
                 log_state(f"{item_id}:scan", f"— {name} 전체 날짜 스캔 중...", now_str=now_str)
                 scan_keys = [(scan_start + timedelta(days=i)).isoformat()
                              for i in range((scan_end - scan_start).days + 1)]
