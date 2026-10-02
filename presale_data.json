@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T15:47:57.540624+09:00",
+  "updated_at": "2026-10-02T15:53:26.344502+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -10,6 +10,7 @@
     "2015989932",
     "2017159810",
     "2020779335",
+    "2022112166",
     "2029141346",
     "2030290261",
     "2033835877",
@@ -1737,6 +1738,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2022112166",
+      "name": "원파디 X 울루루하우스",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.22.",
+      "operationEnd": "26.10.24.",
+      "remainingDays": 20,
+      "status": "D-20",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261001_174/1790841498791HXQ7o_JPEG/edited-1790841498549-0.jpg",
+      "roadAddress": "선릉로 733 울루루하우스",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-02T15:53:24.703218+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2037868948",
       "name": "우주이스케이프",
       "hasBooking": false,
@@ -1911,13 +1940,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2000187386",
-      "place_name": "집집 chapter 02 in 성수",
-      "booking_url": "",
-      "ts": "2026-09-21T13:12:48.800592+09:00"
-    },
     {
       "type": "discovery_stale",
       "place_name": "⚠️ 사전예약 탐색 점검 필요",
@@ -3310,6 +3332,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "ts": "2026-10-02T15:47:50.671758+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2022112166",
+      "place_name": "원파디 X 울루루하우스",
+      "booking_url": "",
+      "ts": "2026-10-02T15:53:24.703218+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3360,6 +3389,7 @@
     "2021908137",
     "2021947047",
     "2022056721",
+    "2022112166",
     "2023497014",
     "2023862125",
     "2024393757",
@@ -3476,23 +3506,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T15:47:50.671758+09:00",
+    "checked_at": "2026-10-02T15:53:24.703218+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 791,
-    "presale_items": 191,
-    "after_district_filter": 98,
+    "candidate_items": 795,
+    "presale_items": 195,
+    "after_district_filter": 100,
     "fallback_matched": 0,
-    "unique_place_ids": 58,
-    "tracked_places": 58,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-01T14:18:35.921801+09:00",
+    "unique_place_ids": 59,
+    "tracked_places": 59,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-02T15:53:24.703218+09:00",
     "admission_names": {
-      "(없음)": 396,
-      "현장대기": 204,
-      "사전예약&현장대기": 146,
+      "(없음)": 397,
+      "현장대기": 203,
+      "사전예약&현장대기": 150,
       "사전예약": 45
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
@@ -3787,6 +3817,7 @@
     "2020855313",
     "2021908137",
     "2022056721",
+    "2022112166",
     "2023497014",
     "2023862125",
     "2027303446",
