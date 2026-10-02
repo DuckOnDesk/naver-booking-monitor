@@ -6669,10 +6669,6 @@
     ]
   },
   "mum8tziu:2026-10-16:scope": "",
-  "muawwgys:url_closed": 1,
-  "muawwgys:2026-10-03:closed": {
-    "12:30": 1
-  },
   "mum8tziu:url_closed": 1,
   "mum8tziu:2026-10-13:closed": {
     "19:30": 1
@@ -6680,5 +6676,8 @@
   "mudeg9zf:url_closed": 1,
   "mudeg9zf:2026-10-03:closed": {
     "16:00": 1
+  },
+  "muawwgys:2026-10-03": {
+    "12:30": 1
   }
 }
