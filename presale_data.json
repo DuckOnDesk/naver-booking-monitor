@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T15:42:23.282182+09:00",
+  "updated_at": "2026-10-02T15:47:57.540624+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -496,7 +496,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:14:58.084491+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:53.992094+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -526,7 +526,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:14:55.686441+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:51.612675+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -810,7 +810,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -853,7 +853,8 @@
         "2026-09-29T13:23:12.956247+09:00",
         "2026-09-29T14:50:35.557545+09:00",
         "2026-10-01T05:53:32.191685+09:00",
-        "2026-10-02T12:57:55.810953+09:00"
+        "2026-10-02T12:57:55.810953+09:00",
+        "2026-10-02T15:47:50.671758+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -1006,7 +1007,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:14:58.593212+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:54.480661+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1036,7 +1037,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:14:59.242098+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:54.959124+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1064,7 +1065,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:14:59.772304+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:55.456498+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1370,7 +1371,7 @@
         "2026-10-02T13:52:37.481434+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:14:56.226513+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:52.228785+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1562,7 +1563,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-02T15:14:54.715499+09:00",
+      "bookingItemCheckedAt": "2026-10-02T15:47:50.671758+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1641,7 +1642,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:15:00.800407+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:56.564128+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1809,7 +1810,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:14:57.418091+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:53.345716+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1898,7 +1899,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T15:15:01.503486+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T15:47:57.051522+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1910,13 +1911,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-21T12:17:21.713473+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2000187386",
@@ -3309,6 +3303,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-02T15:36:53.967059+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-10-02T15:47:50.671758+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3475,7 +3476,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T15:42:21.846880+09:00",
+    "checked_at": "2026-10-02T15:47:50.671758+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3489,8 +3490,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-01T14:18:35.921801+09:00",
     "admission_names": {
-      "(없음)": 397,
-      "현장대기": 203,
+      "(없음)": 396,
+      "현장대기": 204,
       "사전예약&현장대기": 146,
       "사전예약": 45
     },
