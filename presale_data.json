@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T23:14:36.894265+09:00",
+  "updated_at": "2026-10-02T23:19:58.988109+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1785,7 +1785,7 @@
       "remainingDays": 7,
       "status": "D-7",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260915_119/17894592172850o0RK_JPEG/edited-1789459216933-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261002_76/1790950008057GUuKU_JPEG/edited-1790950007778-0.jpg",
       "roadAddress": "신촌로 83 현대백화점 신촌 UPLEX 지하2층",
       "commonAddress": "서울 서대문구",
       "district": "서대문구",
@@ -3605,7 +3605,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T23:14:35.380180+09:00",
+    "checked_at": "2026-10-02T23:19:57.517714+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3619,8 +3619,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 393,
-      "현장대기": 205,
+      "(없음)": 392,
+      "현장대기": 206,
       "사전예약&현장대기": 153,
       "사전예약": 49
     },
