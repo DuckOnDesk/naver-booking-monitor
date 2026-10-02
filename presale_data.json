@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T09:26:59.701969+09:00",
+  "updated_at": "2026-10-02T09:32:26.044179+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1708,7 +1708,7 @@
       "operationEnd": "26.10.25.",
       "remainingDays": 19,
       "status": "D-19",
-      "admissionCondition": "사전예약",
+      "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20260915_108/1789464289924SdLHI_JPEG/edited-1789464288695-0.jpg",
       "roadAddress": "독서당로29길 5-6",
       "commonAddress": "서울 용산구",
@@ -3466,7 +3466,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T09:26:57.682168+09:00",
+    "checked_at": "2026-10-02T09:32:24.059194+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3482,8 +3482,8 @@
     "admission_names": {
       "(없음)": 378,
       "현장대기": 202,
-      "사전예약&현장대기": 144,
-      "사전예약": 47
+      "사전예약&현장대기": 146,
+      "사전예약": 45
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
     "structure_warned_at": null
