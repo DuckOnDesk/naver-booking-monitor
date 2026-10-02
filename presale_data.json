@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T17:45:02.147821+09:00",
+  "updated_at": "2026-10-02T17:50:28.542535+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -814,7 +814,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -858,7 +858,8 @@
         "2026-09-29T14:50:35.557545+09:00",
         "2026-10-01T05:53:32.191685+09:00",
         "2026-10-02T12:57:55.810953+09:00",
-        "2026-10-02T15:47:50.671758+09:00"
+        "2026-10-02T15:47:50.671758+09:00",
+        "2026-10-02T17:50:27.064308+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -2000,13 +2001,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2057558383",
-      "place_name": "위아자 나눔위크 '지구체육관'",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1495702/search",
-      "ts": "2026-09-21T16:11:03.172685+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2018920557",
@@ -3399,6 +3393,13 @@
       "place_name": "Behind the Lanes Seoul 2026",
       "booking_url": "",
       "ts": "2026-10-02T17:17:37.370203+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-10-02T17:50:27.064308+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3568,7 +3569,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T17:45:00.671540+09:00",
+    "checked_at": "2026-10-02T17:50:27.064308+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3582,8 +3583,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 396,
-      "현장대기": 205,
+      "(없음)": 395,
+      "현장대기": 206,
       "사전예약&현장대기": 150,
       "사전예약": 49
     },
