@@ -229,3 +229,4 @@
 {"ts": "2026-10-03T02:11:23+09:00", "kind": "stock", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-03", "change": "예약 변동(예약 발생)", "stock": [48, 48], "booked": [47, 48], "slots": {"19:00": {"from": [6, 5], "to": [6, 6]}}, "scope": ""}
 {"ts": "2026-10-03T05:27:35+09:00", "kind": "gate", "item": "mum8tziu", "name": "센녹", "open": true, "reason": ""}
 {"ts": "2026-10-03T05:27:38+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-13", "level": "open", "title": "🎉 센녹 예약 가능!", "slots": {"19:30": 1}}
+{"ts": "2026-10-03T05:49:48+09:00", "kind": "stock", "item": "mum8tziu", "name": "센녹", "date": "2026-10-13", "change": "예약 변동(예약 발생)", "stock": [150, 150], "booked": [149, 150], "slots": {"19:30": {"from": [8, 7], "to": [8, 8]}}, "scope": ""}
