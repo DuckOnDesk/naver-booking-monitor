@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T11:52:31.131237+09:00",
+  "updated_at": "2026-10-02T11:58:04.125874+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -464,7 +464,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:23:02.022449+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:58:00.453053+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -494,7 +494,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:22:58.721177+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:57:58.114132+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1001,7 +1001,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:23:02.827145+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:58:00.958557+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1031,7 +1031,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:23:03.440860+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:58:01.481315+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1059,7 +1059,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:23:04.065522+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:58:02.123615+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1364,7 +1364,7 @@
         "2026-10-02T10:27:28.243699+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:22:59.537667+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:57:58.768969+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1524,7 +1524,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-02T11:22:57.518659+09:00",
+      "bookingItemCheckedAt": "2026-10-02T11:57:57.046430+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1633,7 +1633,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:23:05.697763+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:58:03.124111+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1801,7 +1801,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:23:01.200692+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:57:59.925316+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1890,7 +1890,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T11:23:06.512233+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T11:58:03.616786+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3467,7 +3467,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T11:52:29.292149+09:00",
+    "checked_at": "2026-10-02T11:57:57.046430+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
