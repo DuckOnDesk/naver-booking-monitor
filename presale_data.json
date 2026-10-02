@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T12:08:56.940512+09:00",
+  "updated_at": "2026-10-02T12:14:23.278319+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -44,7 +44,7 @@
     {
       "id": "2071088201",
       "name": "클리오 풍년다방 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
       "bookingBusinessId": "1735456",
       "operationStart": "26.09.23.",
@@ -1335,7 +1335,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -3467,7 +3467,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T12:08:55.507282+09:00",
+    "checked_at": "2026-10-02T12:14:21.717439+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
