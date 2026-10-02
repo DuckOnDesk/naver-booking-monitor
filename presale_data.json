@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T11:58:04.125874+09:00",
+  "updated_at": "2026-10-02T12:03:31.066455+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1494,6 +1494,36 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2015989932",
+      "name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1738439/items/8061607",
+      "bookingBusinessId": "1738439",
+      "operationStart": "26.10.01.",
+      "operationEnd": "26.10.11.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260914_246/1789359122397rMaTb_JPEG/edited-1789359121214-0.jpg",
+      "roadAddress": "을지로 127 1, 2, 3층",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-23T13:23:31.048752+09:00"
+      ],
+      "bookingOpenAuto": "2026-09-23T13:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T11:16:18.489297+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-28T09:06:31.751897+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-23T13:23:34.067180+09:00",
+      "bookingIsOpened": true
+    },
+    {
       "id": "2033849367",
       "name": "소머드 롯데본점 팝업",
       "hasBooking": false,
@@ -1528,36 +1558,6 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
-    },
-    {
-      "id": "2015989932",
-      "name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1738439/items/8061607",
-      "bookingBusinessId": "1738439",
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.11.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260914_246/1789359122397rMaTb_JPEG/edited-1789359121214-0.jpg",
-      "roadAddress": "을지로 127 1, 2, 3층",
-      "commonAddress": "서울 중구",
-      "district": "중구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-23T13:23:31.048752+09:00"
-      ],
-      "bookingOpenAuto": "2026-09-23T13:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-09-28T11:16:18.489297+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T09:06:31.751897+09:00",
-      "bookingItemCheckedAt": "2026-09-28T11:16:10.279484+09:00",
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-23T13:23:34.067180+09:00",
-      "bookingIsOpened": true
     },
     {
       "id": "2034762449",
@@ -3467,7 +3467,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T11:57:57.046430+09:00",
+    "checked_at": "2026-10-02T12:03:29.474167+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
