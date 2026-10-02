@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-02T22:47:34.539329+09:00",
+  "updated_at": "2026-10-02T22:53:03.538650+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -500,7 +500,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:10.515824+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:52:59.960959+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -530,7 +530,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:07.621396+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:52:56.942576+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1013,7 +1013,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:10.965984+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:53:00.426407+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1043,7 +1043,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:11.560788+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:53:01.045467+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1071,7 +1071,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:12.281560+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:53:01.510483+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1347,7 +1347,7 @@
     {
       "id": "2015914479",
       "name": "블루 록 2026 더 라스트 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "bookingBusinessId": "1736544",
       "operationStart": "26.10.01.",
@@ -1379,7 +1379,7 @@
         "2026-10-02T21:16:16.463311+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:08.310501+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:52:57.548248+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1627,7 +1627,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-02T22:21:06.731915+09:00",
+      "bookingItemCheckedAt": "2026-10-02T22:52:56.066618+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1706,7 +1706,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:13.534050+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:53:02.448667+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1822,7 +1822,7 @@
         "2026-10-02T19:39:01.019127+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T14:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:09.597732+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:52:58.872705+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1934,7 +1934,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:10.045821+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:52:59.468055+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2023,7 +2023,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-02T22:21:13.999325+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-02T22:53:03.051101+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3603,7 +3603,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-02T22:47:32.977508+09:00",
+    "checked_at": "2026-10-02T22:52:56.066618+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3617,8 +3617,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 392,
-      "현장대기": 206,
+      "(없음)": 393,
+      "현장대기": 205,
       "사전예약&현장대기": 153,
       "사전예약": 49
     },
