@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-03T11:10:16.636150+09:00",
+  "updated_at": "2026-10-03T11:15:47.363078+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -46,7 +46,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -98,7 +98,8 @@
         "2026-10-02T13:52:37.481434+09:00",
         "2026-10-02T17:17:37.370203+09:00",
         "2026-10-02T22:58:25.679251+09:00",
-        "2026-10-03T02:18:04.275717+09:00"
+        "2026-10-03T02:18:04.275717+09:00",
+        "2026-10-03T11:15:42.681544+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -832,9 +833,9 @@
     {
       "id": "2030290261",
       "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+      "bookingBusinessId": "1745091",
       "operationStart": "26.10.10.",
       "operationEnd": "26.10.14.",
       "remainingDays": 7,
@@ -845,14 +846,16 @@
       "commonAddress": "서울 마포구",
       "district": "마포구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenHistory": [
+        "2026-10-03T11:15:42.681544+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-05T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-03T11:15:44.958803+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": "2026-09-28T10:20:14.691666+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-10-03T11:15:42.681544+09:00",
+      "bookingItemCheckedAt": "2026-10-03T11:15:42.681544+09:00",
       "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
@@ -1964,20 +1967,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
-      "ts": "2026-09-22T14:00:42.851570+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2084168433",
-      "place_name": "블랙야크 더현대서울",
-      "booking_url": "https://map.naver.com/p/entry/place/2084168433",
-      "ts": "2026-09-22T16:43:09.635592+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2030290261",
@@ -3363,6 +3352,20 @@
       "place_name": "블루 록 2026 더 라스트 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
       "ts": "2026-10-03T05:43:47.464330+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-10-03T11:15:42.681544+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2030290261",
+      "place_name": "Cafe 1014: For Keria",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+      "ts": "2026-10-03T11:15:42.681544+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3532,7 +3535,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-03T11:10:14.618668+09:00",
+    "checked_at": "2026-10-03T11:15:42.681544+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3546,8 +3549,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 393,
-      "현장대기": 204,
+      "(없음)": 392,
+      "현장대기": 205,
       "사전예약&현장대기": 150,
       "사전예약": 49
     },
@@ -3995,6 +3998,7 @@
     "2015282909": "https://m.booking.naver.com/booking/12/bizes/1515875",
     "2020779335": "https://m.booking.naver.com/booking/12/bizes/1745971/items/8092124",
     "2012544467": "https://m.booking.naver.com/booking/6/bizes/1747903/items/8099300",
-    "2098025724": "https://m.booking.naver.com/booking/12/bizes/1741002/items/8071793"
+    "2098025724": "https://m.booking.naver.com/booking/12/bizes/1741002/items/8071793",
+    "2030290261": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150"
   }
 }
