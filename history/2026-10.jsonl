@@ -265,3 +265,5 @@
 {"ts": "2026-10-04T02:51:00+09:00", "kind": "gate", "item": "muawwgys", "name": "리베르", "open": true, "reason": ""}
 {"ts": "2026-10-04T02:51:02+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-04", "level": "open", "title": "🎉 리베르 예약 가능!", "slots": {"18:00": 1}}
 {"ts": "2026-10-04T02:52:04+09:00", "kind": "stock", "item": "muawwgys", "name": "리베르", "date": "2026-10-04", "change": "예약 변동(예약 발생)", "stock": [54, 54], "booked": [53, 54], "slots": {"18:00": {"from": [3, 2], "to": [3, 3]}}, "scope": ""}
+{"ts": "2026-10-04T05:34:35+09:00", "kind": "gate", "item": "mudeg9zf", "name": "크록스", "open": true, "reason": ""}
+{"ts": "2026-10-04T05:34:37+09:00", "kind": "alert", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-04", "level": "open", "title": "🎉 크록스 예약 가능!", "slots": {"13:00": 2, "17:00": 1}}
