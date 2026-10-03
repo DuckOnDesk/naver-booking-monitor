@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T08:44:03.765651+09:00",
+  "updated_at": "2026-10-04T08:49:29.150447+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -717,7 +717,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -1377,7 +1377,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-04T08:16:48.119965+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-04T08:49:27.622747+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3513,7 +3513,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-04T08:44:01.844474+09:00",
+    "checked_at": "2026-10-04T08:49:26.480711+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
