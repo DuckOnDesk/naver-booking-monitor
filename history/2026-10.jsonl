@@ -257,3 +257,5 @@
 {"ts": "2026-10-03T18:01:30+09:00", "kind": "stock", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-03", "change": "예약 변동(예약 취소)", "stock": [12, 12], "booked": [12, 11], "slots": {"19:00": {"from": [6, 6], "to": [6, 5]}}, "scope": ""}
 {"ts": "2026-10-03T19:18:30+09:00", "kind": "stock", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-04", "change": "예약 변동(예약 취소)", "stock": [48, 48], "booked": [48, 47], "slots": {"17:00": {"from": [6, 6], "to": [6, 5]}}, "scope": ""}
 {"ts": "2026-10-03T19:18:30+09:00", "kind": "alert", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-04", "level": "closed", "title": "🔒 크록스 자리 있음 (예약창 닫힘)", "slots": {"17:00": 1}}
+{"ts": "2026-10-03T20:26:29+09:00", "kind": "stock", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-04", "change": "예약 변동(예약 취소)", "stock": [48, 48], "booked": [47, 45], "slots": {"13:00": {"from": [6, 6], "to": [6, 4]}}, "scope": ""}
+{"ts": "2026-10-03T20:26:29+09:00", "kind": "alert", "item": "mudeg9zf", "name": "크록스", "date": "2026-10-04", "level": "closed", "title": "🔒 크록스 자리 추가됨 (예약창 닫힘)", "slots": {"13:00": 2, "17:00": 1}}
