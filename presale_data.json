@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T07:31:50.605704+09:00",
+  "updated_at": "2026-10-04T07:32:01.628100+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -42,6 +42,36 @@
   "booking_open_datetimes": {},
   "manual_places": [],
   "places": [
+    {
+      "id": "2020779335",
+      "name": "마르디 메크르디 프라이빗 아틀리에",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745971/items/8092124",
+      "bookingBusinessId": "1745971",
+      "operationStart": "26.10.08.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_151/1790559316142P5IHe_JPEG/edited-1790559315314-0.jpg",
+      "roadAddress": "언주로164길 13",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-01T11:21:46.768424+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-01T09:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-01T11:21:57.900034+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-01T11:21:46.768424+09:00",
+      "bookingItemCheckedAt": "2026-10-01T11:21:46.768424+09:00",
+      "discoveredAt": "2026-10-01T11:21:46.768424+09:00",
+      "lastBookingNotifiedAt": "2026-10-01T11:27:31.344351+09:00",
+      "bookingIsOpened": true
+    },
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
@@ -613,36 +643,6 @@
       "discoveredAt": "2026-10-01T02:33:26.602508+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
-    },
-    {
-      "id": "2020779335",
-      "name": "마르디 메크르디 프라이빗 아틀리에",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745971/items/8092124",
-      "bookingBusinessId": "1745971",
-      "operationStart": "26.10.08.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": 4,
-      "status": "D-4",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_151/1790559316142P5IHe_JPEG/edited-1790559315314-0.jpg",
-      "roadAddress": "언주로164길 13",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-01T11:21:46.768424+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-01T09:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-01T11:21:57.900034+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-01T11:21:46.768424+09:00",
-      "bookingItemCheckedAt": "2026-10-01T11:21:46.768424+09:00",
-      "discoveredAt": "2026-10-01T11:21:46.768424+09:00",
-      "lastBookingNotifiedAt": "2026-10-01T11:27:31.344351+09:00",
-      "bookingIsOpened": true
     },
     {
       "id": "2087335226",
@@ -3513,24 +3513,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-04T07:31:49.073188+09:00",
+    "checked_at": "2026-10-04T07:32:00.078864+09:00",
     "areas_total": 34,
-    "areas_ok": 2,
-    "areas_failed": 32,
+    "areas_ok": 1,
+    "areas_failed": 33,
     "areas_empty": 0,
-    "candidate_items": 70,
-    "presale_items": 22,
-    "after_district_filter": 18,
+    "candidate_items": 5,
+    "presale_items": 1,
+    "after_district_filter": 1,
     "fallback_matched": 0,
-    "unique_place_ids": 18,
+    "unique_place_ids": 1,
     "tracked_places": 60,
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "현장대기": 26,
-      "(없음)": 22,
-      "사전예약&현장대기": 16,
-      "사전예약": 6
+      "(없음)": 3,
+      "현장대기": 1,
+      "사전예약&현장대기": 1
     },
     "stale_warned_at": "2026-09-27T07:01:30.732051+09:00",
     "structure_warned_at": null
