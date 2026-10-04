@@ -423,3 +423,4 @@
 {"ts": "2026-10-05T05:28:01+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-10", "level": "open", "title": "🎉 센녹 예약 가능!", "slots": {"17:30": 1, "18:00": 1}}
 {"ts": "2026-10-05T05:28:01+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-14", "level": "open", "title": "🎉 센녹 예약 가능!", "slots": {"18:30": 1}}
 {"ts": "2026-10-05T05:28:01+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-15", "level": "open", "title": "🎉 센녹 예약 가능!", "slots": {"14:30": 1}}
+{"ts": "2026-10-05T06:17:10+09:00", "kind": "stock", "item": "mum8tziu", "name": "센녹", "date": "2026-10-10", "change": "예약 변동(예약 발생)", "stock": [200, 200], "booked": [198, 199], "slots": {"17:30": {"from": [15, 14], "to": [15, 15]}}, "scope": ""}
