@@ -318,3 +318,5 @@
 {"ts": "2026-10-04T11:14:15+09:00", "kind": "gate", "item": "mu6p9ue2", "name": "스킨앤랩", "open": true, "reason": ""}
 {"ts": "2026-10-04T11:14:17+09:00", "kind": "stock", "item": "mu6p9ue2", "name": "스킨앤랩", "date": "2026-10-04", "change": "예약 변동(예약 발생)", "stock": [527, 527], "booked": [523, 524], "slots": {"18:30": {"from": [31, 30], "to": [31, 31]}}, "scope": ""}
 {"ts": "2026-10-04T11:26:19+09:00", "kind": "stock", "item": "mu6p9ue2", "name": "스킨앤랩", "date": "2026-10-04", "change": "예약 변동(예약 취소)", "stock": [527, 527], "booked": [524, 523], "slots": {"12:30": {"from": [31, 31], "to": [31, 30]}}, "scope": ""}
+{"ts": "2026-10-04T11:54:50+09:00", "kind": "gate", "item": "muawwgys", "name": "리베르", "open": true, "reason": ""}
+{"ts": "2026-10-04T11:54:52+09:00", "kind": "alert", "item": "muawwgys", "name": "리베르", "date": "2026-10-04", "level": "open", "title": "🎉 리베르 예약 가능!", "slots": {"14:30": 1}}
