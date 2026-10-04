@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T15:19:40.801899+09:00",
+  "updated_at": "2026-10-04T15:25:06.874723+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -619,7 +619,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -667,7 +667,8 @@
         "2026-10-02T17:50:27.064308+09:00",
         "2026-10-02T22:58:25.679251+09:00",
         "2026-10-03T02:18:04.275717+09:00",
-        "2026-10-04T05:46:00.752804+09:00"
+        "2026-10-04T05:46:00.752804+09:00",
+        "2026-10-04T15:25:04.819501+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -683,7 +684,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1381,7 +1382,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-04T14:52:27.867123+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-04T15:25:05.658395+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1949,13 +1950,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "",
-      "ts": "2026-09-23T09:07:40.184258+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3348,6 +3342,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-04T14:57:52.227465+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-10-04T15:25:04.819501+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3517,7 +3518,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-04T15:19:39.360401+09:00",
+    "checked_at": "2026-10-04T15:25:04.819501+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
