@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T14:52:29.015559+09:00",
+  "updated_at": "2026-10-04T14:57:53.748666+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -683,7 +683,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -740,7 +740,8 @@
         "2026-10-03T05:43:47.464330+09:00",
         "2026-10-03T11:32:14.872324+09:00",
         "2026-10-03T13:49:09.804912+09:00",
-        "2026-10-04T09:22:05.569415+09:00"
+        "2026-10-04T09:22:05.569415+09:00",
+        "2026-10-04T14:57:52.227465+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1948,13 +1949,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://map.naver.com/p/entry/place/2015914479",
-      "ts": "2026-09-23T05:55:02.505857+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2038718464",
@@ -3347,6 +3341,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-10-04T12:06:37.465044+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-04T14:57:52.227465+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3516,7 +3517,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-04T14:52:27.027381+09:00",
+    "checked_at": "2026-10-04T14:57:52.227465+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3530,8 +3531,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 392,
-      "현장대기": 204,
+      "(없음)": 393,
+      "현장대기": 203,
       "사전예약&현장대기": 144,
       "사전예약": 49
     },
