@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T22:07:00.901491+09:00",
+  "updated_at": "2026-10-04T22:12:26.781830+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -686,7 +686,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -746,7 +746,8 @@
         "2026-10-04T09:22:05.569415+09:00",
         "2026-10-04T14:57:52.227465+09:00",
         "2026-10-04T17:02:58.832225+09:00",
-        "2026-10-04T18:55:52.849988+09:00"
+        "2026-10-04T18:55:52.849988+09:00",
+        "2026-10-04T22:12:24.079026+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -835,7 +836,7 @@
         "2026-10-03T11:15:42.681544+09:00"
       ],
       "bookingOpenAuto": "2026-10-05T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-04T21:39:40.723062+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-04T22:12:24.079223+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1954,13 +1955,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015989932",
-      "place_name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
-      "booking_url": "https://map.naver.com/p/entry/place/2015989932",
-      "ts": "2026-09-23T13:23:31.048752+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3353,6 +3347,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-04T18:55:52.849988+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-04T22:12:24.079026+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3522,7 +3523,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-04T22:06:58.999648+09:00",
+    "checked_at": "2026-10-04T22:12:24.079026+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
