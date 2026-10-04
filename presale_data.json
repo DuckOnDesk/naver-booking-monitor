@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T08:54:53.843463+09:00",
+  "updated_at": "2026-10-04T09:00:18.154552+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -100,7 +100,8 @@
         "2026-10-03T02:18:04.275717+09:00",
         "2026-10-03T11:15:42.681544+09:00",
         "2026-10-03T17:08:28.269451+09:00",
-        "2026-10-04T03:08:19.638945+09:00"
+        "2026-10-04T03:08:19.638945+09:00",
+        "2026-10-04T09:00:16.263358+09:00"
       ],
       "bookingOpenAuto": "2026-09-16T08:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:36.176662+09:00",
@@ -1947,13 +1948,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2033849367",
-      "place_name": "소머드 롯데본점 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1514630",
-      "ts": "2026-09-23T03:48:36.637266+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2071088201",
       "place_name": "클리오 풍년다방 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
@@ -3344,6 +3338,13 @@
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "ts": "2026-10-04T05:46:00.752804+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033835877",
+      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
+      "ts": "2026-10-04T09:00:16.263358+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3513,7 +3514,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-04T08:54:51.909373+09:00",
+    "checked_at": "2026-10-04T09:00:16.263358+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3527,8 +3528,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 392,
-      "현장대기": 204,
+      "(없음)": 391,
+      "현장대기": 205,
       "사전예약&현장대기": 144,
       "사전예약": 49
     },
