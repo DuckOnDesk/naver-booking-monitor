@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-04T18:39:33.936674+09:00",
+  "updated_at": "2026-10-04T18:45:01.037461+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -45,7 +45,7 @@
     {
       "id": "2033835877",
       "name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "bookingBusinessId": "1736126",
       "operationStart": "26.09.23.",
@@ -620,7 +620,7 @@
     {
       "id": "2038718464",
       "name": "크록스 팝업스토어 CROCS STUDIO",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
       "bookingBusinessId": "1741852",
       "operationStart": "26.09.30.",
@@ -669,7 +669,8 @@
         "2026-10-02T22:58:25.679251+09:00",
         "2026-10-03T02:18:04.275717+09:00",
         "2026-10-04T05:46:00.752804+09:00",
-        "2026-10-04T15:25:04.819501+09:00"
+        "2026-10-04T15:25:04.819501+09:00",
+        "2026-10-04T18:44:59.494959+09:00"
       ],
       "bookingOpenAuto": "2026-09-23T09:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:16:17.388058+09:00",
@@ -685,7 +686,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1952,13 +1953,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2045660928",
-      "place_name": "오늘은 1004",
-      "booking_url": "",
-      "ts": "2026-09-23T12:22:40.973942+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3351,6 +3345,13 @@
       "body": "2.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 193개 인식 중.",
       "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
       "ts": "2026-10-04T17:19:16.397238+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2038718464",
+      "place_name": "크록스 팝업스토어 CROCS STUDIO",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
+      "ts": "2026-10-04T18:44:59.494959+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3520,7 +3521,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-04T18:39:31.223915+09:00",
+    "checked_at": "2026-10-04T18:44:59.494959+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3534,8 +3535,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 391,
-      "현장대기": 205,
+      "(없음)": 392,
+      "현장대기": 204,
       "사전예약&현장대기": 144,
       "사전예약": 49
     },
