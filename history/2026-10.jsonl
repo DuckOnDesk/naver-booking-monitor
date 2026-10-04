@@ -301,3 +301,4 @@
 {"ts": "2026-10-04T10:09:53+09:00", "kind": "stock", "item": "mum8tziu", "name": "센녹", "date": "2026-10-10", "change": "예약 변동(예약 취소)", "stock": [200, 200], "booked": [200, 199], "slots": {"18:00": {"from": [10, 10], "to": [10, 9]}}, "scope": ""}
 {"ts": "2026-10-04T10:09:57+09:00", "kind": "gate", "item": "mum8tziu", "name": "센녹", "open": false, "reason": "URL 리다이렉트: /error/ type=InvalidBusiness — \"운영하지 않는 예매 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
 {"ts": "2026-10-04T10:09:57+09:00", "kind": "alert", "item": "mum8tziu", "name": "센녹", "date": "2026-10-10", "level": "closed", "title": "🔒 센녹 자리 있음 (예약창 닫힘)", "slots": {"18:00": 1}}
+{"ts": "2026-10-04T10:10:36+09:00", "kind": "stock", "item": "mu6p9ue2", "name": "스킨앤랩", "date": "2026-10-04", "change": "예약 변동(예약 발생)", "stock": [558, 558], "booked": [555, 556], "slots": {"12:30": {"from": [31, 30], "to": [31, 31]}}, "scope": ""}
