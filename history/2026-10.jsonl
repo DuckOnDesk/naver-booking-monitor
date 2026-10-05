@@ -678,3 +678,5 @@
 {"ts": "2026-10-05T15:18:05+09:00", "kind": "gate", "item": "mtssyscp", "name": "넷플 잔치", "open": true, "reason": ""}
 {"ts": "2026-10-05T15:18:07+09:00", "kind": "alert", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-24", "level": "open", "title": "🎉 넷플 잔치 예약 가능!", "slots": {"종일": 22}}
 {"ts": "2026-10-05T15:18:07+09:00", "kind": "alert", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-25", "level": "open", "title": "🎉 넷플 잔치 예약 가능!", "slots": {"종일": 114}}
+{"ts": "2026-10-05T15:27:07+09:00", "kind": "stock", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-25", "change": "예약 변동(예약 취소)", "stock": [7160, 7160], "booked": [7046, 7044], "slots": {"종일": {"from": [7160, 7046], "to": [7160, 7044]}}, "scope": ""}
+{"ts": "2026-10-05T15:27:07+09:00", "kind": "alert", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-25", "level": "open", "title": "🎉 넷플 잔치 자리 추가됨 - 종일(+2)", "slots": {"종일": 116}}
