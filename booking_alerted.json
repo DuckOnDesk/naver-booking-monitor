@@ -5140,11 +5140,10 @@
   "muawwgys:2026-10-05:closed": {
     "18:30": 1
   },
-  "mtssyscp:url_closed": 1,
-  "mtssyscp:2026-10-25:closed": {
-    "종일": 136
-  },
-  "mtssyscp:2026-10-24:closed": {
+  "mtssyscp:2026-10-24": {
     "종일": 30
+  },
+  "mtssyscp:2026-10-25": {
+    "종일": 136
   }
 }
