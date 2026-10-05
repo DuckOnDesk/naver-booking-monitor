@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T09:36:46.677162+09:00",
+  "updated_at": "2026-10-05T09:42:15.637259+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -403,7 +403,7 @@
         "2026-09-23T18:27:31.319787+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:46.256940+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:08.853943+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -489,7 +489,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:49.054129+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:11.855486+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -620,7 +620,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -682,7 +682,8 @@
         "2026-10-04T17:02:58.832225+09:00",
         "2026-10-04T18:55:52.849988+09:00",
         "2026-10-04T22:12:24.079026+09:00",
-        "2026-10-05T01:14:32.522106+09:00"
+        "2026-10-05T01:14:32.522106+09:00",
+        "2026-10-05T09:42:07.984372+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -867,7 +868,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:49.630235+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:12.452229+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -895,7 +896,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:50.088512+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:12.919714+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -923,7 +924,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:50.527188+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:13.375212+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1204,7 +1205,7 @@
         "2026-10-03T23:48:59.285798+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:46.833190+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:09.606473+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1482,7 +1483,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-05T09:09:45.387099+09:00",
+      "bookingItemCheckedAt": "2026-10-05T09:42:07.984372+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1589,7 +1590,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:51.560595+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:14.557338+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1677,7 +1678,7 @@
         "2026-10-02T19:39:01.019127+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T14:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:47.876816+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:10.803226+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1789,7 +1790,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:48.468652+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:11.398739+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1878,7 +1879,7 @@
         "2026-09-28T12:00:01.081733+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:09:52.153937+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T09:42:15.157152+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1890,13 +1891,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
-      "ts": "2026-09-23T15:45:10.091637+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2045979104",
@@ -3289,6 +3283,13 @@
       "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
       "ts": "2026-10-05T02:57:17.384926+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-05T09:42:07.984372+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3458,7 +3459,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-05T09:36:44.582090+09:00",
+    "checked_at": "2026-10-05T09:42:07.984372+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
