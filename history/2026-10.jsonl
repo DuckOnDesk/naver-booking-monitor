@@ -716,3 +716,4 @@
 {"ts": "2026-10-05T18:53:02+09:00", "kind": "alert", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-25", "level": "open", "title": "🎉 넷플 잔치 자리 추가됨 - 종일(+2)", "slots": {"종일": 132}}
 {"ts": "2026-10-05T19:52:02+09:00", "kind": "stock", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-24", "change": "예약 변동(예약 취소)", "stock": [6960, 6960], "booked": [6932, 6930], "slots": {"종일": {"from": [6960, 6932], "to": [6960, 6930]}}, "scope": ""}
 {"ts": "2026-10-05T19:52:02+09:00", "kind": "alert", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-24", "level": "open", "title": "🎉 넷플 잔치 자리 추가됨 - 종일(+2)", "slots": {"종일": 30}}
+{"ts": "2026-10-05T20:43:25+09:00", "kind": "gate", "item": "mtssyscp", "name": "넷플 잔치", "open": false, "reason": "URL 리다이렉트: /error/ type=InvalidBusiness — \"운영하지 않는 예매 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
