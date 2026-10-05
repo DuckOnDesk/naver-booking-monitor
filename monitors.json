@@ -16,7 +16,8 @@
       "enabled": false,
       "target_dates": [
         "2026-10-04"
-      ]
+      ],
+      "mute": true
     },
     {
       "id": "muawwgys",
