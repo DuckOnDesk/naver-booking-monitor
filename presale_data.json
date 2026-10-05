@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T20:45:27.687790+09:00",
+  "updated_at": "2026-10-05T20:50:52.475603+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1142,7 +1142,7 @@
     {
       "id": "2070202228",
       "name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1736054/items/8052594",
       "bookingBusinessId": "1736054",
       "operationStart": "26.09.26.",
@@ -1769,7 +1769,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-05T20:18:19.523567+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T20:50:51.271474+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -3466,7 +3466,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-05T20:45:25.177759+09:00",
+    "checked_at": "2026-10-05T20:50:50.251543+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3480,8 +3480,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 374,
-      "현장대기": 206,
+      "(없음)": 375,
+      "현장대기": 205,
       "사전예약&현장대기": 144,
       "사전예약": 46
     },
