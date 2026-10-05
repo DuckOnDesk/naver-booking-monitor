@@ -3893,6 +3893,13 @@ def main():
         except Exception as exc:
             print(f"[경고] monitors.json 읽기 실패, 이전 설정 유지: {exc}", flush=True)
 
+        # 실행 도중 항목이 전부 꺼지면 남은 시간을 빈 채로 돌지 않고 끝낸다.
+        # 다음 런은 워크플로의 감시 항목 확인 스텝에서 바로 멈추고(체인 중단),
+        # 항목을 다시 켜면 monitors.json 푸시가 워크플로를 다시 띄운다.
+        if not any(m.get("enabled", True) for m in monitors):
+            print("활성화된 모니터링 항목 없음 — 감시 일시중지", flush=True)
+            break
+
         remaining_min = (end_time - time.time()) / 60
         # 머리글은 예약만 해 둔다. 이 회차에 남길 게 하나도 없으면 머리글도 안 찍는다.
         set_round_header(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 ---")
