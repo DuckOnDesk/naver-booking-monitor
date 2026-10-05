@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T14:53:34.579816+09:00",
+  "updated_at": "2026-10-05T14:58:58.910850+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -621,7 +621,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -685,7 +685,8 @@
         "2026-10-04T22:12:24.079026+09:00",
         "2026-10-05T01:14:32.522106+09:00",
         "2026-10-05T09:42:07.984372+09:00",
-        "2026-10-05T11:53:58.680342+09:00"
+        "2026-10-05T11:53:58.680342+09:00",
+        "2026-10-05T14:58:57.428368+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1895,13 +1896,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
-      "ts": "2026-09-23T17:31:21.000811+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2084168433",
@@ -3294,6 +3288,13 @@
       "place_name": "오래오래 함께가게",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1732164/items/8030545",
       "ts": "2026-10-05T13:48:16.876762+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-05T14:58:57.428368+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3463,7 +3464,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-05T14:53:32.543497+09:00",
+    "checked_at": "2026-10-05T14:58:57.428368+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
