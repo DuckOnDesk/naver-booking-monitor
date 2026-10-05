@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T18:40:43.100472+09:00",
+  "updated_at": "2026-10-05T18:46:08.337546+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -331,7 +331,7 @@
     {
       "id": "2045660928",
       "name": "오늘은 1004",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744636/items/8086251",
       "bookingBusinessId": "1744636",
       "operationStart": "26.10.02.",
@@ -3465,7 +3465,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-05T18:40:40.598387+09:00",
+    "checked_at": "2026-10-05T18:46:06.632775+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
