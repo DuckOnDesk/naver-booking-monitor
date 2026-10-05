@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T10:20:04.368948+09:00",
+  "updated_at": "2026-10-05T10:25:28.987023+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -620,7 +620,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1323,7 +1323,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-05T09:52:59.081320+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T10:25:27.939364+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3459,7 +3459,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-05T10:20:03.033886+09:00",
+    "checked_at": "2026-10-05T10:25:27.086759+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3473,8 +3473,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 375,
-      "현장대기": 205,
+      "(없음)": 374,
+      "현장대기": 206,
       "사전예약&현장대기": 144,
       "사전예약": 46
     },
