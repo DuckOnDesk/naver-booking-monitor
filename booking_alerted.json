@@ -713,7 +713,7 @@
   "mtssyscp:2026-10-25:stock": {
     "종일": [
       7160,
-      7134
+      7160
     ]
   },
   "mtssyscp:2026-10-24:scope": "",
@@ -1779,7 +1779,7 @@
   },
   "muawwgys:2026-10-05:scope": "",
   "muaydmed:stock_at": "2026-10-01T19:00:32+09:00",
-  "mtssyscp:stock_at": "2026-10-05T10:53:51+09:00",
+  "mtssyscp:stock_at": "2026-10-05T10:54:51+09:00",
   "muc2ww5j:stock_at": "2026-09-29T14:43:29+09:00",
   "muc2ww5j:2026-10-05:stock": {
     "11:00": [
@@ -5140,9 +5140,6 @@
     ]
   },
   "mu6p9ue2:2026-10-17:scope": "",
-  "mtssyscp:2026-10-25": {
-    "종일": 26
-  },
   "muawwgys:url_closed": 1,
   "muawwgys:2026-10-05:closed": {
     "18:30": 1
