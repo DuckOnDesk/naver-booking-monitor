@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T10:25:28.987023+09:00",
+  "updated_at": "2026-10-05T10:30:56.186921+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -1747,9 +1747,9 @@
     {
       "id": "2017159810",
       "name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
+      "bookingBusinessId": "1746136",
       "operationStart": "26.10.23.",
       "operationEnd": "26.11.01.",
       "remainingDays": 18,
@@ -1760,14 +1760,16 @@
       "commonAddress": "서울 광진구",
       "district": "광진구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenHistory": [
+        "2026-10-05T10:30:52.858780+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T10:30:55.021255+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": "2026-09-28T10:25:59.134284+09:00",
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-10-05T10:30:52.858780+09:00",
+      "bookingItemCheckedAt": "2026-10-05T10:30:52.858780+09:00",
       "discoveredAt": "2026-09-27T17:13:45.439769+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
@@ -1891,13 +1893,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2045979104",
-      "place_name": "THE AGE20'S HOUSE",
-      "booking_url": "",
-      "ts": "2026-09-23T16:02:17.434378+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3290,6 +3285,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-05T09:42:07.984372+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2017159810",
+      "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
+      "ts": "2026-10-05T10:30:52.858780+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3459,7 +3461,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-05T10:25:27.086759+09:00",
+    "checked_at": "2026-10-05T10:30:52.858780+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3473,8 +3475,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
     "admission_names": {
-      "(없음)": 374,
-      "현장대기": 206,
+      "(없음)": 375,
+      "현장대기": 205,
       "사전예약&현장대기": 144,
       "사전예약": 46
     },
@@ -3991,6 +3993,7 @@
     "2020779335": "https://m.booking.naver.com/booking/12/bizes/1745971/items/8092124",
     "2012544467": "https://m.booking.naver.com/booking/6/bizes/1747903/items/8099300",
     "2098025724": "https://m.booking.naver.com/booking/12/bizes/1741002/items/8071793",
-    "2030290261": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150"
+    "2030290261": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+    "2017159810": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642"
   }
 }
