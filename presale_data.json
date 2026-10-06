@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T17:20:15.921907+09:00",
+  "updated_at": "2026-10-06T17:25:42.720608+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -513,7 +513,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1164,7 +1164,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-06T16:52:54.524976+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-06T17:25:41.468473+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1732,13 +1732,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
-      "ts": "2026-09-24T01:56:22.596878+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3131,6 +3124,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-06T15:36:16.883911+09:00"
+    },
+    {
+      "type": "discovery_stale",
+      "place_name": "⚠️ 사전예약 탐색 점검 필요",
+      "body": "4.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 177개 인식 중.",
+      "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
+      "ts": "2026-10-06T17:25:42.720447+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3300,7 +3300,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-06T17:20:14.484677+09:00",
+    "checked_at": "2026-10-06T17:25:40.581518+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3319,7 +3319,7 @@
       "사전예약&현장대기": 134,
       "사전예약": 43
     },
-    "stale_warned_at": "2026-10-05T17:24:22.306189+09:00",
+    "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
     "structure_warned_at": null
   },
   "place_memory": {
