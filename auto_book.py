@@ -382,6 +382,36 @@ def _log_clickables(page, tag: str) -> None:
     _log(f"[{tag}] 화면의 버튼들: " + (" | ".join(items) if items else "(없음)"))
 
 
+# 방금 누른 진행 버튼(data-ab-cta)이 사라졌는지 — 화면이 다음 단계로 넘어갔다는 신호.
+# 확정 버튼 후보에 '다음'도 있어서, 화면이 그대로인데 같은 '다음' 버튼을 확정 버튼으로
+# 착각하는 일이 있었다 (2026-10-06 드라이런: 시간 선택 화면 그대로인데 "확정 버튼: '다음'").
+_JS_CTA_GONE = r"""() => {
+    const el = document.querySelector('[data-ab-cta="1"]');
+    return !el || !el.isConnected || !el.getClientRects().length;
+}"""
+
+# 페이지에 '로그인' 버튼이 보이면 로그인 안 된 상태일 가능성이 크다 (쿠키 만료)
+_JS_LOGGED_OUT = r"""() => Array.from(document.querySelectorAll('button, a')).some(
+    el => el.getClientRects().length && (el.innerText || '').replace(/\s+/g, '') === '로그인')"""
+
+
+def _left_stage(page, before_url: str) -> bool:
+    """진행 버튼을 누른 뒤 실제로 다음 화면으로 넘어갔는지 (URL 변경 또는 눌렀던 버튼 소멸)."""
+    try:
+        if before_url and page.url != before_url:
+            return True
+        return bool(page.evaluate(_JS_CTA_GONE))
+    except Exception:
+        return True   # 이동 중이라 평가가 끊겼다 = 넘어가는 중
+
+
+def _looks_logged_out(page) -> bool:
+    try:
+        return bool(page.evaluate(_JS_LOGGED_OUT))
+    except Exception:
+        return False
+
+
 def _has_any_button(page, texts: list) -> bool:
     """texts 중 하나가 들어간 "진짜" CTA가 화면에 있는지.
 
@@ -1193,6 +1223,8 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     _shot(page, problem[0], shots, always=True)
                     return result(False, problem[1])
                 _log(f"페이지 준비 완료 ({time_mod.time() - t0:.1f}초)")
+                if cookie_str and _looks_logged_out(page):
+                    _log(f"주의: 페이지에 '로그인' 버튼이 보임 — {acct_label} 쿠키가 만료됐을 수 있음")
 
                 _shot(page, "01_landing", shots)
 
@@ -1231,6 +1263,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 _ensure_quantity(page, count)
                 _check_agreements(page)
 
+                url_before_next = page.url
                 clicked = _click_cta(page, _NEXT_BUTTON_TEXTS)
                 if not clicked:
                     _log_clickables(page, "진행 버튼 없음")
@@ -1238,10 +1271,27 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     _dump_dom_debug(page, "cta_fail")
                     return result(False, "예약 진행 버튼을 찾지 못함")
                 _log(f"진행 버튼 클릭: '{clicked}'")
-                # 다음 화면(완료 또는 확정 단계)이 뜨는 즉시 진행 — 최대 3초
-                _poll_until(page, lambda: _success_evidence(page) or _is_login_page(page)
-                            or _has_any_button(page, _FINAL_BUTTON_TEXTS), 3000)
+                # 다음 화면이 실제로 뜰 때까지 (URL 변경·눌렀던 버튼 소멸·완료·로그인) — 최대 5초.
+                # 예전엔 확정 버튼 후보('다음')가 보이면 바로 넘어갔는데, 그건 방금 누른
+                # 바로 그 버튼이라 화면이 그대로여도 즉시 통과했다.
+                moved = _poll_until(page, lambda: _left_stage(page, url_before_next)
+                                    or _success_evidence(page) or _is_login_page(page), 5000, 150)
+                if moved:
+                    _poll_until(page, lambda: _success_evidence(page) or _is_login_page(page)
+                                or _has_any_button(page, _FINAL_BUTTON_TEXTS), 3000)
                 _shot(page, "04_after_next", shots)
+                if not moved:
+                    logged_out = _looks_logged_out(page)
+                    _log(f"'{clicked}'을(를) 눌렀지만 화면이 넘어가지 않음"
+                         + (" — 페이지에 '로그인' 버튼이 보임 (쿠키 만료 의심)" if logged_out else ""))
+                    _log_clickables(page, "넘어가지 않은 화면")
+                    if dry_run:
+                        _shot(page, "next_stuck", shots, always=True)
+                        _dump_dom_debug(page, "next_stuck")
+                        why = (f"{acct_label} 로그인 안 된 상태로 보임 — 쿠키 갱신 필요" if logged_out
+                               else "필수 입력/선택이 남았거나 버튼 클릭이 먹지 않음")
+                        return result(False, f"[드라이런] '{clicked}'을(를) 눌렀지만 다음 화면으로 "
+                                             f"넘어가지 않음 — {why}", booked_time)
 
                 if _is_login_page(page):
                     if dry_run:

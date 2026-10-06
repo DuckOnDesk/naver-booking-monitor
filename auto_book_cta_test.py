@@ -10,6 +10,8 @@
   4) 같은 문구의 탭·숨김·비활성 버튼은 건너뛰고 진짜 CTA를 누른다
   5) 래퍼 a 안에 button이 있으면 안쪽 button을 누른다
   6) 문구가 하나도 없으면 None (드라이런이 실패로 보고할 근거)
+  7) '다음'을 눌러도 화면이 그대로면 "넘어가지 않음"으로 본다
+     (같은 '다음' 버튼을 확정 버튼으로 착각하던 회귀) — 넘어가면 넘어간 것으로 본다
 
 사용법: python auto_book_cta_test.py
 """
@@ -90,6 +92,21 @@ def main() -> int:
             clicked = auto_book._click_cta(pg, auto_book._FINAL_BUTTON_TEXTS)
             got = pg.evaluate("() => document.body.getAttribute('data-clicked')")
             check("진짜 CTA를 누른다", clicked is not None and got == want, got)
+
+        print("7) 진행 버튼을 누른 뒤 화면 전환 판정")
+        for label, onclick, want in (
+                ("화면 그대로", "", False),
+                ("버튼이 사라지는 화면 전환", "this.closest('main').innerHTML='<button>동의하고 예약하기</button>'", True)):
+            pg.set_content(page(f'<main><button onclick="{onclick}">다음</button></main>'))
+            before = pg.url
+            auto_book._click_cta(pg, auto_book._NEXT_BUTTON_TEXTS)
+            pg.wait_for_timeout(100)
+            got = auto_book._left_stage(pg, before)
+            check(f"{label} → 넘어감={want}", got == want, got)
+        pg.set_content(page('<footer><button>로그인</button></footer>'))
+        check("'로그인' 버튼이 보이면 로그아웃 의심", auto_book._looks_logged_out(pg))
+        pg.set_content(page('<footer><button>로그아웃</button></footer>'))
+        check("'로그아웃'만 있으면 로그인 상태", not auto_book._looks_logged_out(pg))
         browser.close()
 
     print(f"\n=== 실패 {len(FAILS)}건 ===")
