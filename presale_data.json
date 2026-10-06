@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T08:58:11.979536+09:00",
+  "updated_at": "2026-10-06T09:03:38.663599+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -513,7 +513,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -582,7 +582,8 @@
         "2026-10-05T17:18:46.967820+09:00",
         "2026-10-05T20:40:01.101587+09:00",
         "2026-10-05T23:43:04.891328+09:00",
-        "2026-10-06T03:03:26.496574+09:00"
+        "2026-10-06T03:03:26.496574+09:00",
+        "2026-10-06T09:03:37.239422+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1729,13 +1730,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://map.naver.com/p/entry/place/2033835877",
-      "ts": "2026-09-23T20:58:46.158079+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2087335226",
@@ -3128,6 +3122,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-06T03:03:26.496574+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-06T09:03:37.239422+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3297,7 +3298,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-06T08:58:05.727066+09:00",
+    "checked_at": "2026-10-06T09:03:37.239422+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
