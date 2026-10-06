@@ -8,8 +8,13 @@ Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 �
 않고 즉시 실패로 끝낸다. 확정 화면의 날짜 표기도 한 번 더 대조한다 — 예약이 안 되는
 것보다 엉뚱한 날짜가 예약되는 쪽이 훨씬 나쁘기 때문이다.
 
-계정 환경변수 (여러 계정 지원, 크롬에서 로그인 후 쿠키 복사):
-  NAVER_COOKIES_1 ~ NAVER_COOKIES_5   계정별 로그인 쿠키 (NID_AUT, NID_SES 포함)
+계정 환경변수 (여러 계정 지원):
+  COOKIES_BUNDLE_JSON                  naver_sync와 같은 쿠키 묶음 ({"아이디": storage_state, ...}).
+                                       있으면 이것을 우선 쓴다 — naver_sync가 매일 실제로 로그인에
+                                       쓰는 쿠키라 살아 있는지 늘 확인되기 때문이다.
+  COOKIES_BUNDLE_ORDER                 (선택) 묶음 계정의 번호 순서, 쉼표 구분 (예: "betty,hye,gogo")
+                                       없으면 묶음에 들어 있는 순서대로 계정1, 계정2, …
+  NAVER_COOKIES_1 ~ NAVER_COOKIES_5   (묶음이 없을 때) 계정별 로그인 쿠키 문자열 (NID_AUT, NID_SES 포함)
   NAVER_COOKIES                        (하위 호환) 계정1로 취급
 선택 환경변수:
   AUTO_BOOK_DRY_RUN     "1"이면 최종 확정 버튼 직전까지만 진행 (테스트용)
@@ -23,6 +28,7 @@ Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 �
    "dry_run": bool, "screenshots": [경로...]}
 """
 
+import json
 import os
 import re
 import time as time_mod
@@ -188,19 +194,54 @@ def _wait_booking_ui(page, timeout_ms: int = 8000) -> bool:
     return False
 
 
+# 계정번호 → 묶음의 아이디 (로그에 "계정1(betty)"처럼 남기기 위함)
+ACCOUNT_NAMES: dict = {}
+
+
+def _bundle_accounts() -> list:
+    """COOKIES_BUNDLE_JSON(naver_sync 형식)에서 [(번호, 쿠키 목록, 아이디)]를 만든다."""
+    raw = os.environ.get("COOKIES_BUNDLE_JSON", "").strip()
+    if not raw:
+        return []
+    try:
+        bundle = json.loads(raw)
+    except ValueError:
+        _log("COOKIES_BUNDLE_JSON 파싱 실패 — NAVER_COOKIES_1~5로 대체")
+        return []
+    if not isinstance(bundle, dict):
+        return []
+    order = [x.strip() for x in os.environ.get("COOKIES_BUNDLE_ORDER", "").split(",") if x.strip()]
+    names = [n for n in order if n in bundle] + [n for n in bundle if n not in order]
+    out = []
+    for name in names[:5]:
+        state = bundle[name]
+        cookies = state.get("cookies") if isinstance(state, dict) else state
+        if isinstance(cookies, list) and cookies:
+            out.append((len(out) + 1, cookies, name))
+    return out
+
+
 def get_accounts(priority: list | None = None) -> list:
     """사용 가능한 (계정번호, 쿠키) 목록. priority가 주어지면 그 순서·그 계정만 사용.
 
-    NAVER_COOKIES_1~5 환경변수에서 읽고, 없으면 NAVER_COOKIES를 계정 1로 취급."""
+    COOKIES_BUNDLE_JSON이 있으면 그 계정들(쿠키는 목록), 없으면 NAVER_COOKIES_1~5
+    (쿠키는 문자열), 그것도 없으면 NAVER_COOKIES를 계정 1로 취급."""
     accounts = []
-    for i in range(1, 6):
-        c = os.environ.get(f"NAVER_COOKIES_{i}", "").strip()
-        if c:
-            accounts.append((i, c))
-    if not accounts:
-        c = os.environ.get("NAVER_COOKIES", "").strip()
-        if c:
-            accounts.append((1, c))
+    bundle = _bundle_accounts()
+    if bundle:
+        ACCOUNT_NAMES.clear()
+        for i, cookies, name in bundle:
+            ACCOUNT_NAMES[i] = name
+            accounts.append((i, cookies))
+    else:
+        for i in range(1, 6):
+            c = os.environ.get(f"NAVER_COOKIES_{i}", "").strip()
+            if c:
+                accounts.append((i, c))
+        if not accounts:
+            c = os.environ.get("NAVER_COOKIES", "").strip()
+            if c:
+                accounts.append((1, c))
     if priority:
         by_id = dict(accounts)
         ordered = [(int(i), by_id[int(i)]) for i in priority if int(i) in by_id]
@@ -209,7 +250,22 @@ def get_accounts(priority: list | None = None) -> list:
     return accounts
 
 
-def _parse_cookies(cookie_str: str) -> list:
+_COOKIE_KEYS = ("name", "value", "domain", "path", "expires", "httpOnly", "secure", "sameSite")
+
+
+def _parse_cookies(cookie_str) -> list:
+    """쿠키 문자열("a=1; b=2") 또는 storage_state 쿠키 목록 → add_cookies용 목록."""
+    if isinstance(cookie_str, list):
+        out = []
+        for c in cookie_str:
+            if not isinstance(c, dict) or not c.get("name") or not c.get("domain"):
+                continue
+            item = {k: c[k] for k in _COOKIE_KEYS if k in c}
+            item.setdefault("path", "/")
+            if item.get("sameSite") not in ("Strict", "Lax", "None"):
+                item.pop("sameSite", None)
+            out.append(item)
+        return out
     cookies = []
     for part in cookie_str.split(";"):
         part = part.strip()
@@ -222,6 +278,12 @@ def _parse_cookies(cookie_str: str) -> list:
                 "path": "/",
             })
     return cookies
+
+
+def _has_login_token(cookie_str) -> bool:
+    if isinstance(cookie_str, list):
+        return any(isinstance(c, dict) and c.get("name") in ("NID_AUT", "NID_SES") for c in cookie_str)
+    return any(k in cookie_str for k in ("NID_AUT", "NID_SES"))
 
 
 def _is_login_page(page) -> bool:
@@ -1141,6 +1203,8 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
         else:
             cookie_str = ""
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
+    if account in ACCOUNT_NAMES:
+        acct_label += f"({ACCOUNT_NAMES[account]})"
 
     def result(success: bool, message: str, booked_time: str | None = None,
                unbookable: bool = False, evidence: str = "", confirm_no: str = "") -> dict:
@@ -1167,7 +1231,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
         if not dry_run:
             return result(False, "로그인 쿠키 없음 — NAVER_COOKIES_1~5 시크릿을 설정하세요")
         _log("쿠키 없음 → 비로그인 드라이런 (날짜/시간 선택 검증까지만)")
-    elif not any(k in cookie_str for k in ("NID_AUT", "NID_SES")):
+    elif not _has_login_token(cookie_str):
         if not dry_run:
             return result(False, f"{acct_label} 쿠키에 NID_AUT/NID_SES 없음 — 로그인 상태 쿠키 필요")
         _log(f"{acct_label} 쿠키에 로그인 토큰 없음 → 드라이런이므로 계속 진행")

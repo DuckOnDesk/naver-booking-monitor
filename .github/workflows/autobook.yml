@@ -98,6 +98,9 @@ jobs:
       - name: 예약 시도
         id: book
         env:
+          # naver_sync와 같은 쿠키 묶음 — 있으면 NAVER_COOKIES*보다 우선한다
+          COOKIES_BUNDLE_JSON: ${{ secrets.COOKIES_BUNDLE_JSON }}
+          COOKIES_BUNDLE_ORDER: ${{ vars.COOKIES_BUNDLE_ORDER }}
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
           NAVER_COOKIES_1: ${{ secrets.NAVER_COOKIES_1 }}
           NAVER_COOKIES_2: ${{ secrets.NAVER_COOKIES_2 }}
