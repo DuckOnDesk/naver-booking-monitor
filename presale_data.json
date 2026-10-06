@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T19:07:57.711432+09:00",
+  "updated_at": "2026-10-06T19:13:22.816406+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -544,7 +544,7 @@
     {
       "id": "2056467638",
       "name": "아이보들 CCP 리커버리 호텔",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1748320/items/8101024",
       "bookingBusinessId": "1748320",
       "operationStart": "26.10.17.",
@@ -558,17 +558,18 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-10-06T18:19:34.634504+09:00"
+        "2026-10-06T18:19:34.634504+09:00",
+        "2026-10-06T19:13:19.049222+09:00"
       ],
       "bookingOpenAuto": "",
       "bookingOpenAutoCheckedAt": "2026-10-06T18:51:43.248188+09:00",
       "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
+      "saleStartDate": "",
+      "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-10-06T18:19:34.634504+09:00",
       "bookingItemCheckedAt": "2026-10-06T18:19:34.634504+09:00",
       "discoveredAt": "2026-10-06T18:03:34.897956+09:00",
-      "lastBookingNotifiedAt": null,
+      "lastBookingNotifiedAt": "2026-10-06T19:13:20.504098+09:00",
       "bookingIsOpened": true
     },
     {
@@ -1822,13 +1823,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
-      "ts": "2026-09-24T20:38:28.348151+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3221,6 +3215,13 @@
       "place_name": "NCT WISH < I SPY > POP-UP",
       "booking_url": "",
       "ts": "2026-10-06T18:19:34.634504+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2056467638",
+      "place_name": "아이보들 CCP 리커버리 호텔",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1748320/items/8101024",
+      "ts": "2026-10-06T19:13:19.049222+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3393,7 +3394,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-06T19:07:55.637349+09:00",
+    "checked_at": "2026-10-06T19:13:19.049222+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
