@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T12:24:23.576925+09:00",
+  "updated_at": "2026-10-06T12:29:52.409906+09:00",
   "watched_places": [
     "2000187386",
     "2001371441",
@@ -513,7 +513,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -583,7 +583,8 @@
         "2026-10-05T20:40:01.101587+09:00",
         "2026-10-05T23:43:04.891328+09:00",
         "2026-10-06T03:03:26.496574+09:00",
-        "2026-10-06T09:03:37.239422+09:00"
+        "2026-10-06T09:03:37.239422+09:00",
+        "2026-10-06T12:29:49.602174+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1190,7 +1191,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-06T11:56:52.002288+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-06T12:29:50.783658+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1730,13 +1731,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2087335226",
-      "place_name": "다 모여 FESTA 우리의 모든 최애가 모이다",
-      "booking_url": "",
-      "ts": "2026-09-24T00:34:01.224061+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3129,6 +3123,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-06T09:03:37.239422+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-06T12:29:49.602174+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3298,7 +3299,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-06T12:24:21.499761+09:00",
+    "checked_at": "2026-10-06T12:29:49.602174+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
