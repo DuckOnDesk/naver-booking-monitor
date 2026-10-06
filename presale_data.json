@@ -1,6 +1,7 @@
 {
-  "updated_at": "2026-10-06T17:47:17.553870+09:00",
+  "updated_at": "2026-10-06T17:52:45.722942+09:00",
   "watched_places": [
+    "1419529006",
     "2000187386",
     "2001371441",
     "2003577663",
@@ -513,7 +514,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -585,7 +586,8 @@
         "2026-10-06T03:03:26.496574+09:00",
         "2026-10-06T09:03:37.239422+09:00",
         "2026-10-06T12:29:49.602174+09:00",
-        "2026-10-06T15:36:16.883911+09:00"
+        "2026-10-06T15:36:16.883911+09:00",
+        "2026-10-06T17:52:44.239720+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -623,6 +625,34 @@
       "bookingUrlCheckedAt": "2026-09-28T10:20:14.691666+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-24T00:34:01.224061+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "1419529006",
+      "name": "룩백 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.03.",
+      "operationEnd": "26.10.17.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://postfiles.pstatic.net/MjAyNjA5MjhfNTIg/MDAxNzkwNTg4NzQzNzE2.RkFqFf4nTtGwFopEf3fyA__qdm4ob4q0tAYd-Elo00Mg.zl28XhgHdvqzVwxw6Yy20-L0GNs0lE8aTNlhlgwVN1wg.JPEG/unnamed.jpg?type=w2",
+      "roadAddress": "동교로30길 21 (동교동) 스페이스비 연남",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-06T17:52:44.239720+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1732,20 +1762,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-24T05:54:57.831542+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-24T10:33:45.167122+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3131,9 +3147,24 @@
       "body": "4.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 177개 인식 중.",
       "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
       "ts": "2026-10-06T17:25:42.720447+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-06T17:52:44.239720+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "1419529006",
+      "place_name": "룩백 팝업",
+      "booking_url": "",
+      "ts": "2026-10-06T17:52:44.239720+09:00"
     }
   ],
   "seen_place_ids": [
+    "1419529006",
     "1646280504",
     "1893291672",
     "2000187386",
@@ -3300,20 +3331,25 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-06T17:47:11.107016+09:00",
+    "checked_at": "2026-10-06T17:52:44.239720+09:00",
     "areas_total": 34,
-    "areas_ok": 0,
-    "areas_failed": 34,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 0,
-    "presale_items": 0,
-    "after_district_filter": 0,
+    "candidate_items": 788,
+    "presale_items": 180,
+    "after_district_filter": 94,
     "fallback_matched": 0,
-    "unique_place_ids": 0,
-    "tracked_places": 55,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-02T17:17:37.370203+09:00",
-    "admission_names": {},
+    "unique_place_ids": 56,
+    "tracked_places": 56,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-06T17:52:44.239720+09:00",
+    "admission_names": {
+      "(없음)": 408,
+      "현장대기": 200,
+      "사전예약&현장대기": 134,
+      "사전예약": 46
+    },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
     "structure_warned_at": null
   },
@@ -3814,6 +3850,7 @@
     }
   },
   "auto_added_place_ids": [
+    "1419529006",
     "2000187386",
     "2001371441",
     "2002918567",
