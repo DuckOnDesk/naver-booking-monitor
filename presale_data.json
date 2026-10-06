@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-06T21:39:33.568754+09:00",
+  "updated_at": "2026-10-06T21:45:00.505144+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -575,7 +575,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -649,7 +649,8 @@
         "2026-10-06T12:29:49.602174+09:00",
         "2026-10-06T15:36:16.883911+09:00",
         "2026-10-06T17:52:44.239720+09:00",
-        "2026-10-06T19:34:56.533022+09:00"
+        "2026-10-06T19:34:56.533022+09:00",
+        "2026-10-06T21:44:57.731856+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1256,7 +1257,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-06T21:12:16.561526+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-06T21:44:58.914734+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1824,13 +1825,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
-      "ts": "2026-09-25T00:18:57.634746+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3223,6 +3217,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-06T19:34:56.533022+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-06T21:44:57.731856+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3395,7 +3396,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-06T21:39:31.513084+09:00",
+    "checked_at": "2026-10-06T21:44:57.731856+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
