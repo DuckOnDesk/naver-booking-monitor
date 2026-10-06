@@ -49,6 +49,7 @@ jobs:
         # - 날짜 선택: 요청한 달이 아닌 엉뚱한 달의 달력을 고르는 회귀
         # - 디스패치 규칙: 예약 기간 기준 탐색 · 워크플로 분리 · 선택 불가 백오프
         # - 시간대 선택: 렌더 전 판정 / 선택 불가 슬롯을 눌러 놓고 성공으로 보고하는 회귀
+        # - 진행/확정 버튼: 쪼개진 문구·role=button·탭/숨김 버튼을 못 가리는 회귀
         # - 일 단위 상품: 시간대 슬롯이 없는 상품을 "예약불가"로 흘려보내는 회귀
         # - 상태 로그: 변화가 있을 때만 남기는지 (생략이 알림 판단을 건드리지 않는지)
         # - 예약창 확인: 자리가 있을 때만 브라우저를 켜는지 (자동예약 직전 강제 확인 포함)
@@ -61,6 +62,7 @@ jobs:
           python -u auto_book_date_test.py
           python -u auto_book_period_test.py
           python -u auto_book_slot_test.py
+          python -u auto_book_cta_test.py
           python -u check_booking_dayunit_test.py
           python -u check_booking_log_test.py
           python -u check_booking_urlgate_test.py
