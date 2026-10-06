@@ -1294,8 +1294,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                                              f"넘어가지 않음 — {why}", booked_time)
 
                 if _is_login_page(page):
-                    if dry_run:
+                    if dry_run and not cookie_str:
                         return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
+                    if dry_run:
+                        # 쿠키를 줬는데 로그인으로 튕겼다 = 실제 예약도 여기서 실패한다
+                        return result(False, f"[드라이런] 로그인 페이지로 튕김 — {acct_label} 쿠키 만료됨 (쿠키 갱신 필요)", booked_time)
                     return result(False, f"예약 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
 
                 # 이미 완료됐는지 (1단계 예약인 경우)
@@ -1351,8 +1354,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                             _shot(page, "07_success", shots, always=True)
                             return done(ev)
                         if _is_login_page(page):
-                            if dry_run:
+                            if dry_run and not cookie_str:
                                 return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
+                            if dry_run:
+                                # 쿠키를 줬는데 로그인으로 튕겼다 = 실제 예약도 여기서 실패한다
+                                return result(False, f"[드라이런] 로그인 페이지로 튕김 — {acct_label} 쿠키 만료됨 (쿠키 갱신 필요)", booked_time)
                             return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
                     else:
                         # 확정 버튼이 아직 없음 — 완료 화면이 뜨는지 보며 대기
