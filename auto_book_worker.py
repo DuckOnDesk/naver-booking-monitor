@@ -345,8 +345,10 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
     if res["success"] and not res.get("dry_run"):
         if ntfy_topic:
             no = res.get("confirm_no")
+            # 완료 화면에서 읽은 실제 일시("10/10 16:30")가 있으면 그것으로 알린다
+            when = res.get("booked_label") or f"{datekey} {res.get('booked_time') or ''}"
             send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 성공!",
-                      f"{datekey} {res.get('booked_time') or ''} (계정{res.get('account')}) 예약 완료 "
+                      f"{when} 예약 성공 (계정{res.get('account')}) "
                       + (f"— 예약번호 {no}\n" if no else "")
                       + "— 네이버 예약 내역에서 확인하세요", url)
     elif res["success"] and res.get("dry_run"):

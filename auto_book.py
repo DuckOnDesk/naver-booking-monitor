@@ -1200,6 +1200,462 @@ def _success_evidence(page) -> tuple[str, str] | None:
     return None
 
 
+# ---------------------------------------------------------------------------
+# 네이버 예약 표준 화면 전용 경로 (m.booking.naver.com)
+#
+# 위의 범용 탐색은 화면 구조를 모를 때를 위한 것이라 추측이 많다. 2026-10-07 드라이런에서
+# 확정 화면이 아직 로딩 중일 때 '동의하고 예약하기'에 잠깐 붙는 disabled 클래스 때문에
+# 진짜 버튼을 빼고 헤더 제목 링크(h1>a '예약하기')를 확정 버튼으로 집었다.
+# 표준 화면은 구조가 정해져 있으므로 정확한 셀렉터로 단계마다 확인하며 진행한다:
+#   달력   .calendar_area>.calendar_month, 년월은 .calendar_title ("2026.10"),
+#          날짜는 tbody.calendar_body>tr.calendar_week>td 의 span.num → 부모 button.calendar_date
+#   시간   .time_area .time_list>.time_item ("오후 4:00" = "16:00" = "16시" = "16")
+#   수량   .section_option (없을 수도 있음) — Count__btn_plus*, Count__disabled*, span.Count__num*
+#   다음   button.NextButton__btn_next* (NextButton__disabled* 면 아직 비활성)
+#   확정   h1>a '예약하기' 화면의 .section_booking_footer>.booking_inner>button.btn_request
+#   완료   URL에 popup=bookingCompletion, 일시는 BookingCompletionModalLegacy__date*
+# 네이버 클래스 뒤에 붙는 해시(__lyIDX 등)는 배포마다 바뀔 수 있어 "~로 시작"으로 찾는다.
+# 버튼은 항상 문서 로딩이 끝나고(readyState complete) 해당 요소가 다 그려진 뒤에 찾는다.
+# ---------------------------------------------------------------------------
+
+def _cls_starts(prefix: str, tag: str = "") -> str:
+    """CSS 모듈 클래스(Count__num__lyIDX 등)를 접두어로 찾는 셀렉터."""
+    return f'{tag}[class^="{prefix}"], {tag}[class*=" {prefix}"]'
+
+
+_STD_MONTH = ".calendar_area > .calendar_month"
+_STD_TIME_ITEM = ".time_area .time_list > .time_item"
+_STD_NEXT = _cls_starts("NextButton__btn_next", "button")
+_STD_REQUEST = ".section_booking_footer > .booking_inner > button.btn_request"
+_STD_DONE_DATE = _cls_starts("BookingCompletionModalLegacy__date")
+_STD_DONE_PARAM = "popup=bookingCompletion"
+
+
+def _std_page(page) -> bool:
+    """표준 예약 화면(달력 구조)인지. 날짜 칸 구조(tr.calendar_week … span.num)까지 맞아야 한다."""
+    try:
+        return page.locator(f"{_STD_MONTH} tbody.calendar_body > tr.calendar_week "
+                            "button.calendar_date > span.num").count() > 0
+    except Exception:
+        return False
+
+
+def _wait_loaded(page, cap_ms: int = 8000) -> None:
+    """HTML·스크립트 로딩이 끝날 때까지 (버튼 탐색의 기본 전제). 네트워크 유휴는 짧게만 본다."""
+    try:
+        page.wait_for_load_state("load", timeout=cap_ms)
+    except Exception:
+        pass
+    try:
+        page.wait_for_load_state("networkidle", timeout=2500)
+    except Exception:
+        pass
+
+
+# 달력에서 대상 날짜 칸을 찾는다. 달력 표에는 앞뒤 달 날짜(27~30, 1~)도 섞여 있으므로
+# 첫 '1'부터 숫자가 다시 작아지기 직전까지만 이번 달 칸으로 본다.
+_JS_STD_DATE = r"""(target) => {
+    const [ty, tm, td] = target.split('-').map(Number);
+    const out = {months: [], found: false, disabled: false, sawDay: false};
+    for (const mon of document.querySelectorAll('.calendar_area > .calendar_month')) {
+        const title = mon.querySelector('.calendar_title');
+        const m = ((title && title.textContent) || '').match(/(\d{4})\s*\.\s*(\d{1,2})/);
+        if (!m) continue;
+        const y = +m[1], mo = +m[2];
+        out.months.push({y, m: mo});
+        if (y !== ty || mo !== tm) continue;
+        let started = false, prev = 0;
+        const cells = mon.querySelectorAll(
+            '.calendar_table > tbody.calendar_body > tr.calendar_week > td');
+        for (const cell of cells) {
+            const num = cell.querySelector('span.num');
+            if (!num) continue;
+            const d = parseInt(num.textContent.trim(), 10);
+            if (!started) { if (d !== 1) continue; started = true; }
+            else if (d < prev) break;          // 다음 달 칸 시작
+            prev = d;
+            if (d !== td) continue;
+            const btn = num.closest('button.calendar_date');
+            if (!btn) continue;
+            out.sawDay = true;
+            if (btn.disabled || btn.getAttribute('aria-disabled') === 'true'
+                || /unselectable|disabled|soldout/.test(btn.className)) { out.disabled = true; break; }
+            document.querySelectorAll('[data-ab-pick]').forEach(e => e.removeAttribute('data-ab-pick'));
+            btn.setAttribute('data-ab-pick', '1');
+            out.found = true;
+            break;
+        }
+    }
+    return out;
+}"""
+
+
+# 현재 시간대 목록에 표시를 달고 그 내용을 돌려준다 (목록이 없으면 '')
+_JS_STD_TIME_MARK = r"""() => {
+    const ul = document.querySelector('.time_area .time_list');
+    if (!ul) return '';
+    ul.setAttribute('data-ab-old', '1');
+    return (ul.textContent || '').replace(/\s+/g, ' ').trim();
+}"""
+
+_JS_STD_TIME_STATE = r"""() => {
+    const ul = document.querySelector('.time_area .time_list');
+    if (!ul) return {items: 0, old: false, text: ''};
+    return {items: ul.querySelectorAll(':scope > .time_item').length,
+            old: ul.hasAttribute('data-ab-old'),
+            text: (ul.textContent || '').replace(/\s+/g, ' ').trim()};
+}"""
+
+
+def _std_wait_times(page, before: str, cap_ms: int = 8000) -> None:
+    """날짜 선택 뒤 시간대 목록이 새로 그려지고 더 바뀌지 않을 때까지 기다린다."""
+    def fresh() -> bool:
+        st = page.evaluate(_JS_STD_TIME_STATE) or {}
+        return st.get("items", 0) > 0 and (not st.get("old") or st.get("text") != before)
+
+    if not _poll_until(page, fresh, cap_ms, 100):
+        # 같은 노드를 재사용하면서 내용도 같은 경우(같은 회차 구성)일 수 있다 — 아래 안정화 확인으로 넘어간다
+        _log("시간대 목록이 바뀌는 것을 확인하지 못함 — 현재 목록으로 진행")
+    _wait_loaded(page, 3000)
+    last = None
+    for _ in range(10):     # 두 번 연속 같은 내용이면 다 그려진 것으로 본다
+        st = page.evaluate(_JS_STD_TIME_STATE) or {}
+        cur = (st.get("items"), st.get("text"))
+        if cur == last and cur[0]:
+            return
+        last = cur
+        page.wait_for_timeout(200)
+
+
+def _std_select_date(page, datekey: str) -> tuple[bool, str]:
+    target = datetime.strptime(datekey, "%Y-%m-%d")
+    tkey = target.year * 12 + target.month
+    for _ in range(14):
+        try:
+            page.wait_for_selector(f"{_STD_MONTH} button.calendar_date span.num", timeout=8000)
+        except Exception:
+            return False, "달력 날짜 칸이 그려지지 않음"
+        st = page.evaluate(_JS_STD_DATE, datekey) or {}
+        months = st.get("months") or []
+        label = ", ".join(f"{m['y']}.{m['m']:02d}" for m in months) or "(년월 표기 없음)"
+        if st.get("found"):
+            # 날짜를 누르면 .time_area가 새로 생기거나 다시 그려진다. 이전 날짜의 목록이 남아 있는
+            # 동안 시간대를 읽으면 안 되므로, 지금 목록에 표시를 달아 두고 바뀌는지 본다.
+            before = page.evaluate(_JS_STD_TIME_MARK)
+            page.locator('[data-ab-pick="1"]').first.click(timeout=2500)
+            # 선택이 반영됐는지 (aria-selected) 확인 — 엉뚱한 날짜로 시간대를 고르면 안 된다
+            ok = _poll_until(page, lambda: page.evaluate(
+                "() => { const b = document.querySelector('[data-ab-pick=\"1\"]');"
+                "        return !!b && (b.getAttribute('aria-selected') === 'true'"
+                "               || /selected/.test(b.className)); }"), 3000, 100)
+            if not ok:
+                return False, f"{datekey} 날짜를 눌렀지만 선택 표시가 생기지 않음 (달력: {label})"
+            _std_wait_times(page, before)
+            _log(f"날짜 선택 완료: {datekey} (달력: {label})")
+            return True, "ok"
+        shown = [m["y"] * 12 + m["m"] for m in months]
+        if not shown:
+            return False, "달력 년월(.calendar_title)을 읽지 못함"
+        if tkey in shown:
+            why = "선택 불가(마감·휴무)" if st.get("disabled") else "달력에 없음"
+            return False, f"{datekey}를 선택할 수 없음 — {why} (달력: {label})"
+        forward = tkey > max(shown)
+        btn = page.locator(f"{_STD_MONTH} .calendar_title button.{'btn_next' if forward else 'btn_prev'}").first
+        try:
+            if btn.is_disabled():
+                return False, f"달력을 {target.year}.{target.month:02d}로 넘길 수 없음 (달력: {label})"
+            btn.click(timeout=2000)
+        except Exception:
+            return False, f"{'다음' if forward else '이전'}달 버튼을 누르지 못함 (달력: {label})"
+        _poll_until(page, lambda: (page.evaluate(_JS_STD_DATE, datekey) or {}).get("months") != months,
+                    3000, 100)
+    return False, f"달력을 {target.year}.{target.month:02d}까지 넘기지 못함"
+
+
+# 시간대 목록 읽기. 버튼 안의 재고 표시(span.stock)는 빼고 시간 글자만 본다.
+# "오후 4:00" / "16:00" / "16시" / "16시 30분" / "16" 을 모두 (시, 분, 오전·오후 표기 여부)로 바꾼다.
+_JS_STD_TIMES = r"""() => {
+    const out = [];
+    document.querySelectorAll('[data-ab-time]').forEach(e => e.removeAttribute('data-ab-time'));
+    document.querySelectorAll('.time_area .time_list > .time_item').forEach((li, i) => {
+        const btn = li.querySelector('button') || li;
+        const clone = btn.cloneNode(true);
+        clone.querySelectorAll('.stock').forEach(s => s.remove());
+        const t = (clone.textContent || '').replace(/\s+/g, ' ').trim();
+        let h = null, mm = 0, m;
+        if ((m = t.match(/(\d{1,2})\s*:\s*(\d{2})/))) { h = +m[1]; mm = +m[2]; }
+        else if ((m = t.match(/(\d{1,2})\s*시(?:\s*(\d{1,2})\s*분)?/))) { h = +m[1]; mm = m[2] ? +m[2] : 0; }
+        else if ((m = t.match(/^(?:오전|오후)?\s*(\d{1,2})$/))) { h = +m[1]; }
+        const pm = t.includes('오후'), am = t.includes('오전');
+        if (h !== null) {
+            if (pm && h < 12) h += 12;
+            if (am && h === 12) h = 0;
+        }
+        const off = btn.disabled || btn.getAttribute('aria-disabled') === 'true'
+                    || /unselectable|disabled|soldout|sold_out/.test((btn.className || '') + ' ' + (li.className || ''));
+        btn.setAttribute('data-ab-time', String(i));
+        out.push({i, text: t, h, mm, ampm: pm || am, off});
+    });
+    return out;
+}"""
+
+
+_JS_STD_TIME_PICKED = r"""(i) => {
+    const li = document.querySelectorAll('.time_area .time_list > .time_item')[i];
+    if (!li) return false;
+    const b = li.querySelector('button') || li;
+    return b.getAttribute('aria-selected') === 'true' || /selected|active/.test(b.className + ' ' + li.className);
+}"""
+
+
+def _std_select_time(page, wanted_times: list) -> tuple[str | None, list]:
+    """(선택한 시간 "HH:MM", 페이지 시간대 목록). 오전/오후·24시간 표기를 같은 시각으로 본다."""
+    _poll_until(page, lambda: page.locator(_STD_TIME_ITEM).count() > 0, 6000, 100)
+    slots = page.evaluate(_JS_STD_TIMES) or []
+    if not slots:
+        return None, []
+    page_has_ampm = any(s["ampm"] for s in slots)
+    for t in wanted_times:
+        th, tm = (int(x) for x in t.split(":"))
+        match = [s for s in slots if s["h"] == th and s["mm"] == tm]
+        if not match and not page_has_ampm and th > 12:
+            # 오전/오후 표기 없이 "4:00"처럼 12시간제로만 적힌 화면 — 오후로 본다
+            match = [s for s in slots if s["h"] == th - 12 and s["mm"] == tm]
+        for s in match:
+            if s["off"]:
+                continue
+            page.locator(f'[data-ab-time="{s["i"]}"]').first.click(timeout=2500)
+            # 클릭하면 목록이 다시 그려져 표시 속성이 사라지므로 순번으로 다시 찾는다
+            took = _poll_until(page, lambda: page.evaluate(_JS_STD_TIME_PICKED, s["i"]), 2000, 100)
+            if took:
+                _log(f"시간대 선택: '{s['text']}' = {t}")
+                return t, slots
+            _log(f"'{s['text']}'을(를) 눌렀지만 선택 표시가 생기지 않음 — 다음 후보")
+    return None, slots
+
+
+_JS_STD_NEXT_READY = r"""(sel) => {
+    const b = Array.from(document.querySelectorAll(sel)).find(e => e.getClientRects().length);
+    return !!b && !b.disabled && !Array.from(b.classList).some(c => c.startsWith('NextButton__disabled'));
+}"""
+
+# 수량 섹션: 첫 번째 수량 조절기의 현재 값과 + 버튼 상태
+_JS_STD_COUNT = r"""() => {
+    const sec = document.querySelector('.section_option');
+    if (!sec) return null;
+    const starts = (el, p) => !!el && Array.from(el.classList).some(c => c.startsWith(p));
+    const plus = Array.from(sec.querySelectorAll('button')).find(b => starts(b, 'Count__btn_plus'));
+    const num = Array.from(sec.querySelectorAll('span')).find(s => starts(s, 'Count__num'));
+    return {
+        value: num ? parseInt((num.textContent || '').replace(/[^\d]/g, ''), 10) : null,
+        plus: !!plus,
+        plusOff: !plus || plus.disabled || starts(plus, 'Count__disabled'),
+    };
+}"""
+
+
+def _std_set_count(page, count: int) -> str:
+    """수량 섹션이 있으면 count까지 + 를 누른다. 반환: 로그용 설명."""
+    st = page.evaluate(_JS_STD_COUNT)
+    if not st:
+        return "수량 섹션 없음"
+    value = st.get("value") or 0
+    plus = page.locator(".section_option " + _cls_starts("Count__btn_plus", "button")).first
+    while value < count:
+        if st.get("plusOff"):
+            return f"수량 {value}매 (요청 {count}매, 더 늘릴 수 없음)"
+        before = value
+        plus.click(timeout=2000)
+        _poll_until(page, lambda: ((page.evaluate(_JS_STD_COUNT) or {}).get("value") or 0) != before, 1500, 80)
+        st = page.evaluate(_JS_STD_COUNT) or {}
+        value = st.get("value") or 0
+        if value == before:
+            return f"수량 {value}매 (+ 클릭이 반영되지 않음, 요청 {count}매)"
+    return f"수량 {value}매"
+
+
+_JS_STD_REQUEST_PAGE = r"""(sel) => {
+    const h = document.querySelector('h1 > a');
+    const onPage = !!h && (h.textContent || '').replace(/\s+/g, '') === '예약하기';
+    const b = document.querySelector(sel);
+    return {
+        onPage,
+        button: !!b && !!b.getClientRects().length,
+        ready: !!b && !b.disabled && !b.classList.contains('disabled'),
+        label: b ? (b.textContent || '').replace(/\s+/g, ' ').trim() : '',
+        cls: b ? b.className : '',
+        date: ((document.querySelector('.section_booking_info .desc.date') || {}).innerText || '')
+              .replace(/\s+/g, ' ').trim(),
+    };
+}"""
+
+
+def _std_request_page(page, wait_ms: int = 12000) -> dict:
+    """예약 창(h1>a '예약하기')이 로딩을 마치고 btn_request가 활성화될 때까지 기다린 상태."""
+    _poll_until(page, lambda: (page.evaluate(_JS_STD_REQUEST_PAGE, _STD_REQUEST) or {}).get("button"),
+                wait_ms, 150)
+    _wait_loaded(page, 5000)
+    # 로딩 중에는 btn_request에 disabled 클래스가 잠깐 붙는다 — 풀릴 때까지
+    _poll_until(page, lambda: (page.evaluate(_JS_STD_REQUEST_PAGE, _STD_REQUEST) or {}).get("ready"),
+                5000, 150)
+    try:
+        return page.evaluate(_JS_STD_REQUEST_PAGE, _STD_REQUEST) or {}
+    except Exception:
+        return {}
+
+
+def _md_hm(text: str) -> tuple[int, int, int, int] | None:
+    """"10. 10. (토) 오후 4:30" → (10, 10, 16, 30). 시각이 없으면 시·분은 -1."""
+    m = re.search(r"(\d{1,2})\s*\.\s*(\d{1,2})\s*\.", text or "")
+    if not m:
+        return None
+    hh = mi = -1
+    tm = re.search(r"(오전|오후)?\s*(\d{1,2})\s*:\s*(\d{2})", text[m.end():])
+    if tm:
+        hh, mi = int(tm.group(2)), int(tm.group(3))
+        if tm.group(1) == "오후" and hh < 12:
+            hh += 12
+        elif tm.group(1) == "오전" and hh == 12:
+            hh = 0
+    return int(m.group(1)), int(m.group(2)), hh, mi
+
+
+def _visible_notice(page) -> str:
+    """화면에 뜬 레이어 알림 문구 (회차 소진 등)."""
+    try:
+        return page.evaluate(r"""() => {
+            for (const el of document.querySelectorAll(
+                    '[role="alertdialog"],[role="dialog"],[class*="Popup" i],[class*="layer" i],[class*="Modal" i],[class*="toast" i]')) {
+                if (!el.getClientRects().length) continue;
+                const t = (el.innerText || '').replace(/\s+/g, ' ').trim();
+                if (t && t.length < 200) return t;
+            }
+            return '';
+        }""") or ""
+    except Exception:
+        return ""
+
+
+def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
+              dry_run: bool, shots: list, result, acct_label: str) -> dict:
+    """표준 예약 화면에서 날짜 → 시간 → 수량 → 다음 → 예약하기 → 완료 확인까지."""
+    dialogs: list = []
+
+    def on_dialog(d):
+        dialogs.append(d.message)
+        try:
+            d.accept()
+        except Exception:
+            pass
+
+    page.on("dialog", on_dialog)
+    start_url = _with_start_date(url, datekey)
+    max_rounds = 3     # 회차 소진으로 튕기면 처음 화면부터 다시 (같은 날짜·요청 시간 안에서)
+    last_fail = ""
+    for rnd in range(1, max_rounds + 1):
+        if rnd > 1:
+            _log(f"처음 화면부터 다시 시도 ({rnd}/{max_rounds}) — 직전: {last_fail}")
+            page.goto(start_url, wait_until="load", timeout=25000)
+        _wait_loaded(page)
+
+        ok, why = _std_select_date(page, datekey)
+        if not ok:
+            _shot(page, "date_fail", shots, always=True)
+            return result(False, f"날짜를 선택하지 못함: {why}")
+        _shot(page, "02_date", shots)
+
+        booked_time, slots = _std_select_time(page, wanted_times)
+        if not booked_time:
+            _shot(page, "time_fail", shots, always=True)
+            shown = ", ".join(f"{s['text']}{'(마감)' if s['off'] else ''}" for s in slots[:12]) or "(시간대 없음)"
+            _log(f"페이지 시간대: {shown}")
+            blocked = [t for t in wanted_times
+                       if any(s["off"] and [s["h"], s["mm"]] == [int(x) for x in t.split(":")] for s in slots)]
+            if blocked:
+                return result(False, f"시간대 {blocked}이(가) 예약 페이지에서 선택 불가 상태 "
+                                     f"(매진·마감) — 계정을 바꿔도 동일", unbookable=True)
+            return result(False, f"시간대 {wanted_times} 중 선택 가능한 것이 없음 (페이지: {shown})")
+        _shot(page, "03_time", shots)
+
+        # 시간 선택 뒤 수량 섹션이 생기거나, 바로 '다음'이 활성화된다
+        _poll_until(page, lambda: page.evaluate(_JS_STD_COUNT) is not None
+                    or page.evaluate(_JS_STD_NEXT_READY, _STD_NEXT), 3000, 100)
+        qty = _std_set_count(page, count)
+        _log(qty)
+        if not _poll_until(page, lambda: page.evaluate(_JS_STD_NEXT_READY, _STD_NEXT), 4000, 100):
+            _shot(page, "next_disabled", shots, always=True)
+            return result(False, f"'다음' 버튼이 활성화되지 않음 ({qty})", booked_time)
+        page.locator(_STD_NEXT).first.click(timeout=2500)
+        _log("'다음' 클릭")
+
+        st = _std_request_page(page)
+        _shot(page, "04_request", shots)
+        if _is_login_page(page):
+            return result(False, f"예약 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨", booked_time)
+        if not st.get("onPage") or not st.get("button"):
+            _log_clickables(page, "예약 창 아님")
+            _shot(page, "request_fail", shots, always=True)
+            return result(False, "'다음' 뒤 예약 창(h1 '예약하기' + 예약 버튼)이 뜨지 않음", booked_time)
+
+        # 마지막 안전장치: 예약 창에 적힌 일정이 요청과 같은지
+        st["date"] = re.sub(r"\)(?=\S)", ") ", st.get("date") or "")   # "(토)오후 4:00" → "(토) 오후 4:00"
+        want_md = (int(datekey[5:7]), int(datekey[8:10]))
+        got = _md_hm(st.get("date") or "")
+        if got and (got[0], got[1]) != want_md:
+            _shot(page, "date_mismatch", shots, always=True)
+            return result(False, f"예약 창의 일정이 요청과 다름 (화면: {st.get('date')} / 요청: {datekey})",
+                          booked_time)
+        if got and got[2] >= 0 and f"{got[2]:02d}:{got[3]:02d}" != booked_time:
+            _shot(page, "time_mismatch", shots, always=True)
+            return result(False, f"예약 창의 시간이 요청과 다름 (화면: {st.get('date')} / 선택: {booked_time})",
+                          booked_time)
+
+        if dry_run:
+            _shot(page, "dryrun_stop", shots, always=True)
+            if not st.get("ready"):
+                return result(False, f"[드라이런] 예약 버튼이 활성화되지 않음 (class='{st.get('cls')}')",
+                              booked_time)
+            return result(True, f"[드라이런] 최종 확정 직전 중단 — 일정 '{st.get('date')}', "
+                                f"{qty}, 확정 버튼: '{st.get('label')}' (button.btn_request)", booked_time)
+
+        dialogs.clear()
+        page.locator(_STD_REQUEST).first.click(timeout=3000)
+        _log(f"'{st.get('label')}' 클릭")
+        if _poll_until(page, lambda: _STD_DONE_PARAM in page.url, 15000, 150):
+            return _std_done(page, datekey, booked_time, shots, result)
+
+        notice = "; ".join(dialogs) or _visible_notice(page)
+        _shot(page, f"request_fail_{rnd}", shots, always=True)
+        last_fail = notice or "완료 화면으로 넘어가지 않음"
+        _log(f"예약 실패 알림: {last_fail}")
+        if _is_login_page(page):
+            return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨", booked_time)
+    return result(False, f"확정 단계 실패: {last_fail} — 수동 확인 필요(예약됐을 수도 있음)")
+
+
+def _std_done(page, datekey: str, booked_time: str, shots: list, result) -> dict:
+    """예약 완료 화면(popup=bookingCompletion)에서 일시를 읽어 "10/10 16:30" 형태로 남긴다."""
+    _poll_until(page, lambda: page.locator(_STD_DONE_DATE).count() > 0, 5000, 150)
+    _shot(page, "07_success", shots, always=True)
+    raw = ""
+    try:
+        raw = re.sub(r"\s+", " ", page.locator(_STD_DONE_DATE).first.inner_text(timeout=2000)).strip()
+    except Exception:
+        pass
+    got = _md_hm(raw)
+    if got and got[2] >= 0:
+        label = f"{got[0]}/{got[1]} {got[2]:02d}:{got[3]:02d}"
+    else:
+        label = f"{int(datekey[5:7])}/{int(datekey[8:10])} {booked_time}"
+    m = re.search(r"/bookings/(\d+)", page.url)
+    no = m.group(1) if m else ""
+    _log(f"완료 화면 확인 — {raw or page.url}")
+    res = result(True, f"{label} 예약 성공" + (f" (예약번호 {no})" if no else ""), booked_time,
+                 evidence=f"완료 URL {_STD_DONE_PARAM}", confirm_no=no)
+    res["booked_label"] = label
+    return res
+
+
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
              cookie_str: str | None = None, account: int | None = None,
              budget_sec: float | None = None) -> dict:
@@ -1305,6 +1761,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
 
                 _shot(page, "01_landing", shots)
 
+                if _std_page(page):
+                    return _std_book(page, url, datekey, wanted_times, count,
+                                     dry_run, shots, result, acct_label)
+
+                # 표준 달력 구조가 아닌 화면 — 범용 탐색으로 진행
                 picked, reason = _select_date(page, datekey)
                 if picked:
                     _shot(page, "02_date", shots)
