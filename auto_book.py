@@ -1231,11 +1231,32 @@ _STD_DONE_DATE = _cls_starts("BookingCompletionModalLegacy__date")
 _STD_DONE_PARAM = "popup=bookingCompletion"
 
 
-def _std_page(page) -> bool:
-    """표준 예약 화면(달력 구조)인지. 날짜 칸 구조(tr.calendar_week … span.num)까지 맞아야 한다."""
+_STD_DAY = f"{_STD_MONTH} tbody.calendar_body > tr.calendar_week button.calendar_date span.num"
+
+
+def _std_page(page, wait_ms: int = 6000) -> bool:
+    """표준 예약 화면(달력 구조)인지. 날짜 칸 구조(tr.calendar_week … span.num)까지 맞아야 한다.
+
+    달력 껍데기는 먼저 오고 날짜 칸은 나중에 그려지므로, 달력 영역이 있으면 잠깐 기다린다.
+    아니라고 판정하면 범용 탐색으로 가므로 왜 아닌지 구조를 로그로 남긴다.
+    """
     try:
-        return page.locator(f"{_STD_MONTH} tbody.calendar_body > tr.calendar_week "
-                            "button.calendar_date > span.num").count() > 0
+        if page.locator(".calendar_area").count() == 0:
+            return False
+        try:
+            page.wait_for_selector(_STD_DAY, timeout=wait_ms, state="attached")
+            return True
+        except Exception:
+            pass
+        chain = page.evaluate(r"""() => {
+            const b = document.querySelector('.calendar_area [class*="calendar_date"], .calendar_area td');
+            const out = [];
+            for (let e = b; e && out.length < 8; e = e.parentElement)
+                out.push(e.tagName.toLowerCase() + (e.className ? '.' + e.className.toString().trim().split(/\s+/).join('.') : ''));
+            return out.reverse().join(' > ') + (b ? ' | ' + b.innerHTML.slice(0, 120) : ' (날짜 칸 없음)');
+        }""")
+        _log(f"표준 달력 구조가 아님 — 범용 탐색으로 진행 ({chain})")
+        return False
     except Exception:
         return False
 
