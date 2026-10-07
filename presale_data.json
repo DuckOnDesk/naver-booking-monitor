@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07T10:11:22.373876+09:00",
+  "updated_at": "2026-10-07T10:16:49.399757+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1199,7 +1199,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-07T09:43:52.489058+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-07T10:16:48.345777+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1594,7 +1594,7 @@
     },
     {
       "id": "2022112166",
-      "name": "원파디 X 울루루하우스",
+      "name": "원파디 X 울루루 하우스",
       "hasBooking": false,
       "bookingUrl": null,
       "bookingBusinessId": null,
@@ -3338,7 +3338,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-07T10:11:20.890315+09:00",
+    "checked_at": "2026-10-07T10:16:47.480752+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
