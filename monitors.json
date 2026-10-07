@@ -72,7 +72,8 @@
       "name": "맥켈란",
       "url": "https://m.booking.naver.com/booking/12/bizes/1750423/items/8109098",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     }
   ]
 }
