@@ -6,7 +6,21 @@
       "name": "넷플 잔치",
       "url": "https://m.booking.naver.com/booking/5/bizes/1733276/items/8035197?theme=place&service-target=map-pc&lang=ko&area=bmp",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-10-24"
+        ],
+        "times": [],
+        "accounts": [
+          3
+        ],
+        "count": 2,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-10-07T05:57:11.916Z"
+      }
     },
     {
       "id": "mu6p9ue2",
