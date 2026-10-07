@@ -346,6 +346,15 @@ async function loadConfig() {
   }
 }
 
+// 워크플로가 거의 매분 main 에 커밋하므로, 같은 순간 PUT 하면 GitHub 가 409 대신
+// 500/502/422 를 돌려주기도 한다. 이런 경합성 실패는 sha 를 다시 읽고 재시도한다.
+function isRetryableSaveError(e) {
+  const m = /GitHub API (\d+)/.exec(e.message);
+  const st = m ? +m[1] : 0;
+  return st === 409 || st === 422 || st >= 500;
+}
+const saveBackoff = attempt => new Promise(r => setTimeout(r, 600 * (attempt + 1) + Math.random() * 400));
+
 // 동시 저장 방지용 큐
 let _saveQueue = Promise.resolve();
 
@@ -353,7 +362,7 @@ async function saveConfig(msg = 'update monitors') {
   const content = btoa(unescape(encodeURIComponent(JSON.stringify(cfg, null, 2))));
   // 이전 저장이 끝난 뒤 순서대로 실행 (동시 PUT 방지)
   const run = async () => {
-    for (let attempt = 0; attempt < 3; attempt++) {
+    for (let attempt = 0; attempt < 5; attempt++) {
       const latest = await apiFetch();
       sha = latest.sha;
       try {
@@ -361,8 +370,8 @@ async function saveConfig(msg = 'update monitors') {
         sha = data.content.sha;
         return;
       } catch(e) {
-        if (!e.message.includes('409') || attempt === 2) throw e;
-        await new Promise(r => setTimeout(r, 400));
+        if (!isRetryableSaveError(e) || attempt === 4) throw e;
+        await saveBackoff(attempt);
       }
     }
   };
