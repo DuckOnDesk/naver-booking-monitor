@@ -1573,9 +1573,14 @@ def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
     start_url = _with_start_date(url, datekey)
     max_rounds = 3     # 회차 소진으로 튕기면 처음 화면부터 다시 (같은 날짜·요청 시간 안에서)
     last_fail = ""
+    # 남은 후보 시간 (시간순). 예약 버튼까지 눌렀다가 실패한 시간은 빼고 다음 시간으로 간다
+    # — 화면에 아직 '가능'으로 남아 있어도 같은 회차를 다시 누르지 않는다 (1시 실패 → 1시 반).
+    candidates = list(wanted_times)
     for rnd in range(1, max_rounds + 1):
         if rnd > 1:
-            _log(f"처음 화면부터 다시 시도 ({rnd}/{max_rounds}) — 직전: {last_fail}")
+            if not candidates:
+                break
+            _log(f"처음 화면부터 다시 시도 ({rnd}/{max_rounds}, 남은 후보 {candidates}) — 직전: {last_fail}")
             page.goto(start_url, wait_until="load", timeout=25000)
         _wait_loaded(page)
 
@@ -1585,7 +1590,10 @@ def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
             return result(False, f"날짜를 선택하지 못함: {why}")
         _shot(page, "02_date", shots)
 
-        booked_time, slots = _std_select_time(page, wanted_times)
+        booked_time, slots = _std_select_time(page, candidates)
+        if not booked_time and rnd > 1:
+            _shot(page, "time_fail", shots, always=True)
+            return result(False, f"확정 실패 후 남은 시간 {candidates}도 선택 불가 — 직전: {last_fail}")
         if not booked_time:
             _shot(page, "time_fail", shots, always=True)
             shown = ", ".join(f"{s['text']}{'(마감)' if s['off'] else ''}" for s in slots[:12]) or "(시간대 없음)"
@@ -1642,13 +1650,16 @@ def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
         dialogs.clear()
         page.locator(_STD_REQUEST).first.click(timeout=3000)
         _log(f"'{st.get('label')}' 클릭")
-        if _poll_until(page, lambda: _STD_DONE_PARAM in page.url, 15000, 150):
+        # 완료 화면이 뜨거나, 회차 소진 등의 알림이 뜨면 (그때는 바로 다음 시도로) 즉시 멈춘다
+        _poll_until(page, lambda: _STD_DONE_PARAM in page.url or dialogs, 15000, 100)
+        if _STD_DONE_PARAM in page.url:
             return _std_done(page, datekey, booked_time, shots, result)
 
         notice = "; ".join(dialogs) or _visible_notice(page)
         _shot(page, f"request_fail_{rnd}", shots, always=True)
-        last_fail = notice or "완료 화면으로 넘어가지 않음"
+        last_fail = f"{booked_time} " + (notice or "완료 화면으로 넘어가지 않음")
         _log(f"예약 실패 알림: {last_fail}")
+        candidates = candidates[candidates.index(booked_time) + 1:]
         if _is_login_page(page):
             return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨", booked_time)
     return result(False, f"확정 단계 실패: {last_fail} — 수동 확인 필요(예약됐을 수도 있음)")

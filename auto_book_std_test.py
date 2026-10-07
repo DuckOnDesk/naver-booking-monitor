@@ -146,6 +146,51 @@ def main() -> int:
         check("로딩 중 disabled 클래스가 풀릴 때까지 기다린다", st.get("ready"), st.get("cls"))
         check("확정 버튼은 헤더 링크가 아니라 btn_request", st.get("label") == "동의하고 예약하기", st.get("label"))
 
+        print("7) 회차 소진: 1시에서 예약 실패 → 처음부터 다시 → 1시 반")
+        # 화면에는 1시가 계속 '가능'으로 남아 있다 (실제로도 목록이 늦게 갱신될 수 있다).
+        # 그래도 이미 실패한 1시를 다시 누르지 않고 다음 후보로 가야 한다.
+        base = "https://m.booking.naver.com/booking/12/bizes/1/items/1"
+        cells = [(d, "") for d in range(1, 32)]
+        flow_js = """<script>
+          document.addEventListener('click', e => {
+            const t = e.target.closest('.btn_time');
+            if (t) { window.picked = t.childNodes[0].textContent.trim();   // 선택 표시는 times()가 단다
+                     document.querySelector('.nx').className = 'nx NextButton__btn_next__4hAoO'; }
+            if (e.target.closest('.nx') && !/disabled/.test(e.target.className)) {
+              const when = window.picked;
+              document.body.innerHTML = '<h1><a>예약하기</a></h1><section class="section_booking_info"><div class="desc date">10. 9. (금) ' + when + '</div></section>' +
+                '<div class="section_booking_footer"><div class="booking_inner"><button class="btn_request">동의하고 예약하기</button></div></div>';
+              document.querySelector('.btn_request').onclick = () => {
+                if (when === '오후 1:00') alert('선택하신 회차가 마감되었습니다.');
+                else location.href = location.pathname + '?popup=bookingCompletion&t=' + encodeURIComponent(when);
+              };
+            }
+          });</script>"""
+        landing = html(calendar("2026.10", cells) + times([("오후 1:00", ""), ("오후 1:30", ""), ("오후 2:00", "")])
+                       + '<button class="nx NextButton__btn_next__4hAoO NextButton__disabled__t72qg">다음</button>' + flow_js)
+
+        def serve(route):
+            u = route.request.url
+            if "popup=bookingCompletion" in u:
+                when = u.split("t=")[-1].replace("%20", " ")
+                from urllib.parse import unquote
+                body = f'<div class="BookingCompletionModalLegacy__date__rxiRZ">10. 9. (금) {unquote(when)}</div>'
+                route.fulfill(content_type="text/html; charset=utf-8", body=html(body))
+            else:
+                route.fulfill(content_type="text/html; charset=utf-8", body=landing)
+
+        pg.route(base + "**", serve)
+        pg.goto(base)
+
+        def res(success, message, booked_time=None, **kw):
+            return {"success": success, "message": message, "booked_time": booked_time, **kw}
+
+        r = auto_book._std_book(pg, base, "2026-10-09", ["13:00", "13:30", "14:00"], 1,
+                                False, [], res, "계정T")
+        check("1시 실패 뒤 1시 반으로 예약 성공", r["success"] and r["booked_time"] == "13:30", r)
+        check("완료 일시를 읽어 '10/9 13:30 예약 성공'", r.get("booked_label") == "10/9 13:30", r.get("booked_label"))
+        pg.unroute(base + "**")
+
         print("6) 완료 일시")
         for raw, want in (("10. 10. (토) 오후 4:30", (10, 10, 16, 30)),
                           ("10. 10. (토) 오전 12:00", (10, 10, 0, 0)),
