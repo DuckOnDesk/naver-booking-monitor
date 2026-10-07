@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07T21:06:51.327053+09:00",
+  "updated_at": "2026-10-07T21:12:17.043573+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -516,6 +516,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2021563125",
+      "name": "THE ICON, VALENCIA",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.08.",
+      "operationEnd": "26.10.25.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20261007_111/1791336667201By4nS_JPEG/image.jpg",
+      "roadAddress": "성수이로 71 태너리",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-07T16:40:02.747906+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2056467638",
       "name": "아이보들 CCP 리커버리 호텔",
       "hasBooking": true,
@@ -544,34 +572,6 @@
       "bookingItemCheckedAt": "2026-10-06T18:19:34.634504+09:00",
       "discoveredAt": "2026-10-06T18:03:34.897956+09:00",
       "lastBookingNotifiedAt": "2026-10-06T19:13:20.504098+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2021563125",
-      "name": "THE ICON, VALENCIA",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.08.",
-      "operationEnd": "26.10.25.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20261007_111/1791336667201By4nS_JPEG/image.jpg",
-      "roadAddress": "성수이로 71 태너리",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-07T16:40:02.747906+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -757,7 +757,7 @@
     {
       "id": "2030290261",
       "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
       "bookingBusinessId": "1745091",
       "operationStart": "26.10.10.",
@@ -771,7 +771,8 @@
       "district": "마포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-10-03T11:15:42.681544+09:00"
+        "2026-10-03T11:15:42.681544+09:00",
+        "2026-10-07T21:12:14.400304+09:00"
       ],
       "bookingOpenAuto": "2026-10-05T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-05T17:46:09.494536+09:00",
@@ -1266,7 +1267,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-07T20:39:40.353673+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-07T21:12:15.448279+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1918,13 +1919,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://map.naver.com/p/entry/place/2015914479",
-      "ts": "2026-09-26T05:46:52.001937+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3317,6 +3311,13 @@
       "place_name": "숨37 Bio-Breath : Skin To Life",
       "booking_url": "",
       "ts": "2026-10-07T19:39:54.370235+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2030290261",
+      "place_name": "Cafe 1014: For Keria",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+      "ts": "2026-10-07T21:12:14.400304+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3495,7 +3496,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-07T21:06:49.557611+09:00",
+    "checked_at": "2026-10-07T21:12:14.400304+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
