@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07T11:50:22.340866+09:00",
+  "updated_at": "2026-10-07T11:55:50.283543+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -424,7 +424,7 @@
     },
     {
       "id": "2015282909",
-      "name": "방탈출 게임 <점프x컷>",
+      "name": "방탈출 게임 <점프x컷 2.0>",
       "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1515875",
       "bookingBusinessId": "1515875",
@@ -1231,7 +1231,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-07T11:22:49.570698+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-07T11:55:49.125652+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3371,12 +3371,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-07T11:50:20.594556+09:00",
+    "checked_at": "2026-10-07T11:55:48.222379+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 781,
+    "candidate_items": 769,
     "presale_items": 183,
     "after_district_filter": 97,
     "fallback_matched": 0,
@@ -3385,8 +3385,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-07T11:33:47.236017+09:00",
     "admission_names": {
-      "(없음)": 405,
-      "현장대기": 193,
+      "(없음)": 391,
+      "현장대기": 195,
       "사전예약&현장대기": 133,
       "사전예약": 50
     },
