@@ -94,5 +94,17 @@
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
+  },
+  "12_1750423_8109098": {
+    "sale_start_date": null,
+    "sale_end_date": null,
+    "available_start": "2026-10-20",
+    "available_end": "2026-10-25",
+    "hour_from": "10:30",
+    "hour_to": "19:30",
+    "checked_at": "2026-10-07T11:46:18.277291+09:00",
+    "booking_available_code": "RI03",
+    "booking_available_value": 0,
+    "restriction_ok": true
   }
 }
