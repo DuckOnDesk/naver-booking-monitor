@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07T14:05:38.732999+09:00",
+  "updated_at": "2026-10-07T14:11:09.055085+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1606,7 +1606,7 @@
       "remainingDays": 14,
       "status": "D-14",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20261002_106/1790915141281fcMqF_JPEG/image.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20261007_53/1791349082032qHubk_PNG/image.png",
       "roadAddress": "독서당로29길 5-6",
       "commonAddress": "서울 용산구",
       "district": "용산구",
@@ -1729,7 +1729,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-07T13:38:02.939280+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-07T14:11:07.421910+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -3401,12 +3401,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-07T14:05:35.498945+09:00",
+    "checked_at": "2026-10-07T14:11:06.247632+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 789,
+    "candidate_items": 795,
     "presale_items": 185,
     "after_district_filter": 98,
     "fallback_matched": 0,
@@ -3415,7 +3415,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-07T12:06:41.260186+09:00",
     "admission_names": {
-      "(없음)": 406,
+      "(없음)": 412,
       "현장대기": 198,
       "사전예약&현장대기": 133,
       "사전예약": 52
