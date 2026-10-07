@@ -258,7 +258,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
 
     accounts = auto_book.get_accounts(cfg["accounts"])
     if not accounts:
-        res = {"success": False, "message": "사용 가능한 계정 쿠키 없음 (NAVER_COOKIES_1~5 시크릿 확인)",
+        res = {"success": False, "message": "사용 가능한 계정 쿠키 없음 (COOKIES_BUNDLE_JSON 또는 NAVER_COOKIES_1~5 시크릿 확인)",
                "booked_time": None, "dry_run": False, "account": None}
         results = [res]
     else:

@@ -2151,7 +2151,12 @@ def naver_cookies() -> list:
     로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려보낸다.
     그 화면은 상품 페이지가 아니므로 닫힘으로 잡힌다 — 진단 스크립트가 같은
     조건으로 보게 하려고 따로 뺐다.
+    COOKIES_BUNDLE_JSON(naver_sync 쿠키 묶음)이 있으면 그 첫 계정을 쓴다.
     """
+    from auto_book import _bundle_accounts, _parse_cookies
+    bundle = _bundle_accounts()
+    if bundle:
+        return _parse_cookies(bundle[0][1])
     cookies = []
     for part in os.environ.get("NAVER_COOKIES", "").strip().split(";"):
         part = part.strip()

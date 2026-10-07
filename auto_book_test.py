@@ -72,15 +72,22 @@ def main() -> int:
 
     print(f"테스트 대상 슬롯: {target_date} {times[:5]}", flush=True)
 
-    res = auto_book.try_book(url, target_date, times[:5])
+    # 등록된 계정을 모두 드라이런한다 — 어느 계정 쿠키가 살아 있는지 한 번에 보이도록
+    accounts = auto_book.get_accounts() or [(None, "")]
+    results = []
+    for acct, cookie in accounts:
+        res = auto_book.try_book(url, target_date, times[:5], cookie_str=cookie, account=acct)
+        results.append((acct, res))
+        print(f"\n=== 결과 [계정{acct or '-'}] ===", flush=True)
+        print(f"  성공 여부 : {res['success']}")
+        print(f"  메시지    : {res['message']}")
+        print(f"  선택 시간 : {res.get('booked_time')}")
+        print(f"  스크린샷  : {len(res.get('screenshots') or [])}장 (아티팩트로 업로드됨)", flush=True)
 
-    print("\n=== 결과 ===", flush=True)
-    print(f"  성공 여부 : {res['success']}")
-    print(f"  메시지    : {res['message']}")
-    print(f"  선택 시간 : {res.get('booked_time')}")
-    print(f"  스크린샷  : {len(res.get('screenshots') or [])}장 (아티팩트로 업로드됨)")
-    return 0 if res["success"] else 1
-
+    print("\n=== 계정별 요약 ===")
+    for acct, res in results:
+        print(f"  계정{acct or '-'}: {'OK  ' if res['success'] else 'FAIL'} {res['message']}")
+    return 0 if any(res["success"] for _, res in results) else 1
 
 if __name__ == "__main__":
     sys.exit(main())

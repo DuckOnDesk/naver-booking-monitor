@@ -42,5 +42,8 @@ jobs:
         env:
           # 모니터와 같은 조건으로 예약 페이지를 봐야 한다. 로그인 쿠키가 없으면
           # 네이버가 로그인 화면으로 돌려보내 화면 내용이 통째로 사라진다.
+          # naver_sync와 같은 쿠키 묶음 — 있으면 NAVER_COOKIES*보다 우선한다
+          COOKIES_BUNDLE_JSON: ${{ secrets.COOKIES_BUNDLE_JSON }}
+          COOKIES_BUNDLE_ORDER: ${{ vars.COOKIES_BUNDLE_ORDER }}
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
         run: python -u schedule_diagnose.py "${{ inputs.url }}" "${{ inputs.date }}"

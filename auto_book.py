@@ -8,8 +8,13 @@ Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 �
 않고 즉시 실패로 끝낸다. 확정 화면의 날짜 표기도 한 번 더 대조한다 — 예약이 안 되는
 것보다 엉뚱한 날짜가 예약되는 쪽이 훨씬 나쁘기 때문이다.
 
-계정 환경변수 (여러 계정 지원, 크롬에서 로그인 후 쿠키 복사):
-  NAVER_COOKIES_1 ~ NAVER_COOKIES_5   계정별 로그인 쿠키 (NID_AUT, NID_SES 포함)
+계정 환경변수 (여러 계정 지원):
+  COOKIES_BUNDLE_JSON                  naver_sync와 같은 쿠키 묶음 ({"아이디": storage_state, ...}).
+                                       있으면 이것을 우선 쓴다 — naver_sync가 매일 실제로 로그인에
+                                       쓰는 쿠키라 살아 있는지 늘 확인되기 때문이다.
+  COOKIES_BUNDLE_ORDER                 (선택) 묶음 계정의 번호 순서, 쉼표 구분 (예: "betty,hye,gogo")
+                                       없으면 묶음에 들어 있는 순서대로 계정1, 계정2, …
+  NAVER_COOKIES_1 ~ NAVER_COOKIES_5   (묶음이 없을 때) 계정별 로그인 쿠키 문자열 (NID_AUT, NID_SES 포함)
   NAVER_COOKIES                        (하위 호환) 계정1로 취급
 선택 환경변수:
   AUTO_BOOK_DRY_RUN     "1"이면 최종 확정 버튼 직전까지만 진행 (테스트용)
@@ -23,6 +28,10 @@ Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 �
    "dry_run": bool, "screenshots": [경로...]}
 """
 
+import base64
+import binascii
+import gzip
+import json
 import os
 import re
 import time as time_mod
@@ -188,19 +197,64 @@ def _wait_booking_ui(page, timeout_ms: int = 8000) -> bool:
     return False
 
 
+# 계정번호 → 묶음의 아이디 (로그에 "계정1(betty)"처럼 남기기 위함)
+ACCOUNT_NAMES: dict = {}
+
+
+def _bundle_accounts() -> list:
+    """COOKIES_BUNDLE_JSON(naver_sync 형식)에서 [(번호, 쿠키 목록, 아이디)]를 만든다."""
+    raw = os.environ.get("COOKIES_BUNDLE_JSON", "").strip()
+    if not raw:
+        return []
+    # naver_sync의 prepare_secrets.py는 값을 gzip → base64로 싸서 올린다
+    # (PowerShell 파이프가 한글을 깨뜨리고, 원문은 시크릿 한도에 가깝다). 원문 JSON도 받는다.
+    if not raw.lstrip("\ufeff").startswith("{"):
+        try:
+            blob = base64.b64decode(raw, validate=True)
+            if blob[:2] == b"\x1f\x8b":
+                blob = gzip.decompress(blob)
+            raw = blob.decode("utf-8")
+        except (binascii.Error, ValueError, OSError):
+            pass
+    try:
+        bundle = json.loads(raw.lstrip("\ufeff"))
+    except ValueError:
+        _log("COOKIES_BUNDLE_JSON 파싱 실패 — NAVER_COOKIES_1~5로 대체")
+        return []
+    if not isinstance(bundle, dict):
+        return []
+    order = [x.strip() for x in os.environ.get("COOKIES_BUNDLE_ORDER", "").split(",") if x.strip()]
+    names = [n for n in order if n in bundle] + [n for n in bundle if n not in order]
+    out = []
+    for name in names[:5]:
+        state = bundle[name]
+        cookies = state.get("cookies") if isinstance(state, dict) else state
+        if isinstance(cookies, list) and cookies:
+            out.append((len(out) + 1, cookies, name))
+    return out
+
+
 def get_accounts(priority: list | None = None) -> list:
     """사용 가능한 (계정번호, 쿠키) 목록. priority가 주어지면 그 순서·그 계정만 사용.
 
-    NAVER_COOKIES_1~5 환경변수에서 읽고, 없으면 NAVER_COOKIES를 계정 1로 취급."""
+    COOKIES_BUNDLE_JSON이 있으면 그 계정들(쿠키는 목록), 없으면 NAVER_COOKIES_1~5
+    (쿠키는 문자열), 그것도 없으면 NAVER_COOKIES를 계정 1로 취급."""
     accounts = []
-    for i in range(1, 6):
-        c = os.environ.get(f"NAVER_COOKIES_{i}", "").strip()
-        if c:
-            accounts.append((i, c))
-    if not accounts:
-        c = os.environ.get("NAVER_COOKIES", "").strip()
-        if c:
-            accounts.append((1, c))
+    bundle = _bundle_accounts()
+    if bundle:
+        ACCOUNT_NAMES.clear()
+        for i, cookies, name in bundle:
+            ACCOUNT_NAMES[i] = name
+            accounts.append((i, cookies))
+    else:
+        for i in range(1, 6):
+            c = os.environ.get(f"NAVER_COOKIES_{i}", "").strip()
+            if c:
+                accounts.append((i, c))
+        if not accounts:
+            c = os.environ.get("NAVER_COOKIES", "").strip()
+            if c:
+                accounts.append((1, c))
     if priority:
         by_id = dict(accounts)
         ordered = [(int(i), by_id[int(i)]) for i in priority if int(i) in by_id]
@@ -209,7 +263,22 @@ def get_accounts(priority: list | None = None) -> list:
     return accounts
 
 
-def _parse_cookies(cookie_str: str) -> list:
+_COOKIE_KEYS = ("name", "value", "domain", "path", "expires", "httpOnly", "secure", "sameSite")
+
+
+def _parse_cookies(cookie_str) -> list:
+    """쿠키 문자열("a=1; b=2") 또는 storage_state 쿠키 목록 → add_cookies용 목록."""
+    if isinstance(cookie_str, list):
+        out = []
+        for c in cookie_str:
+            if not isinstance(c, dict) or not c.get("name") or not c.get("domain"):
+                continue
+            item = {k: c[k] for k in _COOKIE_KEYS if k in c}
+            item.setdefault("path", "/")
+            if item.get("sameSite") not in ("Strict", "Lax", "None"):
+                item.pop("sameSite", None)
+            out.append(item)
+        return out
     cookies = []
     for part in cookie_str.split(";"):
         part = part.strip()
@@ -222,6 +291,12 @@ def _parse_cookies(cookie_str: str) -> list:
                 "path": "/",
             })
     return cookies
+
+
+def _has_login_token(cookie_str) -> bool:
+    if isinstance(cookie_str, list):
+        return any(isinstance(c, dict) and c.get("name") in ("NID_AUT", "NID_SES") for c in cookie_str)
+    return any(k in cookie_str for k in ("NID_AUT", "NID_SES"))
 
 
 def _is_login_page(page) -> bool:
@@ -303,29 +378,123 @@ def _poll_until(page, check, cap_ms: int, step_ms: int = 200) -> bool:
         page.wait_for_timeout(step_ms)
 
 
+# 진행/확정 버튼 탐색 — 대기(_has_any_button)·클릭(_click_cta)·드라이런 보고가 모두 이것 하나를 쓴다.
+#
+# 예전에는 셋이 제각각이었다. 대기는 button·a를 JS로, 클릭은 Playwright의
+# has-text로, 드라이런은 button:has-text만 봐서 "대기는 버튼이 있다는데 클릭은 못 찾고,
+# 드라이런은 'None'이라 해 놓고 성공으로 보고"하는 일이 생겼다 (2026-10-06 실측).
+# 또 문구 비교가 공백에 민감해서 "동의하고<br>예약하기"·"예약신청" 같은 표기를 놓쳤다.
+#   - 공백을 모두 지우고 비교한다
+#   - button·a 외에 role=button·submit input도 본다
+#   - 보이지 않거나 비활성(자기 자신·바로 위 조상)인 것은 뺀다
+#   - 같은 문구 후보가 여럿이면 라벨이 가장 짧은 것(=정확히 그 문구), 그다음 화면 아래쪽
+#     (하단 고정 CTA)을 고른다
+_JS_FIND_CTA = r"""([texts, badClass, badText, mark]) => {
+    const norm = (s) => (s || '').replace(/\s+/g, '');
+    const labelOf = (el) => norm(el.tagName === 'INPUT' ? el.value : (el.innerText || el.textContent));
+    const off = (el) => {
+        for (let e = el, i = 0; e && i < 3; e = e.parentElement, i++) {
+            if (e.disabled || (e.getAttribute && e.getAttribute('aria-disabled') === 'true')) return true;
+        }
+        return false;
+    };
+    const els = Array.from(document.querySelectorAll(
+        'button, a, [role="button"], input[type="submit"], input[type="button"]'));
+    document.querySelectorAll('[data-ab-cta]').forEach(e => e.removeAttribute('data-ab-cta'));
+    for (const want of texts.map(norm)) {
+        const hits = [];
+        for (const el of els) {
+            const cls = (el.className || '').toString().toLowerCase();
+            if (badClass.some(x => cls.includes(x))) continue;
+            const t = labelOf(el);
+            if (!t || t.length > 30 || !t.includes(want)) continue;
+            if (badText.some(x => t.includes(norm(x)))) continue;
+            if (off(el) || !el.getClientRects().length) continue;
+            // 안쪽에 같은 문구의 버튼이 또 있으면 바깥 래퍼 말고 그쪽을 누른다
+            if (el.querySelector('button, a, [role="button"]')
+                && Array.from(el.querySelectorAll('button, a, [role="button"]')).some(c => labelOf(c).includes(want))) continue;
+            hits.push({el, t, y: el.getBoundingClientRect().top});
+        }
+        if (!hits.length) continue;
+        hits.sort((a, b) => a.t.length - b.t.length || b.y - a.y);
+        if (mark) hits[0].el.setAttribute('data-ab-cta', '1');
+        return {text: want, label: hits[0].t, tag: hits[0].el.tagName.toLowerCase()};
+    }
+    return null;
+}"""
+
+# 진단용: 화면에 보이는 클릭 가능한 요소 전부 (드라이런·실패 로그에 남겨 문구를 맞추는 데 쓴다)
+_JS_LIST_CLICKABLES = r"""() => {
+    const out = [];
+    for (const el of document.querySelectorAll(
+            'button, a, [role="button"], input[type="submit"], input[type="button"]')) {
+        if (!el.getClientRects().length) continue;
+        const t = ((el.tagName === 'INPUT' ? el.value : el.innerText) || '').replace(/\s+/g, ' ').trim();
+        if (!t || t.length > 30) continue;
+        const dis = el.disabled || el.getAttribute('aria-disabled') === 'true';
+        out.push(`${el.tagName.toLowerCase()}${dis ? '(비활성)' : ''}:${t}`);
+    }
+    return out.slice(-25);
+}"""
+
+
+def _find_cta(page, texts: list, mark: bool = False) -> dict | None:
+    """texts 우선순위대로 "진짜" CTA를 찾는다. mark=True면 그 요소에 data-ab-cta="1"을 단다."""
+    try:
+        return page.evaluate(
+            _JS_FIND_CTA,
+            [texts, [c.lower() for c in _CTA_EXCLUDE_CLASS], list(_CTA_EXCLUDE_TEXT), mark],
+        ) or None
+    except Exception:
+        return None
+
+
+def _log_clickables(page, tag: str) -> None:
+    try:
+        items = page.evaluate(_JS_LIST_CLICKABLES) or []
+    except Exception:
+        return
+    _log(f"[{tag}] 화면의 버튼들: " + (" | ".join(items) if items else "(없음)"))
+
+
+# 방금 누른 진행 버튼(data-ab-cta)이 사라졌는지 — 화면이 다음 단계로 넘어갔다는 신호.
+# 확정 버튼 후보에 '다음'도 있어서, 화면이 그대로인데 같은 '다음' 버튼을 확정 버튼으로
+# 착각하는 일이 있었다 (2026-10-06 드라이런: 시간 선택 화면 그대로인데 "확정 버튼: '다음'").
+_JS_CTA_GONE = r"""() => {
+    const el = document.querySelector('[data-ab-cta="1"]');
+    return !el || !el.isConnected || !el.getClientRects().length;
+}"""
+
+# 페이지에 '로그인' 버튼이 보이면 로그인 안 된 상태일 가능성이 크다 (쿠키 만료)
+_JS_LOGGED_OUT = r"""() => Array.from(document.querySelectorAll('button, a')).some(
+    el => el.getClientRects().length && (el.innerText || '').replace(/\s+/g, '') === '로그인')"""
+
+
+def _left_stage(page, before_url: str) -> bool:
+    """진행 버튼을 누른 뒤 실제로 다음 화면으로 넘어갔는지 (URL 변경 또는 눌렀던 버튼 소멸)."""
+    try:
+        if before_url and page.url != before_url:
+            return True
+        return bool(page.evaluate(_JS_CTA_GONE))
+    except Exception:
+        return True   # 이동 중이라 평가가 끊겼다 = 넘어가는 중
+
+
+def _looks_logged_out(page) -> bool:
+    try:
+        return bool(page.evaluate(_JS_LOGGED_OUT))
+    except Exception:
+        return False
+
+
 def _has_any_button(page, texts: list) -> bool:
-    """texts 중 하나가 들어간 "진짜" CTA가 화면에 있는지 — 한 번의 evaluate로 확인.
+    """texts 중 하나가 들어간 "진짜" CTA가 화면에 있는지.
 
     탭("예약하기" 탭처럼 같은 글자를 쓰는 요소)·비활성·아직 숨겨진 버튼은 제외한다.
     이걸 빼면 탭 하나 때문에 항상 참이 돼서, 이 함수로 기다리는 의미가 없어진다
     (실제로 CTA가 나타나기 전에 클릭을 시도해 실패했다).
     """
-    try:
-        return bool(page.evaluate(
-            """([texts, badClass, badText]) =>
-                Array.from(document.querySelectorAll('button, a')).some(b => {
-                    const cls = (b.className || '').toString().toLowerCase();
-                    if (badClass.some(x => cls.includes(x))) return false;
-                    const t = (b.textContent || '').trim();
-                    if (badText.some(x => t.includes(x))) return false;
-                    if (b.disabled || b.getAttribute('aria-disabled') === 'true') return false;
-                    if (!b.getClientRects().length) return false;   // 아직 안 보이는 버튼
-                    return texts.some(x => t.includes(x));
-                })""",
-            [texts, [c.lower() for c in _CTA_EXCLUDE_CLASS], list(_CTA_EXCLUDE_TEXT)],
-        ))
-    except Exception:
-        return False
+    return _find_cta(page, texts) is not None
 
 
 def _wait_next_after_time(page) -> None:
@@ -971,22 +1140,6 @@ def _check_agreements(page) -> None:
         pass
 
 
-def _is_cta_button(el) -> bool:
-    """제출/진행 버튼으로 볼 수 있는지 — 탭·컨트롤·알림받기 등은 제외."""
-    try:
-        cls = (el.get_attribute("class") or "").lower()
-        if any(x in cls for x in _CTA_EXCLUDE_CLASS):
-            return False
-        txt = (el.inner_text() or "").strip()
-        if any(x in txt for x in _CTA_EXCLUDE_TEXT):
-            return False
-        if el.is_disabled():
-            return False
-        return True
-    except Exception:
-        return False
-
-
 def _click_cta(page, texts: list) -> str | None:
     """하단 진행 버튼 클릭. 탭/알림받기 등 가짜 버튼은 건너뛰고 진짜 CTA만 클릭.
 
@@ -998,31 +1151,19 @@ def _click_cta(page, texts: list) -> str | None:
         before_url = page.url
     except Exception:
         before_url = ""
-    for t in texts:
-        loc = page.locator(f'button:has-text("{t}"), a:has-text("{t}")')
+    hit = _find_cta(page, texts, mark=True)
+    if hit:
+        el = page.locator('[data-ab-cta="1"]').first
         try:
-            n = loc.count()
+            el.scroll_into_view_if_needed(timeout=1500)
+            el.click(timeout=2500)
+            return hit["label"]
         except Exception:
-            continue
-        for i in range(min(n, 6)):
-            el = loc.nth(i)
             try:
-                # 텍스트가 정확히 t이거나 t로 시작하는 버튼 우선 (부분일치 오탐 방지)
-                label = (el.inner_text() or "").strip()
-                if t not in label:
-                    continue
-                if not _is_cta_button(el):
-                    continue
-                el.scroll_into_view_if_needed(timeout=1500)
-                el.click(timeout=2500)
-                return t
+                if before_url and page.url != before_url:
+                    return hit["label"]     # 클릭 직후 이동 — 성공으로 처리
             except Exception:
-                try:
-                    if before_url and page.url != before_url:
-                        return t     # 클릭 직후 이동 — 성공으로 처리
-                except Exception:
-                    pass
-                continue
+                pass
     try:
         if before_url and page.url != before_url:
             return "(페이지 이동 감지)"
@@ -1075,6 +1216,8 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
         else:
             cookie_str = ""
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
+    if account in ACCOUNT_NAMES:
+        acct_label += f"({ACCOUNT_NAMES[account]})"
 
     def result(success: bool, message: str, booked_time: str | None = None,
                unbookable: bool = False, evidence: str = "", confirm_no: str = "") -> dict:
@@ -1101,7 +1244,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
         if not dry_run:
             return result(False, "로그인 쿠키 없음 — NAVER_COOKIES_1~5 시크릿을 설정하세요")
         _log("쿠키 없음 → 비로그인 드라이런 (날짜/시간 선택 검증까지만)")
-    elif not any(k in cookie_str for k in ("NID_AUT", "NID_SES")):
+    elif not _has_login_token(cookie_str):
         if not dry_run:
             return result(False, f"{acct_label} 쿠키에 NID_AUT/NID_SES 없음 — 로그인 상태 쿠키 필요")
         _log(f"{acct_label} 쿠키에 로그인 토큰 없음 → 드라이런이므로 계속 진행")
@@ -1157,6 +1300,8 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     _shot(page, problem[0], shots, always=True)
                     return result(False, problem[1])
                 _log(f"페이지 준비 완료 ({time_mod.time() - t0:.1f}초)")
+                if cookie_str and _looks_logged_out(page):
+                    _log(f"주의: 페이지에 '로그인' 버튼이 보임 — {acct_label} 쿠키가 만료됐을 수 있음")
 
                 _shot(page, "01_landing", shots)
 
@@ -1195,20 +1340,42 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                 _ensure_quantity(page, count)
                 _check_agreements(page)
 
+                url_before_next = page.url
                 clicked = _click_cta(page, _NEXT_BUTTON_TEXTS)
                 if not clicked:
+                    _log_clickables(page, "진행 버튼 없음")
                     _shot(page, "cta_fail", shots, always=True)
                     _dump_dom_debug(page, "cta_fail")
                     return result(False, "예약 진행 버튼을 찾지 못함")
                 _log(f"진행 버튼 클릭: '{clicked}'")
-                # 다음 화면(완료 또는 확정 단계)이 뜨는 즉시 진행 — 최대 3초
-                _poll_until(page, lambda: _success_evidence(page) or _is_login_page(page)
-                            or _has_any_button(page, _FINAL_BUTTON_TEXTS), 3000)
+                # 다음 화면이 실제로 뜰 때까지 (URL 변경·눌렀던 버튼 소멸·완료·로그인) — 최대 5초.
+                # 예전엔 확정 버튼 후보('다음')가 보이면 바로 넘어갔는데, 그건 방금 누른
+                # 바로 그 버튼이라 화면이 그대로여도 즉시 통과했다.
+                moved = _poll_until(page, lambda: _left_stage(page, url_before_next)
+                                    or _success_evidence(page) or _is_login_page(page), 5000, 150)
+                if moved:
+                    _poll_until(page, lambda: _success_evidence(page) or _is_login_page(page)
+                                or _has_any_button(page, _FINAL_BUTTON_TEXTS), 3000)
                 _shot(page, "04_after_next", shots)
+                if not moved:
+                    logged_out = _looks_logged_out(page)
+                    _log(f"'{clicked}'을(를) 눌렀지만 화면이 넘어가지 않음"
+                         + (" — 페이지에 '로그인' 버튼이 보임 (쿠키 만료 의심)" if logged_out else ""))
+                    _log_clickables(page, "넘어가지 않은 화면")
+                    if dry_run:
+                        _shot(page, "next_stuck", shots, always=True)
+                        _dump_dom_debug(page, "next_stuck")
+                        why = (f"{acct_label} 로그인 안 된 상태로 보임 — 쿠키 갱신 필요" if logged_out
+                               else "필수 입력/선택이 남았거나 버튼 클릭이 먹지 않음")
+                        return result(False, f"[드라이런] '{clicked}'을(를) 눌렀지만 다음 화면으로 "
+                                             f"넘어가지 않음 — {why}", booked_time)
 
                 if _is_login_page(page):
-                    if dry_run:
+                    if dry_run and not cookie_str:
                         return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
+                    if dry_run:
+                        # 쿠키를 줬는데 로그인으로 튕겼다 = 실제 예약도 여기서 실패한다
+                        return result(False, f"[드라이런] 로그인 페이지로 튕김 — {acct_label} 쿠키 만료됨 (쿠키 갱신 필요)", booked_time)
                     return result(False, f"예약 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
 
                 # 이미 완료됐는지 (1단계 예약인 경우)
@@ -1238,13 +1405,20 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     step += 1
                     _check_agreements(page)
                     if dry_run:
+                        # 실제 예약이 누를 버튼과 똑같은 탐색으로 확인한다. 못 찾으면
+                        # 실제 예약도 여기서 실패하므로 드라이런도 실패로 보고해야 한다
+                        # (예전엔 'None'을 찍고도 성공이라 해서 문제를 가렸다).
+                        _poll_until(page, lambda: _find_cta(page, _FINAL_BUTTON_TEXTS) is not None, 4000, 250)
+                        final = _find_cta(page, _FINAL_BUTTON_TEXTS)
+                        _log_clickables(page, "확정 화면")
                         _shot(page, "dryrun_stop", shots, always=True)
-                        final_btn = None
-                        for t in _FINAL_BUTTON_TEXTS:
-                            if page.locator(f'button:has-text("{t}")').count():
-                                final_btn = t
-                                break
-                        return result(True, f"[드라이런] 최종 확정 직전 중단 — 확정 버튼: '{final_btn}'", booked_time)
+                        if not final:
+                            _dump_dom_debug(page, "dryrun_no_final")
+                            return result(False, "[드라이런] 확정 화면에서 확정 버튼을 찾지 못함 "
+                                                 "— 실제 예약이었다면 여기서 실패 (로그의 '화면의 버튼들' 확인)",
+                                          booked_time)
+                        return result(True, f"[드라이런] 최종 확정 직전 중단 — 확정 버튼: "
+                                            f"'{final['label']}' ({final['tag']})", booked_time)
                     clicked = _click_cta(page, _FINAL_BUTTON_TEXTS)
                     if clicked:
                         final_clicks += 1
@@ -1257,8 +1431,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                             _shot(page, "07_success", shots, always=True)
                             return done(ev)
                         if _is_login_page(page):
-                            if dry_run:
+                            if dry_run and not cookie_str:
                                 return result(True, "[드라이런] 로그인 페이지 도달 — 날짜/시간 선택 검증 완료, 실제 예약엔 로그인 쿠키 필요", booked_time)
+                            if dry_run:
+                                # 쿠키를 줬는데 로그인으로 튕겼다 = 실제 예약도 여기서 실패한다
+                                return result(False, f"[드라이런] 로그인 페이지로 튕김 — {acct_label} 쿠키 만료됨 (쿠키 갱신 필요)", booked_time)
                             return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨")
                     else:
                         # 확정 버튼이 아직 없음 — 완료 화면이 뜨는지 보며 대기
@@ -1267,6 +1444,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                             return done(_success_evidence(page))
 
                 # 확정 실패 — 다음 진단을 위해 확정 페이지 구조를 반드시 남긴다
+                _log_clickables(page, "확정 실패")
                 _shot(page, "timeout", shots, always=True)
                 _dump_dom_debug(page, "confirm_fail")
                 hint = "확정 버튼을 찾지 못함 (동의 미완료 가능)" if final_clicks == 0 else "확정 후 완료 페이지 미감지"
