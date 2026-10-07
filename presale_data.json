@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07T17:13:26.671114+09:00",
+  "updated_at": "2026-10-07T17:18:57.681314+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1402,7 +1402,7 @@
       "remainingDays": 8,
       "status": "D-8",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_91/1791348711977fJRtP_JPEG/edited-1791348694870-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_295/1791360442706tQiS2_JPEG/edited-1791360425172-0.jpg",
       "roadAddress": "이태원로 223 파운드리 서울",
       "commonAddress": "서울 용산구",
       "district": "용산구",
@@ -3492,7 +3492,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-07T17:13:17.253904+09:00",
+    "checked_at": "2026-10-07T17:18:55.564098+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
