@@ -6,7 +6,7 @@
     "available_end": "2026-10-25",
     "hour_from": null,
     "hour_to": null,
-    "checked_at": "2026-10-07T05:43:22.840342+09:00",
+    "checked_at": "2026-10-07T11:09:18.257017+09:00",
     "booking_available_code": "RI01",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -18,7 +18,7 @@
     "available_end": "2026-10-19",
     "hour_from": "11:00",
     "hour_to": "19:30",
-    "checked_at": "2026-10-07T05:43:28.902044+09:00",
+    "checked_at": "2026-10-07T11:09:23.025969+09:00",
     "booking_available_code": "RI02",
     "booking_available_value": 1,
     "restriction_ok": true
@@ -30,7 +30,7 @@
     "available_end": "2026-10-14",
     "hour_from": "11:00",
     "hour_to": "19:30",
-    "checked_at": "2026-10-07T05:43:35.868216+09:00",
+    "checked_at": "2026-10-07T11:09:28.291025+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -42,7 +42,7 @@
     "available_end": "2026-10-11",
     "hour_from": "11:00",
     "hour_to": "19:30",
-    "checked_at": "2026-10-07T05:43:43.458290+09:00",
+    "checked_at": "2026-10-07T11:09:33.554658+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -54,7 +54,7 @@
     "available_end": "2026-10-13",
     "hour_from": "10:00",
     "hour_to": "18:00",
-    "checked_at": "2026-10-07T05:43:51.050894+09:00",
+    "checked_at": "2026-10-07T11:09:39.222431+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
@@ -66,7 +66,7 @@
     "available_end": null,
     "hour_from": null,
     "hour_to": null,
-    "checked_at": "2026-10-07T05:43:57.714957+09:00",
+    "checked_at": "2026-10-07T11:09:44.225107+09:00",
     "booking_available_code": "RI02",
     "booking_available_value": 1,
     "restriction_ok": false
@@ -78,10 +78,10 @@
     "available_end": "2026-10-16",
     "hour_from": "11:00",
     "hour_to": "20:00",
-    "checked_at": "2026-10-07T05:44:07.796896+09:00",
+    "checked_at": "2026-10-07T11:09:52.371870+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 1,
-    "restriction_ok": true
+    "restriction_ok": false
   },
   "12_1748320_8101024": {
     "sale_start_date": null,
@@ -90,7 +90,7 @@
     "available_end": "2026-10-25",
     "hour_from": "11:00",
     "hour_to": "19:30",
-    "checked_at": "2026-10-07T05:44:14.298479+09:00",
+    "checked_at": "2026-10-07T11:10:00.264377+09:00",
     "booking_available_code": "RI03",
     "booking_available_value": 0,
     "restriction_ok": true
