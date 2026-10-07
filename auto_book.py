@@ -28,6 +28,9 @@ Playwright로 예약 페이지에 로그인 쿠키를 실어 접속 → 날짜 �
    "dry_run": bool, "screenshots": [경로...]}
 """
 
+import base64
+import binascii
+import gzip
 import json
 import os
 import re
@@ -203,8 +206,18 @@ def _bundle_accounts() -> list:
     raw = os.environ.get("COOKIES_BUNDLE_JSON", "").strip()
     if not raw:
         return []
+    # naver_sync의 prepare_secrets.py는 값을 gzip → base64로 싸서 올린다
+    # (PowerShell 파이프가 한글을 깨뜨리고, 원문은 시크릿 한도에 가깝다). 원문 JSON도 받는다.
+    if not raw.lstrip("\ufeff").startswith("{"):
+        try:
+            blob = base64.b64decode(raw, validate=True)
+            if blob[:2] == b"\x1f\x8b":
+                blob = gzip.decompress(blob)
+            raw = blob.decode("utf-8")
+        except (binascii.Error, ValueError, OSError):
+            pass
     try:
-        bundle = json.loads(raw)
+        bundle = json.loads(raw.lstrip("\ufeff"))
     except ValueError:
         _log("COOKIES_BUNDLE_JSON 파싱 실패 — NAVER_COOKIES_1~5로 대체")
         return []

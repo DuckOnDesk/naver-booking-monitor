@@ -5,6 +5,7 @@
 그래서 자동예약도 naver_sync와 같은 묶음을 읽는다.
 
   1) 묶음이 있으면 묶음 계정을 쓰고, 아이디를 계정번호에 붙여 기억한다
+     (naver_sync가 올리는 gzip → base64 형식도)
   2) COOKIES_BUNDLE_ORDER로 번호 순서를 정할 수 있다
   3) 묶음이 없으면 종전대로 NAVER_COOKIES_1~5
   4) storage_state 쿠키가 브라우저에 그대로 들어간다 (sameSite 등 형식 정리)
@@ -56,6 +57,14 @@ def main() -> int:
     check("번호→아이디", auto_book.ACCOUNT_NAMES == {1: "betty", 2: "gogo", 3: "hye"}, auto_book.ACCOUNT_NAMES)
     check("쿠키는 목록", isinstance(acc[0][1], list) and auto_book._has_login_token(acc[0][1]))
     check("우선순위 지정", [a[0] for a in auto_book.get_accounts([3, 1])] == [3, 1])
+
+    print("1-1) naver_sync 형식(gzip → base64)도 읽는다")
+    import base64, gzip
+    packed = base64.b64encode(gzip.compress(json.dumps(BUNDLE).encode(), mtime=0)).decode()
+    setenv(COOKIES_BUNDLE_JSON=packed)
+    acc = auto_book.get_accounts()
+    check("압축된 묶음", [a[0] for a in acc] == [1, 2, 3] and auto_book.ACCOUNT_NAMES[1] == "betty",
+          auto_book.ACCOUNT_NAMES)
 
     print("2) COOKIES_BUNDLE_ORDER")
     setenv(COOKIES_BUNDLE_JSON=json.dumps(BUNDLE), COOKIES_BUNDLE_ORDER="hye, betty")
