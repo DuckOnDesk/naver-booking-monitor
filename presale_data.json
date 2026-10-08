@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T12:55:58.328192+09:00",
+  "updated_at": "2026-10-08T13:01:26.128646+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -8,6 +8,7 @@
     "2003577663",
     "2007085220",
     "2008186282",
+    "2013797495",
     "2015989932",
     "2017159810",
     "2020779335",
@@ -577,7 +578,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -1873,16 +1874,39 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-15T22:53:38.574706+09:00",
       "bookingIsOpened": true
+    },
+    {
+      "id": "2013797495",
+      "name": "Spotify DIVE ACADEMY POP-UP",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "bookingBusinessId": "1752345",
+      "operationStart": "26.10.17.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": 9,
+      "status": "D-9",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261008_242/1791423533361cr0sI_JPEG/edited-1791423533141-0.jpg",
+      "roadAddress": "강남대로30길 7 ARC Gangnam",
+      "commonAddress": "서울 서초구",
+      "district": "서초구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-08T13:01:21.957085+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": "2026-10-08T13:01:21.957085+09:00",
+      "bookingItemCheckedAt": "2026-10-08T13:01:21.957085+09:00",
+      "discoveredAt": "2026-10-08T13:01:21.957085+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": true
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-26T22:06:45.818505+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2070202228",
@@ -3275,6 +3299,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-08T12:01:18.517874+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-08T13:01:21.957085+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3309,6 +3340,7 @@
     "2012113406",
     "2012544467",
     "2013115098",
+    "2013797495",
     "2015282909",
     "2015464753",
     "2015914479",
@@ -3453,23 +3485,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T12:55:54.791062+09:00",
+    "checked_at": "2026-10-08T13:01:21.957085+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 788,
-    "presale_items": 200,
-    "after_district_filter": 103,
+    "candidate_items": 793,
+    "presale_items": 201,
+    "after_district_filter": 104,
     "fallback_matched": 0,
-    "unique_place_ids": 60,
-    "tracked_places": 60,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-07T19:39:54.370235+09:00",
+    "unique_place_ids": 61,
+    "tracked_places": 61,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-08T13:01:21.957085+09:00",
     "admission_names": {
-      "(없음)": 395,
+      "(없음)": 399,
       "현장대기": 193,
-      "사전예약&현장대기": 148,
+      "사전예약&현장대기": 149,
       "사전예약": 52
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
@@ -4068,6 +4100,7 @@
     "2012113406",
     "2012544467",
     "2013115098",
+    "2013797495",
     "2015282909",
     "2015464753",
     "2015914479",
@@ -4198,6 +4231,7 @@
     "2017159810": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
     "2056467638": "https://m.booking.naver.com/booking/12/bizes/1748320/items/8101024",
     "2003262525": "https://m.booking.naver.com/booking/12/bizes/1750423/items/8109086",
-    "2022112166": "https://m.booking.naver.com/booking/12/bizes/1749606/items/8105738"
+    "2022112166": "https://m.booking.naver.com/booking/12/bizes/1749606/items/8105738",
+    "2013797495": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687"
   }
 }
