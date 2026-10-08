@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T13:45:19.225681+09:00",
+  "updated_at": "2026-10-08T13:50:47.188257+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1330,7 +1330,7 @@
       "remainingDays": 4,
       "status": "D-4",
       "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261002_28/1790912363319JG1j1_JPEG/edited-1790912361926-0.jpg",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20261008_32/1791434115514yKI2y_JPEG/image.jpg",
       "roadAddress": "여의대로 108 더현대 서울 1F",
       "commonAddress": "서울 영등포구",
       "district": "영등포구",
@@ -3539,7 +3539,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T13:45:11.940030+09:00",
+    "checked_at": "2026-10-08T13:50:45.399524+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
