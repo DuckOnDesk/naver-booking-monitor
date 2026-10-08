@@ -530,6 +530,39 @@ def rate_limited_response(resp) -> str | None:
     return None
 
 
+def summary_from_date_map(date_map) -> list[dict]:
+    """daily.summary가 빈 상품용 — 같은 응답의 daily.date(날짜별 맵)로 요약을 만든다.
+
+    2026-10-08 스포티파이: summary는 빈 목록인데 daily.date에는 판매일 2개가
+    재고 560 / 예약 560(매진)으로 들어 있었다. 이 상품은 회차마다 정원 280과 별도로
+    하루 정원 560이 걸려 있어서, 하루 정원이 차면 회차 재고(280/27 등)가 남아 보여도
+    예약 페이지는 그날을 통째로 마감으로 그린다. 요약이 없으니 감시는 회차 합계로
+    요약을 대신 만들었고(synth_day_summary), 매진인 날을 자리 많음으로 보고 있었다.
+
+    요약이 채워지는 상품에서 맞춰 보면 summary = daily.date 중 isSaleDay이고
+    stock>0인 날이며 숫자도 같다 (넷플 잔치: date의 판매일 90개 중 재고 0인 88개를
+    빼면 요약 2개와 일치). 같은 규칙으로 만든다. 재고 0인 판매일까지 넣으면 회차로만
+    재고를 관리하는 날이 매진으로 잡히므로 뺀다 — 그런 날은 종전처럼 슬롯으로 본다."""
+    if not isinstance(date_map, dict):
+        return []
+    out = []
+    for key, day in sorted(date_map.items()):
+        if not isinstance(day, dict) or not day.get("isSaleDay"):
+            continue
+        stock = day.get("stock") or 0
+        if stock <= 0:
+            continue
+        booked = day.get("bookingCount") or 0
+        out.append({
+            "dateKey": day.get("date") or key,
+            "stock": stock,
+            "bookingCount": booked,
+            "hasBookableSlots": stock > booked,
+            "isSaleDay": True,
+        })
+    return out
+
+
 def check_availability(biz_id: str, item_id: str, service_id: int, target_dates: list) -> dict | None:
     today = datetime.now(timezone(timedelta(hours=9)))
     schedule_params = {
@@ -586,7 +619,7 @@ def check_availability(biz_id: str, item_id: str, service_id: int, target_dates:
                 fail_reasons.append(f"{label}: GraphQL errors ({err_msg})")
                 continue
             sched = data["data"]["schedule"]["bizItemSchedule"]
-            summary = sched["daily"]["summary"]
+            summary = sched["daily"]["summary"] or summary_from_date_map(sched["daily"].get("date"))
             days = (
                 [d for d in summary if d["dateKey"] in target_dates]
                 if target_dates
@@ -3270,6 +3303,11 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                     continue
 
                 def _sold_out_label(r_stock: int, r_booking: int) -> str:
+                    # 하루 정원이 찬 날 (스포티파이: 회차 280/27이 남아 보여도 하루 560/560).
+                    # 회차 합계를 적으면 자리가 많은 것처럼 읽히므로 하루 숫자를 적는다.
+                    if (d is not None and d.get("isSaleDay")
+                            and 0 < (d.get("stock") or 0) <= (d.get("bookingCount") or 0)):
+                        return f"매진 — 하루 정원 마감 (재고:{d['stock']} / 예약:{d['bookingCount']})"
                     if r_stock > r_booking:
                         # 재고가 남았는데 여기까지 왔다 = 판매일이 아니거나 일별 요약이 없는 날
                         if d is not None and not d.get("isSaleDay"):
