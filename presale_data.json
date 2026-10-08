@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T14:34:37.154580+09:00",
+  "updated_at": "2026-10-08T14:40:05.110017+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1345,34 +1345,6 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-02T16:37:18.683007+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2033196326",
-      "name": "숨37 Bio-Breath : Skin To Life",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.15.",
-      "operationEnd": "26.10.15.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261003_164/1791006742233uT08r_JPEG/edited-1791006745648-0.jpg",
-      "roadAddress": "대사관로11길 41 한남 페즈",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -3540,24 +3512,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T14:34:34.023966+09:00",
+    "checked_at": "2026-10-08T14:40:03.340032+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 824,
-    "presale_items": 207,
-    "after_district_filter": 108,
+    "candidate_items": 820,
+    "presale_items": 203,
+    "after_district_filter": 106,
     "fallback_matched": 0,
-    "unique_place_ids": 63,
-    "tracked_places": 63,
+    "unique_place_ids": 62,
+    "tracked_places": 62,
     "new_places": 0,
     "last_new_place_at": "2026-10-08T13:23:20.171689+09:00",
     "admission_names": {
       "(없음)": 414,
       "현장대기": 203,
       "사전예약&현장대기": 151,
-      "사전예약": 56
+      "사전예약": 52
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
     "structure_warned_at": null
@@ -4123,6 +4095,21 @@
       "bookingIsOpened": true,
       "name": "블루 록 2026 더 라스트 팝업",
       "savedAt": "2026-10-08T00:04:55.782127+09:00"
+    },
+    "2033196326": {
+      "hasBooking": false,
+      "bookingNotified": false,
+      "lastBookingNotifiedAt": null,
+      "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
+      "bookingOpenHistory": [],
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "saleStartDate": null,
+      "bookingOpenAuto": null,
+      "bookingPaused": false,
+      "bookingIsOpened": false,
+      "name": "숨37 Bio-Breath : Skin To Life",
+      "savedAt": "2026-10-08T14:40:03.340032+09:00"
     }
   },
   "auto_added_place_ids": [
@@ -4216,7 +4203,9 @@
     "2092452636",
     "2098025724"
   ],
-  "watch_missing_since": {},
+  "watch_missing_since": {
+    "2033196326": "2026-10-08T14:40:03.339979+09:00"
+  },
   "booking_url_history": {
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
     "2062283789": "https://m.booking.naver.com/booking/5/bizes/1713086/items/7942217",
