@@ -180,6 +180,12 @@ SCOPE_CHANGE_NTFY = os.environ.get("SCOPE_CHANGE_NTFY", "0") != "0"
 STOCK_CHANGE_MAX_PARTS = _env_num("STOCK_CHANGE_MAX_PARTS", 8)
 
 _rate_limit_hits = 0  # 현재 루프 회차 중 속도 제한 발생 횟수 (상태 코드 + 본문 표식)
+# 네이버 API 속도 제한 누적 횟수 (회차마다 되돌리지 않는다). check_all이 회차 시작 때
+# 값을 기억해 두고, 회차 도중 늘면 남은 네이버 항목 조회를 접는다. 카카오는 따로
+# _rate_limit_hits만 올리므로 여기 섞이지 않는다 — 카카오가 막혔다고 네이버를 접지 않게.
+_naver_rate_limit_total = 0
+# 회차 도중 네이버 속도 제한이 잡히면 그 회차의 남은 네이버 항목을 건너뛸지 (0 = 끔).
+RATE_LIMIT_SKIP_ROUND = os.environ.get("RATE_LIMIT_SKIP_ROUND", "1") != "0"
 
 
 def backoff_up(cur: int) -> int | None:
@@ -485,9 +491,10 @@ def note_rate_limit(reason: str = "") -> None:
 
     날짜별 조회·운영 기간 재확인이 여러 스레드에서 돌므로 락을 건다.
     """
-    global _rate_limit_hits
+    global _rate_limit_hits, _naver_rate_limit_total
     with _rate_limit_lock:
         _rate_limit_hits += 1
+        _naver_rate_limit_total += 1
 
 
 def resp_error_hint(resp) -> str:
@@ -2679,6 +2686,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
 
     pending = list(active)
     by_id = {m.get("id", m.get("name", "")): m for m in active}
+    limit_mark = _naver_rate_limit_total  # 이 값보다 늘면 이번 회차에 속도 제한을 맞은 것
+    limit_skipped: list[str] = []
     while pending:
         # 워커가 그새 확인한 예약창 상태를 반영한다. 닫힘→열림이면 그 항목을 바로
         # 다음 차례로 다시 본다 — 열린 순간의 🎉 자리 알림을 회차 끝까지 미루지 않도록.
@@ -2696,6 +2705,15 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
         item = pending.pop(0)
         name = item.get("name", "?")
         url = item.get("url", "")
+        # 이번 회차에 네이버가 속도 제한을 걸었으면 남은 네이버 항목은 조회하지 않는다.
+        # 막힌 채로 항목마다 요청을 보내 봐야 전부 실패하고(항목당 2건 + 운영 기간
+        # 재확인), 차단만 길어지며 로그가 오류로 덮인다 (2026-10-08 13:18 KST, 5개
+        # 항목이 같은 초에 일제히 실패). 다음 회차에 다시 한 번 두드려 보고 풀렸으면
+        # 평소대로 전 항목을 본다. 카카오는 다른 서버라 그대로 본다.
+        if (RATE_LIMIT_SKIP_ROUND and _naver_rate_limit_total > limit_mark
+                and item.get("type") != "kakao"):
+            limit_skipped.append(name)
+            continue
         # mute 항목은 알림만 끈다. 이 아래 알림은 하나도 빠짐없이 ntfy_topic이
         # 비었는지를 보고 나가므로(send_ntfy 호출부·UrlGate·send_stock_change),
         # 회차마다 항목에 맞는 주제를 끼워 주면 감시·로그·재고 추적은 그대로 돌면서
@@ -3323,6 +3341,10 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
             _note_url_skip("자리 없음")
             log_state(f"{item_id}:status", f"⏸ {name} — 자리 없음, 예약창 확인 생략",
                       sig="확인생략", now_str=now_str)
+
+    if limit_skipped:
+        print(f"[{now_str}] ⏭ 네이버 속도 제한 — 이번 회차 나머지 {len(limit_skipped)}개 건너뜀 "
+              f"({', '.join(limit_skipped)})", flush=True)
 
     if _pruned_dates:
         prune_dead_dates(_pruned_dates)
