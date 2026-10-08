@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T00:17:30.999614+09:00",
+  "updated_at": "2026-10-09T00:23:02.475305+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -820,37 +820,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2030290261",
-      "name": "Cafe 1014: For Keria",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
-      "bookingBusinessId": "1745091",
-      "operationStart": "26.10.10.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_119/1790590904812RyPyl_JPEG/edited-1790590907758-0.jpg",
-      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-03T11:15:42.681544+09:00",
-        "2026-10-07T21:12:14.400304+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-05T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-05T17:46:09.494536+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-03T11:15:42.681544+09:00",
-      "bookingItemCheckedAt": "2026-10-03T11:15:42.681544+09:00",
-      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
-      "lastBookingNotifiedAt": "2026-10-05T18:02:35.890573+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2057558383",
       "name": "위아자 나눔위크 '지구체육관'",
       "hasBooking": true,
@@ -886,6 +855,37 @@
       "bookingItemCheckedAt": "2026-09-28T11:10:25.856065+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T14:14:48.594736+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2030290261",
+      "name": "Cafe 1014: For Keria",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+      "bookingBusinessId": "1745091",
+      "operationStart": "26.10.10.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_119/1790590904812RyPyl_JPEG/edited-1790590907758-0.jpg",
+      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-03T11:15:42.681544+09:00",
+        "2026-10-07T21:12:14.400304+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-05T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-05T17:46:09.494536+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-03T11:15:42.681544+09:00",
+      "bookingItemCheckedAt": "2026-10-03T11:15:42.681544+09:00",
+      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
+      "lastBookingNotifiedAt": "2026-10-05T18:02:35.890573+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1318,7 +1318,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T23:50:16.902465+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T00:23:01.679929+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1687,7 +1687,7 @@
       "operationStart": "26.10.09.",
       "operationEnd": "26.10.15.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20261002_76/1790950008057GUuKU_JPEG/edited-1790950007778-0.jpg",
       "roadAddress": "신촌로 83 현대백화점 신촌 UPLEX 지하2층",
@@ -1786,7 +1786,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T23:50:15.290724+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T00:23:00.105869+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3584,7 +3584,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T00:17:29.048983+09:00",
+    "checked_at": "2026-10-09T00:22:58.963998+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
