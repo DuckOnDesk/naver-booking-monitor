@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T19:57:58.892111+09:00",
+  "updated_at": "2026-10-08T20:03:22.900071+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1315,7 +1315,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T19:30:54.080954+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:03:22.276428+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1382,36 +1382,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2025662302",
-      "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
-      "bookingBusinessId": "1752022",
-      "operationStart": "26.10.15.",
-      "operationEnd": "26.10.21.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_295/1791360442706tQiS2_JPEG/edited-1791360425172-0.jpg",
-      "roadAddress": "이태원로 223 파운드리 서울",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-08T16:02:39.034633+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-08T17:42:27.802999+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-08T16:02:39.034633+09:00",
-      "bookingItemCheckedAt": "2026-10-08T16:02:39.034633+09:00",
-      "discoveredAt": "2026-10-07T15:00:35.169527+09:00",
-      "lastBookingNotifiedAt": "2026-10-08T18:04:17.519169+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033196326",
       "name": "숨37 Bio-Breath : Skin To Life",
       "hasBooking": true,
@@ -1439,6 +1409,36 @@
       "bookingItemCheckedAt": "2026-10-08T17:31:26.269241+09:00",
       "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
       "lastBookingNotifiedAt": "2026-10-08T18:04:16.007648+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2025662302",
+      "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "bookingBusinessId": "1752022",
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.21.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_295/1791360442706tQiS2_JPEG/edited-1791360425172-0.jpg",
+      "roadAddress": "이태원로 223 파운드리 서울",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-08T16:02:39.034633+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T17:42:27.802999+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-08T16:02:39.034633+09:00",
+      "bookingItemCheckedAt": "2026-10-08T16:02:39.034633+09:00",
+      "discoveredAt": "2026-10-07T15:00:35.169527+09:00",
+      "lastBookingNotifiedAt": "2026-10-08T18:04:17.519169+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1783,7 +1783,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T19:30:52.993872+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:03:21.037433+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1969,7 +1969,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1984,7 +1984,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-10-08T13:01:21.957085+09:00",
-        "2026-10-08T17:31:26.269241+09:00"
+        "2026-10-08T17:31:26.269241+09:00",
+        "2026-10-08T20:03:19.997648+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1999,13 +2000,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
-      "ts": "2026-09-27T11:35:39.627660+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3398,6 +3392,13 @@
       "place_name": "피토버플러스 팝업",
       "booking_url": "",
       "ts": "2026-10-08T18:47:49.772951+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-08T20:03:19.997648+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3579,13 +3580,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T19:57:57.529389+09:00",
+    "checked_at": "2026-10-08T20:03:19.997648+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 844,
-    "presale_items": 212,
+    "presale_items": 211,
     "after_district_filter": 110,
     "fallback_matched": 0,
     "unique_place_ids": 64,
@@ -3593,9 +3594,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-08T18:47:49.772951+09:00",
     "admission_names": {
-      "(없음)": 413,
+      "(없음)": 414,
       "현장대기": 219,
-      "사전예약&현장대기": 156,
+      "사전예약&현장대기": 155,
       "사전예약": 56
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
