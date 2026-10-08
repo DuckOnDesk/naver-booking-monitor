@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T15:29:36.701311+09:00",
+  "updated_at": "2026-10-08T15:35:07.222303+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -455,7 +455,7 @@
     {
       "id": "2015282909",
       "name": "방탈출 게임 <점프x컷 2.0>",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1515875/items/7930844",
       "bookingBusinessId": "1515875",
       "operationStart": "26.10.24.",
@@ -470,10 +470,11 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-09-30T13:08:27.572551+09:00",
-        "2026-10-07T22:06:25.367891+09:00"
+        "2026-10-07T22:06:25.367891+09:00",
+        "2026-10-08T15:35:04.738678+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-07T22:06:30.697494+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T15:35:05.783417+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1936,13 +1937,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://map.naver.com/p/entry/place/2033835877",
-      "ts": "2026-09-27T05:54:47.441682+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2038718464",
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://map.naver.com/p/entry/place/2038718464",
@@ -3333,6 +3327,13 @@
       "place_name": "에비스 : 더 라운지",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
       "ts": "2026-10-08T14:45:32.443392+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015282909",
+      "place_name": "방탈출 게임 <점프x컷 2.0>",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1515875/items/7930844",
+      "ts": "2026-10-08T15:35:04.738678+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3513,7 +3514,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T15:29:34.911211+09:00",
+    "checked_at": "2026-10-08T15:35:04.738678+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
