@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T20:46:35.031849+09:00",
+  "updated_at": "2026-10-08T20:52:04.499259+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -357,7 +357,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T20:19:34.107527+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:52:00.360189+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -634,7 +634,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -719,7 +719,8 @@
         "2026-10-08T05:46:22.819208+09:00",
         "2026-10-08T12:01:18.517874+09:00",
         "2026-10-08T14:18:05.851097+09:00",
-        "2026-10-08T17:26:00.386071+09:00"
+        "2026-10-08T17:26:00.386071+09:00",
+        "2026-10-08T20:51:58.145483+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -933,7 +934,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T20:19:34.720625+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:52:00.968626+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -961,7 +962,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T20:19:35.360765+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:52:01.570976+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1019,7 +1020,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T20:19:35.970305+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:52:02.189251+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1382,36 +1383,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2025662302",
-      "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
-      "bookingBusinessId": "1752022",
-      "operationStart": "26.10.15.",
-      "operationEnd": "26.10.21.",
-      "remainingDays": 7,
-      "status": "D-7",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_295/1791360442706tQiS2_JPEG/edited-1791360425172-0.jpg",
-      "roadAddress": "이태원로 223 파운드리 서울",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-08T16:02:39.034633+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-08T17:42:27.802999+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-08T16:02:39.034633+09:00",
-      "bookingItemCheckedAt": "2026-10-08T16:02:39.034633+09:00",
-      "discoveredAt": "2026-10-07T15:00:35.169527+09:00",
-      "lastBookingNotifiedAt": "2026-10-08T18:04:17.519169+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033196326",
       "name": "숨37 Bio-Breath : Skin To Life",
       "hasBooking": true,
@@ -1439,6 +1410,36 @@
       "bookingItemCheckedAt": "2026-10-08T17:31:26.269241+09:00",
       "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
       "lastBookingNotifiedAt": "2026-10-08T18:04:16.007648+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2025662302",
+      "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "bookingBusinessId": "1752022",
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.21.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_295/1791360442706tQiS2_JPEG/edited-1791360425172-0.jpg",
+      "roadAddress": "이태원로 223 파운드리 서울",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-08T16:02:39.034633+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T17:42:27.802999+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-08T16:02:39.034633+09:00",
+      "bookingItemCheckedAt": "2026-10-08T16:02:39.034633+09:00",
+      "discoveredAt": "2026-10-07T15:00:35.169527+09:00",
+      "lastBookingNotifiedAt": "2026-10-08T18:04:17.519169+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1558,7 +1559,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-08T20:19:31.945285+09:00",
+      "bookingItemCheckedAt": "2026-10-08T20:51:58.145483+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1637,7 +1638,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T20:19:37.078020+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:52:03.405678+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1753,7 +1754,7 @@
         "2026-10-02T19:39:01.019127+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T14:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-08T20:19:33.468689+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:51:59.721496+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1928,7 +1929,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T20:19:37.638441+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T20:52:03.891122+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2000,13 +2001,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
-      "ts": "2026-09-27T12:52:33.893785+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3399,6 +3393,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-08T20:03:19.997648+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-08T20:51:58.145483+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3580,7 +3581,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T20:46:32.921042+09:00",
+    "checked_at": "2026-10-08T20:51:58.145483+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
