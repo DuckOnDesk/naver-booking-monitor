@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T13:17:54.315630+09:00",
+  "updated_at": "2026-10-08T13:23:21.922557+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -30,6 +30,7 @@
     "2056467638",
     "2057558383",
     "2061527606",
+    "2063374607",
     "2066913017",
     "2067695542",
     "2069285502",
@@ -573,6 +574,34 @@
       "bookingItemCheckedAt": "2026-10-06T18:19:34.634504+09:00",
       "discoveredAt": "2026-10-06T18:03:34.897956+09:00",
       "lastBookingNotifiedAt": "2026-10-06T19:13:20.504098+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2063374607",
+      "name": "코치 'LIVE YOUR STORY' 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.19.",
+      "operationEnd": "26.11.07.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_10/1791374370264hckG9_JPEG/edited-1791374362644-0.jpg",
+      "roadAddress": "서울숲2길 43 B1층~2층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-08T13:23:20.171689+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -1323,6 +1352,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2033196326",
+      "name": "숨37 Bio-Breath : Skin To Life",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.15.",
+      "remainingDays": 7,
+      "status": "D-7",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261003_164/1791006742233uT08r_JPEG/edited-1791006745648-0.jpg",
+      "roadAddress": "대사관로11길 41 한남 페즈",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
       "hasBooking": false,
@@ -1907,13 +1964,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2070202228",
-      "place_name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
-      "booking_url": "https://map.naver.com/p/entry/place/2070202228",
-      "ts": "2026-09-26T22:34:42.151935+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3306,6 +3356,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-08T13:01:21.957085+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2063374607",
+      "place_name": "코치 'LIVE YOUR STORY' 팝업",
+      "booking_url": "",
+      "ts": "2026-10-08T13:23:20.171689+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3430,6 +3487,7 @@
     "2062024820",
     "2062168566",
     "2062283789",
+    "2063374607",
     "2064927800",
     "2066415670",
     "2066913017",
@@ -3485,24 +3543,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T13:17:52.563583+09:00",
+    "checked_at": "2026-10-08T13:23:20.171689+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 805,
-    "presale_items": 201,
-    "after_district_filter": 104,
+    "candidate_items": 811,
+    "presale_items": 207,
+    "after_district_filter": 108,
     "fallback_matched": 0,
-    "unique_place_ids": 61,
-    "tracked_places": 61,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-08T13:01:21.957085+09:00",
+    "unique_place_ids": 63,
+    "tracked_places": 63,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-08T13:23:20.171689+09:00",
     "admission_names": {
       "(없음)": 409,
       "현장대기": 195,
-      "사전예약&현장대기": 149,
-      "사전예약": 52
+      "사전예약&현장대기": 151,
+      "사전예약": 56
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
     "structure_warned_at": null
@@ -4034,21 +4092,6 @@
       "name": "라리가웹툰 팝업스토어",
       "savedAt": "2026-10-07T00:01:32.337855+09:00"
     },
-    "2033196326": {
-      "hasBooking": false,
-      "bookingNotified": false,
-      "lastBookingNotifiedAt": null,
-      "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
-      "bookingOpenHistory": [],
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "saleStartDate": null,
-      "bookingOpenAuto": null,
-      "bookingPaused": false,
-      "bookingIsOpened": false,
-      "name": "숨37 Bio-Breath : Skin To Life",
-      "savedAt": "2026-10-07T20:07:02.668427+09:00"
-    },
     "2015914479": {
       "hasBooking": false,
       "bookingNotified": true,
@@ -4152,6 +4195,7 @@
     "2057558383",
     "2061527606",
     "2062283789",
+    "2063374607",
     "2066913017",
     "2067695542",
     "2069285502",
@@ -4175,9 +4219,7 @@
     "2092452636",
     "2098025724"
   ],
-  "watch_missing_since": {
-    "2033196326": "2026-10-07T20:07:02.668385+09:00"
-  },
+  "watch_missing_since": {},
   "booking_url_history": {
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
     "2062283789": "https://m.booking.naver.com/booking/5/bizes/1713086/items/7942217",
