@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T08:32:10.542518+09:00",
+  "updated_at": "2026-10-09T08:37:32.504194+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1385,36 +1385,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2033196326",
-      "name": "숨37 Bio-Breath : Skin To Life",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
-      "bookingBusinessId": "1752041",
-      "operationStart": "26.10.15.",
-      "operationEnd": "26.10.15.",
-      "remainingDays": 6,
-      "status": "D-6",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261003_164/1791006742233uT08r_JPEG/edited-1791006745648-0.jpg",
-      "roadAddress": "대사관로11길 41 한남 페즈",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-08T17:31:26.269241+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-08T17:31:28.751474+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-08T17:31:26.269241+09:00",
-      "bookingItemCheckedAt": "2026-10-08T17:31:26.269241+09:00",
-      "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
-      "lastBookingNotifiedAt": "2026-10-08T18:04:16.007648+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
       "hasBooking": true,
@@ -1442,6 +1412,36 @@
       "bookingItemCheckedAt": "2026-10-08T16:02:39.034633+09:00",
       "discoveredAt": "2026-10-07T15:00:35.169527+09:00",
       "lastBookingNotifiedAt": "2026-10-08T18:04:17.519169+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2033196326",
+      "name": "숨37 Bio-Breath : Skin To Life",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
+      "bookingBusinessId": "1752041",
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.15.",
+      "remainingDays": 6,
+      "status": "D-6",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261003_164/1791006742233uT08r_JPEG/edited-1791006745648-0.jpg",
+      "roadAddress": "대사관로11길 41 한남 페즈",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-08T17:31:26.269241+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T17:31:28.751474+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-08T17:31:26.269241+09:00",
+      "bookingItemCheckedAt": "2026-10-08T17:31:26.269241+09:00",
+      "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
+      "lastBookingNotifiedAt": "2026-10-08T18:04:16.007648+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1872,7 +1872,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-09T08:05:17.789921+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T08:37:31.300374+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -3584,7 +3584,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T08:32:09.217786+09:00",
+    "checked_at": "2026-10-09T08:37:30.433529+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
