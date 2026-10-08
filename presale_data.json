@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T18:42:26.962247+09:00",
+  "updated_at": "2026-10-08T18:47:51.765924+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -31,6 +31,7 @@
     "2066913017",
     "2067695542",
     "2069285502",
+    "2074310152",
     "2077496355",
     "2080685457",
     "2084168433",
@@ -391,6 +392,34 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-07T16:40:02.747906+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2074310152",
+      "name": "피토버플러스 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.08.",
+      "operationEnd": "26.10.18.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261006_31/17912620146914HcRV_JPEG/edited-1791262013486-0.jpg",
+      "roadAddress": "연무장길 81 1층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-08T18:47:49.772951+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1972,13 +2001,6 @@
   "alerts": [
     {
       "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://map.naver.com/p/entry/place/2033835877",
-      "ts": "2026-09-27T10:29:09.791728+09:00"
-    },
-    {
-      "type": "booking_open",
       "place_id": "2038718464",
       "place_name": "크록스 팝업스토어 CROCS STUDIO",
       "booking_url": "https://map.naver.com/p/entry/place/2038718464",
@@ -3369,6 +3391,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-08T17:31:26.269241+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2074310152",
+      "place_name": "피토버플러스 팝업",
+      "booking_url": "",
+      "ts": "2026-10-08T18:47:49.772951+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3516,6 +3545,7 @@
     "2073241477",
     "2073328330",
     "2073808585",
+    "2074310152",
     "2074820669",
     "2074966018",
     "2075560121",
@@ -3549,23 +3579,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T18:42:20.389142+09:00",
+    "checked_at": "2026-10-08T18:47:49.772951+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 836,
-    "presale_items": 206,
-    "after_district_filter": 108,
+    "candidate_items": 843,
+    "presale_items": 212,
+    "after_district_filter": 110,
     "fallback_matched": 0,
-    "unique_place_ids": 63,
-    "tracked_places": 63,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-08T13:23:20.171689+09:00",
+    "unique_place_ids": 64,
+    "tracked_places": 64,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-08T18:47:49.772951+09:00",
     "admission_names": {
-      "(없음)": 415,
-      "현장대기": 215,
-      "사전예약&현장대기": 150,
+      "(없음)": 413,
+      "현장대기": 218,
+      "사전예약&현장대기": 156,
       "사전예약": 56
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
@@ -4212,6 +4242,7 @@
     "2073072850",
     "2073328330",
     "2073808585",
+    "2074310152",
     "2074820669",
     "2077496355",
     "2080230495",
