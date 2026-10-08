@@ -398,5 +398,17 @@
       "evidence": null,
       "message": "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)"
     }
+  },
+  "mtssyscp": {
+    "last_run": {
+      "at": "2026-10-08T10:31:56+09:00",
+      "sig": "2026-10-24|종일",
+      "date": "2026-10-24",
+      "attempt": 1,
+      "success": false,
+      "skipped": true,
+      "message": "예약할 시간대가 없습니다"
+    },
+    "name": "넷플 잔치"
   }
 }
