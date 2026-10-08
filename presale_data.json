@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T14:40:05.110017+09:00",
+  "updated_at": "2026-10-08T14:45:34.975427+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1202,7 +1202,7 @@
     {
       "id": "2088035530",
       "name": "에비스 : 더 라운지",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
       "bookingBusinessId": "1735031",
       "operationStart": "26.09.26.",
@@ -1216,7 +1216,8 @@
       "district": "영등포구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-23T18:44:16.266211+09:00"
+        "2026-09-23T18:44:16.266211+09:00",
+        "2026-10-08T14:45:32.443392+09:00"
       ],
       "bookingOpenAuto": "2026-09-18T10:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:38.249707+09:00",
@@ -1804,7 +1805,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-08T14:12:38.408562+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T14:45:33.497421+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1933,13 +1934,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2018920557",
-      "place_name": "텐먼스 성수 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1737304",
-      "ts": "2026-09-27T05:54:47.441682+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3332,6 +3326,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-08T14:18:05.851097+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2088035530",
+      "place_name": "에비스 : 더 라운지",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
+      "ts": "2026-10-08T14:45:32.443392+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3512,13 +3513,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T14:40:03.340032+09:00",
+    "checked_at": "2026-10-08T14:45:32.443392+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 820,
-    "presale_items": 203,
+    "presale_items": 202,
     "after_district_filter": 106,
     "fallback_matched": 0,
     "unique_place_ids": 62,
@@ -3526,9 +3527,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-08T13:23:20.171689+09:00",
     "admission_names": {
-      "(없음)": 414,
+      "(없음)": 415,
       "현장대기": 203,
-      "사전예약&현장대기": 151,
+      "사전예약&현장대기": 150,
       "사전예약": 52
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
