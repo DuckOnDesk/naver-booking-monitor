@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T12:45:04.601676+09:00",
+  "updated_at": "2026-10-08T12:50:30.524232+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -554,7 +554,7 @@
       "remainingDays": 9,
       "status": "D-9",
       "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260929_137/17906533938737iews_JPEG/edited-1790653394698-0.jpg",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261008_272/1791424847494k47uC_JPEG/edited-1791424847010-0.jpg",
       "roadAddress": "연무장길 65 LECT 성수",
       "commonAddress": "서울 성동구",
       "district": "성동구",
@@ -3453,12 +3453,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T12:45:02.837563+09:00",
+    "checked_at": "2026-10-08T12:50:28.761290+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 791,
+    "candidate_items": 788,
     "presale_items": 200,
     "after_district_filter": 103,
     "fallback_matched": 0,
@@ -3467,7 +3467,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-07T19:39:54.370235+09:00",
     "admission_names": {
-      "(없음)": 398,
+      "(없음)": 395,
       "현장대기": 193,
       "사전예약&현장대기": 148,
       "사전예약": 52
