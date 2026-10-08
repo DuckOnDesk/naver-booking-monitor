@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-08T17:26:01.791369+09:00",
+  "updated_at": "2026-10-08T17:31:31.017575+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -455,7 +455,7 @@
     {
       "id": "2015282909",
       "name": "방탈출 게임 <점프x컷 2.0>",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1515875/items/7930844",
       "bookingBusinessId": "1515875",
       "operationStart": "26.10.24.",
@@ -471,10 +471,11 @@
       "bookingOpenHistory": [
         "2026-09-30T13:08:27.572551+09:00",
         "2026-10-07T22:06:25.367891+09:00",
-        "2026-10-08T15:35:04.738678+09:00"
+        "2026-10-08T15:35:04.738678+09:00",
+        "2026-10-08T17:31:26.269241+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T15:35:05.783417+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T17:31:29.874400+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1354,9 +1355,9 @@
     {
       "id": "2033196326",
       "name": "숨37 Bio-Breath : Skin To Life",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
+      "bookingBusinessId": "1752041",
       "operationStart": "26.10.15.",
       "operationEnd": "26.10.15.",
       "remainingDays": 7,
@@ -1367,14 +1368,16 @@
       "commonAddress": "서울 용산구",
       "district": "용산구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenHistory": [
+        "2026-10-08T17:31:26.269241+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T17:31:28.751474+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
+      "bookingUrlCheckedAt": "2026-10-08T17:31:26.269241+09:00",
+      "bookingItemCheckedAt": "2026-10-08T17:31:26.269241+09:00",
       "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
@@ -1837,7 +1840,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-08T16:58:38.888919+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T17:31:29.392182+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1937,7 +1940,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1951,7 +1954,8 @@
       "district": "서초구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-10-08T13:01:21.957085+09:00"
+        "2026-10-08T13:01:21.957085+09:00",
+        "2026-10-08T17:31:26.269241+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1966,27 +1970,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "discovery_stale",
-      "place_name": "⚠️ 사전예약 탐색 점검 필요",
-      "body": "2.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 206개 인식 중.",
-      "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
-      "ts": "2026-09-27T07:01:30.732039+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2070202228",
-      "place_name": "미세스 그린 애플 팝업스토어 팝스 인 서울",
-      "booking_url": "https://map.naver.com/p/entry/place/2070202228",
-      "ts": "2026-09-27T10:01:33.219096+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
-      "ts": "2026-09-27T10:06:56.586008+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3365,6 +3348,27 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-08T17:26:00.386071+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015282909",
+      "place_name": "방탈출 게임 <점프x컷 2.0>",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1515875/items/7930844",
+      "ts": "2026-10-08T17:31:26.269241+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033196326",
+      "place_name": "숨37 Bio-Breath : Skin To Life",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
+      "ts": "2026-10-08T17:31:26.269241+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-08T17:31:26.269241+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3545,13 +3549,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-08T17:26:00.386071+09:00",
+    "checked_at": "2026-10-08T17:31:26.269241+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 831,
-    "presale_items": 206,
+    "presale_items": 207,
     "after_district_filter": 108,
     "fallback_matched": 0,
     "unique_place_ids": 63,
@@ -3559,9 +3563,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-08T13:23:20.171689+09:00",
     "admission_names": {
-      "(없음)": 415,
+      "(없음)": 414,
       "현장대기": 210,
-      "사전예약&현장대기": 150,
+      "사전예약&현장대기": 151,
       "사전예약": 56
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
@@ -4277,6 +4281,7 @@
     "2003262525": "https://m.booking.naver.com/booking/12/bizes/1750423/items/8109086",
     "2022112166": "https://m.booking.naver.com/booking/12/bizes/1749606/items/8105738",
     "2013797495": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
-    "2025662302": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651"
+    "2025662302": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+    "2033196326": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523"
   }
 }
