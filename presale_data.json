@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T15:48:39.854190+09:00",
+  "updated_at": "2026-10-09T15:54:04.476509+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -604,34 +604,6 @@
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
       "bookingIsOpened": true
-    },
-    {
-      "id": "2086517554",
-      "name": "코치 x 스포티파이 태비 투어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.30.",
-      "operationEnd": "26.10.30.",
-      "remainingDays": 21,
-      "status": "D-21",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261009_281/1791523422401yKtAD_JPEG/edited-1791523424058-0.jpg",
-      "roadAddress": "연무장5길 20",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-09T14:48:48.210763+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
     },
     {
       "id": "2063374607",
@@ -3645,23 +3617,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T15:48:34.008149+09:00",
+    "checked_at": "2026-10-09T15:54:02.846323+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 829,
-    "presale_items": 219,
-    "after_district_filter": 114,
+    "candidate_items": 825,
+    "presale_items": 215,
+    "after_district_filter": 112,
     "fallback_matched": 0,
-    "unique_place_ids": 66,
-    "tracked_places": 66,
+    "unique_place_ids": 65,
+    "tracked_places": 65,
     "new_places": 0,
     "last_new_place_at": "2026-10-09T14:48:48.210763+09:00",
     "admission_names": {
       "(없음)": 394,
       "현장대기": 216,
-      "사전예약&현장대기": 163,
+      "사전예약&현장대기": 159,
       "사전예약": 56
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
@@ -4228,6 +4200,21 @@
       "bookingIsOpened": true,
       "name": "블루 록 2026 더 라스트 팝업",
       "savedAt": "2026-10-08T00:04:55.782127+09:00"
+    },
+    "2086517554": {
+      "hasBooking": false,
+      "bookingNotified": false,
+      "lastBookingNotifiedAt": null,
+      "discoveredAt": "2026-10-09T14:48:48.210763+09:00",
+      "bookingOpenHistory": [],
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "saleStartDate": null,
+      "bookingOpenAuto": null,
+      "bookingPaused": false,
+      "bookingIsOpened": false,
+      "name": "코치 x 스포티파이 태비 투어",
+      "savedAt": "2026-10-09T15:54:02.846323+09:00"
     }
   },
   "auto_added_place_ids": [
@@ -4324,7 +4311,9 @@
     "2092452636",
     "2098025724"
   ],
-  "watch_missing_since": {},
+  "watch_missing_since": {
+    "2086517554": "2026-10-09T15:54:02.846270+09:00"
+  },
   "booking_url_history": {
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
     "2062283789": "https://m.booking.naver.com/booking/5/bizes/1713086/items/7942217",
