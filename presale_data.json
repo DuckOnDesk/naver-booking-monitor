@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T09:07:09.430007+09:00",
+  "updated_at": "2026-10-09T09:12:32.542698+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1385,36 +1385,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2025662302",
-      "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
-      "bookingBusinessId": "1752022",
-      "operationStart": "26.10.15.",
-      "operationEnd": "26.10.21.",
-      "remainingDays": 6,
-      "status": "D-6",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_295/1791360442706tQiS2_JPEG/edited-1791360425172-0.jpg",
-      "roadAddress": "이태원로 223 파운드리 서울",
-      "commonAddress": "서울 용산구",
-      "district": "용산구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-08T16:02:39.034633+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-08T17:42:27.802999+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-08T16:02:39.034633+09:00",
-      "bookingItemCheckedAt": "2026-10-08T16:02:39.034633+09:00",
-      "discoveredAt": "2026-10-07T15:00:35.169527+09:00",
-      "lastBookingNotifiedAt": "2026-10-08T18:04:17.519169+09:00",
-      "bookingIsOpened": false
-    },
-    {
       "id": "2033196326",
       "name": "숨37 Bio-Breath : Skin To Life",
       "hasBooking": true,
@@ -1442,6 +1412,36 @@
       "bookingItemCheckedAt": "2026-10-08T17:31:26.269241+09:00",
       "discoveredAt": "2026-10-07T19:39:54.370235+09:00",
       "lastBookingNotifiedAt": "2026-10-08T18:04:16.007648+09:00",
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2025662302",
+      "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "bookingBusinessId": "1752022",
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.21.",
+      "remainingDays": 6,
+      "status": "D-6",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_295/1791360442706tQiS2_JPEG/edited-1791360425172-0.jpg",
+      "roadAddress": "이태원로 223 파운드리 서울",
+      "commonAddress": "서울 용산구",
+      "district": "용산구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-08T16:02:39.034633+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-08T17:42:27.802999+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-08T16:02:39.034633+09:00",
+      "bookingItemCheckedAt": "2026-10-08T16:02:39.034633+09:00",
+      "discoveredAt": "2026-10-07T15:00:35.169527+09:00",
+      "lastBookingNotifiedAt": "2026-10-08T18:04:17.519169+09:00",
       "bookingIsOpened": false
     },
     {
@@ -1872,7 +1872,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-09T08:37:31.300374+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T09:12:31.376454+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -3584,7 +3584,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T09:07:07.988727+09:00",
+    "checked_at": "2026-10-09T09:12:30.520754+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
