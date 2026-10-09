@@ -1,10 +1,11 @@
 {
-  "updated_at": "2026-10-09T18:04:29.000209+09:00",
+  "updated_at": "2026-10-09T18:09:53.835864+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
     "2001371441",
     "2003262525",
+    "2004835321",
     "2007085220",
     "2008186282",
     "2013797495",
@@ -1912,6 +1913,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2004835321",
+      "name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.23.",
+      "operationEnd": "26.11.01.",
+      "remainingDays": 14,
+      "status": "D-14",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_90/1790564028244VtsbS_JPEG/edited-1790564029281-0.jpg",
+      "roadAddress": "아차산로 272 스타시티몰 3층 브이스퀘어",
+      "commonAddress": "서울 광진구",
+      "district": "광진구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-09T18:09:52.505441+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2050363685",
       "name": "콜라보카페 세이브포인트",
       "hasBooking": true,
@@ -2035,13 +2064,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2017159810",
-      "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "booking_url": "",
-      "ts": "2026-09-27T17:13:45.439769+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3434,6 +3456,13 @@
       "place_name": "코치 x 스포티파이 태비 투어",
       "booking_url": "",
       "ts": "2026-10-09T14:48:48.210763+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2004835321",
+      "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
+      "booking_url": "",
+      "ts": "2026-10-09T18:09:52.505441+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3452,6 +3481,7 @@
     "2003577663",
     "2003769380",
     "2004678306",
+    "2004835321",
     "2005264248",
     "2005894077",
     "2006596949",
@@ -3617,24 +3647,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T18:04:27.558004+09:00",
+    "checked_at": "2026-10-09T18:09:52.505441+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 825,
-    "presale_items": 215,
-    "after_district_filter": 112,
+    "candidate_items": 828,
+    "presale_items": 218,
+    "after_district_filter": 113,
     "fallback_matched": 0,
-    "unique_place_ids": 65,
-    "tracked_places": 65,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-09T14:48:48.210763+09:00",
+    "unique_place_ids": 66,
+    "tracked_places": 66,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-09T18:09:52.505441+09:00",
     "admission_names": {
       "(없음)": 394,
       "현장대기": 216,
       "사전예약&현장대기": 159,
-      "사전예약": 56
+      "사전예약": 59
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
     "structure_warned_at": null
@@ -4224,6 +4254,7 @@
     "2002918567",
     "2003262525",
     "2003577663",
+    "2004835321",
     "2006648175",
     "2007085220",
     "2007416311",
