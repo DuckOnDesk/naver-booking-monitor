@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T19:25:45.435631+09:00",
+  "updated_at": "2026-10-09T19:31:07.992461+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1902,7 +1902,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-09T18:58:40.233415+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T19:31:06.721911+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -3647,7 +3647,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T19:25:44.055646+09:00",
+    "checked_at": "2026-10-09T19:31:05.866297+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
