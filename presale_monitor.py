@@ -734,13 +734,30 @@ def booking_open_from_setting(setting: dict | None) -> str | None:
     return dt if isinstance(dt, str) and dt else None
 
 
+def awaiting_actual_open(place: dict, now: datetime | None = None) -> bool:
+    """업체 설정상 오픈 시각은 지났는데 네이버가 아직 예약을 안 받는 상태인지.
+    (isOpened=false 또는 일시중지) — 오픈 예약을 안 쓰는 상품이면 False."""
+    auto = place.get("bookingOpenAuto")
+    if not auto:
+        return False
+    try:
+        if datetime.fromisoformat(auto) > (now or datetime.now(KST)):
+            return False
+    except Exception:
+        return False
+    return not place.get("bookingIsOpened") or bool(place.get("bookingPaused"))
+
+
 def refresh_booking_open_auto(place: dict) -> None:
     """place의 자동 감지 오픈 예정 시각(bookingOpenAuto)을 갱신·캐싱한다.
 
     캐시 규칙 — 매 주기 조회하지 않으면서도 업체가 나중에 시각을 바꾸면 따라가도록:
       - 한 번도 조회 안 함        → 조회
       - 마지막 조회가 30분 초과   → 아직 오픈 시각이 미래이거나 값이 없을 때만 재조회
-      - 오픈 시각이 이미 지남     → 확정으로 보고 더는 조회하지 않음
+      - 오픈 시각이 지났고 실제로 열림(isOpened, 일시중지 아님) → 확정, 더는 조회하지 않음
+      - 오픈 시각이 지났는데 아직 안 열림 → 30분 캐시를 무시하고 매 주기 재조회
+        (업체가 오픈을 미루거나 늦게 여는 경우. 예전에는 지난 시각을 확정으로 봐서
+         실제로 안 열렸는데 "오픈" 알림이 나가고, 진짜 오픈은 놓쳤다)
     """
     booking_url = place.get("bookingUrl") or ""
     biz_id = place.get("bookingBusinessId") or ""
@@ -751,7 +768,7 @@ def refresh_booking_open_auto(place: dict) -> None:
     checked_at = place.get("bookingOpenAutoCheckedAt")
     now = datetime.now(KST)
 
-    if cached is not None and checked_at:
+    if cached is not None and checked_at and not awaiting_actual_open(place, now):
         try:
             if (now - datetime.fromisoformat(checked_at)) < timedelta(minutes=30):
                 return
@@ -760,7 +777,7 @@ def refresh_booking_open_auto(place: dict) -> None:
         if cached:
             try:
                 if datetime.fromisoformat(cached) <= now:
-                    return          # 이미 오픈함 — 값이 더 바뀔 일 없음
+                    return          # 실제로 오픈함 — 값이 더 바뀔 일 없음
             except Exception:
                 pass
 
@@ -818,7 +835,7 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
         return
     for attempt in range(3):
         try:
-            requests.post(
+            resp = requests.post(
                 f"https://ntfy.sh/{topic}",
                 data=body.encode("utf-8"),
                 headers={
@@ -829,6 +846,8 @@ def send_ntfy(topic: str, title: str, body: str, url: str) -> None:
                 },
                 timeout=10,
             )
+            # 429(발송 한도)·5xx도 예전에는 "전송 완료"로 찍혀 실패를 알 수 없었다
+            resp.raise_for_status()
             print(f"  → ntfy 전송 완료 (시도 {attempt + 1})")
             return
         except Exception as e:
@@ -1374,6 +1393,14 @@ def check_once(config: dict, prev: dict) -> dict:
         if sale_start and now_dt < sale_start:
             print(f"[{now_str}] ⏳ {name} — 예약창은 열렸지만 실제 판매 시작 전 "
                   f"({sale_start.strftime('%m/%d %H:%M')} 시작 예정)")
+            continue
+
+        # 업체가 정한 오픈 시각은 지났지만 네이버가 아직 예약을 안 받는 경우 —
+        # 여기서 알림을 보내면 "오픈" 알림이 실제 오픈보다 먼저 나가고, 정작
+        # 진짜로 열리는 순간에는 이미 보냈다고 생략된다. 실제로 열릴 때까지 기다린다.
+        if awaiting_actual_open(place, now_dt):
+            state = "일시중지" if place.get("bookingPaused") else "아직 예약 안 받음"
+            print(f"[{now_str}] ⏳ {name} — 오픈 예정 시각은 지났지만 {state} (실제 오픈 대기)")
             continue
 
         if pid not in watched:

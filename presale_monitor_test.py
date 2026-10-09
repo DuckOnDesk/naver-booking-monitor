@@ -6,7 +6,8 @@
   - bookableSettingJson.openDateTime을 오픈 예정 시각으로 읽는다
   - isUseOpen=false면 오픈 예정 시각으로 쓰지 않는다
   - 조회 결과를 캐싱해 매 주기 다시 부르지 않는다 (30분)
-  - 이미 지난 오픈 시각은 확정으로 보고 더 조회하지 않는다
+  - 오픈 시각이 지났고 실제로 열렸으면 더 조회하지 않는다
+  - 오픈 시각이 지났는데 아직 안 열렸으면 30분 캐시를 무시하고 재조회한다
   - 조회 실패 시 기존 캐시를 지우지 않는다
   - 오픈 시각 우선순위: 직접 입력 > 업체 설정 > 판매 시작일
   - manual_places(링크 직접 등록)는 지도 검색 결과에 없어도 목록에서 유지된다
@@ -79,14 +80,43 @@ def main() -> int:
     pm.refresh_booking_open_auto(p)
     check(len(calls) == 2, "30분이 지나고 오픈 전이면 재조회")
 
-    print("3) 이미 지난 오픈 시각은 재조회하지 않음")
+    print("3) 이미 지난 오픈 시각 — 실제로 열렸으면 재조회하지 않음")
     calls = []
     pm.fetch_bookable_setting = stub_setting(
         {"isPaused": False, "isUseOpen": True, "openDateTime": PAST.isoformat(), "isOpened": True}, calls)
-    p = place(bookingOpenAuto=PAST.isoformat(),
+    p = place(bookingOpenAuto=PAST.isoformat(), bookingIsOpened=True,
               bookingOpenAutoCheckedAt=(datetime.now(KST) - timedelta(hours=5)).isoformat())
     pm.refresh_booking_open_auto(p)
-    check(not calls, "오픈 시각이 지났으면 조회 생략")
+    check(not calls, "오픈 시각이 지났고 열렸으면 조회 생략")
+
+    print("3-1) 오픈 시각이 지났는데 아직 안 열림 → 캐시 무시하고 재조회 (오픈 지연 추적)")
+    # 숨37·피스마이너스원 사례: 17:31에 "18:00 오픈, isOpened=false"를 읽은 뒤
+    # 18:00이 지나자 확정으로 보고 다시 안 읽어서 실제 오픈을 놓쳤다
+    calls = []
+    later = (datetime.now(KST) + timedelta(hours=2)).replace(microsecond=0)
+    pm.fetch_bookable_setting = stub_setting(
+        {"isPaused": False, "isUseOpen": True, "openDateTime": later.isoformat(), "isOpened": False}, calls)
+    just_past = (datetime.now(KST) - timedelta(minutes=4)).replace(microsecond=0)
+    p = place(bookingOpenAuto=just_past.isoformat(), bookingIsOpened=False,
+              bookingOpenAutoCheckedAt=(datetime.now(KST) - timedelta(minutes=20)).isoformat())
+    check(pm.awaiting_actual_open(p), "오픈 시각 지남 + isOpened=false → 실제 오픈 대기 상태")
+    pm.refresh_booking_open_auto(p)
+    check(len(calls) == 1, "30분 안이어도 재조회")
+    check(p["bookingOpenAuto"] == later.isoformat(), "업체가 미룬 오픈 시각을 따라감")
+
+    pm.fetch_bookable_setting = stub_setting(
+        {"isPaused": False, "isUseOpen": True, "openDateTime": just_past.isoformat(), "isOpened": False}, calls)
+    p = place(bookingOpenAuto=just_past.isoformat(), bookingIsOpened=False,
+              bookingOpenAutoCheckedAt=datetime.now(KST).isoformat())
+    pm.refresh_booking_open_auto(p)
+    pm.refresh_booking_open_auto(p)
+    check(len(calls) == 3, "열릴 때까지 매 주기 재조회")
+    check(not pm.awaiting_actual_open(place(bookingOpenAuto=just_past.isoformat(), bookingIsOpened=True)),
+          "isOpened=true면 대기 상태 아님")
+    check(pm.awaiting_actual_open(place(bookingOpenAuto=just_past.isoformat(), bookingIsOpened=True,
+                                        bookingPaused=True)), "일시중지면 대기 상태")
+    check(not pm.awaiting_actual_open(place(bookingOpenAuto="", bookingIsOpened=False)),
+          "오픈 예약을 안 쓰는 상품은 해당 없음")
 
     print("4) 조회 실패 시 기존 캐시 유지")
     pm.fetch_bookable_setting = lambda u, b: None
