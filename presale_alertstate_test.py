@@ -176,6 +176,29 @@ def main() -> int:
     check([str(x) for x in cfg_clean2.get("watched_places", [])] == [],
           f"30시간째 안 보이면 정리 (현재 {cfg_clean2.get('watched_places')})")
 
+    print()
+    print("3-1) 오픈 예정 시각이 지나도 실제로 열리기 전엔 알리지 않고, 열리는 순간 알린다")
+    open_at = (datetime.now(KST) - timedelta(minutes=4)).replace(microsecond=0).isoformat()
+    setting = {"isPaused": False, "isUseOpen": True, "openDateTime": open_at, "isOpened": False}
+    h.install([raw_place()], seen_ids={PID})
+    pm.fetch_bookable_setting = lambda u, b: dict(setting)
+    cfg_o = dict(base_cfg, watched_places=[PID])
+    # 오픈 전에 미리 읽어 둔 설정 (지도 검색은 이미 예약 버튼을 보여 주는 상태)
+    prev_o = {PID: {"id": PID, "name": NAME, "hasBooking": True, "bookingUrl": URL,
+                    "bookingBusinessId": "1738783", "bookingNotified": False,
+                    "bookingOpenHistory": [], "discoveredAt": "2026-10-07T19:39:54+09:00",
+                    "bookingOpenAuto": open_at, "bookingIsOpened": False,
+                    "bookingOpenAutoCheckedAt": (datetime.now(KST) - timedelta(minutes=30)).isoformat()}}
+    cur_o = pm.check_once(cfg_o, prev_o)
+    check(len(h.sent) == 0, f"isOpened=false인 동안은 오픈 알림 없음 (실제 {len(h.sent)}건)")
+    check(cur_o[PID]["bookingNotified"] is False, "발송 기록도 남기지 않음")
+
+    setting["isOpened"] = True
+    h.sent.clear()
+    cur_o2 = pm.check_once(cfg_o, cur_o)
+    check(len(h.sent) == 1, f"실제로 열리면 바로 오픈 알림 (실제 {len(h.sent)}건)")
+    check(cur_o2[PID]["bookingNotified"] is True, "발송 기록 저장")
+
     h.restore()
 
     print()
