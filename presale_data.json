@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T10:14:00.806163+09:00",
+  "updated_at": "2026-10-09T10:19:24.995112+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -16,6 +16,7 @@
     "2025662302",
     "2029141346",
     "2030290261",
+    "2030524347",
     "2031337912",
     "2033196326",
     "2033849367",
@@ -1651,6 +1652,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2030524347",
+      "name": "페이커 기념우표 기획전시관",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.10.",
+      "operationEnd": "27.02.28.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_36/1791358003865HCt4k_JPEG/edited-1791358002619-0.jpg",
+      "roadAddress": "소공로 70 지하 2층 우표박물관",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-09T10:19:23.002654+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2080685457",
       "name": "캐논 팝업 : 캐논 사진 한방당",
       "hasBooking": false,
@@ -1872,7 +1901,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-09T09:44:47.757649+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T10:19:23.836239+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -2004,13 +2033,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
-      "ts": "2026-09-27T15:33:53.671488+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3403,6 +3425,13 @@
       "place_name": "산리오 문방구",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "ts": "2026-10-09T00:17:29.048983+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2030524347",
+      "place_name": "페이커 기념우표 기획전시관",
+      "booking_url": "",
+      "ts": "2026-10-09T10:19:23.002654+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3471,6 +3500,7 @@
     "2029718179",
     "2030273456",
     "2030290261",
+    "2030524347",
     "2031337912",
     "2032034855",
     "2033013073",
@@ -3584,23 +3614,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T10:13:59.215732+09:00",
+    "checked_at": "2026-10-09T10:19:23.002654+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 822,
-    "presale_items": 212,
-    "after_district_filter": 110,
+    "candidate_items": 825,
+    "presale_items": 215,
+    "after_district_filter": 112,
     "fallback_matched": 0,
-    "unique_place_ids": 64,
-    "tracked_places": 64,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-08T18:47:49.772951+09:00",
+    "unique_place_ids": 65,
+    "tracked_places": 65,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-09T10:19:23.002654+09:00",
     "admission_names": {
       "(없음)": 394,
       "현장대기": 216,
-      "사전예약&현장대기": 156,
+      "사전예약&현장대기": 159,
       "사전예약": 56
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
@@ -4204,6 +4234,7 @@
     "2027303446",
     "2029141346",
     "2030290261",
+    "2030524347",
     "2031337912",
     "2033196326",
     "2033835877",
