@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T12:40:41.545571+09:00",
+  "updated_at": "2026-10-09T12:46:06.307249+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -510,6 +510,37 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2056467638",
+      "name": "아이보들 CCP 리커버리 호텔",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1748320/items/8101024",
+      "bookingBusinessId": "1748320",
+      "operationStart": "26.10.17.",
+      "operationEnd": "26.10.25.",
+      "remainingDays": 8,
+      "status": "D-8",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261008_272/1791424847494k47uC_JPEG/edited-1791424847010-0.jpg",
+      "roadAddress": "연무장길 65 LECT 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-06T18:19:34.634504+09:00",
+        "2026-10-06T19:13:19.049222+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-07T12:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T10:35:40.507391+09:00",
+      "bookingPaused": false,
+      "saleStartDate": "",
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-06T18:19:34.634504+09:00",
+      "bookingItemCheckedAt": "2026-10-06T18:19:34.634504+09:00",
+      "discoveredAt": "2026-10-06T18:03:34.897956+09:00",
+      "lastBookingNotifiedAt": "2026-10-06T19:13:20.504098+09:00",
+      "bookingIsOpened": true
+    },
+    {
       "id": "2015282909",
       "name": "방탈출 게임 <점프x컷> 2.0",
       "hasBooking": false,
@@ -541,37 +572,6 @@
       "bookingItemCheckedAt": "2026-10-07T22:06:25.367891+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
-      "bookingIsOpened": true
-    },
-    {
-      "id": "2056467638",
-      "name": "아이보들 CCP 리커버리 호텔",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1748320/items/8101024",
-      "bookingBusinessId": "1748320",
-      "operationStart": "26.10.17.",
-      "operationEnd": "26.10.25.",
-      "remainingDays": 8,
-      "status": "D-8",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261008_272/1791424847494k47uC_JPEG/edited-1791424847010-0.jpg",
-      "roadAddress": "연무장길 65 LECT 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-06T18:19:34.634504+09:00",
-        "2026-10-06T19:13:19.049222+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-07T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-09T10:35:40.507391+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-06T18:19:34.634504+09:00",
-      "bookingItemCheckedAt": "2026-10-06T18:19:34.634504+09:00",
-      "discoveredAt": "2026-10-06T18:03:34.897956+09:00",
-      "lastBookingNotifiedAt": "2026-10-06T19:13:20.504098+09:00",
       "bookingIsOpened": true
     },
     {
@@ -917,36 +917,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2090283048",
-      "name": "세리안 청담",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736830/items/8055196",
-      "bookingBusinessId": "1736830",
-      "operationStart": "26.09.14.",
-      "operationEnd": "26.10.30.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260911_300/1789093220699QsAvE_JPEG/image.jpg",
-      "roadAddress": "학동로 332 1층",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-15T13:16:00.700133+09:00"
-      ],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-09T12:35:14.179310+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
-      "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": true
-    },
-    {
       "id": "2006648175",
       "name": "LG전자 플래그십 D5",
       "hasBooking": true,
@@ -1002,6 +972,36 @@
       "bookingItemCheckedAt": "2026-10-01T11:21:46.768424+09:00",
       "discoveredAt": "2026-10-01T11:21:46.768424+09:00",
       "lastBookingNotifiedAt": "2026-10-01T11:27:31.344351+09:00",
+      "bookingIsOpened": true
+    },
+    {
+      "id": "2090283048",
+      "name": "세리안 청담",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1736830/items/8055196",
+      "bookingBusinessId": "1736830",
+      "operationStart": "26.09.14.",
+      "operationEnd": "26.10.30.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260911_300/1789093220699QsAvE_JPEG/image.jpg",
+      "roadAddress": "학동로 332 1층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-15T13:16:00.700133+09:00"
+      ],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-10-09T12:35:14.179310+09:00",
+      "bookingPaused": false,
+      "saleStartDate": "",
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
+      "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": true
     },
     {
@@ -3614,7 +3614,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T12:40:40.223378+09:00",
+    "checked_at": "2026-10-09T12:46:04.880702+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
