@@ -51,13 +51,14 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         path = urlparse(self.path).path
 
-        if path in ("/", "/presale.html"):
+        if path == "/presale.html":
             if HTML_FILE.exists():
                 self._send(200, "text/html; charset=utf-8", HTML_FILE.read_bytes())
             else:
                 self._send(404, "text/plain", b"presale.html not found")
 
-        elif path == "/presale_select.html":
+        # 예약 리스트 화면은 관리 페이지로 합쳐졌다 — 첫 화면도 관리 페이지
+        elif path in ("/", "/presale_select.html"):
             if SELECT_HTML_FILE.exists():
                 self._send(200, "text/html; charset=utf-8", SELECT_HTML_FILE.read_bytes())
             else:
