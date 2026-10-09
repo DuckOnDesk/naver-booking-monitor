@@ -103,6 +103,13 @@
       "url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687?startDate=2026-10-17&tab=book",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mv13x867",
+      "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
