@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T23:02:38.584353+09:00",
+  "updated_at": "2026-10-09T23:08:06.291270+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -545,7 +545,7 @@
     {
       "id": "2015282909",
       "name": "방탈출 게임 <점프x컷> 2.0",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1515875/items/7930844",
       "bookingBusinessId": "1515875",
       "operationStart": "26.10.24.",
@@ -563,10 +563,11 @@
         "2026-10-07T22:06:25.367891+09:00",
         "2026-10-08T15:35:04.738678+09:00",
         "2026-10-08T17:31:26.269241+09:00",
-        "2026-10-08T22:55:46.382554+09:00"
+        "2026-10-08T22:55:46.382554+09:00",
+        "2026-10-09T23:08:01.511657+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-08T22:55:48.350952+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T23:08:02.719606+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1320,7 +1321,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-09T22:35:21.880201+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T23:08:04.621668+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1816,7 +1817,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-09T22:35:22.709741+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T23:08:05.464687+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2065,13 +2066,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
-      "ts": "2026-09-27T18:55:52.657588+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3464,6 +3458,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-09T19:36:30.340795+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2015282909",
+      "place_name": "방탈출 게임 <점프x컷> 2.0",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1515875/items/7930844",
+      "ts": "2026-10-09T23:08:01.511657+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3648,7 +3649,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T23:02:36.536229+09:00",
+    "checked_at": "2026-10-09T23:08:01.511657+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
