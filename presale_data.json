@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T05:39:47.464901+09:00",
+  "updated_at": "2026-10-10T05:45:08.689407+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -634,7 +634,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -721,7 +721,8 @@
         "2026-10-08T14:18:05.851097+09:00",
         "2026-10-08T17:26:00.386071+09:00",
         "2026-10-08T20:51:58.145483+09:00",
-        "2026-10-09T00:17:29.048983+09:00"
+        "2026-10-09T00:17:29.048983+09:00",
+        "2026-10-10T05:45:06.670526+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -793,7 +794,7 @@
     {
       "id": "2030290261",
       "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
       "bookingBusinessId": "1745091",
       "operationStart": "26.10.10.",
@@ -808,7 +809,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-10-03T11:15:42.681544+09:00",
-        "2026-10-07T21:12:14.400304+09:00"
+        "2026-10-07T21:12:14.400304+09:00",
+        "2026-10-10T05:45:06.670526+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:41.806561+09:00",
@@ -1900,7 +1902,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-10T05:12:54.867196+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T05:45:07.604555+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -2064,20 +2066,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://map.naver.com/p/entry/place/2061527606",
-      "ts": "2026-09-27T22:19:31.258660+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://map.naver.com/p/entry/place/2038718464",
-      "ts": "2026-09-27T22:58:13.953743+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3463,6 +3451,20 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-10T05:02:10.972972+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-10T05:45:06.670526+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2030290261",
+      "place_name": "Cafe 1014: For Keria",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+      "ts": "2026-10-10T05:45:06.670526+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3647,7 +3649,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T05:39:46.139133+09:00",
+    "checked_at": "2026-10-10T05:45:06.670526+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
