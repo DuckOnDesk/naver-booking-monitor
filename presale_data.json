@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T04:56:51.079408+09:00",
+  "updated_at": "2026-10-10T05:02:13.612002+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1317,7 +1317,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T04:30:00.424522+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T05:02:12.411261+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1814,7 +1814,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T04:30:01.020892+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T05:02:13.007504+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2028,7 +2028,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -2048,7 +2048,8 @@
         "2026-10-08T23:17:34.457558+09:00",
         "2026-10-09T11:02:53.820208+09:00",
         "2026-10-09T14:37:52.283570+09:00",
-        "2026-10-09T19:36:30.340795+09:00"
+        "2026-10-09T19:36:30.340795+09:00",
+        "2026-10-10T05:02:10.972972+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -2063,13 +2064,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/search",
-      "ts": "2026-09-27T22:19:31.258660+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3462,6 +3456,13 @@
       "place_name": "숨37 Bio-Breath : Skin To Life",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "ts": "2026-10-10T02:53:23.709727+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-10T05:02:10.972972+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3646,7 +3647,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T04:56:49.546976+09:00",
+    "checked_at": "2026-10-10T05:02:10.972972+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
