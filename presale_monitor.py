@@ -377,6 +377,7 @@ def normalize(p: dict) -> dict:
         "bookingNotified": False,  # 처음 오픈 알림을 보냈는지 (한 번 True가 되면 계속 유지 — 재오픈 알림은 안 보냄)
         "bookingUrlCheckedAt": None,   # businessId로 예약 URL을 마지막으로 조회한 시각 (ISO)
         "bookingItemCheckedAt": None,  # /items/ URL을 마지막으로 조회한 시각 (ISO) — 재조회 간격 제한용
+        "bookingItemVerifiedAt": None,  # 저장한 /items/ 상품이 아직 유효한지 마지막으로 확인한 시각 (ISO)
         "discoveredAt": None,  # 새 팝업으로 처음 발견된 시각 (ISO) — 관리 페이지 NEW 표시용
     }
 
@@ -442,10 +443,82 @@ ITEM_RESOLVE_BUDGET = 12    # 예약 URL → /items/ URL (팝업당 최대 2회 
 # 같은 팝업의 예약 URL 재조회 최소 간격.
 URL_RESOLVE_RETRY = timedelta(minutes=30)
 
+# 이미 찾은 /items/ 상품이 아직 유효한지(삭제·마감 후 새 상품으로 바뀌지 않았는지) 확인 간격·예산.
+# 업체가 회차마다 상품을 새로 만들면 예전 링크는 열리지 않는다.
+ITEM_VERIFY_INTERVAL = timedelta(hours=2)
+ITEM_VERIFY_BUDGET = 6
+
+
+def booking_biz_of(url: str | None) -> str | None:
+    """예약 URL의 업체 ID (.../bizes/{id}...)."""
+    m = re.search(r"/bizes/(\d+)", url or "")
+    return m.group(1) if m else None
+
+
+def booking_item_of(url: str | None) -> str | None:
+    """예약 URL의 상품 ID (.../items/{id})."""
+    m = re.search(r"/items/(\d+)", url or "")
+    return m.group(1) if m else None
+
+
+def reset_item_state(place: dict) -> None:
+    """예약 상품이 바뀌었을 때 — 상품별로 읽어 둔 오픈 정보와 알림 기록을 비운다.
+    새 상품(새 예약 회차)이 열리면 다시 오픈 알림을 보내기 위해서다."""
+    place["bookingOpenAuto"] = None
+    place["bookingOpenAutoCheckedAt"] = None
+    place["saleStartDate"] = None
+    place["bookingIsOpened"] = False
+    place["bookingPaused"] = False
+    place["bookingNotified"] = False
+    place["lastBookingNotifiedAt"] = None
+    place["bookingItemCheckedAt"] = None
+    place["bookingUrlCheckedAt"] = None
+    place["bookingItemVerifiedAt"] = None
+
+
+def verify_item_url(booking_url: str) -> str | None:
+    """저장한 /items/ 상품이 바뀌었으면 새 상품 URL, 그대로면 None.
+
+    바뀐 것으로 보는 경우:
+      - 상품 목록에 그 상품이 없다 (삭제됨)
+      - 그 상품은 예약이 닫혔는데 열린 다른 상품이 있다
+    목록 조회에 실패하면(빈 목록) 판단하지 않는다.
+    """
+    m = re.search(r"(https://m\.booking\.naver\.com/booking/\d+/bizes/(\d+))/items/(\d+)", booking_url or "")
+    if not m:
+        return None
+    base_url, biz_id, item_id = m.group(1), m.group(2), m.group(3)
+    items = fetch_biz_items(biz_id)
+    if not items:
+        return None
+    current = next((i for i in items if str(i.get("bizItemId")) == item_id), None)
+    picked = pick_biz_item(items)
+    if not picked or str(picked["bizItemId"]) == item_id:
+        return None
+    if current is None:
+        reason = "상품이 목록에 없음"
+    elif current.get("isClosedBooking") and not picked.get("isClosedBooking"):
+        reason = "기존 상품 예약 닫힘, 열린 새 상품 있음"
+    else:
+        return None
+    new_url = f"{base_url}/items/{picked['bizItemId']}"
+    print(f"  [상품 변경] biz {biz_id} /items/{item_id} → /items/{picked['bizItemId']}"
+          f" ({picked.get('name') or '이름 없음'}) — {reason}")
+    return new_url
+
 
 def place_map_url(place_id: str) -> str:
     """지도 장소 페이지 URL — 예약 URL을 못 찾았을 때 알림에 넣을 대체 링크."""
     return f"https://map.naver.com/p/entry/place/{place_id}" if place_id else ""
+
+
+def _due(checked_at: str | None, interval: timedelta) -> bool:
+    if not checked_at:
+        return True
+    try:
+        return (datetime.now(KST) - datetime.fromisoformat(checked_at)) >= interval
+    except Exception:
+        return True
 
 
 def url_resolve_due(place: dict, field: str) -> bool:
@@ -967,8 +1040,9 @@ def remember_booking_url(history: dict, place_id: str, url: str) -> None:
     prev = history.get(str(place_id)) or ""
     if prev == url:
         return
-    if prev and "/items/" in prev and "/items/" not in url:
-        return                      # 이미 더 구체적인 링크를 갖고 있다
+    if (prev and "/items/" in prev and "/items/" not in url
+            and booking_biz_of(prev) == booking_biz_of(url)):
+        return                      # 같은 업체의 더 구체적인 링크를 이미 갖고 있다
     history[str(place_id)] = url
 
 
@@ -1288,20 +1362,38 @@ def check_once(config: dict, prev: dict) -> dict:
         place["bookingNotified"] = base.get("bookingNotified", False)
         place["bookingUrlCheckedAt"] = base.get("bookingUrlCheckedAt")
         place["bookingItemCheckedAt"] = base.get("bookingItemCheckedAt")
+        place["bookingItemVerifiedAt"] = base.get("bookingItemVerifiedAt")
         place["discoveredAt"] = base.get("discoveredAt")
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
+        # 단, 지도 검색이 알려 주는 예약 업체가 바뀌었으면(새 예약 회차 등) 예전 업체의
+        # 링크는 버린다. 예전에는 /items/ 링크를 무조건 유지해서 닫힌 옛 예약 페이지로 연결됐다.
         prev_url = base.get("bookingUrl") or ""
         curr_url = place.get("bookingUrl") or ""
+        curr_biz = booking_biz_of(curr_url) or (str(place["bookingBusinessId"])
+                                                if place.get("bookingBusinessId") else None)
+
+        def same_biz(url: str) -> bool:
+            return not curr_biz or booking_biz_of(url) in (None, curr_biz)
+
+        hist_url = url_history.get(str(pid)) or ""
         if str(pid) in direct_urls:
             place["bookingUrl"] = direct_urls[str(pid)]
-        elif "/items/" in prev_url and "/items/" not in curr_url:
+        elif "/items/" in prev_url and "/items/" not in curr_url and same_biz(prev_url):
             place["bookingUrl"] = prev_url  # 이전에 발견한 더 구체적인 URL 유지
-        elif not curr_url and prev_url:
+        elif not curr_url and prev_url and same_biz(prev_url):
             place["bookingUrl"] = prev_url
-        elif not curr_url and url_history.get(str(pid)):
+        elif not curr_url and hist_url and same_biz(hist_url):
             # 예전에 확인해 둔 링크 — 예약창이 닫혔다 열려도 그대로 쓴다
-            place["bookingUrl"] = url_history[str(pid)]
+            place["bookingUrl"] = hist_url
+        old_biz = booking_biz_of(prev_url) or booking_biz_of(hist_url)
+        if (str(pid) not in direct_urls and curr_biz and old_biz and old_biz != curr_biz):
+            print(f"  [예약 업체 변경] {place.get('name') or pid} — biz {old_biz} → {curr_biz},"
+                  f" 예전 링크 버리고 다시 찾음")
+            reset_item_state(place)
+            url_history.pop(str(pid), None)   # 남겨 두면 다음 주기에 옛 링크로 되돌아간다
+            if booking_biz_of(place.get("bookingUrl")) != curr_biz:
+                place["bookingUrl"] = curr_url if booking_biz_of(curr_url) == curr_biz else None
 
         if not place.get("bookingBusinessId") and base.get("bookingBusinessId"):
             place["bookingBusinessId"] = base["bookingBusinessId"]
@@ -1339,6 +1431,25 @@ def check_once(config: dict, prev: dict) -> dict:
         direct = resolve_booking_item_url(url)
         if direct != url:
             place["bookingUrl"] = direct
+
+    # 이미 찾은 /items/ 상품이 아직 유효한지 가끔 확인한다. 업체가 상품을 지우고
+    # 새로 만들면(회차 변경 등) 예전 링크는 "예약할 수 없는 상품"으로 열린다.
+    verify_targets = [
+        (pid, place) for pid, place in current.items()
+        if (booking_item_of(place.get("bookingUrl"))
+            and str(pid) not in direct_urls and not place.get("isManual")
+            and (place.get("hasBooking") or str(pid) in watched)
+            and _due(place.get("bookingItemVerifiedAt"), ITEM_VERIFY_INTERVAL))
+    ]
+    verify_targets.sort(key=lambda kv: kv[1].get("bookingItemVerifiedAt") or "")
+    for pid, place in verify_targets[:ITEM_VERIFY_BUDGET]:
+        place["bookingItemVerifiedAt"] = now_iso
+        new_url = verify_item_url(place["bookingUrl"])
+        if new_url:
+            reset_item_state(place)
+            place["bookingItemVerifiedAt"] = now_iso
+            place["bookingUrl"] = new_url
+            url_history[str(pid)] = new_url
 
     # 예약 오픈 예정 시각 자동 감지 (업체가 예약 관리에 지정한 bookableSettingJson).
     # 오픈 전 팝업도 "오픈 정보"에 시각이 떠야 하므로 hasBooking과 무관하게 갱신한다.

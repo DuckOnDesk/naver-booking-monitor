@@ -59,7 +59,7 @@ class Harness:
         self.auto_added: set = set()
         self.watch_missing: dict = {}
         self._real = {name: getattr(pm, name) for name in (
-            "fetch_presale_places", "fetch_bookable_setting", "fetch_sale_start_date",
+            "fetch_presale_places", "fetch_bookable_setting", "fetch_sale_start_date", "fetch_biz_items",
             "load_prev_alerts", "load_seen_ids", "has_available_slots",
             "load_place_memory", "load_auto_added_ids", "load_watch_missing",
             "_queue_ntfy", "send_ntfy", "send_toast", "save_data", "CONFIG_FILE")}
@@ -70,6 +70,7 @@ class Harness:
         pm.fetch_bookable_setting = lambda u, b: {"isPaused": False, "isUseOpen": False,
                                                   "openDateTime": None, "isOpened": True}
         pm.fetch_sale_start_date = lambda u, b: None
+        pm.fetch_biz_items = lambda biz: []    # 상품 유효성 확인 — 네트워크 안 씀
         pm.load_prev_alerts = lambda: []
         pm.load_seen_ids = lambda: set(seen_ids)
         pm.has_available_slots = lambda u, b: True

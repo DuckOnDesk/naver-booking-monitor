@@ -28,6 +28,8 @@
   - 요청이 실패해도 만든 URL을 쓴다 (리다이렉트가 동작하므로 예약 페이지에 닿는다)
   - 한 번 확인한 링크는 영구 보관되고 빈 값으로 덮이지 않는다
   - 오픈 알림은 예약 링크를 달고 나간다. 끝내 못 찾을 때만 지도 링크로 떨어진다
+  - 예약 업체가 바뀌면(스킨앤랩 2026-10-08) 예전 업체의 /items/ 링크를 버린다
+  - 저장한 상품이 지워지거나 닫히고 새 상품이 열리면 새 상품 링크로 바꾼다
 
 사용법: python presale_bookingurl_test.py
 """
@@ -192,6 +194,9 @@ def main() -> int:
     check(hist[PID] == BOOK_URL + "/items/8080", "더 구체적인 링크면 갱신")
     pm.remember_booking_url(hist, PID, BOOK_URL)
     check(hist[PID] == BOOK_URL + "/items/8080", "덜 구체적인 링크로는 되돌리지 않는다")
+    other = "https://m.booking.naver.com/booking/12/bizes/9999999"
+    pm.remember_booking_url(hist, PID, other)
+    check(hist[PID] == other, "업체가 바뀐 링크면 덜 구체적이어도 갱신")
 
     print()
     print("5) check_once — 루나 상황 재현 (지도 검색이 링크를 안 줌)")
@@ -199,7 +204,7 @@ def main() -> int:
         "fetch_presale_places", "fetch_bookable_setting", "fetch_sale_start_date",
         "load_prev_alerts", "load_seen_ids", "has_available_slots",
         "load_place_memory", "load_auto_added_ids", "load_watch_missing",
-        "load_booking_url_history", "resolve_booking_item_url",
+        "load_booking_url_history", "resolve_booking_item_url", "fetch_biz_items",
         "_queue_ntfy", "send_ntfy", "send_toast", "save_data", "CONFIG_FILE")}
 
     pm._BIZ_URL_CACHE.clear()
@@ -214,6 +219,7 @@ def main() -> int:
                                               "openDateTime": None, "isOpened": True}
     pm.fetch_sale_start_date = lambda u, b: None
     pm.resolve_booking_item_url = lambda u: u          # /items/ 조회는 별도 테스트
+    pm.fetch_biz_items = lambda biz: []                 # 상품 유효성 확인은 8·9번에서
     pm.load_prev_alerts = lambda: []
     pm.load_seen_ids = lambda: {PID}
     pm.has_available_slots = lambda u, b: True
@@ -279,6 +285,80 @@ def main() -> int:
           f"지도 장소 페이지로 대체 ({sent[0]['url'] if sent else None})")
     check(sent and not sent[0]["body"].rstrip().endswith("→"),
           "본문이 '→' 로 끝나지 않는다")
+
+    print()
+    print("8) check_once — 예약 업체가 바뀌면 예전 /items/ 링크를 버린다 (스킨앤랩 사례)")
+    # 2026-10-08: 지도 검색의 bookingBusinessId가 1739573 → 1750599로 바뀌었는데
+    # 예전 /items/ 링크를 계속 유지해서 닫힌 옛 예약 페이지로 연결됐다
+    OLD_URL = "https://m.booking.naver.com/booking/13/bizes/1739573/items/8067644"
+    NEW_BIZ = "1750599"
+    NEW_BASE = f"https://m.booking.naver.com/booking/12/bizes/{NEW_BIZ}"
+    pm._BIZ_URL_CACHE.clear()
+    pm.SESSION.get = stub_get({NEW_BASE: Resp(text="예약", url=NEW_BASE)})
+    pm.resolve_booking_item_url = lambda u: u + "/items/8120001" if "/items/" not in u else u
+    pm.fetch_presale_places = lambda area, stats=None: [{
+        "id": PID, "name": NAME, "hasBooking": True,
+        "bookingUrl": None, "bookingBusinessId": NEW_BIZ,
+        "popupstoreInfo": {"admissionCondition": {"name": "사전예약"}, "remainingDays": 8},
+        "commonAddress": "서울 성동구",
+    }]
+    saved_hist.clear(); saved_hist[PID] = OLD_URL
+    sent.clear()
+    prev4 = {PID: {"id": PID, "name": NAME, "hasBooking": True, "bookingUrl": OLD_URL,
+                   "bookingBusinessId": NEW_BIZ, "bookingNotified": True,
+                   "bookingOpenAuto": "2026-09-18T18:00:00+09:00", "bookingIsOpened": True,
+                   "bookingOpenAutoCheckedAt": "2026-09-28T11:04:49+09:00",
+                   "bookingItemCheckedAt": "2026-09-28T11:04:39+09:00",
+                   "bookingOpenHistory": [], "district": "성동구"}}
+    result4 = pm.check_once(cfg, prev4)
+    got = result4[PID].get("bookingUrl")
+    check(got == NEW_BASE + "/items/8120001", f"새 업체 링크로 교체 ({got})")
+    check(saved_hist.get(PID) == got, f"영구 보관본도 교체 ({saved_hist.get(PID)})")
+    check(len(sent) == 1, f"새 회차 오픈 알림 1건 (실제 {len(sent)}건)")
+
+    # 다음 주기: 그대로 유지 (옛 링크로 되돌아가지 않음)
+    sent.clear()
+    result5 = pm.check_once(cfg, result4)
+    check(result5[PID].get("bookingUrl") == got, "다음 주기에도 새 링크 유지")
+    check(not sent, "알림 재발송 없음")
+
+    print()
+    print("9) verify_item_url / check_once — 상품이 바뀌면 새 상품 링크로 (맥캘란 사례)")
+    ITEM_URL = BOOK_URL + "/items/8109086"
+    pm.fetch_biz_items = lambda biz: [{"bizItemId": "8109086", "isClosedBooking": True},
+                                      {"bizItemId": "8130000", "isClosedBooking": False}]
+    check(pm.verify_item_url(ITEM_URL) == BOOK_URL + "/items/8130000", "닫힌 상품 → 열린 새 상품")
+    pm.fetch_biz_items = lambda biz: [{"bizItemId": "8130000", "isClosedBooking": False}]
+    check(pm.verify_item_url(ITEM_URL) == BOOK_URL + "/items/8130000", "목록에서 사라진 상품 → 새 상품")
+    pm.fetch_biz_items = lambda biz: [{"bizItemId": "8109086", "isClosedBooking": False},
+                                      {"bizItemId": "8130000", "isClosedBooking": False}]
+    check(pm.verify_item_url(ITEM_URL) is None, "기존 상품이 열려 있으면 그대로")
+    pm.fetch_biz_items = lambda biz: [{"bizItemId": "8109086", "isClosedBooking": True}]
+    check(pm.verify_item_url(ITEM_URL) is None, "다른 상품이 없으면 그대로 (그냥 마감)")
+    pm.fetch_biz_items = lambda biz: []
+    check(pm.verify_item_url(ITEM_URL) is None, "목록 조회 실패면 판단 안 함")
+
+    pm.fetch_biz_items = lambda biz: [{"bizItemId": "8130000", "isClosedBooking": False}]
+    pm.fetch_presale_places = lambda area, stats=None: [{
+        "id": PID, "name": NAME, "hasBooking": True, "bookingUrl": None, "bookingBusinessId": BIZ,
+        "popupstoreInfo": {"admissionCondition": {"name": "사전예약"}, "remainingDays": 8},
+        "commonAddress": "서울 성동구",
+    }]
+    saved_hist.clear(); saved_hist[PID] = ITEM_URL
+    sent.clear()
+    prev6 = {PID: {"id": PID, "name": NAME, "hasBooking": True, "bookingUrl": ITEM_URL,
+                   "bookingBusinessId": BIZ, "bookingNotified": True,
+                   "bookingItemVerifiedAt": (datetime.now(KST) - timedelta(hours=3)).isoformat(),
+                   "bookingOpenHistory": [], "district": "성동구"}}
+    result6 = pm.check_once(cfg, prev6)
+    check(result6[PID].get("bookingUrl") == BOOK_URL + "/items/8130000",
+          f"새 상품 링크로 교체 ({result6[PID].get('bookingUrl')})")
+    check(saved_hist.get(PID) == BOOK_URL + "/items/8130000", "영구 보관본도 교체")
+
+    calls = []
+    pm.fetch_biz_items = lambda biz: calls.append(biz) or []
+    pm.check_once(cfg, result6)
+    check(not calls, "방금 확인했으면 2시간 동안 다시 조회 안 함")
 
     for name, fn in real.items():
         setattr(pm, name, fn)
