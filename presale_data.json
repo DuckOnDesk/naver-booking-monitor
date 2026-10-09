@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-09T14:43:24.965577+09:00",
+  "updated_at": "2026-10-09T14:48:49.429217+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -36,6 +36,7 @@
     "2080685457",
     "2084168433",
     "2084267684",
+    "2086517554",
     "2087335226",
     "2088035530",
     "2098025724"
@@ -603,6 +604,34 @@
       "discoveredAt": "2026-09-09T20:34:11.577739+09:00",
       "lastBookingNotifiedAt": "2026-09-09T20:39:54.804445+09:00",
       "bookingIsOpened": true
+    },
+    {
+      "id": "2086517554",
+      "name": "코치 x 스포티파이 태비 투어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.30.",
+      "operationEnd": "26.10.30.",
+      "remainingDays": 21,
+      "status": "D-21",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261009_281/1791523422401yKtAD_JPEG/edited-1791523424058-0.jpg",
+      "roadAddress": "연무장5길 20",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-09T14:48:48.210763+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
     },
     {
       "id": "2063374607",
@@ -2035,13 +2064,6 @@
   ],
   "alerts": [
     {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://map.naver.com/p/entry/place/2033835877",
-      "ts": "2026-09-27T17:13:45.439769+09:00"
-    },
-    {
       "type": "new_popup",
       "place_id": "2017159810",
       "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
@@ -3433,6 +3455,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-09T14:37:52.283570+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2086517554",
+      "place_name": "코치 x 스포티파이 태비 투어",
+      "booking_url": "",
+      "ts": "2026-10-09T14:48:48.210763+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3599,6 +3628,7 @@
     "2084130717",
     "2084168433",
     "2084267684",
+    "2086517554",
     "2087335226",
     "2088035530",
     "2090283048",
@@ -3615,23 +3645,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-09T14:43:18.563623+09:00",
+    "checked_at": "2026-10-09T14:48:48.210763+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 825,
-    "presale_items": 215,
-    "after_district_filter": 112,
+    "candidate_items": 829,
+    "presale_items": 219,
+    "after_district_filter": 114,
     "fallback_matched": 0,
-    "unique_place_ids": 65,
-    "tracked_places": 65,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-09T10:19:23.002654+09:00",
+    "unique_place_ids": 66,
+    "tracked_places": 66,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-09T14:48:48.210763+09:00",
     "admission_names": {
       "(없음)": 394,
       "현장대기": 216,
-      "사전예약&현장대기": 159,
+      "사전예약&현장대기": 163,
       "사전예약": 56
     },
     "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
@@ -4287,6 +4317,7 @@
     "2082644987",
     "2084168433",
     "2084267684",
+    "2086517554",
     "2087335226",
     "2088035530",
     "2090283048",
