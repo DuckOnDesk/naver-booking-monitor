@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T05:15:13.968242+09:00",
+  "updated_at": "2026-10-11T05:20:35.752616+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -2043,7 +2043,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -2067,7 +2067,8 @@
         "2026-10-10T05:02:10.972972+09:00",
         "2026-10-10T14:44:23.909299+09:00",
         "2026-10-10T16:22:08.901149+09:00",
-        "2026-10-10T17:58:48.143743+09:00"
+        "2026-10-10T17:58:48.143743+09:00",
+        "2026-10-11T05:20:33.866900+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -2082,13 +2083,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
-      "ts": "2026-09-28T18:57:33.879260+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3481,6 +3475,13 @@
       "place_name": "숨37 Bio-Breath : Skin To Life",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "ts": "2026-10-11T05:09:44.863570+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-11T05:20:33.866900+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3665,7 +3666,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-11T05:15:11.824774+09:00",
+    "checked_at": "2026-10-11T05:20:33.866900+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
