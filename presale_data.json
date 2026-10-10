@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T15:49:35.181127+09:00",
+  "updated_at": "2026-10-10T15:55:00.819533+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -34,7 +34,6 @@
     "2080685457",
     "2084168433",
     "2084267684",
-    "2086517554",
     "2087335226",
     "2098025724"
   ],
@@ -1321,7 +1320,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T15:22:24.964850+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T15:54:59.620596+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1820,7 +1819,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T15:22:25.569042+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T15:55:00.207719+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3656,7 +3655,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T15:49:33.827259+09:00",
+    "checked_at": "2026-10-10T15:54:58.173038+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -4351,9 +4350,7 @@
     "2092452636",
     "2098025724"
   ],
-  "watch_missing_since": {
-    "2086517554": "2026-10-09T15:54:02.846270+09:00"
-  },
+  "watch_missing_since": {},
   "booking_url_history": {
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
     "2062283789": "https://m.booking.naver.com/booking/5/bizes/1713086/items/7942217",
