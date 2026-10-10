@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T23:44:56.138914+09:00",
+  "updated_at": "2026-10-10T23:50:17.805634+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -633,7 +633,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -725,7 +725,8 @@
         "2026-10-10T13:01:13.798529+09:00",
         "2026-10-10T15:27:49.900506+09:00",
         "2026-10-10T17:38:13.902528+09:00",
-        "2026-10-10T21:01:44.069635+09:00"
+        "2026-10-10T21:01:44.069635+09:00",
+        "2026-10-10T23:50:15.794656+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -1648,7 +1649,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T23:18:03.041497+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T23:50:16.636427+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2079,13 +2080,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
-      "ts": "2026-09-28T15:27:28.509044+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3478,6 +3472,13 @@
       "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "ts": "2026-10-10T22:59:46.321468+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-10T23:50:15.794656+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3662,7 +3663,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T23:44:50.701804+09:00",
+    "checked_at": "2026-10-10T23:50:15.794656+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
