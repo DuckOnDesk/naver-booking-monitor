@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T20:56:24.027211+09:00",
+  "updated_at": "2026-10-10T21:01:49.576265+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -354,7 +354,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T20:29:34.001757+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T21:01:45.977624+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -633,7 +633,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -724,7 +724,8 @@
         "2026-10-10T05:45:06.670526+09:00",
         "2026-10-10T13:01:13.798529+09:00",
         "2026-10-10T15:27:49.900506+09:00",
-        "2026-10-10T17:38:13.902528+09:00"
+        "2026-10-10T17:38:13.902528+09:00",
+        "2026-10-10T21:01:44.069635+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -967,7 +968,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T20:29:34.545824+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T21:01:46.627731+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -997,7 +998,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T20:29:35.095206+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T21:01:47.178722+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1025,7 +1026,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T20:29:35.650143+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T21:01:47.611867+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1240,7 +1241,7 @@
     {
       "id": "2088035530",
       "name": "에비스 : 더 라운지",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
       "bookingBusinessId": "1735031",
       "operationStart": "26.09.26.",
@@ -1255,7 +1256,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-09-23T18:44:16.266211+09:00",
-        "2026-10-08T14:45:32.443392+09:00"
+        "2026-10-08T14:45:32.443392+09:00",
+        "2026-10-10T21:01:44.069635+09:00"
       ],
       "bookingOpenAuto": "2026-09-18T10:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:38.249707+09:00",
@@ -1565,7 +1567,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-10T20:29:32.335385+09:00",
+      "bookingItemCheckedAt": "2026-10-10T21:01:44.069635+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1674,7 +1676,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T20:29:36.624205+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T21:01:48.588870+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1790,7 +1792,7 @@
         "2026-10-02T19:39:01.019127+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T14:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-10T20:29:33.563932+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T21:01:45.421577+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1965,7 +1967,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-10T20:29:37.176552+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T21:01:49.141916+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2076,20 +2078,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-09-28T13:59:50.921634+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
-      "ts": "2026-09-28T13:59:50.921634+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2073808585",
@@ -3475,6 +3463,20 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-10T17:58:48.143743+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-10T21:01:44.069635+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2088035530",
+      "place_name": "에비스 : 더 라운지",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735031/items/8046532",
+      "ts": "2026-10-10T21:01:44.069635+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3659,7 +3661,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T20:56:22.123640+09:00",
+    "checked_at": "2026-10-10T21:01:44.069635+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
