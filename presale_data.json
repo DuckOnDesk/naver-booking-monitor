@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T17:32:50.151915+09:00",
+  "updated_at": "2026-10-10T17:38:15.356590+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -633,7 +633,7 @@
     {
       "id": "2061527606",
       "name": "산리오 문방구",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
       "bookingBusinessId": "1735851",
       "operationStart": "26.10.02.",
@@ -723,7 +723,8 @@
         "2026-10-09T00:17:29.048983+09:00",
         "2026-10-10T05:45:06.670526+09:00",
         "2026-10-10T13:01:13.798529+09:00",
-        "2026-10-10T15:27:49.900506+09:00"
+        "2026-10-10T15:27:49.900506+09:00",
+        "2026-10-10T17:38:13.902528+09:00"
       ],
       "bookingOpenAuto": "2026-09-21T15:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-29T05:51:45.176401+09:00",
@@ -2074,13 +2075,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2074820669",
-      "place_name": "연리재 현대백화점 천호점 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1742203/items/8075516",
-      "ts": "2026-09-28T12:00:01.081733+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3473,6 +3467,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-10T16:22:08.901149+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2061527606",
+      "place_name": "산리오 문방구",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
+      "ts": "2026-10-10T17:38:13.902528+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3657,7 +3658,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T17:32:47.537112+09:00",
+    "checked_at": "2026-10-10T17:38:13.902528+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
