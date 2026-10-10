@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T08:18:00.016224+09:00",
+  "updated_at": "2026-10-11T08:23:25.877217+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -354,7 +354,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T07:51:05.154615+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T08:23:22.230657+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -969,7 +969,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T07:51:05.795657+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T08:23:22.851923+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -999,7 +999,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T07:51:06.538005+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T08:23:23.471635+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1027,7 +1027,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T07:51:07.171694+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T08:23:23.949765+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1569,7 +1569,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-11T07:51:02.943980+09:00",
+      "bookingItemCheckedAt": "2026-10-11T08:23:20.195306+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1678,7 +1678,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T07:51:08.268825+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T08:23:24.912013+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1794,7 +1794,7 @@
         "2026-10-02T19:39:01.019127+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T14:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-11T07:51:04.525232+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T08:23:21.607849+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1971,7 +1971,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T07:51:08.753366+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T08:23:25.395454+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2043,7 +2043,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -2068,7 +2068,8 @@
         "2026-10-10T14:44:23.909299+09:00",
         "2026-10-10T16:22:08.901149+09:00",
         "2026-10-10T17:58:48.143743+09:00",
-        "2026-10-11T05:20:33.866900+09:00"
+        "2026-10-11T05:20:33.866900+09:00",
+        "2026-10-11T08:23:20.195306+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -2083,13 +2084,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-09-28T19:13:50.899942+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3482,6 +3476,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-11T05:20:33.866900+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-11T08:23:20.195306+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3666,7 +3667,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-11T08:17:57.982615+09:00",
+    "checked_at": "2026-10-11T08:23:20.195306+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
