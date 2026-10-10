@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T13:28:24.132509+09:00",
+  "updated_at": "2026-10-10T13:33:49.307665+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -3652,12 +3652,12 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T13:28:18.260634+09:00",
+    "checked_at": "2026-10-10T13:33:47.943124+09:00",
     "areas_total": 34,
-    "areas_ok": 33,
+    "areas_ok": 34,
     "areas_failed": 0,
-    "areas_empty": 1,
-    "candidate_items": 826,
+    "areas_empty": 0,
+    "candidate_items": 828,
     "presale_items": 218,
     "after_district_filter": 113,
     "fallback_matched": 0,
@@ -3666,7 +3666,7 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-09T18:09:52.505441+09:00",
     "admission_names": {
-      "(없음)": 392,
+      "(없음)": 394,
       "현장대기": 216,
       "사전예약&현장대기": 159,
       "사전예약": 59
