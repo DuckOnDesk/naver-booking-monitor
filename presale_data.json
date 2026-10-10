@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-10T16:00:27.231185+09:00",
+  "updated_at": "2026-10-10T16:05:52.187858+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1905,7 +1905,7 @@
         "2026-10-05T10:30:52.858780+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-10T15:33:14.922550+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-10T16:05:50.985853+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -2035,7 +2035,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -3655,7 +3655,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-10T16:00:25.754751+09:00",
+    "checked_at": "2026-10-10T16:05:50.126658+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
