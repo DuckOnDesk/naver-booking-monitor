@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T20:21:47.553000+09:00",
+  "updated_at": "2026-10-11T20:27:12.178821+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -73,7 +73,7 @@
     {
       "id": "2045979104",
       "name": "THE AGE20'S HOUSE",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1744181/items/8084231",
       "bookingBusinessId": "1744181",
       "operationStart": "26.10.01.",
@@ -1597,7 +1597,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T19:54:35.521381+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T20:27:10.621210+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3671,7 +3671,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-11T20:21:39.368672+09:00",
+    "checked_at": "2026-10-11T20:27:09.460027+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
