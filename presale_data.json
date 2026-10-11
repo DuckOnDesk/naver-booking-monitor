@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T19:00:15.575035+09:00",
+  "updated_at": "2026-10-11T19:05:40.232474+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -134,7 +134,7 @@
     {
       "id": "2069285502",
       "name": "더웍스 페스타",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1739360/items/8065031",
       "bookingBusinessId": "1739360",
       "operationStart": "26.10.01.",
@@ -3671,7 +3671,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-11T19:00:12.317369+09:00",
+    "checked_at": "2026-10-11T19:05:38.323565+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
