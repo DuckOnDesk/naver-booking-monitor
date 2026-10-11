@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T08:20:02.723766+09:00",
+  "updated_at": "2026-10-12T08:25:26.739986+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1722,7 +1722,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1750,7 +1750,8 @@
         "2026-10-11T05:20:33.866900+09:00",
         "2026-10-11T08:23:20.195306+09:00",
         "2026-10-11T17:16:35.538203+09:00",
-        "2026-10-11T22:45:41.580594+09:00"
+        "2026-10-11T22:45:41.580594+09:00",
+        "2026-10-12T08:25:25.017595+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1765,13 +1766,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2003577663",
-      "place_name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
-      "booking_url": "https://m.booking.naver.com/booking/5/bizes/1744266/items/8088598",
-      "ts": "2026-09-29T08:02:31.106298+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2008543472",
@@ -3164,6 +3158,13 @@
       "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "ts": "2026-10-12T04:04:59.065260+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-12T08:25:25.017595+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3348,7 +3349,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-12T08:20:00.244296+09:00",
+    "checked_at": "2026-10-12T08:25:25.017595+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
