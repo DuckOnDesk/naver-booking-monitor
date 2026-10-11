@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T18:05:48.349273+09:00",
+  "updated_at": "2026-10-11T18:11:21.096719+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -382,7 +382,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T17:38:28.342335+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T18:11:15.422909+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -970,7 +970,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T17:38:28.930491+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T18:11:16.190067+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1000,7 +1000,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T17:38:29.700034+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T18:11:17.107337+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1028,7 +1028,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T17:38:30.495701+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T18:11:17.864439+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1571,7 +1571,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-11T17:38:25.838738+09:00",
+      "bookingItemCheckedAt": "2026-10-11T18:11:12.333157+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1680,7 +1680,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T17:38:31.874367+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T18:11:19.547434+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1796,7 +1796,7 @@
         "2026-10-02T19:39:01.019127+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T14:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-11T17:38:27.748992+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T18:11:14.445718+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1973,7 +1973,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-11T17:38:32.644173+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-11T18:11:20.337773+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -2087,13 +2087,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-09-28T22:32:11.714412+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3486,6 +3479,13 @@
       "place_name": "에이티즈 8주년 기념 전시 : BLUE DRIFT",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1738439/items/8061607",
       "ts": "2026-10-11T17:38:25.838738+09:00"
+    },
+    {
+      "type": "discovery_stale",
+      "place_name": "⚠️ 사전예약 탐색 점검 필요",
+      "body": "2.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 218개 인식 중.",
+      "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
+      "ts": "2026-10-11T18:11:21.096619+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3670,7 +3670,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-11T18:05:45.557584+09:00",
+    "checked_at": "2026-10-11T18:11:12.333157+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3689,7 +3689,7 @@
       "사전예약&현장대기": 159,
       "사전예약": 59
     },
-    "stale_warned_at": "2026-10-06T17:25:42.720461+09:00",
+    "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
   },
   "place_memory": {
