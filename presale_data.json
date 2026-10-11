@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-11T17:11:10.448709+09:00",
+  "updated_at": "2026-10-11T17:16:37.470963+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -2044,7 +2044,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -2070,7 +2070,8 @@
         "2026-10-10T16:22:08.901149+09:00",
         "2026-10-10T17:58:48.143743+09:00",
         "2026-10-11T05:20:33.866900+09:00",
-        "2026-10-11T08:23:20.195306+09:00"
+        "2026-10-11T08:23:20.195306+09:00",
+        "2026-10-11T17:16:35.538203+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -2085,13 +2086,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2084168433",
-      "place_name": "블랙야크 더현대서울",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1744184/items/8084249",
-      "ts": "2026-09-28T19:51:46.122993+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3484,6 +3478,13 @@
       "place_name": "Cafe 1014: For Keria",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
       "ts": "2026-10-11T17:05:33.574583+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-11T17:16:35.538203+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3668,7 +3669,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-11T17:11:07.634014+09:00",
+    "checked_at": "2026-10-11T17:16:35.538203+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
