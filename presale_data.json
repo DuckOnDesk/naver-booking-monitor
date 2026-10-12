@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T04:53:37.117971+09:00",
+  "updated_at": "2026-10-13T04:59:04.516422+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -285,7 +285,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T04:26:27.923609+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T04:58:59.370624+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -770,7 +770,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T04:26:28.566032+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T04:58:59.874898+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -800,7 +800,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T04:26:29.335795+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T04:59:00.719035+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -828,7 +828,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T04:26:29.986023+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T04:59:01.565650+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1151,7 +1151,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T04:26:30.980706+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T04:59:02.707287+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1222,7 +1222,7 @@
     {
       "id": "2033196326",
       "name": "숨37 Bio-Breath : Skin To Life",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "bookingBusinessId": "1752041",
       "operationStart": "26.10.15.",
@@ -1238,7 +1238,8 @@
       "bookingOpenHistory": [
         "2026-10-08T17:31:26.269241+09:00",
         "2026-10-10T02:53:23.709727+09:00",
-        "2026-10-11T05:09:44.863570+09:00"
+        "2026-10-11T05:09:44.863570+09:00",
+        "2026-10-13T04:58:57.220814+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:42.983218+09:00",
@@ -1340,7 +1341,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-13T04:26:26.115850+09:00",
+      "bookingItemCheckedAt": "2026-10-13T04:58:57.220814+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1419,7 +1420,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T04:26:31.629545+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T04:59:03.353312+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1717,7 +1718,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T04:26:32.146656+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T04:59:03.866959+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1836,13 +1837,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-09-29T22:25:36.310725+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3235,6 +3229,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-13T00:32:40.257043+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033196326",
+      "place_name": "숨37 Bio-Breath : Skin To Life",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
+      "ts": "2026-10-13T04:58:57.220814+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3421,7 +3422,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-13T04:53:34.945747+09:00",
+    "checked_at": "2026-10-13T04:58:57.220814+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
