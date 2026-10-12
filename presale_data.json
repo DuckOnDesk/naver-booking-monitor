@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T21:13:32.435130+09:00",
+  "updated_at": "2026-10-12T21:18:55.281379+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1448,7 +1448,7 @@
         "2026-10-12T11:58:32.464917+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-12T20:46:33.187234+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-12T21:18:54.206898+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1665,7 +1665,7 @@
     {
       "id": "2004835321",
       "name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "bookingBusinessId": "1746745",
       "operationStart": "26.10.23.",
@@ -1684,7 +1684,8 @@
         "2026-10-10T22:59:46.321468+09:00",
         "2026-10-11T02:15:10.660030+09:00",
         "2026-10-12T04:04:59.065260+09:00",
-        "2026-10-12T16:18:32.089898+09:00"
+        "2026-10-12T16:18:32.089898+09:00",
+        "2026-10-12T21:18:53.184499+09:00"
       ],
       "bookingOpenAuto": "2026-10-10T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-10T12:04:48.056635+09:00",
@@ -1833,13 +1834,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-09-29T19:04:28.558070+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2092452636",
@@ -3232,6 +3226,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-12T21:02:46.096053+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2004835321",
+      "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
+      "ts": "2026-10-12T21:18:53.184499+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3418,7 +3419,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-12T21:13:31.029970+09:00",
+    "checked_at": "2026-10-12T21:18:53.184499+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
