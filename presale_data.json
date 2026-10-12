@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T22:02:00.952933+09:00",
+  "updated_at": "2026-10-12T22:07:24.923897+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -539,7 +539,7 @@
     {
       "id": "2030290261",
       "name": "Cafe 1014: For Keria",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
       "bookingBusinessId": "1745091",
       "operationStart": "26.10.10.",
@@ -558,7 +558,8 @@
         "2026-10-10T05:45:06.670526+09:00",
         "2026-10-11T17:05:33.574583+09:00",
         "2026-10-12T01:33:08.842549+09:00",
-        "2026-10-12T15:29:05.914645+09:00"
+        "2026-10-12T15:29:05.914645+09:00",
+        "2026-10-12T22:07:23.514397+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:41.806561+09:00",
@@ -1834,13 +1835,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2092452636",
-      "place_name": "브라운더스트2 글루피스토어 IN 신촌 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1742078",
-      "ts": "2026-09-29T19:04:28.558070+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3233,6 +3227,13 @@
       "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "ts": "2026-10-12T21:18:53.184499+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2030290261",
+      "place_name": "Cafe 1014: For Keria",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+      "ts": "2026-10-12T22:07:23.514397+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3419,7 +3420,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-12T22:01:58.378578+09:00",
+    "checked_at": "2026-10-12T22:07:23.514397+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
