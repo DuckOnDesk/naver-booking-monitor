@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T10:25:06.318319+09:00",
+  "updated_at": "2026-10-12T10:30:38.062357+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -299,9 +299,9 @@
     {
       "id": "2021563125",
       "name": "THE ICON, VALENCIA",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
+      "bookingBusinessId": "1751680",
       "operationStart": "26.10.08.",
       "operationEnd": "26.10.25.",
       "remainingDays": null,
@@ -312,17 +312,19 @@
       "commonAddress": "서울 성동구",
       "district": "성동구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenHistory": [
+        "2026-10-12T10:30:31.823951+09:00"
+      ],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-10-12T10:30:33.641148+09:00",
       "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
+      "saleStartDate": "",
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-12T10:30:31.823951+09:00",
+      "bookingItemCheckedAt": "2026-10-12T10:30:31.823951+09:00",
       "discoveredAt": "2026-10-07T16:40:02.747906+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
+      "lastBookingNotifiedAt": "2026-10-12T10:30:36.244172+09:00",
+      "bookingIsOpened": true
     },
     {
       "id": "2046771252",
@@ -1303,7 +1305,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-12T09:57:44.757005+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-12T10:30:34.867955+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1797,13 +1799,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-09-29T12:17:48.624002+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3196,6 +3191,13 @@
       "place_name": "명조 : 시네마 위크 팝업",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1749319/items/8105100",
       "ts": "2026-10-12T10:03:09.698737+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2021563125",
+      "place_name": "THE ICON, VALENCIA",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
+      "ts": "2026-10-12T10:30:31.823951+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3381,7 +3383,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-12T10:24:59.414277+09:00",
+    "checked_at": "2026-10-12T10:30:31.823951+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -4355,6 +4357,7 @@
     "2033196326": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
     "2004835321": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
     "2030524347": "https://m.booking.naver.com/booking/12/bizes/1752542/items/8117616",
-    "2016839425": "https://m.booking.naver.com/booking/12/bizes/1749319/items/8105100"
+    "2016839425": "https://m.booking.naver.com/booking/12/bizes/1749319/items/8105100",
+    "2021563125": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238"
   }
 }
