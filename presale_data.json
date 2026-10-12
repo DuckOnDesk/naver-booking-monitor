@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T10:58:06.769597+09:00",
+  "updated_at": "2026-10-12T11:03:39.396729+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -315,7 +315,7 @@
         "2026-10-12T10:30:31.823951+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-12T10:30:33.641148+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-12T11:03:33.621633+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -536,6 +536,40 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2030290261",
+      "name": "Cafe 1014: For Keria",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
+      "bookingBusinessId": "1745091",
+      "operationStart": "26.10.10.",
+      "operationEnd": "26.10.14.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_119/1790590904812RyPyl_JPEG/edited-1790590907758-0.jpg",
+      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
+      "commonAddress": "서울 마포구",
+      "district": "마포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-03T11:15:42.681544+09:00",
+        "2026-10-07T21:12:14.400304+09:00",
+        "2026-10-10T05:45:06.670526+09:00",
+        "2026-10-11T17:05:33.574583+09:00",
+        "2026-10-12T01:33:08.842549+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-09T10:35:41.806561+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-03T11:15:42.681544+09:00",
+      "bookingItemCheckedAt": "2026-10-03T11:15:42.681544+09:00",
+      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
+      "lastBookingNotifiedAt": "2026-10-05T18:02:35.890573+09:00",
+      "bookingIsOpened": true
+    },
+    {
       "id": "1419529006",
       "name": "룩백 팝업",
       "hasBooking": false,
@@ -590,40 +624,6 @@
       "discoveredAt": "2026-09-24T00:34:01.224061+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
-    },
-    {
-      "id": "2030290261",
-      "name": "Cafe 1014: For Keria",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
-      "bookingBusinessId": "1745091",
-      "operationStart": "26.10.10.",
-      "operationEnd": "26.10.14.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_119/1790590904812RyPyl_JPEG/edited-1790590907758-0.jpg",
-      "roadAddress": "성암로 15-8 스튜디오 스틸브릭스",
-      "commonAddress": "서울 마포구",
-      "district": "마포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-03T11:15:42.681544+09:00",
-        "2026-10-07T21:12:14.400304+09:00",
-        "2026-10-10T05:45:06.670526+09:00",
-        "2026-10-11T17:05:33.574583+09:00",
-        "2026-10-12T01:33:08.842549+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-09T10:35:41.806561+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-03T11:15:42.681544+09:00",
-      "bookingItemCheckedAt": "2026-10-03T11:15:42.681544+09:00",
-      "discoveredAt": "2026-09-22T17:15:46.631711+09:00",
-      "lastBookingNotifiedAt": "2026-10-05T18:02:35.890573+09:00",
-      "bookingIsOpened": true
     },
     {
       "id": "2015464753",
@@ -1025,15 +1025,15 @@
         "2026-10-12T10:03:09.698737+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T11:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-12T10:36:05.606861+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-12T11:03:34.673162+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
+      "bookingNotified": true,
       "bookingUrlCheckedAt": "2026-10-12T10:03:09.698737+09:00",
       "bookingItemCheckedAt": "2026-10-12T10:03:09.698737+09:00",
       "discoveredAt": "2026-10-12T10:03:09.698737+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
+      "lastBookingNotifiedAt": "2026-10-12T11:03:36.318038+09:00",
+      "bookingIsOpened": true
     },
     {
       "id": "2003262525",
@@ -1332,7 +1332,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-12T10:30:34.867955+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-12T11:03:38.673482+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3411,7 +3411,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-12T10:57:59.659293+09:00",
+    "checked_at": "2026-10-12T11:03:33.621518+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
