@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T10:41:36.182296+09:00",
+  "updated_at": "2026-10-12T10:47:03.945966+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -8,6 +8,7 @@
     "2004835321",
     "2007085220",
     "2008186282",
+    "2013643054",
     "2013797495",
     "2016839425",
     "2017159810",
@@ -835,6 +836,34 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-08T11:26:31.895660+09:00",
       "bookingIsOpened": true
+    },
+    {
+      "id": "2013643054",
+      "name": "벨벳바니 in KREAM 도산",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.14.",
+      "operationEnd": "26.10.20.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261011_32/17916476796072a7Jr_JPEG/edited-1791647679983-0.jpg",
+      "roadAddress": "언주로168길 24 1층",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-12T10:47:02.143791+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
     },
     {
       "id": "2073328330",
@@ -1799,13 +1828,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
-      "ts": "2026-09-29T13:23:12.956247+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3198,6 +3220,13 @@
       "place_name": "THE ICON, VALENCIA",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
       "ts": "2026-10-12T10:30:31.823951+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2013643054",
+      "place_name": "벨벳바니 in KREAM 도산",
+      "booking_url": "",
+      "ts": "2026-10-12T10:47:02.143791+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3233,6 +3262,7 @@
     "2012113406",
     "2012544467",
     "2013115098",
+    "2013643054",
     "2013797495",
     "2015282909",
     "2015464753",
@@ -3383,23 +3413,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-12T10:41:33.096286+09:00",
+    "checked_at": "2026-10-12T10:47:02.143791+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 753,
-    "presale_items": 198,
-    "after_district_filter": 100,
+    "candidate_items": 758,
+    "presale_items": 204,
+    "after_district_filter": 104,
     "fallback_matched": 0,
-    "unique_place_ids": 59,
-    "tracked_places": 59,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-12T10:03:09.698737+09:00",
+    "unique_place_ids": 60,
+    "tracked_places": 60,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-12T10:47:02.143791+09:00",
     "admission_names": {
       "(없음)": 345,
-      "현장대기": 210,
-      "사전예약&현장대기": 146,
+      "현장대기": 209,
+      "사전예약&현장대기": 152,
       "사전예약": 52
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
@@ -4217,6 +4247,7 @@
     "2012113406",
     "2012544467",
     "2013115098",
+    "2013643054",
     "2013797495",
     "2015282909",
     "2015464753",
