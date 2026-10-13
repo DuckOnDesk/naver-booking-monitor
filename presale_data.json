@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T17:54:54.789880+09:00",
+  "updated_at": "2026-10-13T18:00:20.420797+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1195,7 +1195,7 @@
     {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "bookingBusinessId": "1752022",
       "operationStart": "26.10.15.",
@@ -1210,7 +1210,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-10-08T16:02:39.034633+09:00",
-        "2026-10-13T16:03:59.220423+09:00"
+        "2026-10-13T16:03:59.220423+09:00",
+        "2026-10-13T18:00:18.308855+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:43.562757+09:00",
@@ -1483,7 +1484,7 @@
         "2026-10-12T11:58:32.464917+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-13T17:27:30.723005+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T18:00:19.200199+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1900,13 +1901,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
-      "ts": "2026-09-30T10:13:25.582525+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3299,6 +3293,13 @@
       "place_name": "에얼스 더현대 서울 팝업스토어",
       "booking_url": "https://m.booking.naver.com/booking/5/bizes/1752726/items/8118134",
       "ts": "2026-10-13T17:54:47.801685+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2025662302",
+      "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "ts": "2026-10-13T18:00:18.308855+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3487,7 +3488,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-13T17:54:47.801685+09:00",
+    "checked_at": "2026-10-13T18:00:18.308855+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
