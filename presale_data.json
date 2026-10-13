@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T00:24:40.748852+09:00",
+  "updated_at": "2026-10-14T00:30:04.936423+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1167,7 +1167,7 @@
     {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "bookingBusinessId": "1752022",
       "operationStart": "26.10.15.",
@@ -1458,7 +1458,7 @@
         "2026-10-12T11:58:32.464917+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-13T23:57:33.971754+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T00:30:03.515304+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -3435,7 +3435,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T00:24:37.729521+09:00",
+    "checked_at": "2026-10-14T00:30:02.480956+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
