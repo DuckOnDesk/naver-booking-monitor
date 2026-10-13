@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T08:14:51.803855+09:00",
+  "updated_at": "2026-10-14T08:20:07.105987+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1168,7 +1168,7 @@
     {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "bookingBusinessId": "1752022",
       "operationStart": "26.10.15.",
@@ -1186,7 +1186,8 @@
         "2026-10-13T16:03:59.220423+09:00",
         "2026-10-13T18:00:18.308855+09:00",
         "2026-10-13T21:14:33.030038+09:00",
-        "2026-10-14T02:02:00.517394+09:00"
+        "2026-10-14T02:02:00.517394+09:00",
+        "2026-10-14T08:20:05.514985+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:43.562757+09:00",
@@ -1852,13 +1853,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
-      "ts": "2026-09-30T17:34:51.681408+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3251,6 +3245,13 @@
       "place_name": "Cafe 1014: For Keria",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
       "ts": "2026-10-14T05:43:49.113519+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2025662302",
+      "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "ts": "2026-10-14T08:20:05.514985+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3439,24 +3440,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T08:14:49.178236+09:00",
+    "checked_at": "2026-10-14T08:20:05.514985+09:00",
     "areas_total": 34,
-    "areas_ok": 34,
-    "areas_failed": 0,
+    "areas_ok": 17,
+    "areas_failed": 17,
     "areas_empty": 0,
-    "candidate_items": 815,
-    "presale_items": 202,
-    "after_district_filter": 104,
+    "candidate_items": 586,
+    "presale_items": 148,
+    "after_district_filter": 80,
     "fallback_matched": 0,
-    "unique_place_ids": 60,
+    "unique_place_ids": 53,
     "tracked_places": 60,
     "new_places": 0,
     "last_new_place_at": "2026-10-13T17:04:38.297780+09:00",
     "admission_names": {
-      "(없음)": 400,
-      "현장대기": 213,
-      "사전예약&현장대기": 147,
-      "사전예약": 55
+      "(없음)": 288,
+      "현장대기": 150,
+      "사전예약&현장대기": 109,
+      "사전예약": 39
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
