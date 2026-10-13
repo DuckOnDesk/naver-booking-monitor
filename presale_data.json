@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T16:59:11.681796+09:00",
+  "updated_at": "2026-10-13T17:04:41.633356+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -18,6 +18,7 @@
     "2031337912",
     "2033196326",
     "2033849367",
+    "2035247045",
     "2035313838",
     "2039011762",
     "2046771252",
@@ -315,7 +316,7 @@
         "2026-10-12T10:30:31.823951+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T16:31:33.016790+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T17:04:38.297941+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1302,7 +1303,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T16:31:35.702646+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T17:04:40.867642+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1609,6 +1610,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2035247045",
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.16.",
+      "operationEnd": "26.10.22.",
+      "remainingDays": 3,
+      "status": "D-3",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_180/1791854769379WqChk_JPEG/edited-1791854767377-0.jpg",
+      "roadAddress": "테헤란로 517 B1F 대행사장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-13T17:04:38.297780+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2077496355",
       "name": "그레이스유, Infused with U",
       "hasBooking": false,
@@ -1869,13 +1898,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
-      "ts": "2026-09-30T05:48:51.470946+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3268,6 +3290,13 @@
       "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "ts": "2026-10-13T16:03:59.220423+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2035247045",
+      "place_name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-10-13T17:04:38.297780+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3348,6 +3377,7 @@
     "2033849367",
     "2034762449",
     "2034884894",
+    "2035247045",
     "2035313838",
     "2036044979",
     "2036304624",
@@ -3455,23 +3485,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-13T16:59:04.373821+09:00",
+    "checked_at": "2026-10-13T17:04:38.297780+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 826,
-    "presale_items": 206,
-    "after_district_filter": 105,
+    "candidate_items": 830,
+    "presale_items": 210,
+    "after_district_filter": 107,
     "fallback_matched": 0,
-    "unique_place_ids": 61,
-    "tracked_places": 61,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-13T14:41:28.609145+09:00",
+    "unique_place_ids": 62,
+    "tracked_places": 62,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-13T17:04:38.297780+09:00",
     "admission_names": {
       "(없음)": 408,
       "현장대기": 212,
-      "사전예약&현장대기": 150,
+      "사전예약&현장대기": 154,
       "사전예약": 56
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
@@ -4318,6 +4348,7 @@
     "2033849367",
     "2034762449",
     "2034884894",
+    "2035247045",
     "2035313838",
     "2036044979",
     "2036304624",
