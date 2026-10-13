@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T02:50:41.510068+09:00",
+  "updated_at": "2026-10-14T02:56:03.854302+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1201,7 +1201,7 @@
     {
       "id": "2033196326",
       "name": "숨37 Bio-Breath : Skin To Life",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "bookingBusinessId": "1752041",
       "operationStart": "26.10.15.",
@@ -3437,7 +3437,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T02:50:38.374197+09:00",
+    "checked_at": "2026-10-14T02:56:02.118581+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
