@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T00:13:52.537282+09:00",
+  "updated_at": "2026-10-14T00:19:16.159653+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -296,9 +296,37 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2046771252",
+      "name": "NCT WISH < I SPY > POP-UP",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.14.",
+      "operationEnd": "26.10.24.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260929_186/1790655526021QGOpN_JPEG/image.jpg",
+      "roadAddress": "연무장7길 13 트렌드팟 바이 올리브영N 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-06T18:19:34.634504+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2021563125",
       "name": "THE ICON, VALENCIA",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
       "bookingBusinessId": "1751680",
       "operationStart": "26.10.08.",
@@ -312,7 +340,8 @@
       "district": "성동구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-10-12T10:30:31.823951+09:00"
+        "2026-10-12T10:30:31.823951+09:00",
+        "2026-10-14T00:19:13.571047+09:00"
       ],
       "bookingOpenAuto": "",
       "bookingOpenAutoCheckedAt": "2026-10-14T00:08:25.824194+09:00",
@@ -472,34 +501,6 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-21T13:12:58.157767+09:00",
       "bookingIsOpened": true
-    },
-    {
-      "id": "2046771252",
-      "name": "NCT WISH < I SPY > POP-UP",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.14.",
-      "operationEnd": "26.10.24.",
-      "remainingDays": null,
-      "status": "오픈예정",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260929_186/1790655526021QGOpN_JPEG/image.jpg",
-      "roadAddress": "연무장7길 13 트렌드팟 바이 올리브영N 성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-06T18:19:34.634504+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
     },
     {
       "id": "2015282909",
@@ -819,7 +820,7 @@
       "operationStart": "26.10.14.",
       "operationEnd": "26.10.20.",
       "remainingDays": null,
-      "status": "오픈예정",
+      "status": "오늘오픈",
       "admissionCondition": "사전예약&현장대기",
       "imageUrl": "https://ldb-phinf.pstatic.net/20261011_32/17916476796072a7Jr_JPEG/edited-1791647679983-0.jpg",
       "roadAddress": "언주로168길 24 1층",
@@ -923,36 +924,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2008186282",
-      "name": "데이아웃",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
-      "bookingBusinessId": "1736187",
-      "operationStart": "26.10.15.",
-      "operationEnd": "26.10.17.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260921_144/1789972358145pT0ar_PNG/image.png",
-      "roadAddress": "올림픽로 300 잠실 롯데월드타워 잔디광장",
-      "commonAddress": "서울 송파구",
-      "district": "송파구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-22T10:13:07.399856+09:00"
-      ],
-      "bookingOpenAuto": "2026-09-22T10:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-09-28T11:10:37.642183+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-09-28T11:10:25.856065+09:00",
-      "bookingItemCheckedAt": "2026-09-28T11:10:25.856065+09:00",
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-22T10:13:17.354614+09:00",
-      "bookingIsOpened": true
-    },
-    {
       "id": "2046157118",
       "name": "그랜드 민트 페스티벌 2026",
       "hasBooking": true,
@@ -1038,6 +1009,36 @@
       "bookingItemCheckedAt": "2026-10-07T11:44:43.246880+09:00",
       "discoveredAt": "2026-10-07T11:33:47.236017+09:00",
       "lastBookingNotifiedAt": "2026-10-07T11:44:51.642719+09:00",
+      "bookingIsOpened": true
+    },
+    {
+      "id": "2008186282",
+      "name": "데이아웃",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
+      "bookingBusinessId": "1736187",
+      "operationStart": "26.10.15.",
+      "operationEnd": "26.10.17.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://naverbooking-phinf.pstatic.net/20260921_144/1789972358145pT0ar_PNG/image.png",
+      "roadAddress": "올림픽로 300 잠실 롯데월드타워 잔디광장",
+      "commonAddress": "서울 송파구",
+      "district": "송파구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-09-22T10:13:07.399856+09:00"
+      ],
+      "bookingOpenAuto": "2026-09-22T10:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-09-28T11:10:37.642183+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-09-28T11:10:25.856065+09:00",
+      "bookingItemCheckedAt": "2026-09-28T11:10:25.856065+09:00",
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-22T10:13:17.354614+09:00",
       "bookingIsOpened": true
     },
     {
@@ -1575,7 +1576,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T23:46:44.851244+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T00:19:15.450453+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1847,13 +1848,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
-      "ts": "2026-09-30T13:57:28.192666+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3246,6 +3240,13 @@
       "place_name": "숨37 Bio-Breath : Skin To Life",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "ts": "2026-10-13T21:57:41.016488+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2021563125",
+      "place_name": "THE ICON, VALENCIA",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
+      "ts": "2026-10-14T00:19:13.571047+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3434,24 +3435,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T00:13:50.799310+09:00",
+    "checked_at": "2026-10-14T00:19:13.571047+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 826,
-    "presale_items": 206,
-    "after_district_filter": 105,
+    "candidate_items": 815,
+    "presale_items": 202,
+    "after_district_filter": 104,
     "fallback_matched": 0,
-    "unique_place_ids": 61,
+    "unique_place_ids": 60,
     "tracked_places": 60,
     "new_places": 0,
     "last_new_place_at": "2026-10-13T17:04:38.297780+09:00",
     "admission_names": {
-      "(없음)": 408,
-      "현장대기": 212,
-      "사전예약&현장대기": 150,
-      "사전예약": 56
+      "(없음)": 400,
+      "현장대기": 213,
+      "사전예약&현장대기": 147,
+      "사전예약": 55
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
