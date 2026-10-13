@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T01:56:39.706304+09:00",
+  "updated_at": "2026-10-14T02:02:03.651358+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1154,7 +1154,7 @@
         "2026-10-13T17:54:47.801685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T01:29:35.462552+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T02:02:01.534123+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1167,7 +1167,7 @@
     {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "bookingBusinessId": "1752022",
       "operationStart": "26.10.15.",
@@ -1184,7 +1184,8 @@
         "2026-10-08T16:02:39.034633+09:00",
         "2026-10-13T16:03:59.220423+09:00",
         "2026-10-13T18:00:18.308855+09:00",
-        "2026-10-13T21:14:33.030038+09:00"
+        "2026-10-13T21:14:33.030038+09:00",
+        "2026-10-14T02:02:00.517394+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:43.562757+09:00",
@@ -1727,7 +1728,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T01:29:36.723661+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T02:02:02.952119+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1849,13 +1850,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2012544467",
-      "place_name": "Millerknoll 고객 라운지",
-      "booking_url": "",
-      "ts": "2026-09-30T15:38:23.730890+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2050363685",
@@ -3248,6 +3242,13 @@
       "place_name": "숨37 Bio-Breath : Skin To Life",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "ts": "2026-10-14T01:13:22.815950+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2025662302",
+      "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "ts": "2026-10-14T02:02:00.517394+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3436,7 +3437,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T01:56:37.271290+09:00",
+    "checked_at": "2026-10-14T02:02:00.517394+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
