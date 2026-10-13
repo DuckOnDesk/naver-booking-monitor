@@ -4823,3 +4823,4 @@
 {"ts": "2026-10-13T15:53:27+09:00", "kind": "alert", "item": "mv13x867", "name": "피스마이너스원", "date": "2026-10-18", "level": "open", "title": "🎉 피스마이너스원 예약 가능!", "slots": {"13:30": 1}}
 {"ts": "2026-10-13T15:55:31+09:00", "kind": "stock", "item": "mv13x867", "name": "피스마이너스원", "date": "2026-10-18", "change": "예약 변동(예약 발생)", "stock": [480, 480], "booked": [479, 480], "slots": {"13:30": {"from": [30, 29], "to": [30, 30]}}, "scope": ""}
 {"ts": "2026-10-13T16:54:40+09:00", "kind": "stock", "item": "mv4lfapd", "name": "THE ICON, VALENCIA", "date": "2026-10-15", "change": "예약 변동(예약 발생)", "stock": [40, 40], "booked": [5, 6], "slots": {"13:00": {"from": [10, 2], "to": [10, 3]}}, "scope": ""}
+{"ts": "2026-10-13T16:56:41+09:00", "kind": "stock", "item": "mv4lfapd", "name": "THE ICON, VALENCIA", "date": "2026-10-15", "change": "예약 변동(예약 발생)", "stock": [40, 40], "booked": [6, 7], "slots": {"13:00": {"from": [10, 3], "to": [10, 4]}}, "scope": ""}
