@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T18:59:48.688444+09:00",
+  "updated_at": "2026-10-13T19:05:12.640978+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1484,7 +1484,7 @@
         "2026-10-12T11:58:32.464917+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-13T18:32:46.976018+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T19:05:11.362456+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1611,34 +1611,6 @@
       "discoveredAt": "2026-10-02T15:53:24.703218+09:00",
       "lastBookingNotifiedAt": "2026-10-07T21:44:50.111767+09:00",
       "bookingIsOpened": true
-    },
-    {
-      "id": "2035247045",
-      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.16.",
-      "operationEnd": "26.10.22.",
-      "remainingDays": 3,
-      "status": "D-3",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_180/1791854769379WqChk_JPEG/edited-1791854767377-0.jpg",
-      "roadAddress": "테헤란로 517 B1F 대행사장",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-13T17:04:38.297780+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
     },
     {
       "id": "2077496355",
@@ -3488,24 +3460,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-13T18:59:46.105545+09:00",
+    "checked_at": "2026-10-13T19:05:10.308249+09:00",
     "areas_total": 34,
-    "areas_ok": 32,
-    "areas_failed": 2,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 756,
-    "presale_items": 194,
-    "after_district_filter": 106,
+    "candidate_items": 826,
+    "presale_items": 206,
+    "after_district_filter": 105,
     "fallback_matched": 0,
     "unique_place_ids": 61,
-    "tracked_places": 62,
+    "tracked_places": 61,
     "new_places": 0,
     "last_new_place_at": "2026-10-13T17:04:38.297780+09:00",
     "admission_names": {
-      "(없음)": 363,
-      "현장대기": 199,
-      "사전예약&현장대기": 142,
-      "사전예약": 52
+      "(없음)": 408,
+      "현장대기": 212,
+      "사전예약&현장대기": 150,
+      "사전예약": 56
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
@@ -4304,6 +4276,21 @@
       "bookingIsOpened": true,
       "name": "패브릭 도쿄 [팝업 스토어]",
       "savedAt": "2026-10-12T00:01:17.757419+09:00"
+    },
+    "2035247045": {
+      "hasBooking": false,
+      "bookingNotified": false,
+      "lastBookingNotifiedAt": null,
+      "discoveredAt": "2026-10-13T17:04:38.297780+09:00",
+      "bookingOpenHistory": [],
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "saleStartDate": null,
+      "bookingOpenAuto": null,
+      "bookingPaused": false,
+      "bookingIsOpened": false,
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "savedAt": "2026-10-13T19:05:10.308249+09:00"
     }
   },
   "auto_added_place_ids": [
@@ -4405,7 +4392,9 @@
     "2092452636",
     "2098025724"
   ],
-  "watch_missing_since": {},
+  "watch_missing_since": {
+    "2035247045": "2026-10-13T19:05:10.308205+09:00"
+  },
   "booking_url_history": {
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
     "2062283789": "https://m.booking.naver.com/booking/5/bizes/1713086/items/7942217",
