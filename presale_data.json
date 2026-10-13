@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T14:08:40.102327+09:00",
+  "updated_at": "2026-10-13T14:14:12.147997+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -284,7 +284,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T13:41:17.079322+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:14:06.542734+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -771,7 +771,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T13:41:17.803532+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:14:07.305438+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -799,7 +799,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T13:41:18.540353+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:14:07.868171+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -827,7 +827,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T13:41:19.134983+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:14:08.620398+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1150,7 +1150,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T13:41:20.452850+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:14:10.420824+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1341,7 +1341,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-13T13:41:15.425715+09:00",
+      "bookingItemCheckedAt": "2026-10-13T14:14:04.466193+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1420,7 +1420,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T13:41:21.189688+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:14:11.014268+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1637,7 +1637,7 @@
     {
       "id": "2017159810",
       "name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "bookingBusinessId": "1746136",
       "operationStart": "26.10.23.",
@@ -1718,7 +1718,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-13T13:41:21.763955+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:14:11.584160+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3424,7 +3424,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-13T14:08:37.500581+09:00",
+    "checked_at": "2026-10-13T14:14:04.466193+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
