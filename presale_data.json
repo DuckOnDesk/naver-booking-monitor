@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T14:36:03.328932+09:00",
+  "updated_at": "2026-10-13T14:41:31.178250+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -26,6 +26,7 @@
     "2063374607",
     "2074310152",
     "2077496355",
+    "2077665524",
     "2080685457",
     "2084168433",
     "2084267684",
@@ -1431,6 +1432,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2077665524",
+      "name": "2026서울미식주간-서울미식마켓",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.24.",
+      "operationEnd": "26.10.25.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_150/1791866936717crEqV_JPEG/edited-1791866935798-0.jpg",
+      "roadAddress": "퇴계로4길 25 4층",
+      "commonAddress": "서울 중구",
+      "district": "중구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-13T14:41:28.609145+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2080685457",
       "name": "캐논 팝업 : 캐논 사진 한방당",
       "hasBooking": false,
@@ -1450,7 +1479,7 @@
         "2026-10-12T11:58:32.464917+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-13T14:08:38.594412+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-13T14:41:29.683258+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1839,13 +1868,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-09-30T05:48:51.470946+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3238,6 +3260,13 @@
       "place_name": "숨37 Bio-Breath : Skin To Life",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "ts": "2026-10-13T11:45:51.216910+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2077665524",
+      "place_name": "2026서울미식주간-서울미식마켓",
+      "booking_url": "",
+      "ts": "2026-10-13T14:41:28.609145+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3396,6 +3425,7 @@
     "2075951781",
     "2076235934",
     "2077496355",
+    "2077665524",
     "2078141397",
     "2080230495",
     "2080685457",
@@ -3424,24 +3454,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-13T14:36:01.656940+09:00",
+    "checked_at": "2026-10-13T14:41:28.609145+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 811,
-    "presale_items": 202,
-    "after_district_filter": 103,
+    "candidate_items": 815,
+    "presale_items": 206,
+    "after_district_filter": 105,
     "fallback_matched": 0,
-    "unique_place_ids": 60,
-    "tracked_places": 60,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-12T10:47:02.143791+09:00",
+    "unique_place_ids": 61,
+    "tracked_places": 61,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-13T14:41:28.609145+09:00",
     "admission_names": {
       "(없음)": 396,
       "현장대기": 213,
       "사전예약&현장대기": 150,
-      "사전예약": 52
+      "사전예약": 56
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
@@ -4327,6 +4357,7 @@
     "2074310152",
     "2074820669",
     "2077496355",
+    "2077665524",
     "2080230495",
     "2080685457",
     "2082644987",
