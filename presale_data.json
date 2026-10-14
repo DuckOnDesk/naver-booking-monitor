@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T13:31:04.921535+09:00",
+  "updated_at": "2026-10-14T13:36:34.415134+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -286,7 +286,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T13:03:51.595750+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T13:36:30.386189+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -327,7 +327,7 @@
     {
       "id": "2021563125",
       "name": "THE ICON, VALENCIA",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
       "bookingBusinessId": "1751680",
       "operationStart": "26.10.08.",
@@ -344,7 +344,8 @@
         "2026-10-12T10:30:31.823951+09:00",
         "2026-10-14T00:19:13.571047+09:00",
         "2026-10-14T09:35:56.218721+09:00",
-        "2026-10-14T11:15:09.467168+09:00"
+        "2026-10-14T11:15:09.467168+09:00",
+        "2026-10-14T13:36:29.058396+09:00"
       ],
       "bookingOpenAuto": "",
       "bookingOpenAutoCheckedAt": "2026-10-14T13:09:20.636209+09:00",
@@ -749,7 +750,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T13:03:52.210664+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T13:36:30.989608+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -777,7 +778,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T13:03:52.684251+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T13:36:31.646778+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -833,7 +834,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T13:03:53.277326+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T13:36:32.231606+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1128,7 +1129,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T13:03:54.229441+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T13:36:33.278931+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1329,7 +1330,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-14T13:03:50.106402+09:00",
+      "bookingItemCheckedAt": "2026-10-14T13:36:29.058396+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1408,7 +1409,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T13:03:54.820104+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T13:36:33.752469+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1886,13 +1887,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-10-01T00:23:14.656737+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3285,6 +3279,13 @@
       "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "ts": "2026-10-14T12:31:13.789053+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2021563125",
+      "place_name": "THE ICON, VALENCIA",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
+      "ts": "2026-10-14T13:36:29.058396+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3474,7 +3475,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T13:31:02.957985+09:00",
+    "checked_at": "2026-10-14T13:36:29.058396+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
