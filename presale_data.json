@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T18:19:15.248950+09:00",
+  "updated_at": "2026-10-14T18:24:40.666849+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1442,7 +1442,7 @@
         "2026-10-12T11:58:32.464917+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-14T17:51:54.187869+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T18:24:39.257458+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1840,7 +1840,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1876,7 +1876,8 @@
         "2026-10-13T08:40:58.127893+09:00",
         "2026-10-13T11:13:00.639243+09:00",
         "2026-10-13T19:32:08.225525+09:00",
-        "2026-10-14T08:25:29.053989+09:00"
+        "2026-10-14T08:25:29.053989+09:00",
+        "2026-10-14T18:24:38.211958+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1891,13 +1892,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
-      "ts": "2026-10-01T10:15:18.263261+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2007416311",
@@ -3290,6 +3284,13 @@
       "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "ts": "2026-10-14T17:57:21.069259+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-14T18:24:38.211958+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3479,7 +3480,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T18:19:12.263346+09:00",
+    "checked_at": "2026-10-14T18:24:38.211958+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
