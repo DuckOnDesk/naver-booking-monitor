@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T18:40:59.102475+09:00",
+  "updated_at": "2026-10-14T18:46:28.130954+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1561,7 +1561,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T18:13:47.277864+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T18:46:26.169835+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1602,9 +1602,9 @@
     {
       "id": "2066116227",
       "name": "JBL 80주년, 바워스앤윌킨스 60주년 기념 전시회",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752030/items/8115493",
+      "bookingBusinessId": "1752030",
       "operationStart": "26.10.24.",
       "operationEnd": "26.10.31.",
       "remainingDays": 10,
@@ -1615,17 +1615,19 @@
       "commonAddress": "서울 강남구",
       "district": "강남구",
       "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
+      "bookingOpenHistory": [
+        "2026-10-14T18:46:22.318532+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-14T00:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T18:46:24.928335+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-14T18:46:22.318532+09:00",
+      "bookingItemCheckedAt": "2026-10-14T18:46:22.318532+09:00",
       "discoveredAt": "2026-10-14T18:40:57.357758+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
+      "lastBookingNotifiedAt": "2026-10-14T18:46:26.882018+09:00",
+      "bookingIsOpened": true
     },
     {
       "id": "2077496355",
@@ -1921,13 +1923,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
-      "ts": "2026-10-01T11:16:14.727386+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2020779335",
@@ -3320,6 +3315,13 @@
       "place_name": "JBL 80주년, 바워스앤윌킨스 60주년 기념 전시회",
       "booking_url": "",
       "ts": "2026-10-14T18:40:57.357758+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2066116227",
+      "place_name": "JBL 80주년, 바워스앤윌킨스 60주년 기념 전시회",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752030/items/8115493",
+      "ts": "2026-10-14T18:46:22.318532+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3510,24 +3512,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T18:40:57.357758+09:00",
+    "checked_at": "2026-10-14T18:46:22.318532+09:00",
     "areas_total": 34,
-    "areas_ok": 30,
-    "areas_failed": 4,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 771,
-    "presale_items": 191,
-    "after_district_filter": 106,
+    "candidate_items": 856,
+    "presale_items": 208,
+    "after_district_filter": 107,
     "fallback_matched": 0,
-    "unique_place_ids": 61,
+    "unique_place_ids": 62,
     "tracked_places": 62,
-    "new_places": 1,
+    "new_places": 0,
     "last_new_place_at": "2026-10-14T18:40:57.357758+09:00",
     "admission_names": {
-      "(없음)": 373,
-      "현장대기": 207,
-      "사전예약&현장대기": 142,
-      "사전예약": 49
+      "(없음)": 428,
+      "현장대기": 220,
+      "사전예약&현장대기": 155,
+      "사전예약": 53
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
@@ -4524,6 +4526,7 @@
     "2016839425": "https://m.booking.naver.com/booking/12/bizes/1749319/items/8105100",
     "2021563125": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
     "2080685457": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
-    "2084267684": "https://m.booking.naver.com/booking/5/bizes/1752726/items/8118134"
+    "2084267684": "https://m.booking.naver.com/booking/5/bizes/1752726/items/8118134",
+    "2066116227": "https://m.booking.naver.com/booking/12/bizes/1752030/items/8115493"
   }
 }
