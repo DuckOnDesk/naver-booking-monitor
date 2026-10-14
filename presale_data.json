@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T10:42:19.526331+09:00",
+  "updated_at": "2026-10-14T10:47:46.866144+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -7,6 +7,7 @@
     "2003262525",
     "2007085220",
     "2008186282",
+    "2009830926",
     "2013643054",
     "2013797495",
     "2017159810",
@@ -326,7 +327,7 @@
     {
       "id": "2021563125",
       "name": "THE ICON, VALENCIA",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
       "bookingBusinessId": "1751680",
       "operationStart": "26.10.08.",
@@ -1463,7 +1464,7 @@
         "2026-10-12T11:58:32.464917+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T18:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-14T10:14:59.998680+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T10:47:45.687957+09:00",
       "bookingPaused": false,
       "saleStartDate": null,
       "bookingNotified": false,
@@ -1590,6 +1591,34 @@
       "discoveredAt": "2026-10-02T15:53:24.703218+09:00",
       "lastBookingNotifiedAt": "2026-10-07T21:44:50.111767+09:00",
       "bookingIsOpened": true
+    },
+    {
+      "id": "2009830926",
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.16.",
+      "operationEnd": "26.10.22.",
+      "remainingDays": 2,
+      "status": "D-2",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
+      "roadAddress": "테헤란로 517 B1F 대행사장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
     },
     {
       "id": "2077496355",
@@ -1855,13 +1884,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
-      "ts": "2026-09-30T20:57:33.330391+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2015914479",
@@ -3254,6 +3276,13 @@
       "place_name": "THE ICON, VALENCIA",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
       "ts": "2026-10-14T09:35:56.218721+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2009830926",
+      "place_name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "booking_url": "",
+      "ts": "2026-10-14T10:47:44.830553+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3285,6 +3314,7 @@
     "2008543472",
     "2009522804",
     "2009756357",
+    "2009830926",
     "2011407355",
     "2012113406",
     "2012544467",
@@ -3442,23 +3472,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T10:42:16.463935+09:00",
+    "checked_at": "2026-10-14T10:47:44.830553+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 815,
-    "presale_items": 202,
-    "after_district_filter": 104,
+    "candidate_items": 819,
+    "presale_items": 206,
+    "after_district_filter": 106,
     "fallback_matched": 0,
-    "unique_place_ids": 60,
-    "tracked_places": 60,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-13T17:04:38.297780+09:00",
+    "unique_place_ids": 61,
+    "tracked_places": 61,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-14T10:47:44.830553+09:00",
     "admission_names": {
       "(없음)": 400,
       "현장대기": 213,
-      "사전예약&현장대기": 147,
+      "사전예약&현장대기": 151,
       "사전예약": 55
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
@@ -4303,6 +4333,7 @@
     "2007416311",
     "2008186282",
     "2008543472",
+    "2009830926",
     "2012113406",
     "2012544467",
     "2013115098",
