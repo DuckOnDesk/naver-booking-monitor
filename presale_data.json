@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T23:03:09.941303+09:00",
+  "updated_at": "2026-10-14T23:08:32.809793+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1563,7 +1563,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T22:36:11.780430+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T23:08:32.220245+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1718,7 +1718,7 @@
     {
       "id": "2017159810",
       "name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "bookingBusinessId": "1746136",
       "operationStart": "26.10.23.",
@@ -3516,7 +3516,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T23:03:09.100195+09:00",
+    "checked_at": "2026-10-14T23:08:31.327684+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
