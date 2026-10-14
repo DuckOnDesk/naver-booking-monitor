@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T21:09:57.119932+09:00",
+  "updated_at": "2026-10-14T21:15:22.767417+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -286,7 +286,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T20:40:11.550113+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T21:15:19.463807+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -752,7 +752,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T20:40:12.251653+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T21:15:19.914953+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -780,7 +780,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T20:40:12.785107+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T21:15:20.490322+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -836,7 +836,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T20:40:13.506927+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T21:15:20.936362+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1131,7 +1131,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T20:40:14.210021+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T21:15:21.561366+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1174,7 +1174,7 @@
     {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "bookingBusinessId": "1752022",
       "operationStart": "26.10.15.",
@@ -1195,7 +1195,8 @@
         "2026-10-14T02:02:00.517394+09:00",
         "2026-10-14T08:20:05.514985+09:00",
         "2026-10-14T12:31:13.789053+09:00",
-        "2026-10-14T17:57:21.069259+09:00"
+        "2026-10-14T17:57:21.069259+09:00",
+        "2026-10-14T21:15:17.996687+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:43.562757+09:00",
@@ -1333,7 +1334,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-14T20:40:09.828157+09:00",
+      "bookingItemCheckedAt": "2026-10-14T21:15:17.996687+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1412,7 +1413,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T20:40:14.950365+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T21:15:22.144057+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1871,7 +1872,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1908,7 +1909,8 @@
         "2026-10-13T11:13:00.639243+09:00",
         "2026-10-13T19:32:08.225525+09:00",
         "2026-10-14T08:25:29.053989+09:00",
-        "2026-10-14T18:24:38.211958+09:00"
+        "2026-10-14T18:24:38.211958+09:00",
+        "2026-10-14T21:15:17.996687+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1923,20 +1925,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
-      "ts": "2026-10-01T13:12:03.824775+09:00"
-    },
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-10-01T13:23:00.297415+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2015914479",
@@ -3322,6 +3310,20 @@
       "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "ts": "2026-10-14T20:07:43.739876+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2025662302",
+      "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "ts": "2026-10-14T21:15:17.996687+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-14T21:15:17.996687+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3512,7 +3514,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T21:09:55.690419+09:00",
+    "checked_at": "2026-10-14T21:15:17.996687+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
