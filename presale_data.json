@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T12:25:51.681401+09:00",
+  "updated_at": "2026-10-14T12:31:19.317187+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -286,7 +286,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T11:58:49.807920+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T12:31:15.149415+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -749,7 +749,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T11:58:50.274364+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T12:31:15.767536+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -777,7 +777,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T11:58:51.276262+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T12:31:16.379375+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -805,7 +805,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T11:58:51.853720+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T12:31:16.870183+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1128,7 +1128,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T11:58:53.006759+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T12:31:18.111472+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1171,7 +1171,7 @@
     {
       "id": "2025662302",
       "name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
       "bookingBusinessId": "1752022",
       "operationStart": "26.10.15.",
@@ -1190,7 +1190,8 @@
         "2026-10-13T18:00:18.308855+09:00",
         "2026-10-13T21:14:33.030038+09:00",
         "2026-10-14T02:02:00.517394+09:00",
-        "2026-10-14T08:20:05.514985+09:00"
+        "2026-10-14T08:20:05.514985+09:00",
+        "2026-10-14T12:31:13.789053+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:43.562757+09:00",
@@ -1328,7 +1329,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-14T11:58:48.086794+09:00",
+      "bookingItemCheckedAt": "2026-10-14T12:31:13.789053+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1407,7 +1408,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T11:58:53.621242+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T12:31:18.707907+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1885,13 +1886,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2071088201",
-      "place_name": "클리오 풍년다방 팝업스토어",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
-      "ts": "2026-10-01T00:23:14.656737+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3284,6 +3278,13 @@
       "place_name": "THE ICON, VALENCIA",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1751680/items/8114238",
       "ts": "2026-10-14T11:15:09.467168+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2025662302",
+      "place_name": "에디션드퍼퓸프레데릭말 뮤스크 라바줴 x 피스마이너스원",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752022/items/8115651",
+      "ts": "2026-10-14T12:31:13.789053+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3473,7 +3474,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T12:25:49.449181+09:00",
+    "checked_at": "2026-10-14T12:31:13.789053+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
