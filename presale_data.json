@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T20:02:21.432931+09:00",
+  "updated_at": "2026-10-14T20:07:50.360146+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -286,7 +286,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T19:35:17.644995+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T20:07:45.566683+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -752,7 +752,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T19:35:18.380916+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T20:07:46.279451+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -780,7 +780,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T19:35:19.090779+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T20:07:46.980184+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -836,7 +836,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T19:35:19.792729+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T20:07:47.681337+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1131,7 +1131,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T19:35:21.210968+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T20:07:49.113463+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1333,7 +1333,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-14T19:35:15.869925+09:00",
+      "bookingItemCheckedAt": "2026-10-14T20:07:43.739876+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1412,7 +1412,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T19:35:21.763248+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T20:07:49.641550+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1715,7 +1715,7 @@
     {
       "id": "2017159810",
       "name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "bookingBusinessId": "1746136",
       "operationStart": "26.10.23.",
@@ -1729,7 +1729,8 @@
       "district": "광진구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-10-05T10:30:52.858780+09:00"
+        "2026-10-05T10:30:52.858780+09:00",
+        "2026-10-14T20:07:43.739876+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-12T20:03:35.716531+09:00",
@@ -1922,13 +1923,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2020779335",
-      "place_name": "마르디 메크르디 프라이빗 아틀리에",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745971/items/8092124",
-      "ts": "2026-10-01T11:21:46.768424+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3321,6 +3315,13 @@
       "place_name": "JBL 80주년, 바워스앤윌킨스 60주년 기념 전시회",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752030/items/8115493",
       "ts": "2026-10-14T18:46:22.318532+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2017159810",
+      "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
+      "ts": "2026-10-14T20:07:43.739876+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3511,24 +3512,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T20:02:19.167560+09:00",
+    "checked_at": "2026-10-14T20:07:43.739876+09:00",
     "areas_total": 34,
-    "areas_ok": 21,
-    "areas_failed": 13,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 724,
-    "presale_items": 188,
-    "after_district_filter": 103,
+    "candidate_items": 856,
+    "presale_items": 208,
+    "after_district_filter": 107,
     "fallback_matched": 0,
-    "unique_place_ids": 58,
+    "unique_place_ids": 62,
     "tracked_places": 62,
     "new_places": 0,
     "last_new_place_at": "2026-10-14T18:40:57.357758+09:00",
     "admission_names": {
-      "(없음)": 340,
-      "현장대기": 196,
-      "사전예약&현장대기": 139,
-      "사전예약": 49
+      "(없음)": 428,
+      "현장대기": 220,
+      "사전예약&현장대기": 155,
+      "사전예약": 53
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
