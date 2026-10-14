@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T23:19:20.925560+09:00",
+  "updated_at": "2026-10-14T23:24:46.298958+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -286,7 +286,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T22:52:20.869997+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T23:24:42.866858+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -754,7 +754,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T22:52:21.464827+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T23:24:43.480033+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -782,7 +782,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T22:52:22.047831+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T23:24:44.056661+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -838,7 +838,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T22:52:22.653761+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T23:24:44.657691+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1133,7 +1133,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T22:52:23.095552+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T23:24:45.109280+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1336,7 +1336,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-14T22:52:19.311672+09:00",
+      "bookingItemCheckedAt": "2026-10-14T23:24:41.206296+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1415,7 +1415,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T22:52:23.691574+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T23:24:45.713565+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1718,7 +1718,7 @@
     {
       "id": "2017159810",
       "name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "bookingBusinessId": "1746136",
       "operationStart": "26.10.23.",
@@ -1733,7 +1733,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-10-05T10:30:52.858780+09:00",
-        "2026-10-14T20:07:43.739876+09:00"
+        "2026-10-14T20:07:43.739876+09:00",
+        "2026-10-14T23:24:41.206296+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-12T20:03:35.716531+09:00",
@@ -1927,13 +1928,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2098025724",
-      "place_name": "웰니스 크루즈 한남",
-      "booking_url": "",
-      "ts": "2026-10-01T14:18:35.921801+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3326,6 +3320,13 @@
       "place_name": "코치 'LIVE YOUR STORY' 팝업",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1755679/items/8128985",
       "ts": "2026-10-14T22:09:14.606229+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2017159810",
+      "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
+      "ts": "2026-10-14T23:24:41.206296+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3516,7 +3517,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T23:19:19.439423+09:00",
+    "checked_at": "2026-10-14T23:24:41.206296+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
