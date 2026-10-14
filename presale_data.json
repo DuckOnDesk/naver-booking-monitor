@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T18:57:19.324318+09:00",
+  "updated_at": "2026-10-14T19:02:48.076626+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -287,7 +287,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T18:30:05.344455+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T19:02:43.085463+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -546,7 +546,7 @@
     {
       "id": "2030290261",
       "name": "Cafe 1014: For Keria",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
       "bookingBusinessId": "1745091",
       "operationStart": "26.10.10.",
@@ -753,7 +753,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T18:30:06.059938+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T19:02:43.781563+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -781,7 +781,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T18:30:06.759256+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T19:02:44.504157+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -837,7 +837,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T18:30:07.312672+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T19:02:45.224038+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1132,7 +1132,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T18:30:08.617427+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T19:02:46.649007+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1334,7 +1334,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-14T18:30:03.558402+09:00",
+      "bookingItemCheckedAt": "2026-10-14T19:02:41.330658+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1413,7 +1413,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-14T18:30:09.347358+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-14T19:02:47.359699+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3512,7 +3512,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-14T18:57:16.676700+09:00",
+    "checked_at": "2026-10-14T19:02:41.330658+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
