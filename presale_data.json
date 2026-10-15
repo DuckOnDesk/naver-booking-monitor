@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16T05:50:24.995149+09:00",
+  "updated_at": "2026-10-16T05:55:48.820827+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -342,7 +342,7 @@
         "2026-10-14T13:36:29.058396+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T05:21:41.497823+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T05:55:46.074146+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -500,7 +500,7 @@
         "2026-10-14T17:29:55.693273+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T05:21:42.652682+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T05:55:47.218995+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1212,7 +1212,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T05:21:43.352904+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T05:55:48.039051+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3418,24 +3418,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-16T05:50:24.992787+09:00",
+    "checked_at": "2026-10-16T05:55:46.074004+09:00",
     "areas_total": 34,
-    "areas_ok": 1,
-    "areas_failed": 33,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 70,
-    "presale_items": 22,
-    "after_district_filter": 16,
+    "candidate_items": 808,
+    "presale_items": 197,
+    "after_district_filter": 102,
     "fallback_matched": 0,
-    "unique_place_ids": 16,
+    "unique_place_ids": 59,
     "tracked_places": 59,
     "new_places": 0,
     "last_new_place_at": "2026-10-15T12:06:58.973826+09:00",
     "admission_names": {
-      "현장대기": 24,
-      "(없음)": 24,
-      "사전예약&현장대기": 16,
-      "사전예약": 6
+      "(없음)": 403,
+      "현장대기": 208,
+      "사전예약&현장대기": 154,
+      "사전예약": 43
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
