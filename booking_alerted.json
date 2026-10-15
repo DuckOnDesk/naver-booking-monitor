@@ -3104,8 +3104,7 @@
   },
   "mtssyscp:auto_book_state": {
     "sig": "2026-10-24|종일",
-    "attempts": 15,
-    "dispatched_at": "2026-10-15T19:48:17+09:00"
+    "attempts": 15
   },
   "muz0zw0t:2026-10-17:stock": {
     "12:00": [
