@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-15T23:24:41.462192+09:00",
+  "updated_at": "2026-10-15T23:30:02.643361+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1502,6 +1502,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2009830926",
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.16.",
+      "operationEnd": "26.10.22.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
+      "roadAddress": "테헤란로 517 B1F 대행사장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2066116227",
       "name": "JBL 80주년, 바워스앤윌킨스 60주년 기념 전시회",
       "hasBooking": true,
@@ -1530,34 +1558,6 @@
       "discoveredAt": "2026-10-14T18:40:57.357758+09:00",
       "lastBookingNotifiedAt": "2026-10-14T18:46:26.882018+09:00",
       "bookingIsOpened": true
-    },
-    {
-      "id": "2009830926",
-      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.16.",
-      "operationEnd": "26.10.22.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
-      "roadAddress": "테헤란로 517 B1F 대행사장",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
     },
     {
       "id": "2077496355",
@@ -3486,7 +3486,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-15T23:24:39.067283+09:00",
+    "checked_at": "2026-10-15T23:30:02.639793+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3500,8 +3500,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-15T12:06:58.973826+09:00",
     "admission_names": {
-      "(없음)": 448,
-      "현장대기": 212,
+      "(없음)": 447,
+      "현장대기": 213,
       "사전예약&현장대기": 155,
       "사전예약": 49
     },
