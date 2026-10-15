@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-15T10:10:48.463161+09:00",
+  "updated_at": "2026-10-15T10:16:22.734221+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -253,7 +253,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T09:43:29.369928+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T10:16:17.871981+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -683,7 +683,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T09:43:29.976567+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T10:16:18.691242+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -711,7 +711,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T09:43:30.847408+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T10:16:19.527334+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -767,7 +767,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T09:43:31.906162+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T10:16:20.340796+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1029,7 +1029,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T09:43:32.925554+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T10:16:21.118207+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1234,7 +1234,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-15T09:43:28.168699+09:00",
+      "bookingItemCheckedAt": "2026-10-15T10:16:16.688187+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1313,7 +1313,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T09:43:33.752213+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T10:16:21.918478+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1649,7 +1649,7 @@
     {
       "id": "2004835321",
       "name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "bookingBusinessId": "1746745",
       "operationStart": "26.10.23.",
@@ -1672,7 +1672,8 @@
         "2026-10-12T21:18:53.184499+09:00",
         "2026-10-14T04:00:53.266308+09:00",
         "2026-10-14T14:52:44.350229+09:00",
-        "2026-10-15T01:44:08.678531+09:00"
+        "2026-10-15T01:44:08.678531+09:00",
+        "2026-10-15T10:16:16.688187+09:00"
       ],
       "bookingOpenAuto": "2026-10-10T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-15T01:44:08.679293+09:00",
@@ -1828,13 +1829,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
-      "ts": "2026-10-01T22:26:43.179960+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3227,6 +3221,13 @@
       "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "ts": "2026-10-15T10:05:16.336184+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2004835321",
+      "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
+      "ts": "2026-10-15T10:16:16.688187+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3417,7 +3418,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-15T10:10:47.276961+09:00",
+    "checked_at": "2026-10-15T10:16:16.688187+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
