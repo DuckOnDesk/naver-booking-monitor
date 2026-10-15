@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-15T12:12:23.077421+09:00",
+  "updated_at": "2026-10-15T12:17:51.386624+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1061,7 +1061,7 @@
         "2026-10-13T17:54:47.801685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T11:44:56.542969+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T12:17:49.097077+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1502,34 +1502,6 @@
       "bookingIsOpened": true
     },
     {
-      "id": "2009830926",
-      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.16.",
-      "operationEnd": "26.10.22.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
-      "roadAddress": "테헤란로 517 B1F 대행사장",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2066116227",
       "name": "JBL 80주년, 바워스앤윌킨스 60주년 기념 전시회",
       "hasBooking": true,
@@ -1558,6 +1530,34 @@
       "discoveredAt": "2026-10-14T18:40:57.357758+09:00",
       "lastBookingNotifiedAt": "2026-10-14T18:46:26.882018+09:00",
       "bookingIsOpened": true
+    },
+    {
+      "id": "2009830926",
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.16.",
+      "operationEnd": "26.10.22.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
+      "roadAddress": "테헤란로 517 B1F 대행사장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
     },
     {
       "id": "2077496355",
@@ -1734,7 +1734,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T11:44:57.806938+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T12:17:50.574729+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1806,7 +1806,7 @@
     {
       "id": "2057411647",
       "name": "<재혼황후 : 황궁으로의 초대>",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1755226/items/8127391",
       "bookingBusinessId": "1755226",
       "operationStart": "26.10.30.",
@@ -1820,7 +1820,8 @@
       "district": "금천구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-10-15T11:39:23.120687+09:00"
+        "2026-10-15T11:39:23.120687+09:00",
+        "2026-10-15T12:17:49.096902+09:00"
       ],
       "bookingOpenAuto": "2026-10-15T11:10:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-15T11:39:26.593911+09:00",
@@ -1890,13 +1891,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2050363685",
-      "place_name": "콜라보카페 세이브포인트",
-      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1641637/items/8059668",
-      "ts": "2026-10-02T05:18:24.960526+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2071088201",
@@ -3289,6 +3283,13 @@
       "place_name": "wave to earth POP-UP EVENT",
       "booking_url": "",
       "ts": "2026-10-15T12:06:58.973826+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2057411647",
+      "place_name": "<재혼황후 : 황궁으로의 초대>",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1755226/items/8127391",
+      "ts": "2026-10-15T12:17:49.096902+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3481,24 +3482,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-15T12:12:21.892292+09:00",
+    "checked_at": "2026-10-15T12:17:49.096902+09:00",
     "areas_total": 34,
-    "areas_ok": 28,
-    "areas_failed": 6,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 771,
-    "presale_items": 182,
-    "after_district_filter": 99,
+    "candidate_items": 871,
+    "presale_items": 203,
+    "after_district_filter": 104,
     "fallback_matched": 0,
-    "unique_place_ids": 56,
+    "unique_place_ids": 61,
     "tracked_places": 61,
     "new_places": 0,
     "last_new_place_at": "2026-10-15T12:06:58.973826+09:00",
     "admission_names": {
-      "(없음)": 387,
-      "현장대기": 202,
-      "사전예약&현장대기": 138,
-      "사전예약": 44
+      "(없음)": 445,
+      "현장대기": 223,
+      "사전예약&현장대기": 155,
+      "사전예약": 48
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
