@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-15T14:57:16.155658+09:00",
+  "updated_at": "2026-10-15T15:02:42.867018+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1061,7 +1061,7 @@
         "2026-10-13T17:54:47.801685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T14:30:00.717751+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T15:02:41.378088+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1142,7 +1142,7 @@
     {
       "id": "2033196326",
       "name": "숨37 Bio-Breath : Skin To Life",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
       "bookingBusinessId": "1752041",
       "operationStart": "26.10.15.",
@@ -1162,7 +1162,8 @@
         "2026-10-13T04:58:57.220814+09:00",
         "2026-10-13T11:45:51.216910+09:00",
         "2026-10-13T21:57:41.016488+09:00",
-        "2026-10-14T01:13:22.815950+09:00"
+        "2026-10-14T01:13:22.815950+09:00",
+        "2026-10-15T15:02:41.377864+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T18:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-09T10:35:42.983218+09:00",
@@ -1503,6 +1504,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2009830926",
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.16.",
+      "operationEnd": "26.10.22.",
+      "remainingDays": 1,
+      "status": "D-1",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
+      "roadAddress": "테헤란로 517 B1F 대행사장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2066116227",
       "name": "JBL 80주년, 바워스앤윌킨스 60주년 기념 전시회",
       "hasBooking": true,
@@ -1531,34 +1560,6 @@
       "discoveredAt": "2026-10-14T18:40:57.357758+09:00",
       "lastBookingNotifiedAt": "2026-10-14T18:46:26.882018+09:00",
       "bookingIsOpened": true
-    },
-    {
-      "id": "2009830926",
-      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.16.",
-      "operationEnd": "26.10.22.",
-      "remainingDays": 1,
-      "status": "D-1",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
-      "roadAddress": "테헤란로 517 B1F 대행사장",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
     },
     {
       "id": "2077496355",
@@ -1737,7 +1738,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-15T14:30:01.526533+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-15T15:02:42.312443+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1894,13 +1895,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
-      "ts": "2026-10-02T10:27:28.243699+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3293,6 +3287,13 @@
       "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "ts": "2026-10-15T14:57:15.337065+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2033196326",
+      "place_name": "숨37 Bio-Breath : Skin To Life",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1752041/items/8115523",
+      "ts": "2026-10-15T15:02:41.377864+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3485,7 +3486,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-15T14:57:15.337065+09:00",
+    "checked_at": "2026-10-15T15:02:41.377864+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
