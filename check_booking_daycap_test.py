@@ -59,6 +59,27 @@ def main() -> int:
     logs, sent, _ = run_check([room], {D: slots})
     check(any("예약 가능" in t for t, _ in sent), f"🎉 알림 발송 (실제: {sent})")
 
+    print("4) 하루 정원이 1자리 남으면 회차 숫자가 아니라 1자리로 알린다 (10-15 14:10 재현)")
+    two = [unit("15:00", stock=280, booked=40), unit("16:00", stock=280, booked=26)]
+    one_left = {"dateKey": D, "stock": 560, "bookingCount": 559,
+                "hasBookableSlots": True, "isSaleDay": True}
+    logs, sent, _ = run_check([one_left], {D: two})
+    check(sent and "15:00(1)" in sent[0][1] and "16:00(1)" in sent[0][1]
+          and "240" not in sent[0][1] and "254" not in sent[0][1],
+          f"회차 자리 수를 하루 잔여로 자른다 (실제: {sent})")
+
+    print("5) 매진인 날 hourly가 한 회차 비어도 재고 변동 알림이 나가지 않는다 (10-16 03:39 재현)")
+    alerted = {f"clio:{D}:stock": {"15:00": [280, 40], "16:00": [280, 26]}, f"clio:{D}:scope": ""}
+    full2 = {"dateKey": D, "stock": 560, "bookingCount": 560,
+             "hasBookableSlots": False, "isSaleDay": True}
+    logs, sent, _ = run_check([full2], {D: []}, alerted=alerted)
+    check(not sent, f"알림 없음 (실제: {sent})")
+    check("📊" not in logs, f"재고 변동으로 적지 않는다 (실제: {logs})")
+    check(alerted[f"clio:{D}:stock"] == {"15:00": [280, 40], "16:00": [280, 26]},
+          f"직전 스냅샷 유지 (실제: {alerted[f'clio:{D}:stock']})")
+    logs, sent, _ = run_check([full2], {D: two}, alerted=alerted)
+    check(not sent and "📊" not in logs, f"회차가 돌아와도 변동 없음 (실제: {sent} / {logs})")
+
     print()
     if fails:
         print(f"실패 {len(fails)}건:")
