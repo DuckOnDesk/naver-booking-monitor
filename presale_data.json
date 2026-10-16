@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-17T03:56:53.511762+09:00",
+  "updated_at": "2026-10-17T04:02:18.618950+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -317,7 +317,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T03:29:26.903984+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T04:02:15.149596+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -826,7 +826,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T03:29:27.692025+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T04:02:15.846094+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -856,7 +856,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T03:29:28.552654+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T04:02:16.698029+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -884,7 +884,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T03:29:29.142276+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T04:02:17.386790+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1332,7 +1332,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T03:29:30.007130+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T04:02:18.092986+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1373,7 +1373,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-17T03:29:25.747956+09:00",
+      "bookingItemCheckedAt": "2026-10-17T04:02:14.118440+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1704,7 +1704,7 @@
     {
       "id": "2004835321",
       "name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "bookingBusinessId": "1746745",
       "operationStart": "26.10.23.",
@@ -1730,7 +1730,8 @@
         "2026-10-15T01:44:08.678531+09:00",
         "2026-10-15T10:16:16.688187+09:00",
         "2026-10-15T13:57:25.504815+09:00",
-        "2026-10-15T19:22:10.135852+09:00"
+        "2026-10-15T19:22:10.135852+09:00",
+        "2026-10-17T04:02:14.118440+09:00"
       ],
       "bookingOpenAuto": "2026-10-10T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-15T10:55:04.006936+09:00",
@@ -1923,13 +1924,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2098025724",
-      "place_name": "웰니스 크루즈 한남",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741002/items/8071793",
-      "ts": "2026-10-02T19:39:01.019127+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3322,6 +3316,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-16T22:03:18.163324+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2004835321",
+      "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
+      "ts": "2026-10-17T04:02:14.118440+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3518,7 +3519,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-17T03:56:51.784693+09:00",
+    "checked_at": "2026-10-17T04:02:14.118440+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
