@@ -143,10 +143,23 @@ def capture_page(url: str, datekey: str) -> None:
         if any(u.endswith(ext) for ext in (".js", ".css", ".png", ".jpg", ".svg", ".woff2")):
             return
         try:
-            body = resp.text()[:1500]
+            full = resp.text()
+            body = full[:1500]
         except Exception:
-            body = "(본문 못 읽음)"
+            full, body = "", "(본문 못 읽음)"
         seen.append((f"{resp.status} {u[:160]}", body))
+        # bizItems 본문은 길어서 앞부분만 남기면 1인 예약 매수 같은 설정이 잘린다.
+        # 매수·인원 관련 필드만 따로 뽑아 둔다.
+        if "opName=bizItems" in u and full:
+            try:
+                items = json.loads(full)["data"]["bizItems"] or []
+            except Exception:
+                items = []
+            for it in items:
+                picked = {k: v for k, v in it.items()
+                          if any(w in k.lower() for w in ("count", "person", "quantity", "limit", "max", "min"))}
+                print(f"  [bizItem {it.get('bizItemId')}] 매수·인원 관련 필드: "
+                      f"{json.dumps(picked, ensure_ascii=False)[:1500]}")
 
     target = url + ("&" if "?" in url else "?") + f"startDateTime={datekey}T00:00:00%2B09:00"
     with sync_playwright() as pw:
