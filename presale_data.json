@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16T18:28:35.646219+09:00",
+  "updated_at": "2026-10-16T18:33:59.528556+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -922,7 +922,7 @@
     {
       "id": "2008186282",
       "name": "데이아웃",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
       "bookingBusinessId": "1736187",
       "operationStart": "26.10.15.",
@@ -937,7 +937,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-09-22T10:13:07.399856+09:00",
-        "2026-10-16T15:03:39.619449+09:00"
+        "2026-10-16T15:03:39.619449+09:00",
+        "2026-10-16T18:33:57.639458+09:00"
       ],
       "bookingOpenAuto": "2026-09-22T10:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:37.642183+09:00",
@@ -1116,7 +1117,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T18:01:34.022777+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T18:33:58.484675+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1146,7 +1147,7 @@
         "2026-10-13T17:54:47.801685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T18:01:33.159145+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T18:33:57.639723+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1539,7 +1540,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T18:01:34.611722+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T18:33:59.067686+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1889,13 +1890,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "new_popup",
-      "place_id": "2084267684",
-      "place_name": "에얼스 더현대 서울 팝업스토어",
-      "booking_url": "",
-      "ts": "2026-10-02T16:37:18.683007+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3288,6 +3282,13 @@
       "place_name": "AP BEAUTY 팝업 스토어",
       "booking_url": "",
       "ts": "2026-10-16T17:39:52.400794+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2008186282",
+      "place_name": "데이아웃",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
+      "ts": "2026-10-16T18:33:57.639458+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3483,7 +3484,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-16T18:28:35.642282+09:00",
+    "checked_at": "2026-10-16T18:33:57.639458+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
