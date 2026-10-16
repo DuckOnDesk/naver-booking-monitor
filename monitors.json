@@ -71,6 +71,13 @@
       "url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687?startDate=2026-10-17&tab=book",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mvafaepa",
+      "name": "어바웃톤",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1357646/items/8124911?theme=place&lang=ko&area=pll",
+      "enabled": true,
+      "target_dates": []
     }
   ]
 }
