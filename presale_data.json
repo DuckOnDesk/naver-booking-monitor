@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16T16:41:59.234577+09:00",
+  "updated_at": "2026-10-16T16:47:27.210837+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -344,7 +344,7 @@
         "2026-10-14T13:36:29.058396+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T16:14:37.960358+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T16:47:24.634221+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -500,7 +500,7 @@
         "2026-10-14T17:29:55.693273+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T16:14:38.984153+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T16:47:25.786138+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -835,6 +835,34 @@
       "bookingIsOpened": true
     },
     {
+      "id": "2009830926",
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.16.",
+      "operationEnd": "26.10.22.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
+      "roadAddress": "테헤란로 517 B1F 대행사장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
       "hasBooking": true,
@@ -893,7 +921,7 @@
     {
       "id": "2008186282",
       "name": "데이아웃",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
       "bookingBusinessId": "1736187",
       "operationStart": "26.10.15.",
@@ -1243,7 +1271,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T16:14:39.681739+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T16:47:26.496370+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1491,34 +1519,6 @@
       "discoveredAt": "2026-10-02T15:53:24.703218+09:00",
       "lastBookingNotifiedAt": "2026-10-07T21:44:50.111767+09:00",
       "bookingIsOpened": true
-    },
-    {
-      "id": "2009830926",
-      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.16.",
-      "operationEnd": "26.10.22.",
-      "remainingDays": null,
-      "status": "오늘오픈",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
-      "roadAddress": "테헤란로 517 B1F 대행사장",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
     },
     {
       "id": "2066116227",
@@ -1803,7 +1803,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1844,7 +1844,8 @@
         "2026-10-14T21:15:17.996687+09:00",
         "2026-10-15T11:17:07.890671+09:00",
         "2026-10-15T21:53:02.508588+09:00",
-        "2026-10-16T06:44:19.380718+09:00"
+        "2026-10-16T06:44:19.380718+09:00",
+        "2026-10-16T16:47:24.634031+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1859,13 +1860,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
-      "ts": "2026-10-02T15:47:50.671758+09:00"
-    },
     {
       "type": "new_popup",
       "place_id": "2022112166",
@@ -3258,6 +3252,13 @@
       "place_name": "데이아웃",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
       "ts": "2026-10-16T15:03:39.619449+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-16T16:47:24.634031+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3452,23 +3453,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-16T16:41:55.029686+09:00",
+    "checked_at": "2026-10-16T16:47:24.634031+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
     "candidate_items": 817,
-    "presale_items": 202,
-    "after_district_filter": 103,
+    "presale_items": 203,
+    "after_district_filter": 104,
     "fallback_matched": 0,
     "unique_place_ids": 60,
     "tracked_places": 60,
     "new_places": 0,
     "last_new_place_at": "2026-10-16T12:58:32.907894+09:00",
     "admission_names": {
-      "(없음)": 405,
+      "(없음)": 404,
       "현장대기": 210,
-      "사전예약&현장대기": 156,
+      "사전예약&현장대기": 157,
       "사전예약": 46
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
