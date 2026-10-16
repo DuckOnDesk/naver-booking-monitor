@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16T11:53:31.761224+09:00",
+  "updated_at": "2026-10-16T11:58:59.831248+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1004,124 +1004,6 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-21T13:07:26.085449+09:00",
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2003577663",
-      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1744266/items/8088598",
-      "bookingBusinessId": "1744266",
-      "operationStart": "26.10.01.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20261001_251/17908358062988w6SF_JPEG/image.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 B1 ICONIC POP-UP",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-09-29T08:02:31.106298+09:00"
-      ],
-      "bookingOpenAuto": "2026-09-29T11:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-12T14:50:37.142305+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-25T07:00:47.319605+09:00",
-      "lastBookingNotifiedAt": "2026-09-29T11:56:03.959162+09:00",
-      "bookingIsOpened": true
-    },
-    {
-      "id": "2012544467",
-      "name": "오름앤컴퍼니 허먼밀러 라운지",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1747903/items/8099300",
-      "bookingBusinessId": "1747903",
-      "operationStart": "26.09.13.",
-      "operationEnd": "26.12.10.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_73/1790567999329YrH4F_JPEG/%BF%C0%B8%A7%BE%D8%C4%C4%C6%DB%B4%CF_09160493.jpg",
-      "roadAddress": "국제금융로 10 IFC몰 L3 튜브라운지",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-02T13:14:21.320942+09:00"
-      ],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T11:48:02.720731+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": true
-    },
-    {
-      "id": "2084267684",
-      "name": "에얼스 더현대 서울 팝업스토어",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1752726/items/8118134",
-      "bookingBusinessId": "1752726",
-      "operationStart": "26.10.12.",
-      "operationEnd": "26.10.18.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://naverbooking-phinf.pstatic.net/20261008_32/1791434115514yKI2y_JPEG/image.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 1F",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-13T17:54:47.801685+09:00"
-      ],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T11:37:01.739323+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-13T17:54:47.801685+09:00",
-      "bookingItemCheckedAt": "2026-10-13T17:54:47.801685+09:00",
-      "discoveredAt": "2026-10-02T16:37:18.683007+09:00",
-      "lastBookingNotifiedAt": "2026-10-13T17:54:52.560132+09:00",
-      "bookingIsOpened": true
-    },
-    {
-      "id": "2039386160",
-      "name": "wave to earth POP-UP EVENT",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.22.",
-      "operationEnd": "26.10.28.",
-      "remainingDays": 6,
-      "status": "D-6",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261001_50/1790828892708sbsBx_JPEG/edited-1790828892520-0.jpg",
-      "roadAddress": "여의대로 108 더현대 서울 지하2층 센트럴",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-15T12:06:58.973826+09:00",
-      "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
     {
@@ -3419,24 +3301,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-16T11:53:29.438799+09:00",
+    "checked_at": "2026-10-16T11:58:59.829523+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 804,
-    "presale_items": 197,
-    "after_district_filter": 102,
+    "candidate_items": 890,
+    "presale_items": 192,
+    "after_district_filter": 98,
     "fallback_matched": 0,
-    "unique_place_ids": 59,
-    "tracked_places": 59,
+    "unique_place_ids": 55,
+    "tracked_places": 55,
     "new_places": 0,
     "last_new_place_at": "2026-10-15T12:06:58.973826+09:00",
     "admission_names": {
-      "(없음)": 404,
-      "현장대기": 203,
-      "사전예약&현장대기": 154,
-      "사전예약": 43
+      "(없음)": 507,
+      "현장대기": 191,
+      "사전예약&현장대기": 151,
+      "사전예약": 41
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
     "structure_warned_at": null
@@ -4368,6 +4250,72 @@
       "bookingIsOpened": true,
       "name": "브라운더스트2 글루피스토어 IN 신촌 팝업스토어",
       "savedAt": "2026-10-16T00:02:20.419092+09:00"
+    },
+    "2003577663": {
+      "hasBooking": true,
+      "bookingNotified": true,
+      "lastBookingNotifiedAt": "2026-09-29T11:56:03.959162+09:00",
+      "discoveredAt": "2026-09-25T07:00:47.319605+09:00",
+      "bookingOpenHistory": [
+        "2026-09-29T08:02:31.106298+09:00"
+      ],
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1744266/items/8088598",
+      "bookingBusinessId": "1744266",
+      "saleStartDate": null,
+      "bookingOpenAuto": "2026-09-29T11:00:00+09:00",
+      "bookingPaused": false,
+      "bookingIsOpened": true,
+      "name": "세븐틴 I 스머프 : 사라진 멜로디를 찾아서",
+      "savedAt": "2026-10-16T11:58:59.829523+09:00"
+    },
+    "2012544467": {
+      "hasBooking": true,
+      "bookingNotified": false,
+      "lastBookingNotifiedAt": null,
+      "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
+      "bookingOpenHistory": [
+        "2026-10-02T13:14:21.320942+09:00"
+      ],
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1747903/items/8099300",
+      "bookingBusinessId": "1747903",
+      "saleStartDate": "",
+      "bookingOpenAuto": "",
+      "bookingPaused": false,
+      "bookingIsOpened": true,
+      "name": "오름앤컴퍼니 허먼밀러 라운지",
+      "savedAt": "2026-10-16T11:58:59.829523+09:00"
+    },
+    "2084267684": {
+      "hasBooking": true,
+      "bookingNotified": true,
+      "lastBookingNotifiedAt": "2026-10-13T17:54:52.560132+09:00",
+      "discoveredAt": "2026-10-02T16:37:18.683007+09:00",
+      "bookingOpenHistory": [
+        "2026-10-13T17:54:47.801685+09:00"
+      ],
+      "bookingUrl": "https://m.booking.naver.com/booking/5/bizes/1752726/items/8118134",
+      "bookingBusinessId": "1752726",
+      "saleStartDate": "",
+      "bookingOpenAuto": "",
+      "bookingPaused": false,
+      "bookingIsOpened": true,
+      "name": "에얼스 더현대 서울 팝업스토어",
+      "savedAt": "2026-10-16T11:58:59.829523+09:00"
+    },
+    "2039386160": {
+      "hasBooking": false,
+      "bookingNotified": false,
+      "lastBookingNotifiedAt": null,
+      "discoveredAt": "2026-10-15T12:06:58.973826+09:00",
+      "bookingOpenHistory": [],
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "saleStartDate": null,
+      "bookingOpenAuto": null,
+      "bookingPaused": false,
+      "bookingIsOpened": false,
+      "name": "wave to earth POP-UP EVENT",
+      "savedAt": "2026-10-16T11:58:59.829523+09:00"
     }
   },
   "auto_added_place_ids": [
@@ -4473,7 +4421,10 @@
     "2092452636",
     "2098025724"
   ],
-  "watch_missing_since": {},
+  "watch_missing_since": {
+    "2039386160": "2026-10-16T11:58:59.829470+09:00",
+    "2084267684": "2026-10-16T11:58:59.829470+09:00"
+  },
   "booking_url_history": {
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
     "2062283789": "https://m.booking.naver.com/booking/5/bizes/1713086/items/7942217",
