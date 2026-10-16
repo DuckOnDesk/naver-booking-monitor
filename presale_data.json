@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16T14:58:14.814484+09:00",
+  "updated_at": "2026-10-16T15:03:44.180467+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -282,7 +282,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T14:31:02.519331+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T15:03:40.648051+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -766,7 +766,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T14:31:03.219976+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T15:03:41.355970+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -796,7 +796,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T14:31:03.908390+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T15:03:42.057497+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -824,7 +824,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T14:31:04.632216+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T15:03:42.771592+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -921,7 +921,7 @@
     {
       "id": "2008186282",
       "name": "데이아웃",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
       "bookingBusinessId": "1736187",
       "operationStart": "26.10.15.",
@@ -935,7 +935,8 @@
       "district": "송파구",
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
-        "2026-09-22T10:13:07.399856+09:00"
+        "2026-09-22T10:13:07.399856+09:00",
+        "2026-10-16T15:03:39.619449+09:00"
       ],
       "bookingOpenAuto": "2026-09-22T10:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:37.642183+09:00",
@@ -1311,7 +1312,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-16T14:31:01.457950+09:00",
+      "bookingItemCheckedAt": "2026-10-16T15:03:39.619449+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1390,7 +1391,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T14:31:05.334671+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T15:03:43.483037+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1858,13 +1859,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
-      "ts": "2026-10-02T15:36:53.967059+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2038718464",
@@ -3257,6 +3251,13 @@
       "place_name": "리바이포유 10주년 성수 팝업",
       "booking_url": "",
       "ts": "2026-10-16T12:58:32.907894+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2008186282",
+      "place_name": "데이아웃",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
+      "ts": "2026-10-16T15:03:39.619449+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3451,7 +3452,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-16T14:58:12.910505+09:00",
+    "checked_at": "2026-10-16T15:03:39.619449+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
