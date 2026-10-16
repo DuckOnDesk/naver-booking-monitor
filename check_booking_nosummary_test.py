@@ -59,7 +59,7 @@ def slots_result(slots):
     }
 
 
-def run_check(days, hourly_by_date, target_dates=()):
+def run_check(days, hourly_by_date, target_dates=(), alerted=None):
     """check_all을 한 항목에 대해 돌리고 (로그, 보낸 알림, 슬롯 조회 날짜)를 돌려준다.
 
     days: schedule API가 내려주는 일별 요약 목록 (클리오 재현은 빈 목록).
@@ -100,7 +100,7 @@ def run_check(days, hourly_by_date, target_dates=()):
         cb.check_all(
             [{"id": "clio", "name": "클리오 T2", "url": URL, "enabled": True,
               "target_dates": list(target_dates)}],
-            "topic", {},
+            "topic", {} if alerted is None else alerted,
         )
     finally:
         builtins.print = real_print

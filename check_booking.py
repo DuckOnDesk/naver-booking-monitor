@@ -3141,6 +3141,16 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                 # RI03(시간 단위 마감): 곧 시작하는 회차는 재고가 남아 있어도 예약이
                 # 닫힌다. 예약 페이지는 그 회차의 버튼을 아예 그리지 않는다.
                 per_slot, blocked_slots = split_by_cutoff(per_slot, datekey, cutoff_dt)
+                # 하루 정원: 회차 정원과 별도로 하루 정원이 걸린 상품은 하루 잔여가 실제
+                # 자리 수의 상한이다 (스포티파이: 회차 280/40·280/26인데 하루 560/559 —
+                # 실제로 잡을 수 있는 건 1자리). 회차 숫자 그대로 "241·255자리"라고
+                # 알리면 이미 거의 찬 날을 자리 많은 날로 읽게 된다 (2026-10-15 14:10).
+                # 일 단위 상품의 [종일] 슬롯은 원래 하루 숫자라 그대로 둔다.
+                if (d is not None and not d.get("_synthetic") and not is_day_unit
+                        and (d.get("stock") or 0) > 0):
+                    day_left = (d.get("stock") or 0) - (d.get("bookingCount") or 0)
+                    if day_left < sum(c for _, c in per_slot):
+                        per_slot = [(t, min(c, day_left)) for t, c in per_slot if day_left > 0]
                 # 자리 수는 알릴 수 있는 회차 기준으로 다시 센다. 재고/예약 총합은
                 # 마감된 회차까지 포함한 원본 그대로 두어 로그에서 대조가 되게 한다.
                 available = sum(c for _, c in per_slot)
@@ -3291,7 +3301,15 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                         "unitStock": d.get("stock") or 0,
                         "unitBookingCount": d.get("bookingCount") or 0,
                     }]
-                if slot_info["queried"]:
+                # 시간대가 있던 상품에서 hourlySchedule이 한 회차 빈 목록을 주는 경우가 있다
+                # (2026-10-16 스포티파이: 03:39에 회차가 통째로 빠졌다가 06:34에 같은 숫자로
+                # 돌아왔다). 그 회차를 [종일] 하루 숫자로 바꿔 끼우면 "잔여 1542→0",
+                # "잔여 0→1542"가 재고 변동 알림으로 나가 매진인 날에 자리가 생긴 것처럼
+                # 보인다. 직전 스냅샷에 시간대가 있었으면 이번 회차는 비교를 건너뛴다.
+                prev_snap = alerted.get(f"{item_id}:{datekey}{STOCK_KEY_SUFFIX}")
+                hourly_dropped = (track_slots is not range_slots and isinstance(prev_snap, dict)
+                                  and any(t != DAY_UNIT_TIME for t in prev_snap))
+                if slot_info["queried"] and not hourly_dropped:
                     _sc = note_stock_change(
                         alerted, item_id, datekey, name, date_str, url,
                         track_slots, now_str, datekey == today_str,
