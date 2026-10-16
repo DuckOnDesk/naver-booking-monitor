@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16T20:05:17.575347+09:00",
+  "updated_at": "2026-10-16T20:10:40.828693+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -7,6 +7,7 @@
     "2007085220",
     "2008186282",
     "2009830926",
+    "2010038406",
     "2013643054",
     "2013797495",
     "2017159810",
@@ -39,7 +40,7 @@
     {
       "id": "2035313838",
       "name": "스킨앤랩 링거 팩토리 성수 팝업스토어",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/13/bizes/1739573/items/8067644",
       "bookingBusinessId": "1750599",
       "operationStart": "26.10.03.",
@@ -570,6 +571,34 @@
       "bookingIsOpened": false
     },
     {
+      "id": "2010038406",
+      "name": "AND2BLE ATTRACTION SPOT",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.27.",
+      "operationEnd": "26.10.30.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_71/1792147608238M9vJX_JPEG/edited-1792147607032-0.jpg",
+      "roadAddress": "연무장17길 10 LCDC C동",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-16T20:10:38.792705+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
       "id": "1419529006",
       "name": "룩백 팝업",
       "hasBooking": false,
@@ -836,34 +865,6 @@
       "bookingIsOpened": true
     },
     {
-      "id": "2009830926",
-      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.16.",
-      "operationEnd": "26.10.22.",
-      "remainingDays": null,
-      "status": "오늘오픈",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
-      "roadAddress": "테헤란로 517 B1F 대행사장",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2073328330",
       "name": "원피스 무기와라스토어 한국 출장점",
       "hasBooking": true,
@@ -1117,7 +1118,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T19:38:26.435646+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T20:10:39.634407+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1147,7 +1148,7 @@
         "2026-10-13T17:54:47.801685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T19:38:25.589166+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T20:10:38.792943+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1540,7 +1541,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-16T19:38:27.015707+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T20:10:40.368930+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1549,6 +1550,34 @@
       "discoveredAt": "2026-10-02T15:53:24.703218+09:00",
       "lastBookingNotifiedAt": "2026-10-07T21:44:50.111767+09:00",
       "bookingIsOpened": true
+    },
+    {
+      "id": "2009830926",
+      "name": "가누다 까르마 현대백화점 무역센터점 팝업스토어",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.16.",
+      "operationEnd": "26.10.22.",
+      "remainingDays": null,
+      "status": "오늘오픈",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261013_299/1791881489062b704A_JPEG/edited-1791881488951-0.jpg",
+      "roadAddress": "테헤란로 517 B1F 대행사장",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-14T10:47:44.830553+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
     },
     {
       "id": "2066116227",
@@ -1833,7 +1862,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1890,13 +1919,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2033835877",
-      "place_name": "리베르 X 무신사 뷰티 스페이스1 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736126/items/8052856",
-      "ts": "2026-10-02T17:17:37.370203+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2015914479",
@@ -3289,6 +3311,13 @@
       "place_name": "데이아웃",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
       "ts": "2026-10-16T18:33:57.639458+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2010038406",
+      "place_name": "AND2BLE ATTRACTION SPOT",
+      "booking_url": "",
+      "ts": "2026-10-16T20:10:38.792705+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3321,6 +3350,7 @@
     "2009522804",
     "2009756357",
     "2009830926",
+    "2010038406",
     "2011407355",
     "2012113406",
     "2012544467",
@@ -3484,23 +3514,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-16T20:05:17.571755+09:00",
+    "checked_at": "2026-10-16T20:10:38.792705+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 817,
-    "presale_items": 204,
+    "candidate_items": 820,
+    "presale_items": 206,
     "after_district_filter": 105,
     "fallback_matched": 0,
-    "unique_place_ids": 61,
-    "tracked_places": 61,
-    "new_places": 0,
-    "last_new_place_at": "2026-10-16T17:39:52.400794+09:00",
+    "unique_place_ids": 62,
+    "tracked_places": 62,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-16T20:10:38.792705+09:00",
     "admission_names": {
-      "(없음)": 403,
+      "(없음)": 404,
       "현장대기": 210,
-      "사전예약&현장대기": 158,
+      "사전예약&현장대기": 160,
       "사전예약": 46
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
@@ -4466,6 +4496,7 @@
     "2008186282",
     "2008543472",
     "2009830926",
+    "2010038406",
     "2012113406",
     "2012544467",
     "2013115098",
