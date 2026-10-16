@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-16T20:32:08.570454+09:00",
+  "updated_at": "2026-10-16T20:37:29.059223+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -1211,34 +1211,6 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-15T12:06:58.973826+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
-      "id": "2063618556",
-      "name": "AP BEAUTY 팝업 스토어",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.27.",
-      "operationEnd": "26.11.04.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261007_54/179135323900775Sxg_JPEG/edited-1791353238605-0.jpg",
-      "roadAddress": "여의대로 108 1층",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-16T17:39:52.400794+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -3515,23 +3487,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-16T20:32:06.545082+09:00",
+    "checked_at": "2026-10-16T20:37:29.055253+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 820,
-    "presale_items": 207,
-    "after_district_filter": 106,
+    "candidate_items": 819,
+    "presale_items": 206,
+    "after_district_filter": 105,
     "fallback_matched": 0,
-    "unique_place_ids": 62,
-    "tracked_places": 62,
+    "unique_place_ids": 61,
+    "tracked_places": 61,
     "new_places": 0,
     "last_new_place_at": "2026-10-16T20:10:38.792705+09:00",
     "admission_names": {
       "(없음)": 403,
       "현장대기": 210,
-      "사전예약&현장대기": 161,
+      "사전예약&현장대기": 160,
       "사전예약": 46
     },
     "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
@@ -4481,6 +4453,21 @@
       "bookingIsOpened": false,
       "name": "2026서울미식주간-서울미식마켓",
       "savedAt": "2026-10-16T12:47:38.362777+09:00"
+    },
+    "2063618556": {
+      "hasBooking": false,
+      "bookingNotified": false,
+      "lastBookingNotifiedAt": null,
+      "discoveredAt": "2026-10-16T17:39:52.400794+09:00",
+      "bookingOpenHistory": [],
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "saleStartDate": null,
+      "bookingOpenAuto": null,
+      "bookingPaused": false,
+      "bookingIsOpened": false,
+      "name": "AP BEAUTY 팝업 스토어",
+      "savedAt": "2026-10-16T20:37:29.055253+09:00"
     }
   },
   "auto_added_place_ids": [
@@ -4591,7 +4578,8 @@
     "2098025724"
   ],
   "watch_missing_since": {
-    "2077665524": "2026-10-16T12:47:38.362718+09:00"
+    "2077665524": "2026-10-16T12:47:38.362718+09:00",
+    "2063618556": "2026-10-16T20:37:29.055188+09:00"
   },
   "booking_url_history": {
     "2071088201": "https://m.booking.naver.com/booking/6/bizes/1735456/items/8048480",
