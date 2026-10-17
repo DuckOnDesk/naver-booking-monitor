@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-17T19:54:16.122088+09:00",
+  "updated_at": "2026-10-17T19:59:38.930155+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -571,34 +571,6 @@
       "bookingIsOpened": true
     },
     {
-      "id": "2047726450",
-      "name": "리바이포유 10주년 성수 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.28.",
-      "operationEnd": "26.11.12.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_183/1792117367518YNW42_JPEG/edited-1792117369968-0.jpg",
-      "roadAddress": "연무장길 65 LECT성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-16T12:58:32.907894+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2010038406",
       "name": "AND2BLE ATTRACTION SPOT",
       "hasBooking": false,
@@ -623,6 +595,34 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-16T20:10:38.792705+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2047726450",
+      "name": "리바이포유 10주년 성수 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.28.",
+      "operationEnd": "26.11.12.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_183/1792117367518YNW42_JPEG/edited-1792117369968-0.jpg",
+      "roadAddress": "연무장길 65 LECT성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-16T12:58:32.907894+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1175,7 +1175,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T19:27:26.950233+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T19:59:37.635072+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1205,7 +1205,7 @@
         "2026-10-13T17:54:47.801685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T19:27:26.085990+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T19:59:36.768882+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1570,7 +1570,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T19:27:27.408161+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T19:59:38.332818+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1865,7 +1865,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1913,7 +1913,8 @@
         "2026-10-17T06:00:26.968853+09:00",
         "2026-10-17T07:53:18.243526+09:00",
         "2026-10-17T11:30:45.312646+09:00",
-        "2026-10-17T17:45:08.078823+09:00"
+        "2026-10-17T17:45:08.078823+09:00",
+        "2026-10-17T19:59:36.768688+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1928,13 +1929,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
-      "ts": "2026-10-03T02:18:04.275717+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3327,6 +3321,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-17T17:45:08.078823+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-17T19:59:36.768688+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3523,7 +3524,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-17T19:54:16.119280+09:00",
+    "checked_at": "2026-10-17T19:59:36.768688+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
