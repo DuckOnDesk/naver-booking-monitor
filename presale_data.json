@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T01:39:47.770620+09:00",
+  "updated_at": "2026-10-18T01:45:11.376203+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -347,7 +347,7 @@
         "2026-10-14T13:36:29.058396+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T01:12:54.337578+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T01:45:08.998242+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -470,7 +470,7 @@
         "2026-10-14T17:29:55.693273+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T01:12:55.396669+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T01:45:10.142497+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -569,34 +569,6 @@
       "bookingIsOpened": true
     },
     {
-      "id": "2047726450",
-      "name": "리바이포유 10주년 성수 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.28.",
-      "operationEnd": "26.11.12.",
-      "remainingDays": 10,
-      "status": "D-10",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_183/1792117367518YNW42_JPEG/edited-1792117369968-0.jpg",
-      "roadAddress": "연무장길 65 LECT성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-16T12:58:32.907894+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2010038406",
       "name": "AND2BLE ATTRACTION SPOT",
       "hasBooking": false,
@@ -621,6 +593,34 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-16T20:10:38.792705+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2047726450",
+      "name": "리바이포유 10주년 성수 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.28.",
+      "operationEnd": "26.11.12.",
+      "remainingDays": 10,
+      "status": "D-10",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_183/1792117367518YNW42_JPEG/edited-1792117369968-0.jpg",
+      "roadAddress": "연무장길 65 LECT성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-16T12:58:32.907894+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -1268,7 +1268,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T01:12:56.096379+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T01:45:10.682060+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1612,7 +1612,7 @@
     {
       "id": "2004835321",
       "name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "bookingBusinessId": "1746745",
       "operationStart": "26.10.23.",
@@ -1640,7 +1640,8 @@
         "2026-10-15T13:57:25.504815+09:00",
         "2026-10-15T19:22:10.135852+09:00",
         "2026-10-17T04:02:14.118440+09:00",
-        "2026-10-17T15:56:58.015429+09:00"
+        "2026-10-17T15:56:58.015429+09:00",
+        "2026-10-18T01:45:08.998137+09:00"
       ],
       "bookingOpenAuto": "2026-10-10T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-15T10:55:04.006936+09:00",
@@ -1839,13 +1840,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
-      "ts": "2026-10-03T05:43:47.464330+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3238,6 +3232,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-18T01:34:21.516925+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2004835321",
+      "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
+      "ts": "2026-10-18T01:45:08.998137+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3434,7 +3435,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T01:39:43.406797+09:00",
+    "checked_at": "2026-10-18T01:45:08.998137+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
