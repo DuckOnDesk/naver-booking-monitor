@@ -68,9 +68,9 @@
         "times": [],
         "accounts": [],
         "count": 1,
-        "mode": "scheduled",
-        "start_at": "2026-10-16T17:00:00+09:00",
-        "saved_at": "2026-10-16T04:50:23.311Z"
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-10-17T16:21:23.224Z"
       }
     }
   ]
