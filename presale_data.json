@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-17T13:40:38.864441+09:00",
+  "updated_at": "2026-10-17T13:46:05.377970+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -377,7 +377,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T13:13:35.899940+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T13:46:02.818835+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -571,34 +571,6 @@
       "bookingIsOpened": true
     },
     {
-      "id": "2047726450",
-      "name": "리바이포유 10주년 성수 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.28.",
-      "operationEnd": "26.11.12.",
-      "remainingDays": 11,
-      "status": "D-11",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_183/1792117367518YNW42_JPEG/edited-1792117369968-0.jpg",
-      "roadAddress": "연무장길 65 LECT성수",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-16T12:58:32.907894+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false
-    },
-    {
       "id": "2010038406",
       "name": "AND2BLE ATTRACTION SPOT",
       "hasBooking": false,
@@ -623,6 +595,34 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-16T20:10:38.792705+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false
+    },
+    {
+      "id": "2047726450",
+      "name": "리바이포유 10주년 성수 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.28.",
+      "operationEnd": "26.11.12.",
+      "remainingDays": 11,
+      "status": "D-11",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_183/1792117367518YNW42_JPEG/edited-1792117369968-0.jpg",
+      "roadAddress": "연무장길 65 LECT성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-16T12:58:32.907894+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
     },
@@ -824,7 +824,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T13:13:36.379658+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T13:46:03.427571+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -854,7 +854,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T13:13:36.988837+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T13:46:03.883219+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -910,7 +910,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T13:13:37.593105+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T13:46:04.335811+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -923,7 +923,7 @@
     {
       "id": "2008186282",
       "name": "데이아웃",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
       "bookingBusinessId": "1736187",
       "operationStart": "26.10.15.",
@@ -939,7 +939,8 @@
       "bookingOpenHistory": [
         "2026-09-22T10:13:07.399856+09:00",
         "2026-10-16T15:03:39.619449+09:00",
-        "2026-10-16T18:33:57.639458+09:00"
+        "2026-10-16T18:33:57.639458+09:00",
+        "2026-10-17T13:46:01.959523+09:00"
       ],
       "bookingOpenAuto": "2026-09-22T10:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-09-28T11:10:37.642183+09:00",
@@ -1358,7 +1359,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T13:13:38.055288+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T13:46:04.795519+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1399,7 +1400,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-17T13:13:34.903502+09:00",
+      "bookingItemCheckedAt": "2026-10-17T13:46:01.959523+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1925,13 +1926,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
-      "ts": "2026-10-02T22:58:25.679251+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3324,6 +3318,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-17T11:30:45.312646+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2008186282",
+      "place_name": "데이아웃",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
+      "ts": "2026-10-17T13:46:01.959523+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3520,7 +3521,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-17T13:40:37.987796+09:00",
+    "checked_at": "2026-10-17T13:46:01.959523+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
