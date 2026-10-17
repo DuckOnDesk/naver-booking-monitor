@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-17T15:51:36.171960+09:00",
+  "updated_at": "2026-10-17T15:57:01.982748+09:00",
   "watched_places": [
     "1419529006",
     "2000187386",
@@ -377,7 +377,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T15:24:35.737011+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T15:56:58.999560+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -824,7 +824,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T15:24:36.333985+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T15:56:59.596881+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -854,7 +854,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T15:24:36.913819+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T15:57:00.194971+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -910,7 +910,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T15:24:37.599352+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T15:57:00.904475+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1359,7 +1359,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-17T15:24:38.204731+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-17T15:57:01.363602+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1400,7 +1400,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-17T15:24:34.855248+09:00",
+      "bookingItemCheckedAt": "2026-10-17T15:56:58.015429+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1703,7 +1703,7 @@
     {
       "id": "2004835321",
       "name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
       "bookingBusinessId": "1746745",
       "operationStart": "26.10.23.",
@@ -1730,7 +1730,8 @@
         "2026-10-15T10:16:16.688187+09:00",
         "2026-10-15T13:57:25.504815+09:00",
         "2026-10-15T19:22:10.135852+09:00",
-        "2026-10-17T04:02:14.118440+09:00"
+        "2026-10-17T04:02:14.118440+09:00",
+        "2026-10-17T15:56:58.015429+09:00"
       ],
       "bookingOpenAuto": "2026-10-10T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-15T10:55:04.006936+09:00",
@@ -1926,13 +1927,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
-      "ts": "2026-10-03T00:35:34.196096+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -3325,6 +3319,13 @@
       "place_name": "데이아웃",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1736187/items/8053089",
       "ts": "2026-10-17T13:46:01.959523+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2004835321",
+      "place_name": "3주년 애니버서리, 리버스 1999 X 브이스퀘어 팝업",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746745/items/8094823",
+      "ts": "2026-10-17T15:56:58.015429+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3521,7 +3522,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-17T15:51:35.284819+09:00",
+    "checked_at": "2026-10-17T15:56:58.015429+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
