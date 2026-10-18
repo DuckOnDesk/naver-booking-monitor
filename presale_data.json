@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T23:52:05.650170+09:00",
+  "updated_at": "2026-10-18T23:52:13.686392+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -623,6 +623,38 @@
       "discoveredAt": "2026-10-16T20:10:38.792705+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
+    },
+    {
+      "id": "2080685457",
+      "name": "캐논 팝업 : 캐논 사진 한방당",
+      "hasBooking": false,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
+      "bookingBusinessId": "1747957",
+      "operationStart": "26.10.23.",
+      "operationEnd": "26.11.01.",
+      "remainingDays": 5,
+      "status": "D-5",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260930_33/1790745385377dk8Pa_JPEG/%C5%B0%BA%F1%C1%D6%BE%F3.jpg",
+      "roadAddress": "효자로 25 유스퀘이크",
+      "commonAddress": "서울 종로구",
+      "district": "종로구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-12T11:58:32.464917+09:00",
+        "2026-10-15T14:51:51.117417+09:00",
+        "2026-10-18T14:51:56.593830+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-16T14:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-16T14:03:50.710985+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-12T11:58:32.464917+09:00",
+      "bookingItemCheckedAt": "2026-10-12T11:58:32.464917+09:00",
+      "discoveredAt": "2026-10-07T16:45:40.907292+09:00",
+      "lastBookingNotifiedAt": "2026-10-16T14:03:52.841279+09:00",
+      "bookingIsOpened": true
     },
     {
       "id": "2015464753",
@@ -1369,38 +1401,6 @@
       "discoveredAt": null,
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false
-    },
-    {
-      "id": "2080685457",
-      "name": "캐논 팝업 : 캐논 사진 한방당",
-      "hasBooking": false,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
-      "bookingBusinessId": "1747957",
-      "operationStart": "26.10.23.",
-      "operationEnd": "26.11.01.",
-      "remainingDays": 5,
-      "status": "D-5",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260930_33/1790745385377dk8Pa_JPEG/%C5%B0%BA%F1%C1%D6%BE%F3.jpg",
-      "roadAddress": "효자로 25 유스퀘이크",
-      "commonAddress": "서울 종로구",
-      "district": "종로구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-12T11:58:32.464917+09:00",
-        "2026-10-15T14:51:51.117417+09:00",
-        "2026-10-18T14:51:56.593830+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-16T14:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-16T14:03:50.710985+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-12T11:58:32.464917+09:00",
-      "bookingItemCheckedAt": "2026-10-12T11:58:32.464917+09:00",
-      "discoveredAt": "2026-10-07T16:45:40.907292+09:00",
-      "lastBookingNotifiedAt": "2026-10-16T14:03:52.841279+09:00",
-      "bookingIsOpened": true
     },
     {
       "id": "2036674429",
@@ -3438,24 +3438,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T23:52:05.648000+09:00",
+    "checked_at": "2026-10-18T23:52:13.683448+09:00",
     "areas_total": 34,
-    "areas_ok": 20,
-    "areas_failed": 14,
+    "areas_ok": 2,
+    "areas_failed": 32,
     "areas_empty": 0,
-    "candidate_items": 681,
-    "presale_items": 185,
-    "after_district_filter": 97,
+    "candidate_items": 97,
+    "presale_items": 31,
+    "after_district_filter": 21,
     "fallback_matched": 0,
-    "unique_place_ids": 54,
+    "unique_place_ids": 21,
     "tracked_places": 59,
     "new_places": 0,
     "last_new_place_at": "2026-10-16T20:10:38.792705+09:00",
     "admission_names": {
-      "(없음)": 298,
-      "현장대기": 198,
-      "사전예약&현장대기": 143,
-      "사전예약": 42
+      "현장대기": 33,
+      "(없음)": 33,
+      "사전예약&현장대기": 24,
+      "사전예약": 7
     },
     "stale_warned_at": "2026-10-18T20:10:58.670893+09:00",
     "structure_warned_at": null
