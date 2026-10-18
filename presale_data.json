@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T12:47:14.315197+09:00",
+  "updated_at": "2026-10-18T12:52:37.213012+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -1093,36 +1093,6 @@
       "bookingIsOpened": true
     },
     {
-      "id": "2012544467",
-      "name": "오름앤컴퍼니 허먼밀러 라운지",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1747903/items/8099300",
-      "bookingBusinessId": "1747903",
-      "operationStart": "26.09.13.",
-      "operationEnd": "26.12.10.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_73/1790567999329YrH4F_JPEG/%BF%C0%B8%A7%BE%D8%C4%C4%C6%DB%B4%CF_09160493.jpg",
-      "roadAddress": "국제금융로 10 IFC몰 L3 튜브라운지",
-      "commonAddress": "서울 영등포구",
-      "district": "영등포구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-02T13:14:21.320942+09:00"
-      ],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T12:47:12.771343+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": true
-    },
-    {
       "id": "2084267684",
       "name": "에얼스 더현대 서울 팝업스토어",
       "hasBooking": true,
@@ -1150,6 +1120,36 @@
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-02T16:37:18.683007+09:00",
       "lastBookingNotifiedAt": "2026-10-13T17:54:52.560132+09:00",
+      "bookingIsOpened": true
+    },
+    {
+      "id": "2012544467",
+      "name": "오름앤컴퍼니 허먼밀러 라운지",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1747903/items/8099300",
+      "bookingBusinessId": "1747903",
+      "operationStart": "26.09.13.",
+      "operationEnd": "26.12.10.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20260928_73/1790567999329YrH4F_JPEG/%BF%C0%B8%A7%BE%D8%C4%C4%C6%DB%B4%CF_09160493.jpg",
+      "roadAddress": "국제금융로 10 IFC몰 L3 튜브라운지",
+      "commonAddress": "서울 영등포구",
+      "district": "영등포구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-02T13:14:21.320942+09:00"
+      ],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-10-18T12:47:12.771343+09:00",
+      "bookingPaused": false,
+      "saleStartDate": "",
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
+      "lastBookingNotifiedAt": null,
       "bookingIsOpened": true
     },
     {
@@ -3437,7 +3437,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T12:47:11.664046+09:00",
+    "checked_at": "2026-10-18T12:52:37.209976+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
