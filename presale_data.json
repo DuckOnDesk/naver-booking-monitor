@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T20:05:36.317471+09:00",
+  "updated_at": "2026-10-18T20:10:58.670994+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -347,7 +347,7 @@
         "2026-10-14T13:36:29.058396+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T19:38:45.782770+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:10:56.483408+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -470,7 +470,7 @@
         "2026-10-14T17:29:55.693273+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T19:38:46.647317+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:10:57.477827+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1268,7 +1268,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T19:38:47.266039+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:10:58.075969+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1843,13 +1843,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
-      "ts": "2026-10-03T13:49:09.804912+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2015914479",
@@ -3242,6 +3235,13 @@
       "place_name": "캐논 팝업 : 캐논 사진 한방당",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
       "ts": "2026-10-18T14:51:56.593830+09:00"
+    },
+    {
+      "type": "discovery_stale",
+      "place_name": "⚠️ 사전예약 탐색 점검 필요",
+      "body": "2.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 204개 인식 중.",
+      "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
+      "ts": "2026-10-18T20:10:58.670887+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3438,7 +3438,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T20:05:32.444291+09:00",
+    "checked_at": "2026-10-18T20:10:56.483271+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3457,7 +3457,7 @@
       "사전예약&현장대기": 159,
       "사전예약": 45
     },
-    "stale_warned_at": "2026-10-11T18:11:21.096627+09:00",
+    "stale_warned_at": "2026-10-18T20:10:58.670893+09:00",
     "structure_warned_at": null
   },
   "place_memory": {
