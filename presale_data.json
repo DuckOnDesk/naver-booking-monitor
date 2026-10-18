@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T12:20:05.505841+09:00",
+  "updated_at": "2026-10-18T12:25:30.473118+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -1672,7 +1672,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T11:52:53.933192+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T12:25:29.373619+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1775,7 +1775,7 @@
     {
       "id": "2013797495",
       "name": "Spotify DIVE ACADEMY POP-UP",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "bookingBusinessId": "1752345",
       "operationStart": "26.10.17.",
@@ -1826,7 +1826,8 @@
         "2026-10-17T17:45:08.078823+09:00",
         "2026-10-17T19:59:36.768688+09:00",
         "2026-10-18T01:34:21.516925+09:00",
-        "2026-10-18T08:38:32.154788+09:00"
+        "2026-10-18T08:38:32.154788+09:00",
+        "2026-10-18T12:25:29.372880+09:00"
       ],
       "bookingOpenAuto": "2026-10-08T12:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-08T13:01:25.416728+09:00",
@@ -1841,13 +1842,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2030290261",
-      "place_name": "Cafe 1014: For Keria",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
-      "ts": "2026-10-03T11:15:42.681544+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3240,6 +3234,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-18T08:38:32.154788+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2013797495",
+      "place_name": "Spotify DIVE ACADEMY POP-UP",
+      "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
+      "ts": "2026-10-18T12:25:29.372880+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3436,7 +3437,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T12:20:05.503470+09:00",
+    "checked_at": "2026-10-18T12:25:29.372880+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
