@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T12:41:48.363949+09:00",
+  "updated_at": "2026-10-18T12:47:14.315197+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -777,34 +777,6 @@
       "bookingIsOpened": false
     },
     {
-      "id": "2006648175",
-      "name": "LG전자 플래그십 D5",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694274/items/7847105",
-      "bookingBusinessId": "1694274",
-      "operationStart": "26.07.16.",
-      "operationEnd": null,
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_2/1792138536058R0pGT_JPEG/edited-1792138535547-0.jpg",
-      "roadAddress": "도산대로 403 LG전자 플래그십 D5",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T12:30:56.285214+09:00",
-      "bookingPaused": false,
-      "saleStartDate": "",
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
-      "discoveredAt": null,
-      "lastBookingNotifiedAt": "2026-09-08T11:26:30.905885+09:00",
-      "bookingIsOpened": true
-    },
-    {
       "id": "2090283048",
       "name": "세리안 청담",
       "hasBooking": true,
@@ -832,6 +804,34 @@
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
       "lastBookingNotifiedAt": null,
+      "bookingIsOpened": true
+    },
+    {
+      "id": "2006648175",
+      "name": "LG전자 플래그십 D5",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1694274/items/7847105",
+      "bookingBusinessId": "1694274",
+      "operationStart": "26.07.16.",
+      "operationEnd": null,
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261016_2/1792138536058R0pGT_JPEG/edited-1792138535547-0.jpg",
+      "roadAddress": "도산대로 403 LG전자 플래그십 D5",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": "",
+      "bookingOpenAutoCheckedAt": "2026-10-18T12:30:56.285214+09:00",
+      "bookingPaused": false,
+      "saleStartDate": "",
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
+      "discoveredAt": null,
+      "lastBookingNotifiedAt": "2026-09-08T11:26:30.905885+09:00",
       "bookingIsOpened": true
     },
     {
@@ -1112,7 +1112,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T12:14:40.058642+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T12:47:12.771343+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1142,7 +1142,7 @@
         "2026-10-13T17:54:47.801685+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T12:14:38.974006+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T12:47:11.664231+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1479,7 +1479,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T12:14:40.800054+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T12:47:13.567578+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3437,7 +3437,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T12:41:48.361267+09:00",
+    "checked_at": "2026-10-18T12:47:11.664046+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
@@ -3451,8 +3451,8 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-16T20:10:38.792705+09:00",
     "admission_names": {
-      "(없음)": 379,
-      "현장대기": 219,
+      "(없음)": 378,
+      "현장대기": 220,
       "사전예약&현장대기": 160,
       "사전예약": 45
     },
