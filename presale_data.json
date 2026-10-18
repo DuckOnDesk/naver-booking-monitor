@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T20:32:21.527312+09:00",
+  "updated_at": "2026-10-18T20:37:45.305258+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -375,7 +375,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T20:05:33.183903+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:37:42.371218+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -796,7 +796,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T20:05:33.806369+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:37:42.957367+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -824,7 +824,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T20:05:34.385143+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:37:43.438570+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -880,7 +880,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T20:05:35.050467+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:37:44.127537+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1296,7 +1296,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T20:05:35.732930+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T20:37:44.856163+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1337,7 +1337,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-18T20:05:32.444291+09:00",
+      "bookingItemCheckedAt": "2026-10-18T20:37:41.501559+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1686,7 +1686,7 @@
     {
       "id": "2050363685",
       "name": "콜라보카페 세이브포인트",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/6/bizes/1641637/items/8059668",
       "bookingBusinessId": "1641637",
       "operationStart": "26.05.01.",
@@ -3438,7 +3438,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T20:32:20.566906+09:00",
+    "checked_at": "2026-10-18T20:37:41.501559+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
