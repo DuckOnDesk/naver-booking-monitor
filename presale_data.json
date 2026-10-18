@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T00:48:02.576306+09:00",
+  "updated_at": "2026-10-19T00:53:29.218030+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -284,7 +284,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T00:21:05.116830+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T00:53:26.001491+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -644,7 +644,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T00:21:05.898792+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T00:53:26.799211+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -672,7 +672,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T00:21:06.698187+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T00:53:27.433618+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -728,7 +728,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T00:21:07.308383+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T00:53:28.327574+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1101,7 +1101,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-19T00:21:03.867945+09:00",
+      "bookingItemCheckedAt": "2026-10-19T00:53:24.878617+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1137,7 +1137,7 @@
     {
       "id": "2080685457",
       "name": "캐논 팝업 : 캐논 사진 한방당",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
       "bookingBusinessId": "1747957",
       "operationStart": "26.10.23.",
@@ -1153,7 +1153,8 @@
       "bookingOpenHistory": [
         "2026-10-12T11:58:32.464917+09:00",
         "2026-10-15T14:51:51.117417+09:00",
-        "2026-10-18T14:51:56.593830+09:00"
+        "2026-10-18T14:51:56.593830+09:00",
+        "2026-10-19T00:53:24.878617+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-16T14:03:50.710985+09:00",
@@ -1420,13 +1421,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2015914479",
-      "place_name": "블루 록 2026 더 라스트 팝업",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1736544/items/8054229",
-      "ts": "2026-10-03T15:29:49.846669+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -2819,6 +2813,13 @@
       "body": "2.0일째 새 팝업이 한 건도 안 잡혔어요. 지역 34/34 조회 성공, 사전예약 204개 인식 중.",
       "booking_url": "https://duckondesk.github.io/naver-booking-monitor/presale_select.html",
       "ts": "2026-10-18T20:10:58.670887+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2080685457",
+      "place_name": "캐논 팝업 : 캐논 사진 한방당",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
+      "ts": "2026-10-19T00:53:24.878617+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3015,7 +3016,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-19T00:48:01.406510+09:00",
+    "checked_at": "2026-10-19T00:53:24.878617+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
