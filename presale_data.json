@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T16:44:47.990243+09:00",
+  "updated_at": "2026-10-18T16:50:13.815822+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -375,7 +375,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T16:17:54.471985+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T16:50:11.171483+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -796,7 +796,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T16:17:55.052011+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T16:50:11.755087+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -824,7 +824,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T16:17:55.637549+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T16:50:12.336284+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -880,7 +880,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T16:17:56.238618+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T16:50:12.787564+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1296,7 +1296,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-18T16:17:56.819020+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-18T16:50:13.234959+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1337,7 +1337,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-18T16:17:53.608983+09:00",
+      "bookingItemCheckedAt": "2026-10-18T16:50:10.327436+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1373,7 +1373,7 @@
     {
       "id": "2080685457",
       "name": "캐논 팝업 : 캐논 사진 한방당",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
       "bookingBusinessId": "1747957",
       "operationStart": "26.10.23.",
@@ -3438,7 +3438,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T16:44:47.146592+09:00",
+    "checked_at": "2026-10-18T16:50:10.327436+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
