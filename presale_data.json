@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T05:40:16.327001+09:00",
+  "updated_at": "2026-10-19T05:45:38.660277+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -284,7 +284,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T05:11:53.171415+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T05:45:36.441833+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -644,7 +644,7 @@
         "2026-09-15T13:16:00.700133+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T05:11:53.980256+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T05:45:37.024190+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -672,7 +672,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T05:11:54.763810+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T05:45:37.589277+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -728,7 +728,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T05:11:55.544794+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T05:45:38.067562+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1101,7 +1101,7 @@
       "saleStartDate": null,
       "bookingNotified": true,
       "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": "2026-10-19T05:11:51.999451+09:00",
+      "bookingItemCheckedAt": "2026-10-19T05:45:35.594371+09:00",
       "discoveredAt": null,
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false
@@ -1137,7 +1137,7 @@
     {
       "id": "2080685457",
       "name": "캐논 팝업 : 캐논 사진 한방당",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
       "bookingBusinessId": "1747957",
       "operationStart": "26.10.23.",
@@ -3016,7 +3016,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-19T05:40:15.482388+09:00",
+    "checked_at": "2026-10-19T05:45:35.594371+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
