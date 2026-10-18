@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-18T14:46:35.641962+09:00",
+  "updated_at": "2026-10-18T14:51:56.596956+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -1373,7 +1373,7 @@
     {
       "id": "2080685457",
       "name": "캐논 팝업 : 캐논 사진 한방당",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
       "bookingBusinessId": "1747957",
       "operationStart": "26.10.23.",
@@ -1388,7 +1388,8 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [
         "2026-10-12T11:58:32.464917+09:00",
-        "2026-10-15T14:51:51.117417+09:00"
+        "2026-10-15T14:51:51.117417+09:00",
+        "2026-10-18T14:51:56.593830+09:00"
       ],
       "bookingOpenAuto": "2026-10-16T14:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-16T14:03:50.710985+09:00",
@@ -1842,13 +1843,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2061527606",
-      "place_name": "산리오 문방구",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1735851/items/8062231",
-      "ts": "2026-10-03T11:32:14.872324+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2061527606",
@@ -3241,6 +3235,13 @@
       "place_name": "Spotify DIVE ACADEMY POP-UP",
       "booking_url": "https://m.booking.naver.com/booking/6/bizes/1752345/items/8116687",
       "ts": "2026-10-18T12:25:29.372880+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2080685457",
+      "place_name": "캐논 팝업 : 캐논 사진 한방당",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
+      "ts": "2026-10-18T14:51:56.593830+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3437,7 +3438,7 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-18T14:46:33.535934+09:00",
+    "checked_at": "2026-10-18T14:51:56.593830+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
