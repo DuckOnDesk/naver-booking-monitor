@@ -15,6 +15,7 @@
   - 검색에서 사라졌다 돌아와도 알림 발송 기록이 유지된다 (재발송 없음)
   - 발견 시각·오픈 이력·예약 URL도 함께 복원된다
   - 한 번 자동 추가한 팝업은 다시 자동 추가하지 않는다 (사용자가 끈 것 존중)
+  - 알림 규칙: 처음 찾을 때 1건, 예약 정보가 잡힐 때 1건, 오픈 때 1건 (겹치면 1건)
   - watched_places 정리는 24시간 넘게 안 보일 때만 한다
   - place_memory는 오래된 항목을 정리한다
 
@@ -201,13 +202,17 @@ def main() -> int:
     check(cur_o2[PID]["bookingNotified"] is True, "발송 기록 저장")
 
     print()
-    print("3-2) 검색에서 빠져 정리된 팝업이 돌아오면 다시 알리고 다시 감시한다 (코치 태비 투어)")
+    print("3-2) 검색에서 빠져 정리된 팝업이 돌아오면 알림 없이 다시 감시한다 (코치 태비 투어)")
     queued: list = []
     COACH = "2086517554"
     coach_raw = {"id": COACH, "name": "코치 x 스포티파이 태비 투어", "hasBooking": False,
                  "bookingUrl": None, "bookingBusinessId": None,
                  "popupstoreInfo": {"admissionCondition": {"name": "사전예약"}, "remainingDays": 11},
                  "commonAddress": "서울 성동구"}
+
+    def capture():
+        pm._queue_ntfy = lambda title, body, url: queued.append((title, body, url))
+
     # 24시간 넘게 안 보여 정리되는 주기
     h.install([], seen_ids={COACH})
     h.auto_added = {COACH}
@@ -218,32 +223,72 @@ def main() -> int:
     pm.check_once(cfg_c, {COACH: {"id": COACH, "name": "코치 x 스포티파이 태비 투어"}})
     check(cfg_c["watched_places"] == [], "정리 주기에 감시 목록에서 빠짐")
     check(COACH not in h.auto_added, "자동 추가 이력도 지워 둔다 (사용자가 끈 게 아니므로)")
-    # 9일 뒤 다시 나타남 — 실제로는 seen_place_ids에서도 빠져 있다
-    h.install([coach_raw], seen_ids=set())
-    pm._queue_ntfy = lambda title, body, url: queued.append((title, body, url))
+    # 9일 뒤 다시 나타남 — 이미 목록에 저장했던 팝업이므로 알림은 없다
+    h.install([coach_raw], seen_ids={COACH})
+    capture()
     cur_c = pm.check_once(cfg_c, {})
     check(COACH in [str(x) for x in cfg_c["watched_places"]],
           f"감시 목록에 다시 추가 (현재 {cfg_c['watched_places']})")
-    check(len(queued) == 1 and "다시 나타난" in queued[0][0],
-          f"링크가 없어도 재등장 알림 1건 (실제 {queued})")
+    check(not queued and not h.sent, f"이미 찾은 팝업이라 알림 없음 (실제 {queued} {h.sent})")
 
     print()
-    print("3-3) 감시 중인 팝업에 예약 링크가 새로 잡히면 오픈 전이라도 알린다")
-    queued.clear()
+    print("3-3) 예약 정보가 새로 잡히면 오픈 전이라도 알린다 (감시를 꺼도)")
     link = "https://m.booking.naver.com/booking/12/bizes/1800000"
-    h.install([dict(coach_raw, bookingUrl=link, bookingBusinessId="1800000")], seen_ids={COACH})
-    pm._queue_ntfy = lambda title, body, url: queued.append((title, body, url))
-    pm.fetch_bookable_setting = lambda u, b: {"isPaused": False, "isUseOpen": True,
-                                              "openDateTime": None, "isOpened": False}
+    with_link = dict(coach_raw, bookingUrl=link, bookingBusinessId="1800000")
+    not_open = {"isPaused": False, "isUseOpen": True, "openDateTime": None, "isOpened": False}
     pm.resolve_booking_item_url = lambda u: u
-    cur_l = pm.check_once(cfg_c, cur_c)
-    check(len(queued) == 1 and queued[0][0].startswith("🔗") and queued[0][2] == link,
-          f"예약 링크 발견 알림 1건 (실제 {queued})")
+    for label, watched in (("감시 중", [COACH]), ("감시 꺼짐", [])):
+        queued.clear()
+        h.install([with_link], seen_ids={COACH})
+        capture()
+        pm.fetch_bookable_setting = lambda u, b: dict(not_open)
+        cfg_l = dict(base_cfg, watched_places=list(watched))
+        h.auto_added = {COACH}
+        cur_l = pm.check_once(cfg_l, cur_c)
+        check(len(queued) == 1 and queued[0][0].startswith("🔗") and queued[0][2] == link,
+              f"{label}: 예약 정보 발견 알림 1건 (실제 {queued})")
     check(any(a.get("type") == "booking_link" for a in h.saved.get("alerts") or []),
           "알림함에도 기록")
     queued.clear()
-    pm.check_once(cfg_c, cur_l)
-    check(not queued, f"같은 링크로 다시 알리지 않음 (실제 {queued})")
+    pm.check_once(cfg_l, cur_l)
+    check(not queued, f"같은 예약 정보로 다시 알리지 않음 (실제 {queued})")
+
+    print()
+    print("3-4) 찾은 예약이 이미 열려 있으면 알림은 1건만")
+    queued.clear()
+    h.install([dict(with_link, hasBooking=True)], seen_ids={COACH})
+    capture()
+    h.auto_added = {COACH}
+    cfg_w = dict(base_cfg, watched_places=[COACH])
+    pm.check_once(cfg_w, cur_c)
+    check(len(h.sent) == 1 and not queued,
+          f"감시 중: 오픈 알림 1건만 (오픈 {h.sent}, 대기열 {queued})")
+    queued.clear()
+    h.install([dict(with_link, hasBooking=True)], seen_ids={COACH})
+    capture()
+    cfg_off2 = dict(base_cfg, watched_places=[])
+    pm.check_once(cfg_off2, cur_c)
+    check(not h.sent and len(queued) == 1 and queued[0][0].startswith("🔗"),
+          f"오픈 알림 꺼짐: 예약 정보 알림 1건만 (오픈 {h.sent}, 대기열 {queued})")
+
+    print()
+    print("3-5) 처음 찾은 팝업 — 예약 정보 유무와 상관없이 발견 알림 1건")
+    NEW = "2047726450"
+    for label, raw, opened in (
+            ("링크 없음", dict(coach_raw, id=NEW, name="리바이포유"), False),
+            ("링크 있음·오픈 전", dict(with_link, id=NEW, name="리바이포유"), False),
+            ("이미 오픈", dict(with_link, id=NEW, name="리바이포유", hasBooking=True), True)):
+        queued.clear()
+        h.auto_added = set()
+        h.memory = {}
+        h.install([raw], seen_ids=set())
+        capture()
+        cfg_n = dict(base_cfg, watched_places=[])
+        pm.check_once(cfg_n, {})
+        total = len(queued) + len(h.sent)
+        check(total == 1, f"{label}: 알림 1건 (대기열 {queued}, 오픈 {h.sent})")
+        check(bool(h.sent) == opened, f"{label}: {'오픈' if opened else '발견'} 알림으로 나감")
+        check(NEW in [str(x) for x in cfg_n["watched_places"]], f"{label}: 감시 목록에 저장")
 
     h.restore()
     pm.resolve_booking_item_url = _real_resolve

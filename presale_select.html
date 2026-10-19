@@ -1125,7 +1125,7 @@ function renderAlertPanel() {
     const icon = isWarn ? '⚠️' : (isOpen ? '🎉' : (isLink ? '🔗' : '🆕'));
     const title = isWarn ? `${a.place_name}<div class="alert-body">${a.body || ''}</div>`
                 : isOpen ? `${a.place_name} 사전예약 오픈!`
-                : isLink ? `예약 링크 발견: ${a.place_name}`
+                : isLink ? `예약 정보 발견: ${a.place_name}`
                 : `새 팝업 발견: ${a.place_name}`;
     const hasUrl = !!a.booking_url;
     return `<div class="alert-item${hasUrl ? ' clickable' : ''}" ${hasUrl ? `data-url="${a.booking_url}"` : ''}>
