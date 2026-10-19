@@ -34,6 +34,7 @@ import gzip
 import json
 import os
 import re
+import threading
 import time as time_mod
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -106,8 +107,13 @@ _CALENDAR_SELECTOR = '[class*=calendar i], [class*=Calendar]'
 _dom_dumped = False   # DOM 덤프는 진단용이라 계정마다 반복할 필요가 없다
 
 
+# 오픈 대기 예약은 계정마다 스레드 하나로 동시에 돈다 → 로그·스크린샷에 계정을 붙인다
+_tls = threading.local()
+
+
 def _log(msg: str) -> None:
-    print(f"  [자동예약] {msg}", flush=True)
+    acct = getattr(_tls, "acct", "")
+    print(f"  [자동예약{' ' + acct if acct else ''}] {msg}", flush=True)
 
 
 def _shot(page, tag: str, shots: list, always: bool = False) -> None:
@@ -116,7 +122,9 @@ def _shot(page, tag: str, shots: list, always: bool = False) -> None:
         return
     try:
         SHOT_DIR.mkdir(exist_ok=True)
-        path = SHOT_DIR / f"{datetime.now(KST).strftime('%m%d_%H%M%S')}_{tag}.png"
+        acct = getattr(_tls, "acct", "")
+        path = SHOT_DIR / (f"{datetime.now(KST).strftime('%m%d_%H%M%S')}_{tag}"
+                           + (f"_{acct}" if acct else "") + ".png")
         page.screenshot(path=str(path), full_page=True)
         shots.append(str(path))
     except Exception:
@@ -1752,6 +1760,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
     if account in ACCOUNT_NAMES:
         acct_label += f"({ACCOUNT_NAMES[account]})"
+    _tls.acct = acct_label
 
     def result(success: bool, message: str, booked_time: str | None = None,
                unbookable: bool = False, evidence: str = "", confirm_no: str = "") -> dict:

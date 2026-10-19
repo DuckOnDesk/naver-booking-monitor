@@ -146,27 +146,46 @@ def main() -> int:
     cb.maybe_auto_book(past, "abt", URL, "2026-10-21", [("13:00", 1)], "", alerted)
     check(len(sent) == 1, f"그 뒤 취소표는 종전대로 띄운다 (실제: {sent})")
 
-    print("5) 워커 — 시작 전에 떠도 거절하지 않고 정각까지 기다린다")
+    print("5) 워커 — 시작 전에 떠도 거절하지 않고, 모든 계정이 정각에 동시에 시도한다")
+    import threading
     calls: list = []
+    recorded: list = []
+    ntfys: list = []
     open_soon = datetime.now(KST) + timedelta(minutes=3)
     w.load_monitors = lambda from_github=True: {"monitors": [item_with(open_soon, ["2026-10-21"])]}
     w.fetch_slots = lambda *a: {"queried": True, "times": ["13:00", "14:00"], "all_slots": []}
-    w.record_results = lambda *a, **k: True
-    w.send_ntfy = lambda *a, **k: None
+    w.record_results = lambda log, iid, state, **k: recorded.append(state) or True
+    w.send_ntfy = lambda topic, title, body, url: ntfys.append((title, body))
     w._read_json = lambda path, default: default
-    auto_book.get_accounts = lambda pri=None: [(1, "c1"), (2, "c2")]
+    auto_book.get_accounts = lambda pri=None: [(1, "c1"), (2, "c2"), (3, "c3")]
+    barrier = threading.Barrier(3, timeout=5)
 
     def fake_try(url, datekey, times, count=1, cookie_str=None, account=None, open_at=None, **k):
         calls.append((account, open_at))
-        return {"success": False, "message": "매진", "booked_time": None, "dry_run": False,
-                "account": account}
+        try:
+            barrier.wait()          # 셋이 동시에 여기 있어야 통과 (차례로 돌면 타임아웃)
+            together = True
+        except threading.BrokenBarrierError:
+            together = False
+        ok = account in (1, 3)
+        return {"success": ok, "message": "성공" if ok else "매진", "booked_time": "13:00",
+                "dry_run": False, "account": account, "together": together,
+                "confirm_no": f"N{account}" if ok else ""}
     auto_book.try_book = fake_try
+    orig_cfg = w.load_monitors
+    cfg_all = orig_cfg()
+    cfg_all["ntfy_topic"] = "topic"
+    w.load_monitors = lambda from_github=True: cfg_all
     w.run("abt", "2026-10-21", [], "2026-10-21|prewait", 1, open_soon.isoformat())
-    check(len(calls) == 2, f"계정마다 시도 (실제: {calls})")
-    if len(calls) == 2:
-        check(calls[0][1] is not None and abs((calls[0][1] - open_soon).total_seconds()) < 1,
-              f"첫 계정에 open_at 전달 (실제: {calls[0]})")
-        check(calls[1][1] is None, "다음 계정은 오픈 뒤라 대기 없음")
+    check(len(calls) == 3, f"모든 계정이 시도 (실제: {calls})")
+    check(all(o is not None and abs((o - open_soon).total_seconds()) < 1 for _, o in calls),
+          "모든 계정에 open_at 전달 (다 같이 정각까지 대기)")
+    check(not barrier.broken, "계정들이 동시에 돈다 (차례로가 아니라)")
+    booked = (recorded[-1] if recorded else {}).get("booked") or {}
+    check([b["account"] for b in booked.get("all", [])] == [1, 3],
+          f"성공한 계정 전부 기록 (실제: {booked})")
+    check(ntfys and "2건 성공" in ntfys[-1][0] and "N1" in ntfys[-1][1] and "N3" in ntfys[-1][1],
+          f"성공 건수·예약번호를 한 번에 알림 (실제: {ntfys})")
 
     calls.clear()
     too_early = datetime.now(KST) + timedelta(minutes=w.PREWAIT_MAX_MIN + 5)

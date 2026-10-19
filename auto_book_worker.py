@@ -23,6 +23,7 @@ import json
 import subprocess
 import sys
 import time as time_mod
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -283,25 +284,43 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
                "booked_time": None, "dry_run": False, "account": None}
         results = [res]
     else:
-        results = []
-        res = None
-        for i, (acct_no, cookie_str) in enumerate(accounts):
+        def attempt_one(acct_no, cookie_str, wait_until=None) -> dict:
             try:
-                # 오픈 대기는 첫 계정만 한다 — 다음 계정은 오픈 뒤에 차례가 온다
-                res = auto_book.try_book(url, datekey, times, count=cfg["count"],
-                                         cookie_str=cookie_str, account=acct_no,
-                                         open_at=open_at if i == 0 else None)
+                return auto_book.try_book(url, datekey, times, count=cfg["count"],
+                                          cookie_str=cookie_str, account=acct_no, open_at=wait_until)
             except Exception as exc:
-                res = {"success": False, "message": f"예외: {exc}", "booked_time": None,
-                       "dry_run": False, "account": acct_no}
-            results.append(res)
-            took = f" [{res['elapsed']}초]" if res.get("elapsed") is not None else ""
-            print(f"  [자동예약] 계정{acct_no} 결과: {'성공' if res['success'] else '실패'}{took} — {res['message']}", flush=True)
-            if res["success"]:
-                break
-            # 슬롯이 사라졌거나 페이지가 선택 불가로 막은 실패는 계정을 바꿔도 소용없다
-            if res.get("unbookable") or any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
-                break
+                return {"success": False, "message": f"예외: {exc}", "booked_time": None,
+                        "dry_run": False, "account": acct_no}
+
+        def report(r: dict) -> None:
+            took = f" [{r['elapsed']}초]" if r.get("elapsed") is not None else ""
+            print(f"  [자동예약] 계정{r.get('account')} 결과: {'성공' if r['success'] else '실패'}"
+                  f"{took} — {r['message']}", flush=True)
+
+        if open_at:
+            # 오픈 선착순: 모든 계정이 각자 브라우저로 로그인해 두고 정각에 동시에 누른다.
+            # 한 계정씩 차례로 하면 두 번째 계정은 오픈 10~20초 뒤에야 시작해 소용이 없다
+            # (어바웃톤 300석이 41초 만에 매진). 성공한 계정 수만큼 예약이 잡힌다.
+            print(f"  오픈 대기: 계정 {len(accounts)}개 동시 시도 (성공한 계정 수만큼 예약)", flush=True)
+            with ThreadPoolExecutor(max_workers=len(accounts)) as ex:
+                futs = [ex.submit(attempt_one, a, c, open_at) for a, c in accounts]
+                results = [f.result() for f in futs]
+            for r in results:
+                report(r)
+            wins = [r for r in results if r["success"]]
+            res = wins[0] if wins else results[0]
+        else:
+            results = []
+            res = None
+            for acct_no, cookie_str in accounts:
+                res = attempt_one(acct_no, cookie_str)
+                results.append(res)
+                report(res)
+                if res["success"]:
+                    break
+                # 슬롯이 사라졌거나 페이지가 선택 불가로 막은 실패는 계정을 바꿔도 소용없다
+                if res.get("unbookable") or any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
+                    break
 
     finished_at = datetime.now(KST).isoformat(timespec="seconds")
     unbookable = any(r.get("unbookable") for r in results)
@@ -351,6 +370,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
             "message": res["message"],
         },
     }
+    wins = [r for r in results if r["success"] and not r.get("dry_run")]
     if res["success"] and not res.get("dry_run"):
         state_entry["booked"] = {
             "date": datekey,
@@ -363,9 +383,22 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
             "evidence": res.get("evidence") or None,
         }
 
+        if len(wins) > 1:
+            # 동시 시도에서 여러 계정이 잡은 경우 — 전부 남겨 예약 내역과 맞춰 볼 수 있게
+            state_entry["booked"]["all"] = [
+                {"account": r.get("account"), "time": r.get("booked_time"),
+                 "confirm_no": r.get("confirm_no") or None} for r in wins]
+
     record_results(log_entries, item_id, state_entry)
 
-    if res["success"] and not res.get("dry_run"):
+    if len(wins) > 1:
+        if ntfy_topic:
+            lines = [f"계정{r.get('account')}: {r.get('booked_label') or r.get('booked_time') or ''}"
+                     + (f" (예약번호 {r.get('confirm_no')})" if r.get("confirm_no") else "")
+                     for r in wins]
+            send_ntfy(ntfy_topic, f"🎫 {name} 자동예약 {len(wins)}건 성공!",
+                      f"{datekey}\n" + "\n".join(lines) + "\n— 네이버 예약 내역에서 확인하세요", url)
+    elif res["success"] and not res.get("dry_run"):
         if ntfy_topic:
             no = res.get("confirm_no")
             # 완료 화면에서 읽은 실제 일시("10/10 16:30")가 있으면 그것으로 알린다
