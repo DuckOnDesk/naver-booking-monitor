@@ -58,7 +58,7 @@ REMOVAL_SAFETY_MIN = 4       # 이보다 적게 빠졌으면 비율을 따지지
 PLACE_MEMORY_KEYS = ("hasBooking", "bookingNotified", "lastBookingNotifiedAt",
                      "discoveredAt", "bookingOpenHistory", "bookingUrl",
                      "bookingBusinessId", "saleStartDate", "bookingOpenAuto",
-                     "bookingPaused", "bookingIsOpened")
+                     "bookingPaused", "bookingIsOpened", "bookingLinkNotified")
 PLACE_MEMORY_TTL = timedelta(days=30)   # 이 기간 지나면 기억에서 정리
 
 # 감시 목록(watched_places) 정리는 이만큼 계속 안 보일 때만 한다.
@@ -1260,6 +1260,11 @@ def check_once(config: dict, prev: dict) -> dict:
         print(f"  [설정 정리] 24시간 넘게 검색에 없는 watched_places {stale_watched} 제거됨")
         for pid in stale_watched:
             watch_missing.pop(pid, None)
+            # 사용자가 끈 게 아니라 검색에서 빠져 정리된 것이다. 나중에 다시 나타나면
+            # 발견 알림을 다시 보내고 감시 목록에도 다시 넣는다 (2026-10-19, 코치 태비
+            # 투어가 하루 만에 빠졌다가 9일 뒤 돌아왔는데 조용히 감시 밖에 남았다).
+            seen_ids.discard(pid)
+            auto_added.discard(pid)
         watched = set(config["watched_places"])
 
     # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
@@ -1289,6 +1294,7 @@ def check_once(config: dict, prev: dict) -> dict:
         place["bookingUrlCheckedAt"] = base.get("bookingUrlCheckedAt")
         place["bookingItemCheckedAt"] = base.get("bookingItemCheckedAt")
         place["discoveredAt"] = base.get("discoveredAt")
+        place["bookingLinkNotified"] = base.get("bookingLinkNotified", False)
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
         prev_url = base.get("bookingUrl") or ""
@@ -1364,12 +1370,19 @@ def check_once(config: dict, prev: dict) -> dict:
             place["discoveredAt"] = now_iso
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
+            if booking_url:
+                place["bookingLinkNotified"] = True   # 발견 알림에 링크가 같이 나간다
             if place.get("isManual"):
                 # 사용자가 링크로 직접 등록한 팝업 — 본인이 방금 추가했으므로 발견 알림은 생략
                 print(f"[{now_str}] ➕ {name} — 링크로 직접 등록됨")
             else:
-                print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
-                _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
+                # 예약 링크가 아직 없어도 사전예약 팝업이면 알린다 — 링크는 나중에 따로 알린다
+                again = bool(base_of[pid])
+                title = f"🔁 다시 나타난 팝업: {name}" if again else f"🆕 새 팝업 발견: {name}"
+                body = (f"예약 링크 → {booking_url}" if booking_url
+                        else "아직 예약 링크 없음 — 링크가 잡히면 다시 알려드려요")
+                print(f"[{now_str}] {title}")
+                _queue_ntfy(title, body, booking_url or sel_url or place_map_url(str(pid)))
             new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
         elif pid not in prev:
@@ -1381,6 +1394,16 @@ def check_once(config: dict, prev: dict) -> dict:
             new_alerts.append({"type": "booking_open", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url or place_map_url(str(pid)),
                                 "ts": now_iso})
+
+        # 오픈 전에 예약 링크가 새로 잡힘 — 미리 알려 둔다 (열리면 오픈 알림이 따로 나간다)
+        if (not is_open and str(pid) in watched and booking_url
+                and not base_of[pid].get("bookingUrl") and not place.get("bookingLinkNotified")):
+            print(f"[{now_str}] 🔗 {name} — 예약 링크 발견: {booking_url}")
+            _queue_ntfy(f"🔗 예약 링크 발견: {name}", f"아직 오픈 전이에요 → {booking_url}",
+                        booking_url)
+            new_alerts.append({"type": "booking_link", "place_id": str(pid), "place_name": name,
+                               "booking_url": booking_url, "ts": now_iso})
+            place["bookingLinkNotified"] = True
 
         if not is_open:
             print(f"[{now_str}] ⏳ {name} ({dday}) — 대기중")

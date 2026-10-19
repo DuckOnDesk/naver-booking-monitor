@@ -103,6 +103,7 @@ class Harness:
 
 def main() -> int:
     h = Harness()
+    _real_resolve = pm.resolve_booking_item_url
     base_cfg = {"areas": [{"query": "성수 팝업", "x": "1", "y": "2", "address_filter": "성동구"}],
                 "ntfy_topic": "t", "selection_page_url": "https://example.test/select"}
 
@@ -199,7 +200,53 @@ def main() -> int:
     check(len(h.sent) == 1, f"실제로 열리면 바로 오픈 알림 (실제 {len(h.sent)}건)")
     check(cur_o2[PID]["bookingNotified"] is True, "발송 기록 저장")
 
+    print()
+    print("3-2) 검색에서 빠져 정리된 팝업이 돌아오면 다시 알리고 다시 감시한다 (코치 태비 투어)")
+    queued: list = []
+    COACH = "2086517554"
+    coach_raw = {"id": COACH, "name": "코치 x 스포티파이 태비 투어", "hasBooking": False,
+                 "bookingUrl": None, "bookingBusinessId": None,
+                 "popupstoreInfo": {"admissionCondition": {"name": "사전예약"}, "remainingDays": 11},
+                 "commonAddress": "서울 성동구"}
+    # 24시간 넘게 안 보여 정리되는 주기
+    h.install([], seen_ids={COACH})
+    h.auto_added = {COACH}
+    h.memory = {COACH: {"discoveredAt": "2026-10-09T14:48:48+09:00",
+                        "savedAt": datetime.now(KST).isoformat()}}
+    h.watch_missing = {COACH: (datetime.now(KST) - timedelta(hours=25)).isoformat()}
+    cfg_c = dict(base_cfg, watched_places=[COACH])
+    pm.check_once(cfg_c, {COACH: {"id": COACH, "name": "코치 x 스포티파이 태비 투어"}})
+    check(cfg_c["watched_places"] == [], "정리 주기에 감시 목록에서 빠짐")
+    check(COACH not in h.auto_added, "자동 추가 이력도 지워 둔다 (사용자가 끈 게 아니므로)")
+    # 9일 뒤 다시 나타남 — 실제로는 seen_place_ids에서도 빠져 있다
+    h.install([coach_raw], seen_ids=set())
+    pm._queue_ntfy = lambda title, body, url: queued.append((title, body, url))
+    cur_c = pm.check_once(cfg_c, {})
+    check(COACH in [str(x) for x in cfg_c["watched_places"]],
+          f"감시 목록에 다시 추가 (현재 {cfg_c['watched_places']})")
+    check(len(queued) == 1 and "다시 나타난" in queued[0][0],
+          f"링크가 없어도 재등장 알림 1건 (실제 {queued})")
+
+    print()
+    print("3-3) 감시 중인 팝업에 예약 링크가 새로 잡히면 오픈 전이라도 알린다")
+    queued.clear()
+    link = "https://m.booking.naver.com/booking/12/bizes/1800000"
+    h.install([dict(coach_raw, bookingUrl=link, bookingBusinessId="1800000")], seen_ids={COACH})
+    pm._queue_ntfy = lambda title, body, url: queued.append((title, body, url))
+    pm.fetch_bookable_setting = lambda u, b: {"isPaused": False, "isUseOpen": True,
+                                              "openDateTime": None, "isOpened": False}
+    pm.resolve_booking_item_url = lambda u: u
+    cur_l = pm.check_once(cfg_c, cur_c)
+    check(len(queued) == 1 and queued[0][0].startswith("🔗") and queued[0][2] == link,
+          f"예약 링크 발견 알림 1건 (실제 {queued})")
+    check(any(a.get("type") == "booking_link" for a in h.saved.get("alerts") or []),
+          "알림함에도 기록")
+    queued.clear()
+    pm.check_once(cfg_c, cur_l)
+    check(not queued, f"같은 링크로 다시 알리지 않음 (실제 {queued})")
+
     h.restore()
+    pm.resolve_booking_item_url = _real_resolve
 
     print()
     print("4) update_place_memory — 오래된 기억 정리")
