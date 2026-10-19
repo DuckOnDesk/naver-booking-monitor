@@ -44,7 +44,7 @@
       "id": "mvafaepa",
       "name": "어바웃톤",
       "url": "https://m.booking.naver.com/booking/12/bizes/1357646/items/8124911?theme=place&lang=ko&area=pll",
-      "enabled": true,
+      "enabled": false,
       "target_dates": [],
       "auto_book": {
         "enabled": true,
