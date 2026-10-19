@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T17:57:37.244631+09:00",
+  "updated_at": "2026-10-19T18:03:00.023282+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -1343,7 +1343,7 @@
     {
       "id": "2017159810",
       "name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "bookingBusinessId": "1746136",
       "operationStart": "26.10.23.",
@@ -1437,7 +1437,7 @@
       "bookingOpenDatetime": null,
       "bookingOpenHistory": [],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T17:30:36.121260+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T18:02:58.990478+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -3104,13 +3104,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-19T17:57:37.242454+09:00",
+    "checked_at": "2026-10-19T18:02:58.990027+09:00",
     "areas_total": 34,
     "areas_ok": 34,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 751,
-    "presale_items": 180,
+    "candidate_items": 754,
+    "presale_items": 182,
     "after_district_filter": 87,
     "fallback_matched": 0,
     "unique_place_ids": 49,
@@ -3119,9 +3119,9 @@
     "last_new_place_at": "2026-10-19T10:13:01.302661+09:00",
     "admission_names": {
       "(없음)": 360,
-      "현장대기": 211,
+      "현장대기": 212,
       "사전예약&현장대기": 137,
-      "사전예약": 43
+      "사전예약": 45
     },
     "stale_warned_at": "2026-10-18T20:10:58.670893+09:00",
     "structure_warned_at": null
