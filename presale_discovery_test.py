@@ -249,12 +249,12 @@ def main() -> int:
     out = run_check(one_left, dict(cfg), prev)
     check(len(out) == 10, f"9/10이 빠지면 삭제 보류 (실제 {len(out)})")
 
-    # 1개만 끝난 정상적인 경우 — 지운다
+    # 1개만 검색에서 빠진 경우 — 한 번 찾은 팝업은 운영이 끝날 때까지 목록에 둔다
     nine_left = {"ROOT_QUERY": {"items": [popup(str(i), f"팝업{i}", "사전예약")
                                           for i in range(1, 10)]}}
     out = run_check(nine_left, dict(cfg), prev)
-    check(len(out) == 9 and "10" not in out,
-          f"1개만 빠지면 정상 제거 (실제 {len(out)}개)")
+    check(len(out) == 10 and "10" in out,
+          f"검색에서 1개 빠져도 목록에 그대로 (실제 {len(out)}개)")
 
     print("\n9) 탐색이 깨진 주기에는 watched_places를 건드리지 않는다")
     cfg_w = dict(cfg, watched_places=["1", "2", "3"])

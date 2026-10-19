@@ -48,11 +48,6 @@ PRESALE_I18N_FILTER = "prebook"
 DISCOVERY_STALE_HOURS = 48
 STALE_RENOTIFY_HOURS = 24   # 같은 경고를 다시 보내기까지의 최소 간격
 
-# 팝업은 하나씩 끝난다. 한 주기에 무더기로 사라지는 건 탐색이 깨졌다는 뜻이므로
-# 종료로 오판해 지우지 않고 유지한다 (2026-09-03에 46개가 한 번에 지워졌다).
-REMOVAL_SAFETY_RATIO = 0.5   # 추적 중이던 장소의 이 비율 이상이 빠지면 삭제 보류
-REMOVAL_SAFETY_MIN = 4       # 이보다 적게 빠졌으면 비율을 따지지 않는다
-
 # 검색에서 한 주기 빠졌다가 돌아오는 팝업이 흔하다. 그때 알림 발송 기록까지
 # 같이 날아가면 이미 보낸 알림이 다시 나간다 — 장소 기록과 별도로 남겨 둔다.
 PLACE_MEMORY_KEYS = ("hasBooking", "bookingNotified", "lastBookingNotifiedAt",
@@ -60,11 +55,6 @@ PLACE_MEMORY_KEYS = ("hasBooking", "bookingNotified", "lastBookingNotifiedAt",
                      "bookingBusinessId", "saleStartDate", "bookingOpenAuto",
                      "bookingPaused", "bookingIsOpened", "bookingLinkNotified")
 PLACE_MEMORY_TTL = timedelta(days=30)   # 이 기간 지나면 기억에서 정리
-
-# 감시 목록(watched_places) 정리는 이만큼 계속 안 보일 때만 한다.
-# 한 주기 안 보인다고 지우면, 돌아올 때 "새 팝업"으로 보여 사용자가 끈 팝업이
-# 자동으로 다시 켜진다 (2026-09-21 03:56 → 04:01, 6개 팝업이 그렇게 되살아남).
-WATCH_CLEANUP_AFTER = timedelta(hours=24)
 
 SESSION = requests.Session()
 SESSION.headers.update({
@@ -1182,7 +1172,6 @@ def check_once(config: dict, prev: dict) -> dict:
     memory = load_place_memory()
     auto_added = load_auto_added_ids()
     auto_added |= {str(pid) for pid in prev}   # 마이그레이션: 기존 장소는 이미 처리한 것으로 간주
-    watch_missing = load_watch_missing()
     url_history = load_booking_url_history()
 
     raw: dict[str, dict] = {}
@@ -1207,64 +1196,37 @@ def check_once(config: dict, prev: dict) -> dict:
             continue
         current[place["id"]] = place
 
-    if fetch_failed:
-        # 일부 지역 조회 실패 → 검색에서 빠진 장소를 종료로 오판해 삭제하지 않고 유지
-        carried = 0
-        for pid, place in prev.items():
-            if pid not in current:
-                current[pid] = dict(place)
-                carried += 1
-        if carried:
-            print(f"  [경고] 일부 지역 조회 실패 — 기존 장소 {carried}개 유지 (삭제 보류)")
-
-    # 한 주기에 무더기로 빠지면 팝업이 다 끝난 게 아니라 탐색이 깨진 것으로 본다
-    removed = [pid for pid in prev if pid not in current]
-    if (len(removed) >= REMOVAL_SAFETY_MIN
-            and len(removed) >= len(prev) * REMOVAL_SAFETY_RATIO):
-        for pid in removed:
-            current[pid] = dict(prev[pid])
-        print(f"  [삭제 보류] 한 주기에 {len(removed)}/{len(prev)}개가 검색에서 빠짐"
-              f" — 탐색 이상으로 보고 유지")
-        fetch_failed = True   # 아래 config 정리도 함께 보류
-        removed = []
-
-    # 지도 검색에 나오지 않는 장소는 종료된 팝업으로 간주하고 제거 (carryover 안 함)
-    for pid in removed:
-        print(f"  [검색 제외] {prev[pid].get('name', pid)} ({pid}) — 검색 결과에 없어 제거")
-
-    # watched_places 등 config에서도 검색에 없는 장소 정리 (탐색이 정상일 때만).
-    # 탐색이 깨진 주기에 정리하면 사용자가 직접 고른 감시 목록이 통째로 날아간다.
-    stale_watched: list[str] = []
-    if not fetch_failed:
-        now_dt_clean = datetime.now(KST)
-        for pid in watched:
-            if pid in current:
-                watch_missing.pop(pid, None)
-                continue
-            first_missing = watch_missing.setdefault(pid, now_dt_clean.isoformat())
+    # 한 번 찾은 팝업은 검색에서 빠져도 목록과 감시 목록에 그대로 둔다 — 운영 기간이
+    # 끝나야 정리된다 (아래 만료 정리). 예전에는 검색에서 빠지면 목록에서 지우고 24시간
+    # 뒤 감시도 풀었다. 그래서 다시 검색되면 "다시 찾은" 팝업이 되고 오픈 알림 대상에서
+    # 빠진 채 남았다 (코치 x 스포티파이 태비 투어: 10/9 발견 → 1시간 뒤 검색에서 빠짐
+    # → 10/10 감시 해제 → 10/19 다시 검색됨).
+    seen_at = datetime.now(KST)
+    for place in current.values():
+        place["lastSeenAt"] = seen_at.isoformat()
+    kept = 0
+    for pid, place in prev.items():
+        if pid in current:
+            continue
+        place = dict(place)
+        place.setdefault("hasBooking", False)
+        place.setdefault("name", "")
+        last_seen = place.get("lastSeenAt") or seen_at.isoformat()   # 기존 데이터는 지금부터 셈
+        place["lastSeenAt"] = last_seen
+        # 운영 종료일을 모르면 만료 정리가 안 되므로, 그런 팝업만 오래 안 보이면 정리한다
+        if not place.get("operationEnd"):
             try:
-                gone_for = now_dt_clean - datetime.fromisoformat(first_missing)
+                gone_for = seen_at - datetime.fromisoformat(last_seen)
             except Exception:
                 gone_for = timedelta(0)
-            if gone_for >= WATCH_CLEANUP_AFTER:
-                stale_watched.append(pid)
-            else:
-                print(f"  [정리 보류] {pid} — 검색에서 빠진 지 "
-                      f"{gone_for.total_seconds() / 3600:.1f}시간 (24시간 지나면 정리)")
-    if stale_watched:
-        config["watched_places"] = sorted(pid for pid in watched if pid in current)
-        for pid in stale_watched:
-            for key in ("booking_direct_urls", "booking_open_datetimes"):
-                config.get(key, {}).pop(str(pid), None)
-        CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(f"  [설정 정리] 24시간 넘게 검색에 없는 watched_places {stale_watched} 제거됨")
-        for pid in stale_watched:
-            watch_missing.pop(pid, None)
-            # 사용자가 끈 게 아니라 검색에서 빠져 정리된 것이다. 나중에 다시 나타나면
-            # (알림 없이) 감시 목록에 다시 넣는다 (2026-10-19, 코치 태비 투어가 하루 만에
-            # 빠졌다가 9일 뒤 돌아왔는데 오픈 알림 대상에서 빠진 채로 남았다).
-            auto_added.discard(pid)
-        watched = set(config["watched_places"])
+            if gone_for > PLACE_MEMORY_TTL:
+                print(f"  [정리] {place.get('name', pid)} ({pid}) — 종료일 없이 "
+                      f"{gone_for.days}일째 검색에 없음")
+                continue
+        current[pid] = place
+        kept += 1
+    if kept:
+        print(f"  [유지] 이번 검색에 없는 팝업 {kept}개 — 목록에 그대로 둠")
 
     # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
     bod = config.get("booking_open_datetimes", {})
@@ -1520,10 +1482,9 @@ def check_once(config: dict, prev: dict) -> dict:
         remember_booking_url(url_history, str(pid), place.get("bookingUrl") or "")
 
     memory = update_place_memory(memory, prev, current, now_iso)
-    # 감시 목록에서 빠진 장소의 "안 보이기 시작한 시각"은 더 둘 필요가 없다
-    watch_missing = {pid: ts for pid, ts in watch_missing.items() if pid in watched}
     save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids, stats,
-              place_memory=memory, auto_added_ids=auto_added, watch_missing=watch_missing,
+              place_memory=memory, auto_added_ids=auto_added,
+              watch_missing={},   # 검색에서 빠져도 감시를 풀지 않으므로 더 쓰지 않는다
               url_history=url_history)
     return current
 

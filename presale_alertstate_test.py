@@ -16,7 +16,7 @@
   - 발견 시각·오픈 이력·예약 URL도 함께 복원된다
   - 한 번 자동 추가한 팝업은 다시 자동 추가하지 않는다 (사용자가 끈 것 존중)
   - 알림 규칙: 처음 찾을 때 1건, 예약 정보가 잡힐 때 1건, 오픈 때 1건 (겹치면 1건)
-  - watched_places 정리는 24시간 넘게 안 보일 때만 한다
+  - 한 번 찾은 팝업은 검색에서 빠져도 목록·감시 목록에 남는다 (운영 종료 때 정리)
   - place_memory는 오래된 항목을 정리한다
 
 사용법: python presale_alertstate_test.py
@@ -63,7 +63,8 @@ class Harness:
             "fetch_presale_places", "fetch_bookable_setting", "fetch_sale_start_date",
             "load_prev_alerts", "load_seen_ids", "has_available_slots",
             "load_place_memory", "load_auto_added_ids", "load_watch_missing",
-            "_queue_ntfy", "send_ntfy", "send_toast", "save_data", "CONFIG_FILE")}
+            "_queue_ntfy", "send_ntfy", "send_toast", "save_data", "CONFIG_FILE",
+            "resolve_booking_item_url")}
 
     def install(self, places, seen_ids):
         self.sent.clear()       # 단계마다 이번 주기 발송만 센다
@@ -80,6 +81,7 @@ class Harness:
         pm._queue_ntfy = lambda *a, **k: None
         pm.send_ntfy = lambda topic, title, body, url: self.sent.append(title)
         pm.send_toast = lambda *a, **k: None
+        pm.resolve_booking_item_url = lambda u: u
 
         def _save(places_, cfg, alerts=None, seen_ids=None, discovery_stats=None,
                   place_memory=None, auto_added_ids=None, watch_missing=None, url_history=None):
@@ -104,7 +106,6 @@ class Harness:
 
 def main() -> int:
     h = Harness()
-    _real_resolve = pm.resolve_booking_item_url
     base_cfg = {"areas": [{"query": "성수 팝업", "x": "1", "y": "2", "address_filter": "성동구"}],
                 "ntfy_topic": "t", "selection_page_url": "https://example.test/select"}
 
@@ -121,14 +122,14 @@ def main() -> int:
     check(PID not in h.memory,
           "목록에 있는 동안은 기억에 중복 저장하지 않음 (데이터 파일 비대화 방지)")
 
-    # 2주기: 검색에서 빠짐 → 장소 기록이 사라진다
+    # 2주기: 검색에서 빠짐 → 한 번 찾은 팝업은 목록에 그대로 둔다
     h.install([], seen_ids={PID})
     cur2 = pm.check_once(cfg, cur)
-    check(PID not in cur2, "검색에 없으면 장소 목록에서 빠짐")
-    check(PID in h.memory and h.memory[PID]["bookingNotified"] is True,
-          "빠져도 영구 기억에는 발송 기록이 남는다")
+    check(PID in cur2, "검색에 없어도 장소 목록에 남는다")
+    check(cur2[PID]["bookingNotified"] is True, "발송 기록도 그대로")
+    check(len(h.sent) == 0, f"빠진 주기에 알림 없음 (실제 {len(h.sent)}건)")
 
-    # 3주기: 다시 나타남 → prev에는 없지만 기억에서 복원되어야 한다
+    # 3주기: 다시 검색됨 → 알림 없음
     h.install([raw_place()], seen_ids={PID})
     cur3 = pm.check_once(cfg, cur2)
     check(cur3.get(PID, {}).get("bookingNotified") is True,
@@ -162,21 +163,28 @@ def main() -> int:
     check("9999999999" in h.auto_added, "자동 추가 이력이 기록됨")
 
     print()
-    print("3) watched_places 정리는 24시간 넘게 안 보일 때만")
+    print("3) 검색에서 오래 빠져도 목록·감시 목록에 그대로, 운영이 끝나야 정리")
+    long_ago = (datetime.now(KST) - timedelta(days=9)).isoformat()
     h.install([], seen_ids={PID})
-    h.watch_missing = {}
     cfg_clean = dict(base_cfg, watched_places=[PID])
-    pm.check_once(cfg_clean, {PID: {"id": PID, "name": NAME, "hasBooking": False}})
+    out_c = pm.check_once(cfg_clean, {PID: {"id": PID, "name": NAME, "hasBooking": False,
+                                            "operationEnd": "99.12.31.", "lastSeenAt": long_ago}})
+    check(PID in out_c, "9일째 검색에 없어도 목록에 남음")
     check([str(x) for x in cfg_clean.get("watched_places", [])] == [PID],
-          f"한 주기 안 보인다고 지우지 않음 (현재 {cfg_clean.get('watched_places')})")
-    check(PID in h.watch_missing, "안 보이기 시작한 시각을 기록해 둔다")
+          f"감시 목록도 그대로 (현재 {cfg_clean.get('watched_places')})")
+    check(out_c[PID]["lastSeenAt"] == long_ago, "마지막으로 검색된 시각은 유지")
 
     h.install([], seen_ids={PID})
-    h.watch_missing = {PID: (datetime.now(KST) - timedelta(hours=30)).isoformat()}
-    cfg_clean2 = dict(base_cfg, watched_places=[PID])
-    pm.check_once(cfg_clean2, {PID: {"id": PID, "name": NAME, "hasBooking": False}})
-    check([str(x) for x in cfg_clean2.get("watched_places", [])] == [],
-          f"30시간째 안 보이면 정리 (현재 {cfg_clean2.get('watched_places')})")
+    cfg_end = dict(base_cfg, watched_places=[PID])
+    out_e = pm.check_once(cfg_end, {PID: {"id": PID, "name": NAME, "hasBooking": False,
+                                          "operationEnd": "20.01.01."}})
+    check(PID not in out_e and cfg_end["watched_places"] == [], "운영이 끝나면 정리")
+
+    h.install([], seen_ids={PID})
+    very_long = (datetime.now(KST) - timedelta(days=40)).isoformat()
+    out_n = pm.check_once(dict(base_cfg, watched_places=[]),
+                          {PID: {"id": PID, "name": NAME, "lastSeenAt": very_long}})
+    check(PID not in out_n, "종료일을 모르는 팝업만 30일 넘게 안 보이면 정리")
 
     print()
     print("3-1) 오픈 예정 시각이 지나도 실제로 열리기 전엔 알리지 않고, 열리는 순간 알린다")
@@ -202,7 +210,7 @@ def main() -> int:
     check(cur_o2[PID]["bookingNotified"] is True, "발송 기록 저장")
 
     print()
-    print("3-2) 검색에서 빠져 정리된 팝업이 돌아오면 알림 없이 다시 감시한다 (코치 태비 투어)")
+    print("3-2) 찾은 팝업이 검색에서 빠졌다 돌아와도 알림 없이 감시 유지 (코치 태비 투어)")
     queued: list = []
     COACH = "2086517554"
     coach_raw = {"id": COACH, "name": "코치 x 스포티파이 태비 투어", "hasBooking": False,
@@ -213,30 +221,33 @@ def main() -> int:
     def capture():
         pm._queue_ntfy = lambda title, body, url: queued.append((title, body, url))
 
-    # 24시간 넘게 안 보여 정리되는 주기
-    h.install([], seen_ids={COACH})
-    h.auto_added = {COACH}
-    h.memory = {COACH: {"discoveredAt": "2026-10-09T14:48:48+09:00",
-                        "savedAt": datetime.now(KST).isoformat()}}
-    h.watch_missing = {COACH: (datetime.now(KST) - timedelta(hours=25)).isoformat()}
-    cfg_c = dict(base_cfg, watched_places=[COACH])
-    pm.check_once(cfg_c, {COACH: {"id": COACH, "name": "코치 x 스포티파이 태비 투어"}})
-    check(cfg_c["watched_places"] == [], "정리 주기에 감시 목록에서 빠짐")
-    check(COACH not in h.auto_added, "자동 추가 이력도 지워 둔다 (사용자가 끈 게 아니므로)")
-    # 9일 뒤 다시 나타남 — 이미 목록에 저장했던 팝업이므로 알림은 없다
+    h.auto_added = set()
+    h.memory = {}
+    h.install([coach_raw], seen_ids=set())
+    capture()
+    cfg_c = dict(base_cfg, watched_places=[])
+    cur_c = pm.check_once(cfg_c, {})
+    check(len(queued) == 1 and queued[0][0].startswith("🆕"), f"처음 찾을 때 발견 알림 (실제 {queued})")
+    # 1시간 뒤 검색에서 빠지고, 9일 동안 안 나온다
+    for _ in range(3):
+        queued.clear()
+        h.install([], seen_ids={COACH})
+        capture()
+        cur_c = pm.check_once(cfg_c, cur_c)
+    check(COACH in cur_c and COACH in cfg_c["watched_places"], "빠져 있는 동안 목록·감시 유지")
+    cur_c[COACH]["lastSeenAt"] = (datetime.now(KST) - timedelta(days=9)).isoformat()
+    # 다시 검색됨
     h.install([coach_raw], seen_ids={COACH})
     capture()
-    cur_c = pm.check_once(cfg_c, {})
-    check(COACH in [str(x) for x in cfg_c["watched_places"]],
-          f"감시 목록에 다시 추가 (현재 {cfg_c['watched_places']})")
-    check(not queued and not h.sent, f"이미 찾은 팝업이라 알림 없음 (실제 {queued} {h.sent})")
+    cur_c = pm.check_once(cfg_c, cur_c)
+    check(not queued and not h.sent, f"다시 검색돼도 알림 없음 (실제 {queued} {h.sent})")
+    check(COACH in cfg_c["watched_places"], "감시도 계속")
 
     print()
     print("3-3) 예약 정보가 새로 잡히면 오픈 전이라도 알린다 (감시를 꺼도)")
     link = "https://m.booking.naver.com/booking/12/bizes/1800000"
     with_link = dict(coach_raw, bookingUrl=link, bookingBusinessId="1800000")
     not_open = {"isPaused": False, "isUseOpen": True, "openDateTime": None, "isOpened": False}
-    pm.resolve_booking_item_url = lambda u: u
     for label, watched in (("감시 중", [COACH]), ("감시 꺼짐", [])):
         queued.clear()
         h.install([with_link], seen_ids={COACH})
@@ -291,7 +302,6 @@ def main() -> int:
         check(NEW in [str(x) for x in cfg_n["watched_places"]], f"{label}: 감시 목록에 저장")
 
     h.restore()
-    pm.resolve_booking_item_url = _real_resolve
 
     print()
     print("4) update_place_memory — 오래된 기억 정리")
