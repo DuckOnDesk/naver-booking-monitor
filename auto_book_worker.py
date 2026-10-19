@@ -422,6 +422,57 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
     return 0
 
 
+def check_cookies(item_id: str) -> int:
+    """오픈 전 쿠키 점검: 자동예약에 쓸 계정마다 로그인 상태로 예약 페이지에 들어가지는지 본다.
+
+    만료된 쿠키를 갱신하는 데 시간이 걸리므로, 모니터가 시작 시각 30분 전쯤 띄운다
+    (check_booking.AUTO_BOOK_COOKIE_CHECK_LEAD_MIN). 예약은 하지 않고 결과만 알린다.
+    """
+    cfg_all = load_monitors(from_github=True)
+    ntfy_topic = cfg_all.get("ntfy_topic", "")
+    item = next((m for m in cfg_all.get("monitors", [])
+                 if m.get("id", m.get("name", "")) == item_id), None)
+    if item is None:
+        print(f"[오류] monitors.json에 항목이 없습니다: {item_id}", flush=True)
+        return 2
+    name = item.get("name", item_id)
+    cfg = _auto_book_cfg(item)
+    accounts = auto_book.get_accounts(cfg["accounts"] if cfg else [])
+    when = ""
+    if cfg and cfg.get("start_at"):
+        st = _parse_dt(cfg["start_at"])
+        when = f" ({st.strftime('%H:%M')} 오픈)" if st else ""
+    if not accounts:
+        msg = "사용 가능한 계정 쿠키가 없습니다 (COOKIES_BUNDLE_JSON 또는 NAVER_COOKIES_1~5 확인)"
+        print(f"[쿠키 점검] {name} — {msg}", flush=True)
+        if ntfy_topic:
+            send_ntfy(ntfy_topic, f"⚠️ {name} 쿠키 점검{when}", msg, item.get("url", ""))
+        return 0
+
+    print(f"=== 쿠키 점검: {name}{when} — 계정 {len(accounts)}개 ===", flush=True)
+    with ThreadPoolExecutor(max_workers=len(accounts)) as ex:
+        futs = [ex.submit(auto_book.check_login, item.get("url", ""), c, a) for a, c in accounts]
+        results = [f.result() for f in futs]
+    for r in results:
+        mark = {True: "✅", False: "❌", None: "❓"}[r["ok"]]
+        print(f"  {mark} {r['label']}: {r['message']}", flush=True)
+
+    bad = [r for r in results if r["ok"] is False]
+    unknown = [r for r in results if r["ok"] is None]
+    if bad or unknown:
+        lines = [f"❌ {r['label']}: {r['message']}" for r in bad] + \
+                [f"❓ {r['label']}: {r['message']}" for r in unknown]
+        title = (f"⚠️ {name} 쿠키 만료 {len(bad)}개{when} — 오픈 전에 갱신하세요" if bad
+                 else f"❓ {name} 쿠키 점검 확인 필요{when}")
+        body = "\n".join(lines) + f"\n(정상 {len(results) - len(bad) - len(unknown)}/{len(results)})"
+    else:
+        title = f"✅ {name} 쿠키 점검 통과{when}"
+        body = f"계정 {len(results)}개 모두 로그인 정상 — " + ", ".join(r["label"] for r in results)
+    if ntfy_topic:
+        send_ntfy(ntfy_topic, title, body, item.get("url", ""))
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="자동예약 실행 워커")
     ap.add_argument("--item-id", required=True, help="monitors.json 항목 id")
@@ -432,7 +483,11 @@ def main() -> int:
     ap.add_argument("--detected-at", default="", help="모니터가 자리를 감지한 시각 (지연 측정용)")
     ap.add_argument("--fail-note", default="",
                     help="예약을 돌리지 않고 실행 실패 사실만 기록 (워크플로 실패 처리용)")
+    ap.add_argument("--check-cookies", default="",
+                    help="1이면 예약 없이 계정 쿠키(로그인 상태)만 점검하고 알린다")
     args = ap.parse_args()
+    if args.check_cookies.strip() in ("1", "true", "yes"):
+        return check_cookies(args.item_id.strip())
 
     requested = [t.strip() for t in args.times.split(",") if t.strip()]
     try:

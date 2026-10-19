@@ -43,10 +43,15 @@ def item_with(start_at: datetime, dates=None) -> dict:
                           "start_at": start_at.isoformat(timespec="seconds")}}
 
 
+COOKIE_CHECKS: list = []
+
+
 def run_monitor(item: dict, alerted: dict, sched_cache: dict | None = None) -> list:
-    """check_all을 한 회차 돌리고 디스패치 요청 목록을 돌려준다."""
+    """check_all을 한 회차 돌리고 예약 디스패치 목록을 돌려준다 (쿠키 점검은 COOKIE_CHECKS로)."""
     sent: list = []
-    cb.dispatch_auto_book = lambda *a, **k: (sent.append(a), (True, ""))[1]
+    COOKIE_CHECKS.clear()
+    cb.dispatch_auto_book = lambda *a, **k: ((COOKIE_CHECKS if k.get("check_cookies") else sent)
+                                             .append(a), (True, ""))[1]
     cb.load_reprobe_requests = lambda from_github=True: {}
     cb.check_availability = lambda *a, **k: (_ for _ in ()).throw(AssertionError("탐색하면 안 됨"))
     cache = sched_cache or {}
@@ -194,6 +199,59 @@ def main() -> int:
     w.record_skip = lambda *a: skipped.append(a[-1]) or 0
     w.run("abt", "2026-10-21", [], "x", 1, "")
     check(not calls and skipped, f"너무 이르면 종전대로 거절 (실제: {skipped})")
+
+    print("7) 시작 30분 전에는 쿠키 점검만 띄운다 (예약은 아직)")
+    alerted = {}
+    mid = now + timedelta(minutes=(cb.AUTO_BOOK_PREWAIT_LEAD_MIN + cb.AUTO_BOOK_COOKIE_CHECK_LEAD_MIN) / 2)
+    sent = run_monitor(item_with(mid, dates=["2026-10-21"]), alerted)
+    check(not sent and len(COOKIE_CHECKS) == 1, f"쿠키 점검 한 번, 예약 없음 (예약 {sent} / 점검 {COOKIE_CHECKS})")
+    run_monitor(item_with(mid, dates=["2026-10-21"]), alerted)
+    check(not COOKIE_CHECKS, "같은 시작 시각엔 다시 점검하지 않는다")
+    run_monitor(item_with(now + timedelta(minutes=cb.AUTO_BOOK_COOKIE_CHECK_LEAD_MIN + 10),
+                          dates=["2026-10-21"]), {})
+    check(not COOKIE_CHECKS, "30분보다 이르면 점검하지 않는다")
+
+    print("8) 쿠키 점검 결과 알림")
+    ntfys.clear()
+    w.load_monitors = lambda from_github=True: {"ntfy_topic": "topic",
+                                                "monitors": [item_with(mid, ["2026-10-21"])]}
+    auto_book.get_accounts = lambda pri=None: [(1, "c1"), (2, "c2")]
+    auto_book.check_login = lambda url, c, a: {
+        "account": a, "label": f"계정{a}", "ok": a == 1,
+        "message": "로그인 정상" if a == 1 else "로그인 안 된 상태 — 쿠키 만료"}
+    w.check_cookies("abt")
+    check(ntfys and "쿠키 만료 1개" in ntfys[-1][0] and "계정2" in ntfys[-1][1],
+          f"만료 계정을 알린다 (실제: {ntfys})")
+    auto_book.check_login = lambda url, c, a: {"account": a, "label": f"계정{a}", "ok": True,
+                                               "message": "로그인 정상"}
+    w.check_cookies("abt")
+    check("통과" in ntfys[-1][0], f"모두 정상이면 통과 알림 (실제: {ntfys[-1]})")
+
+    print("9) check_login — 실제 브라우저로 로그인 상태 판정")
+    import importlib
+    import os
+    import tempfile
+    real = importlib.reload(auto_book)
+    try:
+        import playwright  # noqa: F401
+        has_pw = True
+    except ImportError:
+        has_pw = False
+    if not has_pw:
+        print("    (playwright 없음 — 건너뜀)")
+    else:
+        d = tempfile.mkdtemp()
+        pin = os.path.join(d, "in.html")
+        pout = os.path.join(d, "out.html")
+        open(pin, "w").write("<html><body><main>예약하기</main><footer><a>로그아웃</a></footer></body></html>")
+        open(pout, "w").write("<html><body><main>예약하기</main><a href='#'>로그인</a></body></html>")
+        ck = "NID_AUT=x; NID_SES=y"
+        r_in = real.check_login(f"file://{pin}", ck, 1)
+        r_out = real.check_login(f"file://{pout}", ck, 2)
+        r_none = real.check_login(f"file://{pin}", "foo=bar", 3)
+        check(r_in["ok"] is True, f"'로그아웃'이 보이면 정상 (실제: {r_in})")
+        check(r_out["ok"] is False, f"'로그인' 버튼만 있으면 만료 (실제: {r_out})")
+        check(r_none["ok"] is False, f"로그인 토큰 없는 쿠키는 바로 만료 (실제: {r_none})")
 
     print("6) _wait_open — 오픈 전 안내면 새로고침, 열리면 바로 진행")
     page = FakePage(["not_open", "not_open", "open"])

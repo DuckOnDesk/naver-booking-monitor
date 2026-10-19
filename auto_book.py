@@ -1737,6 +1737,74 @@ def _std_done(page, datekey: str, booked_time: str, shots: list, result) -> dict
     return res
 
 
+# 로그인 상태 판정: 로그인된 예약 페이지는 하단에 "로그아웃"이, 아니면 "로그인" 버튼이 있다
+# (2026-10-16 어바웃톤 진단: 쿠키를 넣은 페이지 본문에 "로그아웃 전체 서비스"가 찍혔다).
+_JS_LOGIN_STATE = r"""() => {
+    const t = (document.body ? document.body.innerText : '').replace(/\s+/g, '');
+    if (t.includes('로그아웃')) return 'in';
+    const out = Array.from(document.querySelectorAll('button, a')).some(
+        el => el.getClientRects().length && (el.innerText || '').replace(/\s+/g, '') === '로그인');
+    return out ? 'out' : null;
+}"""
+
+
+def check_login(url: str, cookie_str, account: int | None = None) -> dict:
+    """이 계정 쿠키로 예약 페이지에 로그인된 상태로 들어가지는지 확인한다 (예약은 하지 않음).
+
+    {"account", "ok": True/False/None(판정 불가), "message"}
+    """
+    acct_label = f"계정{account}" if account else "계정?"
+    if account in ACCOUNT_NAMES:
+        acct_label += f"({ACCOUNT_NAMES[account]})"
+    _tls.acct = acct_label
+
+    def out(ok, message):
+        return {"account": account, "label": acct_label, "ok": ok, "message": message}
+
+    if not cookie_str or not _has_login_token(cookie_str):
+        return out(False, "쿠키에 로그인 토큰(NID_AUT/NID_SES)이 없음")
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return out(None, "playwright 미설치")
+    launch_kwargs = {"headless": True}
+    exe = os.environ.get("AUTO_BOOK_CHROMIUM", "").strip()
+    if exe:
+        launch_kwargs["executable_path"] = exe
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(**launch_kwargs)
+            try:
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                               "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                    locale="ko-KR")
+                context.add_cookies(_parse_cookies(cookie_str))
+                page = context.new_page()
+                page.goto(url, wait_until="domcontentloaded", timeout=25000)
+                seen = {"st": None}
+
+                def judged() -> bool:
+                    if _is_login_page(page):
+                        seen["st"] = "out"
+                    else:
+                        seen["st"] = page.evaluate(_JS_LOGIN_STATE)
+                    return seen["st"] is not None
+
+                _poll_until(page, judged, 10000, 250)
+                if seen["st"] == "in":
+                    return out(True, "로그인 정상")
+                if seen["st"] == "out":
+                    shots: list = []
+                    _shot(page, "cookie_expired", shots, always=True)
+                    return out(False, "로그인 안 된 상태 — 쿠키 만료")
+                return out(None, f"로그인 여부를 판정하지 못함 (페이지: {page.url[:80]})")
+            finally:
+                browser.close()
+    except Exception as exc:
+        return out(None, f"확인 중 오류: {exc}")
+
+
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
              cookie_str: str | None = None, account: int | None = None,
              budget_sec: float | None = None, open_at: datetime | None = None) -> dict:

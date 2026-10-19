@@ -134,6 +134,9 @@ AUTO_BOOK_DISPATCH_TIMEOUT_MIN = _env_num("AUTO_BOOK_DISPATCH_TIMEOUT_MIN", 15)
 # 러너 배정·브라우저 준비에 1~2분이 걸리고 큐가 밀리기도 해서 넉넉히 잡는다.
 # 워커는 로그인·페이지까지 띄워 둔 채 정각까지 기다린다 (auto_book_worker.PREWAIT_MAX_MIN 이내).
 AUTO_BOOK_PREWAIT_LEAD_MIN = _env_num("AUTO_BOOK_PREWAIT_LEAD_MIN", 8)
+# 같은 항목은 시작 시각 이만큼 전에 계정 쿠키(로그인 상태)를 먼저 점검해 알린다.
+# 만료된 쿠키는 갱신(naver_sync 로그인 → 시크릿 업로드)에 시간이 걸리므로 넉넉히 앞서 본다.
+AUTO_BOOK_COOKIE_CHECK_LEAD_MIN = _env_num("AUTO_BOOK_COOKIE_CHECK_LEAD_MIN", 30)
 # 예약 페이지가 "선택 불가"로 막은 슬롯을 다시 시도하기까지 쉬는 시간(분).
 # API는 자리가 있다고 답하는데 페이지에서는 못 누르는 경우가 있어, 그대로 두면
 # 같은 슬롯에 2분 간격으로 워크플로가 계속 뜬다 (실제로 15분에 14번 실행됐다).
@@ -1847,7 +1850,8 @@ def sync_auto_book_state(monitors: list, alerted: dict) -> None:
 
 
 def dispatch_auto_book(item_id: str, datekey: str, times: list, sig: str,
-                       attempt: int, detected_at: str = "") -> tuple[bool, str]:
+                       attempt: int, detected_at: str = "",
+                       check_cookies: bool = False) -> tuple[bool, str]:
     """autobook.yml 워크플로를 실행 요청한다. (성공여부, 오류메시지) 반환.
 
     detected_at(자리 감지 시각)은 워커가 "감지 → 예약 시작" 지연을 로그로 남기는 데 쓴다.
@@ -1869,6 +1873,8 @@ def dispatch_auto_book(item_id: str, datekey: str, times: list, sig: str,
             "detected_at": detected_at,
         },
     }
+    if check_cookies:
+        payload["inputs"]["check_cookies"] = "1"
     try:
         resp = requests.post(api, json=payload, timeout=15, headers={
             "Authorization": f"Bearer {token}",
@@ -1954,6 +1960,24 @@ def item_booking_period(item: dict, cache: dict) -> tuple[str | None, str | None
     return booking_period(cache.get(key) or {})
 
 
+
+
+def cookie_check_auto_book(item: dict, item_id: str, cfg: dict, alerted: dict) -> None:
+    """예약 시작 시각 30분쯤 전에 계정 쿠키 점검을 띄운다 (시작 시각마다 한 번).
+
+    오픈 대기 실행도 로그인을 먼저 확인하지만 그건 8분 전이라, 만료를 알아도 갱신할
+    시간이 없다. 결과(정상/만료 계정)는 워커가 ntfy로 바로 알린다.
+    """
+    key = f"{item_id}:cookie_check"
+    if alerted.get(key) == cfg["start_at"] or alerted.get(f"{item_id}:auto_booked"):
+        return
+    name = item.get("name", item_id)
+    ok, err = dispatch_auto_book(item_id, "", [], "cookie_check", 0, check_cookies=True)
+    if not ok:
+        print(f"  [자동예약] {name} 쿠키 점검 실행 요청 실패 — {err} (다음 회차에 재시도)", flush=True)
+        return
+    alerted[key] = cfg["start_at"]
+    print(f"  [자동예약] {name} — 오픈 전 쿠키 점검 실행 요청 (결과는 알림으로)", flush=True)
 
 
 def prewait_auto_book(item: dict, item_id: str, cfg: dict, start_at: datetime,
@@ -2817,9 +2841,13 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
         if ab_cfg and ab_cfg["mode"] == "scheduled" and ab_cfg["start_at"]:
             start_at = _parse_dt(ab_cfg["start_at"])
             if start_at and now_kst < start_at:
-                if (start_at - now_kst).total_seconds() <= AUTO_BOOK_PREWAIT_LEAD_MIN * 60:
+                left_sec = (start_at - now_kst).total_seconds()
+                if left_sec <= AUTO_BOOK_PREWAIT_LEAD_MIN * 60:
                     prewait_auto_book(item, item.get("id", name), ab_cfg, start_at,
                                       sched_cache, alerted)
+                elif left_sec <= AUTO_BOOK_COOKIE_CHECK_LEAD_MIN * 60:
+                    # 오픈 대기 실행이 뜨기 전 구간에서만 (그 뒤엔 대기 실행이 로그인을 직접 본다)
+                    cookie_check_auto_book(item, item.get("id", name), ab_cfg, alerted)
                 remain_min = int((start_at - now_kst).total_seconds() // 60)
                 # 남은 시간은 매 회차 줄어드니 서명에서 뺀다 (상태는 '대기 중' 하나)
                 log_state(f"{item.get('id', name)}:status",
