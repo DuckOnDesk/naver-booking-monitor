@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T18:40:48.688221+09:00",
+  "updated_at": "2026-10-19T18:46:11.746979+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -257,7 +257,7 @@
         "2026-10-14T13:36:29.058396+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T18:13:49.448216+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T18:46:09.426657+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -379,7 +379,7 @@
         "2026-10-14T17:29:55.693273+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T18:13:50.490559+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T18:46:10.482576+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -1059,7 +1059,7 @@
         "2026-10-10T14:38:55.781014+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-19T18:13:51.205730+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-19T18:46:11.050853+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1343,7 +1343,7 @@
     {
       "id": "2017159810",
       "name": "2026 스텔라이브 팝업 STELLA MODE:ON",
-      "hasBooking": false,
+      "hasBooking": true,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
       "bookingBusinessId": "1746136",
       "operationStart": "26.10.23.",
@@ -1361,7 +1361,8 @@
         "2026-10-14T20:07:43.739876+09:00",
         "2026-10-14T23:24:41.206296+09:00",
         "2026-10-15T10:05:16.336184+09:00",
-        "2026-10-15T14:57:15.337065+09:00"
+        "2026-10-15T14:57:15.337065+09:00",
+        "2026-10-19T18:46:09.426539+09:00"
       ],
       "bookingOpenAuto": "2026-10-12T20:00:00+09:00",
       "bookingOpenAutoCheckedAt": "2026-10-15T10:55:01.474364+09:00",
@@ -1508,13 +1509,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2038718464",
-      "place_name": "크록스 팝업스토어 CROCS STUDIO",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1741852/items/8074027",
-      "ts": "2026-10-04T05:46:00.752804+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2033835877",
@@ -2907,6 +2901,13 @@
       "place_name": "캐논 팝업 : 캐논 사진 한방당",
       "booking_url": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
       "ts": "2026-10-19T14:57:53.796860+09:00"
+    },
+    {
+      "type": "booking_open",
+      "place_id": "2017159810",
+      "place_name": "2026 스텔라이브 팝업 STELLA MODE:ON",
+      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1746136/items/8092642",
+      "ts": "2026-10-19T18:46:09.426539+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3104,13 +3105,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-19T18:40:44.925552+09:00",
+    "checked_at": "2026-10-19T18:46:09.426539+09:00",
     "areas_total": 34,
-    "areas_ok": 34,
-    "areas_failed": 0,
+    "areas_ok": 31,
+    "areas_failed": 3,
     "areas_empty": 0,
-    "candidate_items": 754,
-    "presale_items": 182,
+    "candidate_items": 689,
+    "presale_items": 169,
     "after_district_filter": 87,
     "fallback_matched": 0,
     "unique_place_ids": 49,
@@ -3118,10 +3119,10 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-19T10:13:01.302661+09:00",
     "admission_names": {
-      "(없음)": 360,
-      "현장대기": 212,
-      "사전예약&현장대기": 137,
-      "사전예약": 45
+      "(없음)": 319,
+      "현장대기": 201,
+      "사전예약&현장대기": 127,
+      "사전예약": 42
     },
     "stale_warned_at": "2026-10-18T20:10:58.670893+09:00",
     "structure_warned_at": null
