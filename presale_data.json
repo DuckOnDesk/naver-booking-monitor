@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-19T12:59:00.690677+09:00",
+  "updated_at": "2026-10-19T13:04:23.772096+09:00",
   "watched_places": [
     "2000187386",
     "2003262525",
@@ -1136,7 +1136,7 @@
     {
       "id": "2080685457",
       "name": "캐논 팝업 : 캐논 사진 한방당",
-      "hasBooking": true,
+      "hasBooking": false,
       "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1747957/items/8099741",
       "bookingBusinessId": "1747957",
       "operationStart": "26.10.23.",
@@ -3075,24 +3075,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-19T12:58:59.135808+09:00",
+    "checked_at": "2026-10-19T13:04:23.770099+09:00",
     "areas_total": 34,
-    "areas_ok": 26,
-    "areas_failed": 8,
+    "areas_ok": 34,
+    "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 654,
-    "presale_items": 159,
-    "after_district_filter": 82,
+    "candidate_items": 752,
+    "presale_items": 175,
+    "after_district_filter": 85,
     "fallback_matched": 0,
-    "unique_place_ids": 45,
+    "unique_place_ids": 48,
     "tracked_places": 48,
     "new_places": 0,
     "last_new_place_at": "2026-10-19T10:13:01.302661+09:00",
     "admission_names": {
-      "(없음)": 304,
-      "현장대기": 191,
-      "사전예약&현장대기": 123,
-      "사전예약": 36
+      "(없음)": 366,
+      "현장대기": 211,
+      "사전예약&현장대기": 136,
+      "사전예약": 39
     },
     "stale_warned_at": "2026-10-18T20:10:58.670893+09:00",
     "structure_warned_at": null
