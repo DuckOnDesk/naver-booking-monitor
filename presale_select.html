@@ -1121,9 +1121,11 @@ function renderAlertPanel() {
     const isOpen = a.type === 'booking_open';
     const isWarn = a.type === 'discovery_broken' || a.type === 'discovery_stale';
     // 탐색 경고는 팝업 알림이 아니라 "모니터가 멈췄다"는 신호 — 본문까지 보여준다
-    const icon = isWarn ? '⚠️' : (isOpen ? '🎉' : '🆕');
+    const isLink = a.type === 'booking_link';
+    const icon = isWarn ? '⚠️' : (isOpen ? '🎉' : (isLink ? '🔗' : '🆕'));
     const title = isWarn ? `${a.place_name}<div class="alert-body">${a.body || ''}</div>`
                 : isOpen ? `${a.place_name} 사전예약 오픈!`
+                : isLink ? `예약 정보 발견: ${a.place_name}`
                 : `새 팝업 발견: ${a.place_name}`;
     const hasUrl = !!a.booking_url;
     return `<div class="alert-item${hasUrl ? ' clickable' : ''}" ${hasUrl ? `data-url="${a.booking_url}"` : ''}>

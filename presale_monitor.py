@@ -48,23 +48,13 @@ PRESALE_I18N_FILTER = "prebook"
 DISCOVERY_STALE_HOURS = 48
 STALE_RENOTIFY_HOURS = 24   # 같은 경고를 다시 보내기까지의 최소 간격
 
-# 팝업은 하나씩 끝난다. 한 주기에 무더기로 사라지는 건 탐색이 깨졌다는 뜻이므로
-# 종료로 오판해 지우지 않고 유지한다 (2026-09-03에 46개가 한 번에 지워졌다).
-REMOVAL_SAFETY_RATIO = 0.5   # 추적 중이던 장소의 이 비율 이상이 빠지면 삭제 보류
-REMOVAL_SAFETY_MIN = 4       # 이보다 적게 빠졌으면 비율을 따지지 않는다
-
 # 검색에서 한 주기 빠졌다가 돌아오는 팝업이 흔하다. 그때 알림 발송 기록까지
 # 같이 날아가면 이미 보낸 알림이 다시 나간다 — 장소 기록과 별도로 남겨 둔다.
 PLACE_MEMORY_KEYS = ("hasBooking", "bookingNotified", "lastBookingNotifiedAt",
                      "discoveredAt", "bookingOpenHistory", "bookingUrl",
                      "bookingBusinessId", "saleStartDate", "bookingOpenAuto",
-                     "bookingPaused", "bookingIsOpened")
+                     "bookingPaused", "bookingIsOpened", "bookingLinkNotified")
 PLACE_MEMORY_TTL = timedelta(days=30)   # 이 기간 지나면 기억에서 정리
-
-# 감시 목록(watched_places) 정리는 이만큼 계속 안 보일 때만 한다.
-# 한 주기 안 보인다고 지우면, 돌아올 때 "새 팝업"으로 보여 사용자가 끈 팝업이
-# 자동으로 다시 켜진다 (2026-09-21 03:56 → 04:01, 6개 팝업이 그렇게 되살아남).
-WATCH_CLEANUP_AFTER = timedelta(hours=24)
 
 SESSION = requests.Session()
 SESSION.headers.update({
@@ -1182,7 +1172,6 @@ def check_once(config: dict, prev: dict) -> dict:
     memory = load_place_memory()
     auto_added = load_auto_added_ids()
     auto_added |= {str(pid) for pid in prev}   # 마이그레이션: 기존 장소는 이미 처리한 것으로 간주
-    watch_missing = load_watch_missing()
     url_history = load_booking_url_history()
 
     raw: dict[str, dict] = {}
@@ -1207,60 +1196,37 @@ def check_once(config: dict, prev: dict) -> dict:
             continue
         current[place["id"]] = place
 
-    if fetch_failed:
-        # 일부 지역 조회 실패 → 검색에서 빠진 장소를 종료로 오판해 삭제하지 않고 유지
-        carried = 0
-        for pid, place in prev.items():
-            if pid not in current:
-                current[pid] = dict(place)
-                carried += 1
-        if carried:
-            print(f"  [경고] 일부 지역 조회 실패 — 기존 장소 {carried}개 유지 (삭제 보류)")
-
-    # 한 주기에 무더기로 빠지면 팝업이 다 끝난 게 아니라 탐색이 깨진 것으로 본다
-    removed = [pid for pid in prev if pid not in current]
-    if (len(removed) >= REMOVAL_SAFETY_MIN
-            and len(removed) >= len(prev) * REMOVAL_SAFETY_RATIO):
-        for pid in removed:
-            current[pid] = dict(prev[pid])
-        print(f"  [삭제 보류] 한 주기에 {len(removed)}/{len(prev)}개가 검색에서 빠짐"
-              f" — 탐색 이상으로 보고 유지")
-        fetch_failed = True   # 아래 config 정리도 함께 보류
-        removed = []
-
-    # 지도 검색에 나오지 않는 장소는 종료된 팝업으로 간주하고 제거 (carryover 안 함)
-    for pid in removed:
-        print(f"  [검색 제외] {prev[pid].get('name', pid)} ({pid}) — 검색 결과에 없어 제거")
-
-    # watched_places 등 config에서도 검색에 없는 장소 정리 (탐색이 정상일 때만).
-    # 탐색이 깨진 주기에 정리하면 사용자가 직접 고른 감시 목록이 통째로 날아간다.
-    stale_watched: list[str] = []
-    if not fetch_failed:
-        now_dt_clean = datetime.now(KST)
-        for pid in watched:
-            if pid in current:
-                watch_missing.pop(pid, None)
-                continue
-            first_missing = watch_missing.setdefault(pid, now_dt_clean.isoformat())
+    # 한 번 찾은 팝업은 검색에서 빠져도 목록과 감시 목록에 그대로 둔다 — 운영 기간이
+    # 끝나야 정리된다 (아래 만료 정리). 예전에는 검색에서 빠지면 목록에서 지우고 24시간
+    # 뒤 감시도 풀었다. 그래서 다시 검색되면 "다시 찾은" 팝업이 되고 오픈 알림 대상에서
+    # 빠진 채 남았다 (코치 x 스포티파이 태비 투어: 10/9 발견 → 1시간 뒤 검색에서 빠짐
+    # → 10/10 감시 해제 → 10/19 다시 검색됨).
+    seen_at = datetime.now(KST)
+    for place in current.values():
+        place["lastSeenAt"] = seen_at.isoformat()
+    kept = 0
+    for pid, place in prev.items():
+        if pid in current:
+            continue
+        place = dict(place)
+        place.setdefault("hasBooking", False)
+        place.setdefault("name", "")
+        last_seen = place.get("lastSeenAt") or seen_at.isoformat()   # 기존 데이터는 지금부터 셈
+        place["lastSeenAt"] = last_seen
+        # 운영 종료일을 모르면 만료 정리가 안 되므로, 그런 팝업만 오래 안 보이면 정리한다
+        if not place.get("operationEnd"):
             try:
-                gone_for = now_dt_clean - datetime.fromisoformat(first_missing)
+                gone_for = seen_at - datetime.fromisoformat(last_seen)
             except Exception:
                 gone_for = timedelta(0)
-            if gone_for >= WATCH_CLEANUP_AFTER:
-                stale_watched.append(pid)
-            else:
-                print(f"  [정리 보류] {pid} — 검색에서 빠진 지 "
-                      f"{gone_for.total_seconds() / 3600:.1f}시간 (24시간 지나면 정리)")
-    if stale_watched:
-        config["watched_places"] = sorted(pid for pid in watched if pid in current)
-        for pid in stale_watched:
-            for key in ("booking_direct_urls", "booking_open_datetimes"):
-                config.get(key, {}).pop(str(pid), None)
-        CONFIG_FILE.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(f"  [설정 정리] 24시간 넘게 검색에 없는 watched_places {stale_watched} 제거됨")
-        for pid in stale_watched:
-            watch_missing.pop(pid, None)
-        watched = set(config["watched_places"])
+            if gone_for > PLACE_MEMORY_TTL:
+                print(f"  [정리] {place.get('name', pid)} ({pid}) — 종료일 없이 "
+                      f"{gone_for.days}일째 검색에 없음")
+                continue
+        current[pid] = place
+        kept += 1
+    if kept:
+        print(f"  [유지] 이번 검색에 없는 팝업 {kept}개 — 목록에 그대로 둠")
 
     # config의 booking_open_datetimes와 이전 예약오픈 이력 병합
     bod = config.get("booking_open_datetimes", {})
@@ -1289,6 +1255,7 @@ def check_once(config: dict, prev: dict) -> dict:
         place["bookingUrlCheckedAt"] = base.get("bookingUrlCheckedAt")
         place["bookingItemCheckedAt"] = base.get("bookingItemCheckedAt")
         place["discoveredAt"] = base.get("discoveredAt")
+        place["bookingLinkNotified"] = base.get("bookingLinkNotified", False)
 
         # 예약 URL 결정 (우선순위: config 수동 > 이전 /items/ URL > API URL > 이전 URL)
         prev_url = base.get("bookingUrl") or ""
@@ -1352,29 +1319,37 @@ def check_once(config: dict, prev: dict) -> dict:
             if not place["name"]:
                 place["name"] = "(이름 미확인)"
 
+    # 알림 규칙
+    #   - 처음 찾은 팝업 → 발견 알림 (이미 목록에 저장된 팝업은 다시 나타나도 알리지 않음)
+    #   - 예약 정보(링크·업체 ID)가 새로 잡힘 → 예약 정보 알림
+    #   - 예약 오픈 → 오픈 알림. 사용자가 감시를 끌 수 있는 건 이 알림뿐이다.
+    #   - 한 주기에 여러 개가 겹치면 하나로 합친다 (찾은 예약이 이미 열려 있으면 오픈 알림 1건)
     for pid, place in current.items():
         name = place["name"]
+        base = base_of[pid]
         is_open = place["hasBooking"]
-        was_open = base_of[pid].get("hasBooking", False)
+        was_open = base.get("hasBooking", False)
         booking_url = place.get("bookingUrl") or ""
+        biz_id = place.get("bookingBusinessId") or ""
         dday = place.get("status") or ""
+        is_new = pid not in prev and str(pid) not in seen_ids
+        # 이번 주기 끝에 감시 목록에 자동 추가될 팝업도 감시 대상으로 본다
+        will_watch = str(pid) in watched or (pid not in prev and str(pid) not in auto_added)
+        has_info = bool(booking_url or biz_id)
+        info_new = (has_info and not place.get("bookingLinkNotified")
+                    and not (base.get("bookingUrl") or base.get("bookingBusinessId")))
+        info_link = (booking_url or (BOOKING_URL_TEMPLATE.format(biz=biz_id) if biz_id else "")
+                     or place_map_url(str(pid)))
 
-        if pid not in prev and str(pid) not in seen_ids:
-            # 처음 보는 팝업 → git push 이후 알림 발송 (페이지 데이터가 업데이트된 뒤 수신되도록)
+        if is_new:
             place["discoveredAt"] = now_iso
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
-            if place.get("isManual"):
-                # 사용자가 링크로 직접 등록한 팝업 — 본인이 방금 추가했으므로 발견 알림은 생략
-                print(f"[{now_str}] ➕ {name} — 링크로 직접 등록됨")
-            else:
-                print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
-                _queue_ntfy(f"🆕 새 팝업 발견: {name}", "예약 선택 페이지에서 확인하세요", sel_url or booking_url)
             new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
                                 "booking_url": booking_url, "ts": now_iso})
         elif pid not in prev:
-            # 과거에 이미 발견 알림을 보낸 팝업이 검색에 다시 나타남 → 조용히 복원
-            print(f"[{now_str}] ↩️ {name} — 재등장 (이미 발견한 팝업, 알림 생략)")
+            # 이미 목록에 저장했던 팝업이 검색에 다시 나타남 → 조용히 복원
+            print(f"[{now_str}] ↩️ {name} — 재등장 (이미 찾은 팝업, 알림 생략)")
         elif is_open and not was_open:
             # 예약창(페이지) 자체가 열림 — 실제 판매 시작 여부는 아래에서 별도 확인
             place["bookingOpenHistory"].append(now_iso)
@@ -1382,55 +1357,70 @@ def check_once(config: dict, prev: dict) -> dict:
                                 "booking_url": booking_url or place_map_url(str(pid)),
                                 "ts": now_iso})
 
-        if not is_open:
-            print(f"[{now_str}] ⏳ {name} ({dday}) — 대기중")
-            continue
-
-        # 예약창은 열려 있음 — 실제 판매 시작일(saleStartDate, 수동 설정 우선)을 확인해
-        # 예약 창만 열리고 실제 예약은 아직 불가능한 경우("오픈" 오탐)를 걸러낸다.
-        sale_start = resolve_sale_start(place)
+        # 예약 오픈 알림 대상인지 — 안 되는 이유가 있으면 skip에 담는다
+        skip = ""
         now_dt = datetime.now(KST)
-        if sale_start and now_dt < sale_start:
-            print(f"[{now_str}] ⏳ {name} — 예약창은 열렸지만 실제 판매 시작 전 "
-                  f"({sale_start.strftime('%m/%d %H:%M')} 시작 예정)")
-            continue
-
-        # 업체가 정한 오픈 시각은 지났지만 네이버가 아직 예약을 안 받는 경우 —
-        # 여기서 알림을 보내면 "오픈" 알림이 실제 오픈보다 먼저 나가고, 정작
-        # 진짜로 열리는 순간에는 이미 보냈다고 생략된다. 실제로 열릴 때까지 기다린다.
-        if awaiting_actual_open(place, now_dt):
-            state = "일시중지" if place.get("bookingPaused") else "아직 예약 안 받음"
-            print(f"[{now_str}] ⏳ {name} — 오픈 예정 시각은 지났지만 {state} (실제 오픈 대기)")
-            continue
-
-        if pid not in watched:
-            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (알림없음)")
-            continue
-
-        # presale_monitor는 "처음 오픈" 알림 전용이다. 닫힘 후 재오픈 감지·알림은
-        # check_booking.py(monitors.json) 쪽에서 항목별로 다룬다 — 한 번 알림을
-        # 보낸 장소는 bookingNotified를 계속 True로 유지해 다시 알리지 않는다.
-        if place.get("bookingNotified"):
-            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (이미 알림 발송함, 생략)")
-            continue
-
-        biz_id = place.get("bookingBusinessId") or ""
-        if not has_available_slots(booking_url, biz_id):
-            print(f"[{now_str}] ✅ {name} ({dday}) — 예약중 (잔여 없음, 알림 생략)")
-            continue
-
-        # 링크 없는 오픈 알림은 사실상 쓸모가 없다 — 예약 URL을 끝내 못 찾았으면
-        # 지도 장소 페이지(예약 버튼 있음)를 대신 넣는다.
-        link = booking_url or place_map_url(str(pid)) or sel_url
-        print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {link}")
-        if booking_url:
-            msg = f"지금 바로 예약하세요! → {link}"
+        if not is_open:
+            skip = f"({dday}) — 대기중"
         else:
-            msg = f"예약 링크를 못 찾았어요 — 지도에서 바로 예약하세요 → {link}"
-        send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, link)
-        send_toast(name, msg, link)
-        place["lastBookingNotifiedAt"] = now_dt.isoformat()
-        place["bookingNotified"] = True
+            # 예약창만 열리고 실제 예약은 아직 불가능한 경우("오픈" 오탐)를 걸러낸다
+            sale_start = resolve_sale_start(place)
+            if sale_start and now_dt < sale_start:
+                skip = (f"— 예약창은 열렸지만 실제 판매 시작 전 "
+                        f"({sale_start.strftime('%m/%d %H:%M')} 시작 예정)")
+            # 업체가 정한 오픈 시각은 지났지만 네이버가 아직 예약을 안 받는 경우 —
+            # 여기서 알리면 진짜로 열리는 순간에는 이미 보냈다고 생략된다.
+            elif awaiting_actual_open(place, now_dt):
+                state = "일시중지" if place.get("bookingPaused") else "아직 예약 안 받음"
+                skip = f"— 오픈 예정 시각은 지났지만 {state} (실제 오픈 대기)"
+            elif not will_watch:
+                skip = f"({dday}) — 예약중 (오픈 알림 꺼짐)"
+            # presale_monitor는 "처음 오픈" 알림 전용이다. 닫힘 후 재오픈 감지·알림은
+            # check_booking.py(monitors.json) 쪽에서 항목별로 다룬다.
+            elif place.get("bookingNotified"):
+                skip = f"({dday}) — 예약중 (이미 알림 발송함, 생략)"
+            elif not has_available_slots(booking_url, biz_id):
+                skip = f"({dday}) — 예약중 (잔여 없음, 알림 생략)"
+
+        if not skip:
+            # 링크 없는 오픈 알림은 사실상 쓸모가 없다 — 예약 URL을 끝내 못 찾았으면
+            # 지도 장소 페이지(예약 버튼 있음)를 대신 넣는다.
+            link = booking_url or place_map_url(str(pid)) or sel_url
+            print(f"[{now_str}] 🎉 {name} — 사전예약 오픈! {link}")
+            if booking_url:
+                msg = f"지금 바로 예약하세요! → {link}"
+            else:
+                msg = f"예약 링크를 못 찾았어요 — 지도에서 바로 예약하세요 → {link}"
+            if is_new:
+                msg = f"새로 찾은 팝업이에요. {msg}"
+            send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, link)
+            send_toast(name, msg, link)
+            place["lastBookingNotifiedAt"] = now_dt.isoformat()
+            place["bookingNotified"] = True
+            if has_info:
+                place["bookingLinkNotified"] = True   # 오픈 알림에 링크가 같이 나갔다
+            continue
+        print(f"[{now_str}] {'⏳' if not is_open else '✅'} {name} {skip}")
+
+        # 오픈 알림이 안 나간 경우에만 발견·예약 정보 알림 (git push 이후 발송)
+        if is_new and place.get("isManual"):
+            # 사용자가 링크로 직접 등록한 팝업 — 본인이 방금 추가했으므로 발견 알림은 생략
+            print(f"[{now_str}] ➕ {name} — 링크로 직접 등록됨")
+            place["bookingLinkNotified"] = has_info
+        elif is_new:
+            body = (f"예약 정보 있음 → {info_link}" if has_info
+                    else "아직 예약 정보 없음 — 잡히면 다시 알려드려요")
+            print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
+            _queue_ntfy(f"🆕 새 팝업 발견: {name}", body,
+                        info_link if has_info else (sel_url or place_map_url(str(pid))))
+            place["bookingLinkNotified"] = has_info
+        elif info_new:
+            state = "예약 받는 중" if is_open else "아직 오픈 전"
+            print(f"[{now_str}] 🔗 {name} — 예약 정보 발견: {info_link}")
+            _queue_ntfy(f"🔗 예약 정보 발견: {name}", f"{state}이에요 → {info_link}", info_link)
+            new_alerts.append({"type": "booking_link", "place_id": str(pid), "place_name": name,
+                               "booking_url": info_link, "ts": now_iso})
+            place["bookingLinkNotified"] = True
 
     # 처음 보는 팝업만 watched_places에 자동 추가한다.
     # 한 번 자동 추가한 팝업은 다시 추가하지 않는다 — 사용자가 알림을 끈 팝업이
@@ -1492,10 +1482,9 @@ def check_once(config: dict, prev: dict) -> dict:
         remember_booking_url(url_history, str(pid), place.get("bookingUrl") or "")
 
     memory = update_place_memory(memory, prev, current, now_iso)
-    # 감시 목록에서 빠진 장소의 "안 보이기 시작한 시각"은 더 둘 필요가 없다
-    watch_missing = {pid: ts for pid, ts in watch_missing.items() if pid in watched}
     save_data(list(current.values()), config, prev_alerts + new_alerts, seen_ids, stats,
-              place_memory=memory, auto_added_ids=auto_added, watch_missing=watch_missing,
+              place_memory=memory, auto_added_ids=auto_added,
+              watch_missing={},   # 검색에서 빠져도 감시를 풀지 않으므로 더 쓰지 않는다
               url_history=url_history)
     return current
 
