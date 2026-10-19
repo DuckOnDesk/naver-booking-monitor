@@ -130,6 +130,10 @@ AUTO_BOOK_MAX_ATTEMPTS = _env_num("AUTO_BOOK_MAX_ATTEMPTS", 0)
 AUTO_BOOK_WORKFLOW = os.environ.get("AUTO_BOOK_WORKFLOW", "autobook.yml")
 # 디스패치한 실행이 이 시간(분) 안에 결과를 남기지 않으면 죽은 것으로 보고 재시도.
 AUTO_BOOK_DISPATCH_TIMEOUT_MIN = _env_num("AUTO_BOOK_DISPATCH_TIMEOUT_MIN", 15)
+# 예약 시작 시각(scheduled)이 정해진 항목은 이만큼 앞서 자동예약 워크플로를 띄운다.
+# 러너 배정·브라우저 준비에 1~2분이 걸리고 큐가 밀리기도 해서 넉넉히 잡는다.
+# 워커는 로그인·페이지까지 띄워 둔 채 정각까지 기다린다 (auto_book_worker.PREWAIT_MAX_MIN 이내).
+AUTO_BOOK_PREWAIT_LEAD_MIN = _env_num("AUTO_BOOK_PREWAIT_LEAD_MIN", 8)
 # 예약 페이지가 "선택 불가"로 막은 슬롯을 다시 시도하기까지 쉬는 시간(분).
 # API는 자리가 있다고 답하는데 페이지에서는 못 누르는 경우가 있어, 그대로 두면
 # 같은 슬롯에 2분 간격으로 워크플로가 계속 뜬다 (실제로 15분에 14번 실행됐다).
@@ -1828,6 +1832,7 @@ def sync_auto_book_state(monitors: list, alerted: dict) -> None:
         disp_at = _parse_dt(state["dispatched_at"])
         if last_at and disp_at and last_at >= disp_at:
             state.pop("dispatched_at", None)
+            state.pop("prewait", None)
             if last.get("unbookable") and last.get("sig") == state.get("sig"):
                 # 예약 페이지가 이 슬롯을 "선택 불가"로 막았다 → 지금 다시 띄워도 결과가 같다.
                 # API가 계속 "자리 있음"이라고 답하는 동안 2분마다 헛도는 것을 막는다.
@@ -1951,6 +1956,55 @@ def item_booking_period(item: dict, cache: dict) -> tuple[str | None, str | None
 
 
 
+def prewait_auto_book(item: dict, item_id: str, cfg: dict, start_at: datetime,
+                      sched_cache: dict, alerted: dict) -> None:
+    """예약 시작 시각 몇 분 전에 자동예약 워크플로를 미리 띄운다 (오픈 대기).
+
+    종전에는 시작 시각이 지나야 자리 탐색을 시작했고, 자리를 본 뒤에야 워크플로를
+    띄웠다. 1분 주기 감시 + 러너 기동·브라우저 준비로 오픈 뒤 1~2분이 지나서야
+    예약을 누를 수 있었다. 2026-10-16 어바웃톤은 17:00 오픈, 300석이 41초 안에
+    매진돼 첫 탐색(17:00:41) 때 이미 자리가 없었다 — 시도조차 못 했다.
+    지금은 워커가 미리 떠서 로그인·페이지를 띄워 둔 채 정각에 바로 누른다.
+
+    시작 시각마다 한 번만 띄운다 ({id}:prewait에 그 시각을 남긴다).
+    """
+    key = f"{item_id}:prewait"
+    if alerted.get(key) == cfg["start_at"] or alerted.get(f"{item_id}:auto_booked"):
+        return
+    name = item.get("name", item_id)
+    open_day = start_at.date().isoformat()
+    if cfg["dates"]:
+        days = sorted(d for d in cfg["dates"] if d >= open_day)
+        datekey = days[0] if days else None
+    else:
+        # 날짜 미지정 = 등록된 예약 기간 → 그 첫날 (오픈일보다 앞이면 오픈일)
+        p_start, p_end = item_booking_period(item, sched_cache)
+        datekey = max(p_start, open_day) if p_start else None
+        if datekey and p_end and datekey > p_end:
+            datekey = None
+    if not datekey:
+        print(f"  [자동예약] {name} — 예약 날짜를 몰라 오픈 대기를 띄우지 못함 "
+              f"(자동예약 날짜를 지정해 주세요) — 시작 시각 이후 탐색으로 진행", flush=True)
+        alerted[key] = cfg["start_at"]
+        return
+
+    now_kst = datetime.now(timezone(timedelta(hours=9)))
+    sig = f"{datekey}|prewait"
+    ok, err = dispatch_auto_book(item_id, datekey, [], sig, 1,
+                                 start_at.isoformat(timespec="seconds"))
+    if not ok:
+        print(f"  [자동예약] {name} 오픈 대기 실행 요청 실패 — {err} (다음 회차에 재시도)", flush=True)
+        return
+    alerted[key] = cfg["start_at"]
+    # 실행 중으로 표시해 둔다 — 오픈 직후 감시가 자리를 보고 같은 예약을 또 띄우지 않게
+    alerted[f"{item_id}:auto_book_state"] = {
+        "sig": sig, "attempts": 1, "prewait": cfg["start_at"],
+        "dispatched_at": now_kst.isoformat(timespec="seconds"),
+    }
+    print(f"  [자동예약] {name} {datekey} — 오픈 대기 실행 요청 "
+          f"({start_at.strftime('%H:%M')} 정각에 예약 시도)", flush=True)
+
+
 def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
                     per_slot: list, ntfy_topic: str, alerted: dict,
                     period: tuple | None = None, gate=None) -> None:
@@ -1996,7 +2050,8 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     sig = f"{datekey}|{','.join(times)}"
     state_key = f"{item_id}:auto_book_state"
     state = alerted.get(state_key)
-    if not isinstance(state, dict) or state.get("sig") != sig:
+    # 오픈 대기 실행이 아직 돌고 있으면 그 상태를 그대로 둔다 (시그니처가 달라도)
+    if not isinstance(state, dict) or (state.get("sig") != sig and not state.get("prewait")):
         state = {"sig": sig, "attempts": 0}
 
     # 이미 실행 중이면 중복 디스패치하지 않는다. 결과가 올라오면
@@ -2010,6 +2065,7 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
             return
         print(f"  [자동예약] {name} — {AUTO_BOOK_DISPATCH_TIMEOUT_MIN}분간 실행 결과 없음, 재시도", flush=True)
         state.pop("dispatched_at", None)
+        state.pop("prewait", None)
 
     # 예약 페이지가 "선택 불가"로 막았던 슬롯이면 잠시 쉰다 (API가 계속 자리 있다고 답해도)
     blocked_until = _parse_dt(state.get("blocked_until"))
@@ -2761,6 +2817,9 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
         if ab_cfg and ab_cfg["mode"] == "scheduled" and ab_cfg["start_at"]:
             start_at = _parse_dt(ab_cfg["start_at"])
             if start_at and now_kst < start_at:
+                if (start_at - now_kst).total_seconds() <= AUTO_BOOK_PREWAIT_LEAD_MIN * 60:
+                    prewait_auto_book(item, item.get("id", name), ab_cfg, start_at,
+                                      sched_cache, alerted)
                 remain_min = int((start_at - now_kst).total_seconds() // 60)
                 # 남은 시간은 매 회차 줄어드니 서명에서 뺀다 (상태는 '대기 중' 하나)
                 log_state(f"{item.get('id', name)}:status",

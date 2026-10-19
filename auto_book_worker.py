@@ -47,6 +47,10 @@ AUTO_BOOK_LOG_MAX = 300
 # 워커가 남기고 모니터가 읽는 실행 결과 (파일 소유자는 워커뿐이다)
 AUTO_BOOK_STATE_FILE = BASE_DIR / "auto_book_state.json"
 
+# 예약 시작 시각(scheduled)보다 먼저 뜬 워커가 정각까지 기다려 주는 최대 시간.
+# 모니터는 시작 몇 분 전에 미리 띄운다 (check_booking.AUTO_BOOK_PREWAIT_LEAD_MIN).
+PREWAIT_MAX_MIN = 15
+
 # 슬롯 자체가 없어진 실패 → 다른 계정으로 재시도해도 소용없는 메시지 패턴
 _ACCOUNT_SWITCH_USELESS = ["선택 가능한 것이 없음", "닫혀 있음", "날짜를 선택하지 못함"]
 
@@ -231,11 +235,17 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
                   f"(자동예약 날짜 미지정)", flush=True)
 
     now_kst = datetime.now(KST)
+    open_at = None
     if cfg["mode"] == "scheduled" and cfg["start_at"]:
         start_at = _parse_dt(cfg["start_at"])
         if start_at and now_kst < start_at:
-            return record_skip(item_id, name, datekey, sig, attempt,
-                               f"예약 시작 시각({cfg['start_at']}) 이전입니다")
+            if (start_at - now_kst).total_seconds() > PREWAIT_MAX_MIN * 60:
+                return record_skip(item_id, name, datekey, sig, attempt,
+                                   f"예약 시작 시각({cfg['start_at']})까지 {PREWAIT_MAX_MIN}분 넘게 남았습니다")
+            # 오픈 시각에 맞춰 예약: 미리 떠서 기다렸다가 정각에 누른다
+            open_at = start_at
+            print(f"  오픈 대기 모드: {start_at.strftime('%H:%M:%S')} 정각에 예약 시도 "
+                  f"({(start_at - now_kst).total_seconds():.0f}초 남음)", flush=True)
 
     # 이미 예약에 성공한 항목이면 중복 예약하지 않는다 (뒤늦게 도착한 요청 방어)
     state = _read_json(AUTO_BOOK_STATE_FILE, {})
@@ -250,11 +260,22 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
                                f"({booked.get('date')} {booked.get('time') or ''})")
 
     times = resolve_times(item, cfg, datekey, requested)
+    if not times and open_at:
+        # 오픈 전에는 시간대가 안 보이는 상품도 있다 → 정각까지 기다렸다가 다시 본다
+        # (이때는 오픈 뒤에 브라우저를 띄우게 되지만, 시간대를 모른 채 누를 수는 없다)
+        time_mod.sleep(max((open_at - datetime.now(KST)).total_seconds(), 0))
+        deadline = time_mod.time() + 20
+        while not times and time_mod.time() < deadline:
+            times = resolve_times(item, cfg, datekey, requested)
+            if not times:
+                time_mod.sleep(0.5)
+        open_at = None
     if not times:
         return record_skip(item_id, name, datekey, sig, attempt, "예약할 시간대가 없습니다")
 
     print(f"=== 자동예약 실행: {name} {datekey} {times} (시도 {attempt}) ===", flush=True)
-    lag_sec = report_lag(detected_at)
+    # 오픈 대기 실행은 감지 시각이 아니라 오픈 시각 기준이라 지연을 재지 않는다
+    lag_sec = None if open_at else report_lag(detected_at)
 
     accounts = auto_book.get_accounts(cfg["accounts"])
     if not accounts:
@@ -264,10 +285,12 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
     else:
         results = []
         res = None
-        for acct_no, cookie_str in accounts:
+        for i, (acct_no, cookie_str) in enumerate(accounts):
             try:
+                # 오픈 대기는 첫 계정만 한다 — 다음 계정은 오픈 뒤에 차례가 온다
                 res = auto_book.try_book(url, datekey, times, count=cfg["count"],
-                                         cookie_str=cookie_str, account=acct_no)
+                                         cookie_str=cookie_str, account=acct_no,
+                                         open_at=open_at if i == 0 else None)
             except Exception as exc:
                 res = {"success": False, "message": f"예외: {exc}", "booked_time": None,
                        "dry_run": False, "account": acct_no}

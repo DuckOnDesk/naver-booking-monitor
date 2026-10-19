@@ -197,6 +197,47 @@ def _wait_booking_ui(page, timeout_ms: int = 8000) -> bool:
     return False
 
 
+# 오픈 전 안내 화면 문구 ("오늘 오후 5시 00분 예약오픈", "현재 티켓 오픈 준비 중입니다")
+_JS_NOT_OPEN = r"""() => /예약\s*오픈|오픈\s*준비|오픈\s*예정/.test(document.body ? document.body.innerText : '')"""
+
+
+def _wait_open(page, start_url: str, cap_sec: float = 45.0) -> bool:
+    """오픈 시각 직후 예약 화면(달력·시간대)이 그려질 때까지 새로고침한다.
+
+    오픈 전 페이지는 달력 없이 "예약오픈" 안내만 그린다. 서버 시계와 러너 시계가
+    조금만 어긋나도 정각에 연 페이지가 아직 안내 화면일 수 있어서, 화면이 열릴
+    때까지 짧게 다시 불러온다. 화면이 열리면 True, cap_sec 안에 안 열리면 False.
+    """
+    deadline = time_mod.time() + cap_sec
+    reloads = 0
+    while True:
+        seen = {"st": None}
+
+        def state() -> bool:
+            try:
+                if (page.evaluate(_JS_UI_READY) or {}).get("ready"):
+                    seen["st"] = "open"
+                elif page.evaluate(_JS_NOT_OPEN):
+                    seen["st"] = "not_open"
+            except Exception:
+                pass
+            return seen["st"] is not None
+
+        _poll_until(page, state, 3000, 100)
+        if seen["st"] == "open":
+            if reloads:
+                _log(f"예약 화면 열림 (새로고침 {reloads}회)")
+            return True
+        if time_mod.time() >= deadline:
+            return False
+        page.wait_for_timeout(300)
+        try:
+            page.goto(start_url, wait_until="domcontentloaded", timeout=15000)
+        except Exception as exc:
+            _log(f"오픈 대기 새로고침 실패(계속): {exc}")
+        reloads += 1
+
+
 # 계정번호 → 묶음의 아이디 (로그에 "계정1(betty)"처럼 남기기 위함)
 ACCOUNT_NAMES: dict = {}
 
@@ -1690,10 +1731,15 @@ def _std_done(page, datekey: str, booked_time: str, shots: list, result) -> dict
 
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
              cookie_str: str | None = None, account: int | None = None,
-             budget_sec: float | None = None) -> dict:
+             budget_sec: float | None = None, open_at: datetime | None = None) -> dict:
     """예약 시도. wanted_times는 우선순위 순 시간 목록 (예: ["15:00", "16:00"]).
 
-    cookie_str 미지정 시 사용 가능한 첫 계정의 쿠키 사용."""
+    cookie_str 미지정 시 사용 가능한 첫 계정의 쿠키 사용.
+
+    open_at: 예약 오픈 시각. 주면 브라우저·로그인·페이지를 미리 띄워 둔 채 그 시각까지
+    기다렸다가 정각에 페이지를 다시 불러 바로 예약한다. 오픈 직후 수십 초 만에 끝나는
+    선착순은 오픈 뒤에 브라우저를 띄우기 시작해서는 잡을 수 없다 (2026-10-16 어바웃톤:
+    17:00 오픈, 300석이 41초 안에 매진)."""
     shots: list = []
     t0 = time_mod.time()
     dry_run = os.environ.get("AUTO_BOOK_DRY_RUN", "").strip() in ("1", "true", "yes")
@@ -1762,6 +1808,21 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     context.add_cookies(_parse_cookies(cookie_str))
                 _install_fast_routes(context)
                 page = context.new_page()
+                start_url = _with_start_date(url, datekey)
+                if open_at is not None:
+                    # 브라우저 기동·쿠키·TLS 연결을 오픈 전에 끝내 두고, 쿠키 만료도 미리 가린다
+                    page.goto(start_url, wait_until="domcontentloaded", timeout=25000)
+                    if _is_login_page(page):
+                        _shot(page, "login_required", shots, always=True)
+                        return result(False, f"오픈 전 확인: 네이버 로그인 페이지로 리다이렉트 — "
+                                             f"{acct_label} 쿠키 만료됨")
+                    left = (open_at - datetime.now(KST)).total_seconds()
+                    _log(f"오픈 대기 — 로그인·페이지 준비 완료, {open_at.strftime('%H:%M:%S')}까지 "
+                         f"{max(left, 0):.0f}초 대기")
+                    if left > 0:
+                        time_mod.sleep(left)
+                    _log("오픈 시각 — 예약 시작")
+                    t0 = time_mod.time()     # 걸린 시간은 오픈 시각부터 잰다
                 # load(모든 리소스 완료) + 고정 3초 대신, DOM이 오면 바로 받아서
                 # 달력/시간 UI가 그려지는 즉시 진행한다.
                 def page_problem() -> tuple[str, str] | None:
@@ -1778,9 +1839,12 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                         return "redirected", f"예약 화면으로 진입하지 못함 (리다이렉트: {page.url})"
                     return None
 
-                page.goto(_with_start_date(url, datekey), wait_until="domcontentloaded", timeout=25000)
+                page.goto(start_url, wait_until="domcontentloaded", timeout=25000)
                 # 리다이렉트는 URL만 보면 알 수 있다 — UI를 기다리며 몇 초 버리기 전에 먼저 판정
                 problem = page_problem()
+                if not problem and open_at is not None and not _wait_open(page, start_url):
+                    _shot(page, "not_open", shots, always=True)
+                    return result(False, "오픈 시각이 지났는데 예약 화면이 열리지 않음 (45초간 새로고침)")
                 if not problem:
                     _wait_booking_ui(page)
                     problem = page_problem()         # 로딩 중 뒤늦게 이동하는 경우까지
