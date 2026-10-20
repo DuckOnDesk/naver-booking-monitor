@@ -1478,6 +1478,32 @@ _JS_STD_TIME_PICKED = r"""(i) => {
 }"""
 
 
+# 시간대 없이 하루 단위로 파는 상품의 "시간" 이름 (check_booking.DAY_UNIT_TIME과 같은 값).
+# 워커가 이 값 하나만 넘기면 시간 선택 단계를 건너뛴다.
+DAY_UNIT = "종일"
+
+
+def _std_pick_day_unit(page) -> tuple[str | None, list]:
+    """하루 단위 상품: 시간 목록이 없으면 그대로 진행, 있으면 처음으로 고를 수 있는 것을 누른다.
+
+    (선택 결과, 페이지 시간대 목록). 시간 목록이 있는데 전부 막혀 있으면 (None, 목록).
+    """
+    _poll_until(page, lambda: page.locator(_STD_TIME_ITEM).count() > 0, 1500, 100)
+    slots = page.evaluate(_JS_STD_TIMES) or []
+    if not slots:
+        _log("하루 단위 상품 — 시간 선택 없이 진행")
+        return DAY_UNIT, []
+    for s in slots:
+        if s["off"]:
+            continue
+        page.locator(f'[data-ab-time="{s["i"]}"]').first.click(timeout=2500)
+        if _poll_until(page, lambda: page.evaluate(_JS_STD_TIME_PICKED, s["i"]), 2000, 100):
+            picked = f"{s['h']:02d}:{s['mm']:02d}" if s["h"] is not None else DAY_UNIT
+            _log(f"하루 단위 상품 — 화면의 '{s['text']}' 선택")
+            return picked, slots
+    return None, slots
+
+
 def _std_select_time(page, wanted_times: list) -> tuple[str | None, list]:
     """(선택한 시간 "HH:MM", 페이지 시간대 목록). 오전/오후·24시간 표기를 같은 시각으로 본다."""
     _poll_until(page, lambda: page.locator(_STD_TIME_ITEM).count() > 0, 6000, 100)
@@ -1625,6 +1651,9 @@ def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
     # 남은 후보 시간 (시간순). 예약 버튼까지 눌렀다가 실패한 시간은 빼고 다음 시간으로 간다
     # — 화면에 아직 '가능'으로 남아 있어도 같은 회차를 다시 누르지 않는다 (1시 실패 → 1시 반).
     candidates = list(wanted_times)
+    # 하루 단위 상품(넷플 잔치 등): 고를 시간대가 없다. 종전에는 이 경우를 몰라 워커가
+    # "예약할 시간대가 없습니다"로 매번 시도도 못 하고 끝났다 (2026-10-20, 37회 연속).
+    day_unit = list(wanted_times) == [DAY_UNIT]
     for rnd in range(1, max_rounds + 1):
         if rnd > 1:
             if not candidates:
@@ -1639,7 +1668,15 @@ def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
             return result(False, f"날짜를 선택하지 못함: {why}")
         _shot(page, "02_date", shots)
 
-        booked_time, slots = _std_select_time(page, candidates)
+        if day_unit:
+            booked_time, slots = _std_pick_day_unit(page)
+            if not booked_time:
+                _shot(page, "time_fail", shots, always=True)
+                shown = ", ".join(f"{s['text']}(마감)" for s in slots[:12])
+                return result(False, f"하루 단위 상품인데 화면의 선택지가 모두 마감 ({shown})",
+                              unbookable=True)
+        else:
+            booked_time, slots = _std_select_time(page, candidates)
         if not booked_time and rnd > 1:
             _shot(page, "time_fail", shots, always=True)
             return result(False, f"확정 실패 후 남은 시간 {candidates}도 선택 불가 — 직전: {last_fail}")
@@ -1683,7 +1720,7 @@ def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
             _shot(page, "date_mismatch", shots, always=True)
             return result(False, f"예약 창의 일정이 요청과 다름 (화면: {st.get('date')} / 요청: {datekey})",
                           booked_time)
-        if got and got[2] >= 0 and f"{got[2]:02d}:{got[3]:02d}" != booked_time:
+        if got and got[2] >= 0 and booked_time != DAY_UNIT and f"{got[2]:02d}:{got[3]:02d}" != booked_time:
             _shot(page, "time_mismatch", shots, always=True)
             return result(False, f"예약 창의 시간이 요청과 다름 (화면: {st.get('date')} / 선택: {booked_time})",
                           booked_time)
@@ -1708,7 +1745,9 @@ def _std_book(page, url: str, datekey: str, wanted_times: list, count: int,
         _shot(page, f"request_fail_{rnd}", shots, always=True)
         last_fail = f"{booked_time} " + (notice or "완료 화면으로 넘어가지 않음")
         _log(f"예약 실패 알림: {last_fail}")
-        candidates = candidates[candidates.index(booked_time) + 1:]
+        # 하루 단위는 고를 다른 시간이 없다 / 화면에서 고른 시간이 후보 목록에 없을 수 있다
+        candidates = (candidates[candidates.index(booked_time) + 1:]
+                      if booked_time in candidates else [])
         if _is_login_page(page):
             return result(False, f"확정 단계에서 로그인 요구 — {acct_label} 쿠키 만료됨", booked_time)
     return result(False, f"확정 단계 실패: {last_fail} — 수동 확인 필요(예약됐을 수도 있음)")
@@ -1958,7 +1997,11 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     _dump_dom_debug(page, "date_fail")
                     return result(False, f"날짜를 선택하지 못함: {reason}")
 
-                booked_time = _select_time(page, wanted_times)
+                if list(wanted_times) == [DAY_UNIT]:
+                    booked_time = DAY_UNIT      # 하루 단위 상품 — 시간 선택 단계 없음
+                    _log("하루 단위 상품 — 시간 선택 없이 진행")
+                else:
+                    booked_time = _select_time(page, wanted_times)
                 if not booked_time:
                     blocked = _blocked_slots(page, wanted_times)
                     _shot(page, "time_fail", shots, always=True)
