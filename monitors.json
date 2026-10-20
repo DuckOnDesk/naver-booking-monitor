@@ -65,7 +65,7 @@
       "enabled": true,
       "target_dates": [],
       "auto_book": {
-        "enabled": false,
+        "enabled": true,
         "dates": [
           "2026-10-31",
           "2026-11-01",
@@ -82,7 +82,7 @@
         "count": 1,
         "mode": "scheduled",
         "start_at": "2026-10-21T00:00:00+09:00",
-        "saved_at": "2026-10-20T09:23:52.505Z"
+        "saved_at": "2026-10-20T09:24:06.195Z"
       }
     }
   ]
