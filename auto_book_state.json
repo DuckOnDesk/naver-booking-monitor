@@ -419,5 +419,111 @@
       "message": "날짜를 선택하지 못함: 2026-10-24를 선택할 수 없음 — 선택 불가(마감·휴무) (달력: 2026.10)"
     },
     "name": "넷플 잔치"
+  },
+  "mvggwfyz": {
+    "name": "리바이포유 10주년 성수 팝업",
+    "last_run": {
+      "at": "2026-10-21T00:00:11+09:00",
+      "sig": "2026-10-31|prewait",
+      "date": "2026-10-31",
+      "times": [
+        "11:00",
+        "11:15",
+        "11:30",
+        "11:45",
+        "12:00",
+        "12:15",
+        "12:30",
+        "12:45",
+        "13:00",
+        "13:15",
+        "13:30",
+        "13:45",
+        "14:00",
+        "14:15",
+        "14:30",
+        "14:45",
+        "15:00",
+        "15:15",
+        "15:30",
+        "15:45",
+        "16:00",
+        "16:15",
+        "16:30",
+        "16:45",
+        "17:00",
+        "17:15",
+        "17:30",
+        "17:45",
+        "18:00",
+        "18:15",
+        "18:30",
+        "18:45",
+        "19:00"
+      ],
+      "attempt": 1,
+      "lag_sec": null,
+      "elapsed": 11.0,
+      "account": 1,
+      "success": true,
+      "dry_run": false,
+      "unbookable": false,
+      "api_slots": null,
+      "evidence": "완료 URL popup=bookingCompletion",
+      "message": "10/31 11:00 예약 성공 (예약번호 1385080029)"
+    },
+    "booked_accounts": {
+      "1": {
+        "date": "2026-10-31",
+        "time": "11:00",
+        "at": "2026-10-21T00:00:11+09:00",
+        "confirm_no": "1385080029",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "2": {
+        "date": "2026-10-31",
+        "time": "11:00",
+        "at": "2026-10-21T00:00:11+09:00",
+        "confirm_no": "1385080024",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "3": {
+        "date": "2026-10-31",
+        "time": "11:00",
+        "at": "2026-10-21T00:00:11+09:00",
+        "confirm_no": "1385080028",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "4": {
+        "date": "2026-10-31",
+        "time": "11:00",
+        "at": "2026-10-21T00:00:11+09:00",
+        "confirm_no": "1385080025",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "5": {
+        "date": "2026-10-31",
+        "time": "11:00",
+        "at": "2026-10-21T00:00:11+09:00",
+        "confirm_no": "1385080023",
+        "evidence": "완료 URL popup=bookingCompletion"
+      }
+    },
+    "booked": {
+      "date": "2026-10-31",
+      "time": "11:00",
+      "account": 1,
+      "at": "2026-10-21T00:00:11+09:00",
+      "confirm_no": "1385080029",
+      "evidence": "완료 URL popup=bookingCompletion",
+      "all_done": true,
+      "accounts": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
   }
 }
