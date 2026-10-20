@@ -150,12 +150,27 @@ def main() -> int:
         check(not isinstance(alerted.get("t1:auto_booked"), dict),
               "모니터가 스스로 예약 성공을 기록하지 않음 (결과는 워커가 돌려준다)")
 
-        print("8) 워커가 '선택 불가'로 보고하면 재시도를 보류한다")
+        print("8) 기본값: 워커가 '선택 불가'로 보고해도 쉬지 않고 계속 시도한다")
         state = alerted["t1:auto_book_state"]
         sig = state["sig"]
         cb.load_auto_book_state = lambda from_github=True: {
             "t1": {"last_run": {"at": cb.datetime.now(cb.timezone(cb.timedelta(hours=9)))
                                 .isoformat(timespec="seconds"),
+                                "unbookable": True, "sig": sig}}}
+        check(cb.AUTO_BOOK_BLOCKED_BACKOFF_MIN == 0, "기본 보류 시간은 0분")
+        cb.sync_auto_book_state([item_with([])], alerted)
+        check(not alerted["t1:auto_book_state"].get("blocked_until"), "보류 시각을 남기지 않는다")
+        dispatched.clear()
+        cb.maybe_auto_book(item_with([]), "t1", URL, D[2], [("11:00", 1)], "", alerted, period)
+        check(dispatched == [D[2]], f"바로 다시 워크플로를 띄운다 (실제: {dispatched})")
+
+        print("8-2) 보류 시간을 설정하면 그동안 재시도를 보류한다")
+        cb.AUTO_BOOK_BLOCKED_BACKOFF_MIN = 10
+        state = alerted["t1:auto_book_state"]
+        sig = state["sig"]
+        cb.load_auto_book_state = lambda from_github=True: {
+            "t1": {"last_run": {"at": (cb.datetime.now(cb.timezone(cb.timedelta(hours=9)))
+                                       + cb.timedelta(seconds=5)).isoformat(timespec="seconds"),
                                 "unbookable": True, "sig": sig}}}
         cb.sync_auto_book_state([item_with([])], alerted)
         state = alerted["t1:auto_book_state"]
@@ -174,6 +189,7 @@ def main() -> int:
         check(dispatched == [D[2]], "보류가 끝나면 재시도 재개")
     finally:
         cb.dispatch_auto_book, cb.fetch_slots = orig_dispatch, orig_fetch
+        cb.AUTO_BOOK_BLOCKED_BACKOFF_MIN = 0
 
     print(f"\n=== 실패 {len(fails)}건 ===", flush=True)
     for f in fails:

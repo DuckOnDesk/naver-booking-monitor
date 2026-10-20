@@ -1,0 +1,327 @@
+"""오픈 시각 예약(scheduled) — 미리 대기했다가 정각에 시도하는지 회귀 테스트.
+
+네트워크·브라우저 없이 돈다 (GitHub 디스패치·naver API·playwright는 대체 함수로 교체).
+
+배경 — 2026-10-16 어바웃톤: 17:00 오픈을 걸어 뒀는데, 감시는 17:00이 지나야 자리를
+찾기 시작했고 자리를 본 뒤에야 예약 워크플로를 띄웠다. 300석이 41초 안에 매진돼
+첫 탐색(17:00:41) 때 이미 자리가 없었다 — 예약을 시도조차 못 했다.
+
+확인 내용:
+  - 시작 시각 N분 전 회차에 예약 워크플로를 미리 띄운다 (시작 시각마다 한 번)
+  - 아직 이르면 띄우지 않는다
+  - 날짜 미지정이면 등록된 예약 기간의 첫날로 띄운다
+  - 오픈 대기 실행이 도는 동안 감시가 자리를 봐도 같은 예약을 또 띄우지 않는다
+  - 워커는 시작 전에 떠도 거절하지 않고 open_at을 넘겨 정각까지 기다린다 (첫 계정만)
+  - 너무 일찍 뜬 워커는 종전대로 거절한다
+  - _wait_open: 오픈 전 안내 화면이면 새로고침, 예약 화면이 그려지면 바로 진행
+
+사용법: python auto_book_prewait_test.py
+"""
+
+import sys
+from datetime import datetime, timedelta, timezone
+
+import auto_book
+import auto_book_worker as w
+import check_booking as cb
+
+KST = timezone(timedelta(hours=9))
+URL = "https://m.booking.naver.com/booking/12/bizes/1357646/items/8124911"
+fails: list = []
+
+
+def check(cond, msg):
+    print(f"    {'PASS' if cond else 'FAIL'} — {msg}", flush=True)
+    if not cond:
+        fails.append(msg)
+
+
+def item_with(start_at: datetime, dates=None) -> dict:
+    return {"id": "abt", "name": "어바웃톤", "url": URL, "enabled": True, "target_dates": [],
+            "auto_book": {"enabled": True, "dates": dates or [], "times": [], "accounts": [],
+                          "count": 1, "mode": "scheduled",
+                          "start_at": start_at.isoformat(timespec="seconds")}}
+
+
+COOKIE_CHECKS: list = []
+
+
+def run_monitor(item: dict, alerted: dict, sched_cache: dict | None = None) -> list:
+    """check_all을 한 회차 돌리고 예약 디스패치 목록을 돌려준다 (쿠키 점검은 COOKIE_CHECKS로)."""
+    sent: list = []
+    COOKIE_CHECKS.clear()
+    cb.dispatch_auto_book = lambda *a, **k: ((COOKIE_CHECKS if k.get("check_cookies") else sent)
+                                             .append(a), (True, ""))[1]
+    cb.load_reprobe_requests = lambda from_github=True: {}
+    cb.check_availability = lambda *a, **k: (_ for _ in ()).throw(AssertionError("탐색하면 안 됨"))
+    cache = sched_cache or {}
+
+    class _F:
+        def exists(self):
+            return True
+
+        def read_text(self, encoding="utf-8"):
+            import json
+            return json.dumps(cache)
+
+    orig = cb.SCHEDULE_CACHE_FILE
+    cb.SCHEDULE_CACHE_FILE = _F()
+    cb.reset_log_state()
+    try:
+        cb.check_all([item], "", alerted)
+    finally:
+        cb.SCHEDULE_CACHE_FILE = orig
+    return sent
+
+
+class FakePage:
+    """_wait_open용 가짜 페이지. states 순서대로 '로드할 때마다' 화면이 바뀐다."""
+
+    def __init__(self, states):
+        self.states = list(states)
+        self.cur = self.states.pop(0)
+        self.gotos = 0
+
+    def evaluate(self, js, *a):
+        if js is auto_book._JS_UI_READY:
+            return {"ready": self.cur == "open"}
+        if js is auto_book._JS_NOT_OPEN:
+            return self.cur == "not_open"
+        return None
+
+    def wait_for_timeout(self, ms):
+        pass
+
+    def goto(self, url, **kw):
+        self.gotos += 1
+        if self.states:
+            self.cur = self.states.pop(0)
+
+
+def main() -> int:
+    now = datetime.now(KST)
+
+    print("1) 시작 시각 몇 분 전 회차에 예약 워크플로를 미리 띄운다")
+    soon = now + timedelta(minutes=cb.AUTO_BOOK_PREWAIT_LEAD_MIN - 2)
+    item = item_with(soon, dates=["2026-10-21"])
+    alerted: dict = {}
+    sent = run_monitor(item, alerted)
+    check(len(sent) == 1, f"한 번 디스패치 (실제: {sent})")
+    if sent:
+        item_id, datekey, times, sig, attempt, detected_at = sent[0]
+        check((item_id, datekey, sig) == ("abt", "2026-10-21", "2026-10-21|prewait"),
+              f"대상 날짜·오픈 대기 시그니처 (실제: {sent[0][:4]})")
+        check(detected_at == soon.isoformat(timespec="seconds"), "기준 시각은 오픈 시각")
+    st = alerted.get("abt:auto_book_state") or {}
+    check(st.get("prewait") and st.get("dispatched_at"), f"실행 중으로 표시 (실제: {st})")
+    sent = run_monitor(item, alerted)
+    check(not sent, f"다음 회차에는 다시 띄우지 않는다 (실제: {sent})")
+
+    print("2) 아직 이르면 띄우지 않는다")
+    alerted = {}
+    sent = run_monitor(item_with(now + timedelta(minutes=cb.AUTO_BOOK_PREWAIT_LEAD_MIN + 5),
+                                 dates=["2026-10-21"]), alerted)
+    check(not sent and "abt:prewait" not in alerted, f"디스패치 없음 (실제: {sent})")
+
+    print("3) 날짜 미지정이면 등록된 예약 기간의 첫날로")
+    alerted = {}
+    cache = {"12_1357646_8124911": {"available_start": "2026-10-21", "available_end": "2026-10-21"}}
+    sent = run_monitor(item_with(soon), alerted, cache)
+    check(sent and sent[0][1] == "2026-10-21", f"예약 기간 첫날 (실제: {sent})")
+    alerted = {}
+    sent = run_monitor(item_with(soon), alerted, {})
+    check(not sent and alerted.get("abt:prewait"), f"날짜를 모르면 띄우지 않고 한 번만 알린다 (실제: {sent})")
+
+    print("4) 오픈 대기 실행 중에는 감시가 자리를 봐도 다시 띄우지 않는다")
+    alerted = {"abt:auto_book_state": {"sig": "2026-10-21|prewait", "attempts": 1,
+                                       "prewait": soon.isoformat(),
+                                       "dispatched_at": now.isoformat(timespec="seconds")}}
+    sent = []
+    cb.dispatch_auto_book = lambda *a, **k: (sent.append(a), (True, ""))[1]
+    past = item_with(now - timedelta(minutes=1), dates=["2026-10-21"])
+    cb.maybe_auto_book(past, "abt", URL, "2026-10-21", [("13:00", 50)], "", alerted)
+    check(not sent, f"중복 디스패치 없음 (실제: {sent})")
+    # 워커 결과가 올라오면 오픈 대기 표시를 지워 다음 시도를 연다
+    cb.load_auto_book_state = lambda from_github=True: {"abt": {"last_run": {
+        "at": (now + timedelta(seconds=30)).isoformat(timespec="seconds"),
+        "sig": "2026-10-21|prewait", "success": False, "message": "매진"}}}
+    cb.sync_auto_book_state([past], alerted)
+    st = alerted["abt:auto_book_state"]
+    check("prewait" not in st and "dispatched_at" not in st, f"결과 반영 후 표시 해제 (실제: {st})")
+    cb.maybe_auto_book(past, "abt", URL, "2026-10-21", [("13:00", 1)], "", alerted)
+    check(len(sent) == 1, f"그 뒤 취소표는 종전대로 띄운다 (실제: {sent})")
+
+    print("5) 워커 — 시작 전에 떠도 거절하지 않고, 모든 계정이 정각에 동시에 시도한다")
+    import threading
+    calls: list = []
+    recorded: list = []
+    ntfys: list = []
+    open_soon = datetime.now(KST) + timedelta(minutes=3)
+    w.load_monitors = lambda from_github=True: {"monitors": [item_with(open_soon, ["2026-10-21"])]}
+    w.fetch_slots = lambda *a: {"queried": True, "times": ["13:00", "14:00"], "all_slots": []}
+    w.record_results = lambda log, iid, state, **k: recorded.append(state) or True
+    w.send_ntfy = lambda topic, title, body, url: ntfys.append((title, body))
+    w._read_json = lambda path, default: default
+    auto_book.get_accounts = lambda pri=None: [(1, "c1"), (2, "c2"), (3, "c3")]
+    barrier = threading.Barrier(3, timeout=5)
+
+    def fake_try(url, datekey, times, count=1, cookie_str=None, account=None, open_at=None, **k):
+        calls.append((account, open_at))
+        try:
+            barrier.wait()          # 셋이 동시에 여기 있어야 통과 (차례로 돌면 타임아웃)
+            together = True
+        except threading.BrokenBarrierError:
+            together = False
+        ok = account in (1, 3)
+        return {"success": ok, "message": "성공" if ok else "매진", "booked_time": "13:00",
+                "dry_run": False, "account": account, "together": together,
+                "confirm_no": f"N{account}" if ok else ""}
+    auto_book.try_book = fake_try
+    orig_cfg = w.load_monitors
+    cfg_all = orig_cfg()
+    cfg_all["ntfy_topic"] = "topic"
+    w.load_monitors = lambda from_github=True: cfg_all
+    w.run("abt", "2026-10-21", [], "2026-10-21|prewait", 1, open_soon.isoformat())
+    check(len(calls) == 3, f"모든 계정이 시도 (실제: {calls})")
+    check(all(o is not None and abs((o - open_soon).total_seconds()) < 1 for _, o in calls),
+          "모든 계정에 open_at 전달 (다 같이 정각까지 대기)")
+    check(not barrier.broken, "계정들이 동시에 돈다 (차례로가 아니라)")
+    last = recorded[-1] if recorded else {}
+    check(sorted(last.get("booked_accounts") or {}) == ["1", "3"],
+          f"성공한 계정 전부 기록 (실제: {last.get('booked_accounts')})")
+    check("booked" not in last, "아직 계정2가 남았으니 멈춤 기록(booked)은 남기지 않는다")
+    check(ntfys and "2건 성공" in ntfys[-1][0] and "N1" in ntfys[-1][1] and "N3" in ntfys[-1][1]
+          and "2/3개 계정 완료" in ntfys[-1][1] and "계속 시도" in ntfys[-1][1],
+          f"성공 건수·예약번호·남은 계정 계속 시도를 알림 (실제: {ntfys})")
+
+    print("5-2) 성공한 계정은 빼고 남은 계정만 — 마지막 계정까지 성공하면 그때 멈춘다")
+    calls.clear()
+    state_file = {"abt": {"booked_accounts": last["booked_accounts"]}}
+    w._read_json = lambda path, default: state_file if path == w.AUTO_BOOK_STATE_FILE else default
+    auto_book.try_book = lambda url, d, t, count=1, cookie_str=None, account=None, open_at=None, **k: (
+        calls.append((account, open_at)) or
+        {"success": True, "message": "성공", "booked_time": "14:00", "dry_run": False,
+         "account": account, "confirm_no": f"N{account}"})
+    w.run("abt", "2026-10-21", [], "2026-10-21|prewait", 1, open_soon.isoformat())
+    check([a for a, _ in calls] == [2], f"계정2만 시도 (실제: {calls})")
+    last = recorded[-1]
+    check((last.get("booked") or {}).get("all_done") and last["booked"]["accounts"] == [1, 2, 3],
+          f"모든 계정 성공 → 멈춤 기록 (실제: {last.get('booked')})")
+    check("모든 계정 예약 완료 (3/3)" in ntfys[-1][1], f"완료 알림 (실제: {ntfys[-1]})")
+
+    calls.clear()
+    state_file = {"abt": {"booked_accounts": {"1": {}, "2": {}, "3": {}}}}
+    skipped_all: list = []
+    orig_skip = w.record_skip
+    w.record_skip = lambda *a: skipped_all.append(a[-1]) or 0
+    w.run("abt", "2026-10-21", [], "x", 1, "")
+    w.record_skip = orig_skip
+    check(not calls and skipped_all and "모든 계정" in skipped_all[0],
+          f"이미 전부 성공이면 시도하지 않는다 (실제: {skipped_all})")
+
+    print("5-3) 취소표(오픈 대기 아님)도 한 계정 성공 뒤 멈추지 않고 남은 계정이 이어서 시도")
+    calls.clear()
+    state_file = {}
+    w.load_monitors = lambda from_github=True: {"ntfy_topic": "topic", "monitors": [
+        {**item_with(open_soon, ["2026-10-21"]),
+         "auto_book": {"enabled": True, "dates": ["2026-10-21"], "times": [], "accounts": [],
+                       "count": 1, "mode": "immediate"}}]}
+    w.run("abt", "2026-10-21", ["13:00"], "2026-10-21|13:00", 1, "")
+    check([a for a, _ in calls] == [1, 2, 3] and all(o is None for _, o in calls),
+          f"세 계정 모두 차례로 시도 (실제: {calls})")
+
+    print("5-4) 계정별 성공 기록은 실행마다 쌓인다 (덮어쓰지 않음)")
+    import tempfile as _tf
+    from pathlib import Path as _P
+    tmp = _P(_tf.mkdtemp())
+    w.AUTO_BOOK_LOG_FILE, w.AUTO_BOOK_STATE_FILE = tmp / "log.json", tmp / "state.json"
+    import json as _js
+    w._read_json = lambda path, default: (_js.loads(path.read_text()) if path.exists() else default)
+    w._apply_results([], "abt", {"booked_accounts": {"1": {"at": "a"}}})
+    w._apply_results([], "abt", {"booked_accounts": {"3": {"at": "b"}}, "last_run": {}})
+    got = _js.loads(w.AUTO_BOOK_STATE_FILE.read_text())["abt"]["booked_accounts"]
+    check(sorted(got) == ["1", "3"], f"계정1·3 모두 남는다 (실제: {got})")
+
+    calls.clear()
+    too_early = datetime.now(KST) + timedelta(minutes=w.PREWAIT_MAX_MIN + 5)
+    w.load_monitors = lambda from_github=True: {"monitors": [item_with(too_early, ["2026-10-21"])]}
+    skipped: list = []
+    w.record_skip = lambda *a: skipped.append(a[-1]) or 0
+    w.run("abt", "2026-10-21", [], "x", 1, "")
+    check(not calls and skipped, f"너무 이르면 종전대로 거절 (실제: {skipped})")
+
+    print("7) 시작 30분 전에는 쿠키 점검만 띄운다 (예약은 아직)")
+    alerted = {}
+    mid = now + timedelta(minutes=(cb.AUTO_BOOK_PREWAIT_LEAD_MIN + cb.AUTO_BOOK_COOKIE_CHECK_LEAD_MIN) / 2)
+    sent = run_monitor(item_with(mid, dates=["2026-10-21"]), alerted)
+    check(not sent and len(COOKIE_CHECKS) == 1, f"쿠키 점검 한 번, 예약 없음 (예약 {sent} / 점검 {COOKIE_CHECKS})")
+    run_monitor(item_with(mid, dates=["2026-10-21"]), alerted)
+    check(not COOKIE_CHECKS, "같은 시작 시각엔 다시 점검하지 않는다")
+    run_monitor(item_with(now + timedelta(minutes=cb.AUTO_BOOK_COOKIE_CHECK_LEAD_MIN + 10),
+                          dates=["2026-10-21"]), {})
+    check(not COOKIE_CHECKS, "30분보다 이르면 점검하지 않는다")
+
+    print("8) 쿠키 점검 결과 알림")
+    ntfys.clear()
+    w.load_monitors = lambda from_github=True: {"ntfy_topic": "topic",
+                                                "monitors": [item_with(mid, ["2026-10-21"])]}
+    auto_book.get_accounts = lambda pri=None: [(1, "c1"), (2, "c2")]
+    auto_book.check_login = lambda url, c, a: {
+        "account": a, "label": f"계정{a}", "ok": a == 1,
+        "message": "로그인 정상" if a == 1 else "로그인 안 된 상태 — 쿠키 만료"}
+    w.check_cookies("abt")
+    check(ntfys and "쿠키 만료 1개" in ntfys[-1][0] and "계정2" in ntfys[-1][1],
+          f"만료 계정을 알린다 (실제: {ntfys})")
+    auto_book.check_login = lambda url, c, a: {"account": a, "label": f"계정{a}", "ok": True,
+                                               "message": "로그인 정상"}
+    n = len(ntfys)
+    w.check_cookies("abt")
+    check(len(ntfys) == n, f"모두 정상이면 알림 없음 (실제: {ntfys[n:]})")
+
+    print("9) check_login — 실제 브라우저로 로그인 상태 판정")
+    import importlib
+    import os
+    import tempfile
+    real = importlib.reload(auto_book)
+    try:
+        import playwright  # noqa: F401
+        has_pw = True
+    except ImportError:
+        has_pw = False
+    if not has_pw:
+        print("    (playwright 없음 — 건너뜀)")
+    else:
+        d = tempfile.mkdtemp()
+        pin = os.path.join(d, "in.html")
+        pout = os.path.join(d, "out.html")
+        open(pin, "w").write("<html><body><main>예약하기</main><footer><a>로그아웃</a></footer></body></html>")
+        open(pout, "w").write("<html><body><main>예약하기</main><a href='#'>로그인</a></body></html>")
+        ck = "NID_AUT=x; NID_SES=y"
+        r_in = real.check_login(f"file://{pin}", ck, 1)
+        r_out = real.check_login(f"file://{pout}", ck, 2)
+        r_none = real.check_login(f"file://{pin}", "foo=bar", 3)
+        check(r_in["ok"] is True, f"'로그아웃'이 보이면 정상 (실제: {r_in})")
+        check(r_out["ok"] is False, f"'로그인' 버튼만 있으면 만료 (실제: {r_out})")
+        check(r_none["ok"] is False, f"로그인 토큰 없는 쿠키는 바로 만료 (실제: {r_none})")
+
+    print("6) _wait_open — 오픈 전 안내면 새로고침, 열리면 바로 진행")
+    page = FakePage(["not_open", "not_open", "open"])
+    check(auto_book._wait_open(page, URL, cap_sec=5) and page.gotos == 2,
+          f"두 번 새로고침 뒤 열림 (새로고침 {page.gotos}회)")
+    page = FakePage(["open"])
+    check(auto_book._wait_open(page, URL, cap_sec=5) and page.gotos == 0, "이미 열려 있으면 그대로")
+    page = FakePage(["not_open"])
+    check(not auto_book._wait_open(page, URL, cap_sec=0.5), "끝내 안 열리면 False")
+
+    print()
+    if fails:
+        print(f"실패 {len(fails)}건:")
+        for f in fails:
+            print(f"  - {f}")
+        return 1
+    print("전체 통과")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

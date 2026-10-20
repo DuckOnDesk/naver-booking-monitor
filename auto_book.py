@@ -34,6 +34,7 @@ import gzip
 import json
 import os
 import re
+import threading
 import time as time_mod
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -106,8 +107,13 @@ _CALENDAR_SELECTOR = '[class*=calendar i], [class*=Calendar]'
 _dom_dumped = False   # DOM 덤프는 진단용이라 계정마다 반복할 필요가 없다
 
 
+# 오픈 대기 예약은 계정마다 스레드 하나로 동시에 돈다 → 로그·스크린샷에 계정을 붙인다
+_tls = threading.local()
+
+
 def _log(msg: str) -> None:
-    print(f"  [자동예약] {msg}", flush=True)
+    acct = getattr(_tls, "acct", "")
+    print(f"  [자동예약{' ' + acct if acct else ''}] {msg}", flush=True)
 
 
 def _shot(page, tag: str, shots: list, always: bool = False) -> None:
@@ -116,7 +122,9 @@ def _shot(page, tag: str, shots: list, always: bool = False) -> None:
         return
     try:
         SHOT_DIR.mkdir(exist_ok=True)
-        path = SHOT_DIR / f"{datetime.now(KST).strftime('%m%d_%H%M%S')}_{tag}.png"
+        acct = getattr(_tls, "acct", "")
+        path = SHOT_DIR / (f"{datetime.now(KST).strftime('%m%d_%H%M%S')}_{tag}"
+                           + (f"_{acct}" if acct else "") + ".png")
         page.screenshot(path=str(path), full_page=True)
         shots.append(str(path))
     except Exception:
@@ -195,6 +203,47 @@ def _wait_booking_ui(page, timeout_ms: int = 8000) -> bool:
     # 구조가 다른 페이지(달력·시간대가 없는 단일 상품 등)일 수 있으므로 실패로 끊지는 않는다
     _log(f"예약 UI가 {timeout_ms / 1000:.0f}초 안에 그려지지 않음 — 현재 상태로 계속 진행")
     return False
+
+
+# 오픈 전 안내 화면 문구 ("오늘 오후 5시 00분 예약오픈", "현재 티켓 오픈 준비 중입니다")
+_JS_NOT_OPEN = r"""() => /예약\s*오픈|오픈\s*준비|오픈\s*예정/.test(document.body ? document.body.innerText : '')"""
+
+
+def _wait_open(page, start_url: str, cap_sec: float = 45.0) -> bool:
+    """오픈 시각 직후 예약 화면(달력·시간대)이 그려질 때까지 새로고침한다.
+
+    오픈 전 페이지는 달력 없이 "예약오픈" 안내만 그린다. 서버 시계와 러너 시계가
+    조금만 어긋나도 정각에 연 페이지가 아직 안내 화면일 수 있어서, 화면이 열릴
+    때까지 짧게 다시 불러온다. 화면이 열리면 True, cap_sec 안에 안 열리면 False.
+    """
+    deadline = time_mod.time() + cap_sec
+    reloads = 0
+    while True:
+        seen = {"st": None}
+
+        def state() -> bool:
+            try:
+                if (page.evaluate(_JS_UI_READY) or {}).get("ready"):
+                    seen["st"] = "open"
+                elif page.evaluate(_JS_NOT_OPEN):
+                    seen["st"] = "not_open"
+            except Exception:
+                pass
+            return seen["st"] is not None
+
+        _poll_until(page, state, 3000, 100)
+        if seen["st"] == "open":
+            if reloads:
+                _log(f"예약 화면 열림 (새로고침 {reloads}회)")
+            return True
+        if time_mod.time() >= deadline:
+            return False
+        page.wait_for_timeout(300)
+        try:
+            page.goto(start_url, wait_until="domcontentloaded", timeout=15000)
+        except Exception as exc:
+            _log(f"오픈 대기 새로고침 실패(계속): {exc}")
+        reloads += 1
 
 
 # 계정번호 → 묶음의 아이디 (로그에 "계정1(betty)"처럼 남기기 위함)
@@ -1688,12 +1737,85 @@ def _std_done(page, datekey: str, booked_time: str, shots: list, result) -> dict
     return res
 
 
+# 로그인 상태 판정: 로그인된 예약 페이지는 하단에 "로그아웃"이, 아니면 "로그인" 버튼이 있다
+# (2026-10-16 어바웃톤 진단: 쿠키를 넣은 페이지 본문에 "로그아웃 전체 서비스"가 찍혔다).
+_JS_LOGIN_STATE = r"""() => {
+    const t = (document.body ? document.body.innerText : '').replace(/\s+/g, '');
+    if (t.includes('로그아웃')) return 'in';
+    const out = Array.from(document.querySelectorAll('button, a')).some(
+        el => el.getClientRects().length && (el.innerText || '').replace(/\s+/g, '') === '로그인');
+    return out ? 'out' : null;
+}"""
+
+
+def check_login(url: str, cookie_str, account: int | None = None) -> dict:
+    """이 계정 쿠키로 예약 페이지에 로그인된 상태로 들어가지는지 확인한다 (예약은 하지 않음).
+
+    {"account", "ok": True/False/None(판정 불가), "message"}
+    """
+    acct_label = f"계정{account}" if account else "계정?"
+    if account in ACCOUNT_NAMES:
+        acct_label += f"({ACCOUNT_NAMES[account]})"
+    _tls.acct = acct_label
+
+    def out(ok, message):
+        return {"account": account, "label": acct_label, "ok": ok, "message": message}
+
+    if not cookie_str or not _has_login_token(cookie_str):
+        return out(False, "쿠키에 로그인 토큰(NID_AUT/NID_SES)이 없음")
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        return out(None, "playwright 미설치")
+    launch_kwargs = {"headless": True}
+    exe = os.environ.get("AUTO_BOOK_CHROMIUM", "").strip()
+    if exe:
+        launch_kwargs["executable_path"] = exe
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(**launch_kwargs)
+            try:
+                context = browser.new_context(
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                               "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                    locale="ko-KR")
+                context.add_cookies(_parse_cookies(cookie_str))
+                page = context.new_page()
+                page.goto(url, wait_until="domcontentloaded", timeout=25000)
+                seen = {"st": None}
+
+                def judged() -> bool:
+                    if _is_login_page(page):
+                        seen["st"] = "out"
+                    else:
+                        seen["st"] = page.evaluate(_JS_LOGIN_STATE)
+                    return seen["st"] is not None
+
+                _poll_until(page, judged, 10000, 250)
+                if seen["st"] == "in":
+                    return out(True, "로그인 정상")
+                if seen["st"] == "out":
+                    shots: list = []
+                    _shot(page, "cookie_expired", shots, always=True)
+                    return out(False, "로그인 안 된 상태 — 쿠키 만료")
+                return out(None, f"로그인 여부를 판정하지 못함 (페이지: {page.url[:80]})")
+            finally:
+                browser.close()
+    except Exception as exc:
+        return out(None, f"확인 중 오류: {exc}")
+
+
 def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
              cookie_str: str | None = None, account: int | None = None,
-             budget_sec: float | None = None) -> dict:
+             budget_sec: float | None = None, open_at: datetime | None = None) -> dict:
     """예약 시도. wanted_times는 우선순위 순 시간 목록 (예: ["15:00", "16:00"]).
 
-    cookie_str 미지정 시 사용 가능한 첫 계정의 쿠키 사용."""
+    cookie_str 미지정 시 사용 가능한 첫 계정의 쿠키 사용.
+
+    open_at: 예약 오픈 시각. 주면 브라우저·로그인·페이지를 미리 띄워 둔 채 그 시각까지
+    기다렸다가 정각에 페이지를 다시 불러 바로 예약한다. 오픈 직후 수십 초 만에 끝나는
+    선착순은 오픈 뒤에 브라우저를 띄우기 시작해서는 잡을 수 없다 (2026-10-16 어바웃톤:
+    17:00 오픈, 300석이 41초 안에 매진)."""
     shots: list = []
     t0 = time_mod.time()
     dry_run = os.environ.get("AUTO_BOOK_DRY_RUN", "").strip() in ("1", "true", "yes")
@@ -1706,6 +1828,7 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
     if account in ACCOUNT_NAMES:
         acct_label += f"({ACCOUNT_NAMES[account]})"
+    _tls.acct = acct_label
 
     def result(success: bool, message: str, booked_time: str | None = None,
                unbookable: bool = False, evidence: str = "", confirm_no: str = "") -> dict:
@@ -1762,6 +1885,21 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                     context.add_cookies(_parse_cookies(cookie_str))
                 _install_fast_routes(context)
                 page = context.new_page()
+                start_url = _with_start_date(url, datekey)
+                if open_at is not None:
+                    # 브라우저 기동·쿠키·TLS 연결을 오픈 전에 끝내 두고, 쿠키 만료도 미리 가린다
+                    page.goto(start_url, wait_until="domcontentloaded", timeout=25000)
+                    if _is_login_page(page):
+                        _shot(page, "login_required", shots, always=True)
+                        return result(False, f"오픈 전 확인: 네이버 로그인 페이지로 리다이렉트 — "
+                                             f"{acct_label} 쿠키 만료됨")
+                    left = (open_at - datetime.now(KST)).total_seconds()
+                    _log(f"오픈 대기 — 로그인·페이지 준비 완료, {open_at.strftime('%H:%M:%S')}까지 "
+                         f"{max(left, 0):.0f}초 대기")
+                    if left > 0:
+                        time_mod.sleep(left)
+                    _log("오픈 시각 — 예약 시작")
+                    t0 = time_mod.time()     # 걸린 시간은 오픈 시각부터 잰다
                 # load(모든 리소스 완료) + 고정 3초 대신, DOM이 오면 바로 받아서
                 # 달력/시간 UI가 그려지는 즉시 진행한다.
                 def page_problem() -> tuple[str, str] | None:
@@ -1778,9 +1916,12 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
                         return "redirected", f"예약 화면으로 진입하지 못함 (리다이렉트: {page.url})"
                     return None
 
-                page.goto(_with_start_date(url, datekey), wait_until="domcontentloaded", timeout=25000)
+                page.goto(start_url, wait_until="domcontentloaded", timeout=25000)
                 # 리다이렉트는 URL만 보면 알 수 있다 — UI를 기다리며 몇 초 버리기 전에 먼저 판정
                 problem = page_problem()
+                if not problem and open_at is not None and not _wait_open(page, start_url):
+                    _shot(page, "not_open", shots, always=True)
+                    return result(False, "오픈 시각이 지났는데 예약 화면이 열리지 않음 (45초간 새로고침)")
                 if not problem:
                     _wait_booking_ui(page)
                     problem = page_problem()         # 로딩 중 뒤늦게 이동하는 경우까지
