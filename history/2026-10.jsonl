@@ -5295,3 +5295,5 @@
 {"ts": "2026-10-20T04:16:54+09:00", "kind": "stock", "item": "mvafaepa", "name": "어바웃톤", "date": "2026-10-21", "change": "예약 변동(예약 취소)", "stock": [300, 300], "booked": [300, 299], "slots": {"18:00": {"from": [50, 50], "to": [50, 49]}}, "scope": ""}
 {"ts": "2026-10-20T04:16:58+09:00", "kind": "gate", "item": "mvafaepa", "name": "어바웃톤", "open": false, "reason": "URL 리다이렉트: /error/ type=InvalidBusiness — \"운영하지 않는 예매 페이지입니다. 아래 내용을 다시 한번 확인해 주세요. 서비스를 준비 중인 건 아닌지 찾고 있는 주소가 바뀌거나 삭제된 건 아\""}
 {"ts": "2026-10-20T04:16:58+09:00", "kind": "alert", "item": "mvafaepa", "name": "어바웃톤", "date": "2026-10-21", "level": "closed", "title": "🔒 어바웃톤 자리 있음 (예약창 닫힘)", "slots": {"18:00": 1}}
+{"ts": "2026-10-20T12:07:22+09:00", "kind": "stock", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-24", "change": "예약 변동(예약 취소)", "stock": [6960, 6960], "booked": [6960, 6959], "slots": {"종일": {"from": [6960, 6960], "to": [6960, 6959]}}, "scope": ""}
+{"ts": "2026-10-20T12:07:28+09:00", "kind": "alert", "item": "mtssyscp", "name": "넷플 잔치", "date": "2026-10-24", "level": "open", "title": "🎉 넷플 잔치 예약 가능!", "slots": {"종일": 1}}
