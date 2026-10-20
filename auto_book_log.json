@@ -1,5 +1,39 @@
 [
   {
+    "ts": "2026-10-20T18:03:21+09:00",
+    "item_id": "mtssyscp",
+    "name": "넷플 잔치",
+    "date": "2026-10-24",
+    "times": [
+      "종일"
+    ],
+    "account": 3,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 7.0,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "예약 진행 버튼을 찾지 못함"
+  },
+  {
+    "ts": "2026-10-20T18:03:21+09:00",
+    "item_id": "mtssyscp",
+    "name": "넷플 잔치",
+    "date": "2026-10-24",
+    "times": [
+      "종일"
+    ],
+    "account": 5,
+    "success": false,
+    "dry_run": false,
+    "elapsed": 5.4,
+    "unbookable": false,
+    "api_slots": [],
+    "evidence": null,
+    "message": "날짜를 선택하지 못함: 2026-10-24를 선택할 수 없음 — 선택 불가(마감·휴무) (달력: 2026.10)"
+  },
+  {
     "ts": "2026-09-28T22:17:10+09:00",
     "item_id": "muaydmed",
     "name": "아이쁘",

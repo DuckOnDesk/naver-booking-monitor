@@ -401,13 +401,22 @@
   },
   "mtssyscp": {
     "last_run": {
-      "at": "2026-10-20T17:04:20+09:00",
+      "at": "2026-10-20T18:03:21+09:00",
       "sig": "2026-10-24|종일",
       "date": "2026-10-24",
-      "attempt": 37,
+      "times": [
+        "종일"
+      ],
+      "attempt": 38,
+      "lag_sec": 24.5,
+      "elapsed": 5.4,
+      "account": 5,
       "success": false,
-      "skipped": true,
-      "message": "예약할 시간대가 없습니다"
+      "dry_run": false,
+      "unbookable": false,
+      "api_slots": null,
+      "evidence": null,
+      "message": "날짜를 선택하지 못함: 2026-10-24를 선택할 수 없음 — 선택 불가(마감·휴무) (달력: 2026.10)"
     },
     "name": "넷플 잔치"
   }
