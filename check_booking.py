@@ -140,7 +140,9 @@ AUTO_BOOK_COOKIE_CHECK_LEAD_MIN = _env_num("AUTO_BOOK_COOKIE_CHECK_LEAD_MIN", 30
 # 예약 페이지가 "선택 불가"로 막은 슬롯을 다시 시도하기까지 쉬는 시간(분).
 # API는 자리가 있다고 답하는데 페이지에서는 못 누르는 경우가 있어, 그대로 두면
 # 같은 슬롯에 2분 간격으로 워크플로가 계속 뜬다 (실제로 15분에 14번 실행됐다).
-AUTO_BOOK_BLOCKED_BACKOFF_MIN = _env_num("AUTO_BOOK_BLOCKED_BACKOFF_MIN", 10)
+# 기본은 0(쉬지 않음): 매진 직후 취소표가 바로 나오는 경우가 있어, 사용자가 끄기 전까지는
+# 쉬지 않고 계속 시도하기로 했다 (2026-10-19). 실행 횟수가 부담되면 이 값을 올린다.
+AUTO_BOOK_BLOCKED_BACKOFF_MIN = _env_num("AUTO_BOOK_BLOCKED_BACKOFF_MIN", 0)
 # 자동예약 날짜 미지정 항목에서, 감시 대상 밖 날짜를 한 회차에 몇 개까지 추가 조회할지.
 # (예약 기간이 아주 긴 항목이 한 회차의 API 호출을 독차지하지 않도록 하는 상한)
 AUTO_BOOK_SWEEP_MAX = _env_num("AUTO_BOOK_SWEEP_MAX", 31)
@@ -1787,7 +1789,8 @@ def load_auto_book_state(from_github: bool = True) -> dict:
 def sync_auto_book_state(monitors: list, alerted: dict) -> None:
     """워커의 실행 결과를 모니터 상태(alerted)에 반영.
 
-      - 예약 성공 기록을 {id}:auto_booked로 가져와 이후 디스패치를 멈춘다
+      - 모든 계정 예약 성공 기록을 {id}:auto_booked로 가져와 이후 디스패치를 멈춘다
+        (워커는 모든 계정이 성공했을 때만 booked를 남긴다 — 일부 성공이면 계속 시도)
       - 디스패치한 실행이 끝났으면 dispatched_at을 지워 다음 시도를 허용한다
     상태 파일을 못 읽으면 아무것도 건드리지 않는다 (실행 중으로 간주하고 대기).
     """
@@ -1836,7 +1839,8 @@ def sync_auto_book_state(monitors: list, alerted: dict) -> None:
         if last_at and disp_at and last_at >= disp_at:
             state.pop("dispatched_at", None)
             state.pop("prewait", None)
-            if last.get("unbookable") and last.get("sig") == state.get("sig"):
+            if (AUTO_BOOK_BLOCKED_BACKOFF_MIN > 0 and last.get("unbookable")
+                    and last.get("sig") == state.get("sig")):
                 # 예약 페이지가 이 슬롯을 "선택 불가"로 막았다 → 지금 다시 띄워도 결과가 같다.
                 # API가 계속 "자리 있음"이라고 답하는 동안 2분마다 헛도는 것을 막는다.
                 state["blocked_until"] = (datetime.now(timezone(timedelta(hours=9)))
@@ -2118,7 +2122,7 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
 
     state["attempts"] += 1
 
-    cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (성공/매진/OFF까지 계속)"
+    cap_label = f"/{AUTO_BOOK_MAX_ATTEMPTS}" if AUTO_BOOK_MAX_ATTEMPTS else " (모든 계정 성공/OFF까지 계속)"
     detected_at = now_kst.isoformat(timespec="seconds")
 
     ok, err = dispatch_auto_book(item_id, datekey, dispatch_times, sig, state["attempts"], detected_at)

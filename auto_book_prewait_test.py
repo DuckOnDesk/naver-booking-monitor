@@ -186,11 +186,61 @@ def main() -> int:
     check(all(o is not None and abs((o - open_soon).total_seconds()) < 1 for _, o in calls),
           "모든 계정에 open_at 전달 (다 같이 정각까지 대기)")
     check(not barrier.broken, "계정들이 동시에 돈다 (차례로가 아니라)")
-    booked = (recorded[-1] if recorded else {}).get("booked") or {}
-    check([b["account"] for b in booked.get("all", [])] == [1, 3],
-          f"성공한 계정 전부 기록 (실제: {booked})")
-    check(ntfys and "2건 성공" in ntfys[-1][0] and "N1" in ntfys[-1][1] and "N3" in ntfys[-1][1],
-          f"성공 건수·예약번호를 한 번에 알림 (실제: {ntfys})")
+    last = recorded[-1] if recorded else {}
+    check(sorted(last.get("booked_accounts") or {}) == ["1", "3"],
+          f"성공한 계정 전부 기록 (실제: {last.get('booked_accounts')})")
+    check("booked" not in last, "아직 계정2가 남았으니 멈춤 기록(booked)은 남기지 않는다")
+    check(ntfys and "2건 성공" in ntfys[-1][0] and "N1" in ntfys[-1][1] and "N3" in ntfys[-1][1]
+          and "2/3개 계정 완료" in ntfys[-1][1] and "계속 시도" in ntfys[-1][1],
+          f"성공 건수·예약번호·남은 계정 계속 시도를 알림 (실제: {ntfys})")
+
+    print("5-2) 성공한 계정은 빼고 남은 계정만 — 마지막 계정까지 성공하면 그때 멈춘다")
+    calls.clear()
+    state_file = {"abt": {"booked_accounts": last["booked_accounts"]}}
+    w._read_json = lambda path, default: state_file if path == w.AUTO_BOOK_STATE_FILE else default
+    auto_book.try_book = lambda url, d, t, count=1, cookie_str=None, account=None, open_at=None, **k: (
+        calls.append((account, open_at)) or
+        {"success": True, "message": "성공", "booked_time": "14:00", "dry_run": False,
+         "account": account, "confirm_no": f"N{account}"})
+    w.run("abt", "2026-10-21", [], "2026-10-21|prewait", 1, open_soon.isoformat())
+    check([a for a, _ in calls] == [2], f"계정2만 시도 (실제: {calls})")
+    last = recorded[-1]
+    check((last.get("booked") or {}).get("all_done") and last["booked"]["accounts"] == [1, 2, 3],
+          f"모든 계정 성공 → 멈춤 기록 (실제: {last.get('booked')})")
+    check("모든 계정 예약 완료 (3/3)" in ntfys[-1][1], f"완료 알림 (실제: {ntfys[-1]})")
+
+    calls.clear()
+    state_file = {"abt": {"booked_accounts": {"1": {}, "2": {}, "3": {}}}}
+    skipped_all: list = []
+    orig_skip = w.record_skip
+    w.record_skip = lambda *a: skipped_all.append(a[-1]) or 0
+    w.run("abt", "2026-10-21", [], "x", 1, "")
+    w.record_skip = orig_skip
+    check(not calls and skipped_all and "모든 계정" in skipped_all[0],
+          f"이미 전부 성공이면 시도하지 않는다 (실제: {skipped_all})")
+
+    print("5-3) 취소표(오픈 대기 아님)도 한 계정 성공 뒤 멈추지 않고 남은 계정이 이어서 시도")
+    calls.clear()
+    state_file = {}
+    w.load_monitors = lambda from_github=True: {"ntfy_topic": "topic", "monitors": [
+        {**item_with(open_soon, ["2026-10-21"]),
+         "auto_book": {"enabled": True, "dates": ["2026-10-21"], "times": [], "accounts": [],
+                       "count": 1, "mode": "immediate"}}]}
+    w.run("abt", "2026-10-21", ["13:00"], "2026-10-21|13:00", 1, "")
+    check([a for a, _ in calls] == [1, 2, 3] and all(o is None for _, o in calls),
+          f"세 계정 모두 차례로 시도 (실제: {calls})")
+
+    print("5-4) 계정별 성공 기록은 실행마다 쌓인다 (덮어쓰지 않음)")
+    import tempfile as _tf
+    from pathlib import Path as _P
+    tmp = _P(_tf.mkdtemp())
+    w.AUTO_BOOK_LOG_FILE, w.AUTO_BOOK_STATE_FILE = tmp / "log.json", tmp / "state.json"
+    import json as _js
+    w._read_json = lambda path, default: (_js.loads(path.read_text()) if path.exists() else default)
+    w._apply_results([], "abt", {"booked_accounts": {"1": {"at": "a"}}})
+    w._apply_results([], "abt", {"booked_accounts": {"3": {"at": "b"}}, "last_run": {}})
+    got = _js.loads(w.AUTO_BOOK_STATE_FILE.read_text())["abt"]["booked_accounts"]
+    check(sorted(got) == ["1", "3"], f"계정1·3 모두 남는다 (실제: {got})")
 
     calls.clear()
     too_early = datetime.now(KST) + timedelta(minutes=w.PREWAIT_MAX_MIN + 5)
@@ -224,8 +274,9 @@ def main() -> int:
           f"만료 계정을 알린다 (실제: {ntfys})")
     auto_book.check_login = lambda url, c, a: {"account": a, "label": f"계정{a}", "ok": True,
                                                "message": "로그인 정상"}
+    n = len(ntfys)
     w.check_cookies("abt")
-    check("통과" in ntfys[-1][0], f"모두 정상이면 통과 알림 (실제: {ntfys[-1]})")
+    check(len(ntfys) == n, f"모두 정상이면 알림 없음 (실제: {ntfys[n:]})")
 
     print("9) check_login — 실제 브라우저로 로그인 상태 판정")
     import importlib
