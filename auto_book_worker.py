@@ -201,6 +201,12 @@ def resolve_times(item: dict, cfg: dict, datekey: str, requested: list) -> list:
             info = fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], datekey)
             if info.get("queried"):
                 fresh = [t for t in (info.get("times") or []) if _match_time(t, cfg["times"])]
+                if info.get("api_slot_count") == 0 and not requested:
+                    # 시간대(hourly)를 아예 안 쓰는 하루 단위 상품 (넷플 잔치 등). 모니터는
+                    # 이런 날을 [종일]로 보고 시간 없이 디스패치한다. 종전에는 여기서 시간대가
+                    # 비어 "예약할 시간대가 없습니다"로 시도조차 못 하고 끝났다.
+                    print("  하루 단위 상품 — 시간 선택 없이 예약", flush=True)
+                    return [auto_book.DAY_UNIT]
         except Exception as exc:
             print(f"[경고] 슬롯 재조회 실패, 요청받은 시간대 사용: {exc}", flush=True)
     if fresh:

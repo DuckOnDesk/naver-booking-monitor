@@ -304,6 +304,15 @@ def main() -> int:
         check(r_out["ok"] is False, f"'로그인' 버튼만 있으면 만료 (실제: {r_out})")
         check(r_none["ok"] is False, f"로그인 토큰 없는 쿠키는 바로 만료 (실제: {r_none})")
 
+    print("10) 하루 단위 상품: 워커가 시간대 없음으로 끝내지 않고 [종일]로 예약한다")
+    w.fetch_slots = lambda *a: {"queried": True, "times": [], "all_slots": [], "api_slot_count": 0}
+    day_cfg = {"times": []}
+    check(w.resolve_times({"url": URL}, day_cfg, "2026-10-24", []) == [auto_book.DAY_UNIT],
+          "시간대(hourly)가 아예 없는 상품은 [종일]")
+    w.fetch_slots = lambda *a: {"queried": True, "times": [], "all_slots": [{}], "api_slot_count": 6}
+    check(w.resolve_times({"url": URL}, day_cfg, "2026-10-24", []) == [],
+          "시간대는 있는데 지금 빈 자리가 없는 날은 그대로 빈 목록 (매진)")
+
     print("6) _wait_open — 오픈 전 안내면 새로고침, 열리면 바로 진행")
     page = FakePage(["not_open", "not_open", "open"])
     check(auto_book._wait_open(page, URL, cap_sec=5) and page.gotos == 2,

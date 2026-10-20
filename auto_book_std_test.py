@@ -12,6 +12,7 @@
   4) 다음: NextButton__disabled*가 붙어 있으면 비활성으로 본다
   5) 예약 창: h1>a '예약하기' + btn_request, disabled 클래스가 풀릴 때까지 기다린다
   6) 완료 일시: "10. 10. (토) 오후 4:30" → 10/10 16:30
+  8) 하루 단위 상품: 시간 선택 없이 날짜 → 다음 → 예약 → 완료
 
 사용법: python auto_book_std_test.py
 """
@@ -190,6 +191,45 @@ def main() -> int:
         check("1시 실패 뒤 1시 반으로 예약 성공", r["success"] and r["booked_time"] == "13:30", r)
         check("완료 일시를 읽어 '10/9 13:30 예약 성공'", r.get("booked_label") == "10/9 13:30", r.get("booked_label"))
         pg.unroute(base + "**")
+
+        print("8) 하루 단위 상품(넷플 잔치처럼 시간대 없음): 날짜 → 다음 → 예약 → 완료")
+        # 2026-10-20 넷플 잔치: 워커가 시간대가 없다며 37번 연속 시도도 못 하고 끝났다.
+        day_js = """<script>
+          document.addEventListener('click', e => {
+            if (e.target.closest('.calendar_date') || e.target.closest('.btn_time'))
+              document.querySelector('.nx').className = 'nx NextButton__btn_next__4hAoO';
+            if (e.target.closest('.nx') && !/disabled/.test(e.target.className)) {
+              document.body.innerHTML = '<h1><a>예약하기</a></h1><section class="section_booking_info"><div class="desc date">10. 24. (토)</div></section>' +
+                '<div class="section_booking_footer"><div class="booking_inner"><button class="btn_request">동의하고 예약하기</button></div></div>';
+              document.querySelector('.btn_request').onclick = () => {
+                location.href = location.pathname + '?popup=bookingCompletion';
+              };
+            }
+          });</script>"""
+        nx = '<button class="nx NextButton__btn_next__4hAoO NextButton__disabled__t72qg">다음</button>'
+        done = html('<div class="BookingCompletionModalLegacy__date__rxiRZ">10. 24. (토)</div>')
+
+        def day_case(extra: str):
+            page_html = html(calendar("2026.10", cells) + extra + nx + day_js)
+
+            def serve_day(route):
+                body = done if "popup=bookingCompletion" in route.request.url else page_html
+                route.fulfill(content_type="text/html; charset=utf-8", body=body)
+            pg.route(base + "**", serve_day)
+            pg.goto(base)
+            try:
+                return auto_book._std_book(pg, base, "2026-10-24", [auto_book.DAY_UNIT], 2,
+                                           False, [], res, "계정T")
+            finally:
+                pg.unroute(base + "**")
+
+        r = day_case("")
+        check("시간 목록 없음 → 시간 선택 없이 예약 성공", r["success"] and r["booked_time"] == "종일", r)
+        check("완료 일시는 날짜만 '10/24 종일'", r.get("booked_label") == "10/24 종일", r.get("booked_label"))
+        r = day_case(times([("종일권", "")]))
+        check("선택지가 하나 있으면 그걸 눌러 예약 성공", r["success"], r)
+        r = day_case(times([("종일권", "unselectable")]))
+        check("선택지가 모두 막혀 있으면 매진(unbookable)으로 실패", not r["success"] and r.get("unbookable"), r)
 
         print("6) 완료 일시")
         for raw, want in (("10. 10. (토) 오후 4:30", (10, 10, 16, 30)),
