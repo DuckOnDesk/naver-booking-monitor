@@ -139,6 +139,7 @@
     <div class="form-group">
       <label>예약 인원</label>
       <input type="number" id="f-count" min="1" max="10" value="1">
+      <div class="hint" id="count-hint"></div>
     </div>
 
     <button class="btn-primary" id="save-btn" onclick="save()">저장</button>
@@ -238,7 +239,22 @@ function initForm() {
   document.querySelector(`input[name=mode][value=${ab.mode === 'scheduled' ? 'scheduled' : 'immediate'}]`).checked = true;
   if (ab.start_at) $('f-start-at').value = ab.start_at.slice(0, 16);
   onModeChange();
-  renderDates(); renderTimes(); renderAccounts();
+  renderDates(); renderTimes(); renderAccounts(); renderCountHint();
+}
+
+// 계정당 예약 가능 인원 — 모니터가 상품 설정(maxPersonBookingCount)을 읽어 캐시에 남긴다.
+// 0 = 제한 없음, 키가 없거나 null = 아직 조회 전/조회 실패.
+function maxPersonCount(url) {
+  const m = (url || '').trim().match(/\/booking\/(\d+)\/bizes\/(\d+)\/items\/(\d+)/);
+  const e = m && scheduleCache[`${m[1]}_${m[2]}_${m[3]}`];
+  const v = e ? e.max_person_booking_count : null;
+  return typeof v === 'number' ? v : null;
+}
+
+function renderCountHint() {
+  const v = maxPersonCount(monitor && monitor.url);
+  $('count-hint').textContent = v === null ? '계정당 예약 가능 인원: 확인 중 (모니터가 다음 조회 때 채움)'
+    : v > 0 ? `계정당 예약 가능 인원: 최대 ${v}명` : '계정당 예약 가능 인원: 제한 없음';
 }
 
 function periodLabel() {

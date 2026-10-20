@@ -1022,6 +1022,54 @@ def fetch_item_restrictions(biz_id: str) -> dict:
 
 RESTRICTION_FETCH_TRIES = _env_num("RESTRICTION_FETCH_TRIES", 3)
 
+# 예약 페이지가 부르는 bizItems 쿼리. 계정당 예약 인원 한도는 상품 설정의
+# bookingCountSettingJson.maxPersonBookingCount 에 있다 (2026-10-16 어바웃톤 진단 로그:
+# {"maxPersonBookingCount": 1} — 화면에서도 1명까지만 됐다).
+BIZ_ITEMS_COUNT_QUERY = (
+    "query bizItems($input: BizItemsParams) {"
+    "  bizItems(input: $input) { bizItemId bookingCountSettingJson __typename } }"
+)
+
+
+def fetch_max_person_count(biz_id: str, item_id: str) -> int | None:
+    """계정당 예약 가능 인원. 0 = 제한 없음, None = 조회 실패(모름).
+
+    조회 실패를 0으로 바꾸면 웹앱에 "제한 없음"이 거짓으로 뜬다 — 실패는 직전 값을
+    살린다 (_merge_restriction 참고)."""
+    body = {
+        "operationName": "bizItems",
+        "variables": {"input": {"businessId": str(biz_id), "lang": "ko",
+                                "projections": "RESOURCE"}},
+        "query": BIZ_ITEMS_COUNT_QUERY,
+    }
+    for attempt in range(RESTRICTION_FETCH_TRIES):
+        try:
+            resp = requests.post("https://m.booking.naver.com/graphql?opName=bizItems",
+                                 json=body, headers=HEADERS, timeout=8)
+            resp.raise_for_status()
+            data = resp.json()
+            if data.get("errors"):
+                err_msg = _gql_error_summary(data["errors"])
+                if looks_rate_limited(err_msg):
+                    note_rate_limit(err_msg)
+            else:
+                items = (data.get("data") or {}).get("bizItems") or []
+                it = next((i for i in items if str(i.get("bizItemId")) == str(item_id)), None)
+                if it is None:
+                    return None
+                setting = it.get("bookingCountSettingJson") or {}
+                try:
+                    return max(int(setting.get("maxPersonBookingCount") or 0), 0)
+                except (TypeError, ValueError):
+                    return 0
+        except requests.HTTPError as e:
+            rate_limited_response(e.response)
+        except Exception:
+            pass
+        if attempt + 1 < RESTRICTION_FETCH_TRIES:
+            time.sleep(1)
+    return None
+
 
 def _fetch_item_restrictions_once(biz_id: str, query: str) -> dict:
     try:
@@ -1206,9 +1254,13 @@ def _merge_restriction(old: dict, new: dict) -> dict:
     12:27은 속도 제한으로 감시가 비어 있던 구간이다), 하필 RI01로 떨어져 있을 때는
     마감된 회차도 예약 가능으로 보였다. 조회 실패는 "제한 없음"이 아니라 "모름"이다.
     """
-    if new.get("restriction_ok"):
-        return new
     merged = dict(new)
+    # 계정당 인원 한도도 같은 규칙이다 — None(조회 실패)이 직전 값을 지우지 않게.
+    if merged.get("max_person_booking_count") is None \
+            and old.get("max_person_booking_count") is not None:
+        merged["max_person_booking_count"] = old["max_person_booking_count"]
+    if new.get("restriction_ok"):
+        return merged
     for k in RESTRICTION_KEYS:
         if old.get(k) is not None:
             merged[k] = old[k]
@@ -1228,7 +1280,7 @@ def _merge_probed_period(old: dict, new: dict) -> dict:
     """
     old_start = old.get("available_start")
     if not old_start:
-        return new
+        return _merge_restriction(old, new)
     try:
         already_started = date.fromisoformat(old_start) <= datetime.now(timezone(timedelta(hours=9))).date()
     except ValueError:
@@ -3715,6 +3767,8 @@ def probe_schedule_period(parsed: dict) -> dict | None:
         # 위 두 값이 실제 조회 결과인지, 실패해서 채운 기본값인지 구분한다.
         # _merge_restriction이 이 플래그를 보고 직전 값을 살릴지 정한다.
         "restriction_ok": bool(restriction),
+        # 계정당 예약 가능 인원 (0 = 제한 없음, None = 조회 실패). 웹앱 자동예약 폼이 띄운다.
+        "max_person_booking_count": fetch_max_person_count(parsed["biz_id"], parsed["item_id"]),
     }
 
 
