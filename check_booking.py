@@ -1724,7 +1724,7 @@ def _auto_book_cfg(item: dict) -> dict | None:
 
     auto_book: true (하위 호환) 또는 객체:
       {enabled, dates[], times[](HH:MM 또는 HH:MM-HH:MM), accounts[](우선순위),
-       count, mode("immediate"|"scheduled"), start_at(ISO)}
+       count, mode("immediate"|"scheduled"), start_at(ISO), spread, account_prefs}
     빈 목록 = 모든 날짜/시간/계정 대상.
     """
     ab = item.get("auto_book")
@@ -1741,6 +1741,10 @@ def _auto_book_cfg(item: dict) -> dict | None:
         "mode": ab.get("mode", "immediate"),
         "start_at": ab.get("start_at"),
         "saved_at": ab.get("saved_at"),
+        # 계정끼리 날짜·시간을 나눠 잡는다 (auto_book_worker.plan_accounts). 기본 켬.
+        "spread": ab.get("spread", True) is not False,
+        # {"계정번호": {"dates": [...], "times": [...]}} — 계정별로 먼저 노릴 날짜·시간
+        "account_prefs": ab.get("account_prefs") if isinstance(ab.get("account_prefs"), dict) else {},
     }
     return cfg if cfg["enabled"] else None
 
@@ -2132,7 +2136,14 @@ def maybe_auto_book(item: dict, item_id: str, url: str, datekey: str,
     state = alerted.get(state_key)
     # 오픈 대기 실행이 아직 돌고 있으면 그 상태를 그대로 둔다 (시그니처가 달라도)
     if not isinstance(state, dict) or (state.get("sig") != sig and not state.get("prewait")):
+        prev = state if isinstance(state, dict) else {}
         state = {"sig": sig, "attempts": 0}
+        # 날짜를 지정한 항목은 워커 하나가 지정 날짜 전부를 계정끼리 나눠 잡는다
+        # (auto_book_worker.plan_accounts). 그래서 다른 날짜가 떠도 실행 중 표시를 살려
+        # 워커가 둘 뜨지 않게 한다 — 둘이 뜨면 같은 계정이 두 번 예약을 누른다.
+        # 날짜 미지정(예약 기간 전체)은 종전대로 날짜마다 따로 띄운다.
+        if prev.get("dispatched_at") and cfg["dates"]:
+            state["dispatched_at"] = prev["dispatched_at"]
 
     # 이미 실행 중이면 중복 디스패치하지 않는다. 결과가 올라오면
     # sync_auto_book_state가 dispatched_at을 지워 다음 시도를 열어준다.

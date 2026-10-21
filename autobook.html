@@ -18,7 +18,7 @@
     .item-url { font-size: 11px; color: #bbb; margin-top: 4px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
     .form-group { margin-bottom: 16px; }
     label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 5px; }
-    input[type=date], input[type=time], input[type=number], input[type=datetime-local], select {
+    input[type=date], input[type=time], input[type=number], input[type=datetime-local], input[type=text], select {
       width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
       padding: 11px 13px; font-size: 15px; font-family: inherit; outline: none; background: #fafafa;
     }
@@ -36,6 +36,14 @@
     .acct-chip { position: relative; border: 1.5px solid var(--border); background: #fafafa; border-radius: 10px; padding: 10px 14px; font-size: 14px; cursor: pointer; user-select: none; }
     .acct-chip.sel { border-color: var(--purple); background: #f3ebff; color: #5b21b6; font-weight: 700; }
     .acct-chip .ord { position: absolute; top: -7px; right: -7px; background: var(--purple); color: #fff; width: 18px; height: 18px; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .pref-row { display: grid; grid-template-columns: 70px 1fr 1fr; gap: 6px; align-items: center; margin-top: 6px; }
+    .pref-row .who { font-size: 13px; font-weight: 600; color: #5b21b6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pref-row select, .pref-row input { padding: 8px 9px; font-size: 13px; min-width: 0; }
+    .nick-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 8px; }
+    .nick-grid input { padding: 8px 6px; font-size: 13px; min-width: 0; text-align: center; }
+    .link-btn { background: none; border: none; color: var(--purple); font-size: 12px; cursor: pointer; padding: 0; margin-top: 6px; }
+    .check-row { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+    .check-row input { accent-color: var(--purple); width: 16px; height: 16px; }
     .radio-row { display: flex; flex-direction: column; gap: 8px; }
     .radio-opt { display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 13px; cursor: pointer; font-size: 14px; background: #fafafa; }
     .radio-opt.sel { border-color: var(--purple); background: #f3ebff; }
@@ -119,6 +127,20 @@
       <label>계정 우선순위 <span style="font-weight:400;color:var(--sub)">(누른 순서대로 시도)</span></label>
       <div class="acct-row" id="acct-row"></div>
       <div class="hint">미지정 = 등록된 모든 계정을 1→5 순으로 시도 · 쿠키는 GitHub Secrets(COOKIES_BUNDLE_JSON — naver_sync와 같은 값, 없으면 NAVER_COOKIES_1~5)에 저장</div>
+      <button class="link-btn" onclick="toggleNick()">✏️ 계정 별명 편집</button>
+      <div id="nick-box" style="display:none">
+        <div class="nick-grid" id="nick-grid"></div>
+        <div class="hint">번호는 쿠키 번들 순서(naver_sync cookies 폴더의 파일 이름순)입니다. 별명은 모든 팝업에 공통으로 저장됩니다.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="check-row"><input type="checkbox" id="f-spread" onchange="renderPrefs()"> 계정끼리 날짜·시간 나눠 잡기 <span style="font-weight:400;color:var(--sub)">(추천)</span></label>
+      <div class="hint">켜면 지정한 날짜·시간 안에서 계정마다 겹치지 않게 배정합니다. 자리가 모자라면 겹칠 수 있고, 배정된 날짜에 자리가 없으면 다른 날짜로 넘어갑니다. 날짜를 지정하지 않으면 자리가 난 날짜 안에서 시간만 나눕니다.</div>
+      <div id="pref-box">
+        <div id="pref-rows"></div>
+        <div class="hint">계정별 우선순위 (선택) — 비워 두면 자동 배정. 시간은 "14:00" 또는 "13:00-15:00"</div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -169,6 +191,8 @@ const $ = id => document.getElementById(id);
 const itemId = new URLSearchParams(location.search).get('id');
 let cfg = null, sha = '', monitor = null;
 let dates = [], times = [], accounts = [];
+let acctNames = {};   // {"1": "betty"} — monitors.json 최상위 account_names (모든 팝업 공통)
+let prefs = {};       // {"1": {"dates": [...], "times": [...]}} — 계정별 우선 날짜·시간
 let logData = null;
 let scheduleCache = {};   // 팝업별 등록된 예약 기간 (schedule_cache.json)
 
@@ -212,6 +236,7 @@ async function load() {
     sha = data.sha;
     cfg = b64decode(data.content);
     monitor = cfg.monitors.find(m => m.id === itemId);
+    acctNames = { ...(cfg.account_names || {}) };
     if (!monitor) { $('status').textContent = '❌ 항목을 찾을 수 없습니다'; return; }
     initForm();
     $('status').textContent = monitor.name;
@@ -224,7 +249,8 @@ function normAb(m) {
   const ab = m.auto_book;
   if (!ab) return { enabled: false, dates: m.auto_book_dates || [], times: [], accounts: [], count: m.auto_book_count || 1, mode: 'immediate', start_at: null };
   if (typeof ab !== 'object') return { enabled: true, dates: m.auto_book_dates || [], times: [], accounts: [], count: m.auto_book_count || 1, mode: 'immediate', start_at: null };
-  return { enabled: ab.enabled !== false, dates: ab.dates || [], times: ab.times || [], accounts: ab.accounts || [], count: ab.count || 1, mode: ab.mode || 'immediate', start_at: ab.start_at || null };
+  return { enabled: ab.enabled !== false, dates: ab.dates || [], times: ab.times || [], accounts: ab.accounts || [], count: ab.count || 1, mode: ab.mode || 'immediate', start_at: ab.start_at || null,
+           spread: ab.spread !== false, account_prefs: ab.account_prefs || {} };
 }
 
 function initForm() {
@@ -236,10 +262,12 @@ function initForm() {
   $('f-enabled').checked = ab.enabled;
   dates = [...ab.dates]; times = [...ab.times]; accounts = [...ab.accounts];
   $('f-count').value = ab.count;
+  $('f-spread').checked = ab.spread !== false;
+  prefs = JSON.parse(JSON.stringify(ab.account_prefs || {}));
   document.querySelector(`input[name=mode][value=${ab.mode === 'scheduled' ? 'scheduled' : 'immediate'}]`).checked = true;
   if (ab.start_at) $('f-start-at').value = ab.start_at.slice(0, 16);
   onModeChange();
-  renderDates(); renderTimes(); renderAccounts(); renderCountHint();
+  renderDates(); renderTimes(); renderAccounts(); renderCountHint(); renderNick();
 }
 
 // 계정당 예약 가능 인원 — 모니터가 상품 설정(maxPersonBookingCount)을 읽어 캐시에 남긴다.
@@ -275,6 +303,7 @@ function renderDates() {
         return `<span class="tag">${d}${out}<button onclick="dates.splice(${i},1);renderDates()">×</button></span>`;
       }).join('')
     : `<span class="hint">${label ? `예약 기간 전체 (${label})` : '모든 날짜'} 대상</span>`;
+  renderPrefs();
 }
 
 function outsidePeriod(d) {
@@ -302,11 +331,53 @@ function addTime() {
   if (!times.includes(v)) { times.push(v); times.sort(); renderTimes(); }
 }
 
+const acctName = n => acctNames[String(n)] || `계정${n}`;
+
 function renderAccounts() {
   $('acct-row').innerHTML = [1,2,3,4,5].map(n => {
     const idx = accounts.indexOf(n);
-    return `<div class="acct-chip ${idx >= 0 ? 'sel' : ''}" onclick="toggleAcct(${n})">계정${n}${idx >= 0 ? `<span class="ord">${idx + 1}</span>` : ''}</div>`;
+    return `<div class="acct-chip ${idx >= 0 ? 'sel' : ''}" onclick="toggleAcct(${n})">${esc(acctName(n))}${idx >= 0 ? `<span class="ord">${idx + 1}</span>` : ''}</div>`;
   }).join('');
+  renderPrefs();
+}
+
+function toggleNick() {
+  const box = $('nick-box');
+  box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+function renderNick() {
+  $('nick-grid').innerHTML = [1,2,3,4,5].map(n =>
+    `<input type="text" maxlength="12" placeholder="계정${n}" value="${esc(acctNames[String(n)] || '')}" oninput="setNick(${n}, this.value)">`).join('');
+}
+function setNick(n, v) {
+  v = v.trim();
+  if (v) acctNames[String(n)] = v; else delete acctNames[String(n)];
+  renderAccounts();
+}
+
+// 계정별 우선 날짜·시간. 화면에서는 하나씩만 고르지만 저장 형식은 목록이다 (워커가 순서대로 본다).
+function renderPrefs() {
+  const on = $('f-spread').checked;
+  $('pref-box').style.display = on ? 'block' : 'none';
+  if (!on) return;
+  const list = accounts.length ? accounts : [1,2,3,4,5];
+  $('pref-rows').innerHTML = list.map(n => {
+    const p = prefs[String(n)] || {};
+    const d = (p.dates || [])[0] || '', t = (p.times || [])[0] || '';
+    const opts = ['<option value="">날짜 자동</option>']
+      .concat(dates.map(x => `<option value="${x}" ${x === d ? 'selected' : ''}>${x.slice(5)}</option>`));
+    if (d && !dates.includes(d)) opts.push(`<option value="${d}" selected>${d.slice(5)} (목록에 없음)</option>`);
+    return `<div class="pref-row"><span class="who">${esc(acctName(n))}</span>
+      <select onchange="setPref(${n}, 'dates', this.value)">${opts.join('')}</select>
+      <input type="text" placeholder="시간 자동" value="${esc(t)}" onchange="setPref(${n}, 'times', this.value)"></div>`;
+  }).join('');
+}
+function setPref(n, k, v) {
+  v = v.trim();
+  if (k === 'times' && v && !/^\d{2}:\d{2}(-\d{2}:\d{2})?$/.test(v)) { alert('시간은 14:00 또는 13:00-15:00 형식으로 입력하세요'); renderPrefs(); return; }
+  const p = prefs[String(n)] || {};
+  if (v) p[k] = [v]; else delete p[k];
+  if (p.dates || p.times) prefs[String(n)] = p; else delete prefs[String(n)];
 }
 function toggleAcct(n) {
   const idx = accounts.indexOf(n);
@@ -332,6 +403,14 @@ async function save() {
     mode,
     start_at: mode === 'scheduled' && $('f-start-at').value ? `${$('f-start-at').value}:00+09:00` : null,
     saved_at: new Date().toISOString(),  // 성공 후 재저장하면 자동예약 재무장
+    spread: $('f-spread').checked,
+    // 목록에서 빠진 날짜를 가리키는 우선순위는 버린다 (그 날짜는 이제 대상이 아니다)
+    account_prefs: Object.fromEntries(Object.entries(prefs).map(([k, p]) => {
+      const q = { ...p };
+      if (q.dates && dates.length) q.dates = q.dates.filter(x => dates.includes(x));
+      if (q.dates && !q.dates.length) delete q.dates;
+      return [k, q];
+    }).filter(([, q]) => q.dates || q.times)),
   };
   try {
     for (let attempt = 0; attempt < 5; attempt++) {
@@ -341,6 +420,7 @@ async function save() {
       const m = cfg.monitors.find(x => x.id === itemId);
       if (!m) throw new Error('항목이 삭제되었습니다');
       m.auto_book = ab;
+      cfg.account_names = acctNames;
       delete m.auto_book_dates; delete m.auto_book_count;
       try {
         const data = await apiFetch(API_MON, 'PUT', { message: `autobook: ${m.name} 설정 저장`, content: b64encode(cfg), sha });
@@ -388,7 +468,7 @@ function renderLog() {
     const ts = (r.ts || '').replace('T', ' ').slice(0, 19);
     return `<div class="log-item">
       <div class="log-head"><span class="log-name">${esc(r.name || r.item_id)}</span>${badge}</div>
-      <div class="log-meta">${ts} · ${esc(r.date || '')} ${esc((r.times || []).join(', '))}${r.account ? ` · 계정${r.account}` : ''}</div>
+      <div class="log-meta">${ts} · ${esc(r.date || '')} ${esc((r.times || []).join(', '))}${r.account ? ` · ${esc(r.account_name || acctName(r.account))}` : ''}</div>
       <div class="log-msg">${esc(r.message || '')}</div>
     </div>`;
   }).join('');

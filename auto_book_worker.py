@@ -172,6 +172,18 @@ def booked_accounts(item_id: str, cfg: dict) -> set:
     return done
 
 
+def booked_slot_list(item_id: str, done: set) -> list:
+    """이미 성공한 계정들이 잡은 (날짜, 시간) — 남은 계정이 그 자리를 피하게 한다."""
+    state = _read_json(AUTO_BOOK_STATE_FILE, {})
+    entry = state.get(item_id) if isinstance(state, dict) else None
+    recs = (entry or {}).get("booked_accounts") or {}
+    out = []
+    for acct, rec in recs.items():
+        if str(acct).isdigit() and int(acct) in done and isinstance(rec, dict) and rec.get("date"):
+            out.append((rec["date"], rec.get("time") or ""))
+    return out
+
+
 def api_slot_snapshot(item: dict, datekey: str) -> list:
     """예약 직전 API가 말하는 슬롯 원본값. API와 실제 페이지가 어긋날 때 판정하려고 남긴다.
 
@@ -220,6 +232,120 @@ def resolve_times(item: dict, cfg: dict, datekey: str, requested: list) -> list:
     return requested
 
 
+def acct_label(acct, names: dict | None = None) -> str:
+    """알림·로그에 쓸 계정 이름. 웹에서 붙인 별명(monitors.json account_names)이 있으면 그것."""
+    nick = (names or {}).get(str(acct))
+    return nick if nick else f"계정{acct}"
+
+
+def _pref_rank(value: str, prefs: list, is_time: bool) -> int:
+    """계정별 우선순위 목록에서의 순번. 목록에 없으면 뒤로 (목록이 비면 모두 0)."""
+    if not prefs:
+        return 0
+    for i, p in enumerate(prefs):
+        if (is_time and _match_time(value, [p])) or (not is_time and value == p):
+            return i
+    return len(prefs)
+
+
+def plan_accounts(accounts: list, slots: dict, prefs: dict | None, count: int = 1,
+                  booked: list | None = None) -> dict:
+    """계정마다 시도할 [(날짜, [시간...]), ...] 순서를 정한다 — 서로 겹치지 않게 나눈다.
+
+    종전에는 남은 계정 전부가 같은 시간 목록을 같은 순서로 눌러, 다섯 계정이 한 회차를
+    두고 서로 다퉜다 (날짜를 여러 개 넣어도 감지된 날짜 하나만 봤다).
+
+    slots: {날짜: {"times": [시간...], "cap": {시간: 남은 자리 또는 None(모름)}}} — 날짜 순서가
+           곧 기본 우선순위다.
+    prefs: {"계정번호": {"dates": [...], "times": [...]}} — 계정별로 먼저 노릴 날짜·시간.
+    booked: 이미 다른 실행에서 잡은 (날짜, 시간) — 그 자리도 "쓰인 것"으로 보고 피한다.
+
+    고르는 순서: 자리가 남은 곳 → 그 계정의 우선 날짜 → 우선 시간 → 덜 쓰인 날짜 →
+    덜 쓰인 시간. 우선순위를 지정한 계정을 먼저 배정해 나머지 계정이 그 주변을 채운다.
+    자리가 모자라면 겹치는 것도 어쩔 수 없다 (그래도 한 계정은 잡히도록 시도는 한다).
+    """
+    prefs = prefs or {}
+    use_date: dict = {}
+    use_slot: dict = {}
+    for d, t in booked or []:
+        use_date[d] = use_date.get(d, 0) + 1
+        use_slot[(d, t)] = use_slot.get((d, t), 0) + 1
+    date_order = list(slots)
+    cands = [(d, t) for d in date_order for t in slots[d]["times"]]
+    if not cands:
+        return {a: [] for a in accounts}
+
+    def has_pref(a) -> bool:
+        p = prefs.get(str(a)) or {}
+        return bool(p.get("dates") or p.get("times"))
+
+    ordered = [a for a in accounts if has_pref(a)] + [a for a in accounts if not has_pref(a)]
+    plans: dict = {}
+    for a in ordered:
+        p = prefs.get(str(a)) or {}
+        pd, pt = p.get("dates") or [], p.get("times") or []
+
+        def key(c, pd=pd, pt=pt):
+            d, t = c
+            cap = slots[d]["cap"].get(t)
+            full = cap is not None and cap - use_slot.get(c, 0) * count < count
+            return (full, _pref_rank(d, pd, False), _pref_rank(t, pt, True),
+                    use_date.get(d, 0), use_slot.get(c, 0), cap is None,
+                    date_order.index(d), slots[d]["times"].index(t))
+
+        ranked = sorted(cands, key=key)
+        best_d, best_t = ranked[0]
+        use_date[best_d] = use_date.get(best_d, 0) + 1
+        use_slot[(best_d, best_t)] = use_slot.get((best_d, best_t), 0) + 1
+        # 배정된 날짜를 먼저, 그 안에서는 배정된 시간 → 나머지 시간을 같은 기준으로.
+        # 그 날짜가 다 나가면 다음 날짜로 넘어간다.
+        plan = []
+        for d in dict.fromkeys(dd for dd, _ in ranked):
+            plan.append((d, [t for dd, t in ranked if dd == d]))
+        plans[a] = plan
+    return plans
+
+
+def gather_slots(item: dict, cfg: dict, datekey: str, times: list) -> dict:
+    """plan_accounts에 넘길 날짜별 시간·남은 자리. 감지된 날짜는 이미 정한 times를 쓴다.
+
+    자동예약 날짜를 여러 개 지정했으면 나머지 날짜도 지금 다시 조회해 자리가 있는 곳을
+    함께 넣는다 (날짜 미지정이면 감지된 날짜만 — 예약 기간 전체를 매번 훑지 않는다).
+    """
+    today = datetime.now(KST).date().isoformat()
+    others = [d for d in sorted(cfg.get("dates") or []) if d != datekey and d >= today]
+    parsed = parse_naver_url(item.get("url", ""))
+    infos = {}
+    if parsed:
+        def one(d: str) -> dict:
+            try:
+                return fetch_slots(parsed["biz_id"], parsed["item_id"], parsed["service_id"], d)
+            except Exception:
+                return {}
+        keys = [datekey] + others
+        with ThreadPoolExecutor(max_workers=min(len(keys), 6)) as ex:
+            infos = dict(zip(keys, ex.map(one, keys)))
+
+    def caps(info: dict) -> dict:
+        return {s.get("unitStartTime", "")[11:16]: s.get("unitStock", 0) - s.get("unitBookingCount", 0)
+                for s in (info or {}).get("all_slots") or []}
+
+    out = {datekey: {"times": list(times), "cap": caps(infos.get(datekey))}}
+    day_unit = list(times) == [auto_book.DAY_UNIT]
+    for d in others:
+        info = infos.get(d) or {}
+        if not info.get("queried"):
+            continue
+        if day_unit:
+            if info.get("api_slot_count") == 0:
+                out[d] = {"times": [auto_book.DAY_UNIT], "cap": {}}   # 남은 자리는 모름
+            continue
+        ts = [t for t in info.get("times") or [] if _match_time(t, cfg["times"])]
+        if ts:
+            out[d] = {"times": ts, "cap": caps(info)}
+    return out
+
+
 def report_lag(detected_at: str) -> float | None:
     """모니터가 자리를 감지한 뒤 여기까지 걸린 시간(초)을 로그로 남긴다.
 
@@ -246,6 +372,10 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
 
     name = item.get("name", item_id)
     url = item.get("url", "")
+    names = cfg_all.get("account_names") or {}
+    auto_book.ACCOUNT_NICKNAMES.clear()
+    auto_book.ACCOUNT_NICKNAMES.update({int(k): v for k, v in names.items()
+                                        if str(k).isdigit() and v})
     cfg = _auto_book_cfg(item)
     if not cfg:
         return record_skip(item_id, name, datekey, sig, attempt, "자동예약이 꺼져 있습니다")
@@ -313,18 +443,45 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
                "booked_time": None, "dry_run": False, "account": None}
         results = [res]
     else:
+        if cfg.get("spread", True):
+            slots = gather_slots(item, cfg, datekey, times)
+            booked_slots = booked_slot_list(item_id, done_accts)
+            plans = plan_accounts([a for a, _ in accounts], slots, cfg.get("account_prefs"),
+                                  cfg["count"], booked_slots)
+            for a, _ in accounts:
+                first = plans.get(a) or [(datekey, times)]
+                print(f"  배정: {acct_label(a, names)} → {first[0][0]} {first[0][1][:3]}"
+                      + (f" (+예비 날짜 {[d for d, _ in first[1:]]})" if len(first) > 1 else ""),
+                      flush=True)
+        else:
+            plans = {}
+
         def attempt_one(acct_no, cookie_str, wait_until=None) -> dict:
-            try:
-                return auto_book.try_book(url, datekey, times, count=cfg["count"],
-                                          cookie_str=cookie_str, account=acct_no, open_at=wait_until)
-            except Exception as exc:
-                return {"success": False, "message": f"예외: {exc}", "booked_time": None,
-                        "dry_run": False, "account": acct_no}
+            plan = plans.get(acct_no) or [(datekey, times)]
+            r = None
+            for i, (d, ts) in enumerate(plan):
+                try:
+                    r = auto_book.try_book(url, d, ts, count=cfg["count"], cookie_str=cookie_str,
+                                           account=acct_no, open_at=wait_until if i == 0 else None)
+                except Exception as exc:
+                    r = {"success": False, "message": f"예외: {exc}", "booked_time": None,
+                         "dry_run": False, "account": acct_no}
+                r["date"] = d
+                if r["success"]:
+                    break
+                # 그 날짜에 자리가 없어서 실패한 경우만 다음 날짜로 — 쿠키 만료 같은
+                # 실패는 날짜를 바꿔도 같다.
+                if not (r.get("unbookable") or any(p in r["message"] for p in _ACCOUNT_SWITCH_USELESS)):
+                    break
+                if i + 1 < len(plan):
+                    print(f"  [자동예약] {acct_label(acct_no, names)} {d} 자리 없음 → "
+                          f"다음 날짜 {plan[i + 1][0]}", flush=True)
+            return r
 
         def report(r: dict) -> None:
             took = f" [{r['elapsed']}초]" if r.get("elapsed") is not None else ""
-            print(f"  [자동예약] 계정{r.get('account')} 결과: {'성공' if r['success'] else '실패'}"
-                  f"{took} — {r['message']}", flush=True)
+            print(f"  [자동예약] {acct_label(r.get('account'), names)} {r.get('date', datekey)} 결과: "
+                  f"{'성공' if r['success'] else '실패'}{took} — {r['message']}", flush=True)
 
         if open_at:
             # 오픈 선착순: 모든 계정이 각자 브라우저로 로그인해 두고 정각에 동시에 누른다.
@@ -343,9 +500,12 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
                 res = attempt_one(acct_no, cookie_str)
                 results.append(res)
                 report(res)
-                # 성공해도 멈추지 않는다 — 남은 계정도 같은 자리를 노린다 (모든 계정 성공이 목표)
-                # 슬롯이 사라졌거나 페이지가 선택 불가로 막은 실패는 계정을 바꿔도 소용없다
-                if res.get("unbookable") or any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS):
+                # 성공해도 멈추지 않는다 — 남은 계정도 자리를 노린다 (모든 계정 성공이 목표)
+                # 슬롯이 사라졌거나 페이지가 선택 불가로 막은 실패는 계정을 바꿔도 소용없다.
+                # 다만 계정마다 다른 날짜를 배정했으면 다음 계정은 다른 날짜를 보므로 계속한다.
+                if (len({d for p in plans.values() for d, _ in p}) <= 1
+                        and (res.get("unbookable")
+                             or any(p in res["message"] for p in _ACCOUNT_SWITCH_USELESS))):
                     break
         wins_any = [r for r in results if r["success"]]
         res = wins_any[0] if wins_any else results[-1]
@@ -365,9 +525,10 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
         "ts": finished_at,
         "item_id": item_id,
         "name": name,
-        "date": datekey,
+        "date": r.get("date") or datekey,
         "times": times,
         "account": r.get("account"),
+        "account_name": names.get(str(r.get("account"))) or None,
         "success": bool(r["success"]),
         "dry_run": bool(r.get("dry_run")),
         "elapsed": r.get("elapsed"),
@@ -402,7 +563,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
     if wins:
         state_entry["booked_accounts"] = {
             str(r.get("account")): {
-                "date": datekey, "time": r.get("booked_time"), "at": finished_at,
+                "date": r.get("date") or datekey, "time": r.get("booked_time"), "at": finished_at,
                 # 예약번호가 없으면 완료 화면을 문구/URL로만 확인했다는 뜻 —
                 # 네이버 예약 내역에서 한 번 눈으로 확인하는 게 좋다
                 "confirm_no": r.get("confirm_no") or None,
@@ -413,7 +574,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
     if all_done:
         # 모니터는 이 기록을 보고 자동예약을 멈춘다 — 모든 계정이 성공했을 때만 남긴다
         state_entry["booked"] = {
-            "date": datekey,
+            "date": res.get("date") or datekey,
             "time": res.get("booked_time"),
             "account": res.get("account"),
             "at": finished_at,
@@ -427,7 +588,8 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
 
     if wins:
         if ntfy_topic:
-            lines = [f"계정{r.get('account')}: {r.get('booked_label') or (datekey + ' ' + (r.get('booked_time') or ''))}"
+            lines = [f"{acct_label(r.get('account'), names)}: "
+                     f"{r.get('booked_label') or ((r.get('date') or datekey) + ' ' + (r.get('booked_time') or ''))}"
                      + (f" (예약번호 {r.get('confirm_no')})" if r.get("confirm_no") else "")
                      for r in wins]
             progress = (f"모든 계정 예약 완료 ({len(done_now)}/{len(all_accounts)}) — 자동예약 종료"

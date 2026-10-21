@@ -65,6 +65,7 @@ jobs:
           python -u auto_book_period_test.py
           python -u auto_book_prewait_test.py
           python -u auto_book_slot_test.py
+          python -u auto_book_spread_test.py
           python -u auto_book_cta_test.py
           python -u auto_book_std_test.py
           python -u auto_book_cookie_test.py
