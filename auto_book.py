@@ -248,6 +248,8 @@ def _wait_open(page, start_url: str, cap_sec: float = 45.0) -> bool:
 
 # 계정번호 → 묶음의 아이디 (로그에 "계정1(betty)"처럼 남기기 위함)
 ACCOUNT_NAMES: dict = {}
+# 웹(autobook.html)에서 붙인 별명 {번호: "betty"}. 있으면 로그에 아이디 대신 이걸 쓴다.
+ACCOUNT_NICKNAMES: dict = {}
 
 
 def _bundle_accounts() -> list:
@@ -1793,7 +1795,9 @@ def check_login(url: str, cookie_str, account: int | None = None) -> dict:
     {"account", "ok": True/False/None(판정 불가), "message"}
     """
     acct_label = f"계정{account}" if account else "계정?"
-    if account in ACCOUNT_NAMES:
+    if account in ACCOUNT_NICKNAMES:
+        acct_label += f"({ACCOUNT_NICKNAMES[account]})"
+    elif account in ACCOUNT_NAMES:
         acct_label += f"({ACCOUNT_NAMES[account]})"
     _tls.acct = acct_label
 
@@ -1865,7 +1869,9 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
         else:
             cookie_str = ""
     acct_label = f"계정{account}" if account else ("비로그인" if not cookie_str else "계정?")
-    if account in ACCOUNT_NAMES:
+    if account in ACCOUNT_NICKNAMES:
+        acct_label += f"({ACCOUNT_NICKNAMES[account]})"
+    elif account in ACCOUNT_NAMES:
         acct_label += f"({ACCOUNT_NAMES[account]})"
     _tls.acct = acct_label
 

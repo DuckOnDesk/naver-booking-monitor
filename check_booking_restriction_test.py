@@ -105,7 +105,9 @@ def main() -> int:
     real_fetch = cb.fetch_item_restrictions
     real_check = cb.check_availability
     real_slots = cb.fetch_slots
+    real_maxp = cb.fetch_max_person_count
     try:
+        cb.fetch_max_person_count = lambda b, i: None
         cb.check_availability = lambda b, i, s, t: {
             "days": [], "sale_start_date": None, "sale_end_date": None,
             "_all_summary": [{"dateKey": "2026-09-20", "isSaleDay": True}],
@@ -124,6 +126,7 @@ def main() -> int:
         cb.fetch_item_restrictions = real_fetch
         cb.check_availability = real_check
         cb.fetch_slots = real_slots
+        cb.fetch_max_person_count = real_maxp
 
     print("9-1) 런 시작 때의 운영 기간 조회도 실패한 제한 조회로 직전 값을 지우지 않는다")
     # 2026-10-02 리베르: 런이 시작할 때마다 RI03/1이 RI01로 떨어져, 1시간 전 마감이라
@@ -166,6 +169,38 @@ def main() -> int:
               f"끝내 실패하면 빈 값 (시도 {len(tries)}회)")
     finally:
         cb._fetch_item_restrictions_once, cb.time.sleep = real_once, real_sleep
+
+    print("9-3) 계정당 예약 인원 한도 (bookingCountSettingJson.maxPersonBookingCount)")
+    # 2026-10-16 어바웃톤 진단 로그: {"maxPersonBookingCount": 1}
+    class _Resp:
+        def __init__(self, body): self.body = body
+        def raise_for_status(self): pass
+        def json(self): return self.body
+    real_post, real_sleep = cb.requests.post, cb.time.sleep
+    try:
+        cb.time.sleep = lambda s: None
+        def items(setting):
+            return _Resp({"data": {"bizItems": [
+                {"bizItemId": "1", "bookingCountSettingJson": {"maxPersonBookingCount": 9}},
+                {"bizItemId": "8124911", "bookingCountSettingJson": setting}]}})
+        cb.requests.post = lambda *a, **kw: items({"maxPersonBookingCount": 1})
+        got = cb.fetch_max_person_count("1357646", "8124911")
+        check(got == 1, f"해당 상품의 값을 고른다 (실제: {got})")
+        cb.requests.post = lambda *a, **kw: items(None)
+        got = cb.fetch_max_person_count("1357646", "8124911")
+        check(got == 0, f"설정 없음 → 0(제한 없음) (실제: {got})")
+        def boom(*a, **kw): raise cb.requests.ConnectionError("x")
+        cb.requests.post = boom
+        got = cb.fetch_max_person_count("1357646", "8124911")
+        check(got is None, f"조회 실패 → None(모름) (실제: {got})")
+    finally:
+        cb.requests.post, cb.time.sleep = real_post, real_sleep
+    merged = cb._merge_probed_period({"max_person_booking_count": 2},
+                                     {"max_person_booking_count": None, "restriction_ok": True})
+    check(merged["max_person_booking_count"] == 2, "조회 실패는 직전 한도를 유지한다")
+    merged = cb._merge_probed_period({"max_person_booking_count": 2},
+                                     {"max_person_booking_count": 0, "restriction_ok": True})
+    check(merged["max_person_booking_count"] == 0, "조회 성공(제한 없음)은 새 값을 받는다")
 
     print("10) 캘린더 교차확인은 꺼져 있다 (요청을 아예 안 보낸다)")
     #    엔드포인트가 HTML을 돌려주게 바뀌어 걸러 내는 건 없으면서, 알림 직전에
