@@ -20,6 +20,7 @@
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time as time_mod
@@ -54,6 +55,9 @@ PREWAIT_MAX_MIN = 15
 
 # 슬롯 자체가 없어진 실패 → 다른 계정으로 재시도해도 소용없는 메시지 패턴
 _ACCOUNT_SWITCH_USELESS = ["선택 가능한 것이 없음", "닫혀 있음", "날짜를 선택하지 못함"]
+
+# 1이면 바로 예약 모드에서 계정을 종전처럼 차례로 시도한다 (기본은 동시에).
+SEQUENTIAL = os.environ.get("AUTO_BOOK_SEQUENTIAL", "").strip() in ("1", "true", "yes")
 
 
 def _read_json(path: Path, default):
@@ -483,11 +487,15 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
             print(f"  [자동예약] {acct_label(r.get('account'), names)} {r.get('date', datekey)} 결과: "
                   f"{'성공' if r['success'] else '실패'}{took} — {r['message']}", flush=True)
 
-        if open_at:
-            # 오픈 선착순: 모든 계정이 각자 브라우저로 로그인해 두고 정각에 동시에 누른다.
-            # 한 계정씩 차례로 하면 두 번째 계정은 오픈 10~20초 뒤에야 시작해 소용이 없다
-            # (어바웃톤 300석이 41초 만에 매진). 성공한 계정 수만큼 예약이 잡힌다.
-            print(f"  오픈 대기: 계정 {len(accounts)}개 동시 시도 (성공한 계정 수만큼 예약)", flush=True)
+        # 모든 계정이 각자 브라우저로 동시에 시도한다. 성공한 계정 수만큼 예약이 잡힌다.
+        #  - 오픈 선착순: 로그인해 둔 채 정각에 동시에 누른다. 한 계정씩 차례로 하면 두 번째
+        #    계정은 오픈 10~20초 뒤에야 시작해 소용이 없다 (어바웃톤 300석이 41초 만에 매진).
+        #  - 바로 예약(취소표 등): 종전에는 계정 1→5를 차례로 돌려 마지막 계정이 몇 분 늦게
+        #    들어갔다. 계정마다 다른 날짜·시간을 배정하므로(plan_accounts) 동시에 눌러도
+        #    서로 다투지 않는다. AUTO_BOOK_SEQUENTIAL=1이면 종전처럼 차례로.
+        if open_at or not SEQUENTIAL:
+            label = "오픈 대기" if open_at else "바로 예약"
+            print(f"  {label}: 계정 {len(accounts)}개 동시 시도 (성공한 계정 수만큼 예약)", flush=True)
             with ThreadPoolExecutor(max_workers=len(accounts)) as ex:
                 futs = [ex.submit(attempt_one, a, c, open_at) for a, c in accounts]
                 results = [f.result() for f in futs]
@@ -500,7 +508,6 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
                 res = attempt_one(acct_no, cookie_str)
                 results.append(res)
                 report(res)
-                # 성공해도 멈추지 않는다 — 남은 계정도 자리를 노린다 (모든 계정 성공이 목표)
                 # 슬롯이 사라졌거나 페이지가 선택 불가로 막은 실패는 계정을 바꿔도 소용없다.
                 # 다만 계정마다 다른 날짜를 배정했으면 다음 계정은 다른 날짜를 보므로 계속한다.
                 if (len({d for p in plans.values() for d, _ in p}) <= 1
@@ -511,7 +518,9 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
         res = wins_any[0] if wins_any else results[-1]
 
     finished_at = datetime.now(KST).isoformat(timespec="seconds")
-    unbookable = any(r.get("unbookable") for r in results)
+    # 동시에 돌면 한 계정만 "선택 불가"를 보고 다른 계정은 다른 자리를 잡을 수 있다.
+    # 모니터가 이 신호로 한동안 쉬므로, 모든 계정이 막혔을 때만 남긴다.
+    unbookable = bool(results) and all(r.get("unbookable") for r in results)
     # API는 "자리 있음"이라는데 페이지는 "선택 불가"인 경우가 있다. 어느 쪽이 맞는지
     # 다음 사례에서 바로 판정할 수 있도록, 실패했을 때만 API 원본값을 함께 남긴다.
     api_slots = api_slot_snapshot(item, datekey) if not (res and res["success"]) else []

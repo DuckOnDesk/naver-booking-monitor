@@ -102,14 +102,16 @@ def main() -> int:
                 "account": account}
     auto_book.try_book = fake_try
     w.run("x", "2099-01-01", ["13:00", "14:00"], "sig", 1, "")
-    check(calls[0][:2] == (1, "2099-01-01") and calls[1][:2] == (2, "2099-01-02"),
+    c1 = [c for c in calls if c[0] == 1]
+    c2 = [c for c in calls if c[0] == 2]
+    check([c[1] for c in c1] == ["2099-01-01"] and [c[1] for c in c2] == ["2099-01-02", "2099-01-01"],
           f"계정1은 01일, 계정2는 02일부터 (실제: {calls})")
-    check(calls[2][:2] == (2, "2099-01-01") and calls[2][2][0] != calls[0][2][0],
+    check(c2[1][2][0] != c1[0][2][0],
           f"계정2는 02일이 막히자 01일의 다른 시간으로 (실제: {calls})")
     log, state = recorded[-1]
     check({e["account"]: e["date"] for e in log} == {1: "2099-01-01", 2: "2099-01-01"},
           f"로그에 실제 날짜 (실제: {[(e['account'], e['date']) for e in log]})")
-    check([e.get("account_name") for e in log] == ["betty", "goog"], "로그에 별명")
+    check({e["account"]: e.get("account_name") for e in log} == {1: "betty", 2: "goog"}, "로그에 별명")
     check(auto_book.ACCOUNT_NICKNAMES == {1: "betty", 2: "goog"}, "브라우저 로그용 별명 등록")
     check(w.acct_label(3, {"1": "betty"}) == "계정3", "별명 없으면 계정N")
 
@@ -124,6 +126,35 @@ def main() -> int:
     w.run("x", "2099-01-01", ["13:00", "14:00"], "sig", 1, "")
     check([c[1:] for c in calls] == [("2099-01-01", ["13:00", "14:00"])] * 2,
           f"두 계정 모두 01일 13:00부터 (실제: {calls})")
+
+    print("10) 바로 예약 모드도 계정들이 동시에 돈다 (차례로가 아니라)")
+    import threading
+    barrier = threading.Barrier(2, timeout=5)
+    together: list = []
+
+    def sync_try(url, d, t, count=1, cookie_str=None, account=None, open_at=None, **k):
+        try:
+            barrier.wait()
+            together.append(True)
+        except threading.BrokenBarrierError:
+            together.append(False)
+        return {"success": False, "message": "매진", "booked_time": None, "dry_run": False,
+                "account": account, "unbookable": account == 1}
+    auto_book.try_book = sync_try
+    w.run("x", "2099-01-01", ["13:00", "14:00"], "sig", 1, "")
+    check(together == [True, True], f"두 계정이 동시에 시도 (실제: {together})")
+    check(recorded[-1][1]["last_run"]["unbookable"] is False,
+          "한 계정만 선택 불가면 모니터를 쉬게 하지 않는다")
+
+    print("11) AUTO_BOOK_SEQUENTIAL=1이면 종전처럼 차례로")
+    calls.clear()
+    w.SEQUENTIAL = True
+    auto_book.try_book = lambda url, d, t, count=1, cookie_str=None, account=None, open_at=None, **k: (
+        calls.append((account, d, list(t))) or
+        {"success": True, "message": "성공", "booked_time": t[0], "dry_run": False, "account": account})
+    w.run("x", "2099-01-01", ["13:00", "14:00"], "sig", 1, "")
+    w.SEQUENTIAL = False
+    check([c[0] for c in calls] == [1, 2], f"계정1 → 계정2 순서 (실제: {calls})")
 
     print("9) 모니터 — 날짜를 지정한 항목은 워커가 돌고 있으면 다른 날짜로 또 띄우지 않는다")
     import check_booking as cb

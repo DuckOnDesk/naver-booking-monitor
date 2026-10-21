@@ -227,8 +227,8 @@ def main() -> int:
          "auto_book": {"enabled": True, "dates": ["2026-10-21"], "times": [], "accounts": [],
                        "count": 1, "mode": "immediate"}}]}
     w.run("abt", "2026-10-21", ["13:00"], "2026-10-21|13:00", 1, "")
-    check([a for a, _ in calls] == [1, 2, 3] and all(o is None for _, o in calls),
-          f"세 계정 모두 차례로 시도 (실제: {calls})")
+    check(sorted(a for a, _ in calls) == [1, 2, 3] and all(o is None for _, o in calls),
+          f"세 계정 모두 시도 (실제: {calls})")
 
     print("5-4) 계정별 성공 기록은 실행마다 쌓인다 (덮어쓰지 않음)")
     import tempfile as _tf
