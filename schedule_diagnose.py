@@ -253,7 +253,7 @@ def gate_compare(urls: list[str]) -> int:
     if not urls or urls == ["all"]:
         monitors = json.load(open("monitors.json", encoding="utf-8")).get("monitors", [])
         urls = [m["url"] for m in monitors if m.get("url") and cb.parse_naver_url(m["url"])]
-    picked = cb._pick_monitor_account()
+    picked = cb._pick_monitor_account(anon=False)
     acct, cookies = picked if picked else ("", [])
     print(f"=== 예약창 확인: 비로그인 vs 로그인({acct or '쿠키 없음'}) ===")
     print(f"  현재 {datetime.now(KST).strftime('%Y-%m-%d %H:%M:%S')} KST, 항목 {len(urls)}개")

@@ -86,6 +86,9 @@ jobs:
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}   # 예약창 열림/닫힘 확인용
           # 예약창 확인에 쓸/뺄 묶음 계정(쉼표 구분). 확인은 계정을 돌아가며 하고,
           # 제외 계정(기본 khw — 주력 확인 계정)은 접속 제한을 피하도록 아예 안 쓴다.
+          # 1(기본) = 비로그인으로 먼저 본다. 2026-10-22 진단: 비로그인도 예약 페이지가
+          # 그대로 열렸다. 비로그인이 막히면 그때만 위 계정들을 쓴다. 0 = 늘 계정으로.
+          MONITOR_ANON: ${{ vars.MONITOR_ANON || '1' }}
           MONITOR_ACCOUNTS: ${{ vars.MONITOR_ACCOUNTS }}
           MONITOR_ACCOUNTS_EXCLUDE: ${{ vars.MONITOR_ACCOUNTS_EXCLUDE || 'khw' }}
           KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}

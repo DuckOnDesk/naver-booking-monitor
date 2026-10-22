@@ -13,6 +13,7 @@
   - MONITOR_ACCOUNTS_EXCLUDE로 뺀 계정은 쓰지 않는다
   - 제한 페이지는 닫힘이 아니라 모름(None)이고, 그 계정은 쉬게 한다
   - 쉬는 계정은 건너뛰고, 전부 쉬면 브라우저를 열지 않는다
+  - 비로그인을 먼저 쓰고, 비로그인이 막히거나 로그인 화면으로 가면 계정으로 넘긴다
 
 사용법: python check_booking_monitoracct_test.py
 """
@@ -29,6 +30,7 @@ BUNDLE = {
 os.environ["COOKIES_BUNDLE_JSON"] = json.dumps(BUNDLE)
 os.environ.pop("COOKIES_BUNDLE_ORDER", None)
 os.environ.pop("MONITOR_ACCOUNTS", None)
+os.environ["MONITOR_ANON"] = "0"   # 1~5는 계정 돌려쓰기만 본다
 
 import check_booking as cb
 
@@ -133,6 +135,26 @@ def main():
     reset()
     closed, _ = cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
     check(closed is False, f"{closed}")
+
+    print("6) 비로그인 우선 (MONITOR_ANON=1)")
+    reset()
+    os.environ["MONITOR_ANON"] = "1"
+    ok.used.clear()
+    closed, _ = cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
+    check(closed is False and not ok.used, f"쿠키 없이 본다: {closed} {ok.used}")
+    check([c[0]["value"] for c in [cb.naver_cookies()]] == ["b"], "진단(naver_cookies)은 계정을 준다")
+    cb._browser_get = lambda: blocked
+    closed, _ = cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
+    check(closed is None and "" in cb._monitor_bench, "비로그인 제한 → 비로그인 쉼")
+    cb._browser_get = lambda: ok
+    ok.used.clear()
+    cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
+    check(len(ok.used) == 1, f"비로그인이 쉬면 계정으로: {ok.used}")
+    reset()
+    login = FakeBrowser("https://nid.naver.com/nidlogin.login?url=x", "로그인")
+    cb._browser_get = lambda: login
+    closed, reason = cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
+    check(closed is None and "" in cb._monitor_bench, f"비로그인 → 로그인 화면은 닫힘 아님: {closed} {reason}")
 
     print()
     if fails:

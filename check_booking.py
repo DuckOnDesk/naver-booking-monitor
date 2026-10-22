@@ -2339,6 +2339,9 @@ def _page_note(page, limit: int = 80) -> str:
 # MONITOR_ACCOUNTS: 감시에 쓸 묶음 아이디(쉼표 구분). 비우면 묶음 전체.
 # MONITOR_ACCOUNTS_EXCLUDE: 감시에서 뺄 아이디(쉼표 구분). 제한이 걸리면 곤란한
 # 주력 계정을 지킨다 (monitor.yml 기본값 khw).
+# MONITOR_ANON: 1이면 비로그인으로 먼저 본다 (기본 1). 2026-10-22 진단에서 비로그인
+# 으로도 예약 페이지가 그대로 열렸다(로그인 화면으로 보내지 않았다). 비로그인이 제한
+# 페이지나 로그인 화면을 만나면 그때만 계정을 돌려 쓴다.
 MONITOR_ACCOUNT_BENCH_MIN = _env_num("MONITOR_ACCOUNT_BENCH_MIN", 60)
 _RATE_LIMIT_PAGE_TEXT = ("과다한 요청",)
 _monitor_lock = threading.Lock()
@@ -2378,15 +2381,20 @@ def _monitor_accounts() -> list:
     return [("NAVER_COOKIES", cookies)] if cookies else []
 
 
-def _pick_monitor_account() -> tuple[str, list] | None:
+def _pick_monitor_account(anon: bool | None = None) -> tuple[str, list] | None:
     """다음 차례 계정 (아이디, 쿠키). 쉬는 계정은 건너뛴다.
 
-    계정이 아예 없으면 ("", []) — 비로그인으로 본다. 전부 쉬는 중이면 None.
+    비로그인("", [])이 켜져 있고 쉬는 중이 아니면 그걸 먼저 쓴다. 계정이 아예
+    없으면 ("", []). 전부 쉬는 중이면 None.
     """
     global _monitor_rr
+    if anon is None:
+        anon = os.environ.get("MONITOR_ANON", "1").strip() != "0"
+    if anon and _monitor_bench.get("", 0) <= time.monotonic():
+        return "", []
     accounts = _monitor_accounts()
     if not accounts:
-        return "", []
+        return None if anon else ("", [])
     now = time.monotonic()
     with _monitor_lock:
         for k in range(len(accounts)):
@@ -2397,22 +2405,23 @@ def _pick_monitor_account() -> tuple[str, list] | None:
     return None
 
 
-def _bench_monitor_account(name: str) -> None:
+def _bench_monitor_account(name: str, why: str = "접속 제한(과다한 요청)") -> None:
     with _monitor_lock:
         _monitor_bench[name] = time.monotonic() + MONITOR_ACCOUNT_BENCH_MIN * 60
-    print(f"  [경고] 감시 계정 {name or '비로그인'} 접속 제한(과다한 요청) → "
+    print(f"  [경고] 감시 계정 {name or '비로그인'} {why} → "
           f"{MONITOR_ACCOUNT_BENCH_MIN:g}분 동안 빼고 다른 계정으로 확인", flush=True)
 
 
 def naver_cookies() -> list:
     """예약창 확인용 로그인 쿠키(playwright 컨텍스트용 목록).
 
-    로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려보낸다.
-    그 화면은 상품 페이지가 아니므로 닫힘으로 잡힌다 — 진단 스크립트가 같은
-    조건으로 보게 하려고 따로 뺐다.
+    예전에는 로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려
+    보냈다 (2026-10-22 진단에서는 비로그인도 그대로 열렸다). 진단 스크립트가
+    로그인 조건으로도 볼 수 있게 따로 뺐다.
     COOKIES_BUNDLE_JSON(naver_sync 쿠키 묶음)이 있으면 그 계정들을 돌아가며 쓴다.
+    진단용이라 늘 로그인 계정을 준다 (비로그인 우선은 _playwright_check에서만).
     """
-    picked = _pick_monitor_account()
+    picked = _pick_monitor_account(anon=False)
     return picked[1] if picked else []
 
 
@@ -2449,6 +2458,10 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
         if any(p in visible_text for p in _RATE_LIMIT_PAGE_TEXT):
             _bench_monitor_account(acct)
             return None, f"접속 제한 페이지(과다한 요청, 계정 {acct or '비로그인'})"
+        if not acct and "nid.naver.com" in final_url:
+            # 비로그인을 로그인 화면으로 보내기 시작했다 — 닫힘이 아니다. 계정으로 넘긴다.
+            _bench_monitor_account(acct, "로그인 화면으로 이동")
+            return None, "비로그인 → 로그인 화면"
         for pat in _CLOSED_URL_PATTERNS:
             if pat in final_url:
                 # type=... 을 사유에 함께 남긴다. 본문을 못 읽는 회차에도
