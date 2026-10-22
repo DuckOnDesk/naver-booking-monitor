@@ -13,7 +13,8 @@
   - MONITOR_ACCOUNTS_EXCLUDE로 뺀 계정은 쓰지 않는다
   - 제한 페이지는 닫힘이 아니라 모름(None)이고, 그 계정은 쉬게 한다
   - 쉬는 계정은 건너뛰고, 전부 쉬면 브라우저를 열지 않는다
-  - 비로그인을 먼저 쓰고, 비로그인이 막히거나 로그인 화면으로 가면 계정으로 넘긴다
+  - 비로그인을 먼저 쓰고, 비로그인이 막히면 계정으로 넘긴다
+  - 로그인 화면으로 가는 팝업은 기억해 그 팝업만 계정으로 본다 (상태 파일에 남는다)
 
 사용법: python check_booking_monitoracct_test.py
 """
@@ -46,6 +47,8 @@ def check(cond, msg):
 def reset():
     cb._monitor_rr = 0
     cb._monitor_bench.clear()
+    cb._login_items.clear()
+    cb._login_forced.clear()
 
 
 class FakePage:
@@ -150,11 +153,43 @@ def main():
     ok.used.clear()
     cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
     check(len(ok.used) == 1, f"비로그인이 쉬면 계정으로: {ok.used}")
+
+    print("7) 로그인 필요 팝업만 계정으로")
     reset()
+    U = "https://m.booking.naver.com/booking/12/bizes/1/items/2"
+    U2 = "https://m.booking.naver.com/booking/12/bizes/1/items/3"
     login = FakeBrowser("https://nid.naver.com/nidlogin.login?url=x", "로그인")
     cb._browser_get = lambda: login
-    closed, reason = cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
-    check(closed is None and "" in cb._monitor_bench, f"비로그인 → 로그인 화면은 닫힘 아님: {closed} {reason}")
+    closed, reason = cb._playwright_check(U)
+    check(closed is None, f"로그인 화면은 닫힘 아님: {closed} {reason}")
+    check("" not in cb._monitor_bench, "비로그인 전체를 쉬게 하지는 않는다")
+    check("/items/2" in cb._login_items, f"팝업 기록: {cb._login_items}")
+    ok.used.clear()
+    cb._browser_get = lambda: ok
+    cb._playwright_check(U)
+    check(len(ok.used) == 1, f"기록된 팝업은 계정으로: {ok.used}")
+    ok.used.clear()
+    cb._playwright_check(U2)
+    check(not ok.used, f"다른 팝업은 그대로 비로그인: {ok.used}")
+    textlogin = FakeBrowser(U2, "이 상품은 로그인이 필요합니다")
+    cb._browser_get = lambda: textlogin
+    cb._playwright_check(U2)
+    check("/items/3" in cb._login_items, "본문 '로그인이 필요'도 로그인 팝업")
+
+    print("8) 상태 파일 저장/복원, monitors.json login: true")
+    alerted = {}
+    cb.sync_login_items([], alerted)
+    check(set(alerted.get(cb.LOGIN_ITEMS_KEY, {})) == {"/items/2", "/items/3"}, f"저장: {alerted}")
+    cb._login_items.clear()
+    cb.sync_login_items([], alerted)
+    check(set(cb._login_items) == {"/items/2", "/items/3"}, "재시작 후 복원")
+    cb._login_items.clear()
+    cb.sync_login_items([{"url": "https://m.booking.naver.com/booking/12/bizes/1/items/9", "login": True}], {})
+    check(cb._needs_login("https://booking.naver.com/booking/12/bizes/1/items/9?x=1"), "login: true")
+    ok.used.clear()
+    cb._browser_get = lambda: ok
+    cb._playwright_check("https://booking.naver.com/booking/12/bizes/1/items/9")
+    check(len(ok.used) == 1, f"login: true 팝업은 계정으로: {ok.used}")
 
     print()
     if fails:

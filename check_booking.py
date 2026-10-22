@@ -2340,8 +2340,55 @@ def _page_note(page, limit: int = 80) -> str:
 # MONITOR_ACCOUNTS_EXCLUDE: 감시에서 뺄 아이디(쉼표 구분). 제한이 걸리면 곤란한
 # 주력 계정을 지킨다 (monitor.yml 기본값 khw).
 # MONITOR_ANON: 1이면 비로그인으로 먼저 본다 (기본 1). 2026-10-22 진단에서 비로그인
-# 으로도 예약 페이지가 그대로 열렸다(로그인 화면으로 보내지 않았다). 비로그인이 제한
-# 페이지나 로그인 화면을 만나면 그때만 계정을 돌려 쓴다.
+# 으로도 예약 페이지가 그대로 열렸다(로그인 화면으로 보내지 않았다). 다만 로그인해야
+# 예약창이 열리는 팝업도 있어서, 비로그인이 로그인 화면을 만난 팝업은 기억해 두고
+# 그 팝업만 계정으로 본다 (LOGIN_ITEMS_KEY). monitors.json 항목에 "login": true를
+# 넣으면 처음부터 로그인으로 본다. 비로그인이 제한 페이지를 만나면 비로그인 전체를 쉬게 한다.
+LOGIN_ITEMS_KEY = "gate:needs_login"     # alerted: {"/items/123": 처음 알게 된 시각}
+_LOGIN_PAGE_TEXT = ("로그인이 필요", "로그인 후 이용")
+_login_items: dict[str, str] = {}        # 비로그인으로는 안 열리는 팝업 (워커가 배운 것)
+_login_forced: set[str] = set()          # monitors.json에서 "login": true 인 팝업
+
+
+def _item_key(url: str) -> str:
+    m = re.search(r"/items/\d+", url)
+    return m.group(0) if m else url
+
+
+def _needs_login(url: str) -> bool:
+    key = _item_key(url)
+    with _monitor_lock:
+        return key in _login_forced or key in _login_items
+
+
+def _mark_login_item(url: str, name: str = "") -> None:
+    key = _item_key(url)
+    with _monitor_lock:
+        if key in _login_items:
+            return
+        _login_items[key] = datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d %H:%M")
+    print(f"  [예약창] {name or key} — 비로그인으로는 안 열리는 팝업. 다음부터 로그인 계정으로 확인",
+          flush=True)
+
+
+def sync_login_items(monitors: list, alerted: dict) -> None:
+    """팝업별 로그인 필요 여부를 상태 파일과 맞춘다 (메인 스레드, 회차마다).
+
+    상태 파일 → 메모리는 재시작 직후 복원용이고, 메모리 → 상태 파일은 워커가 새로
+    배운 팝업을 남기는 용도다. 항목별 키({id}:...)는 회차마다 정리돼 지워지므로
+    따로 둔다.
+    """
+    saved = alerted.get(LOGIN_ITEMS_KEY)
+    forced = {_item_key(m["url"]) for m in monitors if m.get("login") and m.get("url")}
+    with _monitor_lock:
+        if isinstance(saved, dict):
+            for k, v in saved.items():
+                _login_items.setdefault(k, v)
+        _login_forced.clear()
+        _login_forced.update(forced)
+        merged = dict(_login_items)
+    if merged and merged != saved:
+        alerted[LOGIN_ITEMS_KEY] = merged
 MONITOR_ACCOUNT_BENCH_MIN = _env_num("MONITOR_ACCOUNT_BENCH_MIN", 60)
 _RATE_LIMIT_PAGE_TEXT = ("과다한 요청",)
 _monitor_lock = threading.Lock()
@@ -2441,7 +2488,7 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
         # 리다이렉트 판정이 오염된다.
         # 로캘을 안 주면 러너 기본값(영어) 페이지가 와서 _CLOSED_TEXT_PATTERNS가
         # 하나도 안 맞는다 — 텍스트 기반 닫힘 판정이 통째로 죽어 있었다.
-        picked = _pick_monitor_account()
+        picked = _pick_monitor_account(anon=False if _needs_login(url) else None)
         if picked is None:
             return None, "감시 계정 전부 접속 제한으로 쉬는 중"
         acct, cookies = picked
@@ -2458,10 +2505,12 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
         if any(p in visible_text for p in _RATE_LIMIT_PAGE_TEXT):
             _bench_monitor_account(acct)
             return None, f"접속 제한 페이지(과다한 요청, 계정 {acct or '비로그인'})"
-        if not acct and "nid.naver.com" in final_url:
-            # 비로그인을 로그인 화면으로 보내기 시작했다 — 닫힘이 아니다. 계정으로 넘긴다.
-            _bench_monitor_account(acct, "로그인 화면으로 이동")
-            return None, "비로그인 → 로그인 화면"
+        if not acct and ("nid.naver.com" in final_url
+                         or any(p in visible_text for p in _LOGIN_PAGE_TEXT)):
+            # 로그인해야 열리는 팝업이다 — 닫힘이 아니다. 기억해 두고 이 팝업만
+            # 계정으로 본다 (워커는 모름이면 10초 뒤 다시 본다).
+            _mark_login_item(url)
+            return None, "비로그인 → 로그인 화면 (로그인 필요 팝업으로 기록)"
         for pat in _CLOSED_URL_PATTERNS:
             if pat in final_url:
                 # type=... 을 사유에 함께 남긴다. 본문을 못 읽는 회차에도
@@ -4181,6 +4230,7 @@ def main():
     # job 재시작 시 이전 알림 상태 복원 (중복 알림 방지)
     alerted = load_alerted()
     sync_auto_book_state(monitors, alerted)
+    sync_login_items(monitors, alerted)
 
     # 재시작 시점에 항목마다 예약창을 미리 확인하던 단계가 있었지만, 그건 닫힘을
     # 2회 연속으로 확정하던 시절 첫 회차를 시드하려던 것이었다. 이제 첫 회차의
@@ -4223,6 +4273,7 @@ def main():
         set_round_header(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 ---")
         # 별도 워크플로에서 돌고 있는 자동예약의 결과를 먼저 반영
         sync_auto_book_state(monitors, alerted)
+        sync_login_items(monitors, alerted)
         global _rate_limit_hits
         _rate_limit_hits = 0
         try:
