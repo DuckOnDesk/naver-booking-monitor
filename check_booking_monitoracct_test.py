@@ -10,6 +10,7 @@
 확인 내용:
   - 묶음 계정을 돌아가며 쓴다
   - MONITOR_ACCOUNTS로 감시 계정을 고를 수 있다 (안 맞으면 전체)
+  - MONITOR_ACCOUNTS_EXCLUDE로 뺀 계정은 쓰지 않는다
   - 제한 페이지는 닫힘이 아니라 모름(None)이고, 그 계정은 쉬게 한다
   - 쉬는 계정은 건너뛰고, 전부 쉬면 브라우저를 열지 않는다
 
@@ -96,6 +97,14 @@ def main():
     got = [cb.naver_cookies()[0]["value"] for _ in range(3)]
     check(sorted(got) == ["b", "g", "h"], f"안 맞으면 전체: {got}")
     os.environ.pop("MONITOR_ACCOUNTS")
+    os.environ["MONITOR_ACCOUNTS_EXCLUDE"] = "betty"
+    got = [cb.naver_cookies()[0]["value"] for _ in range(4)]
+    check("b" not in got and set(got) == {"h", "g"}, f"제외 계정은 안 쓴다: {got}")
+    os.environ["MONITOR_ACCOUNTS"] = "betty,hye"
+    got = [cb.naver_cookies()[0]["value"] for _ in range(3)]
+    check(got and set(got) == {"h"}, f"지정해도 제외가 이긴다: {got}")
+    os.environ.pop("MONITOR_ACCOUNTS")
+    os.environ.pop("MONITOR_ACCOUNTS_EXCLUDE")
 
     print("3) 제한 페이지 → 모름 + 그 계정 쉼")
     reset()

@@ -84,6 +84,10 @@ jobs:
           COOKIES_BUNDLE_JSON: ${{ secrets.COOKIES_BUNDLE_JSON }}
           COOKIES_BUNDLE_ORDER: ${{ vars.COOKIES_BUNDLE_ORDER }}
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}   # 예약창 열림/닫힘 확인용
+          # 예약창 확인에 쓸/뺄 묶음 계정(쉼표 구분). 확인은 계정을 돌아가며 하고,
+          # 제외 계정(기본 khw — 주력 확인 계정)은 접속 제한을 피하도록 아예 안 쓴다.
+          MONITOR_ACCOUNTS: ${{ vars.MONITOR_ACCOUNTS }}
+          MONITOR_ACCOUNTS_EXCLUDE: ${{ vars.MONITOR_ACCOUNTS_EXCLUDE || 'khw' }}
           KAKAO_COOKIES: ${{ secrets.KAKAO_COOKIES }}
         run: python -u check_booking.py
 

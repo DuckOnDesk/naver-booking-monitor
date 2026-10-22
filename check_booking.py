@@ -2337,6 +2337,8 @@ def _page_note(page, limit: int = 80) -> str:
 # 그 계정만 "과다한 요청 시도로 접속을 제한" 했다 (2026-10-22 betty). 이제 계정을
 # 돌아가며 쓰고, 제한 페이지를 만난 계정은 한동안 빼 둔다.
 # MONITOR_ACCOUNTS: 감시에 쓸 묶음 아이디(쉼표 구분). 비우면 묶음 전체.
+# MONITOR_ACCOUNTS_EXCLUDE: 감시에서 뺄 아이디(쉼표 구분). 제한이 걸리면 곤란한
+# 주력 계정을 지킨다 (monitor.yml 기본값 khw).
 MONITOR_ACCOUNT_BENCH_MIN = _env_num("MONITOR_ACCOUNT_BENCH_MIN", 60)
 _RATE_LIMIT_PAGE_TEXT = ("과다한 요청",)
 _monitor_lock = threading.Lock()
@@ -2364,10 +2366,14 @@ def _monitor_accounts() -> list:
     from auto_book import _bundle_accounts, _parse_cookies
     bundle = _bundle_accounts()
     if bundle:
-        allow = {x.strip() for x in os.environ.get("MONITOR_ACCOUNTS", "").split(",") if x.strip()}
-        picked = [(name, _parse_cookies(c)) for _, c, name in bundle if not allow or name in allow]
+        def names(var):
+            return {x.strip() for x in os.environ.get(var, "").split(",") if x.strip()}
+        allow, deny = names("MONITOR_ACCOUNTS"), names("MONITOR_ACCOUNTS_EXCLUDE")
+        usable = [(name, c) for _, c, name in bundle if name not in deny] or \
+            [(name, c) for _, c, name in bundle]
         # 이름을 잘못 적어 하나도 안 맞으면 로그인 없이 보는 것보다 전체를 쓰는 게 낫다
-        return picked or [(name, _parse_cookies(c)) for _, c, name in bundle]
+        picked = [(name, c) for name, c in usable if name in allow] or usable
+        return [(name, _parse_cookies(c)) for name, c in picked]
     cookies = _legacy_cookies()
     return [("NAVER_COOKIES", cookies)] if cookies else []
 
