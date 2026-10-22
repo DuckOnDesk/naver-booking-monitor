@@ -15,6 +15,8 @@
   - 쉬는 계정은 건너뛰고, 전부 쉬면 브라우저를 열지 않는다
   - 비로그인 팝업은 비로그인만 쓴다 — 막혀도 계정으로 넘기지 않는다
   - 로그인 화면으로 가는 팝업은 기억해 그 팝업만 계정으로 본다 (상태 파일에 남는다)
+  - 접속 제한 알림은 한 번만, 비로그인 제한은 새 실행(IP 변경)으로 넘기되 계속 막히면 쉰다
+  - 예매 기한이 끝난 팝업은 닫힘 사유에 표시가 붙는다
 
 사용법: python check_booking_monitoracct_test.py
 """
@@ -51,6 +53,7 @@ def reset():
     cb._login_forced.clear()
     cb._block_notified.clear()
     cb._block_notices.clear()
+    cb._anon_block_pending = False
 
 
 class FakePage:
@@ -198,30 +201,72 @@ def main():
     cb._playwright_check("https://booking.naver.com/booking/12/bizes/1/items/9")
     check(len(ok.used) == 1, f"login: true 팝업은 계정으로: {ok.used}")
 
-    print("9) 접속 제한 알림은 풀릴 때까지 한 번만")
+    print("9) 계정 접속 제한 알림은 풀릴 때까지 한 번만")
     reset()
     sent = []
     cb.send_ntfy = lambda topic, title, body, url: sent.append(title)
-    U = "https://m.booking.naver.com/booking/12/bizes/1/items/2"
+    U7 = "https://m.booking.naver.com/booking/12/bizes/1/items/7"
+    cb._login_forced.add("/items/7")
+    os.environ["MONITOR_ACCOUNTS"] = "hye"
     cb._browser_get = lambda: blocked
-    cb._playwright_check(U)
+    cb._playwright_check(U7)
     cb.flush_block_notices("t")
-    check(len(sent) == 1 and "비로그인" in sent[0], f"처음 막히면 알림: {sent}")
+    check(len(sent) == 1 and "계정 hye" in sent[0], f"처음 막히면 알림: {sent}")
     cb._monitor_bench.clear()               # 60분 지나 다시 봤는데 또 막힘
-    cb._playwright_check(U)
+    cb._playwright_check(U7)
     cb.flush_block_notices("t")
     check(len(sent) == 1, f"풀리기 전엔 다시 안 보냄: {sent}")
     cb._monitor_bench.clear()
     cb._browser_get = lambda: ok
-    cb._playwright_check(U)                 # 정상으로 열림 → 해제
+    cb._playwright_check(U7)                # 정상으로 열림 → 해제
     cb._browser_get = lambda: blocked
-    cb._playwright_check(U)
+    cb._playwright_check(U7)
     cb.flush_block_notices("t")
     check(len(sent) == 2, f"풀렸다 다시 막히면 또 알림: {sent}")
-    cb._login_forced.add("/items/7")
-    cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/7")
+    os.environ.pop("MONITOR_ACCOUNTS")
+
+    print("10) 비로그인 제한 → 새 실행(새 IP), 계속 막히면 쉼")
+    reset()
+    sent.clear()
+    cb._runner_ip = "1.1.1.1"
+    U = "https://m.booking.naver.com/booking/12/bizes/1/items/2"
+    alerted = {}
+    check(cb.decide_anon_restart(alerted) is False, "안 막혔으면 그대로")
+    cb._playwright_check(U)
+    check(cb.decide_anon_restart(alerted) is True, "막히면 새 실행으로")
     cb.flush_block_notices("t")
-    check(len(sent) == 3 and "계정" in sent[-1], f"계정별로 따로 알림: {sent}")
+    check(len(sent) == 1 and "IP를 바꿔" not in sent[0] and "비로그인" in sent[0], f"첫 알림: {sent}")
+    # 새 실행 (메모리는 비고 상태 파일만 넘어간다)
+    reset(); cb._runner_ip = "2.2.2.2"
+    cb._playwright_check(U)
+    check(cb.decide_anon_restart(alerted) is True, "두 번째도 새 실행으로")
+    cb.flush_block_notices("t")
+    check(len(sent) == 1, f"중간 재시작은 알림 없음: {sent}")
+    reset(); cb._runner_ip = "3.3.3.3"
+    cb._playwright_check(U)
+    check(cb.decide_anon_restart(alerted) is False, "1시간 안에 2번 넘겼으면 그만 — 쉰다")
+    cb.flush_block_notices("t")
+    check(len(sent) == 2 and "IP 바꿔도" in sent[1], f"포기할 때 한 번 더: {sent}")
+    check("" in cb._monitor_bench, "비로그인 쉼")
+    old = {"at": "2026-01-01T00:00:00+09:00", "ip": "9.9.9.9"}
+    alerted = {cb.ANON_RESTART_KEY: [old, old]}
+    reset()
+    cb._playwright_check(U)
+    check(cb.decide_anon_restart(alerted) is True, "1시간 지난 기록은 안 센다")
+
+    print("11) 예매 기한 종료 표시")
+    reset()
+    ended = FakeBrowser("https://m.booking.naver.com/booking/5/bizes/1733276",
+                        "넷플잔치 ** <넷플잔치>의 티켓 예매 / 최종 취소 기한은 종료되었습니다.")
+    cb._browser_get = lambda: ended
+    closed, reason = cb._playwright_check("https://m.booking.naver.com/booking/5/bizes/1733276/items/8035197")
+    check(closed is True and reason.startswith(cb.ENDED_MARK), f"사유에 표시: {reason}")
+    al = {}
+    g = cb.UrlGate({"name": "넷플"}, "x", "u", "넷플", al, "", "00:00:00")
+    g._apply(True, reason)
+    check(al["x:url_closed"] == "ended" and g.ended, f"상태에 남김: {al}")
+    g._apply(True, "URL 리다이렉트: /error/")
+    check(al["x:url_closed"] == 1 and not g.ended, "그냥 닫힘이면 표시 안 함")
 
     print()
     if fails:
