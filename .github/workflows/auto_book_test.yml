@@ -72,6 +72,7 @@ jobs:
           python -u check_booking_dayunit_test.py
           python -u check_booking_log_test.py
           python -u check_booking_urlgate_test.py
+          python -u check_booking_monitoracct_test.py
           python -u check_booking_mute_test.py
           python -u check_booking_hours_test.py
           python -u check_booking_commit_test.py

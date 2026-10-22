@@ -2332,18 +2332,19 @@ def _page_note(page, limit: int = 80) -> str:
     return f'{_NOTE_SEP}"{text[:limit]}"' if text else ""
 
 
-def naver_cookies() -> list:
-    """NAVER_COOKIES 환경변수를 playwright 컨텍스트용 쿠키 목록으로.
+# 예약창 확인(브라우저)은 로그인 쿠키로 페이지를 연다. 예전에는 늘 묶음 첫 계정만
+# 써서, 닫힌 항목을 30초마다 다시 여는 동안 그 한 계정에 접속이 몰렸고 네이버가
+# 그 계정만 "과다한 요청 시도로 접속을 제한" 했다 (2026-10-22 betty). 이제 계정을
+# 돌아가며 쓰고, 제한 페이지를 만난 계정은 한동안 빼 둔다.
+# MONITOR_ACCOUNTS: 감시에 쓸 묶음 아이디(쉼표 구분). 비우면 묶음 전체.
+MONITOR_ACCOUNT_BENCH_MIN = _env_num("MONITOR_ACCOUNT_BENCH_MIN", 60)
+_RATE_LIMIT_PAGE_TEXT = ("과다한 요청",)
+_monitor_lock = threading.Lock()
+_monitor_rr = 0                          # 다음에 쓸 계정 차례
+_monitor_bench: dict[str, float] = {}    # 아이디 → 다시 써도 되는 시각(monotonic)
 
-    로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려보낸다.
-    그 화면은 상품 페이지가 아니므로 닫힘으로 잡힌다 — 진단 스크립트가 같은
-    조건으로 보게 하려고 따로 뺐다.
-    COOKIES_BUNDLE_JSON(naver_sync 쿠키 묶음)이 있으면 그 첫 계정을 쓴다.
-    """
-    from auto_book import _bundle_accounts, _parse_cookies
-    bundle = _bundle_accounts()
-    if bundle:
-        return _parse_cookies(bundle[0][1])
+
+def _legacy_cookies() -> list:
     cookies = []
     for part in os.environ.get("NAVER_COOKIES", "").strip().split(";"):
         part = part.strip()
@@ -2356,6 +2357,57 @@ def naver_cookies() -> list:
                 "path": "/",
             })
     return cookies
+
+
+def _monitor_accounts() -> list:
+    """감시에 쓸 [(아이디, 쿠키 목록)]. 묶음이 없으면 NAVER_COOKIES 하나."""
+    from auto_book import _bundle_accounts, _parse_cookies
+    bundle = _bundle_accounts()
+    if bundle:
+        allow = {x.strip() for x in os.environ.get("MONITOR_ACCOUNTS", "").split(",") if x.strip()}
+        picked = [(name, _parse_cookies(c)) for _, c, name in bundle if not allow or name in allow]
+        # 이름을 잘못 적어 하나도 안 맞으면 로그인 없이 보는 것보다 전체를 쓰는 게 낫다
+        return picked or [(name, _parse_cookies(c)) for _, c, name in bundle]
+    cookies = _legacy_cookies()
+    return [("NAVER_COOKIES", cookies)] if cookies else []
+
+
+def _pick_monitor_account() -> tuple[str, list] | None:
+    """다음 차례 계정 (아이디, 쿠키). 쉬는 계정은 건너뛴다.
+
+    계정이 아예 없으면 ("", []) — 비로그인으로 본다. 전부 쉬는 중이면 None.
+    """
+    global _monitor_rr
+    accounts = _monitor_accounts()
+    if not accounts:
+        return "", []
+    now = time.monotonic()
+    with _monitor_lock:
+        for k in range(len(accounts)):
+            name, cookies = accounts[(_monitor_rr + k) % len(accounts)]
+            if _monitor_bench.get(name, 0) <= now:
+                _monitor_rr = (_monitor_rr + k + 1) % len(accounts)
+                return name, cookies
+    return None
+
+
+def _bench_monitor_account(name: str) -> None:
+    with _monitor_lock:
+        _monitor_bench[name] = time.monotonic() + MONITOR_ACCOUNT_BENCH_MIN * 60
+    print(f"  [경고] 감시 계정 {name or '비로그인'} 접속 제한(과다한 요청) → "
+          f"{MONITOR_ACCOUNT_BENCH_MIN:g}분 동안 빼고 다른 계정으로 확인", flush=True)
+
+
+def naver_cookies() -> list:
+    """예약창 확인용 로그인 쿠키(playwright 컨텍스트용 목록).
+
+    로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려보낸다.
+    그 화면은 상품 페이지가 아니므로 닫힘으로 잡힌다 — 진단 스크립트가 같은
+    조건으로 보게 하려고 따로 뺐다.
+    COOKIES_BUNDLE_JSON(naver_sync 쿠키 묶음)이 있으면 그 계정들을 돌아가며 쓴다.
+    """
+    picked = _pick_monitor_account()
+    return picked[1] if picked else []
 
 
 def _playwright_check(url: str) -> tuple[bool | None, str]:
@@ -2374,14 +2426,23 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
         # 리다이렉트 판정이 오염된다.
         # 로캘을 안 주면 러너 기본값(영어) 페이지가 와서 _CLOSED_TEXT_PATTERNS가
         # 하나도 안 맞는다 — 텍스트 기반 닫힘 판정이 통째로 죽어 있었다.
+        picked = _pick_monitor_account()
+        if picked is None:
+            return None, "감시 계정 전부 접속 제한으로 쉬는 중"
+        acct, cookies = picked
         context = browser.new_context(locale="ko-KR")
-        cookies = naver_cookies()
         if cookies:
             context.add_cookies(cookies)
         page = context.new_page()
         page.goto(url, wait_until="load", timeout=15000)
         page.wait_for_timeout(2000)
         final_url = page.url
+        visible_text = " ".join(page.inner_text("body").split())
+        # 접속 제한 페이지는 상품 페이지가 아니라서 아래 '상품 페이지 이탈'로 닫힘이
+        # 됐고, 닫힘은 30초마다 다시 보니 제한이 풀릴 틈이 없었다. 모름으로 돌린다.
+        if any(p in visible_text for p in _RATE_LIMIT_PAGE_TEXT):
+            _bench_monitor_account(acct)
+            return None, f"접속 제한 페이지(과다한 요청, 계정 {acct or '비로그인'})"
         for pat in _CLOSED_URL_PATTERNS:
             if pat in final_url:
                 # type=... 을 사유에 함께 남긴다. 본문을 못 읽는 회차에도
@@ -2392,7 +2453,6 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
                 return True, f"URL 리다이렉트: {label}{_page_note(page)}"
         if item_path and item_path not in final_url:
             return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈{_page_note(page)}"
-        visible_text = " ".join(page.inner_text("body").split())
         for pat in _CLOSED_TEXT_PATTERNS:
             if pat in visible_text:
                 return True, f"페이지 텍스트: {pat}"
