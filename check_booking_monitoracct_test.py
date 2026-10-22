@@ -13,7 +13,7 @@
   - MONITOR_ACCOUNTS_EXCLUDE로 뺀 계정은 쓰지 않는다
   - 제한 페이지는 닫힘이 아니라 모름(None)이고, 그 계정은 쉬게 한다
   - 쉬는 계정은 건너뛰고, 전부 쉬면 브라우저를 열지 않는다
-  - 비로그인을 먼저 쓰고, 비로그인이 막히면 계정으로 넘긴다
+  - 비로그인 팝업은 비로그인만 쓴다 — 막혀도 계정으로 넘기지 않는다
   - 로그인 화면으로 가는 팝업은 기억해 그 팝업만 계정으로 본다 (상태 파일에 남는다)
 
 사용법: python check_booking_monitoracct_test.py
@@ -109,6 +109,8 @@ def main():
     got = [cb.naver_cookies()[0]["value"] for _ in range(3)]
     check(got and set(got) == {"h"}, f"지정해도 제외가 이긴다: {got}")
     os.environ.pop("MONITOR_ACCOUNTS")
+    os.environ["MONITOR_ACCOUNTS_EXCLUDE"] = "betty,hye,gogo"
+    check(cb.naver_cookies() == [], "전부 제외면 제외 계정으로 되돌아가지 않는다")
     os.environ.pop("MONITOR_ACCOUNTS_EXCLUDE")
 
     print("3) 제한 페이지 → 모름 + 그 계정 쉼")
@@ -151,8 +153,11 @@ def main():
     check(closed is None and "" in cb._monitor_bench, "비로그인 제한 → 비로그인 쉼")
     cb._browser_get = lambda: ok
     ok.used.clear()
-    cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
-    check(len(ok.used) == 1, f"비로그인이 쉬면 계정으로: {ok.used}")
+    closed, reason = cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/2")
+    check(closed is None and not ok.used, f"비로그인이 쉬어도 계정으로 넘기지 않는다: {reason} {ok.used}")
+    cb._login_forced.add("/items/5")
+    cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/5")
+    check(len(ok.used) == 1, f"로그인 필요 팝업은 그대로 계정으로: {ok.used}")
 
     print("7) 로그인 필요 팝업만 계정으로")
     reset()

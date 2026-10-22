@@ -2338,12 +2338,14 @@ def _page_note(page, limit: int = 80) -> str:
 # 돌아가며 쓰고, 제한 페이지를 만난 계정은 한동안 빼 둔다.
 # MONITOR_ACCOUNTS: 감시에 쓸 묶음 아이디(쉼표 구분). 비우면 묶음 전체.
 # MONITOR_ACCOUNTS_EXCLUDE: 감시에서 뺄 아이디(쉼표 구분). 제한이 걸리면 곤란한
-# 주력 계정을 지킨다 (monitor.yml 기본값 khw).
+# 계정을 지킨다 (monitor.yml 기본값 khw,betty,maman).
 # MONITOR_ANON: 1이면 비로그인으로 먼저 본다 (기본 1). 2026-10-22 진단에서 비로그인
 # 으로도 예약 페이지가 그대로 열렸다(로그인 화면으로 보내지 않았다). 다만 로그인해야
 # 예약창이 열리는 팝업도 있어서, 비로그인이 로그인 화면을 만난 팝업은 기억해 두고
 # 그 팝업만 계정으로 본다 (LOGIN_ITEMS_KEY). monitors.json 항목에 "login": true를
-# 넣으면 처음부터 로그인으로 본다. 비로그인이 제한 페이지를 만나면 비로그인 전체를 쉬게 한다.
+# 넣으면 처음부터 로그인으로 본다. 비로그인이 제한 페이지를 만나면 비로그인만 쉬고,
+# 그동안 비로그인 팝업은 '모름'으로 둔다 — 계정으로 넘기지 않는다. 막힌 IP에서 계정을
+# 돌려 쓰다 계정이 정지될 위험이 더 크다.
 LOGIN_ITEMS_KEY = "gate:needs_login"     # alerted: {"/items/123": 처음 알게 된 시각}
 _LOGIN_PAGE_TEXT = ("로그인이 필요", "로그인 후 이용")
 _login_items: dict[str, str] = {}        # 비로그인으로는 안 열리는 팝업 (워커가 배운 것)
@@ -2419,8 +2421,8 @@ def _monitor_accounts() -> list:
         def names(var):
             return {x.strip() for x in os.environ.get(var, "").split(",") if x.strip()}
         allow, deny = names("MONITOR_ACCOUNTS"), names("MONITOR_ACCOUNTS_EXCLUDE")
-        usable = [(name, c) for _, c, name in bundle if name not in deny] or \
-            [(name, c) for _, c, name in bundle]
+        # 제외는 엄격하게 지킨다 — 남는 계정이 없어도 제외 계정으로 되돌아가지 않는다
+        usable = [(name, c) for _, c, name in bundle if name not in deny]
         # 이름을 잘못 적어 하나도 안 맞으면 로그인 없이 보는 것보다 전체를 쓰는 게 낫다
         picked = [(name, c) for name, c in usable if name in allow] or usable
         return [(name, _parse_cookies(c)) for name, c in picked]
@@ -2431,14 +2433,15 @@ def _monitor_accounts() -> list:
 def _pick_monitor_account(anon: bool | None = None) -> tuple[str, list] | None:
     """다음 차례 계정 (아이디, 쿠키). 쉬는 계정은 건너뛴다.
 
-    비로그인("", [])이 켜져 있고 쉬는 중이 아니면 그걸 먼저 쓴다. 계정이 아예
-    없으면 ("", []). 전부 쉬는 중이면 None.
+    비로그인("", [])이 켜져 있으면 비로그인만 쓴다 (쉬는 중이면 None). 아니면 계정을
+    돌려 쓰고, 계정이 아예 없으면 ("", []), 전부 쉬는 중이면 None.
     """
     global _monitor_rr
     if anon is None:
         anon = os.environ.get("MONITOR_ANON", "1").strip() != "0"
-    if anon and _monitor_bench.get("", 0) <= time.monotonic():
-        return "", []
+    if anon:
+        # 비로그인이 쉬는 동안에도 계정으로 넘기지 않는다 (계정 정지 위험)
+        return ("", []) if _monitor_bench.get("", 0) <= time.monotonic() else None
     accounts = _monitor_accounts()
     if not accounts:
         return None if anon else ("", [])
@@ -2488,9 +2491,13 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
         # 리다이렉트 판정이 오염된다.
         # 로캘을 안 주면 러너 기본값(영어) 페이지가 와서 _CLOSED_TEXT_PATTERNS가
         # 하나도 안 맞는다 — 텍스트 기반 닫힘 판정이 통째로 죽어 있었다.
-        picked = _pick_monitor_account(anon=False if _needs_login(url) else None)
+        login_only = _needs_login(url)
+        picked = _pick_monitor_account(anon=False if login_only else None)
+        if login_only and picked == ("", []):
+            return None, "로그인 필요 팝업인데 쓸 감시 계정이 없음"
         if picked is None:
-            return None, "감시 계정 전부 접속 제한으로 쉬는 중"
+            return None, ("감시 계정 전부 접속 제한으로 쉬는 중" if _needs_login(url)
+                          else "비로그인 접속 제한으로 쉬는 중 (계정으로 넘기지 않음)")
         acct, cookies = picked
         context = browser.new_context(locale="ko-KR")
         if cookies:

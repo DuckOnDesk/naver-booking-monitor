@@ -51,7 +51,7 @@ jobs:
           COOKIES_BUNDLE_ORDER: ${{ vars.COOKIES_BUNDLE_ORDER }}
           NAVER_COOKIES: ${{ secrets.NAVER_COOKIES }}
           MONITOR_ACCOUNTS: ${{ vars.MONITOR_ACCOUNTS }}
-          MONITOR_ACCOUNTS_EXCLUDE: ${{ vars.MONITOR_ACCOUNTS_EXCLUDE || 'khw' }}
+          MONITOR_ACCOUNTS_EXCLUDE: ${{ vars.MONITOR_ACCOUNTS_EXCLUDE || 'khw,betty,maman' }}
           URL: ${{ inputs.url }}
           DATE: ${{ inputs.date }}
           GATE_COMPARE: ${{ inputs.gate_compare }}
