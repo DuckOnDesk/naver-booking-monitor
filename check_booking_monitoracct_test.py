@@ -49,6 +49,8 @@ def reset():
     cb._monitor_bench.clear()
     cb._login_items.clear()
     cb._login_forced.clear()
+    cb._block_notified.clear()
+    cb._block_notices.clear()
 
 
 class FakePage:
@@ -195,6 +197,31 @@ def main():
     cb._browser_get = lambda: ok
     cb._playwright_check("https://booking.naver.com/booking/12/bizes/1/items/9")
     check(len(ok.used) == 1, f"login: true 팝업은 계정으로: {ok.used}")
+
+    print("9) 접속 제한 알림은 풀릴 때까지 한 번만")
+    reset()
+    sent = []
+    cb.send_ntfy = lambda topic, title, body, url: sent.append(title)
+    U = "https://m.booking.naver.com/booking/12/bizes/1/items/2"
+    cb._browser_get = lambda: blocked
+    cb._playwright_check(U)
+    cb.flush_block_notices("t")
+    check(len(sent) == 1 and "비로그인" in sent[0], f"처음 막히면 알림: {sent}")
+    cb._monitor_bench.clear()               # 60분 지나 다시 봤는데 또 막힘
+    cb._playwright_check(U)
+    cb.flush_block_notices("t")
+    check(len(sent) == 1, f"풀리기 전엔 다시 안 보냄: {sent}")
+    cb._monitor_bench.clear()
+    cb._browser_get = lambda: ok
+    cb._playwright_check(U)                 # 정상으로 열림 → 해제
+    cb._browser_get = lambda: blocked
+    cb._playwright_check(U)
+    cb.flush_block_notices("t")
+    check(len(sent) == 2, f"풀렸다 다시 막히면 또 알림: {sent}")
+    cb._login_forced.add("/items/7")
+    cb._playwright_check("https://m.booking.naver.com/booking/12/bizes/1/items/7")
+    cb.flush_block_notices("t")
+    check(len(sent) == 3 and "계정" in sent[-1], f"계정별로 따로 알림: {sent}")
 
     print()
     if fails:

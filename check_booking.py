@@ -2455,11 +2455,44 @@ def _pick_monitor_account(anon: bool | None = None) -> tuple[str, list] | None:
     return None
 
 
+# 접속 제한 알림. 한 번 막힌 계정(비로그인 포함)은 다시 정상으로 열릴 때까지 한 번만
+# 알린다 — 60분 쉬고 다시 막혀도 또 보내지 않는다. 워커 스레드가 쌓고 메인 루프가 보낸다.
+_block_notified: set[str] = set()
+_block_notices: list[tuple[str, str]] = []   # (제목, 본문)
+
+
 def _bench_monitor_account(name: str, why: str = "접속 제한(과다한 요청)") -> None:
     with _monitor_lock:
         _monitor_bench[name] = time.monotonic() + MONITOR_ACCOUNT_BENCH_MIN * 60
+        if name not in _block_notified:
+            _block_notified.add(name)
+            who = f"계정 {name}" if name else "비로그인"
+            then = ("비로그인 팝업은 예약창 상태를 직전 값으로 두고 계정으로 넘기지 않는다"
+                    if not name else "로그인 필요 팝업은 다른 감시 계정으로 확인")
+            _block_notices.append((
+                f"⛔ 네이버 접속 제한 — {who}",
+                f"예약창 확인 중 '과다한 요청' 제한 페이지를 만났다. "
+                f"{MONITOR_ACCOUNT_BENCH_MIN:g}분 동안 {who} 확인을 멈춘다 ({then}). "
+                f"자리 감시(API)는 계속 돈다. 풀릴 때까지 이 알림은 다시 보내지 않는다."))
     print(f"  [경고] 감시 계정 {name or '비로그인'} {why} → "
           f"{MONITOR_ACCOUNT_BENCH_MIN:g}분 동안 빼고 다른 계정으로 확인", flush=True)
+
+
+def _clear_block(name: str) -> None:
+    """그 계정으로 정상 페이지를 봤다 — 다음 제한 때 다시 알린다."""
+    with _monitor_lock:
+        _block_notified.discard(name)
+
+
+def flush_block_notices(ntfy_topic: str) -> None:
+    """쌓인 접속 제한 알림을 보낸다 (메인 스레드)."""
+    with _monitor_lock:
+        notices = list(_block_notices)
+        _block_notices.clear()
+    for title, body in notices:
+        print(f"  {title}", flush=True)
+        if ntfy_topic:
+            send_ntfy(ntfy_topic, title, body, "https://github.com/DuckOnDesk/naver-booking-monitor/actions")
 
 
 def naver_cookies() -> list:
@@ -2512,6 +2545,7 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
         if any(p in visible_text for p in _RATE_LIMIT_PAGE_TEXT):
             _bench_monitor_account(acct)
             return None, f"접속 제한 페이지(과다한 요청, 계정 {acct or '비로그인'})"
+        _clear_block(acct)
         if not acct and ("nid.naver.com" in final_url
                          or any(p in visible_text for p in _LOGIN_PAGE_TEXT)):
             # 로그인해야 열리는 팝업이다 — 닫힘이 아니다. 기억해 두고 이 팝업만
@@ -4287,6 +4321,7 @@ def main():
             check_all(watcher.reset(monitors), ntfy_topic, alerted, watcher)
         except Exception as exc:
             print(f"[오류] check_all 예외: {exc}", flush=True)
+        flush_block_notices(ntfy_topic)
 
         # 이력은 상태 파일과 같은 커밋에 실어 보낸다. 상태가 그대로여도 이력이
         # 쌓였으면 커밋한다 — 안 그러면 런이 끝날 때 그 줄이 통째로 사라진다.
