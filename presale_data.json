@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-22T21:28:04.877363+09:00",
+  "updated_at": "2026-10-22T21:28:15.963405+09:00",
   "watched_places": [
     "1083133386",
     "2003262525",
@@ -372,7 +372,7 @@
         "2026-10-07T21:44:44.624550+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-22T20:58:14.280597+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-22T21:28:14.564545+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -917,7 +917,7 @@
         "2026-10-22T13:46:22.451441+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-22T20:58:13.228502+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-22T21:28:13.531854+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": true,
@@ -1556,7 +1556,7 @@
         "2026-10-02T13:14:21.320942+09:00"
       ],
       "bookingOpenAuto": "",
-      "bookingOpenAutoCheckedAt": "2026-10-22T20:58:14.819712+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-22T21:28:15.263023+09:00",
       "bookingPaused": false,
       "saleStartDate": "",
       "bookingNotified": false,
@@ -3360,25 +3360,20 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-22T21:28:04.874900+09:00",
+    "checked_at": "2026-10-22T21:28:13.531742+09:00",
     "areas_total": 34,
-    "areas_ok": 4,
-    "areas_failed": 30,
+    "areas_ok": 0,
+    "areas_failed": 34,
     "areas_empty": 0,
-    "candidate_items": 91,
-    "presale_items": 12,
-    "after_district_filter": 7,
+    "candidate_items": 0,
+    "presale_items": 0,
+    "after_district_filter": 0,
     "fallback_matched": 0,
-    "unique_place_ids": 7,
+    "unique_place_ids": 0,
     "tracked_places": 53,
     "new_places": 0,
     "last_new_place_at": "2026-10-22T10:20:42.746544+09:00",
-    "admission_names": {
-      "(없음)": 64,
-      "현장대기": 15,
-      "사전예약&현장대기": 11,
-      "사전예약": 1
-    },
+    "admission_names": {},
     "stale_warned_at": "2026-10-18T20:10:58.670893+09:00",
     "structure_warned_at": null
   },
