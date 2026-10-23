@@ -216,7 +216,27 @@ def capacity(area: dict) -> None:
         time.sleep(3)   # 요청 과다(429)를 피한다
 
 
+def compare(queries: list[str]) -> None:
+    """검색어마다 100곳 상한이라, 검색어를 바꾸면 새 장소가 얼마나 더 나오는지 본다."""
+    print(f"\n===== 검색어 비교 (서울시청 기준) =====")
+    seen: set = set()
+    for q in queries:
+        params = {"query": q, "x": "126.978", "y": "37.566", "clientX": "126.978",
+                  "clientY": "37.566", "display": "100", "locale": "ko",
+                  "mapUrl": f"https://map.naver.com/p/search/{q}",
+                  "ts": str(int(time.time() * 1000))}
+        status, items = _place_ids(params)
+        new = [n for i, n in items if i not in seen]
+        seen |= {i for i, _ in items}
+        print(f"  {q:<16} 상태 {status} | {len(items)}곳 | 새로 {len(new)}곳 | 누적 {len(seen)}곳"
+              + (f" (예: {', '.join(str(n) for n in new[:4])})" if new and len(seen) > len(new) else ""))
+        time.sleep(3)
+
+
 def main() -> None:
+    if len(sys.argv) > 2 and sys.argv[2] == "compare":
+        compare([q.strip() for q in sys.argv[1].split(",") if q.strip()])
+        return
     if len(sys.argv) > 2 and sys.argv[2] == "capacity":
         want = sys.argv[1].strip() or "서울 팝업"
         capacity({"query": want, "x": "126.978", "y": "37.566"})

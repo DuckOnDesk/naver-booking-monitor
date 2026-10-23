@@ -11,7 +11,7 @@ on:
         required: false
         default: ""
       mode:
-        description: "capacity = 한 번에 100곳보다 더 받을 수 있는지 시험 (display 상향·페이지 넘김)"
+        description: "capacity = 100곳 상한 시험 / compare = 쉼표로 나눈 검색어들이 새 장소를 얼마나 더 잡는지 비교"
         required: false
         default: ""
 
