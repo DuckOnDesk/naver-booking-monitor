@@ -300,6 +300,16 @@ def main():
     g3.closed
     check(len(calls) == 2, "그냥 닫힘은 매 회차 확인 (종전대로)")
 
+    print("13) URL에 끼어 든 공백 (2026-10-23 디웨더)")
+    spaced = "https://m.booking.naver.com/booking/5/bizes/1756472/items /8131769"
+    check(cb.parse_naver_url(spaced) == {"service_id": 5, "biz_id": "1756472", "item_id": "8131769"},
+          "파싱")
+    saved_fetch = cb.fetch_remote_monitors
+    cb.fetch_remote_monitors = lambda: {"monitors": [{"url": spaced}, {"name": "url 없음"}]}
+    got = cb.load_monitors(from_github=True)["monitors"][0]["url"]
+    cb.fetch_remote_monitors = saved_fetch
+    check(" " not in got and got.endswith("/items/8131769"), f"불러올 때 공백 제거: {got}")
+
     print()
     if fails:
         print(f"실패 {len(fails)}건")

@@ -437,16 +437,26 @@ class NewItemWatcher:
 
 
 def load_monitors(from_github: bool = False) -> dict:
+    cfg = None
     if from_github:
         try:
-            return fetch_remote_monitors()
+            cfg = fetch_remote_monitors()
         except Exception as exc:
             print(f"[경고] GitHub에서 monitors.json 읽기 실패, 로컬 파일 사용: {exc}", flush=True)
-    return json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
+    if cfg is None:
+        cfg = json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
+    # URL에 끼어 든 공백을 지운다 (parse_naver_url 참고). 파싱만 고치면 예약창 확인·
+    # 자동예약이 공백 섞인 URL(%20)로 엉뚱한 페이지를 연다.
+    for m in cfg.get("monitors", []) if isinstance(cfg, dict) else []:
+        if isinstance(m, dict) and isinstance(m.get("url"), str):
+            m["url"] = re.sub(r"\s+", "", m["url"])
+    return cfg
 
 
 def parse_naver_url(url: str) -> dict | None:
-    m = re.search(r"/booking/(\d+)/bizes/(\d+)/items/(\d+)", url)
+    # URL에 공백이 끼어 들어오는 경우가 있다 (2026-10-23 디웨더: "items /8131769" —
+    # 붙여넣기). URL에는 원래 공백이 없으니 지우고 본다.
+    m = re.search(r"/booking/(\d+)/bizes/(\d+)/items/(\d+)", re.sub(r"\s+", "", url or ""))
     if not m:
         return None
     return {"service_id": int(m.group(1)), "biz_id": m.group(2), "item_id": m.group(3)}
