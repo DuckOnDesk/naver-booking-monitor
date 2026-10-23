@@ -16,7 +16,7 @@
   - 비로그인 팝업은 비로그인만 쓴다 — 막혀도 계정으로 넘기지 않는다
   - 로그인 화면으로 가는 팝업은 기억해 그 팝업만 계정으로 본다 (상태 파일에 남는다)
   - 접속 제한 알림은 한 번만, 비로그인 제한은 새 실행(IP 변경)으로 넘기되 계속 막히면 쉰다
-  - 예매 기한이 끝난 팝업은 닫힘 사유에 표시가 붙는다
+  - 예매 기한이 끝난 팝업은 닫힘 사유에 표시가 붙고, 10분마다만 다시 본다
 
 사용법: python check_booking_monitoracct_test.py
 """
@@ -267,6 +267,38 @@ def main():
     check(al["x:url_closed"] == "ended" and g.ended, f"상태에 남김: {al}")
     g._apply(True, "URL 리다이렉트: /error/")
     check(al["x:url_closed"] == 1 and not g.ended, "그냥 닫힘이면 표시 안 함")
+
+    print("12) 기한 종료 항목은 10분마다만 다시 본다")
+    import time as _t
+    w = cb.GateWorker()
+    now = _t.monotonic()
+    w._watches = {
+        "plain": {"last": now - 60, "closed": True, "ended": False, "seen": now, "url": "a"},
+        "ended": {"last": now - 60, "closed": True, "ended": True, "seen": now, "url": "b"},
+    }
+    task, _ = w._next_task()
+    check(task and task[0] == "plain", f"그냥 닫힘은 30초 지나면 다시 본다: {task}")
+    del w._watches["plain"]
+    task, wait = w._next_task()
+    check(task is None, f"기한 종료는 1분 만엔 안 본다: {task}")
+    w._watches["ended"]["last"] = now - 601
+    task, _ = w._next_task()
+    check(task and task[0] == "ended", "10분 지나면 본다")
+    cb._gate_worker = None
+    calls = []
+    cb.browser_check = lambda u: (calls.append(u), (True, cb.ENDED_MARK + " x"))[1]
+    al = {"e:url_closed": "ended"}
+    g = cb.UrlGate({"name": "e"}, "e", "u", "e", al, "", "00:00:00")
+    cb._url_checked_at["e"] = _t.monotonic() - 60
+    check(g.closed is True and not calls, f"워커 없을 때도 주기 대기: {calls}")
+    cb._url_checked_at["e"] = _t.monotonic() - 601
+    g2 = cb.UrlGate({"name": "e"}, "e", "u", "e", al, "", "00:00:00")
+    check(g2.closed is True and len(calls) == 1, f"10분 지나면 확인: {calls}")
+    al2 = {"p:url_closed": 1}
+    cb._url_checked_at["p"] = _t.monotonic() - 1
+    g3 = cb.UrlGate({"name": "p"}, "p", "u", "p", al2, "", "00:00:00")
+    g3.closed
+    check(len(calls) == 2, "그냥 닫힘은 매 회차 확인 (종전대로)")
 
     print()
     if fails:

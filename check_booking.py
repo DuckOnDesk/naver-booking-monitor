@@ -2695,6 +2695,7 @@ class UrlGate:
       - 자리 없음         → 확인하지 않음 (예약창 상태는 '모름'으로 남는다)
       - 자리 있고 닫힘    → 매 회차 확인 (열리는 순간을 놓치지 않기 위해)
       - 자리 있고 열림    → URL_RECHECK_SEC(기본 5분)마다
+      - 예매 기한 종료    → GATE_ENDED_RECHECK_SEC(기본 10분)마다
       - 자동예약 직전     → 주기와 무관하게 확인 (verify_open)
 
     닫힘은 한 번 잡히면 그 회차에서 바로 확정한다. 판정을 다음 회차로 미루면 그
@@ -2774,8 +2775,10 @@ class UrlGate:
             # 결과는 기다리지 않는다. 워커가 확인하면 다음 항목 경계에서 반영되고,
             # 열림 전환이면 그 항목을 곧바로 다시 확인한다.
             self.consulted = True
-            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
-            _gate_worker.request(self.item_id, note)
+            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed,
+                               self.ended)
+            if not self.ended:      # 기한이 끝난 항목은 주기(GATE_ENDED_RECHECK_SEC)대로만
+                _gate_worker.request(self.item_id, note)
             return self._closed
         self._ensure(note, seats=False)  # 자리가 사라진 회차에서만 부른다
         return self._closed
@@ -2792,7 +2795,8 @@ class UrlGate:
             # 몇 시간 묵었을 수 있다 — 2026-10-01 리베르: 16:07에 본 '열림'을 믿고
             # 18:19에 🎉를 보냈는데 7초 뒤 워커가 닫힘을 잡았다. 그런 항목은
             # 종전처럼 기다려서 확인한다.
-            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
+            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed,
+                               self.ended)
             last = _url_checked_at.get(self.item_id)
             fresh_open = last is not None and (time.monotonic() - last) < URL_RECHECK_SEC
             if self._closed or fresh_open:
@@ -2802,10 +2806,14 @@ class UrlGate:
             return
         # 닫혀 있으면 매 회차 본다. 열려 있는 항목만 주기를 둔다 — 열림→닫힘은
         # 늦게 알아도 손해가 작지만, 닫힘→열림은 오픈 순간이라 늦으면 그대로 놓친다.
+        last = _url_checked_at.get(self.item_id)
         if self._closed:
+            # 예매 기한이 끝난 항목만 예외 — 다시 열릴 일이 거의 없어 주기를 둔다
+            if self.ended and last is not None and (time.monotonic() - last) < GATE_ENDED_RECHECK_SEC:
+                _note_url_skip("기한 종료 주기 대기")
+                return
             self._run_check(note, seats)
             return
-        last = _url_checked_at.get(self.item_id)
         if last is not None and (time.monotonic() - last) < URL_RECHECK_SEC:
             _note_url_skip("주기 대기")
             return
@@ -2908,6 +2916,16 @@ class UrlGate:
 # 대기 중에 한다 — alerted를 두 스레드가 같이 만지면 저장·커밋 도중에 dict가 바뀐다.
 # 닫힌 항목을 다시 확인하기까지의 간격(초).
 GATE_CLOSED_RECHECK_SEC = _env_num("GATE_CLOSED_RECHECK_SEC", 30)
+# 예매 기한이 끝나 닫힌 항목(ENDED_MARK)의 재확인 간격(초). 다시 열릴 일이 거의 없는데
+# 취소표가 API에 자리로 잡혀 '자리 있고 닫힘'이 계속된다 — 30초마다 보던 것이
+# 2026-10-21 betty 접속 제한의 시작이었다 (넷플 잔치, 9시간 반 동안 시간당 120번).
+GATE_ENDED_RECHECK_SEC = _env_num("GATE_ENDED_RECHECK_SEC", 600)
+
+
+def _gate_gap(closed: bool, ended: bool) -> float:
+    if closed:
+        return GATE_ENDED_RECHECK_SEC if ended else GATE_CLOSED_RECHECK_SEC
+    return URL_RECHECK_SEC
 # 이 시간 동안 관심(자리 발견)이 없던 항목은 워커가 그만 본다.
 GATE_WATCH_TTL_SEC = _env_num("GATE_WATCH_TTL_SEC", 600)
 # 자동예약 직전 확인 등 기다리는 요청의 최대 대기(초).
@@ -2924,12 +2942,13 @@ class GateWorker(threading.Thread):
         self._stopping = False
 
     # ── 메인 스레드에서 부르는 쪽 ──
-    def watch(self, item: dict, item_id: str, url: str, topic: str, closed: bool) -> None:
+    def watch(self, item: dict, item_id: str, url: str, topic: str, closed: bool,
+              ended: bool = False) -> None:
         with self._cv:
             w = self._watches.get(item_id)
             if w is None:
                 w = self._watches[item_id] = {"last": _url_checked_at.get(item_id, 0.0),
-                                              "closed": closed}
+                                              "closed": closed, "ended": ended}
                 self._cv.notify()
             w.update(item=item, url=url, topic=topic, seen=time.monotonic())
 
@@ -2977,7 +2996,7 @@ class GateWorker(threading.Thread):
             del self._watches[iid]
         best, best_due = None, None
         for iid, w in self._watches.items():
-            due = w["last"] + (GATE_CLOSED_RECHECK_SEC if w["closed"] else URL_RECHECK_SEC)
+            due = w["last"] + _gate_gap(w["closed"], w.get("ended", False))
             if best_due is None or due < best_due:
                 best, best_due = iid, due
         if best is None:
@@ -3011,11 +3030,12 @@ class GateWorker(threading.Thread):
                     if w is not None:
                         # 못 읽었으면 주기를 다 기다리지 않고 10초 뒤 다시 본다
                         if raw_closed is None:
-                            gap = GATE_CLOSED_RECHECK_SEC if w["closed"] else URL_RECHECK_SEC
+                            gap = _gate_gap(w["closed"], w.get("ended", False))
                             w["last"] = time.monotonic() - max(0, gap - 10)
                         else:
                             w["last"] = started
                             w["closed"] = raw_closed
+                            w["ended"] = bool(raw_closed) and reason.startswith(ENDED_MARK)
                     self._results.append((item_id, raw_closed, reason, note, started))
         finally:
             _browser_close()
