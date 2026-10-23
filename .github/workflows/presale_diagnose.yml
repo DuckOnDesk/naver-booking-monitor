@@ -11,12 +11,12 @@ on:
         required: false
         default: ""
       mode:
-        description: "capacity = 100곳 상한 시험 / compare = 쉼표로 나눈 검색어들이 새 장소를 얼마나 더 잡는지 비교"
+        description: "capacity = 100곳 상한 시험 / compare = 쉼표로 나눈 검색어들이 새 장소를 얼마나 더 잡는지 비교 / probe = 실제 브라우저로 화면을 찍고 다음 페이지 요청을 기록 (결과는 실행 브랜치 diag/에 커밋, main 제외)"
         required: false
         default: ""
 
 permissions:
-  contents: read
+  contents: write   # probe 모드 결과(diag/)를 실행 브랜치에 커밋
 
 jobs:
   diagnose:
@@ -32,7 +32,21 @@ jobs:
 
       - run: pip install requests
 
+      - name: 화면 진단 (probe)
+        if: inputs.mode == 'probe' && github.ref != 'refs/heads/main'
+        env:
+          QUERY: ${{ inputs.query }}
+        run: |
+          pip install playwright
+          playwright install chromium
+          python -u presale_page_probe.py "$QUERY" || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f diag/
+          git commit -m "diag: 팝업 검색 화면 진단 결과 [skip ci]" && git push || true
+
       - name: 진단 실행
+        if: inputs.mode != 'probe'
         env:
           QUERY: ${{ inputs.query }}
           MODE: ${{ inputs.mode }}
