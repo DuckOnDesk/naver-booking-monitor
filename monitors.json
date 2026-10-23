@@ -83,7 +83,7 @@
       "id": "mvkgd3eh",
       "name": "디웨더 2차",
       "url": "https://m.booking.naver.com/booking/5/bizes/1756472/items/8158321?startDateTime=2026-10-23T00%3A00%3A00%2B09%3A00",
-      "enabled": true,
+      "enabled": false,
       "target_dates": []
     },
     {
