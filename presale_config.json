@@ -3,6 +3,12 @@
   "check_interval_seconds": 60,
   "areas": [
     {
+      "query": "서울 팝업",
+      "x": "126.978",
+      "y": "37.566",
+      "address_filter": "서울"
+    },
+    {
       "query": "성수 팝업",
       "x": "127.057",
       "y": "37.544",
