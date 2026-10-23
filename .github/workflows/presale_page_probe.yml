@@ -1,0 +1,40 @@
+name: 팝업 검색 화면 진단
+
+# 네이버 팝업 검색 화면을 실제 브라우저로 열어 스크린샷과 요청 기록을 남긴다.
+# 결과는 실행한 브랜치의 diag/ 폴더에 커밋된다 (main에서는 돌리지 않는다).
+
+on:
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 검색어
+        required: false
+        default: "서울 팝업"
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests playwright
+      - run: playwright install chromium
+      - name: 화면 진단
+        env:
+          QUERY: ${{ inputs.query }}
+        run: python -u presale_page_probe.py "$QUERY"
+      - name: 결과 커밋
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f diag/
+          git commit -m "diag: 팝업 검색 화면 진단 결과 [skip ci]" || exit 0
+          git push
