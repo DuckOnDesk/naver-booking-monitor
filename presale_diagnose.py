@@ -144,7 +144,7 @@ def diagnose(area: dict) -> None:
         for k, v in placeish:
             adm = find_key(v, "admissionCondition")
             print(f"    · {v.get('name')!r} | {v.get('commonAddress') or v.get('roadAddress') or ''}"
-                  f" | 입장={json.dumps(adm, ensure_ascii=False)[:60] if adm else '-'}"
+                  f" | 입장={adm.split(' = ', 1)[-1][:60] if adm else '-'}"
                   f" | 예약={'O' if v.get('hasBooking') else '-'} {v.get('bookingUrl') or ''}")
         for k, v in placeish[:3]:
             print(f"    [{k}] fields={sorted(v.keys())}")
