@@ -39,6 +39,8 @@ jobs:
         run: |
           pip install playwright
           playwright install chromium
+          # 스크린샷 한글 글꼴 (진단용이라 apt가 느려도 괜찮다 — 5분 넘기면 글꼴 없이 진행)
+          timeout 300 sudo apt-get install -y -qq fonts-noto-cjk >/dev/null 2>&1 || true
           python -u presale_page_probe.py "$QUERY" || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
