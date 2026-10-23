@@ -8098,3 +8098,4 @@
 {"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-03", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 48}}
 {"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-04", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 48}}
 {"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-05", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 49}}
+{"ts": "2026-10-23T18:06:01+09:00", "kind": "stock", "item": "mvka7g9k", "name": "디웨더", "date": "2026-10-23", "change": "예약 변동(예약 취소)", "stock": [0, 0], "booked": [224, 223], "slots": {"종일": {"from": [0, 224], "to": [0, 223]}}, "scope": ""}
