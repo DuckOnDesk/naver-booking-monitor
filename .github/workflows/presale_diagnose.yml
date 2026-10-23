@@ -10,6 +10,10 @@ on:
         description: 진단할 지역 질의 (비우면 설정의 앞 2개 지역)
         required: false
         default: ""
+      mode:
+        description: "capacity = 한 번에 100곳보다 더 받을 수 있는지 시험 (display 상향·페이지 넘김)"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -29,4 +33,7 @@ jobs:
       - run: pip install requests
 
       - name: 진단 실행
-        run: python -u presale_diagnose.py "${{ inputs.query }}"
+        env:
+          QUERY: ${{ inputs.query }}
+          MODE: ${{ inputs.mode }}
+        run: python -u presale_diagnose.py "$QUERY" "$MODE"

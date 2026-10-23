@@ -165,7 +165,62 @@ def diagnose(area: dict) -> None:
                 print(f"    ROOT_QUERY sample={json.dumps(root, ensure_ascii=False)[:1500]}")
 
 
+def _place_ids(params: dict) -> tuple[int, list]:
+    """한 번 요청해서 (상태 코드, [(id, 이름)])."""
+    try:
+        resp = pm.SESSION.get(pm.LIST_URL, params=params, timeout=20)
+        resp.encoding = "utf-8"
+    except Exception as e:
+        print(f"  [요청 실패] {e}")
+        return 0, []
+    m = CURRENT_RE.search(resp.text)
+    if not m:
+        return resp.status_code, []
+    try:
+        data = json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return resp.status_code, []
+    out = []
+    for k, v in data.items():
+        if isinstance(v, dict) and str(k).startswith("PlaceListBusinessesItem:"):
+            out.append((str(v.get("id") or k), v.get("name")))
+    return resp.status_code, out
+
+
+def capacity(area: dict) -> None:
+    """검색 한 번에 100곳보다 더 받을 수 있는지 본다 (display 상향, 페이지 넘김)."""
+    print(f"\n===== 최대치 시험: {area['query']} =====")
+    base = {
+        "query": area["query"], "x": area["x"], "y": area["y"],
+        "clientX": area["x"], "clientY": area["y"], "locale": "ko",
+        "mapUrl": f"https://map.naver.com/p/search/{area['query']}",
+    }
+    first = None
+    trials = [("display=100", {"display": "100"}),
+              ("display=200", {"display": "200"}),
+              ("display=300", {"display": "300"}),
+              ("display=100&start=101", {"display": "100", "start": "101"}),
+              ("display=100&page=2", {"display": "100", "page": "2"})]
+    for label, extra in trials:
+        status, items = _place_ids({**base, **extra, "ts": str(int(time.time() * 1000))})
+        ids = [i for i, _ in items]
+        line = f"  {label:<24} 상태 {status} | {len(ids)}곳"
+        if first is None:
+            first = set(ids)
+        else:
+            new = [n for i, n in items if i not in first]
+            line += f" | 첫 결과에 없던 곳 {len(new)}곳"
+            if new:
+                line += f" (예: {', '.join(str(n) for n in new[:5])})"
+        print(line)
+        time.sleep(3)   # 요청 과다(429)를 피한다
+
+
 def main() -> None:
+    if len(sys.argv) > 2 and sys.argv[2] == "capacity":
+        want = sys.argv[1].strip() or "서울 팝업"
+        capacity({"query": want, "x": "126.978", "y": "37.566"})
+        return
     cfg = pm.load_config()
     areas = cfg.get("areas", [])
     if len(sys.argv) > 1 and sys.argv[1].strip():
