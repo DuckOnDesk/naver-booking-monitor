@@ -8083,3 +8083,18 @@
 {"ts": "2026-10-23T17:25:00+09:00", "kind": "stock", "item": "mvka7g9k", "name": "디웨더", "date": "2026-10-23", "change": "예약 변동(예약 취소)", "stock": [0, 0], "booked": [225, 224], "slots": {"종일": {"from": [0, 225], "to": [0, 224]}}, "scope": ""}
 {"ts": "2026-10-23T17:25:05+09:00", "kind": "stock", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-24", "change": "예약 변동(예약 발생)", "stock": [50, 50], "booked": [18, 19], "slots": {"종일": {"from": [50, 18], "to": [50, 19]}}, "scope": ""}
 {"ts": "2026-10-23T17:30:06+09:00", "kind": "stock", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-23", "change": "예약 변동(예약 발생)", "stock": [50, 50], "booked": [23, 24], "slots": {"종일": {"from": [50, 23], "to": [50, 24]}}, "scope": ""}
+{"ts": "2026-10-23T17:45:01+09:00", "kind": "gate", "item": "mvkgd3eh", "name": "디웨더 2차", "open": false, "reason": "URL 리다이렉트: 상품 페이지(/items/8158321) 이탈 — \"해당 예약상품은 더 이상 예약할 수 없습니다. 이전 페이지 디웨더 팝업스토어 용산 아이파크몰 디웨더 팝업스토어 용산 아이파크몰 리뷰 1 서울특별\""}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-23", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 26}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-24", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 31}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-25", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 30}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-26", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 40}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-27", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 41}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-28", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 46}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-29", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 49}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-30", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 43}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-31", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 43}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-01", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 44}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-02", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 49}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-03", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 48}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-04", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 48}}
+{"ts": "2026-10-23T17:45:06+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-11-05", "level": "closed", "title": "🔒 디웨더 2차 자리 있음 (예약창 닫힘)", "slots": {"종일": 49}}
