@@ -77,7 +77,8 @@
       "name": "디웨더",
       "url": "https://m.booking.naver.com/booking/5/bizes/1756472/items/8131769",
       "enabled": false,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     },
     {
       "id": "mvkgd3eh",
