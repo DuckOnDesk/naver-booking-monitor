@@ -1,0 +1,26 @@
+[
+ {
+  "t": 1792734491.1,
+  "method": "GET",
+  "url": "https://wtm.pstatic.net/0b26785/93e4146d20500df003f5.wasm",
+  "body": ""
+ },
+ {
+  "mark": "---- 첫 화면 끝 ----"
+ },
+ {
+  "mark": "---- 스크롤 끝 ----"
+ },
+ {
+  "t": 1792734507.7,
+  "method": "POST",
+  "url": "https://ncpt.naver.com/v2/tokens?q=1792734507715&tid=8a29c1maxzg",
+  "body": "{\"cipherText\":\"1ZQuRKLbQU8aGlMx_a19tJvKpIJtbvKxlgEHPUeVbNTqqROkK-SpHHGSqK2FfELwTwRey8ROomj9-WQ07SlDDJ8LBmddO-5MjYrCIHnrgucRywD0dFoB6Ba1zChAehPV83jBAZ2pr0Yq519s4yIjY-u4ShMpOuLtWjvGGNNdGucqlLlhSY8xcEX1J-pm7drq51HWxO_cq3jnJ_8t5vyqITbttL2F3hV6gHghRfXIJPV1m-AJNZBTSZ64JEdsH35_TM4vfcJeVMTuDED_FGKIxQxsjPee70_GEZA-kuUdSsFJHJ2uJQ9LpmUo3e0x1EjMVCvrxCOp_zzebEkgXw8-k9Nfd8jXVZQf33MmL3oQHm1X3VyAxN2HLw28MsRDEl-Cfw6SFqzPZvLhTbifNBWIKaQXaixh_MoLWkd-8SKNh1va8OUZQMJBJZQv2wp9SKxKZIUpuqNIVMQa4JsydIUSG0dcSpL8GWfAARozs2La2zdyWGWLsWTBAOcU42HutCCn4AxT75cQf5hwDm4B87ujPI9sU0N3E_y9-hLt1seIEKU2xbKEsdvhEzJFaGxLeOYL6KUBmAyPWMR9-vuirOMWChKvKMsq4RtgQkiuvM8wYIVBuSb37iW8nXfYu-zrPwpd4zXYaBAcjnag-Sz8_2Ti-wdGwv5H1z820gSRJSM1BX196KfXT3YizZSeNdiey9tb-oGSs3onQtQ0C15VUlOSIQfBLL6HnMGfYZtmENGbuk8-gIu0Ij78LQmpuRVILioSD0EflCElCFoAekVwAjn32cs3xk2S3VgeMIrtt_i8tdrG1wiJ5rUpfUCsBaMdrdv-0Cdb5BXjY9aMMGZh3sA18FpYr9FniSGRufyYVH9PaHcFCnc4zvbZ6uJdFoxxLUh9qKNMuFF3w3_sRQAirzlEapVzrh2k2EsT5ze3K_5uCbtQW58g1SkIJkObEL1OJKVhW_7nZroUvOypUlsSkwhcULzsApyHqvIAdJjUrY5pliOLzKCJGInja7YH5Afz2e4n7yLb2iYo7C8CwgqL-TS93B8ZXnJUEpjgh3-nFlGuzsuabVXQFC-ruPztZ4fR39wq1yc-vLH_iitSkJEfI9XVcnoieyJbnw9NScXK-FL3ENHnELgWlnd1vLS7koMSTV_Ai6aePSA92EFOBId1PWfUORVe4D5fnaRpC5vgBuvbPnvCM_vlSQeblAX0fCPqInFz9yTPPqH33_us0r85KXalXQqRPWK2SZv9Ur0nUYhChg7r_GdV5J2BYXz61aUNpxNSsLgq3ZZlgDfkCqyjdlvaG8TFKYVqdwTACnJiBpfzsIzT31pLc_m7kCABzqDJYhMPc_lbATYhYP_IfeKyoM1WKug==zAeUpxxfzvX_Am1Y_z6kcyFZUVR75zntRoY3hBA5io0P6XqhnZinXNtKGZyxevLyKes77dWEYw9QKFHUkK6AYGf5sAIJZ1Fr644eHAvJS8Isl56gPNx7"
+ },
+ {
+  "t": 1792734507.9,
+  "method": "POST",
+  "url": "https://pcmap-api.place.naver.com/graphql",
+  "body": "[{\"operationName\":\"getPlaceListPopupstore\",\"variables\":{\"isNmap\":true,\"isBounds\":true,\"useReverseGeocode\":true,\"includeFilters\":false,\"input\":{\"businessType\":\"popupstore\",\"query\":\"서울 팝업\",\"start\":101,\"display\":100,\"x\":\"126.978\",\"y\":\"37.566\",\"deviceType\":\"pcmap\",\"panoramaCaller\":\"place\"},\"reverseGeocodingInput\":{\"x\":\"126.978\",\"y\":\"37.566\"}},\"query\":\"query getPlaceListPopupstore($input: PlaceListInput, $isNmap: Boolean = false, $isBounds: Boolean = false, $reverseGeocodingInput: ReverseGeocodingInput, $useReverseGeocode: Boolean = false, $includeFilters: Boolean = true) {\\n  placeList(input: $input) {\\n    businesses {\\n      total\\n      items {\\n        ...CommonBusinessItems\\n        imageUrls\\n        visitorReviewCount\\n        blogCafeReviewCount\\n        hasVr\\n        coupon {\\n          ...CouponItems\\n          __typename\\n        }\\n        popupstoreInfo {\\n          operationStartDateTime\\n          operationEndDateTime\\n          remainingDays\\n          status {\\n            name\\n            value\\n            i18nKey\\n            __typename\\n          }\\n          admissionCondition {\\n            name\\n            i18nKey\\n            __typename\\n          }\\n          mediaList {\\n            type\\n            thumbnailUrl\\n            profileDisplayName\\n            profileThumbnailUrl\\n            source\\n            __typename\\n          }\\n          relatedPlaceName\\n          __typename\\n        }\\n        __typename\\n      }\\n      nlu {\\n        queryRe"
+ }
+]
