@@ -26,6 +26,9 @@ import auto_book_worker as w
 import check_booking as cb
 
 KST = timezone(timedelta(hours=9))
+# 감시 대상 날짜. 지난 날짜는 모니터가 자동예약을 띄우지 않으므로 실행할 때마다 앞날로
+# 잡는다 (예전에는 2026-10-21로 박혀 있어 그날이 지나자 테스트가 깨졌다).
+DAY = (datetime.now(KST) + timedelta(days=3)).strftime("%Y-%m-%d")
 URL = "https://m.booking.naver.com/booking/12/bizes/1357646/items/8124911"
 fails: list = []
 
@@ -103,13 +106,13 @@ def main() -> int:
 
     print("1) 시작 시각 몇 분 전 회차에 예약 워크플로를 미리 띄운다")
     soon = now + timedelta(minutes=cb.AUTO_BOOK_PREWAIT_LEAD_MIN - 2)
-    item = item_with(soon, dates=["2026-10-21"])
+    item = item_with(soon, dates=[DAY])
     alerted: dict = {}
     sent = run_monitor(item, alerted)
     check(len(sent) == 1, f"한 번 디스패치 (실제: {sent})")
     if sent:
         item_id, datekey, times, sig, attempt, detected_at = sent[0]
-        check((item_id, datekey, sig) == ("abt", "2026-10-21", "2026-10-21|prewait"),
+        check((item_id, datekey, sig) == ("abt", DAY, f"{DAY}|prewait"),
               f"대상 날짜·오픈 대기 시그니처 (실제: {sent[0][:4]})")
         check(detected_at == soon.isoformat(timespec="seconds"), "기준 시각은 오픈 시각")
     st = alerted.get("abt:auto_book_state") or {}
@@ -120,35 +123,35 @@ def main() -> int:
     print("2) 아직 이르면 띄우지 않는다")
     alerted = {}
     sent = run_monitor(item_with(now + timedelta(minutes=cb.AUTO_BOOK_PREWAIT_LEAD_MIN + 5),
-                                 dates=["2026-10-21"]), alerted)
+                                 dates=[DAY]), alerted)
     check(not sent and "abt:prewait" not in alerted, f"디스패치 없음 (실제: {sent})")
 
     print("3) 날짜 미지정이면 등록된 예약 기간의 첫날로")
     alerted = {}
-    cache = {"12_1357646_8124911": {"available_start": "2026-10-21", "available_end": "2026-10-21"}}
+    cache = {"12_1357646_8124911": {"available_start": DAY, "available_end": DAY}}
     sent = run_monitor(item_with(soon), alerted, cache)
-    check(sent and sent[0][1] == "2026-10-21", f"예약 기간 첫날 (실제: {sent})")
+    check(sent and sent[0][1] == DAY, f"예약 기간 첫날 (실제: {sent})")
     alerted = {}
     sent = run_monitor(item_with(soon), alerted, {})
     check(not sent and alerted.get("abt:prewait"), f"날짜를 모르면 띄우지 않고 한 번만 알린다 (실제: {sent})")
 
     print("4) 오픈 대기 실행 중에는 감시가 자리를 봐도 다시 띄우지 않는다")
-    alerted = {"abt:auto_book_state": {"sig": "2026-10-21|prewait", "attempts": 1,
+    alerted = {"abt:auto_book_state": {"sig": f"{DAY}|prewait", "attempts": 1,
                                        "prewait": soon.isoformat(),
                                        "dispatched_at": now.isoformat(timespec="seconds")}}
     sent = []
     cb.dispatch_auto_book = lambda *a, **k: (sent.append(a), (True, ""))[1]
-    past = item_with(now - timedelta(minutes=1), dates=["2026-10-21"])
-    cb.maybe_auto_book(past, "abt", URL, "2026-10-21", [("13:00", 50)], "", alerted)
+    past = item_with(now - timedelta(minutes=1), dates=[DAY])
+    cb.maybe_auto_book(past, "abt", URL, DAY, [("13:00", 50)], "", alerted)
     check(not sent, f"중복 디스패치 없음 (실제: {sent})")
     # 워커 결과가 올라오면 오픈 대기 표시를 지워 다음 시도를 연다
     cb.load_auto_book_state = lambda from_github=True: {"abt": {"last_run": {
         "at": (now + timedelta(seconds=30)).isoformat(timespec="seconds"),
-        "sig": "2026-10-21|prewait", "success": False, "message": "매진"}}}
+        "sig": f"{DAY}|prewait", "success": False, "message": "매진"}}}
     cb.sync_auto_book_state([past], alerted)
     st = alerted["abt:auto_book_state"]
     check("prewait" not in st and "dispatched_at" not in st, f"결과 반영 후 표시 해제 (실제: {st})")
-    cb.maybe_auto_book(past, "abt", URL, "2026-10-21", [("13:00", 1)], "", alerted)
+    cb.maybe_auto_book(past, "abt", URL, DAY, [("13:00", 1)], "", alerted)
     check(len(sent) == 1, f"그 뒤 취소표는 종전대로 띄운다 (실제: {sent})")
 
     print("5) 워커 — 시작 전에 떠도 거절하지 않고, 모든 계정이 정각에 동시에 시도한다")
@@ -157,7 +160,7 @@ def main() -> int:
     recorded: list = []
     ntfys: list = []
     open_soon = datetime.now(KST) + timedelta(minutes=3)
-    w.load_monitors = lambda from_github=True: {"monitors": [item_with(open_soon, ["2026-10-21"])]}
+    w.load_monitors = lambda from_github=True: {"monitors": [item_with(open_soon, [DAY])]}
     w.fetch_slots = lambda *a: {"queried": True, "times": ["13:00", "14:00"], "all_slots": []}
     w.record_results = lambda log, iid, state, **k: recorded.append(state) or True
     w.send_ntfy = lambda topic, title, body, url: ntfys.append((title, body))
@@ -181,7 +184,7 @@ def main() -> int:
     cfg_all = orig_cfg()
     cfg_all["ntfy_topic"] = "topic"
     w.load_monitors = lambda from_github=True: cfg_all
-    w.run("abt", "2026-10-21", [], "2026-10-21|prewait", 1, open_soon.isoformat())
+    w.run("abt", DAY, [], f"{DAY}|prewait", 1, open_soon.isoformat())
     check(len(calls) == 3, f"모든 계정이 시도 (실제: {calls})")
     check(all(o is not None and abs((o - open_soon).total_seconds()) < 1 for _, o in calls),
           "모든 계정에 open_at 전달 (다 같이 정각까지 대기)")
@@ -202,7 +205,7 @@ def main() -> int:
         calls.append((account, open_at)) or
         {"success": True, "message": "성공", "booked_time": "14:00", "dry_run": False,
          "account": account, "confirm_no": f"N{account}"})
-    w.run("abt", "2026-10-21", [], "2026-10-21|prewait", 1, open_soon.isoformat())
+    w.run("abt", DAY, [], f"{DAY}|prewait", 1, open_soon.isoformat())
     check([a for a, _ in calls] == [2], f"계정2만 시도 (실제: {calls})")
     last = recorded[-1]
     check((last.get("booked") or {}).get("all_done") and last["booked"]["accounts"] == [1, 2, 3],
@@ -214,7 +217,7 @@ def main() -> int:
     skipped_all: list = []
     orig_skip = w.record_skip
     w.record_skip = lambda *a: skipped_all.append(a[-1]) or 0
-    w.run("abt", "2026-10-21", [], "x", 1, "")
+    w.run("abt", DAY, [], "x", 1, "")
     w.record_skip = orig_skip
     check(not calls and skipped_all and "모든 계정" in skipped_all[0],
           f"이미 전부 성공이면 시도하지 않는다 (실제: {skipped_all})")
@@ -223,10 +226,10 @@ def main() -> int:
     calls.clear()
     state_file = {}
     w.load_monitors = lambda from_github=True: {"ntfy_topic": "topic", "monitors": [
-        {**item_with(open_soon, ["2026-10-21"]),
-         "auto_book": {"enabled": True, "dates": ["2026-10-21"], "times": [], "accounts": [],
+        {**item_with(open_soon, [DAY]),
+         "auto_book": {"enabled": True, "dates": [DAY], "times": [], "accounts": [],
                        "count": 1, "mode": "immediate"}}]}
-    w.run("abt", "2026-10-21", ["13:00"], "2026-10-21|13:00", 1, "")
+    w.run("abt", DAY, ["13:00"], f"{DAY}|13:00", 1, "")
     check(sorted(a for a, _ in calls) == [1, 2, 3] and all(o is None for _, o in calls),
           f"세 계정 모두 시도 (실제: {calls})")
 
@@ -244,27 +247,27 @@ def main() -> int:
 
     calls.clear()
     too_early = datetime.now(KST) + timedelta(minutes=w.PREWAIT_MAX_MIN + 5)
-    w.load_monitors = lambda from_github=True: {"monitors": [item_with(too_early, ["2026-10-21"])]}
+    w.load_monitors = lambda from_github=True: {"monitors": [item_with(too_early, [DAY])]}
     skipped: list = []
     w.record_skip = lambda *a: skipped.append(a[-1]) or 0
-    w.run("abt", "2026-10-21", [], "x", 1, "")
+    w.run("abt", DAY, [], "x", 1, "")
     check(not calls and skipped, f"너무 이르면 종전대로 거절 (실제: {skipped})")
 
     print("7) 시작 30분 전에는 쿠키 점검만 띄운다 (예약은 아직)")
     alerted = {}
     mid = now + timedelta(minutes=(cb.AUTO_BOOK_PREWAIT_LEAD_MIN + cb.AUTO_BOOK_COOKIE_CHECK_LEAD_MIN) / 2)
-    sent = run_monitor(item_with(mid, dates=["2026-10-21"]), alerted)
+    sent = run_monitor(item_with(mid, dates=[DAY]), alerted)
     check(not sent and len(COOKIE_CHECKS) == 1, f"쿠키 점검 한 번, 예약 없음 (예약 {sent} / 점검 {COOKIE_CHECKS})")
-    run_monitor(item_with(mid, dates=["2026-10-21"]), alerted)
+    run_monitor(item_with(mid, dates=[DAY]), alerted)
     check(not COOKIE_CHECKS, "같은 시작 시각엔 다시 점검하지 않는다")
     run_monitor(item_with(now + timedelta(minutes=cb.AUTO_BOOK_COOKIE_CHECK_LEAD_MIN + 10),
-                          dates=["2026-10-21"]), {})
+                          dates=[DAY]), {})
     check(not COOKIE_CHECKS, "30분보다 이르면 점검하지 않는다")
 
     print("8) 쿠키 점검 결과 알림")
     ntfys.clear()
     w.load_monitors = lambda from_github=True: {"ntfy_topic": "topic",
-                                                "monitors": [item_with(mid, ["2026-10-21"])]}
+                                                "monitors": [item_with(mid, [DAY])]}
     auto_book.get_accounts = lambda pri=None: [(1, "c1"), (2, "c2")]
     auto_book.check_login = lambda url, c, a: {
         "account": a, "label": f"계정{a}", "ok": a == 1,
@@ -307,10 +310,10 @@ def main() -> int:
     print("10) 하루 단위 상품: 워커가 시간대 없음으로 끝내지 않고 [종일]로 예약한다")
     w.fetch_slots = lambda *a: {"queried": True, "times": [], "all_slots": [], "api_slot_count": 0}
     day_cfg = {"times": []}
-    check(w.resolve_times({"url": URL}, day_cfg, "2026-10-24", []) == [auto_book.DAY_UNIT],
+    check(w.resolve_times({"url": URL}, day_cfg, DAY, []) == [auto_book.DAY_UNIT],
           "시간대(hourly)가 아예 없는 상품은 [종일]")
     w.fetch_slots = lambda *a: {"queried": True, "times": [], "all_slots": [{}], "api_slot_count": 6}
-    check(w.resolve_times({"url": URL}, day_cfg, "2026-10-24", []) == [],
+    check(w.resolve_times({"url": URL}, day_cfg, DAY, []) == [],
           "시간대는 있는데 지금 빈 자리가 없는 날은 그대로 빈 목록 (매진)")
 
     print("6) _wait_open — 오픈 전 안내면 새로고침, 열리면 바로 진행")
