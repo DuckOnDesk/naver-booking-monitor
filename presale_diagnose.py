@@ -140,6 +140,12 @@ def diagnose(area: dict) -> None:
                                             "bookingUrl", "hasBooking",
                                             "operationStartDateTime"))]
         show("장소성 엔트리 수", len(placeish))
+        # 특정 팝업이 왜 안 잡히는지 보려면 검색 결과 전체를 봐야 한다 (2026-10-23 디웨더)
+        for k, v in placeish:
+            adm = find_key(v, "admissionCondition")
+            print(f"    · {v.get('name')!r} | {v.get('commonAddress') or v.get('roadAddress') or ''}"
+                  f" | 입장={json.dumps(adm, ensure_ascii=False)[:60] if adm else '-'}"
+                  f" | 예약={'O' if v.get('hasBooking') else '-'} {v.get('bookingUrl') or ''}")
         for k, v in placeish[:3]:
             print(f"    [{k}] fields={sorted(v.keys())}")
             print(f"      name={v.get('name')!r} category={v.get('category')!r}")
