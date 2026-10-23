@@ -78,6 +78,9 @@ class Harness:
         pm.load_place_memory = lambda: dict(self.memory)
         pm.load_auto_added_ids = lambda: set(self.auto_added)
         pm.load_watch_missing = lambda: dict(self.watch_missing)
+        # 예약 URL 기록도 대체한다. 안 그러면 실제 presale_data.json을 읽어, 실제 팝업
+        # (코치 태비 투어)에 링크가 생긴 뒤로 "새 예약 정보" 검사가 깨졌다 (2026-10-23).
+        pm.load_booking_url_history = lambda: {}
         pm._queue_ntfy = lambda *a, **k: None
         pm.send_ntfy = lambda topic, title, body, url: self.sent.append(title)
         pm.send_toast = lambda *a, **k: None

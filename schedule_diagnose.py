@@ -17,6 +17,13 @@
 GitHub Actions 러너에서 돌린다. 읽기만 하고 데이터 파일은 건드리지 않는다.
 
     python -u schedule_diagnose.py <예약URL> [날짜 YYYY-MM-DD]
+    python -u schedule_diagnose.py --gate-compare [예약URL ... | all]
+
+--gate-compare: 예약창 확인(UrlGate)을 로그인 없이 할 수 있는지 본다 (2026-10-22 betty
+접속 제한). 같은 페이지를 비로그인/로그인으로 한 번씩 열어 최종 URL과 지금 모니터의
+판정을 나란히 찍는다. 열린 항목과 닫힌 항목이 비로그인에서도 갈리면 쿠키 없이 감시할
+수 있다. all(또는 생략)이면 monitors.json의 네이버 항목 전부(꺼진 것 포함 — 닫힌
+항목 표본).
 """
 
 import json
@@ -215,7 +222,72 @@ def capture_page(url: str, datekey: str) -> None:
         print(f"      {body[:1200]}")
 
 
+def _gate_view(page, url: str) -> str:
+    """지금 모니터(_playwright_check)가 이 화면을 어떻게 판정할지 한 줄로."""
+    import re
+    m = re.search(r"/items/\d+", url)
+    item_path = m.group(0) if m else None
+    final_url = page.url
+    try:
+        text = " ".join(page.inner_text("body").split())
+    except Exception:
+        text = ""
+    if any(p in text for p in cb._RATE_LIMIT_PAGE_TEXT):
+        verdict = "모름(접속 제한 페이지)"
+    elif "nid.naver.com" in final_url:
+        verdict = "닫힘(로그인 화면으로 이동)"
+    elif any(p in final_url for p in cb._CLOSED_URL_PATTERNS):
+        verdict = "닫힘(URL /error/)"
+    elif item_path and item_path not in final_url:
+        verdict = "닫힘(상품 페이지 이탈)"
+    elif any(p in text for p in cb._CLOSED_TEXT_PATTERNS):
+        verdict = "닫힘(본문 문구)"
+    else:
+        verdict = "열림"
+    return f"{verdict}\n      최종 URL: {final_url}\n      본문: {text[:300]!r}"
+
+
+def gate_compare(urls: list[str]) -> int:
+    """같은 예약 페이지를 비로그인/로그인으로 열어 판정을 비교한다."""
+    from playwright.sync_api import sync_playwright
+    if not urls or urls == ["all"]:
+        monitors = json.load(open("monitors.json", encoding="utf-8")).get("monitors", [])
+        urls = [m["url"] for m in monitors if m.get("url") and cb.parse_naver_url(m["url"])]
+    picked = cb._pick_monitor_account(anon=False)
+    acct, cookies = picked if picked else ("", [])
+    print(f"=== 예약창 확인: 비로그인 vs 로그인({acct or '쿠키 없음'}) ===")
+    print(f"  현재 {datetime.now(KST).strftime('%Y-%m-%d %H:%M:%S')} KST, 항목 {len(urls)}개")
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        try:
+            for url in urls:
+                print(f"\n  ● {url}")
+                for label, ck in (("비로그인", []), (f"로그인({acct})", cookies)):
+                    if label != "비로그인" and not ck:
+                        print("    [로그인] 쿠키 없음 — 건너뜀")
+                        continue
+                    ctx = browser.new_context(locale="ko-KR")
+                    try:
+                        if ck:
+                            ctx.add_cookies(ck)
+                        page = ctx.new_page()
+                        page.goto(url, wait_until="load", timeout=20000)
+                        page.wait_for_timeout(3000)
+                        print(f"    [{label}] {_gate_view(page, url)}")
+                    except Exception as exc:
+                        print(f"    [{label}] 로드 실패: {cb._exc_label(exc)}")
+                    finally:
+                        ctx.close()
+                    time.sleep(2)   # 진단이 또 제한을 부르지 않게 천천히
+        finally:
+            browser.close()
+    print("\n  비로그인 판정이 로그인 판정과 같으면 그 항목은 쿠키 없이 감시할 수 있다.")
+    return 0
+
+
 def main() -> int:
+    if len(sys.argv) > 1 and sys.argv[1] == "--gate-compare":
+        return gate_compare([u for a in sys.argv[2:] for u in a.split() if u.strip()])
     if len(sys.argv) < 2 or not sys.argv[1].strip():
         print("사용법: python -u schedule_diagnose.py <예약URL> [YYYY-MM-DD]")
         return 2

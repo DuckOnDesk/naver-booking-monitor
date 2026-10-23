@@ -437,16 +437,26 @@ class NewItemWatcher:
 
 
 def load_monitors(from_github: bool = False) -> dict:
+    cfg = None
     if from_github:
         try:
-            return fetch_remote_monitors()
+            cfg = fetch_remote_monitors()
         except Exception as exc:
             print(f"[경고] GitHub에서 monitors.json 읽기 실패, 로컬 파일 사용: {exc}", flush=True)
-    return json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
+    if cfg is None:
+        cfg = json.loads(MONITORS_FILE.read_text(encoding="utf-8"))
+    # URL에 끼어 든 공백을 지운다 (parse_naver_url 참고). 파싱만 고치면 예약창 확인·
+    # 자동예약이 공백 섞인 URL(%20)로 엉뚱한 페이지를 연다.
+    for m in cfg.get("monitors", []) if isinstance(cfg, dict) else []:
+        if isinstance(m, dict) and isinstance(m.get("url"), str):
+            m["url"] = re.sub(r"\s+", "", m["url"])
+    return cfg
 
 
 def parse_naver_url(url: str) -> dict | None:
-    m = re.search(r"/booking/(\d+)/bizes/(\d+)/items/(\d+)", url)
+    # URL에 공백이 끼어 들어오는 경우가 있다 (2026-10-23 디웨더: "items /8131769" —
+    # 붙여넣기). URL에는 원래 공백이 없으니 지우고 본다.
+    m = re.search(r"/booking/(\d+)/bizes/(\d+)/items/(\d+)", re.sub(r"\s+", "", url or ""))
     if not m:
         return None
     return {"service_id": int(m.group(1)), "biz_id": m.group(2), "item_id": m.group(3)}
@@ -2262,6 +2272,11 @@ def sweep_auto_book_period(item: dict, item_id: str, url: str, parsed: dict,
 
 
 _CLOSED_URL_PATTERNS  = ["/error/"]
+# 예매 기한 자체가 끝난 팝업 (2026-10-24 넷플 잔치: "티켓 예매 / 최종 취소 기한은
+# 종료되었습니다"). 그래도 취소표가 API에 자리로 잡혀 🔒 알림은 나가는데, 들어가
+# 봐도 잡을 수 없다는 걸 알림에서 바로 알 수 있게 닫힘 사유에 표시를 단다.
+_ENDED_RE = re.compile(r"(예매|예약)[^.]{0,30}?기한[은이]?\s*종료|(예매|예약)[이가]\s*종료")
+ENDED_MARK = "[예매 기한 종료]"
 _CLOSED_TEXT_PATTERNS = [
     "운영하지 않는 예매 페이지",
     "판매 기간이 아닙니다",
@@ -2332,18 +2347,73 @@ def _page_note(page, limit: int = 80) -> str:
     return f'{_NOTE_SEP}"{text[:limit]}"' if text else ""
 
 
-def naver_cookies() -> list:
-    """NAVER_COOKIES 환경변수를 playwright 컨텍스트용 쿠키 목록으로.
+# 예약창 확인(브라우저)은 로그인 쿠키로 페이지를 연다. 예전에는 늘 묶음 첫 계정만
+# 써서, 닫힌 항목을 30초마다 다시 여는 동안 그 한 계정에 접속이 몰렸고 네이버가
+# 그 계정만 "과다한 요청 시도로 접속을 제한" 했다 (2026-10-22 betty). 이제 계정을
+# 돌아가며 쓰고, 제한 페이지를 만난 계정은 한동안 빼 둔다.
+# MONITOR_ACCOUNTS: 감시에 쓸 묶음 아이디(쉼표 구분). 비우면 묶음 전체.
+# MONITOR_ACCOUNTS_EXCLUDE: 감시에서 뺄 아이디(쉼표 구분). 제한이 걸리면 곤란한
+# 계정을 지킨다 (monitor.yml 기본값 khw,betty,maman).
+# MONITOR_ANON: 1이면 비로그인으로 먼저 본다 (기본 1). 2026-10-22 진단에서 비로그인
+# 으로도 예약 페이지가 그대로 열렸다(로그인 화면으로 보내지 않았다). 다만 로그인해야
+# 예약창이 열리는 팝업도 있어서, 비로그인이 로그인 화면을 만난 팝업은 기억해 두고
+# 그 팝업만 계정으로 본다 (LOGIN_ITEMS_KEY). monitors.json 항목에 "login": true를
+# 넣으면 처음부터 로그인으로 본다. 비로그인이 제한 페이지를 만나면 비로그인만 쉬고,
+# 그동안 비로그인 팝업은 '모름'으로 둔다 — 계정으로 넘기지 않는다. 막힌 IP에서 계정을
+# 돌려 쓰다 계정이 정지될 위험이 더 크다.
+LOGIN_ITEMS_KEY = "gate:needs_login"     # alerted: {"/items/123": 처음 알게 된 시각}
+_LOGIN_PAGE_TEXT = ("로그인이 필요", "로그인 후 이용")
+_login_items: dict[str, str] = {}        # 비로그인으로는 안 열리는 팝업 (워커가 배운 것)
+_login_forced: set[str] = set()          # monitors.json에서 "login": true 인 팝업
 
-    로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려보낸다.
-    그 화면은 상품 페이지가 아니므로 닫힘으로 잡힌다 — 진단 스크립트가 같은
-    조건으로 보게 하려고 따로 뺐다.
-    COOKIES_BUNDLE_JSON(naver_sync 쿠키 묶음)이 있으면 그 첫 계정을 쓴다.
+
+def _item_key(url: str) -> str:
+    m = re.search(r"/items/\d+", url)
+    return m.group(0) if m else url
+
+
+def _needs_login(url: str) -> bool:
+    key = _item_key(url)
+    with _monitor_lock:
+        return key in _login_forced or key in _login_items
+
+
+def _mark_login_item(url: str, name: str = "") -> None:
+    key = _item_key(url)
+    with _monitor_lock:
+        if key in _login_items:
+            return
+        _login_items[key] = datetime.now(timezone(timedelta(hours=9))).strftime("%Y-%m-%d %H:%M")
+    print(f"  [예약창] {name or key} — 비로그인으로는 안 열리는 팝업. 다음부터 로그인 계정으로 확인",
+          flush=True)
+
+
+def sync_login_items(monitors: list, alerted: dict) -> None:
+    """팝업별 로그인 필요 여부를 상태 파일과 맞춘다 (메인 스레드, 회차마다).
+
+    상태 파일 → 메모리는 재시작 직후 복원용이고, 메모리 → 상태 파일은 워커가 새로
+    배운 팝업을 남기는 용도다. 항목별 키({id}:...)는 회차마다 정리돼 지워지므로
+    따로 둔다.
     """
-    from auto_book import _bundle_accounts, _parse_cookies
-    bundle = _bundle_accounts()
-    if bundle:
-        return _parse_cookies(bundle[0][1])
+    saved = alerted.get(LOGIN_ITEMS_KEY)
+    forced = {_item_key(m["url"]) for m in monitors if m.get("login") and m.get("url")}
+    with _monitor_lock:
+        if isinstance(saved, dict):
+            for k, v in saved.items():
+                _login_items.setdefault(k, v)
+        _login_forced.clear()
+        _login_forced.update(forced)
+        merged = dict(_login_items)
+    if merged and merged != saved:
+        alerted[LOGIN_ITEMS_KEY] = merged
+MONITOR_ACCOUNT_BENCH_MIN = _env_num("MONITOR_ACCOUNT_BENCH_MIN", 60)
+_RATE_LIMIT_PAGE_TEXT = ("과다한 요청",)
+_monitor_lock = threading.Lock()
+_monitor_rr = 0                          # 다음에 쓸 계정 차례
+_monitor_bench: dict[str, float] = {}    # 아이디 → 다시 써도 되는 시각(monotonic)
+
+
+def _legacy_cookies() -> list:
     cookies = []
     for part in os.environ.get("NAVER_COOKIES", "").strip().split(";"):
         part = part.strip()
@@ -2356,6 +2426,175 @@ def naver_cookies() -> list:
                 "path": "/",
             })
     return cookies
+
+
+def _monitor_accounts() -> list:
+    """감시에 쓸 [(아이디, 쿠키 목록)]. 묶음이 없으면 NAVER_COOKIES 하나."""
+    from auto_book import _bundle_accounts, _parse_cookies
+    bundle = _bundle_accounts()
+    if bundle:
+        def names(var):
+            return {x.strip() for x in os.environ.get(var, "").split(",") if x.strip()}
+        allow, deny = names("MONITOR_ACCOUNTS"), names("MONITOR_ACCOUNTS_EXCLUDE")
+        # 제외는 엄격하게 지킨다 — 남는 계정이 없어도 제외 계정으로 되돌아가지 않는다
+        usable = [(name, c) for _, c, name in bundle if name not in deny]
+        # 이름을 잘못 적어 하나도 안 맞으면 로그인 없이 보는 것보다 전체를 쓰는 게 낫다
+        picked = [(name, c) for name, c in usable if name in allow] or usable
+        return [(name, _parse_cookies(c)) for name, c in picked]
+    cookies = _legacy_cookies()
+    return [("NAVER_COOKIES", cookies)] if cookies else []
+
+
+def _pick_monitor_account(anon: bool | None = None) -> tuple[str, list] | None:
+    """다음 차례 계정 (아이디, 쿠키). 쉬는 계정은 건너뛴다.
+
+    비로그인("", [])이 켜져 있으면 비로그인만 쓴다 (쉬는 중이면 None). 아니면 계정을
+    돌려 쓰고, 계정이 아예 없으면 ("", []), 전부 쉬는 중이면 None.
+    """
+    global _monitor_rr
+    if anon is None:
+        anon = os.environ.get("MONITOR_ANON", "1").strip() != "0"
+    if anon:
+        # 비로그인이 쉬는 동안에도 계정으로 넘기지 않는다 (계정 정지 위험)
+        return ("", []) if _monitor_bench.get("", 0) <= time.monotonic() else None
+    accounts = _monitor_accounts()
+    if not accounts:
+        return None if anon else ("", [])
+    now = time.monotonic()
+    with _monitor_lock:
+        for k in range(len(accounts)):
+            name, cookies = accounts[(_monitor_rr + k) % len(accounts)]
+            if _monitor_bench.get(name, 0) <= now:
+                _monitor_rr = (_monitor_rr + k + 1) % len(accounts)
+                return name, cookies
+    return None
+
+
+# 접속 제한 알림. 한 번 막힌 계정(비로그인 포함)은 다시 정상으로 열릴 때까지 한 번만
+# 알린다 — 60분 쉬고 다시 막혀도 또 보내지 않는다. 워커 스레드가 쌓고 메인 루프가 보낸다.
+_block_notified: set[str] = set()
+_block_notices: list[tuple[str, str]] = []   # (제목, 본문)
+
+
+def _bench_monitor_account(name: str, why: str = "접속 제한(과다한 요청)") -> None:
+    with _monitor_lock:
+        _monitor_bench[name] = time.monotonic() + MONITOR_ACCOUNT_BENCH_MIN * 60
+        if not name:
+            # 비로그인 제한은 IP 단위일 가능성이 커서, 메인 루프가 새 실행(새 러너 =
+            # 대개 새 IP)으로 넘어갈지 정한다. 알림도 거기서 보낸다 (decide_anon_restart).
+            global _anon_block_pending
+            _anon_block_pending = True
+        elif name not in _block_notified:
+            _block_notified.add(name)
+            _block_notices.append((
+                f"⛔ 네이버 접속 제한 — 계정 {name}",
+                f"예약창 확인 중 '과다한 요청' 제한 페이지를 만났다. "
+                f"{MONITOR_ACCOUNT_BENCH_MIN:g}분 동안 계정 {name} 확인을 멈춘다 "
+                f"(로그인 필요 팝업은 다른 감시 계정으로 확인). 계정 단위 제한이라 "
+                f"새 실행(IP 변경)으로는 안 풀린다. 자리 감시(API)는 계속 돈다. "
+                f"풀릴 때까지 이 알림은 다시 보내지 않는다."))
+    print(f"  [경고] 감시 계정 {name or '비로그인'} {why} → "
+          f"{MONITOR_ACCOUNT_BENCH_MIN:g}분 동안 빼고 다른 계정으로 확인", flush=True)
+
+
+# 비로그인 제한 → 새 실행으로 IP 바꾸기. 같은 러너에서 60분 쉬는 대신 이번 실행을
+# 끝내고 다음 실행(새 러너)에 맡긴다. 새로 띄워도 계속 막히면(IP 문제가 아니면)
+# 끝없이 재시작하지 않도록, 최근 60분 안에 ANON_RESTART_MAX번 넘겼으면 그냥 쉰다.
+# 재시작 기록은 상태 파일에 남겨 실행을 넘어간다.
+ANON_RESTART = os.environ.get("ANON_RESTART", "1").strip() != "0"
+ANON_RESTART_MAX = int(_env_num("ANON_RESTART_MAX", 2))
+ANON_RESTART_KEY = "gate:anon_restarts"   # [{"at": ISO, "ip": 러너 IP}, ...]
+_anon_block_pending = False
+_runner_ip = ""
+
+
+def runner_ip() -> str:
+    """러너의 바깥 IP. 새 실행에서 IP가 정말 바뀌는지 로그로 확인하려고 남긴다."""
+    global _runner_ip
+    if not _runner_ip:
+        try:
+            _runner_ip = requests.get("https://api.ipify.org", timeout=5).text.strip()[:45]
+        except Exception:
+            _runner_ip = "?"
+    return _runner_ip
+
+
+def decide_anon_restart(alerted: dict) -> bool:
+    """이번 회차에 비로그인이 막혔으면 새 실행으로 넘길지 정한다 (메인 스레드).
+
+    True면 호출한 쪽이 상태를 저장하고 루프를 끝낸다 — 워크플로가 다음 실행을 띄운다.
+    """
+    global _anon_block_pending
+    with _monitor_lock:
+        if not _anon_block_pending:
+            return False
+        _anon_block_pending = False
+    kst = timezone(timedelta(hours=9))
+    now = datetime.now(kst)
+    recent = []
+    for r in alerted.get(ANON_RESTART_KEY) or []:
+        try:
+            if now - datetime.fromisoformat(r["at"]) < timedelta(minutes=60):
+                recent.append(r)
+        except (KeyError, TypeError, ValueError):
+            pass
+    ip = runner_ip()
+    trail = " → ".join([r.get("ip", "?") for r in recent] + [ip])
+    first = not recent and "" not in _block_notified
+    if ANON_RESTART and len(recent) < ANON_RESTART_MAX:
+        alerted[ANON_RESTART_KEY] = recent + [{"at": now.isoformat(timespec="seconds"), "ip": ip}]
+        print(f"  [예약창] 비로그인 접속 제한 (IP {ip}) → 이번 실행을 끝내고 새 실행(새 IP)으로 "
+              f"넘긴다 ({len(recent) + 1}/{ANON_RESTART_MAX})", flush=True)
+        if first:
+            _block_notices.append((
+                "⛔ 네이버 접속 제한 — 비로그인",
+                f"예약창 확인(비로그인) 중 '과다한 요청' 제한 페이지를 만났다 (IP {ip}). "
+                f"새 실행으로 IP를 바꿔 다시 확인한다. 자리 감시(API)는 계속 돈다. "
+                f"새로 띄워도 계속 막히면 그때 한 번 더 알린다."))
+        return True
+    with _monitor_lock:
+        notify = "" not in _block_notified
+        _block_notified.add("")
+    alerted[ANON_RESTART_KEY] = recent
+    print(f"  [예약창] 비로그인 접속 제한 — 새 실행 {len(recent)}번에도 계속 막힘 (IP {trail}) "
+          f"→ {MONITOR_ACCOUNT_BENCH_MIN:g}분 쉼", flush=True)
+    if notify:
+        _block_notices.append((
+            "⛔ 네이버 접속 제한 — 비로그인 (IP 바꿔도 막힘)" if recent else "⛔ 네이버 접속 제한 — 비로그인",
+            f"예약창 확인(비로그인)이 계속 '과다한 요청'으로 막힌다 (IP {trail}). "
+            f"{MONITOR_ACCOUNT_BENCH_MIN:g}분 동안 비로그인 확인을 멈춘다 — 그동안 예약창 "
+            f"상태는 직전 값으로 두고 계정으로 넘기지 않는다. 자리 감시(API)는 계속 돈다."))
+    return False
+
+
+def _clear_block(name: str) -> None:
+    """그 계정으로 정상 페이지를 봤다 — 다음 제한 때 다시 알린다."""
+    with _monitor_lock:
+        _block_notified.discard(name)
+
+
+def flush_block_notices(ntfy_topic: str) -> None:
+    """쌓인 접속 제한 알림을 보낸다 (메인 스레드)."""
+    with _monitor_lock:
+        notices = list(_block_notices)
+        _block_notices.clear()
+    for title, body in notices:
+        print(f"  {title}", flush=True)
+        if ntfy_topic:
+            send_ntfy(ntfy_topic, title, body, "https://github.com/DuckOnDesk/naver-booking-monitor/actions")
+
+
+def naver_cookies() -> list:
+    """예약창 확인용 로그인 쿠키(playwright 컨텍스트용 목록).
+
+    예전에는 로그인 쿠키가 없으면 네이버가 예약 페이지를 로그인 화면으로 돌려
+    보냈다 (2026-10-22 진단에서는 비로그인도 그대로 열렸다). 진단 스크립트가
+    로그인 조건으로도 볼 수 있게 따로 뺐다.
+    COOKIES_BUNDLE_JSON(naver_sync 쿠키 묶음)이 있으면 그 계정들을 돌아가며 쓴다.
+    진단용이라 늘 로그인 계정을 준다 (비로그인 우선은 _playwright_check에서만).
+    """
+    picked = _pick_monitor_account(anon=False)
+    return picked[1] if picked else []
 
 
 def _playwright_check(url: str) -> tuple[bool | None, str]:
@@ -2374,14 +2613,35 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
         # 리다이렉트 판정이 오염된다.
         # 로캘을 안 주면 러너 기본값(영어) 페이지가 와서 _CLOSED_TEXT_PATTERNS가
         # 하나도 안 맞는다 — 텍스트 기반 닫힘 판정이 통째로 죽어 있었다.
+        login_only = _needs_login(url)
+        picked = _pick_monitor_account(anon=False if login_only else None)
+        if login_only and picked == ("", []):
+            return None, "로그인 필요 팝업인데 쓸 감시 계정이 없음"
+        if picked is None:
+            return None, ("감시 계정 전부 접속 제한으로 쉬는 중" if _needs_login(url)
+                          else "비로그인 접속 제한으로 쉬는 중 (계정으로 넘기지 않음)")
+        acct, cookies = picked
         context = browser.new_context(locale="ko-KR")
-        cookies = naver_cookies()
         if cookies:
             context.add_cookies(cookies)
         page = context.new_page()
         page.goto(url, wait_until="load", timeout=15000)
         page.wait_for_timeout(2000)
         final_url = page.url
+        visible_text = " ".join(page.inner_text("body").split())
+        # 접속 제한 페이지는 상품 페이지가 아니라서 아래 '상품 페이지 이탈'로 닫힘이
+        # 됐고, 닫힘은 30초마다 다시 보니 제한이 풀릴 틈이 없었다. 모름으로 돌린다.
+        if any(p in visible_text for p in _RATE_LIMIT_PAGE_TEXT):
+            _bench_monitor_account(acct)
+            return None, f"접속 제한 페이지(과다한 요청, 계정 {acct or '비로그인'})"
+        _clear_block(acct)
+        if not acct and ("nid.naver.com" in final_url
+                         or any(p in visible_text for p in _LOGIN_PAGE_TEXT)):
+            # 로그인해야 열리는 팝업이다 — 닫힘이 아니다. 기억해 두고 이 팝업만
+            # 계정으로 본다 (워커는 모름이면 10초 뒤 다시 본다).
+            _mark_login_item(url)
+            return None, "비로그인 → 로그인 화면 (로그인 필요 팝업으로 기록)"
+        ended = f"{ENDED_MARK} " if _ENDED_RE.search(visible_text) else ""
         for pat in _CLOSED_URL_PATTERNS:
             if pat in final_url:
                 # type=... 을 사유에 함께 남긴다. 본문을 못 읽는 회차에도
@@ -2389,13 +2649,12 @@ def _playwright_check(url: str) -> tuple[bool | None, str]:
                 # (2026-09-18 쿠팡: type=InvalidBusiness → 4시간 뒤 정상 복구).
                 m = re.search(r"[?&](type=[A-Za-z]+)", final_url)
                 label = f"{pat} {m.group(1)}" if m else pat
-                return True, f"URL 리다이렉트: {label}{_page_note(page)}"
+                return True, f"{ended}URL 리다이렉트: {label}{_page_note(page)}"
         if item_path and item_path not in final_url:
-            return True, f"URL 리다이렉트: 상품 페이지({item_path}) 이탈{_page_note(page)}"
-        visible_text = " ".join(page.inner_text("body").split())
+            return True, f"{ended}URL 리다이렉트: 상품 페이지({item_path}) 이탈{_page_note(page)}"
         for pat in _CLOSED_TEXT_PATTERNS:
             if pat in visible_text:
-                return True, f"페이지 텍스트: {pat}"
+                return True, f"{ended}페이지 텍스트: {pat}"
         return False, ""
     except Exception as exc:
         print(f"  [경고] playwright 확인 실패 → 판단 불가(직전 상태 유지): {exc}", flush=True)
@@ -2446,6 +2705,7 @@ class UrlGate:
       - 자리 없음         → 확인하지 않음 (예약창 상태는 '모름'으로 남는다)
       - 자리 있고 닫힘    → 매 회차 확인 (열리는 순간을 놓치지 않기 위해)
       - 자리 있고 열림    → URL_RECHECK_SEC(기본 5분)마다
+      - 예매 기한 종료    → GATE_ENDED_RECHECK_SEC(기본 10분)마다
       - 자동예약 직전     → 주기와 무관하게 확인 (verify_open)
 
     닫힘은 한 번 잡히면 그 회차에서 바로 확정한다. 판정을 다음 회차로 미루면 그
@@ -2473,6 +2733,11 @@ class UrlGate:
         """지금 닫혀 있는가. 필요하면 여기서 브라우저를 켠다."""
         self._ensure(seats=True)        # 자리를 찾았을 때만 묻는다
         return self._closed
+
+    @property
+    def ended(self) -> bool:
+        """닫힌 이유가 예매 기한 종료인가 (마지막 확인 기준, 브라우저를 켜지 않는다)."""
+        return self._closed and self.alerted.get(self.closed_key) == "ended"
 
     def _seats_left(self) -> int | None:
         """자리 확인 루프의 마지막 재고 스냅샷 기준 남은 자리 수 (오늘 이후 날짜만).
@@ -2520,8 +2785,10 @@ class UrlGate:
             # 결과는 기다리지 않는다. 워커가 확인하면 다음 항목 경계에서 반영되고,
             # 열림 전환이면 그 항목을 곧바로 다시 확인한다.
             self.consulted = True
-            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
-            _gate_worker.request(self.item_id, note)
+            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed,
+                               self.ended)
+            if not self.ended:      # 기한이 끝난 항목은 주기(GATE_ENDED_RECHECK_SEC)대로만
+                _gate_worker.request(self.item_id, note)
             return self._closed
         self._ensure(note, seats=False)  # 자리가 사라진 회차에서만 부른다
         return self._closed
@@ -2538,7 +2805,8 @@ class UrlGate:
             # 몇 시간 묵었을 수 있다 — 2026-10-01 리베르: 16:07에 본 '열림'을 믿고
             # 18:19에 🎉를 보냈는데 7초 뒤 워커가 닫힘을 잡았다. 그런 항목은
             # 종전처럼 기다려서 확인한다.
-            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed)
+            _gate_worker.watch(self.item, self.item_id, self.url, self.ntfy_topic, self._closed,
+                               self.ended)
             last = _url_checked_at.get(self.item_id)
             fresh_open = last is not None and (time.monotonic() - last) < URL_RECHECK_SEC
             if self._closed or fresh_open:
@@ -2548,10 +2816,14 @@ class UrlGate:
             return
         # 닫혀 있으면 매 회차 본다. 열려 있는 항목만 주기를 둔다 — 열림→닫힘은
         # 늦게 알아도 손해가 작지만, 닫힘→열림은 오픈 순간이라 늦으면 그대로 놓친다.
+        last = _url_checked_at.get(self.item_id)
         if self._closed:
+            # 예매 기한이 끝난 항목만 예외 — 다시 열릴 일이 거의 없어 주기를 둔다
+            if self.ended and last is not None and (time.monotonic() - last) < GATE_ENDED_RECHECK_SEC:
+                _note_url_skip("기한 종료 주기 대기")
+                return
             self._run_check(note, seats)
             return
-        last = _url_checked_at.get(self.item_id)
         if last is not None and (time.monotonic() - last) < URL_RECHECK_SEC:
             _note_url_skip("주기 대기")
             return
@@ -2606,7 +2878,8 @@ class UrlGate:
                             keep=(self.closed_key,),
                             keep_suffix=(":closed", STOCK_KEY_SUFFIX, SCOPE_KEY_SUFFIX,
                                          STOCK_AT_SUFFIX))
-            alerted[self.closed_key] = 1
+            # 예매 기한이 끝난 닫힘은 값으로 구분해 둔다 (알림 문구용, 재시작을 넘어간다)
+            alerted[self.closed_key] = "ended" if reason.startswith(ENDED_MARK) else 1
             # 서명에서는 페이지 본문을 뗀다. 본문이 회차마다 조금씩 달라지면
             # (시각·세션값 등) 같은 '닫힘' 상태가 매 회차 새 상태로 잡혀,
             # 60분 간격이어야 할 줄이 60초마다 찍힌다.
@@ -2653,6 +2926,16 @@ class UrlGate:
 # 대기 중에 한다 — alerted를 두 스레드가 같이 만지면 저장·커밋 도중에 dict가 바뀐다.
 # 닫힌 항목을 다시 확인하기까지의 간격(초).
 GATE_CLOSED_RECHECK_SEC = _env_num("GATE_CLOSED_RECHECK_SEC", 30)
+# 예매 기한이 끝나 닫힌 항목(ENDED_MARK)의 재확인 간격(초). 다시 열릴 일이 거의 없는데
+# 취소표가 API에 자리로 잡혀 '자리 있고 닫힘'이 계속된다 — 30초마다 보던 것이
+# 2026-10-21 betty 접속 제한의 시작이었다 (넷플 잔치, 9시간 반 동안 시간당 120번).
+GATE_ENDED_RECHECK_SEC = _env_num("GATE_ENDED_RECHECK_SEC", 600)
+
+
+def _gate_gap(closed: bool, ended: bool) -> float:
+    if closed:
+        return GATE_ENDED_RECHECK_SEC if ended else GATE_CLOSED_RECHECK_SEC
+    return URL_RECHECK_SEC
 # 이 시간 동안 관심(자리 발견)이 없던 항목은 워커가 그만 본다.
 GATE_WATCH_TTL_SEC = _env_num("GATE_WATCH_TTL_SEC", 600)
 # 자동예약 직전 확인 등 기다리는 요청의 최대 대기(초).
@@ -2669,12 +2952,13 @@ class GateWorker(threading.Thread):
         self._stopping = False
 
     # ── 메인 스레드에서 부르는 쪽 ──
-    def watch(self, item: dict, item_id: str, url: str, topic: str, closed: bool) -> None:
+    def watch(self, item: dict, item_id: str, url: str, topic: str, closed: bool,
+              ended: bool = False) -> None:
         with self._cv:
             w = self._watches.get(item_id)
             if w is None:
                 w = self._watches[item_id] = {"last": _url_checked_at.get(item_id, 0.0),
-                                              "closed": closed}
+                                              "closed": closed, "ended": ended}
                 self._cv.notify()
             w.update(item=item, url=url, topic=topic, seen=time.monotonic())
 
@@ -2722,7 +3006,7 @@ class GateWorker(threading.Thread):
             del self._watches[iid]
         best, best_due = None, None
         for iid, w in self._watches.items():
-            due = w["last"] + (GATE_CLOSED_RECHECK_SEC if w["closed"] else URL_RECHECK_SEC)
+            due = w["last"] + _gate_gap(w["closed"], w.get("ended", False))
             if best_due is None or due < best_due:
                 best, best_due = iid, due
         if best is None:
@@ -2756,11 +3040,12 @@ class GateWorker(threading.Thread):
                     if w is not None:
                         # 못 읽었으면 주기를 다 기다리지 않고 10초 뒤 다시 본다
                         if raw_closed is None:
-                            gap = GATE_CLOSED_RECHECK_SEC if w["closed"] else URL_RECHECK_SEC
+                            gap = _gate_gap(w["closed"], w.get("ended", False))
                             w["last"] = time.monotonic() - max(0, gap - 10)
                         else:
                             w["last"] = started
                             w["closed"] = raw_closed
+                            w["ended"] = bool(raw_closed) and reason.startswith(ENDED_MARK)
                     self._results.append((item_id, raw_closed, reason, note, started))
         finally:
             _browser_close()
@@ -3332,7 +3617,8 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
 
                     log_state(log_key,
                               f"🔒 {name} {date_str}{time_hint} {', '.join(log_parts)} "
-                              f"({stock_info}){blocked_note} - 예약창 닫힘{restriction_note}",
+                              f"({stock_info}){blocked_note} - 예약창 닫힘"
+                              f"{' (예매 기한 종료)' if gate.ended else ''}{restriction_note}",
                               now_str=now_str)
 
                     cal_ok = True
@@ -3343,10 +3629,11 @@ def check_all(monitors: list, ntfy_topic: str, alerted: dict,
                         if cal_ok is False:
                             print(f"  [교차확인] 캘린더 API 기준 {date_str} 마감 — 알림 생략 (재고 정보 지연 의심)", flush=True)
                         else:
+                            why = "예매 기한 종료" if gate.ended else "예약창 닫힘"
                             if increased:
-                                title = f"🔒 {name} 자리 추가됨 (예약창 닫힘)"
+                                title = f"🔒 {name} 자리 추가됨 ({why})"
                             else:
-                                title = f"🔒 {name} 자리 있음 (예약창 닫힘)"
+                                title = f"🔒 {name} 자리 있음 ({why})"
                             body = f"{date_str}{time_hint} " + " ".join(f"{t}({c})" for t, c in per_slot)
                             slot_alerted.add(datekey)
                             record_history("alert", item_id, name, date=datekey,
@@ -4102,6 +4389,7 @@ def main():
     # job 재시작 시 이전 알림 상태 복원 (중복 알림 방지)
     alerted = load_alerted()
     sync_auto_book_state(monitors, alerted)
+    sync_login_items(monitors, alerted)
 
     # 재시작 시점에 항목마다 예약창을 미리 확인하던 단계가 있었지만, 그건 닫힘을
     # 2회 연속으로 확정하던 시절 첫 회차를 시드하려던 것이었다. 이제 첫 회차의
@@ -4112,6 +4400,7 @@ def main():
     clean_rounds = 0            # 속도 제한 없이 연달아 지난 회차 수
     watcher = NewItemWatcher()
     start_gate_worker()
+    print(f"러너 IP: {runner_ip()}", flush=True)
 
     def on_tick() -> bool:
         # 대기 중에도 예약창 결과를 반영한다. 열림으로 바뀐 항목이 있으면 바로 다음
@@ -4144,18 +4433,25 @@ def main():
         set_round_header(f"--- [{iteration}회차] 남은 시간: {remaining_min:.1f}분 ---")
         # 별도 워크플로에서 돌고 있는 자동예약의 결과를 먼저 반영
         sync_auto_book_state(monitors, alerted)
+        sync_login_items(monitors, alerted)
         global _rate_limit_hits
         _rate_limit_hits = 0
         try:
             check_all(watcher.reset(monitors), ntfy_topic, alerted, watcher)
         except Exception as exc:
             print(f"[오류] check_all 예외: {exc}", flush=True)
+        restart = decide_anon_restart(alerted)
+        flush_block_notices(ntfy_topic)
 
         # 이력은 상태 파일과 같은 커밋에 실어 보낸다. 상태가 그대로여도 이력이
         # 쌓였으면 커밋한다 — 안 그러면 런이 끝날 때 그 줄이 통째로 사라진다.
         hist_paths = flush_history()
         if save_alerted(alerted) or hist_paths:
             commit_alerted(hist_paths)
+        if restart:
+            # 워크플로의 '다음 실행 즉시 트리거' 스텝이 새 러너를 띄운다
+            print("비로그인 접속 제한 — 새 실행으로 넘김", flush=True)
+            break
 
         # 예약 오픈 정보는 감시에 쓰이지 않는 참고용 출력이라 첫 회차보다 뒤로 미룬다.
         # 시작하자마자 찍으면 항목 수만큼(항목당 수 초) 첫 확인이 늦어진다.
