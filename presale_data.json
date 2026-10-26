@@ -1,7 +1,8 @@
 {
-  "updated_at": "2026-10-26T17:55:55.531498+09:00",
+  "updated_at": "2026-10-26T18:01:24.142986+09:00",
   "watched_places": [
     "1083133386",
+    "2001559204",
     "2005289918",
     "2005416698",
     "2010038406",
@@ -93,7 +94,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-27T17:13:45.439769+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-12T20:03:37.363131+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -125,7 +126,7 @@
       "bookingUrlCheckedAt": "2026-10-14T22:09:14.606229+09:00",
       "bookingItemCheckedAt": "2026-10-14T22:09:14.606229+09:00",
       "discoveredAt": "2026-10-08T13:23:20.171689+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-14T22:09:18.459454+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -171,7 +172,7 @@
       "bookingUrlCheckedAt": "2026-10-12T11:58:32.464917+09:00",
       "bookingItemCheckedAt": "2026-10-12T11:58:32.464917+09:00",
       "discoveredAt": "2026-10-07T16:45:40.907292+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-16T14:03:52.841279+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -206,7 +207,7 @@
       "bookingUrlCheckedAt": "2026-10-12T10:03:09.698737+09:00",
       "bookingItemCheckedAt": "2026-10-12T10:03:09.698737+09:00",
       "discoveredAt": "2026-10-12T10:03:09.698737+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-12T11:03:36.318038+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -238,7 +239,7 @@
       "bookingUrlCheckedAt": "2026-10-10T14:38:55.781014+09:00",
       "bookingItemCheckedAt": "2026-10-10T14:38:55.781014+09:00",
       "discoveredAt": "2026-10-09T10:19:23.002654+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-10T14:38:59.974453+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -277,7 +278,7 @@
       "bookingUrlCheckedAt": "2026-09-30T13:08:27.572551+09:00",
       "bookingItemCheckedAt": "2026-10-07T22:06:25.367891+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -307,7 +308,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-16T12:36:47.889622+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -337,7 +338,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-23T14:34:21.670849+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -373,7 +374,7 @@
       "bookingUrlCheckedAt": "2026-10-14T18:46:22.318532+09:00",
       "bookingItemCheckedAt": "2026-10-14T18:46:22.318532+09:00",
       "discoveredAt": "2026-10-14T18:40:57.357758+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-14T18:46:26.882018+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -428,7 +429,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-09T18:09:52.505441+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-10T12:04:50.560470+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -460,7 +461,7 @@
       "bookingUrlCheckedAt": "2026-10-23T14:34:21.670849+09:00",
       "bookingItemCheckedAt": "2026-10-23T14:34:21.670849+09:00",
       "discoveredAt": "2026-10-23T14:34:21.670849+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-23T14:34:27.666426+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -493,7 +494,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-10-02T03:45:48.589656+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-08T16:12:54.486040+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -523,7 +524,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:26.607684+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -553,7 +554,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-23T14:34:21.670849+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -583,7 +584,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -613,7 +614,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-15T12:06:58.973826+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -654,7 +655,7 @@
       "bookingUrlCheckedAt": "2026-10-23T14:34:21.670849+09:00",
       "bookingItemCheckedAt": "2026-10-23T14:34:21.670849+09:00",
       "discoveredAt": "2026-10-23T14:34:21.670849+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-23T14:34:25.966165+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -684,7 +685,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-23T00:32:44.448369+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -714,7 +715,7 @@
       "bookingUrlCheckedAt": "2026-09-28T08:15:32.344730+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-21T13:07:25.369854+09:00",
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -744,7 +745,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-29T11:55:56.608857+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -774,7 +775,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -804,7 +805,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -834,7 +835,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-15T22:53:36.442252+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -864,7 +865,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-18T12:59:40.407183+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -894,7 +895,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:28.723515+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -924,7 +925,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-24T00:23:56.150715+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -956,7 +957,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -994,7 +995,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-10-26T17:50:18.860262+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-10T06:56:29.259165+09:00",
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1024,7 +1025,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1054,7 +1055,7 @@
       "bookingUrlCheckedAt": "2026-09-28T08:43:49.227639+09:00",
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1084,7 +1085,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-21T18:04:26.279250+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1114,7 +1115,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1146,7 +1147,7 @@
       "bookingUrlCheckedAt": "2026-10-20T18:13:48.524807+09:00",
       "bookingItemCheckedAt": "2026-10-20T18:13:48.524807+09:00",
       "discoveredAt": "2026-10-16T12:58:32.907894+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-21T00:01:06.918776+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -1182,7 +1183,7 @@
       "bookingUrlCheckedAt": "2026-10-21T21:45:31.321124+09:00",
       "bookingItemCheckedAt": "2026-10-21T21:45:31.321124+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-21T21:45:34.160662+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -1214,7 +1215,7 @@
       "bookingUrlCheckedAt": "2026-10-22T17:22:03.249871+09:00",
       "bookingItemCheckedAt": "2026-10-22T17:22:03.249871+09:00",
       "discoveredAt": "2026-10-09T14:48:48.210763+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -1244,37 +1245,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-26T17:55:53.472118+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
-      "lastBookingNotifiedAt": null,
-      "bookingIsOpened": false,
-      "bookingLinkNotified": false
-    },
-    {
-      "id": "2005289918",
-      "name": "풀무원 넾페스타 팝업",
-      "hasBooking": false,
-      "bookingUrl": null,
-      "bookingBusinessId": null,
-      "operationStart": "26.10.30.",
-      "operationEnd": "26.11.01.",
-      "remainingDays": 4,
-      "status": "D-4",
-      "admissionCondition": "사전예약",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261026_119/1792978036868fkbam_JPEG/edited-1792978036171-0.jpg",
-      "roadAddress": "성수일로6길 36 구관 4층",
-      "commonAddress": "서울 성동구",
-      "district": "성동구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [],
-      "bookingOpenAuto": null,
-      "bookingOpenAutoCheckedAt": null,
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": false,
-      "bookingUrlCheckedAt": null,
-      "bookingItemCheckedAt": null,
-      "discoveredAt": "2026-10-26T17:33:43.782495+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1304,7 +1275,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-26T17:55:53.472118+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1334,7 +1305,67 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-26T12:27:15.582164+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false,
+      "bookingLinkNotified": false
+    },
+    {
+      "id": "2001559204",
+      "name": "3CE 넾페스타 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.30.",
+      "operationEnd": "26.11.01.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261026_133/1793002638767W901A_JPEG/edited-1793002633154-0.jpg",
+      "roadAddress": "성수일로6길 36 앤더슨씨 성수",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-26T18:01:24.139344+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
+      "lastBookingNotifiedAt": null,
+      "bookingIsOpened": false,
+      "bookingLinkNotified": false
+    },
+    {
+      "id": "2005289918",
+      "name": "풀무원 넾페스타 팝업",
+      "hasBooking": false,
+      "bookingUrl": null,
+      "bookingBusinessId": null,
+      "operationStart": "26.10.30.",
+      "operationEnd": "26.11.01.",
+      "remainingDays": 4,
+      "status": "D-4",
+      "admissionCondition": "사전예약",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261026_119/1792978036868fkbam_JPEG/edited-1792978036171-0.jpg",
+      "roadAddress": "성수일로6길 36 구관 4층",
+      "commonAddress": "서울 성동구",
+      "district": "성동구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [],
+      "bookingOpenAuto": null,
+      "bookingOpenAutoCheckedAt": null,
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": false,
+      "bookingUrlCheckedAt": null,
+      "bookingItemCheckedAt": null,
+      "discoveredAt": "2026-10-26T17:33:43.782495+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1364,7 +1395,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-26T15:26:33.362723+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1404,7 +1435,7 @@
       "bookingUrlCheckedAt": "2026-10-21T17:54:41.514219+09:00",
       "bookingItemCheckedAt": "2026-10-21T17:54:41.514219+09:00",
       "discoveredAt": "2026-10-16T20:10:38.792705+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-22T14:02:44.736368+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -1434,7 +1465,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-21T15:49:09.779678+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1464,7 +1495,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1494,7 +1525,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:30.905885+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -1524,7 +1555,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:31.895660+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -1554,7 +1585,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-23T10:42:04.821668+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1586,7 +1617,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-09-30T15:38:23.730890+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -1618,7 +1649,7 @@
       "bookingUrlCheckedAt": "2026-10-26T11:10:41.701706+09:00",
       "bookingItemCheckedAt": "2026-10-26T11:10:41.701706+09:00",
       "discoveredAt": "2026-10-22T10:20:42.746544+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": true
@@ -1648,7 +1679,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1678,7 +1709,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-26T16:32:47.352160+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1708,7 +1739,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-26T15:48:40.540145+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1740,7 +1771,7 @@
       "bookingUrlCheckedAt": "2026-10-26T12:43:32.841530+09:00",
       "bookingItemCheckedAt": "2026-10-26T12:43:32.841530+09:00",
       "discoveredAt": "2026-10-19T10:13:01.302661+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-26T12:43:35.242199+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -1770,7 +1801,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-20T11:50:42.130589+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1800,7 +1831,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-21T11:49:42.040650+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -1833,7 +1864,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-15T22:53:37.553206+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -1863,7 +1894,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-09-15T22:53:38.574706+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -1896,7 +1927,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-10-15T11:39:23.120687+09:00",
-      "lastSeenAt": "2026-10-26T17:55:53.472015+09:00",
+      "lastSeenAt": "2026-10-26T18:01:24.139234+09:00",
       "lastBookingNotifiedAt": "2026-10-15T11:44:58.606960+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -1933,13 +1964,6 @@
     }
   ],
   "alerts": [
-    {
-      "type": "booking_open",
-      "place_id": "2030290261",
-      "place_name": "Cafe 1014: For Keria",
-      "booking_url": "https://m.booking.naver.com/booking/12/bizes/1745091/items/8090150",
-      "ts": "2026-10-12T15:29:05.914645+09:00"
-    },
     {
       "type": "booking_open",
       "place_id": "2004835321",
@@ -3332,6 +3356,13 @@
       "place_name": "네스카페 넾페스타 팝업",
       "booking_url": "",
       "ts": "2026-10-26T17:55:53.472118+09:00"
+    },
+    {
+      "type": "new_popup",
+      "place_id": "2001559204",
+      "place_name": "3CE 넾페스타 팝업",
+      "booking_url": "",
+      "ts": "2026-10-26T18:01:24.139344+09:00"
     }
   ],
   "seen_place_ids": [
@@ -3341,6 +3372,7 @@
     "1893291672",
     "2000187386",
     "2001371441",
+    "2001559204",
     "2001855074",
     "2002133748",
     "2002559489",
@@ -3550,24 +3582,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-26T17:55:53.472118+09:00",
+    "checked_at": "2026-10-26T18:01:24.139344+09:00",
     "areas_total": 38,
     "areas_ok": 38,
     "areas_failed": 0,
     "areas_empty": 0,
-    "candidate_items": 1129,
-    "presale_items": 237,
-    "after_district_filter": 145,
+    "candidate_items": 1133,
+    "presale_items": 241,
+    "after_district_filter": 147,
     "fallback_matched": 0,
-    "unique_place_ids": 57,
-    "tracked_places": 58,
-    "new_places": 2,
-    "last_new_place_at": "2026-10-26T17:55:53.472118+09:00",
+    "unique_place_ids": 58,
+    "tracked_places": 59,
+    "new_places": 1,
+    "last_new_place_at": "2026-10-26T18:01:24.139344+09:00",
     "admission_names": {
       "(없음)": 620,
       "현장대기": 272,
       "사전예약&현장대기": 178,
-      "사전예약": 59
+      "사전예약": 63
     },
     "stale_warned_at": "2026-10-26T00:27:26.123831+09:00",
     "structure_warned_at": null
@@ -4995,6 +5027,7 @@
     "1419529006",
     "2000187386",
     "2001371441",
+    "2001559204",
     "2002918567",
     "2003262525",
     "2003577663",
