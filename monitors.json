@@ -2,31 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "mtssyscp",
-      "name": "넷플 잔치",
-      "url": "https://m.booking.naver.com/booking/5/bizes/1733276/items/8035197?theme=place&service-target=map-pc&lang=ko&area=bmp",
-      "enabled": false,
-      "target_dates": [
-        "2026-10-24"
-      ],
-      "auto_book": {
-        "enabled": true,
-        "dates": [
-          "2026-10-24"
-        ],
-        "times": [],
-        "accounts": [
-          3,
-          5
-        ],
-        "count": 2,
-        "mode": "immediate",
-        "start_at": null,
-        "saved_at": "2026-10-20T08:12:19.458Z"
-      },
-      "mute": true
-    },
-    {
       "id": "muxia6g0",
       "name": "맥켈란",
       "url": "https://m.booking.naver.com/booking/12/bizes/1750423/items/8109098",
