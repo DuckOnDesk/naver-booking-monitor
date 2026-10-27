@@ -2,14 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "muxia6g0",
-      "name": "맥켈란",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1750423/items/8109098",
-      "enabled": false,
-      "target_dates": [],
-      "mute": true
-    },
-    {
       "id": "muxlej9q",
       "name": "넾페스타",
       "url": "https://booking.naver.com/booking/12/bizes/1747885/items/8099172?startDateTime=2026-11-01T00%3A00%3A00%2B09%3A00",
