@@ -8218,3 +8218,5 @@
 {"ts": "2026-10-27T22:10:47+09:00", "kind": "stock", "item": "mvka7g9k", "name": "디웨더", "date": "2026-10-28", "change": "예약 변동(예약 취소)", "stock": [0, 0], "booked": [30, 29], "slots": {"종일": {"from": [0, 30], "to": [0, 29]}}, "scope": ""}
 {"ts": "2026-10-27T22:43:46+09:00", "kind": "stock", "item": "mvka7g9k", "name": "디웨더", "date": "2026-10-27", "change": "예약 변동(예약 취소)", "stock": [0, 0], "booked": [43, 41], "slots": {"종일": {"from": [0, 43], "to": [0, 41]}}, "scope": ""}
 {"ts": "2026-10-27T23:24:47+09:00", "kind": "stock", "item": "mvka7g9k", "name": "디웨더", "date": "2026-11-03", "change": "예약 변동(예약 취소)", "stock": [0, 0], "booked": [9, 8], "slots": {"종일": {"from": [0, 9], "to": [0, 8]}}, "scope": ""}
+{"ts": "2026-10-28T09:03:40+09:00", "kind": "stock", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-28", "change": "예약 변동(예약 취소)", "stock": [50, 50], "booked": [4, 3], "slots": {"종일": {"from": [50, 4], "to": [50, 3]}}, "scope": ""}
+{"ts": "2026-10-28T09:03:40+09:00", "kind": "alert", "item": "mvkgd3eh", "name": "디웨더 2차", "date": "2026-10-28", "level": "closed", "title": "🔒 디웨더 2차 자리 추가됨 (예약창 닫힘)", "slots": {"종일": 47}}
