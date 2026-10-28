@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-28T09:36:43.364275+09:00",
+  "updated_at": "2026-10-28T09:36:53.279444+09:00",
   "watched_places": [
     "1083133386",
     "2001559204",
@@ -75,7 +75,7 @@
       "bookingUrlCheckedAt": "2026-10-14T18:46:22.318532+09:00",
       "bookingItemCheckedAt": "2026-10-14T18:46:22.318532+09:00",
       "discoveredAt": "2026-10-14T18:40:57.357758+09:00",
-      "lastSeenAt": "2026-10-28T09:36:43.362261+09:00",
+      "lastSeenAt": "2026-10-28T09:36:53.276856+09:00",
       "lastBookingNotifiedAt": "2026-10-14T18:46:26.882018+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -107,7 +107,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": "2026-09-10T18:41:18.677803+09:00",
-      "lastSeenAt": "2026-10-28T09:36:43.362261+09:00",
+      "lastSeenAt": "2026-10-28T09:36:53.276856+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -137,7 +137,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-28T09:36:43.362261+09:00",
+      "lastSeenAt": "2026-10-28T09:36:53.276856+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:30.905885+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -167,7 +167,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-10-28T09:36:43.362261+09:00",
+      "lastSeenAt": "2026-10-28T09:36:53.276856+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:31.895660+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -3855,13 +3855,13 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-10-28T09:36:43.362343+09:00",
+    "checked_at": "2026-10-28T09:36:53.276952+09:00",
     "areas_total": 38,
     "areas_ok": 2,
     "areas_failed": 36,
     "areas_empty": 0,
     "candidate_items": 102,
-    "presale_items": 21,
+    "presale_items": 22,
     "after_district_filter": 4,
     "fallback_matched": 0,
     "unique_place_ids": 4,
@@ -3869,9 +3869,9 @@
     "new_places": 0,
     "last_new_place_at": "2026-10-28T00:21:55.874290+09:00",
     "admission_names": {
-      "(없음)": 47,
-      "현장대기": 34,
-      "사전예약&현장대기": 14,
+      "(없음)": 48,
+      "현장대기": 32,
+      "사전예약&현장대기": 15,
       "사전예약": 7
     },
     "stale_warned_at": "2026-10-26T00:27:26.123831+09:00",
