@@ -59,7 +59,8 @@
       "name": "블랑팡 일반",
       "url": "https://m.booking.naver.com/booking/12/bizes/1757914/items/8138152?area=ple&fbclid=PAZnRzaAVOWgxleHRuA2FlbQExAHBkb2YCZmRpZBZREvUW7PwgvIddYSvJyocvZxdXFG-Qc3J0YwZhcHBfaWQPMTI0MDI0NTc0Mjg3NDE0AAGnsOWx7HwQ41LuRiqAZxFL7wxMxxsKcUm2VOM3KwwFtVw5t6cJg71UQ606gio_aem_oQlDD17x7pBS7t8vTY70nw&lang=ko&startDateTime=2026-11-13T00%3A00%3A00%2B09%3A00&theme=place",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     }
   ],
   "account_names": {
