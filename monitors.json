@@ -61,6 +61,13 @@
       "enabled": true,
       "target_dates": [],
       "mute": true
+    },
+    {
+      "id": "mvsuvul3",
+      "name": "도드람난로회",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1761592/items/8152676",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
