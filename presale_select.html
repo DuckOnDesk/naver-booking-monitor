@@ -575,6 +575,7 @@ async function doToggle(id, watching, toggleEl) {
   // Optimistic UI update
   if (isOn) watchedIds.add(String(id)); else watchedIds.delete(String(id));
   if (bar) bar.className = 'c-bar ' + (isOn ? 'on' : 'off');
+  updateBellBadge();
   toggleEl.disabled = true;
 
   try {
@@ -1102,22 +1103,30 @@ async function doCleanup() {
 }
 
 // ── 알림함 ───────────────────────────────────────────────────────────────
-function relTimeAlert(isoStr) {
+// 알림 시각 — "n일 전"은 날짜를 짐작하기 어려워 한국 시간 기준 일시(분 단위)로 보여준다
+function alertTimeText(isoStr) {
   const d = new Date(isoStr);
-  const diff = Math.floor((Date.now() - d) / 1000);
-  if (diff < 60) return '방금 전';
-  if (diff < 3600) return `${Math.floor(diff/60)}분 전`;
-  if (diff < 86400) return `${Math.floor(diff/3600)}시간 전`;
-  return `${Math.floor(diff/86400)}일 전`;
+  if (isNaN(d)) return '';
+  const p = Object.fromEntries(new Intl.DateTimeFormat('ko-KR', {
+    timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
+    weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(d).map(x => [x.type, x.value]));
+  return `${p.year}.${p.month}.${p.day}(${p.weekday}) ${p.hour}:${p.minute}`;
+}
+
+// 알림을 꺼 둔 팝업의 기록은 알림함에서도 뺀다. 팝업과 무관한 탐색 경고는 항상 보인다.
+function visibleAlerts() {
+  return alertData.filter(a => !a.place_id || watchedIds.has(String(a.place_id)));
 }
 
 function renderAlertPanel() {
   const list = document.getElementById('alert-list');
-  if (!alertData.length) {
+  const shown = visibleAlerts();
+  if (!shown.length) {
     list.innerHTML = '<div class="alert-empty">알림이 없어요</div>';
     return;
   }
-  list.innerHTML = [...alertData].reverse().map(a => {
+  list.innerHTML = [...shown].reverse().map(a => {
     const isOpen = a.type === 'booking_open';
     const isWarn = a.type === 'discovery_broken' || a.type === 'discovery_stale';
     // 탐색 경고는 팝업 알림이 아니라 "모니터가 멈췄다"는 신호 — 본문까지 보여준다
@@ -1130,7 +1139,7 @@ function renderAlertPanel() {
     const hasUrl = !!a.booking_url;
     return `<div class="alert-item${hasUrl ? ' clickable' : ''}" ${hasUrl ? `data-url="${a.booking_url}"` : ''}>
       <div class="alert-title">${icon} ${title}</div>
-      <div class="alert-meta">${relTimeAlert(a.ts)}</div>
+      <div class="alert-meta">${alertTimeText(a.ts)}</div>
     </div>`;
   }).join('');
   list.querySelectorAll('.alert-item.clickable').forEach(el => {
@@ -1139,7 +1148,7 @@ function renderAlertPanel() {
 }
 
 function updateBellBadge() {
-  const unread = alertData.filter(a => new Date(a.ts).getTime() > alertLastRead).length;
+  const unread = visibleAlerts().filter(a => new Date(a.ts).getTime() > alertLastRead).length;
   const badge = document.getElementById('bell-badge');
   badge.textContent = unread > 9 ? '9+' : String(unread);
   badge.classList.toggle('show', unread > 0);
