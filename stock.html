@@ -451,7 +451,35 @@ function showTab(which) {
   $('tab-hist').classList.toggle('on', which === 'hist');
   $('view-now').classList.toggle('hide', which !== 'now');
   $('view-hist').classList.toggle('hide', which === 'now');
-  if (which === 'hist' && !history.length) loadMonth();
+  // 탭을 누를 때마다 새로 받는다. 페이지를 열 때 한 번만 받으면 열어 둔 채로
+  // 지나간 회차가 화면에 안 들어온다 (모니터는 회차마다 커밋한다).
+  if (which === 'hist') loadMonth();
+  else refreshNow();
+}
+
+async function fetchNow() {
+  const [cfg, al, sc] = await Promise.all([
+    getJSON('monitors.json'), getJSON('booking_alerted.json'), getJSON('schedule_cache.json'),
+  ]);
+  monitors = cfg.monitors || [];
+  alerted = al; cache = sc;
+}
+
+// 이미 그려 둔 현황 위에 덮어쓴다. 받아 오다 실패하면 보던 값을 그대로 두고
+// 머리글에만 알린다 — 한 번 튕겼다고 화면을 비울 이유는 없다.
+let refreshing = false;
+async function refreshNow() {
+  if (refreshing) return;
+  refreshing = true;
+  try {
+    await fetchNow();
+    renderNow();
+    renderStatus();
+  } catch (e) {
+    $('status').textContent += ' · 새로 받기 실패';
+  } finally {
+    refreshing = false;
+  }
 }
 
 // 머리글에는 페이지를 연 시각이 아니라 재고를 실제로 받아 둔 시각을 적는다.
@@ -471,11 +499,7 @@ function renderStatus() {
 
 async function init() {
   try {
-    const [cfg, al, sc] = await Promise.all([
-      getJSON('monitors.json'), getJSON('booking_alerted.json'), getJSON('schedule_cache.json'),
-    ]);
-    monitors = cfg.monitors || [];
-    alerted = al; cache = sc;
+    await fetchNow();
 
     fillItemFilter();
     monthOptions();
