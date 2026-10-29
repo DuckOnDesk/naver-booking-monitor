@@ -68,6 +68,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1761592/items/8152676",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mvtew5w5",
+      "name": "알리",
+      "url": "https://booking.naver.com/booking/12/bizes/1767261/items/8173010?startDateTime=2026-11-08T00%3A00%3A00%2B09%3A00",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
