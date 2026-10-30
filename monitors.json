@@ -38,7 +38,8 @@
       "name": "SM X AMOREPACIFIC 팬시그널 립밤 팝업",
       "url": "https://m.booking.naver.com/booking/12/bizes/1766337/items/8169026",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     }
   ],
   "account_names": {
