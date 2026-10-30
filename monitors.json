@@ -10,36 +10,6 @@
       "mute": true
     },
     {
-      "id": "mvggwfyz",
-      "name": "리바이포유 10주년 성수 팝업",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1758248/items/8140667",
-      "enabled": false,
-      "target_dates": [],
-      "auto_book": {
-        "enabled": false,
-        "dates": [
-          "2026-10-31",
-          "2026-11-01",
-          "2026-11-08"
-        ],
-        "times": [],
-        "accounts": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "count": 1,
-        "mode": "scheduled",
-        "start_at": "2026-10-21T00:00:00+09:00",
-        "saved_at": "2026-10-21T01:30:53.658Z",
-        "spread": true,
-        "account_prefs": {}
-      },
-      "mute": true
-    },
-    {
       "id": "mvkgzvk5",
       "name": "코치 저녁프로그램",
       "url": "https://m.booking.naver.com/booking/12/bizes/1752682/items/8117932?area=ple&startDateTime=2026-10-30T00%3A00%3A00%2B09%3A00",
