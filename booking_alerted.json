@@ -3845,17 +3845,13 @@
   },
   "mvkgd3eh:2026-11-05:scope": "",
   "mvkgzvk5:2026-10-30:stock": {
-    "17:30": [
-      160,
-      153
-    ],
     "18:00": [
       160,
       158
     ]
   },
   "mvkgzvk5:2026-10-30:scope": "",
-  "mvkgzvk5:stock_at": "2026-10-30T17:28:39+09:00",
+  "mvkgzvk5:stock_at": "2026-10-30T17:30:39+09:00",
   "mvkgd3eh:url_closed": 1,
   "mvkgd3eh:2026-10-23:closed": {
     "종일": 29
@@ -4878,7 +4874,6 @@
   },
   "mvkgzvk5:url_closed": 1,
   "mvkgzvk5:2026-10-30:closed": {
-    "17:30": 7,
     "18:00": 2
   }
 }
