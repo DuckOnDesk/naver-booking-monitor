@@ -2,13 +2,6 @@
   "ntfy_topic": "naver-booking-alert",
   "monitors": [
     {
-      "id": "mvkgzvk5",
-      "name": "코치 저녁프로그램",
-      "url": "https://m.booking.naver.com/booking/12/bizes/1752682/items/8117932?area=ple&startDateTime=2026-10-30T00%3A00%3A00%2B09%3A00",
-      "enabled": true,
-      "target_dates": []
-    },
-    {
       "id": "mvrfy883",
       "name": "블랑팡",
       "url": "https://m.booking.naver.com/booking/12/bizes/1757914/items/8138145?startDateTime=2026-11-14T00%3A00%3A00%2B09%3A00",
