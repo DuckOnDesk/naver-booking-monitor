@@ -417,3 +417,4 @@
 {"ts": "2026-11-01T19:25:35+09:00", "kind": "stock", "item": "mvurimdq", "name": "SM X AMOREPACIFIC 팬시그널 립밤 팝업", "date": "2026-11-09", "change": "예약 변동(예약 발생)", "stock": [840, 840], "booked": [71, 72], "slots": {"11:10": {"from": [30, 8], "to": [30, 9]}}, "scope": ""}
 {"ts": "2026-11-01T19:26:32+09:00", "kind": "stock", "item": "mvtew5w5", "name": "알리", "date": "2026-11-06", "change": "예약 변동(예약 취소)", "stock": [1200, 1200], "booked": [1200, 1198], "slots": {"14:30": {"from": [60, 60], "to": [60, 58]}}, "scope": ""}
 {"ts": "2026-11-01T19:26:38+09:00", "kind": "alert", "item": "mvtew5w5", "name": "알리", "date": "2026-11-06", "level": "open", "title": "🎉 알리 예약 가능!", "slots": {"14:30": 2}}
+{"ts": "2026-11-01T19:27:32+09:00", "kind": "stock", "item": "mvtew5w5", "name": "알리", "date": "2026-11-06", "change": "예약 변동(예약 발생)", "stock": [1200, 1200], "booked": [1198, 1200], "slots": {"14:30": {"from": [60, 58], "to": [60, 60]}}, "scope": ""}
