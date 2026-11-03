@@ -394,8 +394,14 @@ function onModeChange() {
 
 async function save() {
   const btn = $('save-btn');
-  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
   const mode = document.querySelector('input[name=mode]:checked').value;
+  // 오픈 시각 없이 저장하면 start_at=null 이 되어 워커가 바로 예약을 시도한다
+  if (mode === 'scheduled' && !$('f-start-at').value) {
+    alert('날짜를 선택해주세요');
+    $('f-start-at').focus();
+    return;
+  }
+  btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>';
   const ab = {
     enabled: $('f-enabled').checked,
     dates, times, accounts,
