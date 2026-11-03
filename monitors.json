@@ -110,7 +110,8 @@
       "name": "고어텍스 제품 50주년팝업 OPEN THE CLOSET",
       "url": "https://m.booking.naver.com/booking/6/bizes/1769064/items/8179826",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     },
     {
       "id": "mw0lnbh3",
