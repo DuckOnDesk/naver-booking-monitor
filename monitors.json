@@ -58,8 +58,8 @@
         "accounts": [],
         "count": 1,
         "mode": "scheduled",
-        "start_at": null,
-        "saved_at": "2026-11-03T05:47:04.602Z",
+        "start_at": "2026-11-04T11:00:00+09:00",
+        "saved_at": "2026-11-03T05:49:49.815Z",
         "spread": true,
         "account_prefs": {}
       }
