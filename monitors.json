@@ -119,7 +119,63 @@
       "name": "[와일드리프트] 2026 와일드 라운드: 스매쉬",
       "url": "https://m.booking.naver.com/booking/12/bizes/1768196/items/8176192",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-11-21",
+          "2026-11-22"
+        ],
+        "times": [],
+        "accounts": [],
+        "count": 4,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-11-04T07:00:01.227Z",
+        "spread": true,
+        "account_prefs": {
+          "1": {
+            "dates": [
+              "2026-11-21"
+            ],
+            "times": [
+              "10:00"
+            ]
+          },
+          "2": {
+            "dates": [
+              "2026-11-22"
+            ],
+            "times": [
+              "10:00"
+            ]
+          },
+          "3": {
+            "dates": [
+              "2026-11-21"
+            ],
+            "times": [
+              "13:00"
+            ]
+          },
+          "4": {
+            "dates": [
+              "2026-11-21"
+            ],
+            "times": [
+              "16:00"
+            ]
+          },
+          "5": {
+            "dates": [
+              "2026-11-22"
+            ],
+            "times": [
+              "16:00"
+            ]
+          }
+        }
+      }
     },
     {
       "id": "mw0lngza",
