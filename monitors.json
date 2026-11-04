@@ -103,7 +103,8 @@
             ]
           }
         }
-      }
+      },
+      "mute": true
     },
     {
       "id": "mw0lmnje",
