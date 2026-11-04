@@ -250,6 +250,13 @@
           }
         }
       }
+    },
+    {
+      "id": "mw1y3p84",
+      "name": "전지전능 팝업",
+      "url": "https://m.booking.naver.com/booking/6/bizes/1766653/items/8170516",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
