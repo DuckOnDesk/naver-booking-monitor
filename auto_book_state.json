@@ -622,7 +622,7 @@
   "mw0lnbh3": {
     "name": "[와일드리프트] 2026 와일드 라운드: 스매쉬",
     "last_run": {
-      "at": "2026-11-04T16:02:34+09:00",
+      "at": "2026-11-04T16:05:08+09:00",
       "sig": "2026-11-21|10:00,13:00,16:00,19:00",
       "date": "2026-11-21",
       "times": [
@@ -632,15 +632,36 @@
         "19:00"
       ],
       "attempt": 1,
-      "lag_sec": 47.9,
-      "elapsed": 9.9,
-      "account": 3,
-      "success": true,
+      "lag_sec": 31.2,
+      "elapsed": 15.4,
+      "account": 5,
+      "success": false,
       "dry_run": false,
       "unbookable": false,
-      "api_slots": null,
-      "evidence": "완료 URL popup=bookingCompletion",
-      "message": "11/21 13:00 예약 성공 (예약번호 1398203261)"
+      "api_slots": [
+        {
+          "t": "10:00",
+          "stock": 400,
+          "booked": 180
+        },
+        {
+          "t": "13:00",
+          "stock": 400,
+          "booked": 224
+        },
+        {
+          "t": "16:00",
+          "stock": 400,
+          "booked": 218
+        },
+        {
+          "t": "19:00",
+          "stock": 200,
+          "booked": 67
+        }
+      ],
+      "evidence": null,
+      "message": "시간대 ['16:00', '19:00', '10:00', '13:00'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
     },
     "booked_accounts": {
       "3": {
