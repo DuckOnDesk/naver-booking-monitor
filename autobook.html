@@ -216,6 +216,30 @@ function bookingPeriod(url) {
   return start || end ? { start, end } : null;
 }
 
+// 팝업 정보(presale)에 저장된 오픈 예정 시각 — 오픈 시각 예약을 고를 때 기본값으로 쓴다
+let presalePlaces = [], presaleManualOpen = {};
+async function loadPresale() {
+  const raw = f => fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/main/${f}?_=${Date.now()}`).then(r => r.ok ? r.json() : {});
+  try {
+    const [data, pcfg] = await Promise.all([raw('presale_data.json'), raw('presale_config.json')]);
+    presalePlaces = data.places || [];
+    presaleManualOpen = pcfg.booking_open_datetimes || {};
+  } catch (e) { presalePlaces = []; presaleManualOpen = {}; }
+}
+
+// 아직 오지 않은 저장된 오픈 예정 시각을 datetime-local 값(KST "YYYY-MM-DDTHH:MM")으로. 없으면 null
+// 우선순위는 팝업 페이지와 같다: 직접 입력 → 업체 설정 오픈 시각 → 판매 시작일
+function savedOpenAt() {
+  const key = u => { const m = (u || '').match(/\/bizes\/(\d+)\/items\/(\d+)/); return m ? `${m[1]}_${m[2]}` : null; };
+  const k = key(monitor && monitor.url);
+  const p = k && presalePlaces.find(x => key(x.bookingUrl) === k);
+  const src = (monitor && monitor.booking_open_datetime)
+    || (p && (presaleManualOpen[String(p.id)] || p.bookingOpenDatetime || p.bookingOpenAuto || p.saleStartDate));
+  const d = src ? new Date(src) : null;
+  if (!d || isNaN(d) || d <= new Date()) return null;
+  return new Date(d.getTime() + 9 * 3600e3).toISOString().slice(0, 16);
+}
+
 async function apiFetch(url, method = 'GET', body = null) {
   const u = method === 'GET' ? `${url}?_=${Date.now()}` : url;
   const opts = { method, headers: { Authorization: `token ${getPAT()}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' } };
@@ -231,7 +255,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>'
 async function load() {
   if (!getPAT()) { $('status').textContent = '❌ 메인 페이지 설정에서 Token을 먼저 등록하세요'; return; }
   try {
-    await loadScheduleCache();
+    await Promise.all([loadScheduleCache(), loadPresale()]);
     const data = await apiFetch(API_MON);
     sha = data.sha;
     cfg = b64decode(data.content);
@@ -261,7 +285,9 @@ function initForm() {
   $('form-card').style.display = 'block';
   $('f-enabled').checked = ab.enabled;
   dates = [...ab.dates]; times = [...ab.times]; accounts = [...ab.accounts];
-  $('f-count').value = ab.count;
+  // 처음 설정하는 팝업이면 계정당 예약 가능 인원 최대치로 채운다 (저장된 값은 그대로)
+  const maxCnt = maxPersonCount(monitor.url);
+  $('f-count').value = !monitor.auto_book && maxCnt > 0 ? maxCnt : ab.count;
   $('f-spread').checked = ab.spread !== false;
   prefs = JSON.parse(JSON.stringify(ab.account_prefs || {}));
   document.querySelector(`input[name=mode][value=${ab.mode === 'scheduled' ? 'scheduled' : 'immediate'}]`).checked = true;
@@ -388,6 +414,7 @@ function toggleAcct(n) {
 function onModeChange() {
   const mode = document.querySelector('input[name=mode]:checked').value;
   $('f-start-at').style.display = mode === 'scheduled' ? 'block' : 'none';
+  if (mode === 'scheduled' && !$('f-start-at').value) $('f-start-at').value = savedOpenAt() || '';
   $('opt-immediate').classList.toggle('sel', mode === 'immediate');
   $('opt-scheduled').classList.toggle('sel', mode === 'scheduled');
 }
