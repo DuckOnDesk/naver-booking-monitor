@@ -618,5 +618,38 @@
         5
       ]
     }
+  },
+  "mw0lnbh3": {
+    "name": "[와일드리프트] 2026 와일드 라운드: 스매쉬",
+    "last_run": {
+      "at": "2026-11-04T16:02:34+09:00",
+      "sig": "2026-11-21|10:00,13:00,16:00,19:00",
+      "date": "2026-11-21",
+      "times": [
+        "10:00",
+        "13:00",
+        "16:00",
+        "19:00"
+      ],
+      "attempt": 1,
+      "lag_sec": 47.9,
+      "elapsed": 9.9,
+      "account": 3,
+      "success": true,
+      "dry_run": false,
+      "unbookable": false,
+      "api_slots": null,
+      "evidence": "완료 URL popup=bookingCompletion",
+      "message": "11/21 13:00 예약 성공 (예약번호 1398203261)"
+    },
+    "booked_accounts": {
+      "3": {
+        "date": "2026-11-21",
+        "time": "13:00",
+        "at": "2026-11-04T16:02:34+09:00",
+        "confirm_no": "1398203261",
+        "evidence": "완료 URL popup=bookingCompletion"
+      }
+    }
   }
 }
