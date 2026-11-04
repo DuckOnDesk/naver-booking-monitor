@@ -1885,7 +1885,9 @@ def try_book(url: str, datekey: str, wanted_times: list, count: int = 1,
         return {"success": success, "message": message, "booked_time": booked_time,
                 "dry_run": dry_run, "screenshots": shots, "account": account,
                 "unbookable": unbookable, "evidence": evidence, "confirm_no": confirm_no,
-                "elapsed": round(time_mod.time() - t0, 1)}
+                "elapsed": round(time_mod.time() - t0, 1),
+                # at: 이 계정 시도가 끝난 시각 — 여러 계정이 한 번에 기록돼도 계정별로 구분된다
+                "at": datetime.now(KST).isoformat(timespec="seconds")}
 
     def done(ev: tuple[str, str] | None) -> dict:
         """완료 판정 → 성공 결과. 근거와 예약번호를 메시지·기록에 함께 남긴다."""

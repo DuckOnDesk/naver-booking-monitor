@@ -531,7 +531,7 @@ def run(item_id: str, datekey: str, requested: list, sig: str, attempt: int,
               f"{' ⚠️ API·페이지 불일치(유령 자리)' if avail else ' (API도 자리 없음)'}", flush=True)
 
     log_entries = [{
-        "ts": finished_at,
+        "ts": r.get("at") or finished_at,
         "item_id": item_id,
         "name": name,
         "date": r.get("date") or datekey,
