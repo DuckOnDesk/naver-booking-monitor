@@ -194,7 +194,62 @@
       "name": "NCT DREAM POP-UP",
       "url": "https://m.booking.naver.com/booking/12/bizes/1765015/items/8164636",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-11-08"
+        ],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-11-04T07:45:35.012Z",
+        "spread": true,
+        "account_prefs": {
+          "1": {
+            "dates": [
+              "2026-11-08"
+            ],
+            "times": [
+              "13:00-15:00"
+            ]
+          },
+          "2": {
+            "dates": [
+              "2026-11-08"
+            ],
+            "times": [
+              "15:00-16:00"
+            ]
+          },
+          "3": {
+            "dates": [
+              "2026-11-08"
+            ],
+            "times": [
+              "16:00-17:00"
+            ]
+          },
+          "4": {
+            "dates": [
+              "2026-11-08"
+            ],
+            "times": [
+              "18:00-19:00"
+            ]
+          },
+          "5": {
+            "dates": [
+              "2026-11-08"
+            ],
+            "times": [
+              "19:00"
+            ]
+          }
+        }
+      }
     }
   ],
   "account_names": {
