@@ -1,5 +1,161 @@
 [
   {
+    "ts": "2026-11-04T20:00:06+09:00",
+    "item_id": "mw0lnpau",
+    "name": "NCT DREAM POP-UP",
+    "date": "2026-11-08",
+    "times": [
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00"
+    ],
+    "account": 1,
+    "account_name": "betty",
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.8,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "자동 예약 중 예외: Locator.click: Timeout 2500ms exceeded.\nCall log:\n  - waiting for locator(\"[data-ab-pick=\\\"1\\\"]\").first\n    - locator resolved to <button type=\"button\" data-ab-pick=\"1\" aria-disabled=\"false\" aria-selected=\"false\" class=\"calendar_date dayoff\" data-click-code=\"calendar.date\" data-nlog-area=\"bok_calendar.date\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n    - element is not stable\n  - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n  - element was detached from the DOM, retrying\n"
+  },
+  {
+    "ts": "2026-11-04T20:00:06+09:00",
+    "item_id": "mw0lnpau",
+    "name": "NCT DREAM POP-UP",
+    "date": "2026-11-08",
+    "times": [
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00"
+    ],
+    "account": 2,
+    "account_name": "hye",
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.5,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "자동 예약 중 예외: Locator.click: Timeout 2500ms exceeded.\nCall log:\n  - waiting for locator(\"[data-ab-pick=\\\"1\\\"]\").first\n    - locator resolved to <button type=\"button\" data-ab-pick=\"1\" aria-disabled=\"false\" aria-selected=\"false\" class=\"calendar_date dayoff\" data-click-code=\"calendar.date\" data-nlog-area=\"bok_calendar.date\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n    - element is not stable\n  - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n  - element was detached from the DOM, retrying\n"
+  },
+  {
+    "ts": "2026-11-04T20:00:06+09:00",
+    "item_id": "mw0lnpau",
+    "name": "NCT DREAM POP-UP",
+    "date": "2026-11-08",
+    "times": [
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00"
+    ],
+    "account": 3,
+    "account_name": "gogo",
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.5,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "자동 예약 중 예외: Locator.click: Timeout 2500ms exceeded.\nCall log:\n  - waiting for locator(\"[data-ab-pick=\\\"1\\\"]\").first\n    - locator resolved to <button type=\"button\" data-ab-pick=\"1\" aria-disabled=\"false\" aria-selected=\"false\" class=\"calendar_date dayoff\" data-click-code=\"calendar.date\" data-nlog-area=\"bok_calendar.date\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n    - element is not stable\n  - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n  - retrying click action\n    - waiting 500ms\n    - waiting for \"https://waiting.booking.naver.com/bizes/1765015/items/8164636/waiting?startDate=2026-11-08&startDateTime=2026-11-04T00%3A00%3A00%2B09%3A00&bookingReturnUrl=https%3A%2F%2Fm.booking.naver.com\" navigation to finish...\n    - navigated to \"https://waiting.booking.naver.com/bizes/1765015/items/8164636/waiting?startDate=2026-11-08&startDateTime=2026-11-04T00%3A00%3A00%2B09%3A00&bookingReturnUrl=https%3A%2F%2Fm.booking.naver.com\"\n    - waiting for element to be visible, enabled and stable\n  - element was detached from the DOM, retrying\n"
+  },
+  {
+    "ts": "2026-11-04T20:00:06+09:00",
+    "item_id": "mw0lnpau",
+    "name": "NCT DREAM POP-UP",
+    "date": "2026-11-08",
+    "times": [
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00"
+    ],
+    "account": 4,
+    "account_name": "khw",
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.4,
+    "unbookable": false,
+    "api_slots": null,
+    "evidence": null,
+    "message": "자동 예약 중 예외: Locator.click: Timeout 2500ms exceeded.\nCall log:\n  - waiting for locator(\"[data-ab-pick=\\\"1\\\"]\").first\n    - locator resolved to <button type=\"button\" data-ab-pick=\"1\" aria-disabled=\"false\" aria-selected=\"false\" class=\"calendar_date dayoff\" data-click-code=\"calendar.date\" data-nlog-area=\"bok_calendar.date\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n    - element is not stable\n  - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n    - waiting for \"https://waiting.booking.naver.com/bizes/1765015/items/8164636/waiting?startDate=2026-11-08&startDateTime=2026-11-04T00%3A00%3A00%2B09%3A00&bookingReturnUrl=https%3A%2F%2Fm.booking.naver.com\" navigation to finish...\n    - navigated to \"https://waiting.booking.naver.com/bizes/1765015/items/8164636/waiting?startDate=2026-11-08&startDateTime=2026-11-04T00%3A00%3A00%2B09%3A00&bookingReturnUrl=https%3A%2F%2Fm.booking.naver.com\"\n    - waiting for element to be visible, enabled and stable\n  - element was detached from the DOM, retrying\n"
+  },
+  {
+    "ts": "2026-11-04T20:00:06+09:00",
+    "item_id": "mw0lnpau",
+    "name": "NCT DREAM POP-UP",
+    "date": "2026-11-08",
+    "times": [
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00"
+    ],
+    "account": 5,
+    "account_name": "maman",
+    "success": false,
+    "dry_run": false,
+    "elapsed": 6.6,
+    "unbookable": false,
+    "api_slots": [
+      {
+        "t": "13:00",
+        "stock": 80,
+        "booked": 14
+      },
+      {
+        "t": "14:00",
+        "stock": 80,
+        "booked": 0
+      },
+      {
+        "t": "15:00",
+        "stock": 80,
+        "booked": 0
+      },
+      {
+        "t": "16:00",
+        "stock": 80,
+        "booked": 0
+      },
+      {
+        "t": "17:00",
+        "stock": 80,
+        "booked": 0
+      },
+      {
+        "t": "18:00",
+        "stock": 80,
+        "booked": 0
+      },
+      {
+        "t": "19:00",
+        "stock": 80,
+        "booked": 0
+      }
+    ],
+    "evidence": null,
+    "message": "자동 예약 중 예외: Locator.click: Timeout 2500ms exceeded.\nCall log:\n  - waiting for locator(\"[data-ab-pick=\\\"1\\\"]\").first\n    - locator resolved to <button type=\"button\" data-ab-pick=\"1\" aria-disabled=\"false\" aria-selected=\"false\" class=\"calendar_date dayoff\" data-click-code=\"calendar.date\" data-nlog-area=\"bok_calendar.date\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n    - element is not stable\n  - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <div class=\"bg_dimm\"></div> from <div role=\"dialog\" class=\"confirm_alert_con\">…</div> subtree intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n    - waiting for element to be visible, enabled and stable\n  - element was detached from the DOM, retrying\n"
+  },
+  {
     "ts": "2026-11-04T16:43:08+09:00",
     "item_id": "mw0lnbh3",
     "name": "[와일드리프트] 2026 와일드 라운드: 스매쉬",
@@ -11557,73 +11713,5 @@
     "success": false,
     "dry_run": false,
     "message": "확정 단계 실패: 확정 후 완료 페이지 미감지 — 수동 확인 필요(예약됐을 수도 있음)"
-  },
-  {
-    "ts": "2026-07-12T12:43:26+09:00",
-    "item_id": "mr2sjz85",
-    "name": "아이쁘",
-    "date": "2026-07-12",
-    "times": [
-      "13:00",
-      "15:00"
-    ],
-    "account": 5,
-    "success": false,
-    "dry_run": false,
-    "message": "확정 단계 실패: 확정 후 완료 페이지 미감지 — 수동 확인 필요(예약됐을 수도 있음)"
-  },
-  {
-    "ts": "2026-07-12T12:43:26+09:00",
-    "item_id": "mr2sjz85",
-    "name": "아이쁘",
-    "date": "2026-07-12",
-    "times": [
-      "13:00",
-      "15:00"
-    ],
-    "account": 1,
-    "success": false,
-    "dry_run": false,
-    "message": "확정 단계 실패: 확정 후 완료 페이지 미감지 — 수동 확인 필요(예약됐을 수도 있음)"
-  },
-  {
-    "ts": "2026-07-12T12:43:26+09:00",
-    "item_id": "mr2sjz85",
-    "name": "아이쁘",
-    "date": "2026-07-12",
-    "times": [
-      "13:00",
-      "15:00"
-    ],
-    "account": 4,
-    "success": false,
-    "dry_run": false,
-    "message": "확정 단계 실패: 확정 후 완료 페이지 미감지 — 수동 확인 필요(예약됐을 수도 있음)"
-  },
-  {
-    "ts": "2026-07-11T18:57:43+09:00",
-    "item_id": "mr2sjz85",
-    "name": "아이쁘",
-    "date": "2026-07-12",
-    "times": [
-      "15:00"
-    ],
-    "account": 5,
-    "success": false,
-    "dry_run": false,
-    "message": "시간대 ['15:00'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
-  },
-  {
-    "ts": "2026-07-11T18:57:43+09:00",
-    "item_id": "mr2sjz85",
-    "name": "아이쁘",
-    "date": "2026-07-12",
-    "times": [
-      "15:00"
-    ],
-    "account": 1,
-    "success": false,
-    "dry_run": false,
-    "message": "확정 단계에서 완료 확인 실패 (수동 확인 필요 — 예약이 됐을 수도 있음)"
   }
 ]
