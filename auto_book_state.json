@@ -529,8 +529,8 @@
   "mw09f196": {
     "name": "힌스 글릿 엔젤 팝업 스토어",
     "last_run": {
-      "at": "2026-11-03T14:49:14+09:00",
-      "sig": "2026-11-14|10:00,10:30,11:00,11:30,12:00,12:30,13:00,13:30,14:00,14:30,15:00,15:30,16:00,16:30,17:00,17:30,18:00,18:30,19:00,19:30",
+      "at": "2026-11-04T11:00:09+09:00",
+      "sig": "2026-11-14|prewait",
       "date": "2026-11-14",
       "times": [
         "10:00",
@@ -555,116 +555,68 @@
         "19:30"
       ],
       "attempt": 1,
-      "lag_sec": 38.9,
-      "elapsed": 34.4,
-      "account": 5,
-      "success": false,
+      "lag_sec": null,
+      "elapsed": 9.2,
+      "account": 1,
+      "success": true,
       "dry_run": false,
-      "unbookable": true,
-      "api_slots": [
-        {
-          "t": "10:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "10:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "11:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "11:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "12:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "12:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "13:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "13:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "14:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "14:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "15:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "15:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "16:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "16:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "17:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "17:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "18:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "18:30",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "19:00",
-          "stock": 10,
-          "booked": 0
-        },
-        {
-          "t": "19:30",
-          "stock": 10,
-          "booked": 0
-        }
-      ],
-      "evidence": null,
-      "message": "시간대 ['11:00']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
+      "unbookable": false,
+      "api_slots": null,
+      "evidence": "완료 URL popup=bookingCompletion",
+      "message": "11/14 10:00 예약 성공 (예약번호 1397875092)"
+    },
+    "booked_accounts": {
+      "1": {
+        "date": "2026-11-14",
+        "time": "10:00",
+        "at": "2026-11-04T11:00:09+09:00",
+        "confirm_no": "1397875092",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "2": {
+        "date": "2026-11-14",
+        "time": "13:30",
+        "at": "2026-11-04T11:00:09+09:00",
+        "confirm_no": "1397875078",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "3": {
+        "date": "2026-11-15",
+        "time": "10:00",
+        "at": "2026-11-04T11:00:09+09:00",
+        "confirm_no": "1397875076",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "4": {
+        "date": "2026-11-14",
+        "time": "16:30",
+        "at": "2026-11-04T11:00:09+09:00",
+        "confirm_no": "1397875089",
+        "evidence": "완료 URL popup=bookingCompletion"
+      },
+      "5": {
+        "date": "2026-11-15",
+        "time": "16:30",
+        "at": "2026-11-04T11:00:09+09:00",
+        "confirm_no": "1397875094",
+        "evidence": "완료 URL popup=bookingCompletion"
+      }
+    },
+    "booked": {
+      "date": "2026-11-14",
+      "time": "10:00",
+      "account": 1,
+      "at": "2026-11-04T11:00:09+09:00",
+      "confirm_no": "1397875092",
+      "evidence": "완료 URL popup=bookingCompletion",
+      "all_done": true,
+      "accounts": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     }
   }
 }
