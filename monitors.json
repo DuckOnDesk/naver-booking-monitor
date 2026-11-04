@@ -203,9 +203,9 @@
         "times": [],
         "accounts": [],
         "count": 1,
-        "mode": "immediate",
-        "start_at": null,
-        "saved_at": "2026-11-04T07:45:35.012Z",
+        "mode": "scheduled",
+        "start_at": "2026-11-04T20:00:00+09:00",
+        "saved_at": "2026-11-04T07:45:40.553Z",
         "spread": true,
         "account_prefs": {
           "1": {
