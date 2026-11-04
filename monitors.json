@@ -121,7 +121,7 @@
       "enabled": true,
       "target_dates": [],
       "auto_book": {
-        "enabled": true,
+        "enabled": false,
         "dates": [
           "2026-11-21",
           "2026-11-22"
@@ -131,7 +131,7 @@
         "count": 4,
         "mode": "immediate",
         "start_at": null,
-        "saved_at": "2026-11-04T07:00:01.227Z",
+        "saved_at": "2026-11-04T07:42:38.804Z",
         "spread": true,
         "account_prefs": {
           "1": {
