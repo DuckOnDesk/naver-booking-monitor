@@ -622,7 +622,7 @@
   "mw0lnbh3": {
     "name": "[와일드리프트] 2026 와일드 라운드: 스매쉬",
     "last_run": {
-      "at": "2026-11-04T16:11:06+09:00",
+      "at": "2026-11-04T16:16:57+09:00",
       "sig": "2026-11-21|10:00,13:00,16:00,19:00",
       "date": "2026-11-21",
       "times": [
@@ -632,8 +632,8 @@
         "19:00"
       ],
       "attempt": 1,
-      "lag_sec": 36.6,
-      "elapsed": 15.7,
+      "lag_sec": 27.5,
+      "elapsed": 14.7,
       "account": 5,
       "success": false,
       "dry_run": false,
@@ -642,22 +642,22 @@
         {
           "t": "10:00",
           "stock": 400,
-          "booked": 197
+          "booked": 206
         },
         {
           "t": "13:00",
           "stock": 400,
-          "booked": 244
+          "booked": 256
         },
         {
           "t": "16:00",
           "stock": 400,
-          "booked": 248
+          "booked": 256
         },
         {
           "t": "19:00",
           "stock": 200,
-          "booked": 70
+          "booked": 78
         }
       ],
       "evidence": null,
