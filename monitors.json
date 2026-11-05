@@ -256,7 +256,8 @@
       "name": "전지전능 팝업",
       "url": "https://m.booking.naver.com/booking/6/bizes/1766653/items/8170516",
       "enabled": false,
-      "target_dates": []
+      "target_dates": [],
+      "mute": true
     }
   ],
   "account_names": {
