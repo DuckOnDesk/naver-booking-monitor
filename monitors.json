@@ -258,6 +258,13 @@
       "enabled": false,
       "target_dates": [],
       "mute": true
+    },
+    {
+      "id": "mw3b5qh9",
+      "name": "더현대 크리스마스",
+      "url": "booking.naver.com/booking/12/bizes/939170/items/8190646",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
