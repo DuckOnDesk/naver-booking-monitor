@@ -34,7 +34,7 @@
         "2026-11-06"
       ],
       "auto_book": {
-        "enabled": true,
+        "enabled": false,
         "dates": [
           "2026-11-06"
         ],
@@ -45,7 +45,7 @@
         "count": 1,
         "mode": "immediate",
         "start_at": null,
-        "saved_at": "2026-11-05T11:12:02.041Z",
+        "saved_at": "2026-11-05T14:38:15.087Z",
         "spread": true,
         "account_prefs": {
           "2": {
