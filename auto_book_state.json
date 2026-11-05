@@ -729,5 +729,128 @@
       "evidence": null,
       "message": "예약 페이지가 닫혀 있음 (에러 페이지 리다이렉트)"
     }
+  },
+  "mvtew5w5": {
+    "name": "알리",
+    "last_run": {
+      "at": "2026-11-05T21:08:26+09:00",
+      "sig": "2026-11-06|14:00",
+      "date": "2026-11-06",
+      "times": [
+        "14:00",
+        "15:00"
+      ],
+      "attempt": 1,
+      "lag_sec": 27.2,
+      "elapsed": 7.0,
+      "account": 2,
+      "success": false,
+      "dry_run": false,
+      "unbookable": false,
+      "api_slots": [
+        {
+          "t": "10:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "10:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "11:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "11:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "12:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "12:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "13:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "13:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "14:00",
+          "stock": 60,
+          "booked": 59
+        },
+        {
+          "t": "14:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "15:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "15:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "16:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "16:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "17:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "17:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "18:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "18:30",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "19:00",
+          "stock": 60,
+          "booked": 60
+        },
+        {
+          "t": "19:30",
+          "stock": 60,
+          "booked": 60
+        }
+      ],
+      "evidence": null,
+      "message": "시간대 ['14:00', '15:00'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
+    }
   }
 }
