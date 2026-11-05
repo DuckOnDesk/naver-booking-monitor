@@ -32,7 +32,29 @@
       "enabled": true,
       "target_dates": [
         "2026-11-06"
-      ]
+      ],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-11-06"
+        ],
+        "times": [],
+        "accounts": [
+          2
+        ],
+        "count": 1,
+        "mode": "immediate",
+        "start_at": null,
+        "saved_at": "2026-11-05T11:12:02.041Z",
+        "spread": true,
+        "account_prefs": {
+          "2": {
+            "dates": [
+              "2026-11-06"
+            ]
+          }
+        }
+      }
     },
     {
       "id": "mvurimdq",
