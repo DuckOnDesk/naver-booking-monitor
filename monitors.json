@@ -264,7 +264,12 @@
       "name": "더현대 크리스마스",
       "url": "https://booking.naver.com/booking/12/bizes/939170/items/8190646",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [
+        "2026-11-14",
+        "2026-11-15",
+        "2026-11-21",
+        "2026-11-22"
+      ]
     }
   ],
   "account_names": {
