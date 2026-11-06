@@ -1,5 +1,124 @@
 [
   {
+    "ts": "2026-11-06T23:39:36+09:00",
+    "item_id": "mvtew5w5",
+    "name": "알리",
+    "date": "2026-11-08",
+    "times": [
+      "17:00"
+    ],
+    "account": 2,
+    "account_name": "hye",
+    "success": false,
+    "dry_run": false,
+    "elapsed": 5.8,
+    "unbookable": false,
+    "api_slots": [
+      {
+        "t": "10:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "10:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "11:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "11:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "12:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "12:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "13:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "13:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "14:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "14:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "15:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "15:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "16:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "16:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "17:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "17:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "18:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "18:30",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "19:00",
+        "stock": 60,
+        "booked": 60
+      },
+      {
+        "t": "19:30",
+        "stock": 60,
+        "booked": 60
+      }
+    ],
+    "evidence": null,
+    "message": "시간대 ['17:00'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
+  },
+  {
     "ts": "2026-11-06T22:36:33+09:00",
     "item_id": "mvtew5w5",
     "name": "알리",
@@ -12734,20 +12853,6 @@
     "date": "2026-07-18",
     "times": [
       "11:00"
-    ],
-    "account": 4,
-    "success": false,
-    "dry_run": false,
-    "message": "확정 단계 실패: 확정 후 완료 페이지 미감지 — 수동 확인 필요(예약됐을 수도 있음)"
-  },
-  {
-    "ts": "2026-07-17T04:19:52+09:00",
-    "item_id": "mqrpw8bh",
-    "name": "아노에틱",
-    "date": "2026-07-19",
-    "times": [
-      "12:00",
-      "18:00"
     ],
     "account": 4,
     "success": false,
