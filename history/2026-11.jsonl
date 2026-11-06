@@ -5770,3 +5770,4 @@
 {"ts": "2026-11-06T22:35:52+09:00", "kind": "stock", "item": "mvtew5w5", "name": "알리", "date": "2026-11-08", "change": "예약 변동(예약 취소)", "stock": [1200, 1200], "booked": [1200, 1198], "slots": {"10:30": {"from": [60, 60], "to": [60, 58]}}, "scope": ""}
 {"ts": "2026-11-06T22:35:57+09:00", "kind": "alert", "item": "mvtew5w5", "name": "알리", "date": "2026-11-08", "level": "open", "title": "🎉 알리 예약 가능!", "slots": {"10:30": 2}}
 {"ts": "2026-11-06T22:36:06+09:00", "kind": "stock", "item": "mw0lngza", "name": "RESCENE 4th Mini Album [PULSE]", "date": "2026-11-07", "change": "예약 변동(예약 발생)", "stock": [641, 641], "booked": [640, 641], "slots": {"15:00": {"from": [80, 79], "to": [80, 80]}}, "scope": ""}
+{"ts": "2026-11-06T22:36:52+09:00", "kind": "stock", "item": "mvtew5w5", "name": "알리", "date": "2026-11-08", "change": "예약 변동(예약 발생)", "stock": [1200, 1200], "booked": [1198, 1200], "slots": {"10:30": {"from": [60, 58], "to": [60, 60]}}, "scope": ""}
