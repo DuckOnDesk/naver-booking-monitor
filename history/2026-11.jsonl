@@ -5236,3 +5236,4 @@
 {"ts": "2026-11-06T13:12:32+09:00", "kind": "stock", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-10", "change": "예약 변동(예약 취소)", "stock": [560, 560], "booked": [560, 559], "slots": {"14:00": {"from": [80, 80], "to": [80, 79]}}, "scope": ""}
 {"ts": "2026-11-06T13:12:32+09:00", "kind": "alert", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-10", "level": "closed", "title": "🔒 NCT DREAM POP-UP 자리 있음 (예약창 닫힘)", "slots": {"14:00": 1}}
 {"ts": "2026-11-06T13:15:09+09:00", "kind": "stock", "item": "mvtew5w5", "name": "알리", "date": "2026-11-06", "change": "예약 변동(예약 취소)", "stock": [780, 780], "booked": [751, 750], "slots": {"19:00": {"from": [60, 59], "to": [60, 58]}}, "scope": ""}
+{"ts": "2026-11-06T13:21:10+09:00", "kind": "stock", "item": "mvtew5w5", "name": "알리", "date": "2026-11-06", "change": "예약 변동(예약 취소)", "stock": [780, 780], "booked": [750, 749], "slots": {"13:30": {"from": [60, 57], "to": [60, 56]}}, "scope": ""}
