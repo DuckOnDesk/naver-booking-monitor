@@ -3107,14 +3107,9 @@
     "18:30": 12,
     "19:30": 6
   },
-  "mvsuvul3:2026-11-06:stock": {
-    "19:30": [
-      12,
-      6
-    ]
-  },
+  "mvsuvul3:2026-11-06:stock": {},
   "mvsuvul3:2026-11-06:scope": "",
-  "mvsuvul3:stock_at": "2026-11-06T19:24:24+09:00",
+  "mvsuvul3:stock_at": "2026-11-06T19:30:24+09:00",
   "mvsuvul3:2026-11-07:stock": {
     "13:00": [
       12,
@@ -6473,9 +6468,6 @@
   "mvtew5w5:auto_book_state": {
     "sig": "2026-11-08|17:00",
     "attempts": 1
-  },
-  "mvsuvul3:2026-11-06": {
-    "19:30": 6
   },
   "mw0lnpau:url_closed": 1,
   "mw0lnpau:2026-11-09:closed": {
