@@ -4835,11 +4835,11 @@
     ]
   },
   "mw0lnpau:2026-11-08:scope": "",
-  "mw0lnpau:stock_at": "2026-11-07T23:29:07+09:00",
+  "mw0lnpau:stock_at": "2026-11-08T01:35:07+09:00",
   "mw0lnpau:2026-11-09:stock": {
     "13:00": [
       80,
-      80
+      79
     ],
     "14:00": [
       80,
@@ -5823,5 +5823,9 @@
   "mw0lnbh3:url_closed": 1,
   "mw0lnbh3:2026-11-22:closed": {
     "13:00": 2
+  },
+  "mw0lnpau:url_closed": 1,
+  "mw0lnpau:2026-11-09:closed": {
+    "13:00": 1
   }
 }
