@@ -676,23 +676,59 @@
   "mw0lnpau": {
     "name": "NCT DREAM POP-UP",
     "last_run": {
-      "at": "2026-11-07T03:11:37+09:00",
+      "at": "2026-11-07T15:30:07+09:00",
       "sig": "2026-11-08|16:00,19:00",
       "date": "2026-11-08",
       "times": [
         "16:00",
         "19:00"
       ],
-      "attempt": 1,
-      "lag_sec": 30.2,
-      "elapsed": 9.6,
-      "account": 3,
-      "success": true,
+      "attempt": 2,
+      "lag_sec": 35.7,
+      "elapsed": 4.4,
+      "account": 5,
+      "success": false,
       "dry_run": false,
       "unbookable": false,
-      "api_slots": null,
-      "evidence": "완료 URL popup=bookingCompletion",
-      "message": "11/8 16:00 예약 성공 (예약번호 1400603882)"
+      "api_slots": [
+        {
+          "t": "13:00",
+          "stock": 80,
+          "booked": 80
+        },
+        {
+          "t": "14:00",
+          "stock": 80,
+          "booked": 80
+        },
+        {
+          "t": "15:00",
+          "stock": 80,
+          "booked": 80
+        },
+        {
+          "t": "16:00",
+          "stock": 80,
+          "booked": 80
+        },
+        {
+          "t": "17:00",
+          "stock": 80,
+          "booked": 80
+        },
+        {
+          "t": "18:00",
+          "stock": 80,
+          "booked": 80
+        },
+        {
+          "t": "19:00",
+          "stock": 80,
+          "booked": 80
+        }
+      ],
+      "evidence": null,
+      "message": "날짜를 선택하지 못함: 2026-11-08를 선택할 수 없음 — 선택 불가(마감·휴무) (달력: 2026.11)"
     },
     "booked_accounts": {
       "3": {
