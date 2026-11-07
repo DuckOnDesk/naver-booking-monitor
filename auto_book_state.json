@@ -676,16 +676,15 @@
   "mw0lnpau": {
     "name": "NCT DREAM POP-UP",
     "last_run": {
-      "at": "2026-11-07T15:30:07+09:00",
-      "sig": "2026-11-08|16:00,19:00",
+      "at": "2026-11-07T15:46:15+09:00",
+      "sig": "2026-11-08|18:00",
       "date": "2026-11-08",
       "times": [
-        "16:00",
-        "19:00"
+        "18:00"
       ],
-      "attempt": 2,
-      "lag_sec": 35.7,
-      "elapsed": 4.4,
+      "attempt": 1,
+      "lag_sec": 30.3,
+      "elapsed": 4.3,
       "account": 5,
       "success": false,
       "dry_run": false,
