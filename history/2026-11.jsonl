@@ -6395,3 +6395,4 @@
 {"ts": "2026-11-07T15:45:24+09:00", "kind": "stock", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-08", "change": "예약 변동(예약 취소)", "stock": [560, 560], "booked": [560, 559], "slots": {"18:00": {"from": [80, 80], "to": [80, 79]}}, "scope": ""}
 {"ts": "2026-11-07T15:45:29+09:00", "kind": "alert", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-08", "level": "open", "title": "🎉 NCT DREAM POP-UP 예약 가능!", "slots": {"18:00": 1}}
 {"ts": "2026-11-07T15:46:24+09:00", "kind": "stock", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-08", "change": "예약 변동(예약 발생)", "stock": [560, 560], "booked": [559, 560], "slots": {"18:00": {"from": [80, 79], "to": [80, 80]}}, "scope": ""}
+{"ts": "2026-11-07T15:47:15+09:00", "kind": "stock", "item": "mvsuvul3", "name": "도드람난로회", "date": "2026-11-07", "change": "예약 변동(예약 발생)", "stock": [288, 288], "booked": [176, 178], "slots": {"16:00": {"from": [20, 9], "to": [20, 11]}}, "scope": ""}
