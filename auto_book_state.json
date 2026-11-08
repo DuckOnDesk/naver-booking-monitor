@@ -676,21 +676,19 @@
   "mw0lnpau": {
     "name": "NCT DREAM POP-UP",
     "last_run": {
-      "at": "2026-11-08T15:29:31+09:00",
-      "sig": "2026-11-08|17:00,18:00,19:00",
+      "at": "2026-11-08T15:53:16+09:00",
+      "sig": "2026-11-08|16:00",
       "date": "2026-11-08",
       "times": [
-        "17:00",
-        "18:00",
-        "19:00"
+        "16:00"
       ],
       "attempt": 1,
-      "lag_sec": 32.0,
-      "elapsed": 30.4,
+      "lag_sec": 25.4,
+      "elapsed": 12.4,
       "account": 3,
       "success": false,
       "dry_run": false,
-      "unbookable": false,
+      "unbookable": true,
       "api_slots": [
         {
           "t": "16:00",
@@ -714,7 +712,7 @@
         }
       ],
       "evidence": null,
-      "message": "'다음' 뒤 예약 창(h1 '예약하기' + 예약 버튼)이 뜨지 않음"
+      "message": "시간대 ['16:00']이(가) 예약 페이지에서 선택 불가 상태 (매진·마감) — 계정을 바꿔도 동일"
     },
     "booked_accounts": {
       "3": {
