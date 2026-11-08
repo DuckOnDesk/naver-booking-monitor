@@ -26,31 +26,6 @@
       "mute": true
     },
     {
-      "id": "mvtew5w5",
-      "name": "알리",
-      "url": "https://booking.naver.com/booking/12/bizes/1767261/items/8173010?startDateTime=2026-11-08T00%3A00%3A00%2B09%3A00",
-      "enabled": true,
-      "target_dates": [
-        "2026-11-08"
-      ],
-      "auto_book": {
-        "enabled": false,
-        "dates": [
-          "2026-11-08"
-        ],
-        "times": [],
-        "accounts": [
-          2
-        ],
-        "count": 1,
-        "mode": "immediate",
-        "start_at": null,
-        "saved_at": "2026-11-07T14:20:14.584Z",
-        "spread": true,
-        "account_prefs": {}
-      }
-    },
-    {
       "id": "mvurimdq",
       "name": "SM X AMOREPACIFIC 팬시그널 립밤 팝업",
       "url": "https://m.booking.naver.com/booking/12/bizes/1766337/items/8169026",
