@@ -21,7 +21,7 @@
       "id": "mw09f196",
       "name": "힌스 글릿 엔젤 팝업 스토어",
       "url": "https://m.booking.naver.com/booking/12/bizes/1766438/items/8169456",
-      "enabled": true,
+      "enabled": false,
       "target_dates": [],
       "auto_book": {
         "enabled": false,
