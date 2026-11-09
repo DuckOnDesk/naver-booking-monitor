@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-09T23:23:46.166194+09:00",
+  "updated_at": "2026-11-09T23:23:55.766879+09:00",
   "watched_places": [
     "2010161389",
     "2010734741",
@@ -31,6 +31,38 @@
   "booking_open_datetimes": {},
   "manual_places": [],
   "places": [
+    {
+      "id": "2055588824",
+      "name": "< 듄 : 파트3 > 스타필드 코엑스몰 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1759584/items/8145463",
+      "bookingBusinessId": "1759584",
+      "operationStart": "26.10.30.",
+      "operationEnd": "26.11.22.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261020_184/1792481313994x4Paq_JPEG/edited-1792481313520-0.jpg",
+      "roadAddress": "테헤란로 521 코엑스 밀레니엄광장 맥도날드 맞은편",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-26T12:43:32.841530+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-26T12:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-26T12:43:34.643946+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-26T12:43:32.841530+09:00",
+      "bookingItemCheckedAt": "2026-10-26T12:43:32.841530+09:00",
+      "discoveredAt": "2026-10-19T10:13:01.302661+09:00",
+      "lastSeenAt": "2026-11-09T23:23:55.763537+09:00",
+      "lastBookingNotifiedAt": "2026-10-26T12:43:35.242199+09:00",
+      "bookingIsOpened": true,
+      "bookingLinkNotified": true
+    },
     {
       "id": "2047726450",
       "name": "리바이포유 10주년 성수 팝업",
@@ -92,38 +124,6 @@
       "discoveredAt": "2026-10-28T12:38:20.756414+09:00",
       "lastSeenAt": "2026-11-09T23:23:16.489932+09:00",
       "lastBookingNotifiedAt": "2026-10-30T18:21:29.882822+09:00",
-      "bookingIsOpened": true,
-      "bookingLinkNotified": true
-    },
-    {
-      "id": "2055588824",
-      "name": "< 듄 : 파트3 > 스타필드 코엑스몰 팝업",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1759584/items/8145463",
-      "bookingBusinessId": "1759584",
-      "operationStart": "26.10.30.",
-      "operationEnd": "26.11.22.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261020_184/1792481313994x4Paq_JPEG/edited-1792481313520-0.jpg",
-      "roadAddress": "테헤란로 521 코엑스 밀레니엄광장 맥도날드 맞은편",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-26T12:43:32.841530+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-26T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-26T12:43:34.643946+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-26T12:43:32.841530+09:00",
-      "bookingItemCheckedAt": "2026-10-26T12:43:32.841530+09:00",
-      "discoveredAt": "2026-10-19T10:13:01.302661+09:00",
-      "lastSeenAt": "2026-11-09T23:23:16.489932+09:00",
-      "lastBookingNotifiedAt": "2026-10-26T12:43:35.242199+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
     },
@@ -3294,22 +3294,23 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-11-09T23:23:46.163164+09:00",
+    "checked_at": "2026-11-09T23:23:55.763626+09:00",
     "areas_total": 38,
     "areas_ok": 1,
     "areas_failed": 37,
     "areas_empty": 0,
-    "candidate_items": 2,
+    "candidate_items": 7,
     "presale_items": 1,
-    "after_district_filter": 0,
+    "after_district_filter": 1,
     "fallback_matched": 0,
-    "unique_place_ids": 0,
+    "unique_place_ids": 1,
     "tracked_places": 49,
     "new_places": 0,
     "last_new_place_at": "2026-11-09T18:22:47.628287+09:00",
     "admission_names": {
-      "사전예약&현장대기": 1,
-      "현장대기": 1
+      "현장대기": 4,
+      "(없음)": 2,
+      "사전예약&현장대기": 1
     },
     "stale_warned_at": "2026-11-09T04:11:31.242175+09:00",
     "structure_warned_at": null
