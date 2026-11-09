@@ -7295,3 +7295,6 @@
 {"ts": "2026-11-09T17:37:30+09:00", "kind": "alert", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-09", "level": "closed", "title": "🔒 NCT DREAM POP-UP 자리 추가됨 (예약창 닫힘)", "slots": {"18:00": 3, "19:00": 7}}
 {"ts": "2026-11-09T17:59:30+09:00", "kind": "stock", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-09", "change": "예약 변동(예약 취소)", "stock": [160, 160], "booked": [150, 148], "slots": {"18:00": {"from": [80, 77], "to": [80, 75]}}, "scope": "18:00-24:00"}
 {"ts": "2026-11-09T17:59:30+09:00", "kind": "alert", "item": "mw0lnpau", "name": "NCT DREAM POP-UP", "date": "2026-11-09", "level": "closed", "title": "🔒 NCT DREAM POP-UP 자리 추가됨 (예약창 닫힘)", "slots": {"18:00": 5, "19:00": 7}}
+{"ts": "2026-11-09T20:10:04+09:00", "kind": "alert", "item": "mw95sva8", "name": "솔페리노", "date": "2026-11-27", "level": "open", "title": "🎉 솔페리노 예약 가능!", "slots": {"12:00": 14, "13:00": 15}}
+{"ts": "2026-11-09T20:10:05+09:00", "kind": "alert", "item": "mw95sva8", "name": "솔페리노", "date": "2026-11-28", "level": "open", "title": "🎉 솔페리노 예약 가능!", "slots": {"12:00": 15, "13:00": 14}}
+{"ts": "2026-11-09T20:10:05+09:00", "kind": "alert", "item": "mw95sva8", "name": "솔페리노", "date": "2026-11-29", "level": "open", "title": "🎉 솔페리노 예약 가능!", "slots": {"12:00": 15, "13:00": 15}}
