@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-10T15:54:20.306799+09:00",
+  "updated_at": "2026-11-10T15:54:29.108901+09:00",
   "watched_places": [
     "2010161389",
     "2012113402",
@@ -24,6 +24,38 @@
   "booking_open_datetimes": {},
   "manual_places": [],
   "places": [
+    {
+      "id": "2055588824",
+      "name": "< 듄 : 파트3 > 스타필드 코엑스몰 팝업",
+      "hasBooking": true,
+      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1759584/items/8145463",
+      "bookingBusinessId": "1759584",
+      "operationStart": "26.10.30.",
+      "operationEnd": "26.11.22.",
+      "remainingDays": null,
+      "status": "진행중",
+      "admissionCondition": "사전예약&현장대기",
+      "imageUrl": "https://ldb-phinf.pstatic.net/20261020_184/1792481313994x4Paq_JPEG/edited-1792481313520-0.jpg",
+      "roadAddress": "테헤란로 521 코엑스 밀레니엄광장 맥도날드 맞은편",
+      "commonAddress": "서울 강남구",
+      "district": "강남구",
+      "bookingOpenDatetime": null,
+      "bookingOpenHistory": [
+        "2026-10-26T12:43:32.841530+09:00"
+      ],
+      "bookingOpenAuto": "2026-10-26T12:00:00+09:00",
+      "bookingOpenAutoCheckedAt": "2026-10-26T12:43:34.643946+09:00",
+      "bookingPaused": false,
+      "saleStartDate": null,
+      "bookingNotified": true,
+      "bookingUrlCheckedAt": "2026-10-26T12:43:32.841530+09:00",
+      "bookingItemCheckedAt": "2026-10-26T12:43:32.841530+09:00",
+      "discoveredAt": "2026-10-19T10:13:01.302661+09:00",
+      "lastSeenAt": "2026-11-10T15:54:29.106597+09:00",
+      "lastBookingNotifiedAt": "2026-10-26T12:43:35.242199+09:00",
+      "bookingIsOpened": true,
+      "bookingLinkNotified": true
+    },
     {
       "id": "2060793867",
       "name": "비디비치 LIGHT IN BLACK 팝업 스토어",
@@ -51,7 +83,7 @@
       "bookingUrlCheckedAt": "2026-11-04T01:34:35.652996+09:00",
       "bookingItemCheckedAt": "2026-11-04T01:34:35.652996+09:00",
       "discoveredAt": "2026-10-26T15:48:40.540145+09:00",
-      "lastSeenAt": "2026-11-10T15:54:01.144721+09:00",
+      "lastSeenAt": "2026-11-10T15:54:29.106597+09:00",
       "lastBookingNotifiedAt": "2026-11-04T01:34:41.270477+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": true
@@ -81,7 +113,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-11-10T15:54:01.144721+09:00",
+      "lastSeenAt": "2026-11-10T15:54:29.106597+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:30.905885+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -111,7 +143,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": "2026-09-28T11:04:39.420550+09:00",
       "discoveredAt": null,
-      "lastSeenAt": "2026-11-10T15:54:01.144721+09:00",
+      "lastSeenAt": "2026-11-10T15:54:29.106597+09:00",
       "lastBookingNotifiedAt": "2026-09-08T11:26:31.895660+09:00",
       "bookingIsOpened": true,
       "bookingLinkNotified": false
@@ -141,42 +173,10 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-11-01T00:33:22.537607+09:00",
-      "lastSeenAt": "2026-11-10T15:54:01.144721+09:00",
+      "lastSeenAt": "2026-11-10T15:54:29.106597+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
-    },
-    {
-      "id": "2055588824",
-      "name": "< 듄 : 파트3 > 스타필드 코엑스몰 팝업",
-      "hasBooking": true,
-      "bookingUrl": "https://m.booking.naver.com/booking/12/bizes/1759584/items/8145463",
-      "bookingBusinessId": "1759584",
-      "operationStart": "26.10.30.",
-      "operationEnd": "26.11.22.",
-      "remainingDays": null,
-      "status": "진행중",
-      "admissionCondition": "사전예약&현장대기",
-      "imageUrl": "https://ldb-phinf.pstatic.net/20261020_184/1792481313994x4Paq_JPEG/edited-1792481313520-0.jpg",
-      "roadAddress": "테헤란로 521 코엑스 밀레니엄광장 맥도날드 맞은편",
-      "commonAddress": "서울 강남구",
-      "district": "강남구",
-      "bookingOpenDatetime": null,
-      "bookingOpenHistory": [
-        "2026-10-26T12:43:32.841530+09:00"
-      ],
-      "bookingOpenAuto": "2026-10-26T12:00:00+09:00",
-      "bookingOpenAutoCheckedAt": "2026-10-26T12:43:34.643946+09:00",
-      "bookingPaused": false,
-      "saleStartDate": null,
-      "bookingNotified": true,
-      "bookingUrlCheckedAt": "2026-10-26T12:43:32.841530+09:00",
-      "bookingItemCheckedAt": "2026-10-26T12:43:32.841530+09:00",
-      "discoveredAt": "2026-10-19T10:13:01.302661+09:00",
-      "lastSeenAt": "2026-11-10T15:54:01.144721+09:00",
-      "lastBookingNotifiedAt": "2026-10-26T12:43:35.242199+09:00",
-      "bookingIsOpened": true,
-      "bookingLinkNotified": true
     },
     {
       "id": "2043212922",
@@ -203,7 +203,7 @@
       "bookingUrlCheckedAt": null,
       "bookingItemCheckedAt": null,
       "discoveredAt": "2026-11-10T11:15:30.738894+09:00",
-      "lastSeenAt": "2026-11-10T15:54:01.144721+09:00",
+      "lastSeenAt": "2026-11-10T15:54:29.106597+09:00",
       "lastBookingNotifiedAt": null,
       "bookingIsOpened": false,
       "bookingLinkNotified": false
@@ -3359,21 +3359,24 @@
     "manual-1672804-7977719"
   ],
   "discovery_stats": {
-    "checked_at": "2026-11-10T15:54:20.303616+09:00",
+    "checked_at": "2026-11-10T15:54:29.106697+09:00",
     "areas_total": 38,
-    "areas_ok": 1,
-    "areas_failed": 37,
+    "areas_ok": 3,
+    "areas_failed": 35,
     "areas_empty": 0,
-    "candidate_items": 2,
-    "presale_items": 0,
-    "after_district_filter": 0,
+    "candidate_items": 112,
+    "presale_items": 20,
+    "after_district_filter": 7,
     "fallback_matched": 0,
-    "unique_place_ids": 0,
+    "unique_place_ids": 6,
     "tracked_places": 51,
     "new_places": 0,
     "last_new_place_at": "2026-11-10T11:15:30.738894+09:00",
     "admission_names": {
-      "(없음)": 2
+      "(없음)": 54,
+      "현장대기": 38,
+      "사전예약&현장대기": 15,
+      "사전예약": 5
     },
     "stale_warned_at": "2026-11-09T04:11:31.242175+09:00",
     "structure_warned_at": null
