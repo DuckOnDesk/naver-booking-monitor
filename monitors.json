@@ -198,7 +198,63 @@
       "name": "솔페리노",
       "url": "https://m.booking.naver.com/booking/12/bizes/1765288/items/8165573?area=ple&lang=ko&startDateTime=2026-11-09T00%3A00%3A00%2B09%3A00&theme=place",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-11-28",
+          "2026-11-29"
+        ],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "scheduled",
+        "start_at": "2026-11-19T00:00:00+09:00",
+        "saved_at": "2026-11-12T05:14:44.729Z",
+        "spread": true,
+        "account_prefs": {
+          "1": {
+            "dates": [
+              "2026-11-28"
+            ],
+            "times": [
+              "12:00"
+            ]
+          },
+          "2": {
+            "dates": [
+              "2026-11-28"
+            ],
+            "times": [
+              "13:00"
+            ]
+          },
+          "3": {
+            "dates": [
+              "2026-11-29"
+            ],
+            "times": [
+              "12:00"
+            ]
+          },
+          "4": {
+            "dates": [
+              "2026-11-28"
+            ],
+            "times": [
+              "13:00"
+            ]
+          },
+          "5": {
+            "dates": [
+              "2026-11-29"
+            ],
+            "times": [
+              "13:00"
+            ]
+          }
+        }
+      }
     },
     {
       "id": "mwbpwevb",
