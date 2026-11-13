@@ -1114,9 +1114,10 @@ function alertTimeText(isoStr) {
   return `${p.year}.${p.month}.${p.day}(${p.weekday}) ${p.hour}:${p.minute}`;
 }
 
-// 알림을 꺼 둔 팝업의 기록은 알림함에서도 뺀다. 팝업과 무관한 탐색 경고는 항상 보인다.
+// 알림함은 보낸 알림을 빠짐없이 보여준다 — 지금 알림을 꺼 둔 팝업이라도 이미 받은
+// 알림이면 남겨 둔다 (예전엔 끈 팝업 기록을 숨겨서, 받은 알림이 기록에 안 보였다).
 function visibleAlerts() {
-  return alertData.filter(a => !a.place_id || watchedIds.has(String(a.place_id)));
+  return alertData;
 }
 
 function renderAlertPanel() {

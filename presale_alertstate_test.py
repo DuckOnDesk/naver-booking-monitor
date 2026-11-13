@@ -222,7 +222,9 @@ def main() -> int:
                  "commonAddress": "서울 성동구"}
 
     def capture():
-        pm._queue_ntfy = lambda title, body, url: queued.append((title, body, url))
+        # 탐색 경고(⚠️)는 실제 데이터 날짜에 따라 붙었다 말았다 해서 팝업 알림 검사에서 뺀다
+        pm._queue_ntfy = lambda title, body, url: (
+            None if title.startswith("⚠️") else queued.append((title, body, url)))
 
     h.auto_added = set()
     h.memory = {}
@@ -247,7 +249,7 @@ def main() -> int:
     check(COACH in cfg_c["watched_places"], "감시도 계속")
 
     print()
-    print("3-3) 예약 정보가 새로 잡히면 오픈 전이라도 알린다 (감시를 꺼도)")
+    print("3-3) 예약 정보가 새로 잡히면 오픈 전이라도 알린다 (알림을 끈 팝업은 안 알림)")
     link = "https://m.booking.naver.com/booking/12/bizes/1800000"
     with_link = dict(coach_raw, bookingUrl=link, bookingBusinessId="1800000")
     not_open = {"isPaused": False, "isUseOpen": True, "openDateTime": None, "isOpened": False}
@@ -259,10 +261,14 @@ def main() -> int:
         cfg_l = dict(base_cfg, watched_places=list(watched))
         h.auto_added = {COACH}
         cur_l = pm.check_once(cfg_l, cur_c)
-        check(len(queued) == 1 and queued[0][0].startswith("🔗") and queued[0][2] == link,
-              f"{label}: 예약 정보 발견 알림 1건 (실제 {queued})")
-    check(any(a.get("type") == "booking_link" for a in h.saved.get("alerts") or []),
-          "알림함에도 기록")
+        recs = [a for a in h.saved.get("alerts") or [] if a.get("type") == "booking_link"]
+        if watched:
+            check(len(queued) == 1 and queued[0][0].startswith("🔗") and queued[0][2] == link,
+                  f"{label}: 예약 정보 발견 알림 1건 (실제 {queued})")
+            check(len(recs) == 1, f"{label}: 알림함에도 기록 (실제 {len(recs)}건)")
+        else:
+            check(not queued, f"{label}: 알림 끈 팝업은 예약 정보 알림 없음 (실제 {queued})")
+            check(not recs, f"{label}: 안 보낸 알림은 알림함에도 없음 (실제 {len(recs)}건)")
     queued.clear()
     pm.check_once(cfg_l, cur_l)
     check(not queued, f"같은 예약 정보로 다시 알리지 않음 (실제 {queued})")
@@ -277,13 +283,18 @@ def main() -> int:
     pm.check_once(cfg_w, cur_c)
     check(len(h.sent) == 1 and not queued,
           f"감시 중: 오픈 알림 1건만 (오픈 {h.sent}, 대기열 {queued})")
+    recs = [a.get("type") for a in h.saved.get("alerts") or [] if a.get("place_id")]
+    check(recs == ["booking_open"], f"보낸 오픈 알림이 알림함에 기록됨 (실제 {recs})")
     queued.clear()
     h.install([dict(with_link, hasBooking=True)], seen_ids={COACH})
     capture()
     cfg_off2 = dict(base_cfg, watched_places=[])
     pm.check_once(cfg_off2, cur_c)
-    check(not h.sent and len(queued) == 1 and queued[0][0].startswith("🔗"),
-          f"오픈 알림 꺼짐: 예약 정보 알림 1건만 (오픈 {h.sent}, 대기열 {queued})")
+    check(not h.sent and not queued,
+          f"알림 꺼짐: 오픈·예약 정보 알림 모두 없음 (오픈 {h.sent}, 대기열 {queued}) "
+          f"— 2026 연세 크리스마스 와인페스타 11/13")
+    recs = [a for a in h.saved.get("alerts") or [] if a.get("place_id")]
+    check(not recs, f"알림 꺼짐: 알림함에 안 보낸 기록 없음 (실제 {recs})")
 
     print()
     print("3-5) 처음 찾은 팝업 — 예약 정보 유무와 상관없이 발견 알림 1건")

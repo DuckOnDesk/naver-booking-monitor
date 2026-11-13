@@ -1322,8 +1322,10 @@ def check_once(config: dict, prev: dict) -> dict:
     # 알림 규칙
     #   - 처음 찾은 팝업 → 발견 알림 (이미 목록에 저장된 팝업은 다시 나타나도 알리지 않음)
     #   - 예약 정보(링크·업체 ID)가 새로 잡힘 → 예약 정보 알림
-    #   - 예약 오픈 → 오픈 알림. 사용자가 감시를 끌 수 있는 건 이 알림뿐이다.
+    #   - 예약 오픈 → 오픈 알림
     #   - 한 주기에 여러 개가 겹치면 하나로 합친다 (찾은 예약이 이미 열려 있으면 오픈 알림 1건)
+    #   - 알림을 꺼 둔 팝업(watched_places에 없음)은 셋 다 보내지 않는다
+    discovered: list[str] = []
     for pid, place in current.items():
         name = place["name"]
         base = base_of[pid]
@@ -1341,21 +1343,24 @@ def check_once(config: dict, prev: dict) -> dict:
         info_link = (booking_url or (BOOKING_URL_TEMPLATE.format(biz=biz_id) if biz_id else "")
                      or place_map_url(str(pid)))
 
+        # 알림함(alerts)에는 실제로 보낸 알림만, 보낸 알림은 하나도 빠짐없이 남긴다.
+        # 예전에는 예약창이 열리기만 해도 '오픈' 기록을 남기고(실제 알림은 생략됐는데도),
+        # 정작 보낸 🎉 오픈 알림은 기록하지 않았다.
+        def record(kind: str, url: str) -> None:
+            new_alerts.append({"type": kind, "place_id": str(pid), "place_name": name,
+                               "booking_url": url, "ts": now_iso})
+
         if is_new:
             place["discoveredAt"] = now_iso
+            discovered.append(str(pid))   # 탐색 통계용 — 알림을 보냈는지와 무관하게 센다
             if is_open:
                 place["bookingOpenHistory"].append(now_iso)
-            new_alerts.append({"type": "new_popup", "place_id": str(pid), "place_name": name,
-                                "booking_url": booking_url, "ts": now_iso})
         elif pid not in prev:
             # 이미 목록에 저장했던 팝업이 검색에 다시 나타남 → 조용히 복원
             print(f"[{now_str}] ↩️ {name} — 재등장 (이미 찾은 팝업, 알림 생략)")
         elif is_open and not was_open:
             # 예약창(페이지) 자체가 열림 — 실제 판매 시작 여부는 아래에서 별도 확인
             place["bookingOpenHistory"].append(now_iso)
-            new_alerts.append({"type": "booking_open", "place_id": str(pid), "place_name": name,
-                                "booking_url": booking_url or place_map_url(str(pid)),
-                                "ts": now_iso})
 
         # 예약 오픈 알림 대상인지 — 안 되는 이유가 있으면 skip에 담는다
         skip = ""
@@ -1395,6 +1400,7 @@ def check_once(config: dict, prev: dict) -> dict:
                 msg = f"새로 찾은 팝업이에요. {msg}"
             send_ntfy(ntfy_topic, f"🎉 {name} 사전예약 오픈!", msg, link)
             send_toast(name, msg, link)
+            record("booking_open", link)
             place["lastBookingNotifiedAt"] = now_dt.isoformat()
             place["bookingNotified"] = True
             if has_info:
@@ -1403,23 +1409,29 @@ def check_once(config: dict, prev: dict) -> dict:
         print(f"[{now_str}] {'⏳' if not is_open else '✅'} {name} {skip}")
 
         # 오픈 알림이 안 나간 경우에만 발견·예약 정보 알림 (git push 이후 발송)
+        # 알림을 꺼 둔 팝업은 이 알림들도 보내지 않는다 — 예전에는 오픈 알림만 막고
+        # "🔗 예약 정보 발견(예약 받는 중)"은 그대로 나가, 끈 팝업의 오픈 알림처럼 왔다
+        # (2026 연세 크리스마스 와인페스타, 11/13 15:21).
         if is_new and place.get("isManual"):
             # 사용자가 링크로 직접 등록한 팝업 — 본인이 방금 추가했으므로 발견 알림은 생략
             print(f"[{now_str}] ➕ {name} — 링크로 직접 등록됨")
             place["bookingLinkNotified"] = has_info
+        elif (is_new or info_new) and not will_watch:
+            print(f"[{now_str}] 🔕 {name} — 알림 꺼짐 (발견·예약 정보 알림 생략)")
+            place["bookingLinkNotified"] = has_info   # 다시 켜도 지난 정보로 울리지 않게
         elif is_new:
             body = (f"예약 정보 있음 → {info_link}" if has_info
                     else "아직 예약 정보 없음 — 잡히면 다시 알려드려요")
             print(f"[{now_str}] 🆕 {name} — 새 팝업 발견!")
-            _queue_ntfy(f"🆕 새 팝업 발견: {name}", body,
-                        info_link if has_info else (sel_url or place_map_url(str(pid))))
+            new_link = info_link if has_info else (sel_url or place_map_url(str(pid)))
+            _queue_ntfy(f"🆕 새 팝업 발견: {name}", body, new_link)
+            record("new_popup", info_link if has_info else "")
             place["bookingLinkNotified"] = has_info
         elif info_new:
             state = "예약 받는 중" if is_open else "아직 오픈 전"
             print(f"[{now_str}] 🔗 {name} — 예약 정보 발견: {info_link}")
             _queue_ntfy(f"🔗 예약 정보 발견: {name}", f"{state}이에요 → {info_link}", info_link)
-            new_alerts.append({"type": "booking_link", "place_id": str(pid), "place_name": name,
-                               "booking_url": info_link, "ts": now_iso})
+            record("booking_link", info_link)
             place["bookingLinkNotified"] = True
 
     # 처음 보는 팝업만 watched_places에 자동 추가한다.
@@ -1474,7 +1486,7 @@ def check_once(config: dict, prev: dict) -> dict:
 
     stats = build_discovery_stats(
         fetch_stats, len(config.get("areas", [])), len(raw), current.values(),
-        [a for a in new_alerts if a["type"] == "new_popup"], prev_alerts, now_iso)
+        discovered, prev_alerts, now_iso)
     report_discovery(stats, config, sel_url, new_alerts)
 
     seen_ids |= {str(pid) for pid in current}
