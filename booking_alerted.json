@@ -3886,7 +3886,6 @@
   "mw95sva8:prewait": "2026-11-19T00:00:00+09:00",
   "mw95sva8:auto_book_state": {
     "sig": "2026-11-29|12:00,13:00",
-    "attempts": 0,
-    "dispatched_at": "2026-11-19T00:05:39+09:00"
+    "attempts": 0
   }
 }
