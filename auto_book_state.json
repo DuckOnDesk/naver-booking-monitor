@@ -852,5 +852,38 @@
       "evidence": null,
       "message": "시간대 ['16:30'] 중 선택 가능한 것이 없음 (이미 선점됐을 수 있음)"
     }
+  },
+  "mw95sva8": {
+    "name": "솔페리노",
+    "last_run": {
+      "at": "2026-11-19T00:00:31+09:00",
+      "sig": "2026-11-28|prewait",
+      "date": "2026-11-28",
+      "times": [
+        "12:00",
+        "13:00"
+      ],
+      "attempt": 1,
+      "lag_sec": null,
+      "elapsed": 31.8,
+      "account": 5,
+      "success": false,
+      "dry_run": false,
+      "unbookable": false,
+      "api_slots": [
+        {
+          "t": "12:00",
+          "stock": 15,
+          "booked": 1
+        },
+        {
+          "t": "13:00",
+          "stock": 15,
+          "booked": 3
+        }
+      ],
+      "evidence": null,
+      "message": "확정 단계 실패: 확정 후 완료 페이지 미감지 — 수동 확인 필요(예약됐을 수도 있음)"
+    }
   }
 }
