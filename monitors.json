@@ -154,6 +154,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1776882/items/8211177",
       "enabled": false,
       "target_dates": []
+    },
+    {
+      "id": "mwmy2u0a",
+      "name": "[캐리어 팝업] K-Janchi 윌리스 캐리어 생일잔치",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1774134/items/8200182",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
