@@ -84,6 +84,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/1782248/items/8239946",
       "enabled": false,
       "target_dates": []
+    },
+    {
+      "id": "mws02g5u",
+      "name": "테팔 얌스토랑",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1781856/items/8238428",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
