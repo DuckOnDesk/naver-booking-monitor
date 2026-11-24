@@ -150,7 +150,8 @@
             ]
           }
         }
-      }
+      },
+      "mute": true
     }
   ],
   "account_names": {
