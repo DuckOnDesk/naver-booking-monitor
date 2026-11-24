@@ -4014,7 +4014,6 @@
   "mwubfub7:prewait": "2026-11-24T16:00:00+09:00",
   "mwubfub7:auto_book_state": {
     "sig": "2026-11-27|17:00",
-    "attempts": 1,
-    "dispatched_at": "2026-11-24T16:03:10+09:00"
+    "attempts": 1
   }
 }
