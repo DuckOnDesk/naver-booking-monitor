@@ -97,7 +97,60 @@
       "name": "고령구름딸기 팝업스토어",
       "url": "https://m.booking.naver.com/booking/12/bizes/1785284/items/8251214",
       "enabled": true,
-      "target_dates": []
+      "target_dates": [],
+      "auto_book": {
+        "enabled": true,
+        "dates": [
+          "2026-11-27",
+          "2026-11-28"
+        ],
+        "times": [],
+        "accounts": [],
+        "count": 1,
+        "mode": "scheduled",
+        "start_at": "2026-11-24T16:00:00+09:00",
+        "saved_at": "2026-11-24T06:51:31.291Z",
+        "spread": true,
+        "account_prefs": {
+          "1": {
+            "dates": [
+              "2026-11-27"
+            ],
+            "times": [
+              "18:00"
+            ]
+          },
+          "2": {
+            "dates": [
+              "2026-11-28"
+            ],
+            "times": [
+              "13:00-16:00"
+            ]
+          },
+          "3": {
+            "dates": [
+              "2026-11-28"
+            ],
+            "times": [
+              "17:00-18:00"
+            ]
+          },
+          "4": {
+            "dates": [
+              "2026-11-28"
+            ],
+            "times": [
+              "13:00-16:00"
+            ]
+          },
+          "5": {
+            "times": [
+              "17:00-18:00"
+            ]
+          }
+        }
+      }
     }
   ],
   "account_names": {
