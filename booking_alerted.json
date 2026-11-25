@@ -3919,11 +3919,11 @@
     ],
     "18:00": [
       15,
-      15
+      14
     ]
   },
   "mwubfub7:2026-11-27:scope": "",
-  "mwubfub7:stock_at": "2026-11-24T16:04:09+09:00",
+  "mwubfub7:stock_at": "2026-11-25T10:32:52+09:00",
   "mwubfub7:2026-11-28:stock": {
     "12:00": [
       15,
@@ -3955,7 +3955,6 @@
     ]
   },
   "mwubfub7:2026-11-28:scope": "",
-  "mwubfub7:prewait": "2026-11-24T16:00:00+09:00",
   "mwubfub7:auto_book_state": {
     "sig": "2026-11-27|17:00",
     "attempts": 1
@@ -4080,5 +4079,9 @@
       8
     ]
   },
-  "mwvd9nxw:2026-12-19:scope": ""
+  "mwvd9nxw:2026-12-19:scope": "",
+  "mwubfub7:url_closed": 1,
+  "mwubfub7:2026-11-27:closed": {
+    "18:00": 1
+  }
 }
