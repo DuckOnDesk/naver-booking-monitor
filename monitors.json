@@ -152,6 +152,13 @@
         }
       },
       "mute": true
+    },
+    {
+      "id": "mwvd9nxw",
+      "name": "네스프레소",
+      "url": "https://m.booking.naver.com/booking/12/bizes/502828/items/8144524?startDateTime=2026-12-09T00%3A00%3A00%2B09%3A00",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
