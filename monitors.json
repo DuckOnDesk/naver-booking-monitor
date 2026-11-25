@@ -159,6 +159,13 @@
       "url": "https://m.booking.naver.com/booking/12/bizes/502828/items/8144524?startDateTime=2026-12-09T00%3A00%3A00%2B09%3A00",
       "enabled": true,
       "target_dates": []
+    },
+    {
+      "id": "mwvo2csw",
+      "name": "글램팜 팝업- 백스테이지 인 성수",
+      "url": "https://m.booking.naver.com/booking/12/bizes/1787305/items/8258875",
+      "enabled": true,
+      "target_dates": []
     }
   ],
   "account_names": {
